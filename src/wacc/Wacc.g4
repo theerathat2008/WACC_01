@@ -2,6 +2,8 @@
 grammar Wacc;
 import WaccTokens;
 
+//Parser Rules
+
 program : 'begin' func* stat 'end' ;
 
 func : type ident '(' param-list? ')' 'is' stat 'end'  ;
@@ -64,49 +66,51 @@ pair-type-elem : base-type
      | 'pair'
      ;
 
-expr : int-liter
-     | bool-liter
-     | char-liter
-     | str-liter
-     | pair-liter
-     | ident
-     | array-elem
-     | unary-oper expr
-     | expr binary-oper expr
+expr : INT-LITER
+     | BOOL-LITER
+     | CHAR-LITER
+     | STR-LITER
+     | PAIR-LITER
+     | IDENT
+     | ARRAY-ELEM
+     | UNARY-OPER expr
+     | expr BINARY-OPER expr
      | '(' expr ')'
      ;
 
-unary-oper : '!' | '-' | 'len' | 'ord' | 'chr'  ;
+//Lexer Rules
 
-binary-oper : '*' | '/' | '%' | '+' | '-' | '>' | '>=' | '<' | '<=' | '==' | '!=' | '&&' | '||'  ;
+UNARY-OPER : '!' | '-' | 'len' | 'ord' | 'chr'  ;
 
-ident: ('_'|'a'..'z'|'A'..'Z') ('_'|'a'..'z'|'A'..'Z'|'0'..'9')* ;
+BINARY-OPER : '*' | '/' | '%' | '+' | '-' | '>' | '>=' | '<' | '<=' | '==' | '!=' | '&&' | '||'  ;
 
-array-elem : ident ('[' expr ']' )+  ;
+IDENT: ('_'|'a'..'z'|'A'..'Z') ('_'|'a'..'z'|'A'..'Z'|'0'..'9')* ;
 
-int-liter: int-sign? digit+  ;
+ARRAY-ELEM : IDENT ('[' expr ']' )+  ;
 
-digit : ('0'-'9)  ;
+INT-LITER: INT-SIGN? DIGIT+  ;
 
-int-sign : '+' | '-'  ;
+DIGIT : ('0'-'9)  ;
 
-bool-liter :  'true' | 'false'  ;
+INT-SIGN : '+' | '-'  ;
 
-char-liter : ''' character '''  ;
+BOOL-LITER :  'true' | 'false'  ;
 
-str-liter : '"' character* '"'  ;
+CHAR-LITER : ''' CHARACTER '''  ;
 
-character : ~('\\' | '\'' | '"')|('\\' escaped-char) ;
+STR-LITER : '"' CHARACTER* '"'  ;
 
-escaped-char : '0'|'b'|'t'|'n'|'f'|'r' |'"'|'\''|'\\' ;
+CHARACTER : ~('\\' | '\'' | '"')|('\\' ESCAPED-CHAR) ;
 
-array-liter: '[' ',' ']' ;
+ESCAPED-CHAR : '0'|'b'|'t'|'n'|'f'|'r' |'"'|'\''|'\\' ;
 
-pair-liter : 'null' ;
+ARRAY-LITER: '[' ',' ']' ;
 
-comment : '#' ~('\n') eol ;
+PAIR-LITER : 'null' ;
 
-eol : '\\n' -> skip;
+COMMENT : '#' ~('\n') EOL ;
+
+EOL : '\\n' -> skip ;
 
 
 
