@@ -1,6 +1,5 @@
 
 grammar Wacc;
-import WaccTokens;
 
 //Parser Rules
 
@@ -80,6 +79,10 @@ expr : INT-LITER
 
 //Lexer Rules
 
+OPEN-PAREN : '(' ;
+
+CLOSE-PAREN : ')' ;
+
 UNARY-OPER : '!' | '-' | 'len' | 'ord' | 'chr'  ;
 
 BINARY-OPER : '*' | '/' | '%' | '+' | '-' | '>' | '>=' | '<' | '<=' | '==' | '!=' | '&&' | '||'  ;
@@ -90,7 +93,7 @@ ARRAY-ELEM : IDENT ('[' expr ']' )+  ;
 
 INT-LITER: INT-SIGN? DIGIT+  ;
 
-DIGIT : ('0'-'9)  ;
+DIGIT : [0-9]  ;
 
 INT-SIGN : '+' | '-'  ;
 
