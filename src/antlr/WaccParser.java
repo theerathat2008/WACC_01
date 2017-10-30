@@ -1250,6 +1250,9 @@ public class WaccParser extends Parser {
 		public List<FuncContext> func() {
 			return getRuleContexts(FuncContext.class);
 		}
+		public TerminalNode WHITESPACE(int i) {
+			return getToken(WaccParser.WHITESPACE, i);
+		}
 		public TerminalNode COMMENT(int i) {
 			return getToken(WaccParser.COMMENT, i);
 		}
@@ -1261,6 +1264,7 @@ public class WaccParser extends Parser {
 		public StatContext stat() {
 			return getRuleContext(StatContext.class,0);
 		}
+		public List<TerminalNode> WHITESPACE() { return getTokens(WaccParser.WHITESPACE); }
 		public ProgramContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1282,49 +1286,69 @@ public class WaccParser extends Parser {
 			{
 			setState(223);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==NEWLINE) {
-				{
-				{
-				setState(220); match(NEWLINE);
-				}
+			_alt = getInterpreter().adaptivePredict(_input,17,_ctx);
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(220);
+					_la = _input.LA(1);
+					if ( _la <= 0 || (_la==WHITESPACE) ) {
+					_errHandler.recoverInline(this);
+					}
+					consume();
+					}
+					} 
 				}
 				setState(225);
 				_errHandler.sync(this);
-				_la = _input.LA(1);
+				_alt = getInterpreter().adaptivePredict(_input,17,_ctx);
 			}
 			setState(229);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==COMMENT) {
+			while (_la==NEWLINE) {
 				{
 				{
-				setState(226); match(COMMENT);
+				setState(226); match(NEWLINE);
 				}
 				}
 				setState(231);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(232); match(BEGIN);
-			setState(236);
+			setState(235);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
+			_la = _input.LA(1);
+			while (_la==COMMENT) {
+				{
+				{
+				setState(232); match(COMMENT);
+				}
+				}
+				setState(237);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			setState(238); match(BEGIN);
+			setState(242);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,20,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(233); func();
+					setState(239); func();
 					}
 					} 
 				}
-				setState(238);
+				setState(244);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,20,_ctx);
 			}
-			setState(239); stat(0);
-			setState(240); match(END);
-			setState(241); match(EOF);
+			setState(245); stat(0);
+			setState(246); match(END);
+			setState(247); match(EOF);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1359,7 +1383,7 @@ public class WaccParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\63\u00f6\4\2\t\2"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\63\u00fc\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\3\2\3\2\3\2\3\2\5\2+\n\2\3\2\3\2\3\2\3\2\3\2\3\3\3\3\3\3\7"+
@@ -1376,27 +1400,28 @@ public class WaccParser extends Parser {
 		"\13\20\3\21\3\21\3\21\3\21\3\21\6\21\u00ce\n\21\r\21\16\21\u00cf\3\22"+
 		"\3\22\3\22\3\22\7\22\u00d6\n\22\f\22\16\22\u00d9\13\22\5\22\u00db\n\22"+
 		"\3\22\3\22\3\23\7\23\u00e0\n\23\f\23\16\23\u00e3\13\23\3\23\7\23\u00e6"+
-		"\n\23\f\23\16\23\u00e9\13\23\3\23\3\23\7\23\u00ed\n\23\f\23\16\23\u00f0"+
-		"\13\23\3\23\3\23\3\23\3\23\3\23\2\4\b\36\24\2\4\6\b\n\f\16\20\22\24\26"+
-		"\30\32\34\36 \"$\2\3\3\2\37\"\u010e\2&\3\2\2\2\4\61\3\2\2\2\69\3\2\2\2"+
-		"\be\3\2\2\2\nr\3\2\2\2\f\u0085\3\2\2\2\16\u0087\3\2\2\2\20\u0093\3\2\2"+
-		"\2\22\u0098\3\2\2\2\24\u009c\3\2\2\2\26\u009e\3\2\2\2\30\u00a0\3\2\2\2"+
-		"\32\u00a4\3\2\2\2\34\u00ae\3\2\2\2\36\u00be\3\2\2\2 \u00c8\3\2\2\2\"\u00d1"+
-		"\3\2\2\2$\u00e1\3\2\2\2&\'\5\22\n\2\'(\7\61\2\2(*\7&\2\2)+\5\4\3\2*)\3"+
-		"\2\2\2*+\3\2\2\2+,\3\2\2\2,-\7\'\2\2-.\7\t\2\2./\5\b\5\2/\60\7\b\2\2\60"+
-		"\3\3\2\2\2\61\66\5\6\4\2\62\63\7\n\2\2\63\65\5\6\4\2\64\62\3\2\2\2\65"+
-		"8\3\2\2\2\66\64\3\2\2\2\66\67\3\2\2\2\67\5\3\2\2\28\66\3\2\2\29:\5\22"+
-		"\n\2:;\7\61\2\2;\7\3\2\2\2<=\b\5\1\2=f\7\13\2\2>?\5\22\n\2?@\7\61\2\2"+
-		"@A\7\f\2\2AB\5\f\7\2Bf\3\2\2\2CD\5\n\6\2DE\7\f\2\2EF\5\f\7\2Ff\3\2\2\2"+
-		"GH\7\r\2\2Hf\5\n\6\2IJ\7\16\2\2Jf\5\36\20\2KL\7\17\2\2Lf\5\36\20\2MN\7"+
-		"\20\2\2Nf\5\36\20\2OP\7\21\2\2Pf\5\36\20\2QR\7\22\2\2Rf\5\36\20\2ST\7"+
-		"\23\2\2TU\5\36\20\2UV\7\24\2\2VW\5\b\5\2WX\7\25\2\2XY\5\b\5\2YZ\7\26\2"+
-		"\2Zf\3\2\2\2[\\\7\27\2\2\\]\5\36\20\2]^\7\30\2\2^_\5\b\5\2_`\7\31\2\2"+
-		"`f\3\2\2\2ab\7\7\2\2bc\5\b\5\2cd\7\b\2\2df\3\2\2\2e<\3\2\2\2e>\3\2\2\2"+
-		"eC\3\2\2\2eG\3\2\2\2eI\3\2\2\2eK\3\2\2\2eM\3\2\2\2eO\3\2\2\2eQ\3\2\2\2"+
-		"eS\3\2\2\2e[\3\2\2\2ea\3\2\2\2fl\3\2\2\2gh\f\3\2\2hi\7\32\2\2ik\5\b\5"+
-		"\4jg\3\2\2\2kn\3\2\2\2lj\3\2\2\2lm\3\2\2\2m\t\3\2\2\2nl\3\2\2\2os\7\61"+
-		"\2\2ps\5 \21\2qs\5\20\t\2ro\3\2\2\2rp\3\2\2\2rq\3\2\2\2s\13\3\2\2\2t\u0086"+
+		"\n\23\f\23\16\23\u00e9\13\23\3\23\7\23\u00ec\n\23\f\23\16\23\u00ef\13"+
+		"\23\3\23\3\23\7\23\u00f3\n\23\f\23\16\23\u00f6\13\23\3\23\3\23\3\23\3"+
+		"\23\3\23\2\4\b\36\24\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$\2\4\3"+
+		"\2\37\"\3\2\4\4\u0115\2&\3\2\2\2\4\61\3\2\2\2\69\3\2\2\2\be\3\2\2\2\n"+
+		"r\3\2\2\2\f\u0085\3\2\2\2\16\u0087\3\2\2\2\20\u0093\3\2\2\2\22\u0098\3"+
+		"\2\2\2\24\u009c\3\2\2\2\26\u009e\3\2\2\2\30\u00a0\3\2\2\2\32\u00a4\3\2"+
+		"\2\2\34\u00ae\3\2\2\2\36\u00be\3\2\2\2 \u00c8\3\2\2\2\"\u00d1\3\2\2\2"+
+		"$\u00e1\3\2\2\2&\'\5\22\n\2\'(\7\61\2\2(*\7&\2\2)+\5\4\3\2*)\3\2\2\2*"+
+		"+\3\2\2\2+,\3\2\2\2,-\7\'\2\2-.\7\t\2\2./\5\b\5\2/\60\7\b\2\2\60\3\3\2"+
+		"\2\2\61\66\5\6\4\2\62\63\7\n\2\2\63\65\5\6\4\2\64\62\3\2\2\2\658\3\2\2"+
+		"\2\66\64\3\2\2\2\66\67\3\2\2\2\67\5\3\2\2\28\66\3\2\2\29:\5\22\n\2:;\7"+
+		"\61\2\2;\7\3\2\2\2<=\b\5\1\2=f\7\13\2\2>?\5\22\n\2?@\7\61\2\2@A\7\f\2"+
+		"\2AB\5\f\7\2Bf\3\2\2\2CD\5\n\6\2DE\7\f\2\2EF\5\f\7\2Ff\3\2\2\2GH\7\r\2"+
+		"\2Hf\5\n\6\2IJ\7\16\2\2Jf\5\36\20\2KL\7\17\2\2Lf\5\36\20\2MN\7\20\2\2"+
+		"Nf\5\36\20\2OP\7\21\2\2Pf\5\36\20\2QR\7\22\2\2Rf\5\36\20\2ST\7\23\2\2"+
+		"TU\5\36\20\2UV\7\24\2\2VW\5\b\5\2WX\7\25\2\2XY\5\b\5\2YZ\7\26\2\2Zf\3"+
+		"\2\2\2[\\\7\27\2\2\\]\5\36\20\2]^\7\30\2\2^_\5\b\5\2_`\7\31\2\2`f\3\2"+
+		"\2\2ab\7\7\2\2bc\5\b\5\2cd\7\b\2\2df\3\2\2\2e<\3\2\2\2e>\3\2\2\2eC\3\2"+
+		"\2\2eG\3\2\2\2eI\3\2\2\2eK\3\2\2\2eM\3\2\2\2eO\3\2\2\2eQ\3\2\2\2eS\3\2"+
+		"\2\2e[\3\2\2\2ea\3\2\2\2fl\3\2\2\2gh\f\3\2\2hi\7\32\2\2ik\5\b\5\4jg\3"+
+		"\2\2\2kn\3\2\2\2lj\3\2\2\2lm\3\2\2\2m\t\3\2\2\2nl\3\2\2\2os\7\61\2\2p"+
+		"s\5 \21\2qs\5\20\t\2ro\3\2\2\2rp\3\2\2\2rq\3\2\2\2s\13\3\2\2\2t\u0086"+
 		"\5\36\20\2u\u0086\5\"\22\2vw\7\33\2\2wx\7&\2\2xy\5\36\20\2yz\7\n\2\2z"+
 		"{\5\36\20\2{|\7\'\2\2|\u0086\3\2\2\2}\u0086\5\20\t\2~\177\7\34\2\2\177"+
 		"\u0080\7\61\2\2\u0080\u0082\7&\2\2\u0081\u0083\5\16\b\2\u0082\u0081\3"+
@@ -1432,15 +1457,17 @@ public class WaccParser extends Parser {
 		"\u00d6\5\36\20\2\u00d5\u00d3\3\2\2\2\u00d6\u00d9\3\2\2\2\u00d7\u00d5\3"+
 		"\2\2\2\u00d7\u00d8\3\2\2\2\u00d8\u00db\3\2\2\2\u00d9\u00d7\3\2\2\2\u00da"+
 		"\u00d2\3\2\2\2\u00da\u00db\3\2\2\2\u00db\u00dc\3\2\2\2\u00dc\u00dd\7$"+
-		"\2\2\u00dd#\3\2\2\2\u00de\u00e0\7\5\2\2\u00df\u00de\3\2\2\2\u00e0\u00e3"+
+		"\2\2\u00dd#\3\2\2\2\u00de\u00e0\n\3\2\2\u00df\u00de\3\2\2\2\u00e0\u00e3"+
 		"\3\2\2\2\u00e1\u00df\3\2\2\2\u00e1\u00e2\3\2\2\2\u00e2\u00e7\3\2\2\2\u00e3"+
-		"\u00e1\3\2\2\2\u00e4\u00e6\7\3\2\2\u00e5\u00e4\3\2\2\2\u00e6\u00e9\3\2"+
-		"\2\2\u00e7\u00e5\3\2\2\2\u00e7\u00e8\3\2\2\2\u00e8\u00ea\3\2\2\2\u00e9"+
-		"\u00e7\3\2\2\2\u00ea\u00ee\7\7\2\2\u00eb\u00ed\5\2\2\2\u00ec\u00eb\3\2"+
-		"\2\2\u00ed\u00f0\3\2\2\2\u00ee\u00ec\3\2\2\2\u00ee\u00ef\3\2\2\2\u00ef"+
-		"\u00f1\3\2\2\2\u00f0\u00ee\3\2\2\2\u00f1\u00f2\5\b\5\2\u00f2\u00f3\7\b"+
-		"\2\2\u00f3\u00f4\7\2\2\3\u00f4%\3\2\2\2\26*\66elr\u0082\u0085\u008c\u0093"+
-		"\u0098\u009c\u00ae\u00be\u00c5\u00cf\u00d7\u00da\u00e1\u00e7\u00ee";
+		"\u00e1\3\2\2\2\u00e4\u00e6\7\5\2\2\u00e5\u00e4\3\2\2\2\u00e6\u00e9\3\2"+
+		"\2\2\u00e7\u00e5\3\2\2\2\u00e7\u00e8\3\2\2\2\u00e8\u00ed\3\2\2\2\u00e9"+
+		"\u00e7\3\2\2\2\u00ea\u00ec\7\3\2\2\u00eb\u00ea\3\2\2\2\u00ec\u00ef\3\2"+
+		"\2\2\u00ed\u00eb\3\2\2\2\u00ed\u00ee\3\2\2\2\u00ee\u00f0\3\2\2\2\u00ef"+
+		"\u00ed\3\2\2\2\u00f0\u00f4\7\7\2\2\u00f1\u00f3\5\2\2\2\u00f2\u00f1\3\2"+
+		"\2\2\u00f3\u00f6\3\2\2\2\u00f4\u00f2\3\2\2\2\u00f4\u00f5\3\2\2\2\u00f5"+
+		"\u00f7\3\2\2\2\u00f6\u00f4\3\2\2\2\u00f7\u00f8\5\b\5\2\u00f8\u00f9\7\b"+
+		"\2\2\u00f9\u00fa\7\2\2\3\u00fa%\3\2\2\2\27*\66elr\u0082\u0085\u008c\u0093"+
+		"\u0098\u009c\u00ae\u00be\u00c5\u00cf\u00d7\u00da\u00e1\u00e7\u00ed\u00f4";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -1,3 +1,5 @@
+package src;
+
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
@@ -15,7 +17,13 @@ public class waccTest {
 
     ParseTree tree = parser.program();
 
-    System.out.println("Printing out the tree: ");
-    System.out.println(tree.toStringTree(parser));
+    //System.out.println("Printing out the tree: ");
+    //System.out.println(tree.toStringTree(parser));
+
+    System.out.println("===");
+    waccVisitor visitor = new waccVisitor();
+    visitor.visit(tree);
+    System.out.println("===");
+
   }
 }
