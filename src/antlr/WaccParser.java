@@ -1,7 +1,5 @@
-// Generated from WaccParser.g4 by ANTLR 4.4
-
-    package WaccLexer;
-
+// Generated from ./WaccParser.g4 by ANTLR 4.4
+package antlr;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -83,12 +81,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_program; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterProgram(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitProgram(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitProgram(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -150,12 +145,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_func; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterFunc(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitFunc(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitFunc(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -210,12 +202,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_param_list; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterParam_list(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitParam_list(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitParam_list(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -264,12 +253,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_param; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterParam(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitParam(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitParam(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -337,12 +323,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_stat; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterStat(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitStat(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitStat(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -504,12 +487,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_assign_lhs; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterAssign_lhs(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitAssign_lhs(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitAssign_lhs(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -577,12 +557,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_assign_rhs; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterAssign_rhs(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitAssign_rhs(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitAssign_rhs(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -678,12 +655,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_arg_list; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterArg_list(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitArg_list(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitArg_list(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -733,12 +707,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_pair_elem; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterPair_elem(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitPair_elem(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitPair_elem(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -792,12 +763,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_type; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterType(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitType(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitType(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -850,12 +818,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_type2; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterType2(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitType2(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitType2(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -905,12 +870,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_base_type; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterBase_type(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitBase_type(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitBase_type(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -951,12 +913,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_array_type; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterArray_type(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitArray_type(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitArray_type(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -998,12 +957,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_pair_type; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterPair_type(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitPair_type(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitPair_type(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1045,12 +1001,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_pair_elem_type; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterPair_elem_type(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitPair_elem_type(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitPair_elem_type(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1116,12 +1069,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_expr; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterExpr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitExpr(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitExpr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1240,12 +1190,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_array_elem; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterArray_elem(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitArray_elem(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitArray_elem(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1303,12 +1250,9 @@ public class WaccParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_array_liter; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).enterArray_liter(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof WaccParserListener ) ((WaccParserListener)listener).exitArray_liter(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof WaccParserVisitor ) return ((WaccParserVisitor<? extends T>)visitor).visitArray_liter(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 

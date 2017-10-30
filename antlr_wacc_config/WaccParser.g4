@@ -1,9 +1,5 @@
 parser grammar WaccParser;
 
-@header {
-    package WaccLexer;
-}
-
 options {
     tokenVocab = WaccLexer;
 }
