@@ -1,34 +1,10 @@
 lexer grammar WaccLexer;
 
-OPEN_PAREN : '(' ;
+COMMENT : '#' ~[\r\n]* '\r'? '\n' -> skip;
 
-CLOSE_PAREN : ')' ;
+WHITESPACE : (' ' | '\t') -> skip;
 
-UNARY_OPER : '!' | '-' | 'len' | 'ord' | 'chr'  ;
-
-BINARY_OPER : '*' | '/' | '%' | '+' | '-' | '>' | '>=' | '<' | '<=' | '==' | '!=' | '&&' | '||'  ;
-
-IDENT: ('_'|'a'..'z'|'A'..'Z') ('_'|'a'..'z'|'A'..'Z'|'0'..'9')* ;
-
-fragment DIGIT : '0'..'9' ;
-INTEGER: DIGIT+ ;
-INT_LITER: INT_SIGN? INTEGER ;
-
-INT_SIGN : '+' | '-'  ;
-
-BOOL_LITER :  'true' | 'false'  ;
-
-CHAR_LITER : '\'' CHARACTER '\''  ;
-
-STR_LITER : '"' CHARACTER* '"'  ;
-
-CHARACTER : ~('\\' | '\'' | '"')|('\\' ESCAPED_CHAR) ;
-
-ESCAPED_CHAR : '0'|'b'|'t'|'n'|'f'|'r' |'"'|'\''|'\\' ;
-
-PAIR_LITER : 'null' ;
-
-COMMENT : '#' ~('\n') EOL ;
+NEWLINE : ('\r'? '\n' | '\r')+ -> skip;
 
 EOL : '\\n' -> skip ;
 
@@ -93,6 +69,36 @@ SQUARE_OPEN : '[' ;
 SQUARE_CLOSED : ']' ;
 
 PAIR_STRING : 'pair' ;
+
+OPEN_PAREN : '(' ;
+
+CLOSE_PAREN : ')' ;
+
+UNARY_OPER : '!' | '-' | 'len' | 'ord' | 'chr'  ;
+
+BINARY_OPER : '*' | '/' | '%' | '+' | '-' | '>' | '>=' | '<' | '<=' | '==' | '!=' | '&&' | '||'  ;
+
+INT_SIGN : '+' | '-'  ;
+
+BOOL_LITER :  'true' | 'false'  ;
+
+CHAR_LITER : '\'' CHARACTER '\''  ;
+
+STR_LITER : '"' CHARACTER* '"'  ;
+
+CHARACTER : ~('\\' | '\'' | '"')|('\\' ESCAPED_CHAR) ;
+
+ESCAPED_CHAR : '0'|'b'|'t'|'n'|'f'|'r' |'"'|'\''|'\\' ;
+
+PAIR_LITER : 'null' ;
+
+IDENT: ('_'|'a'..'z'|'A'..'Z') ('_'|'a'..'z'|'A'..'Z'|'0'
+..'9')* ;
+
+fragment DIGIT : '0'..'9' ;
+INTEGER: DIGIT+ ;
+INT_LITER: INT_SIGN? INTEGER ;
+
 
 
 

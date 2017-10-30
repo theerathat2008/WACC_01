@@ -14,6 +14,8 @@ public class waccTest {
     WaccParser parser = new WaccParser(tokens);
 
     ParseTree tree = parser.program();
+
+    System.out.println("Printing out the tree: ");
     System.out.println(tree.toStringTree(parser));
   }
 }
