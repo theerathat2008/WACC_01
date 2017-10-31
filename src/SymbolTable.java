@@ -26,14 +26,14 @@ public class SymbolTable {
 
   public IDENTIFIER lookupAll(String name){
     SymbolTable S = this;
-    while(S != NULL){
+    while(S != null){
       IDENTIFIER obj = S.lookup(name);
-      if(obj != NULL){
+      if(obj != null){
         return obj;
       }
       S = S.encSymTable;
     }
-    return NULL;
+    return null;
   }
 
 }

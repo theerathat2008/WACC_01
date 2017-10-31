@@ -6,6 +6,8 @@ options {
 
 //Parser Rules
 
+program : BEGIN (func)* stat END EOF;
+
 func : type IDENT OPEN_PAREN param_list? CLOSE_PAREN IS stat END  ;
 
 param_list : param ( COMMA param )*  ;
@@ -83,6 +85,3 @@ expr : INT_LITER
 array_elem : IDENT ('[' expr ']' )+  ;
 
 array_liter: '[' (expr (',' expr)*)? ']' ;
-
-program : NEWLINE* COMMENT* BEGIN func* stat END EOF;
-

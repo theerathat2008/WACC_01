@@ -22,7 +22,8 @@ public class IDENTIFIER {
 
 /**
 Holds attributes comman to all types 
-**/
+
 public class TYPE extends IDENTIFIER{
   TYPE type_name;
 }
+**/
