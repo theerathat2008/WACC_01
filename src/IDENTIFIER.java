@@ -1,4 +1,3 @@
-package src;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
@@ -21,7 +20,7 @@ public class IDENTIFIER {
 }
 
 /**
-Holds attributes comman to all types 
+Holds attributes common to all types
 
 public class TYPE extends IDENTIFIER{
   TYPE type_name;

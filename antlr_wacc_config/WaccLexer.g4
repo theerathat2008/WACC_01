@@ -1,70 +1,82 @@
 lexer grammar WaccLexer;
 
-COMMENT : '#' ~[\r\n]* '\r'? '\n' -> skip;
+//Reserved Keywords
 
-WHITESPACE : [ \t\n]+ -> channel(HIDDEN);
-
-NEWLINE : ('\r'? '\n' | '\r')+  -> skip ;
-
-EOL : '\\n' -> skip ;
+fragment INT_STRING : 'int' ;
+fragment BOOL_STRING : 'bool' ;
+fragment CHAR_STRING : 'char' ;
+fragment STRING_STRING : 'string' ;
 
 BEGIN : 'begin' ;
 END : 'end' ;
 IS : 'is' ;
-
-COMMA : ',' ;
-SKIP : 'skip' ;
-EQUAL : '=' ;
+IF : 'if' ;
+THEN : 'then' ;
+ELSE : 'else' ;
+FI : 'fi' ;
 READ : 'read' ;
 FREE : 'free' ;
 RETURN : 'return' ;
 EXIT : 'exit' ;
 PRINT : 'print' ;
 PRINTLN : 'println' ;
-
-IF : 'if' ;
-THEN : 'then' ;
-ELSE : 'else' ;
-FI : 'fi' ;
-
+SKIP : 'skip' ;
+NEWPAIR : 'newpair' ;
+CALL : 'call' ;
+FST : 'fst' ;
+SND : 'snd' ;
+PAIR_STRING : 'pair' ;
 WHILE : 'while' ;
 DO : 'do' ;
 DONE : 'done' ;
 SEMI_COLON : ';' ;
 
-NEWPAIR : 'newpair' ;
-CALL : 'call' ;
-FST : 'fst' ;
-SND : 'snd' ;
+//Seperators
 
-INT_STRING : 'int' ;
-BOOL_STRING : 'bool' ;
-CHAR_STRING : 'char' ;
-STRING_STRING : 'string' ;
-
+COMMA : ',' ;
+EQUAL : '=' ;
 SQUARE_OPEN : '[' ;
 SQUARE_CLOSED : ']' ;
-PAIR_STRING : 'pair' ;
 OPEN_PAREN : '(' ;
 CLOSE_PAREN : ')' ;
+
+fragment HASH        : '#';
+fragment UNDERSCORE  : '_';
+fragment ESCAPEDCHAR : [0btnfr"\'\\];
+
+
+
+//Operators
 
 UNARY_OPER : '!' | '-' | 'len' | 'ord' | 'chr'  ;
 BINARY_OPER : '*' | '/' | '%' | '+' | '-' | '>' | '>=' | '<' | '<=' | '==' | '!=' | '&&' | '||'  ;
 
-INT_SIGN : '+' | '-'  ;
+// Types
+fragment DIGIT     : '0'..'9';
+fragment LOWERCHAR : 'a'..'z';
+fragment UPPERCHAR : 'A'..'Z';
+fragment CHARACTER : ~[\'"] | [\\] ESCAPEDCHAR;
+fragment NULL      : 'null';
+fragment INTSIGN   : '+' | '-'  ;   
+fragment TRUE      : 'true';
+fragment FALSE     : 'false';
 
 BOOL_LITER :  'true' | 'false'  ;
 CHAR_LITER : '\'' CHARACTER '\''  ;
 STR_LITER : '"' CHARACTER* '"'  ;
+INT_LITER: DIGIT+;
 
-CHARACTER : ~('\\' | '\'' | '"')|('\\' ESCAPED_CHAR) ;
-
-ESCAPED_CHAR : '0'|'b'|'t'|'n'|'f'|'r' |'"'|'\''|'\\' ;
 
 PAIR_LITER : 'null' ;
 
-IDENT: ('_'|'a'..'z'|'A'..'Z') ('_'|'a'..'z'|'A'..'Z'|'0'..'9')* ;
+BASE_TYPE : INT_STRING
+     | BOOL_STRING
+     | CHAR_STRING
+     | STRING_STRING
+     ;
 
-fragment DIGIT : '0'..'9' ;
-INTEGER: DIGIT+ ;
-INT_LITER: INT_SIGN? INTEGER ;
+IDENT: (UNDERSCORE | LOWERCHAR | UPPERCHAR) (UNDERSCORE | UPPERCHAR | LOWERCHAR | INT_LITER)*;
+
+COMMENT : '#' ~[\r\n]* -> skip;
+
+WHITESPACE : [ \t\n]+ -> skip;

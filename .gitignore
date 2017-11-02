@@ -3,3 +3,7 @@
 
 # Log file
 *.log
+
+# ignore intellgi directories
+.idea/
+out/ 

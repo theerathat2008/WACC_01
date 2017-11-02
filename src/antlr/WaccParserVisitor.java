@@ -30,12 +30,6 @@ public interface WaccParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssign_lhs(@NotNull WaccParser.Assign_lhsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link WaccParser#type2}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitType2(@NotNull WaccParser.Type2Context ctx);
-	/**
 	 * Visit a parse tree produced by {@link WaccParser#array_liter}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -78,12 +72,6 @@ public interface WaccParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArg_list(@NotNull WaccParser.Arg_listContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link WaccParser#base_type}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBase_type(@NotNull WaccParser.Base_typeContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link WaccParser#func}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -113,10 +101,4 @@ public interface WaccParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExpr(@NotNull WaccParser.ExprContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link WaccParser#array_type}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArray_type(@NotNull WaccParser.Array_typeContext ctx);
 }
