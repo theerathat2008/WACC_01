@@ -5,5 +5,5 @@
 *.log
 
 # ignore intellgi directories
-.idea/
+idea/
 out/ 

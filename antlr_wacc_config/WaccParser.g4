@@ -30,13 +30,13 @@ stat : SKIP                                           # SKIP
  assign_rhs : expr                                    # EXPR
       | array_liter                                   # ARRAY_LITER
       | NEWPAIR OPEN_PAREN expr COMMA expr CLOSE_PAREN # NEWPAIR
-      | pair_elem                                      # PAIR_ELEM
+      | pair_elem                                      # PAIR_ELEM_RHS
       | CALL IDENT OPEN_PAREN (arg_list)? CLOSE_PAREN  # CALL
       ;
 
 assign_lhs : IDENT                                    # IDENT
-     | array_elem                                     # ARRAY_ELEM
-     | pair_elem                                      # PAIR_ELEM
+     | array_elem                                     # ARRAY_ELEM_LHS
+     | pair_elem                                      # PAIR_ELEM_LHS
      ;
 
 arg_list : expr (COMMA expr )*  ;
@@ -52,8 +52,8 @@ type : BASE_TYPE                                      # BASE_TYPE
 
 pair_type : PAIR_STRING OPEN_PAREN pair_elem_type COMMA pair_elem_type CLOSE_PAREN ;
 
-pair_elem_type : BASE_TYPE                            # BASE_TYPE
-     | type SQUARE_OPEN SQUARE_CLOSED                 # ARRAY_TYPE
+pair_elem_type : BASE_TYPE                            # BASE_TYPE_PAIR
+     | type SQUARE_OPEN SQUARE_CLOSED                 # ARRAY_TYPE_PAIR
      | PAIR_STRING                                    # PAIR_STRING
      ;
 
@@ -62,7 +62,7 @@ expr : INT_LITER                                      # INT_LITER
      | CHAR_LITER                                     # CHAR_LITER
      | STR_LITER                                      # STR_LITER
      | PAIR_LITER                                     # PAIR_LITER
-     | IDENT                                          # IDENT
+     | IDENT                                          # IDENT_EXPR
      | array_elem                                     # ARRAY_ELEM
      | UNARY_OPER expr                                # UNARY_OP
      | expr BINARY_OPER expr                          # BINARY_OP
