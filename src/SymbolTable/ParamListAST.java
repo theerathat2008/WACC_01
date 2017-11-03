@@ -1,14 +1,30 @@
 package SymbolTable;
 
-public class FUNC_SCOPE extends IDENTIFIER {
-  String returntypename; //type
-  String funcname;  //IDENT
-  PARAM_LIST_SCOPE parameters; // param_list
-  STAT_OBJ function; //stat
+import org.antlr.v4.runtime.tree.ParseTree;
+
+import java.util.List;
+
+public class ParamListAST extends IDENTIFIER{
+
+  List<ParseTree> parameters;
+
+
+
+  public ParamListAST(ParseTree param_list){
+    int n = param_list.getChildCount();
+
+    for(int i = 0; i < n; ++i) {
+      ParseTree c = param_list.getChild(i);
+      parameters.add(c);
+    }
+  }
+
+
 
 
   //Semantic Analysis and print error message if needed
   public boolean CheckValidity(){
+    //currSymbolTable.add(String name, new FUNCTION());
     return true;
   }
 

@@ -8,7 +8,7 @@ options {
 
 program : BEGIN (func)* stat END EOF;
 
-func : type IDENT OPEN_PAREN param_list? CLOSE_PAREN IS stat END  ;
+func : type IDENT open_paren param_list? close_paren IS stat END  ;
 param_list : param ( COMMA param )* ;
 param : type IDENT  ;
 
@@ -72,3 +72,7 @@ expr : INT_LITER                                      # INT_LITER
 array_elem : IDENT (SQUARE_OPEN expr SQUARE_CLOSED )+  ;
 
 array_liter: SQUARE_OPEN (expr (COMMA expr)*)? SQUARE_CLOSED ;
+
+open_paren : OPEN_PAREN;
+
+close_paren : CLOSE_PAREN;

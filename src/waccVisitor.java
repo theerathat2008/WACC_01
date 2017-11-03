@@ -2,6 +2,13 @@ package src;
 
 import java.util.*;
 import antlr.*;
+import org.antlr.v4.runtime.tree.ParseTree;
+
+/**
+ * Go thorugh all the nodes in parse tree
+ * Generate AST tree
+ */
+
 
 public class waccVisitor extends WaccParserBaseVisitor<Void> {
   
@@ -52,7 +59,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
   @Override 
   public Void visitProgram(WaccParser.ProgramContext ctx) {
-    System.out.println("Hi, who's awake");
+    System.out.println("Running program");
     return visitChildren(ctx);
   }
 
@@ -197,12 +204,40 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitPAIR_SND(WaccParser.PAIR_SNDContext ctx) { 
     return visitChildren(ctx); 
   }
-  
-  @Override 
-  public Void visitFunc(WaccParser.FuncContext ctx) { 
-    return visitChildren(ctx); 
+
+  /**
+   * Called from the traversal PARSE tree when it encounters a func token
+   * Adds func symbol to current symbol table
+   * Create a new symbol table from the funcDeclarationAST
+   * Work out how to get info from context
+  **/
+  @Override
+  public Void visitFunc(WaccParser.FuncContext ctx) {
+    /**
+     * SymbolTable currSymbolTable;
+     * new FuncDeclarationAST(String returntypename, String funcname ,PARAM_LIST_SCOPE parameters);
+     *
+     */
+
+    ;
+
+      ParseTree type = ctx.getChild(0);
+      ParseTree name = ctx.getChild(1);
+      ParseTree params = ctx.getChild(3);
+      if (ctx.getRuleIndex() == 2){ // 2 represents RULE_paramList
+
+      }
+
+    }
+
+    return result;
+    System.out.println("Visited a func");
+
+
+
+    return visitChildren(ctx);
   }
-  
+
   @Override 
   public Void visitIDENT(WaccParser.IDENTContext ctx) { 
     return visitChildren(ctx); 
