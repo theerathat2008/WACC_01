@@ -17,6 +17,16 @@ public class AST_Program extends AST_Node {
 
   }
 
+  public AST_Node getEmbededAST(String astToGet){
+    if(astToGet == "functionList"){
+      return funcDeclList;
+    } else if (astToGet == "statement"){
+      return statement;
+    }
+    System.out.println("Unrecognised AST Node.");
+    return null;
+  }
+
 
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(){
