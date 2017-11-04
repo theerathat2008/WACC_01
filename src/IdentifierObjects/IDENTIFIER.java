@@ -1,22 +1,10 @@
-package SymbolTable;
-
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.*;
-
-import antlr.*;
-import java.util.*;
+package IdentifierObjects;
 
 /**
 Could hold reference to the ASTNode that declares IDENTIFIER
 **/
 
 public class IDENTIFIER {
-  String var_name;
-  String type_name;
-  public IDENTIFIER obj;
-
-
-
 }
 
 /**

@@ -1,10 +1,11 @@
 package SymbolTable;
 
+import IdentifierObjects.IDENTIFIER;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.List;
 
-public class ParamListAST extends IDENTIFIER{
+public class ParamListAST extends IDENTIFIER {
 
   List<ParseTree> parameters;
 

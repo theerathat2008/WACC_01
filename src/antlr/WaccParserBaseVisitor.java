@@ -18,7 +18,7 @@ public class WaccParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPRINT(@NotNull WaccParser.PRINTContext ctx) { return visitChildren(ctx); }
+	@Override public T visitEXPR_ASSIGN(@NotNull WaccParser.EXPR_ASSIGNContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -26,27 +26,6 @@ public class WaccParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitArray_elem(@NotNull WaccParser.Array_elemContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitNEWPAIR(@NotNull WaccParser.NEWPAIRContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitSTR_LITER(@NotNull WaccParser.STR_LITERContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitPAIR_LITER(@NotNull WaccParser.PAIR_LITERContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -61,6 +40,13 @@ public class WaccParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitProgram(@NotNull WaccParser.ProgramContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitPRINTLN_STAT(@NotNull WaccParser.PRINTLN_STATContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -95,21 +81,35 @@ public class WaccParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitUNARY_OP(@NotNull WaccParser.UNARY_OPContext ctx) { return visitChildren(ctx); }
+	@Override public T visitCHAR_LITER_EXPR(@NotNull WaccParser.CHAR_LITER_EXPRContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIF(@NotNull WaccParser.IFContext ctx) { return visitChildren(ctx); }
+	@Override public T visitUNARY_OP_EXPR(@NotNull WaccParser.UNARY_OP_EXPRContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBOOL_LITER(@NotNull WaccParser.BOOL_LITERContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSKIP_STAT(@NotNull WaccParser.SKIP_STATContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitREAD_STAT(@NotNull WaccParser.READ_STATContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitWHILE_STAT(@NotNull WaccParser.WHILE_STATContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -123,6 +123,13 @@ public class WaccParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitNEWPAIR_RHS(@NotNull WaccParser.NEWPAIR_RHSContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitIDENT_EXPR(@NotNull WaccParser.IDENT_EXPRContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -130,84 +137,77 @@ public class WaccParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitREAD(@NotNull WaccParser.READContext ctx) { return visitChildren(ctx); }
+	@Override public T visitARRAY_ELEM_EXPR(@NotNull WaccParser.ARRAY_ELEM_EXPRContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitARRAY_ELEM(@NotNull WaccParser.ARRAY_ELEMContext ctx) { return visitChildren(ctx); }
+	@Override public T visitENCLOSED_EXPR(@NotNull WaccParser.ENCLOSED_EXPRContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBEGIN_END(@NotNull WaccParser.BEGIN_ENDContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPRINT_STAT(@NotNull WaccParser.PRINT_STATContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitEXIT(@NotNull WaccParser.EXITContext ctx) { return visitChildren(ctx); }
+	@Override public T visitASSIGN_STAT(@NotNull WaccParser.ASSIGN_STATContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitCALL(@NotNull WaccParser.CALLContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIDENT_ASSIGN(@NotNull WaccParser.IDENT_ASSIGNContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPRINTLN(@NotNull WaccParser.PRINTLNContext ctx) { return visitChildren(ctx); }
+	@Override public T visitINT_LITER_EXPR(@NotNull WaccParser.INT_LITER_EXPRContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBINARY_OP(@NotNull WaccParser.BINARY_OPContext ctx) { return visitChildren(ctx); }
+	@Override public T visitVAR_DECL_STAT(@NotNull WaccParser.VAR_DECL_STATContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSEMI(@NotNull WaccParser.SEMIContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFREE_STAT(@NotNull WaccParser.FREE_STATContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitASSIGN(@NotNull WaccParser.ASSIGNContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBEGIN_END_STAT(@NotNull WaccParser.BEGIN_END_STATContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFREE(@NotNull WaccParser.FREEContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIF_STAT(@NotNull WaccParser.IF_STATContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitRETURN(@NotNull WaccParser.RETURNContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitCLOSED_EXPR(@NotNull WaccParser.CLOSED_EXPRContext ctx) { return visitChildren(ctx); }
+	@Override public T visitCALL_ASSIGN(@NotNull WaccParser.CALL_ASSIGNContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -228,13 +228,6 @@ public class WaccParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitEXPR(@NotNull WaccParser.EXPRContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitPair_type(@NotNull WaccParser.Pair_typeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -249,13 +242,6 @@ public class WaccParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSKIP(@NotNull WaccParser.SKIPContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitARRAY_TYPE_PAIR(@NotNull WaccParser.ARRAY_TYPE_PAIRContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -263,7 +249,14 @@ public class WaccParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitEQUALS(@NotNull WaccParser.EQUALSContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBINARY_OP_EXPR(@NotNull WaccParser.BINARY_OP_EXPRContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitMULT_STAT(@NotNull WaccParser.MULT_STATContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -277,14 +270,21 @@ public class WaccParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitCHAR_LITER(@NotNull WaccParser.CHAR_LITERContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSTR_LITER_EXPR(@NotNull WaccParser.STR_LITER_EXPRContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitINT_LITER(@NotNull WaccParser.INT_LITERContext ctx) { return visitChildren(ctx); }
+	@Override public T visitARRAY_LITER_RHS(@NotNull WaccParser.ARRAY_LITER_RHSContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitEXIT_STAT(@NotNull WaccParser.EXIT_STATContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -319,6 +319,13 @@ public class WaccParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitBOOL_LITER_EXPR(@NotNull WaccParser.BOOL_LITER_EXPRContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitFunc(@NotNull WaccParser.FuncContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -326,28 +333,21 @@ public class WaccParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIDENT(@NotNull WaccParser.IDENTContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitARRAY_LITER(@NotNull WaccParser.ARRAY_LITERContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitWHILE(@NotNull WaccParser.WHILEContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitPAIR_TYPE(@NotNull WaccParser.PAIR_TYPEContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitPAIR_LITER_EXPR(@NotNull WaccParser.PAIR_LITER_EXPRContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitRETURN_STAT(@NotNull WaccParser.RETURN_STATContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
