@@ -1,7 +1,10 @@
 package src;
 
 import java.util.*;
+
+import ASTNodes.AST_Program;
 import antlr.*;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 /**
@@ -12,7 +15,11 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
-  
+  @Override
+  public Void visitProgram(WaccParser.ProgramContext ctx) {
+    //Create new ProgramAST class
+    return visitChildren(ctx);
+  }
 
 }
 /**
