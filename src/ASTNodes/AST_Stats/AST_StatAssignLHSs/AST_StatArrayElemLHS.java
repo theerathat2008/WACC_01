@@ -1,6 +1,7 @@
 package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
+import ASTNodes.AST_Node;
 
 import java.util.List;
 
@@ -14,6 +15,21 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS{
   // Assign the class variables when called
   public AST_StatArrayElemLHS(){
 
+  }
+
+  public AST_Node getEmbeddedAST(String astToGet, int counter){
+    if(astToGet.equals("functionList")){
+      return ast_exprList.get(counter);
+    }
+    System.out.println("Unrecognised AST Node.");
+    return null;
+  }
+
+  public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
+    if(astToSet.equals("functionList")){
+      ast_exprList.add((AST_Expr)nodeToSet);
+    }
+    System.out.println("Unrecognised AST Node.");
   }
 
 

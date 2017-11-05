@@ -5,8 +5,13 @@ package ASTNodes;
  */
 public abstract class AST_Node {
 
+  public AST_Node parentNode;
+
   //Return embeded AST nodes if they exist
-  public abstract AST_Node getEmbededAST(String astToGet);
+  public abstract AST_Node getEmbeddedAST(String astToGet, int counter);
+
+  //Set embeded AST nodes if they exist
+  public abstract void setEmbeddedAST(String astToSet, AST_Node nodeToSet);
 
   //Semantic Analysis and print error message if needed
   protected abstract boolean CheckSemantics();

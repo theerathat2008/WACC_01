@@ -4,6 +4,7 @@ import java.util.*;
 
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
+import ASTNodes.AST_Param;
 import ASTNodes.AST_Program;
 import antlr.*;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -18,32 +19,95 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
   AST_Program progBase;
-  AST_Node currNode;
+  AST_Node parentVisitorNode;
+
+  /**
+   * General layout of visitor functions
+   * Set the current visitor Node
+   * Assign new visitor Node to its embedded ast value through accessing its parent
+   * Set the Curr Node
+   * Semantic analysis on the currnode
+   * Debug message
+   * Iterate through the rest of the tree
+   */
 
   @Override
   public Void visitProgram(WaccParser.ProgramContext ctx) {
-    /**
-     * Set the initial programAST Node
-     * Set the Curr Node
-     */
-    progBase = new AST_Program();
 
-    //Set currNode
-    currNode = progBase;
+    //Create the node for the current visitor function
+    progBase = new AST_Program(ctx.getChildCount());
 
-    //set up AST Nodes in progBase
-    currNode.
+    //Set parentNode of AST class and global visitor class
+    progBase.parentNode = null;
+    parentVisitorNode = progBase;
 
-    currNode.Check();
+    //Do semantic analysis
+    progBase.Check();
+
+    //Debug statement
     System.out.println("Prog");
-    //Create new ProgramAST class
+
+    //Iterate through rest of the tree
+
     return visitChildren(ctx);
   }
 
   @Override
   public Void visitFunc(WaccParser.FuncContext ctx) {
-    currNode = currNode.getEmbededAST("function");
-    currNode.Check();
+
+    //Create the node for the current visitor function
+    AST_FuncDecl funcNode = new AST_FuncDecl();
+
+    //Set currNode to corresponding embedded AST in parent node
+    parentVisitorNode.setEmbeddedAST("functionList", funcNode);
+
+    //Set parentNode of AST class and global visitor class
+    funcNode.parentNode = parentVisitorNode;
+    parentVisitorNode = funcNode;
+
+    //Do semantic analysis
+    funcNode.Check();
+
+    //Debug statement
+    System.out.println("Func");
+
+    //Iterate through rest of the tree
+    return visitChildren(ctx);
+  }
+
+  //TERMINAL NODE
+  @Override
+  public Void visitParam(WaccParser.ParamContext ctx) {
+
+    //Create the node for the current visitor function
+    AST_Param paramNode = new AST_Param();
+
+    //Set currNode to corresponding embedded AST in parent node
+    parentVisitorNode.setEmbeddedAST("functionList", paramNode);
+
+    //Set parentNode of AST class and global visitor class
+    paramNode.parentNode = parentVisitorNode;
+    parentVisitorNode = paramNode;
+
+    //Do semantic analysis
+    paramNode.Check();
+
+    //Debug statement
+    System.out.println("Param");
+
+    //Set the parent node for terminal node
+    if(){
+
+    }
+
+
+    //Iterate through rest of the tree
+    return visitChildren(ctx);
+  }
+
+  @Override
+  public Void visitMULT_STAT(WaccParser.MULT_STATContext ctx) {
+
     return visitChildren(ctx);
   }
 

@@ -1,5 +1,7 @@
 package ASTNodes.AST_Stats;
 
+import ASTNodes.AST_Node;
+
 public class AST_StatBeginEnd extends AST_Stat {
   //Syntactic attributes
   AST_Stat statAST;
@@ -9,6 +11,21 @@ public class AST_StatBeginEnd extends AST_Stat {
   // Assign the class variables when called
   public AST_StatBeginEnd(){
 
+  }
+
+  public AST_Node getEmbeddedAST(String astToGet, int counter){
+    if(astToGet.equals("paramList")){
+      return statAST;
+    }
+    System.out.println("Unrecognised AST Node.");
+    return null;
+  }
+
+  public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
+    if(astToSet.equals("paramList")){
+      statAST = (AST_Stat) nodeToSet;
+    }
+    System.out.println("Unrecognised AST Node.");
   }
 
 

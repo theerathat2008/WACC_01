@@ -1,5 +1,6 @@
 package ASTNodes.AST_Stats;
 
+import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 
@@ -14,6 +15,25 @@ public class AST_StatAssign extends AST_Stat{
   // Assign the class variables when called
   public AST_StatAssign(){
 
+  }
+
+  public AST_Node getEmbeddedAST(String astToGet, int counter){
+    if(astToGet.equals("paramList")){
+      return ast_statAssignLHS;
+    } else if (astToGet.equals("statement")){
+      return ast_statAssignRHS;
+    }
+    System.out.println("Unrecognised AST Node.");
+    return null;
+  }
+
+  public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
+    if(astToSet.equals("paramList")){
+      ast_statAssignLHS = (AST_StatAssignLHS) nodeToSet;
+    } else if (astToSet.equals("statement")){
+      ast_statAssignRHS = (AST_StatAssignRHS) nodeToSet;
+    }
+    System.out.println("Unrecognised AST Node.");
   }
 
 

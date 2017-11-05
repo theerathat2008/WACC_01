@@ -16,14 +16,23 @@ public class AST_FuncDecl extends AST_Node {
 
   }
 
-  public AST_Node getEmbededAST(String astToGet){
-    if(astToGet == "paramList"){
+  public AST_Node getEmbeddedAST(String astToGet, int counter){
+    if(astToGet.equals("paramList")){
       return paramList;
-    } else if (astToGet == "statement"){
+    } else if (astToGet.equals("statement")){
       return statement;
     }
     System.out.println("Unrecognised AST Node.");
     return null;
+  }
+
+  public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
+    if(astToSet.equals("paramList")){
+      paramList = (AST_ParamList) nodeToSet;
+    } else if (astToSet.equals("statement")){
+      statement = (AST_Stat) nodeToSet;
+    }
+    System.out.println("Unrecognised AST Node.");
   }
 
   //Semantic Analysis and print error message if needed

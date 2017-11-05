@@ -15,6 +15,21 @@ public class AST_ParamList extends AST_Node{
 
   }
 
+  public AST_Node getEmbeddedAST(String astToGet, int counter){
+    if(astToGet.equals("functionList")){
+      return paramList.get(counter);
+    }
+    System.out.println("Unrecognised AST Node.");
+    return null;
+  }
+
+  public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
+    if(astToSet.equals("functionList")){
+      paramList.add((AST_Param) nodeToSet);
+    }
+    System.out.println("Unrecognised AST Node.");
+  }
+
 
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(){

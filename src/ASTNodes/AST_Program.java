@@ -8,25 +8,43 @@ import java.util.List;
 public class AST_Program extends AST_Node {
   //Syntactic attributes
   List<AST_FuncDecl> funcDeclList;
+  int numOfFunc;
   AST_Stat statement;
   //Semantic attribute
   ProgramObj programObj;
 
   // Assign the class variables when called
-  public AST_Program(){
-
+  public AST_Program(int listLength){
+    this.numOfFunc = listLength;
+    statement = null;
   }
 
-  public AST_Node getEmbededAST(String astToGet){
-    if(astToGet == "functionList"){
-      return funcDeclList;
-    } else if (astToGet == "statement"){
+  /**
+   * Returns true if the embeded Nodes have values
+   *
+   */
+  public boolean isEmbeddedNodesFull(){
+    return funcDeclList.size() == numOfFunc && statement != null;
+  }
+
+  public AST_Node getEmbeddedAST(String astToGet, int counter){
+    if(astToGet.equals("functionList")){
+      return funcDeclList.get(counter);
+    } else if (astToGet.equals("statement")){
       return statement;
     }
     System.out.println("Unrecognised AST Node.");
     return null;
   }
 
+  public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
+    if(astToSet.equals("functionList")){
+      funcDeclList.add((AST_FuncDecl)nodeToSet);
+    } else if (astToSet.equals("statement")){
+      statement = (AST_Stat) nodeToSet;
+    }
+    System.out.println("Unrecognised AST Node.");
+  }
 
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(){

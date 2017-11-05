@@ -14,6 +14,16 @@ public class AST_Stat extends AST_Node {
 
   }
 
+  public AST_Node getEmbeddedAST(String astToGet, int counter){
+    System.out.println("Base AST Node.");
+    return null;
+  }
+
+  public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
+    System.out.println("Base AST Node.");
+  }
+
+
 
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(){
