@@ -1,9 +1,7 @@
 package SymbolTable;
 
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.*;
+import IdentifierObjects.IDENTIFIER;
 
-import antlr.*;
 import java.util.*;
 
 public class SymbolTable {
