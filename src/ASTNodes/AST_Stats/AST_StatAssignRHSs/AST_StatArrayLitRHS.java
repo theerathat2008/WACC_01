@@ -8,15 +8,22 @@ import java.util.List;
 public class AST_StatArrayLitRHS extends AST_StatAssignRHS{
   //Syntactic attributes
   List<AST_Expr> ast_exprList;
+  int numOfExpr;
   //Semantic attribute
 
 
   // Assign the class variables when called
-  public AST_StatArrayLitRHS(){
-
+  public AST_StatArrayLitRHS(int listLength){
+    this.numOfExpr = listLength;
   }
+
+  public boolean isEmbeddedNodesFull(){
+    return ast_exprList.size() == numOfExpr;
+  }
+
+
   public AST_Node getEmbeddedAST(String astToGet, int counter){
-    if(astToGet.equals("functionList")){
+    if(astToGet.equals("ast_exprList")){
       return ast_exprList.get(counter);
     }
     System.out.println("Unrecognised AST Node.");
@@ -24,10 +31,11 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS{
   }
 
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("functionList")){
+    if(astToSet.equals("ast_exprList")){
       ast_exprList.add((AST_Expr)nodeToSet);
+    } else {
+      System.out.println("Unrecognised AST Node.");
     }
-    System.out.println("Unrecognised AST Node.");
   }
 
 

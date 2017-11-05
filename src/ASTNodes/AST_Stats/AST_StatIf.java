@@ -13,15 +13,22 @@ public class AST_StatIf extends AST_Stat{
 
   // Assign the class variables when called
   public AST_StatIf(){
-
+    this.expr = null;
+    this.thenStat = null;
+    this.elseStat = null;
   }
 
+  public boolean isEmbeddedNodesFull(){
+    return expr != null && thenStat != null && elseStat != null;
+  }
+
+
   public AST_Node getEmbeddedAST(String astToGet, int counter){
-    if(astToGet.equals("paramList")){
+    if(astToGet.equals("expr")){
       return expr;
-    } else if (astToGet.equals("statement")){
+    } else if (astToGet.equals("thenStat")){
       return thenStat;
-    } else if (astToGet.equals("statement")){
+    } else if (astToGet.equals("elseStat")){
       return elseStat;
     }
     System.out.println("Unrecognised AST Node.");
@@ -29,15 +36,15 @@ public class AST_StatIf extends AST_Stat{
   }
 
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("paramList")){
+    if(astToSet.equals("expr")){
       expr = (AST_Expr) nodeToSet;
-    } else if (astToSet.equals("statement")){
+    } else if (astToSet.equals("thenStat")){
       thenStat = (AST_Stat) nodeToSet;
-    } else if (astToSet.equals("statement")){
+    } else if (astToSet.equals("elseStat")){
       elseStat = (AST_Stat) nodeToSet;
+    } else {
+      System.out.println("Unrecognised AST Node.");
     }
-
-    System.out.println("Unrecognised AST Node.");
   }
 
 

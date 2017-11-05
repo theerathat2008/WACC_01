@@ -14,6 +14,10 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS{
 
   }
 
+  public boolean isEmbeddedNodesFull(){
+    return true;
+  }
+
 
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     System.out.println("Terminal AST Node.");

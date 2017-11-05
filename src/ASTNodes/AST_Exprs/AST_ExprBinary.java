@@ -11,13 +11,19 @@ public class AST_ExprBinary extends AST_Expr{
 
   // Assign the class variables when called
   public AST_ExprBinary(){
+    this.exprLeftAST = null;
+    this.exprRightAST = null;
+  }
 
+
+  public boolean isEmbeddedNodesFull(){
+    return exprLeftAST != null && exprRightAST != null;
   }
 
   public AST_Node getEmbeddedAST(String astToGet, int counter){
-    if(astToGet.equals("paramList")){
+    if(astToGet.equals("exprLeftAST")){
       return exprLeftAST;
-    } else if (astToGet.equals("statement")){
+    } else if (astToGet.equals("exprRightAST")){
       return exprRightAST;
     }
     System.out.println("Unrecognised AST Node.");
@@ -25,12 +31,13 @@ public class AST_ExprBinary extends AST_Expr{
   }
 
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("paramList")){
+    if(astToSet.equals("exprLeftAST")){
       exprLeftAST = (AST_Expr) nodeToSet;
-    } else if (astToSet.equals("statement")){
+    } else if (astToSet.equals("exprRightAST")){
       exprRightAST = (AST_Expr) nodeToSet;
+    } else {
+      System.out.println("Unrecognised AST Node.");
     }
-    System.out.println("Unrecognised AST Node.");
   }
 
 

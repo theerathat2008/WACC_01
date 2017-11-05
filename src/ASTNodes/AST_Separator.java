@@ -13,6 +13,10 @@ public class AST_Separator extends AST_Node {
 
   }
 
+  public boolean isEmbeddedNodesFull(){
+    return true;
+  }
+
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     System.out.println("Terminal AST Node.");
     return null;

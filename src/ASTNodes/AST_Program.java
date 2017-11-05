@@ -3,6 +3,7 @@ package ASTNodes;
 import ASTNodes.AST_Stats.AST_Stat;
 import IdentifierObjects.ProgramObj;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AST_Program extends AST_Node {
@@ -16,12 +17,12 @@ public class AST_Program extends AST_Node {
   // Assign the class variables when called
   public AST_Program(int listLength){
     this.numOfFunc = listLength;
+    this.funcDeclList = new ArrayList<>();
     statement = null;
   }
 
   /**
-   * Returns true if the embeded Nodes have values
-   *
+   * Returns true if the embedded Nodes have values
    */
   public boolean isEmbeddedNodesFull(){
     return funcDeclList.size() == numOfFunc && statement != null;
@@ -39,11 +40,13 @@ public class AST_Program extends AST_Node {
 
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("functionList")){
-      funcDeclList.add((AST_FuncDecl)nodeToSet);
+      funcDeclList.add(((AST_FuncDecl)nodeToSet));
     } else if (astToSet.equals("statement")){
       statement = (AST_Stat) nodeToSet;
+    } else {
+      System.out.println("Unrecognised AST Node.");
     }
-    System.out.println("Unrecognised AST Node.");
+
   }
 
   //Semantic Analysis and print error message if needed

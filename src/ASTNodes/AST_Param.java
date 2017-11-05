@@ -14,6 +14,13 @@ public class AST_Param extends AST_Node {
 
   }
 
+  /**
+   * Returns true if the embedded Nodes have value
+   */
+  public boolean isEmbeddedNodesFull(){
+    return true;
+  }
+
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     System.out.println("Terminal AST Node.");
     return null;

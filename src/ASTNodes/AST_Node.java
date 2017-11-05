@@ -7,6 +7,9 @@ public abstract class AST_Node {
 
   public AST_Node parentNode;
 
+  // Returns true if the embedded nodes have values
+  public abstract boolean isEmbeddedNodesFull();
+
   //Return embeded AST nodes if they exist
   public abstract AST_Node getEmbeddedAST(String astToGet, int counter);
 

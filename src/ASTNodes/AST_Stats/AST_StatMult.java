@@ -11,13 +11,18 @@ public class AST_StatMult extends AST_Stat{
 
   // Assign the class variables when called
   public AST_StatMult(){
+    this.stat1 = null;
+    this.stat2 = null;
+  }
 
+  public boolean isEmbeddedNodesFull(){
+    return stat1 != null && stat2 != null;
   }
 
   public AST_Node getEmbeddedAST(String astToGet, int counter){
-    if(astToGet.equals("paramList")){
+    if(astToGet.equals("stat1")){
       return stat1;
-    } else if (astToGet.equals("statement")){
+    } else if (astToGet.equals("stat2")){
       return stat2;
     }
     System.out.println("Unrecognised AST Node.");
@@ -25,12 +30,13 @@ public class AST_StatMult extends AST_Stat{
   }
 
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("paramList")){
+    if(astToSet.equals("stat1")){
       stat1 = (AST_Stat) nodeToSet;
-    } else if (astToSet.equals("statement")){
+    } else if (astToSet.equals("stat2")){
       stat2 = (AST_Stat) nodeToSet;
+    } else {
+      System.out.println("Unrecognised AST Node.");
     }
-    System.out.println("Unrecognised AST Node.");
   }
 
 

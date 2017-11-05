@@ -2,10 +2,7 @@ package src;
 
 import java.util.*;
 
-import ASTNodes.AST_FuncDecl;
-import ASTNodes.AST_Node;
-import ASTNodes.AST_Param;
-import ASTNodes.AST_Program;
+import ASTNodes.*;
 import antlr.*;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -75,6 +72,30 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     return visitChildren(ctx);
   }
 
+  @Override
+  public Void visitParam_list(WaccParser.Param_listContext ctx) {
+
+    //Create the node for the current visitor function
+    AST_ParamList paramListNode = new AST_ParamList(ctx.getChildCount());
+
+    //Set currNode to corresponding embedded AST in parent node
+    parentVisitorNode.setEmbeddedAST("paramList", paramListNode);
+
+    //Set parentNode of AST class and global visitor class
+    paramListNode.parentNode = parentVisitorNode;
+    parentVisitorNode = paramListNode;
+
+    //Do semantic analysis
+    paramListNode.Check();
+
+    //Debug statement
+    System.out.println("ParamList");
+
+    //Iterate through rest of the tree
+    return visitChildren(ctx);
+  }
+
+
   //TERMINAL NODE
   @Override
   public Void visitParam(WaccParser.ParamContext ctx) {
@@ -83,7 +104,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_Param paramNode = new AST_Param();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("functionList", paramNode);
+    parentVisitorNode.setEmbeddedAST("paramList", paramNode);
 
     //Set parentNode of AST class and global visitor class
     paramNode.parentNode = parentVisitorNode;
@@ -96,21 +117,14 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     System.out.println("Param");
 
     //Set the parent node for terminal node
-    if(){
-
+    while(parentVisitorNode.isEmbeddedNodesFull()){
+      parentVisitorNode = parentVisitorNode.parentNode;
     }
-
+    System.out.println(parentVisitorNode.toString());
 
     //Iterate through rest of the tree
     return visitChildren(ctx);
   }
-
-  @Override
-  public Void visitMULT_STAT(WaccParser.MULT_STATContext ctx) {
-
-    return visitChildren(ctx);
-  }
-
 }
 /**
 

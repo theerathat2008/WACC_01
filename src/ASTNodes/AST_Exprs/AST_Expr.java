@@ -9,6 +9,10 @@ public class AST_Expr extends AST_Node{
 
   // Assign the class variables when called
 
+  public boolean isEmbeddedNodesFull(){
+    return true;
+  }
+
 
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     System.out.println("Base AST Node.");

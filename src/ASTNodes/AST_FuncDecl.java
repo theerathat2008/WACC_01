@@ -13,7 +13,15 @@ public class AST_FuncDecl extends AST_Node {
   FunctionObj function;
 
   public AST_FuncDecl(){
+    paramList = null;
+    statement = null;
+  }
 
+  /**
+   * Returns true if the embedded Nodes have values
+   */
+  public boolean isEmbeddedNodesFull(){
+    return statement != null && paramList != null;
   }
 
   public AST_Node getEmbeddedAST(String astToGet, int counter){
@@ -31,8 +39,9 @@ public class AST_FuncDecl extends AST_Node {
       paramList = (AST_ParamList) nodeToSet;
     } else if (astToSet.equals("statement")){
       statement = (AST_Stat) nodeToSet;
+    } else {
+      System.out.println("Unrecognised AST Node.");
     }
-    System.out.println("Unrecognised AST Node.");
   }
 
   //Semantic Analysis and print error message if needed

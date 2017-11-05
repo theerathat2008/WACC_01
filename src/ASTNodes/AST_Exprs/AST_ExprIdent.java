@@ -12,6 +12,10 @@ public class AST_ExprIdent extends AST_Expr{
 
   }
 
+  public boolean isEmbeddedNodesFull(){
+    return true;
+  }
+
 
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     System.out.println("Terminal AST Node.");

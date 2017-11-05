@@ -14,6 +14,10 @@ public class AST_Stat extends AST_Node {
 
   }
 
+  public boolean isEmbeddedNodesFull(){
+    return true;
+  }
+
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     System.out.println("Base AST Node.");
     return null;

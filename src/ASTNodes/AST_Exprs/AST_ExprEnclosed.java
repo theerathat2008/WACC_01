@@ -12,15 +12,22 @@ public class AST_ExprEnclosed extends AST_Expr{
 
   // Assign the class variables when called
   public AST_ExprEnclosed(){
+    this.leftSepAST = null;
+    this.exprAST = null;
+    this.rightSepAST = null;
 
   }
 
+  public boolean isEmbeddedNodesFull(){
+    return leftSepAST != null && exprAST != null && rightSepAST != null;
+  }
+
   public AST_Node getEmbeddedAST(String astToGet, int counter){
-    if(astToGet.equals("paramList")){
+    if(astToGet.equals("leftSepAST")){
       return leftSepAST;
-    } else if (astToGet.equals("statement")){
+    } else if (astToGet.equals("exprAST")){
       return exprAST;
-    } else if (astToGet.equals("statement")){
+    } else if (astToGet.equals("rightSepAST")){
       return rightSepAST;
     }
     System.out.println("Unrecognised AST Node.");
@@ -28,14 +35,15 @@ public class AST_ExprEnclosed extends AST_Expr{
   }
 
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("paramList")){
+    if(astToSet.equals("leftSepAST")){
       leftSepAST = (AST_Separator) nodeToSet;
-    } else if (astToSet.equals("statement")){
+    } else if (astToSet.equals("exprAST")){
       exprAST = (AST_Expr) nodeToSet;
-    } else if (astToSet.equals("statement")){
+    } else if (astToSet.equals("rightSepAST")){
       rightSepAST = (AST_Separator) nodeToSet;
+    } else {
+      System.out.println("Unrecognised AST Node.");
     }
-    System.out.println("Unrecognised AST Node.");
   }
 
 

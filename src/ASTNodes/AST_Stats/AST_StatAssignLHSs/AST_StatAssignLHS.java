@@ -11,6 +11,10 @@ public class AST_StatAssignLHS extends AST_Stat {
     return null;
   }
 
+  public boolean isEmbeddedNodesFull(){
+    return true;
+  }
+
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     System.out.println("Base AST Node.");
   }
