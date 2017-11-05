@@ -15,8 +15,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
-  AST_Program progBase;
-  AST_Node parentVisitorNode;
+  private AST_Program progBase;
+  private AST_Node parentVisitorNode;
 
   /**
    * General layout of visitor functions
@@ -35,7 +35,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     progBase = new AST_Program(ctx.getChildCount());
 
     //Set parentNode of AST class and global visitor class
-    progBase.parentNode = null;
+    progBase.setParentNode(null);
     parentVisitorNode = progBase;
 
     //Do semantic analysis
@@ -59,7 +59,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode.setEmbeddedAST("functionList", funcNode);
 
     //Set parentNode of AST class and global visitor class
-    funcNode.parentNode = parentVisitorNode;
+    funcNode.setParentNode(parentVisitorNode);
     parentVisitorNode = funcNode;
 
     //Do semantic analysis
@@ -82,7 +82,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode.setEmbeddedAST("paramList", paramListNode);
 
     //Set parentNode of AST class and global visitor class
-    paramListNode.parentNode = parentVisitorNode;
+    paramListNode.setParentNode(parentVisitorNode);
     parentVisitorNode = paramListNode;
 
     //Do semantic analysis
@@ -107,7 +107,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode.setEmbeddedAST("paramList", paramNode);
 
     //Set parentNode of AST class and global visitor class
-    paramNode.parentNode = parentVisitorNode;
+    paramNode.setParentNode(parentVisitorNode);
     parentVisitorNode = paramNode;
 
     //Do semantic analysis
@@ -118,10 +118,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Set the parent node for terminal node
     while(parentVisitorNode.isEmbeddedNodesFull()){
-      parentVisitorNode = parentVisitorNode.parentNode;
+      parentVisitorNode = parentVisitorNode.getParentNode();
     }
-    System.out.println(parentVisitorNode.toString());
-
     //Iterate through rest of the tree
     return visitChildren(ctx);
   }

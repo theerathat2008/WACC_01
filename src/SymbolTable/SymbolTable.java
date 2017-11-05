@@ -1,6 +1,5 @@
 package SymbolTable;
 
-import IdentifierObjects.IDENTIFIER;
 
 import java.util.*;
 

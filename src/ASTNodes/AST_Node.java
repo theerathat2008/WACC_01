@@ -5,7 +5,15 @@ package ASTNodes;
  */
 public abstract class AST_Node {
 
-  public AST_Node parentNode;
+  protected AST_Node parentNode;
+
+  public AST_Node getParentNode(){
+    return parentNode;
+  }
+
+  public void setParentNode(AST_Node nodeToSet){
+    parentNode = nodeToSet;
+  }
 
   // Returns true if the embedded nodes have values
   public abstract boolean isEmbeddedNodesFull();
