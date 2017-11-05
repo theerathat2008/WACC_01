@@ -30,7 +30,7 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
 
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("ast_expr")){
-      ast_expr = (AST_Expr) nodeToSet;
+      ast_expr = (AST_Expr)nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node.");
     }

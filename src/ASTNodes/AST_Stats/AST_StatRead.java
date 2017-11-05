@@ -1,44 +1,33 @@
-package ASTNodes.AST_Stats.AST_StatAssignLHSs;
+package ASTNodes.AST_Stats;
 
-import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
+import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
 
-import java.util.List;
-
-
-//TODO ------------------------
-//TODO Calculate the num of expression properly
-//TODO -------------------------
-
-
-public class AST_StatArrayElemLHS extends AST_StatAssignLHS{
+public class AST_StatRead extends AST_Stat{
   //Syntactic attributes
-  String identName;
-  List<AST_Expr> ast_exprList;
-  int numOfExpr;
+  AST_StatAssignLHS ast_statAssignLHS;
   //Semantic attribute
 
-
   // Assign the class variables when called
-  public AST_StatArrayElemLHS(int listLength){
-    this.numOfExpr = listLength;
+  public AST_StatRead(){
+    this.ast_statAssignLHS = null;
   }
 
   public boolean isEmbeddedNodesFull(){
-    return ast_exprList.size() == numOfExpr;
+    return ast_statAssignLHS != null;
   }
 
   public AST_Node getEmbeddedAST(String astToGet, int counter){
-    if(astToGet.equals("ast_exprList")){
-      return ast_exprList.get(counter);
+    if(astToGet.equals("ast_statAssignLHS")){
+      return ast_statAssignLHS;
     }
     System.out.println("Unrecognised AST Node.");
     return null;
   }
 
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("ast_exprList")){
-      ast_exprList.add((AST_Expr)nodeToSet);
+    if(astToSet.equals("ast_statAssignLHS")){
+      ast_statAssignLHS = (AST_StatAssignLHS) nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node.");
     }
@@ -46,11 +35,13 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS{
 
 
   //Semantic Analysis and print error message if needed
+  @Override
   protected boolean CheckSemantics(){
     return true;
   }
 
   // Called from visitor
+  @Override
   public void Check(){
     if(CheckSemantics()){
       //Do symbol table stuff
