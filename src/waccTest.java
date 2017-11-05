@@ -15,6 +15,12 @@ public class waccTest {
 
     WaccParser parser = new WaccParser(tokens);
 
+    if (parser.getNumberOfSyntaxErrors() != 0) {
+      System.out.println("#syntax_error");
+      System.exit(100);
+    }
+
+
     ParseTree tree = parser.program();
 
     //System.out.println("Printing out the tree: ");
