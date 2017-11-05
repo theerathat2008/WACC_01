@@ -4,3 +4,11 @@
 # but do *not* change its name.
 
 puts "TODO: setup this script to call your WACC compiler"
+
+if ARGV.empty?
+  puts "No file provided, please provide a .WACC file to compile"
+elsif File.extname(ARGV[0]) != ".wacc"
+  puts "Not a .wacc file, please provide a .WACC file to compile"
+else
+  %x(java waccTest.class < #{ARGV[0]})
+end
