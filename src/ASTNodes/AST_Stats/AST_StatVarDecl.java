@@ -9,7 +9,6 @@ public class AST_StatVarDecl extends AST_Stat {
   String identName;
   AST_StatAssignRHS ast_assignRHS;
   //Semantic attribute
-  //VariableObj var;
 
   // Assign the class variables when called
   public AST_StatVarDecl(){

@@ -1,7 +1,5 @@
 package ASTNodes;
 
-import IdentifierObjects.ParamListObj;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +8,6 @@ public class AST_ParamList extends AST_Node{
   List<AST_Param> paramList;
   int numOfParam;
   //Semantic attribute
-  ParamListObj paramListObj;
 
   // Assign the class variables when called
   public AST_ParamList(int listLength){

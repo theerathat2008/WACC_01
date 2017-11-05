@@ -1,7 +1,6 @@
 package ASTNodes;
 
 import ASTNodes.AST_Stats.AST_Stat;
-import IdentifierObjects.FunctionObj;
 
 public class AST_FuncDecl extends AST_Node {
   //Syntactic attributes
@@ -10,7 +9,6 @@ public class AST_FuncDecl extends AST_Node {
   AST_ParamList paramList;
   AST_Stat statement;
   //Semantic attribute
-  FunctionObj function;
 
   public AST_FuncDecl(){
     paramList = null;

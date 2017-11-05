@@ -10,7 +10,6 @@ public class AST_StatAssign extends AST_Stat{
   AST_StatAssignRHS ast_statAssignRHS;
 
   //Semantic attribute
- // StatAssignObj statAssignObj;
 
   // Assign the class variables when called
   public AST_StatAssign(){

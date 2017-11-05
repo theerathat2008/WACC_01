@@ -1,7 +1,6 @@
 package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Node;
-import IdentifierObjects.StatObjs.StatObj;
 
 public class AST_StatMult extends AST_Stat{
   //Syntactic attributes

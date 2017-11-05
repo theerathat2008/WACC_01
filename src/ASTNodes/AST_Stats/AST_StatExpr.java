@@ -2,13 +2,11 @@ package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
-import IdentifierObjects.StatObjs.StatExprObj;
 
 public class AST_StatExpr extends AST_Stat{
   //Syntactic attributes
   AST_Expr expr;
   //Semantic attribute
-  StatExprObj statExprObj;
 
   // Assign the class variables when called
   public AST_StatExpr(){

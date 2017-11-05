@@ -1,7 +1,6 @@
 package ASTNodes;
 
 import ASTNodes.AST_Stats.AST_Stat;
-import IdentifierObjects.ProgramObj;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,6 @@ public class AST_Program extends AST_Node {
   int numOfFunc;
   AST_Stat statement;
   //Semantic attribute
-  ProgramObj programObj;
 
   // Assign the class variables when called
   public AST_Program(int listLength){

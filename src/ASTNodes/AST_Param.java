@@ -1,13 +1,10 @@
 package ASTNodes;
 
-import IdentifierObjects.ParamObj;
-
 public class AST_Param extends AST_Node {
   //Syntactic attributes
   String paramType;
   String paramName;
   //Semantic attribute
-  ParamObj paramObj;
 
   // Assign the class variables when called
   public AST_Param(){
