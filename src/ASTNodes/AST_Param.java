@@ -1,7 +1,5 @@
 package ASTNodes;
 
-import IdentifierObjects.ParamObj;
-
 public class AST_Param extends AST_Node {
   //Syntactic attributes
   String paramType;

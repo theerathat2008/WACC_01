@@ -4,8 +4,14 @@ package IdentifierObjects;
 Could hold reference to the ASTNode that declares IDENTIFIER
 **/
 
-public class IDENTIFIER {
+public abstract class IDENTIFIER {
+  String name;
+  public abstract boolean equals(IDENTIFIER other);
+
 }
+
+
+
 
 /**
 Holds attributes common to all types

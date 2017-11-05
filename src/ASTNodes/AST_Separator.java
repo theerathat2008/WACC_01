@@ -1,7 +1,5 @@
 package ASTNodes;
 
-import IdentifierObjects.SeparatorObj;
-
 public class AST_Separator extends AST_Node {
   //Syntactic attributes
   String separatorType;
