@@ -9,6 +9,7 @@ public class AST_StatVarDecl extends AST_Stat {
   String identName;
   AST_StatAssignRHS ast_assignRHS;
   //Semantic attribute
+  //VariableObj var;
 
   // Assign the class variables when called
   public AST_StatVarDecl(){
@@ -28,7 +29,7 @@ public class AST_StatVarDecl extends AST_Stat {
   }
 
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("ast_assignRHS")){
+    if(astToSet.equals("statAssignRHS")){
       ast_assignRHS = (AST_StatAssignRHS) nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node.");

@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AST_StatArrayLitRHS extends AST_StatAssignRHS{
@@ -13,8 +14,13 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS{
 
 
   // Assign the class variables when called
-  public AST_StatArrayLitRHS(int listLength){
-    this.numOfExpr = listLength;
+  public AST_StatArrayLitRHS(int numberOfChildren){
+    ast_exprList = new ArrayList<>();
+    if(numberOfChildren == 2){
+      this.numOfExpr = 0;
+    } else {
+      this.numOfExpr = (numberOfChildren - 1) / 2;
+    }
   }
 
   public boolean isEmbeddedNodesFull(){

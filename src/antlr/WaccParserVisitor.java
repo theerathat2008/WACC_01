@@ -39,12 +39,6 @@ public interface WaccParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFREE_STAT(@NotNull WaccParser.FREE_STATContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link WaccParser#close_paren}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitClose_paren(@NotNull WaccParser.Close_parenContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link WaccParser#program}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -106,12 +100,6 @@ public interface WaccParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPAIR_ELEM_RHS(@NotNull WaccParser.PAIR_ELEM_RHSContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link WaccParser#open_paren}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOpen_paren(@NotNull WaccParser.Open_parenContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link WaccParser#param}.
 	 * @param ctx the parse tree

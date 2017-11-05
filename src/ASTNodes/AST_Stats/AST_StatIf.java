@@ -38,10 +38,16 @@ public class AST_StatIf extends AST_Stat{
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("expr")){
       expr = (AST_Expr) nodeToSet;
-    } else if (astToSet.equals("thenStat")){
-      thenStat = (AST_Stat) nodeToSet;
-    } else if (astToSet.equals("elseStat")){
-      elseStat = (AST_Stat) nodeToSet;
+    } else if (astToSet.equals("statement")){
+
+      if(thenStat == null){
+        thenStat = (AST_Stat) nodeToSet;
+      } else if (elseStat == null){
+        elseStat = (AST_Stat) nodeToSet;
+      } else {
+        System.out.println("If and then in AST_StatIf have already been assigned.");
+      }
+
     } else {
       System.out.println("Unrecognised AST Node.");
     }

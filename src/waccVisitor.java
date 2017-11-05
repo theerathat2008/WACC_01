@@ -110,7 +110,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_Param paramNode = new AST_Param();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("paramList", paramNode);
+    parentVisitorNode.setEmbeddedAST("listParam", paramNode);
 
     //Set parentNode of AST class and global visitor class
     paramNode.setParentNode(parentVisitorNode);
@@ -138,8 +138,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatExprRHS statExprRHSNode = new AST_StatExprRHS();
 
     //Set currNode to corresponding embedded AST in parent node
-    System.out.println(parentVisitorNode.toString());
-    parentVisitorNode.setEmbeddedAST("ast_expr", statExprRHSNode);
+    parentVisitorNode.setEmbeddedAST("statAssignRHS", statExprRHSNode);
 
     //Set parentNode of AST class and global visitor class
     statExprRHSNode.setParentNode(parentVisitorNode);
@@ -156,22 +155,15 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   }
 
   //TODO ------------------------
-  //TODO Check if we need visit ArrayELEM
+  //TODO Check if we need visit ArrayELEM : PROBABLY NOT, Embedded in StatArrayELemLHs and ExprArrayElem
   //TODO -------------------------
   @Override
   public Void visitArray_elem(WaccParser.Array_elemContext ctx) {
     return visitChildren(ctx);
   }
 
-  //TODO ------------------------
-  //TODO Check if we need visit CLOSEPAREN
-  //TODO -------------------------
-  @Override
-  public Void visitClose_paren(WaccParser.Close_parenContext ctx) {
-    return visitChildren(ctx);
-  }
 
-  //Creates a generic AST_StatExpr which encompasses println stat
+
   @Override
   public Void visitPRINTLN_STAT(WaccParser.PRINTLN_STATContext ctx) {
 
@@ -179,7 +171,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatExpr statExprNode = new AST_StatExpr();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("expr", statExprNode);
+    parentVisitorNode.setEmbeddedAST("statement", statExprNode);
 
     //Set parentNode of AST class and global visitor class
     statExprNode.setParentNode(parentVisitorNode);
@@ -189,13 +181,13 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     statExprNode.Check();
 
     //Debug statement
-    System.out.println("GeneralStatExpr");
+    System.out.println("printlnStat");
 
     //Iterate through rest of the tree
     return visitChildren(ctx);
   }
 
-  //
+
   @Override
   public Void visitARRAY_ELEM_LHS(WaccParser.ARRAY_ELEM_LHSContext ctx) {
 
@@ -203,7 +195,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatArrayElemLHS statArrayElemLHSNode = new AST_StatArrayElemLHS(ctx.getChildCount());
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("ast_exprList", statArrayElemLHSNode);
+    parentVisitorNode.setEmbeddedAST("ast_statAssignLHS", statArrayElemLHSNode);
 
     //Set parentNode of AST class and global visitor class
     statArrayElemLHSNode.setParentNode(parentVisitorNode);
@@ -225,7 +217,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatPairElemLHS statPairElemLHSNode = new AST_StatPairElemLHS();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("ast_expr", statPairElemLHSNode);
+    parentVisitorNode.setEmbeddedAST("ast_statAssignLHS", statPairElemLHSNode);
 
     //Set parentNode of AST class and global visitor class
     statPairElemLHSNode.setParentNode(parentVisitorNode);
@@ -242,7 +234,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   }
 
   //TODO ------------------------
-  //TODO Check if we need visit PAIR STRING
+  //TODO Check if we need visit PAIR STRING : Probably not, embedded as string info in VarDecl Param and FuncDecl
   //TODO -------------------------
   @Override
   public Void visitPAIR_STRING(WaccParser.PAIR_STRINGContext ctx) {
@@ -255,7 +247,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatPairElemRHS statPairElemRHSNode = new AST_StatPairElemRHS();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("ast_expr", statPairElemRHSNode);
+    parentVisitorNode.setEmbeddedAST("statAssignRHS", statPairElemRHSNode);
 
     //Set parentNode of AST class and global visitor class
     statPairElemRHSNode.setParentNode(parentVisitorNode);
@@ -278,17 +270,17 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_ExprLiter exprLiterNode = new AST_ExprLiter();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("ast_expr", exprLiterNode);
+    parentVisitorNode.setEmbeddedAST("expr", exprLiterNode);
 
     //Set parentNode of AST class and global visitor class
     exprLiterNode.setParentNode(parentVisitorNode);
     parentVisitorNode = exprLiterNode;
 
     //Do semantic analysis
-    exprLiterNode .Check();
+    exprLiterNode.Check();
 
     //Debug statement
-    System.out.println("exprLiter");
+    System.out.println("exprCharLiter");
 
     //Set the parent node for terminal node
     while(parentVisitorNode.isEmbeddedNodesFull()){
@@ -304,7 +296,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_ExprUnary exprUnaryNode = new AST_ExprUnary();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("ast_expr", exprUnaryNode);
+    parentVisitorNode.setEmbeddedAST("expr", exprUnaryNode);
 
     //Set parentNode of AST class and global visitor class
     exprUnaryNode.setParentNode(parentVisitorNode);
@@ -320,13 +312,14 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     return visitChildren(ctx);
   }
 
+  //Terminal TODO
   @Override
   public Void visitSKIP_STAT(WaccParser.SKIP_STATContext ctx) {
     //Create the node for the current visitor function
     AST_Stat skipNode = new AST_Stat();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST(null, skipNode);
+    parentVisitorNode.setEmbeddedAST("statement", skipNode);
 
     //Set parentNode of AST class and global visitor class
     skipNode.setParentNode(parentVisitorNode);
@@ -348,7 +341,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatRead statReadNode = new AST_StatRead();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("ast_statAssignLHS", statReadNode);
+    parentVisitorNode.setEmbeddedAST("statement", statReadNode);
 
     //Set parentNode of AST class and global visitor class
     statReadNode.setParentNode(parentVisitorNode);
@@ -370,7 +363,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatWhile statWhileNode = new AST_StatWhile();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", statWhileNode);
+    parentVisitorNode.setEmbeddedAST("statement", statWhileNode);
 
     //Set parentNode of AST class and global visitor class
     statWhileNode.setParentNode(parentVisitorNode);
@@ -386,9 +379,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     return visitChildren(ctx);
   }
 
-  //TODO ------------------------
-  //TODO Check which embedded ast to call
-  //TODO -------------------------
 
   @Override
   public Void visitNEWPAIR_RHS(WaccParser.NEWPAIR_RHSContext ctx) {
@@ -396,7 +386,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatNewPairRHS statNewPairRHSNode = new AST_StatNewPairRHS();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("ast_statAssignRHS", statNewPairRHSNode);
+    parentVisitorNode.setEmbeddedAST("statAssignRHS", statNewPairRHSNode);
 
     //Set parentNode of AST class and global visitor class
     statNewPairRHSNode.setParentNode(parentVisitorNode);
@@ -418,7 +408,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_ExprIdent exprIdentNode = new AST_ExprIdent();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", exprIdentNode);
+    parentVisitorNode.setEmbeddedAST("expr", exprIdentNode);
 
     //Set parentNode of AST class and global visitor class
     exprIdentNode.setParentNode(parentVisitorNode);
@@ -440,7 +430,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_ExprArrayElem exprArrayElemNode = new AST_ExprArrayElem(ctx.getChildCount());
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", exprArrayElemNode);
+    parentVisitorNode.setEmbeddedAST("expr", exprArrayElemNode);
 
     //Set parentNode of AST class and global visitor class
     exprArrayElemNode.setParentNode(parentVisitorNode);
@@ -462,7 +452,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_ExprEnclosed exprEnclosedNode = new AST_ExprEnclosed();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", exprEnclosedNode);
+    parentVisitorNode.setEmbeddedAST("expr", exprEnclosedNode);
 
     //Set parentNode of AST class and global visitor class
     exprEnclosedNode.setParentNode(parentVisitorNode);
@@ -484,7 +474,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatExpr statExprNode = new AST_StatExpr();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", statExprNode);
+    parentVisitorNode.setEmbeddedAST("statement", statExprNode);
 
     //Set parentNode of AST class and global visitor class
     statExprNode.setParentNode(parentVisitorNode);
@@ -506,7 +496,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatAssign statAssignNode = new AST_StatAssign();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", statAssignNode);
+    parentVisitorNode.setEmbeddedAST("statement", statAssignNode);
 
     //Set parentNode of AST class and global visitor class
     statAssignNode.setParentNode(parentVisitorNode);
@@ -528,7 +518,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatIdentLHS statIdentLHSNode = new AST_StatIdentLHS();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", statIdentLHSNode);
+    parentVisitorNode.setEmbeddedAST("ast_statAssignLHS", statIdentLHSNode);
 
     //Set parentNode of AST class and global visitor class
     statIdentLHSNode.setParentNode(parentVisitorNode);
@@ -550,7 +540,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_ExprLiter exprLiterNode = new AST_ExprLiter();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", exprLiterNode);
+    parentVisitorNode.setEmbeddedAST("expr", exprLiterNode);
 
     //Set parentNode of AST class and global visitor class
     exprLiterNode.setParentNode(parentVisitorNode);
@@ -560,7 +550,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     exprLiterNode.Check();
 
     //Debug statement
-    System.out.println("exprLiter");
+    System.out.println("exprIntLiter");
 
     //Iterate through rest of the tree
     return visitChildren(ctx);
@@ -572,7 +562,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatVarDecl statVarDeclNode = new AST_StatVarDecl();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", statVarDeclNode);
+    parentVisitorNode.setEmbeddedAST("statement", statVarDeclNode);
 
     //Set parentNode of AST class and global visitor class
     statVarDeclNode.setParentNode(parentVisitorNode);
@@ -594,7 +584,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatExpr statExprNode = new AST_StatExpr();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", statExprNode);
+    parentVisitorNode.setEmbeddedAST("statement", statExprNode);
 
     //Set parentNode of AST class and global visitor class
     statExprNode.setParentNode(parentVisitorNode);
@@ -602,9 +592,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Do semantic analysis
     statExprNode.Check();
-  //TODO ------------------------
-  //TODO Check Whether to visit PAIR_TYPE
-  //TODO -------------------------
+
     //Debug statement
     System.out.println("statExpr");
 
@@ -618,7 +606,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatBeginEnd statBeginEndNode = new AST_StatBeginEnd();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", statBeginEndNode);
+    parentVisitorNode.setEmbeddedAST("statement", statBeginEndNode);
 
     //Set parentNode of AST class and global visitor class
     statBeginEndNode.setParentNode(parentVisitorNode);
@@ -640,7 +628,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatIf statIfNode = new AST_StatIf();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", statIfNode);
+    parentVisitorNode.setEmbeddedAST("statement", statIfNode);
 
     //Set parentNode of AST class and global visitor class
     statIfNode.setParentNode(parentVisitorNode);
@@ -662,7 +650,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatCallRHS statCallRHSNode = new AST_StatCallRHS(ctx.getChildCount());
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", statCallRHSNode);
+    parentVisitorNode.setEmbeddedAST("statAssignRHS", statCallRHSNode);
 
     //Set parentNode of AST class and global visitor class
     statCallRHSNode.setParentNode(parentVisitorNode);
@@ -678,7 +666,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     return visitChildren(ctx);
   }
 
-
+/**
+ * TODO SHOULDNT EXIST ANYMORE
   @Override
   public Void visitOpen_paren(WaccParser.Open_parenContext ctx) {
     //Create the node for the current visitor function
@@ -700,9 +689,11 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Iterate through rest of the tree
     return visitChildren(ctx);
   }
+**/
+
 
   //TODO ------------------------
-  //TODO Check Whether to visit Pair FST
+  //TODO Check Whether to visit Pair FST : Probably not, value stored in pair elem rhs and pair elem lhs, ASTs
   //TODO -------------------------
 
   @Override
@@ -712,7 +703,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
   //TODO ------------------------
-  //TODO Check Whether to visit ARRAY_TYPE_PAIR
+  //TODO Check Whether to visit ARRAY_TYPE_PAIR: Probably not, value store in type
   //TODO -------------------------
 
   @Override
@@ -727,7 +718,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_ExprBinary exprBinaryNode = new AST_ExprBinary();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", exprBinaryNode);
+    parentVisitorNode.setEmbeddedAST("expr", exprBinaryNode);
 
     //Set parentNode of AST class and global visitor class
     exprBinaryNode.setParentNode(parentVisitorNode);
@@ -749,7 +740,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatMult statMultNode = new AST_StatMult();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", statMultNode);
+    parentVisitorNode.setEmbeddedAST("statement", statMultNode);
 
     //Set parentNode of AST class and global visitor class
     statMultNode.setParentNode(parentVisitorNode);
@@ -765,15 +756,16 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     return visitChildren(ctx);
   }
 
-
+/**
   //TODO ------------------------
-  //TODO Check Whether to visit ARRAY_TYPE
+  //TODO Got rid of array type
   //TODO -------------------------
 
   @Override
   public Void visitARRAY_TYPE(WaccParser.ARRAY_TYPEContext ctx) {
     return visitChildren(ctx);
   }
+**/
 
   @Override
   public Void visitSTR_LITER_EXPR(WaccParser.STR_LITER_EXPRContext ctx) {
@@ -781,7 +773,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_ExprLiter exprLiterNode = new AST_ExprLiter();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", exprLiterNode);
+    parentVisitorNode.setEmbeddedAST("expr", exprLiterNode);
 
     //Set parentNode of AST class and global visitor class
     exprLiterNode.setParentNode(parentVisitorNode);
@@ -791,7 +783,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     exprLiterNode.Check();
 
     //Debug statement
-    System.out.println("exprLiter");
+    System.out.println("exprStringLiter");
 
     //Iterate through rest of the tree
     return visitChildren(ctx);
@@ -803,7 +795,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatArrayLitRHS statArrayLitRHSNode = new AST_StatArrayLitRHS(ctx.getChildCount());
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", statArrayLitRHSNode);
+    parentVisitorNode.setEmbeddedAST("statAssignRHS", statArrayLitRHSNode);
 
     //Set parentNode of AST class and global visitor class
     statArrayLitRHSNode.setParentNode(parentVisitorNode);
@@ -825,7 +817,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatExpr exitNode = new AST_StatExpr();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", exitNode);
+    parentVisitorNode.setEmbeddedAST("statement", exitNode);
 
     //Set parentNode of AST class and global visitor class
     exitNode.setParentNode(parentVisitorNode);
@@ -842,7 +834,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   }
 
   //TODO ------------------------
-  //TODO Check Whether to visit ARG_LIST
+  //TODO Check Whether to visit ARG_LIST : Probably not, stored in AST_CallRHS
   //TODO -------------------------
 
   @Override
@@ -851,7 +843,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   }
 
   //TODO ------------------------
-  //TODO Check Whether to visit BASE_TYPR_PAIR
+  //TODO Check Whether to visit BASE_TYPR_PAIR : Probably not, stored in pair_type
   //TODO -------------------------
 
   @Override
@@ -860,7 +852,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   }
 
   //TODO ------------------------
-  //TODO Check Whether to visit PAIR_SND
+  //TODO Check Whether to visit PAIR_SND :  Probably not, value stored in pair elem rhs and pair elem lhs, ASTs
   //TODO -------------------------
 
   @Override
@@ -874,7 +866,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_ExprLiter boolLiterNode = new AST_ExprLiter();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", boolLiterNode);
+    parentVisitorNode.setEmbeddedAST("expr", boolLiterNode);
 
     //Set parentNode of AST class and global visitor class
     boolLiterNode.setParentNode(parentVisitorNode);
@@ -891,7 +883,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   }
 
   //TODO ------------------------
-  //TODO Check Whether to visit PAIR_TYPE
+  //TODO Check Whether to visit PAIR_TYPE : NO
   //TODO -------------------------
 
   @Override
@@ -905,7 +897,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_ExprLiter pairLiterNode = new AST_ExprLiter();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", pairLiterNode);
+    parentVisitorNode.setEmbeddedAST("expr", pairLiterNode);
 
     //Set parentNode of AST class and global visitor class
     pairLiterNode.setParentNode(parentVisitorNode);
@@ -928,7 +920,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_StatExpr returnStatNode = new AST_StatExpr();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("exprAST", returnStatNode);
+    parentVisitorNode.setEmbeddedAST("statement", returnStatNode);
 
     //Set parentNode of AST class and global visitor class
     returnStatNode.setParentNode(parentVisitorNode);
@@ -946,7 +938,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
   //TODO ------------------------
-  //TODO Check Whether to visit BASE_TYPE
+  //TODO Check Whether to visit BASE_TYPE : NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
   //TODO -------------------------
 
   @Override

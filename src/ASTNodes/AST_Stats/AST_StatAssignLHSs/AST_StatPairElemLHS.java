@@ -29,7 +29,7 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS{
   }
 
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("ast_expr")){
+    if(astToSet.equals("expr")){
       ast_expr = (AST_Expr) nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node.");

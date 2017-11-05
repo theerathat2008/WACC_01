@@ -2,6 +2,7 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AST_ExprArrayElem extends AST_Expr{
@@ -12,8 +13,9 @@ public class AST_ExprArrayElem extends AST_Expr{
   //Semantic attribute
 
   // Assign the class variables when called
-  public AST_ExprArrayElem(int listLength){
-    this.numOfExpr = listLength;
+  public AST_ExprArrayElem(int numberOfChildren){
+    ast_exprList = new ArrayList<>();
+    this.numOfExpr = (numberOfChildren - 1) / 3;
   }
 
   public boolean isEmbeddedNodesFull(){

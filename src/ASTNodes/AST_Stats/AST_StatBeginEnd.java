@@ -26,7 +26,7 @@ public class AST_StatBeginEnd extends AST_Stat {
   }
 
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("statAST")){
+    if(astToSet.equals("statement")){
       statAST = (AST_Stat) nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node.");

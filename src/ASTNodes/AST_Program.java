@@ -13,8 +13,8 @@ public class AST_Program extends AST_Node {
   //Semantic attribute
 
   // Assign the class variables when called
-  public AST_Program(int listLength){
-    this.numOfFunc = listLength;
+  public AST_Program(int numberOfChildren){
+    this.numOfFunc = numberOfChildren - 4;
     this.funcDeclList = new ArrayList<>();
     statement = null;
   }

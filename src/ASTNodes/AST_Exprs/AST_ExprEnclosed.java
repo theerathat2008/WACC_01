@@ -37,7 +37,7 @@ public class AST_ExprEnclosed extends AST_Expr{
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("leftSepAST")){
       leftSepAST = (AST_Separator) nodeToSet;
-    } else if (astToSet.equals("exprAST")){
+    } else if (astToSet.equals("expr")){
       exprAST = (AST_Expr) nodeToSet;
     } else if (astToSet.equals("rightSepAST")){
       rightSepAST = (AST_Separator) nodeToSet;

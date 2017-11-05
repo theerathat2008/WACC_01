@@ -26,7 +26,7 @@ public class AST_ExprUnary extends AST_Expr{
   }
 
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("astExpr")){
+    if(astToSet.equals("expr")){
       astExpr = (AST_Expr) nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node.");

@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AST_StatCallRHS extends AST_StatAssignRHS{
@@ -14,8 +15,9 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
 
 
   // Assign the class variables when called
-  public AST_StatCallRHS(int listLength){
-    this.numOfExpr = listLength;
+  public AST_StatCallRHS(int numberOfChildren){
+    ast_exprList = new ArrayList<>();
+    this.numOfExpr = (numberOfChildren + 1) / 2;
   }
 
   public boolean isEmbeddedNodesFull(){
@@ -31,7 +33,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
   }
 
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("ast_exprList")){
+    if(astToSet.equals("expr")){
       ast_exprList.add((AST_Expr)nodeToSet);
     } else {
       System.out.println("Unrecognised AST Node.");

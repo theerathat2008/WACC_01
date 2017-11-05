@@ -22,7 +22,7 @@ public class AST_StatWhile extends AST_Stat{
   }
 
   public AST_Node getEmbeddedAST(String astToGet, int counter){
-    if(astToGet.equals("exprAST")){
+    if(astToGet.equals("expr")){
       return exprAST;
     } else if (astToGet.equals("statAST")){
       return statAST;
@@ -32,9 +32,9 @@ public class AST_StatWhile extends AST_Stat{
   }
 
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("exprAST")){
+    if(astToSet.equals("expr")){
       exprAST = (AST_Expr) nodeToSet;
-    } else if (astToSet.equals("statAST")){
+    } else if (astToSet.equals("statement")){
       statAST = (AST_Stat) nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node.");

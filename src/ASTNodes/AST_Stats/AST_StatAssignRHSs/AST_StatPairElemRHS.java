@@ -28,7 +28,7 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
   }
 
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("ast_expr")){
+    if(astToSet.equals("expr")){
       ast_expr = (AST_Expr) nodeToSet;
     }
     System.out.println("Unrecognised AST Node.");

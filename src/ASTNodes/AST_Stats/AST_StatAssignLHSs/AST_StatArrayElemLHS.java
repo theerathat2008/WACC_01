@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,8 +21,9 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS{
 
 
   // Assign the class variables when called
-  public AST_StatArrayElemLHS(int listLength){
-    this.numOfExpr = listLength;
+  public AST_StatArrayElemLHS(int numberOfChildren){
+    ast_exprList = new ArrayList<>();
+    this.numOfExpr = (numberOfChildren - 1) / 3;
   }
 
   public boolean isEmbeddedNodesFull(){
