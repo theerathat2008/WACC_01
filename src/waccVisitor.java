@@ -16,7 +16,7 @@ import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_BaseTypePair;
 import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairString;
 import ASTNodes.AST_TYPES.AST_PairType;
 import antlr.*;
-import org.antlr.v4.runtime.misc.NotNull;
+
 
 /**
  * Go through all the nodes in parse tree
@@ -29,8 +29,15 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   private AST_Program progBase;
   private AST_Node parentVisitorNode;
 
-  public void checkStuff(){
-    parentVisitorNode.printContents();
+  public AST_Program getRootNode(){
+    return progBase;
+  }
+
+  public void printNodes(AST_Node noded){
+    for(AST_Node node : noded.getNodes()){
+      node.printContents();
+      printNodes(node);
+    }
   }
 
 
@@ -305,6 +312,9 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("expr", exprUnaryNode);
 
+    //Set syntactic member variable in AST
+    exprUnaryNode.setSyntacticAttributes(ctx.UNARY_OPER().getText());
+
     //Set parentNode of AST class and global visitor class
     exprUnaryNode.setParentNode(parentVisitorNode);
     parentVisitorNode = exprUnaryNode;
@@ -327,6 +337,9 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", skipNode);
+
+    //Set syntactic value of member variable
+    skipNode.setSyntacticAttributes("skip");
 
     //Set parentNode of AST class and global visitor class
     skipNode.setParentNode(parentVisitorNode);
@@ -442,6 +455,9 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("expr", exprArrayElemNode);
 
+    //Set syntactic member variable in AST
+    exprArrayElemNode.setSyntacticAttributes(ctx.IDENT().getText());
+
     //Set parentNode of AST class and global visitor class
     exprArrayElemNode.setParentNode(parentVisitorNode);
     parentVisitorNode = exprArrayElemNode;
@@ -481,17 +497,20 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   @Override
   public Void visitPRINT_STAT(WaccParser.PRINT_STATContext ctx) {
     //Create the node for the current visitor function
-    AST_StatExpr statExprNode = new AST_StatExpr();
+    AST_StatExpr printNode = new AST_StatExpr();
 
     //Set currNode to corresponding embedded AST in parent node
-    parentVisitorNode.setEmbeddedAST("statement", statExprNode);
+    parentVisitorNode.setEmbeddedAST("statement", printNode);
+
+    //Set syntactic value of member variable
+    printNode.setSyntacticAttributes("print");
 
     //Set parentNode of AST class and global visitor class
-    statExprNode.setParentNode(parentVisitorNode);
-    parentVisitorNode = statExprNode;
+    printNode.setParentNode(parentVisitorNode);
+    parentVisitorNode = printNode;
 
     //Do semantic analysis
-    statExprNode.Check();
+    printNode.Check();
 
     //Debug statement
     System.out.println("statExprNode");
@@ -572,8 +591,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Debug statement
     System.out.println("exprIntLiter");
 
-    System.out.println("The parent as this point is: " + parentVisitorNode.getClass().getSimpleName());
-
     //Set the parent node for terminal node
     while(parentVisitorNode.isEmbeddedNodesFull()){
       if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
@@ -619,6 +636,9 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", statExprNode);
+
+    //Set syntactic value of member variable
+    statExprNode.setSyntacticAttributes("free");
 
     //Set parentNode of AST class and global visitor class
     statExprNode.setParentNode(parentVisitorNode);
@@ -713,6 +733,9 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("expr", exprBinaryNode);
+
+    //Set syntactic member variable in AST
+    exprBinaryNode.setSyntacticAttributes(ctx.BINARY_OPER().getText());
 
     //Set parentNode of AST class and global visitor class
     exprBinaryNode.setParentNode(parentVisitorNode);
@@ -820,6 +843,9 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", exitNode);
 
+    //Set syntactic value of member variable
+    exitNode.setSyntacticAttributes("exit");
+
     //Set parentNode of AST class and global visitor class
     exitNode.setParentNode(parentVisitorNode);
     parentVisitorNode = exitNode;
@@ -917,6 +943,9 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", returnStatNode);
+
+    //Set syntactic value of member variable
+    returnStatNode.setSyntacticAttributes("return");
 
     //Set parentNode of AST class and global visitor class
     returnStatNode.setParentNode(parentVisitorNode);
@@ -1125,6 +1154,13 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
   @Override
   public Void visitPAIR_FST(WaccParser.PAIR_FSTContext ctx) {
+    //Set Embedded Syntactic value in AST Node class
+    parentVisitorNode.setSyntacticAttributes(ctx.FST().getText());
+
+    //Debug statement
+    System.out.println("pairFst");
+
+    //Iterate through rest of the tree
     return visitChildren(ctx);
   }
 
@@ -1135,11 +1171,15 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
   @Override
   public Void visitPAIR_SND(WaccParser.PAIR_SNDContext ctx) {
+
+    //Set Embedded Syntactic value in AST Node class
+    parentVisitorNode.setSyntacticAttributes(ctx.SND().getText());
+
+    //Debug statement
+    System.out.println("pairSnd");
+
     return visitChildren(ctx);
   }
-
-
-
 
 
 }

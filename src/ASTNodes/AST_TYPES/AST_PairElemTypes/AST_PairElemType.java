@@ -3,6 +3,8 @@ package ASTNodes.AST_TYPES.AST_PairElemTypes;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_TYPES.AST_Type;
 
+import java.util.ArrayDeque;
+
 public class AST_PairElemType extends AST_Type {
   //Syntactic attributes
 
@@ -12,6 +14,13 @@ public class AST_PairElemType extends AST_Type {
   public AST_PairElemType(){
 
   }
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    System.out.println("BASE AST Node at: " + this.getClass().getSimpleName());
+    return null;
+  }
+
+
 
   @Override
   public boolean isEmbeddedNodesFull(){
@@ -59,6 +68,7 @@ public class AST_PairElemType extends AST_Type {
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("Base AST Node.");
   }
 }

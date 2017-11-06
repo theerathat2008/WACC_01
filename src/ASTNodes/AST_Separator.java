@@ -1,5 +1,7 @@
 package ASTNodes;
 
+import java.util.ArrayDeque;
+
 public class AST_Separator extends AST_Node {
   //Syntactic attributes
   String separatorType;
@@ -8,6 +10,12 @@ public class AST_Separator extends AST_Node {
   // Assign the class variables when called
   public AST_Separator(){
     this.separatorType = null;
+  }
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
+    return null;
   }
 
   @Override
@@ -65,6 +73,7 @@ public class AST_Separator extends AST_Node {
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("separatorType: " + separatorType);
   }
 }

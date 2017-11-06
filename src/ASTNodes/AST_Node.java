@@ -1,5 +1,7 @@
 package ASTNodes;
 
+import java.util.ArrayDeque;
+
 /**
  * Empty Base class for the AST Tree that is generated from the parse tree
  */
@@ -19,6 +21,8 @@ public abstract class AST_Node {
   public String toString(){
     return this.getClass().getSimpleName();
   }
+
+  public abstract ArrayDeque<AST_Node> getNodes();
 
   public abstract void setSyntacticAttributes(String value);
 

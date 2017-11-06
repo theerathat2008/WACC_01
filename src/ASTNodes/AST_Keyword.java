@@ -1,5 +1,7 @@
 package ASTNodes;
 
+import java.util.ArrayDeque;
+
 public class AST_Keyword extends AST_Node {
   //Syntactic attributes
   String keyword_name;
@@ -9,6 +11,12 @@ public class AST_Keyword extends AST_Node {
   public AST_Keyword(){
     this.keyword_name = null;
 
+  }
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
+    return null;
   }
 
   @Override
@@ -64,6 +72,7 @@ public class AST_Keyword extends AST_Node {
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("keyword_name: " + keyword_name);
   }
 }

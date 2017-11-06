@@ -2,6 +2,8 @@ package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 
 import ASTNodes.AST_Node;
 
+import java.util.ArrayDeque;
+
 public class AST_StatIdentLHS extends AST_StatAssignLHS{
   //Syntactic attributes
   String identName;
@@ -13,6 +15,13 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS{
   public AST_StatIdentLHS(){
     this.identName = null;
 
+  }
+
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
+    return null;
   }
 
   @Override
@@ -67,6 +76,7 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("identName: " + identName);
   }
 }

@@ -4,6 +4,8 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 
+import java.util.ArrayDeque;
+
 public class AST_StatAssign extends AST_Stat{
   //Syntactic attributes
   AST_StatAssignLHS ast_statAssignLHS;
@@ -20,18 +22,26 @@ public class AST_StatAssign extends AST_Stat{
   }
 
   @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    returnList.addLast(ast_statAssignLHS);
+    returnList.addLast(ast_statAssignRHS);
+    return returnList;
+  }
+
+  @Override
   public boolean isEmbeddedNodesFull(){
     return ast_statAssignLHS != null && ast_statAssignRHS != null;
   }
 
   @Override
   public void setSyntacticAttributes(String value){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
   }
 
   @Override
   public String getSyntacticAttributes(String strToGet){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -74,6 +84,7 @@ public class AST_StatAssign extends AST_Stat{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     if(ast_statAssignLHS == null){
       System.out.println("ast_statAssignLHS: null");
     } else {

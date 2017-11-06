@@ -4,6 +4,8 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 import ASTNodes.AST_TYPES.AST_Type;
 
+import java.util.ArrayDeque;
+
 public class AST_StatVarDecl extends AST_Stat {
   //Syntactic attributes
   AST_Type ast_type;
@@ -17,6 +19,14 @@ public class AST_StatVarDecl extends AST_Stat {
     this.ast_assignRHS = null;
     this.statName = null;
     this.identName = null;
+  }
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    returnList.addLast(ast_type);
+    returnList.addLast(ast_assignRHS);
+    return returnList;
   }
 
 
@@ -85,6 +95,7 @@ public class AST_StatVarDecl extends AST_Stat {
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("identName: " + identName);
     if(ast_assignRHS == null){
       System.out.println("ast_assignRHS: null");

@@ -2,6 +2,8 @@ package ASTNodes;
 
 import ASTNodes.AST_TYPES.AST_Type;
 
+import java.util.ArrayDeque;
+
 public class AST_Param extends AST_Node {
   //Syntactic attributes
   AST_Type ast_type;
@@ -12,6 +14,14 @@ public class AST_Param extends AST_Node {
   public AST_Param(){
     this.paramName = null;
     this.ast_type = null;
+  }
+
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    returnList.addLast(ast_type);
+    return returnList;
   }
 
 
@@ -78,6 +88,7 @@ public class AST_Param extends AST_Node {
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     if(ast_type == null){
       System.out.println("ast_type: null");
     } else {

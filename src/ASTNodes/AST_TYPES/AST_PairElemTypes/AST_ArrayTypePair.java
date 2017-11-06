@@ -3,6 +3,8 @@ package ASTNodes.AST_TYPES.AST_PairElemTypes;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_TYPES.AST_Type;
 
+import java.util.ArrayDeque;
+
 public class AST_ArrayTypePair extends  AST_PairElemType{
   //Syntactic attributes
   AST_Type ast_type;
@@ -11,6 +13,14 @@ public class AST_ArrayTypePair extends  AST_PairElemType{
   // Assign the class variables when called
   public AST_ArrayTypePair(){
     this.ast_type = null;
+  }
+
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    returnList.addLast(ast_type);
+    return returnList;
   }
 
   @Override
@@ -64,6 +74,7 @@ public class AST_ArrayTypePair extends  AST_PairElemType{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     if(ast_type == null){
       System.out.println("ast_type: null");
     } else {

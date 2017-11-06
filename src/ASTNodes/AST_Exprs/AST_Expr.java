@@ -2,12 +2,20 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 
+import java.util.ArrayDeque;
+
 public class AST_Expr extends AST_Node{
   //Syntactic attributes
 
   //Semantic attribute
 
   // Assign the class variables when called
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    System.out.println("Base AST Node at: " + this.getClass().getSimpleName());
+    return null;
+  }
 
   @Override
   public boolean isEmbeddedNodesFull(){
@@ -54,6 +62,7 @@ public class AST_Expr extends AST_Node{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("BASE TYPE");
 
   }

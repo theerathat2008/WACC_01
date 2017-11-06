@@ -1,6 +1,7 @@
 package ASTNodes;
 
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +18,22 @@ public class AST_ParamList extends AST_Node{
   }
 
   @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    for(AST_Param param : listParam){
+      returnList.addLast(param);
+    }
+    return returnList;
+  }
+  @Override
   public void setSyntacticAttributes(String value){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
   }
 
 
   @Override
   public String getSyntacticAttributes(String strToGet){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -71,6 +80,7 @@ public class AST_ParamList extends AST_Node{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("numOfParam: " + numOfParam);
     if(listParam.size() == numOfParam){
       System.out.println("ParamList: List full");

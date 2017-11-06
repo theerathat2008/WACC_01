@@ -3,6 +3,8 @@ package ASTNodes.AST_Exprs;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Separator;
 
+import java.util.ArrayDeque;
+
 public class AST_ExprEnclosed extends AST_Expr{
   //Syntactic attributes
   AST_Separator leftSepAST;
@@ -12,23 +14,34 @@ public class AST_ExprEnclosed extends AST_Expr{
 
   // Assign the class variables when called
   public AST_ExprEnclosed(){
-    this.leftSepAST = null;
+    this.leftSepAST = new AST_Separator();
+    this.leftSepAST.setSyntacticAttributes("(");
     this.exprAST = null;
-    this.rightSepAST = null;
+    this.rightSepAST = new AST_Separator();
+    this.rightSepAST.setSyntacticAttributes(")");
+  }
 
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    returnList.addLast(leftSepAST);
+    returnList.addLast(exprAST);
+    returnList.addLast(rightSepAST);
+    return returnList;
   }
 
 
 
   @Override
   public void setSyntacticAttributes(String value){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
   }
 
 
   @Override
   public String getSyntacticAttributes(String strToGet){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -81,6 +94,7 @@ public class AST_ExprEnclosed extends AST_Expr{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     if(leftSepAST == null){
       System.out.println("leftSepAST: null");
     } else {

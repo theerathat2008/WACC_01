@@ -2,6 +2,8 @@ package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Node;
 
+import java.util.ArrayDeque;
+
 public class AST_Stat extends AST_Node {
   //Syntactic attributes
   String statName;
@@ -12,6 +14,14 @@ public class AST_Stat extends AST_Node {
     this.statName = null;
 
   }
+
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    System.out.println("BASE AST Node at: " + this.getClass().getSimpleName());
+    return null;
+  }
+
 
   @Override
   public boolean isEmbeddedNodesFull(){
@@ -67,6 +77,7 @@ public class AST_Stat extends AST_Node {
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("statName: " + statName);
   }
 }

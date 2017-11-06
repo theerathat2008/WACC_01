@@ -3,6 +3,8 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 
+import java.util.ArrayDeque;
+
 public class AST_StatNewPairRHS extends AST_StatAssignRHS{
   //Syntactic attributes
   AST_Expr ast_expr_first;
@@ -17,13 +19,21 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS{
   }
 
   @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    returnList.addLast(ast_expr_first);
+    returnList.addLast(ast_expr_second);
+    return returnList;
+  }
+
+  @Override
   public void setSyntacticAttributes(String value){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
   }
 
   @Override
   public String getSyntacticAttributes(String strToGet){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -77,6 +87,7 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     if(ast_expr_first == null){
       System.out.println("ast_expr_first: null");
     } else {

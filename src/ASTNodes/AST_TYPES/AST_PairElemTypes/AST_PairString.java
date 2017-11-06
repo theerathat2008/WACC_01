@@ -2,6 +2,8 @@ package ASTNodes.AST_TYPES.AST_PairElemTypes;
 
 import ASTNodes.AST_Node;
 
+import java.util.ArrayDeque;
+
 public class AST_PairString extends AST_PairElemType{
   //Syntactic attributes
   String pairString;
@@ -11,6 +13,13 @@ public class AST_PairString extends AST_PairElemType{
   public AST_PairString(){
     this.pairString = null;
   }
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
+    return null;
+  }
+
 
   @Override
   public boolean isEmbeddedNodesFull(){
@@ -66,6 +75,7 @@ public class AST_PairString extends AST_PairElemType{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("pairString: " + pairString);
   }
 }

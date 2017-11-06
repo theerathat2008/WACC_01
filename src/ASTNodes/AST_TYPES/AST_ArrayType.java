@@ -2,6 +2,8 @@ package ASTNodes.AST_TYPES;
 
 import ASTNodes.AST_Node;
 
+import java.util.ArrayDeque;
+
 public class AST_ArrayType extends AST_Type{
   //Syntactic attributes
   AST_Type ast_type;
@@ -10,6 +12,13 @@ public class AST_ArrayType extends AST_Type{
   // Assign the class variables when called
   public AST_ArrayType(){
     this.ast_type = null;
+  }
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    returnList.addLast(ast_type);
+    return returnList;
   }
 
   @Override
@@ -63,6 +72,7 @@ public class AST_ArrayType extends AST_Type{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     if(ast_type == null){
       System.out.println("ast_type: null");
     } else {

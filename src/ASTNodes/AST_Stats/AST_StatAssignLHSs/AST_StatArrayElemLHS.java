@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,15 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS{
     ast_exprList = new ArrayList<>();
     this.numOfExpr = (numberOfChildren - 1) / 3;
     this.identName = null;
+  }
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    for(AST_Expr expr : ast_exprList){
+      returnList.addLast(expr);
+    }
+    return returnList;
   }
 
   @Override
@@ -82,6 +92,7 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("identName: " + identName);
     System.out.println("numOfExpr: " + numOfExpr);
     if(ast_exprList.size() == numOfExpr){

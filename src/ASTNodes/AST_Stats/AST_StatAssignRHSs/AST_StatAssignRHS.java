@@ -3,6 +3,12 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_Stat;
 
+import java.util.ArrayDeque;
+
+/**
+ * TODO DELETE STATNAME
+ */
+
 public class AST_StatAssignRHS extends AST_Stat {
   //Syntactic attributes
   String statName;
@@ -12,6 +18,13 @@ public class AST_StatAssignRHS extends AST_Stat {
   public AST_StatAssignRHS(){
     this.statName = null;
   }
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
+    return null;
+  }
+
 
   public void setSyntacticAttributes(String value){
     if(statName == null){
@@ -65,6 +78,7 @@ public class AST_StatAssignRHS extends AST_Stat {
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("statName: " + statName);
   }
 }

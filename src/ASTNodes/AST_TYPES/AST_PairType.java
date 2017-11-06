@@ -4,6 +4,8 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairElemType;
 import ASTNodes.AST_TYPES.AST_Type;
 
+import java.util.ArrayDeque;
+
 public class AST_PairType extends AST_Type{
   //Syntactic attributes
   AST_PairElemType pairElemTypeFst;
@@ -14,6 +16,14 @@ public class AST_PairType extends AST_Type{
   public AST_PairType(){
     this.pairElemTypeFst = null;
     this.pairElemTypeSnd = null;
+  }
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    returnList.addLast(pairElemTypeFst);
+    returnList.addLast(pairElemTypeSnd);
+    return returnList;
   }
 
   @Override
@@ -75,6 +85,7 @@ public class AST_PairType extends AST_Type{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     if(pairElemTypeFst == null){
       System.out.println("pairElemTypeFst: null");
     } else {

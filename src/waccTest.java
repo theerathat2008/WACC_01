@@ -1,11 +1,15 @@
 package src;
 
+import ASTNodes.AST_Node;
+import ASTNodes.AST_Program;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
 import antlr.*;
 
 public class waccTest {
+
+
   public static void main(String[] args) throws Exception {
     ANTLRInputStream input = new ANTLRInputStream(System.in);
 
@@ -29,11 +33,18 @@ public class waccTest {
     waccVisitor visitor = new waccVisitor();
     visitor.visit(tree);
     System.out.println("===");
+
+
+
     System.out.println("---------TESTING------------");
-    visitor.checkStuff();
+    AST_Program root = visitor.getRootNode();
+    //visitor.printNodes(root);
     System.out.println("---------TESTING------------");
 
 
 
   }
+
+
+
 }

@@ -3,6 +3,8 @@ package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 
+import java.util.ArrayDeque;
+
 public class AST_StatPairElemLHS extends AST_StatAssignLHS{
   //Syntactic attributes
   String typeName;
@@ -14,6 +16,13 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS{
   public AST_StatPairElemLHS(){
     this.typeName = null;
     this.ast_expr = null;
+  }
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    returnList.addLast(ast_expr);
+    return returnList;
   }
 
   @Override
@@ -75,6 +84,7 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("typeName: " + typeName);
     if(ast_expr == null){
       System.out.println("ast_expr: null");

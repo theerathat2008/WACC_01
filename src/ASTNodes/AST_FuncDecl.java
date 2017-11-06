@@ -3,6 +3,8 @@ package ASTNodes;
 import ASTNodes.AST_Stats.AST_Stat;
 import ASTNodes.AST_TYPES.AST_Type;
 
+import java.util.ArrayDeque;
+
 public class AST_FuncDecl extends AST_Node {
   //Syntactic attributes
   AST_Type ast_type;
@@ -16,6 +18,15 @@ public class AST_FuncDecl extends AST_Node {
     funcName = null;
     paramList = null;
     statement = null;
+  }
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    returnList.addLast(ast_type);
+    returnList.addLast(paramList);
+    returnList.addLast(statement);
+    return returnList;
   }
 
 
@@ -93,6 +104,7 @@ public class AST_FuncDecl extends AST_Node {
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("Funcname: " + funcName);
     if(paramList == null){
       System.out.println("ParamList: null");

@@ -2,6 +2,8 @@ package ASTNodes.AST_TYPES;
 
 import ASTNodes.AST_Node;
 
+import java.util.ArrayDeque;
+
 public class AST_BaseType extends AST_Type {
   //Syntactic attributes
   String baseTypeName;
@@ -10,6 +12,12 @@ public class AST_BaseType extends AST_Type {
   // Assign the class variables when called
   public AST_BaseType(){
     this.baseTypeName = null;
+  }
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    System.out.println("BASE AST Node at: " + this.getClass().getSimpleName());
+    return null;
   }
 
   @Override
@@ -66,6 +74,7 @@ public class AST_BaseType extends AST_Type {
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("baseTypeName: " + baseTypeName);
   }
 }

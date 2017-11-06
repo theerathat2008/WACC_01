@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,14 +24,24 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS{
     }
   }
 
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    for(AST_Expr expr : ast_exprList){
+      returnList.addLast(expr);
+    }
+    return returnList;
+  }
+
   @Override
   public void setSyntacticAttributes(String value){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
   }
 
   @Override
   public String getSyntacticAttributes(String strToGet){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -75,6 +86,7 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("numOfExpr: " + numOfExpr);
     if(ast_exprList.size() == numOfExpr){
       System.out.println("ast_exprList: List full");

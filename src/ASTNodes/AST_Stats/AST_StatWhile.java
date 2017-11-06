@@ -4,6 +4,8 @@ package ASTNodes.AST_Stats;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 
+import java.util.ArrayDeque;
+
 public class AST_StatWhile extends AST_Stat{
   //Syntactic attributes
   AST_Expr exprAST;
@@ -18,19 +20,28 @@ public class AST_StatWhile extends AST_Stat{
   }
 
   @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    returnList.addLast(exprAST);
+    returnList.addLast(statAST);
+    return returnList;
+  }
+
+
+  @Override
   public boolean isEmbeddedNodesFull(){
     return exprAST != null && statAST != null;
   }
 
   @Override
   public void setSyntacticAttributes(String value){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
   }
 
 
   @Override
   public String getSyntacticAttributes(String strToGet){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -74,6 +85,7 @@ public class AST_StatWhile extends AST_Stat{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     if(exprAST == null){
       System.out.println("exprAST: null");
     } else {

@@ -2,6 +2,8 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 
+import java.util.ArrayDeque;
+
 public class AST_ExprLiter extends AST_Expr{
   //Syntactic attributes
   String constant;
@@ -14,6 +16,13 @@ public class AST_ExprLiter extends AST_Expr{
     this.literal = null;
 
   }
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
+    return null;
+  }
+
 
   @Override
   public void setSyntacticAttributes(String value){
@@ -72,6 +81,7 @@ public class AST_ExprLiter extends AST_Expr{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("constant: " + constant);
     System.out.println("literal: " + literal);
 

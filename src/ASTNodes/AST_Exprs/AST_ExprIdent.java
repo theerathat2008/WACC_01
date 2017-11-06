@@ -2,6 +2,8 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 
+import java.util.ArrayDeque;
+
 public class AST_ExprIdent extends AST_Expr{
   //Syntactic attributes
   String varName;
@@ -11,6 +13,13 @@ public class AST_ExprIdent extends AST_Expr{
   public AST_ExprIdent(){
     this.varName = null;
   }
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
+    return null;
+  }
+
 
   @Override
   public void setSyntacticAttributes(String value){
@@ -67,6 +76,7 @@ public class AST_ExprIdent extends AST_Expr{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("varName: " + varName);
   }
 }

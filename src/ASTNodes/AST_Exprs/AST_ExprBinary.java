@@ -2,6 +2,8 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 
+import java.util.ArrayDeque;
+
 public class AST_ExprBinary extends AST_Expr{
   //Syntactic attributes
   String opName;
@@ -15,6 +17,15 @@ public class AST_ExprBinary extends AST_Expr{
     this.exprRightAST = null;
     this.opName = null;
   }
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    returnList.addLast(exprLeftAST);
+    returnList.addLast(exprRightAST);
+    return returnList;
+  }
+
 
   @Override
   public void setSyntacticAttributes(String value){
@@ -85,6 +96,7 @@ public class AST_ExprBinary extends AST_Expr{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("opName: " + opName);
     if(exprLeftAST == null){
       System.out.println("exprLeftAST: null");

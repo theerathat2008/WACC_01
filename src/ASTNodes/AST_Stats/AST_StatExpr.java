@@ -3,6 +3,8 @@ package ASTNodes.AST_Stats;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 
+import java.util.ArrayDeque;
+
 public class AST_StatExpr extends AST_Stat{
   //Syntactic attributes
   AST_Expr expr;
@@ -11,6 +13,13 @@ public class AST_StatExpr extends AST_Stat{
   // Assign the class variables when called
   public AST_StatExpr(){
     this.expr = null;
+  }
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    returnList.addLast(expr);
+    return returnList;
   }
 
   @Override
@@ -54,6 +63,7 @@ public class AST_StatExpr extends AST_Stat{
 
   @Override
   public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
     super.printContents();
     if(expr == null){
       System.out.println("expr: null");
