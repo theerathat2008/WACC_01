@@ -10,8 +10,6 @@ import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatPairElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.*;
 import antlr.*;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 /**
  * Go through all the nodes in parse tree
@@ -943,18 +941,16 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
   //TODO ------------------------
-  //TODO Check Whether to visit BASE_TYPE : NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+  //TODO Check Whether to visit BASE_TYPE : YES
   //TODO -------------------------
 
 
   @Override
   public Void visitBASE_TYPE(WaccParser.BASE_TYPEContext ctx) {
-
-    //set the parent node of basetype to have the approriate member variable to be the base type
-    System.out.println("This is the base type: ");
+    //set the parent node of basetype to have the appropriate member variable to be the base type
+    System.out.println("Visiting BASE TYPE with parent Node: ");
+    System.out.println(parentVisitorNode.toString());
     parentVisitorNode.setSyntacticAttributes(ctx.getText());
-    System.out.println(ctx.getText());
-
     return null;
   }
 

@@ -15,6 +15,11 @@ public abstract class AST_Node {
     parentNode = nodeToSet;
   }
 
+  @Override
+  public String toString(){
+    return this.getClass().getSimpleName();
+  }
+
   public abstract void setSyntacticAttributes(String value);
 
   public abstract String getSyntacticAttributes(String strToGet);

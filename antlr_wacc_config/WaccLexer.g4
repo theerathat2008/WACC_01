@@ -16,7 +16,7 @@ fragment LOWERCHAR : 'a'..'z';
 fragment UPPERCHAR : 'A'..'Z';
 fragment CHARACTER : ~[\'"] | [\\] ESCAPEDCHAR;
 fragment NULL      : 'null';
-fragment INTSIGN   : '+' | '-'  ;
+//fragment INTSIGN   : '+' | '-'  ;
 fragment TRUE      : 'true';
 fragment FALSE     : 'false';
 
@@ -65,7 +65,7 @@ BINARY_OPER : '*' | '/' | '%' | '+' | '-' | '>' | '>=' | '<' | '<=' | '==' | '!=
 BOOL_LITER :  TRUE | FALSE  ;
 CHAR_LITER : '\'' CHARACTER '\''  ;
 STR_LITER : '"' CHARACTER* '"'  ;
-INT_LITER: INTSIGN? DIGIT+;
+INT_LITER: ('+' | '-')? DIGIT+;
 PAIR_LITER : 'null' ;
 
 BASE_TYPE : INT_STRING
