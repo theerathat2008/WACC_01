@@ -1,6 +1,7 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
+import ASTNodes.AST_Node;
 
 public class AST_StatExprRHS extends AST_StatAssignRHS {
   //Syntactic attributes
@@ -10,7 +11,41 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
 
   // Assign the class variables when called
   public AST_StatExprRHS(){
+    this.ast_expr = null;
 
+  }
+
+
+  public void setSyntacticAttributes(String value){
+    System.out.println("No String Syntactic Attributes");
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    System.out.println("No String Syntactic Attributes");
+    return null;
+  }
+
+
+  public boolean isEmbeddedNodesFull(){
+    return ast_expr != null;
+  }
+
+
+  public AST_Node getEmbeddedAST(String astToGet, int counter){
+    if(astToGet.equals("ast_expr")){
+      return ast_expr;
+    }
+    System.out.println("Unrecognised AST Node.");
+    return null;
+  }
+
+  public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
+    if(astToSet.equals("expr")){
+      ast_expr = (AST_Expr)nodeToSet;
+    } else {
+      System.out.println("Unrecognised AST Node.");
+    }
   }
 
 

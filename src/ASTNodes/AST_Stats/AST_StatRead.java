@@ -1,52 +1,43 @@
-package ASTNodes.AST_Exprs;
+package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Node;
+import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
 
-public class AST_ExprUnary extends AST_Expr{
+public class AST_StatRead extends AST_Stat{
   //Syntactic attributes
-  String opName;
-  AST_Expr astExpr;
+  AST_StatAssignLHS ast_statAssignLHS;
   //Semantic attribute
 
   // Assign the class variables when called
-  public AST_ExprUnary(){
-    this.opName = null;
-    this.astExpr = null;
-  }
-
-  public boolean isEmbeddedNodesFull(){
-    return astExpr != null;
+  public AST_StatRead(){
+    this.ast_statAssignLHS = null;
   }
 
   public void setSyntacticAttributes(String value){
-    if(opName == null){
-      this.opName = value;
-    } else {
-      System.out.println("Unrecognised String Attribute");
-    }
+    System.out.println("No String Syntactic Attributes");
   }
 
 
   public String getSyntacticAttributes(String strToGet){
-    if(strToGet.equals("opName")){
-      return opName;
-    } else {
-      System.out.println("Unrecognised String Attribute");
-      return null;
-    }
+    System.out.println("No String Syntactic Attributes");
+    return null;
+  }
+
+  public boolean isEmbeddedNodesFull(){
+    return ast_statAssignLHS != null;
   }
 
   public AST_Node getEmbeddedAST(String astToGet, int counter){
-    if(astToGet.equals("astExpr")){
-      return astExpr;
+    if(astToGet.equals("ast_statAssignLHS")){
+      return ast_statAssignLHS;
     }
     System.out.println("Unrecognised AST Node.");
     return null;
   }
 
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("expr")){
-      astExpr = (AST_Expr) nodeToSet;
+    if(astToSet.equals("ast_statAssignLHS")){
+      ast_statAssignLHS = (AST_StatAssignLHS) nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node.");
     }
@@ -54,14 +45,17 @@ public class AST_ExprUnary extends AST_Expr{
 
 
   //Semantic Analysis and print error message if needed
+  @Override
   protected boolean CheckSemantics(){
     return true;
   }
 
   // Called from visitor
+  @Override
   public void Check(){
     if(CheckSemantics()){
       //Do symbol table stuff
     }
   }
+
 }

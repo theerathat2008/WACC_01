@@ -1,5 +1,6 @@
 package SymbolTable;
 
+
 import IdentifierObjects.IDENTIFIER;
 import IdentifierObjects.KeywordObj;
 
