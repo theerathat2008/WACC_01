@@ -1,6 +1,8 @@
 package SymbolTable;
 
 
+import IdentifierObjects.ArrayObj;
+import IdentifierObjects.BaseTypeObj;
 import IdentifierObjects.IDENTIFIER;
 import IdentifierObjects.KeywordObj;
 
@@ -12,43 +14,45 @@ public class SymbolTable {
   public Map<String, IDENTIFIER> symMap;
 
   public SymbolTable(SymbolTable st){
+    System.out.println("Created new SYMBOL TABLE!!!!!");
     symMap = new HashMap<String, IDENTIFIER>();
     encSymTable = st;
   }
 
   public SymbolTable() {
+    System.out.println("made top level symbol table");
     symMap = new HashMap<String, IDENTIFIER>();
     encSymTable = null;
-    encSymTable.add("int", new KeywordObj());
-    encSymTable.add("bool", new KeywordObj());
-    encSymTable.add("char", new KeywordObj());
-    encSymTable.add("string", new KeywordObj());
-    encSymTable.add("skip", new KeywordObj());
-    encSymTable.add("read", new KeywordObj());
-    encSymTable.add("free", new KeywordObj());
-    encSymTable.add("return", new KeywordObj());
-    encSymTable.add("exit", new KeywordObj());
-    encSymTable.add("print", new KeywordObj());
-    encSymTable.add("println", new KeywordObj());
-    encSymTable.add("if", new KeywordObj());
-    encSymTable.add("then", new KeywordObj());
-    encSymTable.add("else", new KeywordObj());
-    encSymTable.add("fi", new KeywordObj());
-    encSymTable.add("while", new KeywordObj());
-    encSymTable.add("do", new KeywordObj());
-    encSymTable.add("done", new KeywordObj());
-    encSymTable.add("begin", new KeywordObj());
-    encSymTable.add("end", new KeywordObj());
-    encSymTable.add("fst", new KeywordObj());
-    encSymTable.add("snd", new KeywordObj());
-    encSymTable.add("int", new KeywordObj());
-    encSymTable.add("pair", new KeywordObj());
-    encSymTable.add("len", new KeywordObj());
-    encSymTable.add("ord", new KeywordObj());
-    encSymTable.add("chr", new KeywordObj());
-    encSymTable.add("true", new KeywordObj());
-    encSymTable.add("false", new KeywordObj());
-    encSymTable.add("null", new KeywordObj());
+    add("int", new KeywordObj());
+    add("bool", new KeywordObj());
+    add("char", new KeywordObj());
+    add("string", new KeywordObj());
+    add("skip", new KeywordObj());
+    add("read", new KeywordObj());
+    add("free", new KeywordObj());
+    add("return", new KeywordObj());
+    add("exit", new KeywordObj());
+    add("print", new KeywordObj());
+    add("println", new KeywordObj());
+    add("if", new KeywordObj());
+    add("then", new KeywordObj());
+    add("else", new KeywordObj());
+    add("fi", new KeywordObj());
+    add("while", new KeywordObj());
+    add("do", new KeywordObj());
+    add("done", new KeywordObj());
+    add("begin", new KeywordObj());
+    add("end", new KeywordObj());
+    add("fst", new KeywordObj());
+    add("snd", new KeywordObj());
+    add("int", new KeywordObj());
+    add("pair", new KeywordObj());
+    add("len", new KeywordObj());
+    add("ord", new KeywordObj());
+    add("chr", new KeywordObj());
+    add("true", new KeywordObj());
+    add("false", new KeywordObj());
+    add("null", new KeywordObj());
   }
 
   public void add(String name, IDENTIFIER obj){
@@ -71,4 +75,28 @@ public class SymbolTable {
     return null;
   }
 
+  public IDENTIFIER stringToIdent(String name, String type) {
+    if (type.equals("int")) {
+      return new BaseTypeObj(name, "int");
+    } else if (type.equals("bool")) {
+      return new BaseTypeObj(name, "bool");
+    } else if (type.equals("char")) {
+      return new BaseTypeObj(name, "char");
+    } else if (type.equals("string")) {
+      return new BaseTypeObj(name, "string");
+    } else if (type.equals("array")) {
+
+    } else if (type.equals("pair")) {
+
+    } else if (type.equals("function")) {
+
+    } else if (type.equals("param_list")) {
+
+    } else if (type.equals("keyword")) {
+
+    }
+    return new BaseTypeObj(name, "int");
+    }
 }
+
+

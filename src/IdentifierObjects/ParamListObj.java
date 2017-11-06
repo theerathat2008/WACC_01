@@ -19,4 +19,8 @@ public class ParamListObj extends IDENTIFIER{
     return false;
   }
 
+  public String toString() {
+    return "PARAM_LIST";
+  }
+
 }

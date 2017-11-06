@@ -23,4 +23,8 @@ public class BaseTypeObj extends IDENTIFIER {
     }
   return false;
   }
+
+  public String toString() {
+   return base_type;
+  }
 }

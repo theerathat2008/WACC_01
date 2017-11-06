@@ -1,6 +1,8 @@
 package ASTNodes;
 
 import ASTNodes.AST_Stats.AST_Stat;
+import IdentifierObjects.FunctionObj;
+import SymbolTable.SymbolTable;
 
 public class AST_FuncDecl extends AST_Node {
   //Syntactic attributes
@@ -70,18 +72,20 @@ public class AST_FuncDecl extends AST_Node {
   }
 
   //Semantic Analysis and print error message if needed
-  protected boolean CheckSemantics(){
-    //currSymbolTable.add(String name, new FUNCTION());
-    return true;
+  protected boolean CheckSemantics(SymbolTable ST){
+    return ST.lookupAll(funcName) == null;
   }
 
   // Called from visitor
-  public void Check(){
-    if(CheckSemantics()){
-      //Create new symbol table and add to list of symbol table
-      //Add necessary contents specific to func to symbol table
-      //set enclosing symbol table to curr symbol table
+  public void Check(SymbolTable ST){
+    if(CheckSemantics(ST)){
+      ST.encSymTable.add(funcName, new FunctionObj(funcName, ST.stringToIdent(funcName,returnTypeName)));
+      //Create new symbol table   DONE
+      //Add necessary contents specific to func to symbol table  DONE
+      //set enclosing symbol table to curr symbol table   does this before check
       //Set curr symbol table to new symbol table
+    } else {
+      //ERROR
     }
   }
 }

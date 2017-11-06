@@ -2,6 +2,7 @@ package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
+import SymbolTable.SymbolTable;
 
 public class AST_StatPairElemLHS extends AST_StatAssignLHS{
   //Syntactic attributes
@@ -58,14 +59,14 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS{
 
 
   //Semantic Analysis and print error message if needed
-  protected boolean CheckSemantics(){
+  protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
   // Called from visitor
-  public void Check(){
-    if(CheckSemantics()){
-      //Do symbol table stuff
+  public void Check(SymbolTable ST){
+    if(CheckSemantics(ST)){
+      setType(ast_expr.getType());
     }
   }
 }

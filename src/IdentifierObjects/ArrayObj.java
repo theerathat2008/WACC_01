@@ -17,5 +17,8 @@ public class ArrayObj extends IDENTIFIER {
    return false;
   }
 
+  public String toString() {
+    return type.toString() + "[]";
+  }
 
 }

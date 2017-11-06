@@ -6,4 +6,8 @@ public class KeywordObj extends IDENTIFIER{
   public boolean equals(IDENTIFIER other) {
     return false;
   }
+
+  public String toString() {
+    return keyword_name + " KEYWORD";
+  }
 }

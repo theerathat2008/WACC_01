@@ -2,6 +2,7 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
+import SymbolTable.SymbolTable;
 
 public class AST_StatExprRHS extends AST_StatAssignRHS {
   //Syntactic attributes
@@ -50,13 +51,13 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
 
 
   //Semantic Analysis and print error message if needed
-  protected boolean CheckSemantics(){
+  protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
   // Called from visitor
-  public void Check(){
-    if(CheckSemantics()){
+  public void Check(SymbolTable ST){
+    if(CheckSemantics(ST)){
       //Do symbol table stuff
     }
   }

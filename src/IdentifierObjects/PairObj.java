@@ -17,4 +17,8 @@ public class PairObj extends IDENTIFIER {
     }
     return false;
   }
+
+  public String toString() {
+    return "PAIR(" + LHS.toString() + "," + RHS.toString() + ")";
+  }
 }

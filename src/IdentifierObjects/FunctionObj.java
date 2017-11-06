@@ -1,7 +1,5 @@
 package IdentifierObjects;
 
-import IdentifierObjects.StatObjs.StatObj;
-
 public class FunctionObj extends IDENTIFIER {
   String returnTypeName; //type
   IDENTIFIER returnType;
@@ -10,6 +8,7 @@ public class FunctionObj extends IDENTIFIER {
   public FunctionObj(String name, IDENTIFIER returnType) {
     this.name = name;
     this.returnType = returnType;
+    returnTypeName = returnType.toString();
   }
 
   public boolean equals(IDENTIFIER other) {
@@ -21,5 +20,17 @@ public class FunctionObj extends IDENTIFIER {
       }
     }
     return false;
+  }
+
+  public String toString() {
+    return returnTypeName + " FUNCTION";
+  }
+
+  public String getReturnTypeName() {
+    return returnTypeName;
+  }
+
+  public ParamListObj getparamListObj() {
+    return paramListObj;
   }
 }
