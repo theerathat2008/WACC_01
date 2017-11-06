@@ -11,7 +11,26 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS{
 
   // Assign the class variables when called
   public AST_StatIdentLHS(){
+    this.identName = null;
 
+  }
+
+  public void setSyntacticAttributes(String value){
+    if(identName == null){
+      this.identName = value;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+    }
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    if(strToGet.equals("identName")){
+      return identName;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+      return null;
+    }
   }
 
   public boolean isEmbeddedNodesFull(){

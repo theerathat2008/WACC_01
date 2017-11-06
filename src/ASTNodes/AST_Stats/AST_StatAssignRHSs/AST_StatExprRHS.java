@@ -15,6 +15,18 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
 
   }
 
+
+  public void setSyntacticAttributes(String value){
+    System.out.println("No String Syntactic Attributes");
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    System.out.println("No String Syntactic Attributes");
+    return null;
+  }
+
+
   public boolean isEmbeddedNodesFull(){
     return ast_expr != null;
   }

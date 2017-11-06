@@ -16,6 +16,18 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS{
     this.ast_expr_second = null;
   }
 
+
+  public void setSyntacticAttributes(String value){
+    System.out.println("No String Syntactic Attributes");
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    System.out.println("No String Syntactic Attributes");
+    return null;
+  }
+
+
   public boolean isEmbeddedNodesFull(){
     return ast_expr_first != null && ast_expr_second != null;
   }

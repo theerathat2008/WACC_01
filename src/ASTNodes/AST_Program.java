@@ -19,6 +19,18 @@ public class AST_Program extends AST_Node {
     statement = null;
   }
 
+
+  public void setSyntacticAttributes(String value){
+    System.out.println("No String Syntactic Attributes");
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    System.out.println("No String Syntactic Attributes");
+    return null;
+  }
+
+
   /**
    * Returns true if the embedded Nodes have values
    */

@@ -16,6 +16,16 @@ public class AST_ParamList extends AST_Node{
     this.numOfParam = numberOfChildren;
   }
 
+  public void setSyntacticAttributes(String value){
+    System.out.println("No String Syntactic Attributes");
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    System.out.println("No String Syntactic Attributes");
+    return null;
+  }
+
   /**
    * Returns true if the embedded Nodes have value
    */

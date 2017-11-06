@@ -13,6 +13,25 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
   // Assign the class variables when called
   public AST_StatPairElemRHS(){
     this.ast_expr = null;
+    this.typeName = null;
+  }
+
+  public void setSyntacticAttributes(String value){
+    if(typeName == null){
+      this.typeName = value;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+    }
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    if(strToGet.equals("typeName")){
+      return typeName;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+      return null;
+    }
   }
 
   public boolean isEmbeddedNodesFull(){

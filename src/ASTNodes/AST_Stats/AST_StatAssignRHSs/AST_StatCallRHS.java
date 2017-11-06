@@ -18,6 +18,25 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
   public AST_StatCallRHS(int numberOfChildren){
     ast_exprList = new ArrayList<>();
     this.numOfExpr = (numberOfChildren + 1) / 2;
+    this.funcName = null;
+  }
+
+  public void setSyntacticAttributes(String value){
+    if(funcName == null){
+      this.funcName = value;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+    }
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    if(strToGet.equals("funcName")){
+      return funcName;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+      return null;
+    }
   }
 
   public boolean isEmbeddedNodesFull(){

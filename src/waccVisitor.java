@@ -58,8 +58,13 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   @Override
   public Void visitFunc(WaccParser.FuncContext ctx) {
 
+
     //Create the node for the current visitor function
     AST_FuncDecl funcNode = new AST_FuncDecl();
+
+    //For returnTypeName
+    //Visit type and get the corresponding visitor function to set the type in func AST Node
+    visitChildren(ctx.type());
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("functionList", funcNode);
@@ -941,10 +946,18 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   //TODO Check Whether to visit BASE_TYPE : NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
   //TODO -------------------------
 
+
   @Override
   public Void visitBASE_TYPE(WaccParser.BASE_TYPEContext ctx) {
-    return visitChildren(ctx);
+
+    //set the parent node of basetype to have the approriate member variable to be the base type
+    System.out.println("This is the base type: ");
+    parentVisitorNode.setSyntacticAttributes(ctx.getText());
+    System.out.println(ctx.getText());
+
+    return null;
   }
+
 
 
 

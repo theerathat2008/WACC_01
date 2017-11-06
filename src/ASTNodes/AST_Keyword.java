@@ -7,7 +7,26 @@ public class AST_Keyword extends AST_Node {
 
   // Assign the class variables when called
   public AST_Keyword(){
+    this.keyword_name = null;
 
+  }
+
+  public void setSyntacticAttributes(String value){
+    if(keyword_name == null){
+      this.keyword_name = value;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+    }
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    if(strToGet.equals("keyword_name")){
+      return keyword_name;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+      return null;
+    }
   }
 
   public boolean isEmbeddedNodesFull(){

@@ -24,11 +24,32 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS{
   public AST_StatArrayElemLHS(int numberOfChildren){
     ast_exprList = new ArrayList<>();
     this.numOfExpr = (numberOfChildren - 1) / 3;
+    this.identName = null;
+  }
+
+  public void setSyntacticAttributes(String value){
+    if(identName == null){
+      this.identName = value;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+    }
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    if(strToGet.equals("identName")){
+      return identName;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+      return null;
+    }
   }
 
   public boolean isEmbeddedNodesFull(){
     return ast_exprList.size() == numOfExpr;
   }
+
+
 
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     if(astToGet.equals("ast_exprList")){

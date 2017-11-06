@@ -10,7 +10,31 @@ public class AST_ExprLiter extends AST_Expr{
 
   // Assign the class variables when called
   public AST_ExprLiter(){
+    this.constant = null;
+    this.literal = null;
 
+  }
+
+  public void setSyntacticAttributes(String value){
+    if(constant == null){
+      this.constant = value;
+    } else if(literal == null){
+      this.literal = value;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+    }
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    if(strToGet.equals("constant")){
+      return constant;
+    } else if(strToGet.equals("literal")){
+      return literal;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+      return null;
+    }
   }
 
   public boolean isEmbeddedNodesFull(){

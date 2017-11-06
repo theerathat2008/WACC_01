@@ -17,6 +17,16 @@ public class AST_StatBeginEnd extends AST_Stat {
     return statAST != null;
   }
 
+  public void setSyntacticAttributes(String value){
+    System.out.println("No String Syntactic Attributes");
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    System.out.println("No String Syntactic Attributes");
+    return null;
+  }
+
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     if(astToGet.equals("statAST")){
       return statAST;

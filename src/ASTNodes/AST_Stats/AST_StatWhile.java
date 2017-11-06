@@ -21,6 +21,17 @@ public class AST_StatWhile extends AST_Stat{
     return exprAST != null && statAST != null;
   }
 
+  public void setSyntacticAttributes(String value){
+    System.out.println("No String Syntactic Attributes");
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    System.out.println("No String Syntactic Attributes");
+    return null;
+  }
+
+
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     if(astToGet.equals("expr")){
       return exprAST;

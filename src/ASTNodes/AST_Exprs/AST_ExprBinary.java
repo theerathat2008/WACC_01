@@ -13,6 +13,25 @@ public class AST_ExprBinary extends AST_Expr{
   public AST_ExprBinary(){
     this.exprLeftAST = null;
     this.exprRightAST = null;
+    this.opName = null;
+  }
+
+  public void setSyntacticAttributes(String value){
+    if(opName == null){
+      this.opName = value;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+    }
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    if(strToGet.equals("opName")){
+      return opName;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+      return null;
+    }
   }
 
 

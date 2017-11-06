@@ -10,7 +10,25 @@ public class AST_StatAssignRHS extends AST_Stat {
 
   // Assign the class variables when called
   public AST_StatAssignRHS(){
+    this.statName = null;
+  }
 
+  public void setSyntacticAttributes(String value){
+    if(statName == null){
+      this.statName = value;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+    }
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    if(strToGet.equals("statName")){
+      return statName;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+      return null;
+    }
   }
 
   public boolean isEmbeddedNodesFull(){

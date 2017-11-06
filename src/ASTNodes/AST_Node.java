@@ -15,6 +15,10 @@ public abstract class AST_Node {
     parentNode = nodeToSet;
   }
 
+  public abstract void setSyntacticAttributes(String value);
+
+  public abstract String getSyntacticAttributes(String strToGet);
+
   // Returns true if the embedded nodes have values
   public abstract boolean isEmbeddedNodesFull();
 

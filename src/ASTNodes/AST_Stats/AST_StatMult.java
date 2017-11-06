@@ -15,6 +15,16 @@ public class AST_StatMult extends AST_Stat{
     this.stat2 = null;
   }
 
+  public void setSyntacticAttributes(String value){
+    System.out.println("No String Syntactic Attributes");
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    System.out.println("No String Syntactic Attributes");
+    return null;
+  }
+
   public boolean isEmbeddedNodesFull(){
     return stat1 != null && stat2 != null;
   }

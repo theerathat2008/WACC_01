@@ -8,7 +8,31 @@ public class AST_Param extends AST_Node {
 
   // Assign the class variables when called
   public AST_Param(){
+    this.paramName = null;
+    this.paramType = null;
 
+  }
+
+  public void setSyntacticAttributes(String value){
+    if(paramType == null){
+      this.paramType = value;
+    } else if (paramName == null){
+      this.paramName = value;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+    }
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    if(strToGet.equals("paramType")){
+      return paramType;
+    } else if (strToGet.equals("paramName")){
+      return paramName;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+      return null;
+    }
   }
 
   /**

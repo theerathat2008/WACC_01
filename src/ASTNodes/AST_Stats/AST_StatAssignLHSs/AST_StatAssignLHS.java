@@ -5,6 +5,17 @@ import ASTNodes.AST_Stats.AST_Stat;
 
 public class AST_StatAssignLHS extends AST_Stat {
 
+  public void setSyntacticAttributes(String value){
+    System.out.println("Base AST Node");
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    System.out.println("Base AST Node");
+    return null;
+  }
+
+
 
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     System.out.println("Base AST Node.");

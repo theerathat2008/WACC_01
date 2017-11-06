@@ -14,6 +14,30 @@ public class AST_StatVarDecl extends AST_Stat {
   // Assign the class variables when called
   public AST_StatVarDecl(){
     this.ast_assignRHS = null;
+    this.typeName = null;
+    this.identName = null;
+  }
+
+  public void setSyntacticAttributes(String value){
+    if(typeName == null){
+      this.typeName = value;
+    } else if(identName == null){
+      this.identName = value;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+    }
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    if(strToGet.equals("typeName")){
+      return typeName;
+    } else if(identName == null){
+      return identName;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+      return null;
+    }
   }
 
   public boolean isEmbeddedNodesFull(){

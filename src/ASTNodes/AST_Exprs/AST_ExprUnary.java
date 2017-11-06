@@ -10,11 +10,30 @@ public class AST_ExprUnary extends AST_Expr{
 
   // Assign the class variables when called
   public AST_ExprUnary(){
+    this.opName = null;
     this.astExpr = null;
   }
 
   public boolean isEmbeddedNodesFull(){
     return astExpr != null;
+  }
+
+  public void setSyntacticAttributes(String value){
+    if(opName == null){
+      this.opName = value;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+    }
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    if(strToGet.equals("opName")){
+      return opName;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+      return null;
+    }
   }
 
   public AST_Node getEmbeddedAST(String astToGet, int counter){

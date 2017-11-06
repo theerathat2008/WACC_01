@@ -13,6 +13,16 @@ public class AST_StatRead extends AST_Stat{
     this.ast_statAssignLHS = null;
   }
 
+  public void setSyntacticAttributes(String value){
+    System.out.println("No String Syntactic Attributes");
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    System.out.println("No String Syntactic Attributes");
+    return null;
+  }
+
   public boolean isEmbeddedNodesFull(){
     return ast_statAssignLHS != null;
   }

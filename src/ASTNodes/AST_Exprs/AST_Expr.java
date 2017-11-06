@@ -13,6 +13,15 @@ public class AST_Expr extends AST_Node{
     return true;
   }
 
+  public void setSyntacticAttributes(String value){
+    System.out.println("Base AST Node");
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    System.out.println("Base AST Node");
+    return null;
+  }
 
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     System.out.println("Base AST Node.");

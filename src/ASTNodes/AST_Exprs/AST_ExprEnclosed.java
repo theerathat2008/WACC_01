@@ -18,6 +18,19 @@ public class AST_ExprEnclosed extends AST_Expr{
 
   }
 
+
+
+  public void setSyntacticAttributes(String value){
+    System.out.println("No String Syntactic Attributes");
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    System.out.println("No String Syntactic Attributes");
+    return null;
+  }
+
+
   public boolean isEmbeddedNodesFull(){
     return leftSepAST != null && exprAST != null && rightSepAST != null;
   }

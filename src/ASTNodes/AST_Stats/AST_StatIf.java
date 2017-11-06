@@ -18,6 +18,16 @@ public class AST_StatIf extends AST_Stat{
     this.elseStat = null;
   }
 
+  public void setSyntacticAttributes(String value){
+    System.out.println("No String Syntactic Attributes");
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    System.out.println("No String Syntactic Attributes");
+    return null;
+  }
+
   public boolean isEmbeddedNodesFull(){
     return expr != null && thenStat != null && elseStat != null;
   }

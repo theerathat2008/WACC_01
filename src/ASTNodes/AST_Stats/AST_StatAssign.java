@@ -23,6 +23,16 @@ public class AST_StatAssign extends AST_Stat{
     return ast_statAssignLHS != null && ast_statAssignRHS != null;
   }
 
+  public void setSyntacticAttributes(String value){
+    System.out.println("No String Syntactic Attributes");
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    System.out.println("No String Syntactic Attributes");
+    return null;
+  }
+
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     if(astToGet.equals("ast_statAssignLHS")){
       return ast_statAssignLHS;

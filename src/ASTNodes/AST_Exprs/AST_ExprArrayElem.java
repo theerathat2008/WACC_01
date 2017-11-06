@@ -16,7 +16,27 @@ public class AST_ExprArrayElem extends AST_Expr{
   public AST_ExprArrayElem(int numberOfChildren){
     ast_exprList = new ArrayList<>();
     this.numOfExpr = (numberOfChildren - 1) / 3;
+    this.arrayName = null;
   }
+
+  public void setSyntacticAttributes(String value){
+    if(arrayName == null){
+      this.arrayName = value;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+    }
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    if(strToGet.equals("arrayName")){
+      return arrayName;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+      return null;
+    }
+  }
+
 
   public boolean isEmbeddedNodesFull(){
     return ast_exprList.size() == numOfExpr;

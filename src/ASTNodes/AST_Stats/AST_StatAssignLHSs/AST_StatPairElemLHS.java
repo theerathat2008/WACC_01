@@ -12,7 +12,26 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS{
 
   // Assign the class variables when called
   public AST_StatPairElemLHS(){
+    this.typeName = null;
     this.ast_expr = null;
+  }
+
+  public void setSyntacticAttributes(String value){
+    if(typeName == null){
+      this.typeName = value;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+    }
+  }
+
+
+  public String getSyntacticAttributes(String strToGet){
+    if(strToGet.equals("typeName")){
+      return typeName;
+    } else {
+      System.out.println("Unrecognised String Attribute");
+      return null;
+    }
   }
 
 
