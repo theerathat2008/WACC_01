@@ -7,7 +7,7 @@ import antlr.*;
 
 public class waccTest {
   public static void main(String[] args) throws Exception {
-    ANTLRInputStream input = new ANTLRInputStream(System.in);
+    CharStream input = CharStreams.fromStream(System.in);
 
     WaccLexer lexer = new WaccLexer(input);
 

@@ -9,12 +9,12 @@ fragment STRING_STRING : 'string' ;
 
 fragment HASH        : '#';
 fragment UNDERSCORE  : '_';
-fragment ESCAPEDCHAR : [0btnfr"\'\\];
+fragment ESCAPEDCHAR : '0' | 'b' | 't' | 'n' | 'f' | 'r' | '"' | '\'' | '\\';
 
 fragment DIGIT     : '0'..'9';
 fragment LOWERCHAR : 'a'..'z';
 fragment UPPERCHAR : 'A'..'Z';
-fragment CHARACTER : ~[\'"] | [\\] ESCAPEDCHAR;
+fragment CHARACTER : ~'\\' | ~'\'' | ~'"' | '\\' ESCAPEDCHAR;
 fragment NULL      : 'null';
 //fragment INTSIGN   : '+' | '-'  ;
 fragment TRUE      : 'true';
@@ -35,7 +35,7 @@ RETURN : 'return' ;
 EXIT : 'exit' ;
 PRINT : 'print' ;
 PRINTLN : 'println' ;
-SKIP : 'skip' ;
+SKIPTOK : 'skip' ;
 NEWPAIR : 'newpair' ;
 CALL : 'call' ;
 FST : 'fst' ;
@@ -45,6 +45,7 @@ WHILE : 'while' ;
 DO : 'do' ;
 DONE : 'done' ;
 SEMI_COLON : ';' ;
+MINUS: '-' ;
 
 //Seperators
 
@@ -57,8 +58,10 @@ CLOSE_PAREN : ')' ;
 
 //Operators
 
-BINARY_OPER : '*' | '/' | '%' | '+' | '-' | '>' | '>=' | '<' | '<=' | '==' | '!=' | '&&' | '||'  ;
-UNARY_OPER : '!' | '-' | 'len' | 'ord' | 'chr'  ;
+UNARY_OPER : '!' | 'len' | 'ord' | 'chr'  ;
+BINARY_OPER : '*' | '/' | '%' | '+' | '>' | '>=' | '<' | '<=' | '==' | '!=' | '&&' | '||'  ;
+
+
 
 //Literals
 

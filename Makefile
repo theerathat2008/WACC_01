@@ -14,7 +14,7 @@ MKDIR	:= mkdir -p
 JAVA	:= java
 JAVAC	:= javac
 
-JFLAGS	:= -sourcepath $(SOURCE_DIR) -d $(OUTPUT_DIR) -cp lib/antlr-4.4-complete.jar
+JFLAGS	:= -sourcepath $(SOURCE_DIR) -d $(OUTPUT_DIR) -cp lib/antlr-4.7-complete.jar
 
 # the make rules
 
