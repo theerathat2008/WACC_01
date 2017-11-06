@@ -12,6 +12,8 @@ func : type IDENT OPEN_PAREN param_list? CLOSE_PAREN IS stat END  ;
 param_list : param ( COMMA param )* ;
 param : type IDENT  ;
 
+
+
 stat : SKIP                                            # SKIP_STAT
      | type IDENT EQUAL assign_rhs                     # VAR_DECL_STAT
      | assign_lhs EQUAL assign_rhs                     # ASSIGN_STAT
@@ -29,7 +31,7 @@ stat : SKIP                                            # SKIP_STAT
 
 
 assign_lhs : IDENT                                     # IDENT_ASSIGN
-     | array_elem                                      # ARRAY_ELEM_LHS
+     | IDENT (SQUARE_OPEN expr SQUARE_CLOSED )+        # ARRAY_ELEM_LHS
      | pair_elem                                       # PAIR_ELEM_LHS
      ;
 
@@ -63,12 +65,13 @@ expr : INT_LITER                                      # INT_LITER_EXPR
      | STR_LITER                                      # STR_LITER_EXPR
      | PAIR_LITER                                     # PAIR_LITER_EXPR
      | IDENT                                          # IDENT_EXPR
-     | array_elem                                     # ARRAY_ELEM_EXPR
+     | IDENT (SQUARE_OPEN expr SQUARE_CLOSED )+       # ARRAY_ELEM_EXPR
      | UNARY_OPER expr                                # UNARY_OP_EXPR
      | expr BINARY_OPER expr                          # BINARY_OP_EXPR
      | OPEN_PAREN expr CLOSE_PAREN                    # ENCLOSED_EXPR
      ;
 
-array_elem : IDENT (SQUARE_OPEN expr SQUARE_CLOSED )+  ;
+
+
 
 

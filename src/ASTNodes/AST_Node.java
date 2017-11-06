@@ -38,4 +38,7 @@ public abstract class AST_Node {
 
   // Called from visitor
   public abstract void Check();
+
+  public abstract void printContents();
+
 }

@@ -19,12 +19,6 @@ public interface WaccParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitEXPR_ASSIGN(@NotNull WaccParser.EXPR_ASSIGNContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link WaccParser#array_elem}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArray_elem(@NotNull WaccParser.Array_elemContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code VAR_DECL_STAT}
 	 * labeled alternative in {@link WaccParser#stat}.
 	 * @param ctx the parse tree

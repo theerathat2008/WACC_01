@@ -29,6 +29,11 @@ public class waccTest {
     waccVisitor visitor = new waccVisitor();
     visitor.visit(tree);
     System.out.println("===");
+    System.out.println("---------TESTING------------");
+    visitor.checkStuff();
+    System.out.println("---------TESTING------------");
+
+
 
   }
 }

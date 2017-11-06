@@ -16,6 +16,7 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS{
     this.ast_expr = null;
   }
 
+  @Override
   public void setSyntacticAttributes(String value){
     if(typeName == null){
       this.typeName = value;
@@ -24,7 +25,7 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS{
     }
   }
 
-
+  @Override
   public String getSyntacticAttributes(String strToGet){
     if(strToGet.equals("typeName")){
       return typeName;
@@ -34,11 +35,12 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS{
     }
   }
 
-
+  @Override
   public boolean isEmbeddedNodesFull(){
     return ast_expr != null;
   }
 
+  @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     if(astToGet.equals("ast_expr")){
       return ast_expr;
@@ -47,6 +49,7 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS{
     return null;
   }
 
+  @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("expr")){
       ast_expr = (AST_Expr) nodeToSet;
@@ -56,16 +59,27 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS{
   }
 
 
-
+  @Override
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(){
     return true;
   }
 
+  @Override
   // Called from visitor
   public void Check(){
     if(CheckSemantics()){
       //Do symbol table stuff
+    }
+  }
+
+  @Override
+  public void printContents(){
+    System.out.println("typeName: " + typeName);
+    if(ast_expr == null){
+      System.out.println("ast_expr: null");
+    } else {
+      System.out.println("ast_expr: has content");
     }
   }
 }

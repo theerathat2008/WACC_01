@@ -19,6 +19,7 @@ public class AST_ExprArrayElem extends AST_Expr{
     this.arrayName = null;
   }
 
+  @Override
   public void setSyntacticAttributes(String value){
     if(arrayName == null){
       this.arrayName = value;
@@ -28,6 +29,7 @@ public class AST_ExprArrayElem extends AST_Expr{
   }
 
 
+  @Override
   public String getSyntacticAttributes(String strToGet){
     if(strToGet.equals("arrayName")){
       return arrayName;
@@ -38,10 +40,12 @@ public class AST_ExprArrayElem extends AST_Expr{
   }
 
 
+  @Override
   public boolean isEmbeddedNodesFull(){
     return ast_exprList.size() == numOfExpr;
   }
 
+  @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     if(astToGet.equals("ast_exprList")){
       return ast_exprList.get(counter);
@@ -50,8 +54,9 @@ public class AST_ExprArrayElem extends AST_Expr{
     return null;
   }
 
+  @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("ast_exprList")){
+    if(astToSet.equals("expr")){
       ast_exprList.add((AST_Expr)nodeToSet);
     } else {
       System.out.println("Unrecognised AST Node.");
@@ -61,14 +66,27 @@ public class AST_ExprArrayElem extends AST_Expr{
 
 
   //Semantic Analysis and print error message if needed
+  @Override
   protected boolean CheckSemantics(){
     return true;
   }
 
   // Called from visitor
+  @Override
   public void Check(){
     if(CheckSemantics()){
       //Do symbol table stuff
+    }
+  }
+
+  @Override
+  public void printContents(){
+    System.out.println("arrayName: " + arrayName);
+    System.out.println("numOfExpr: " + numOfExpr);
+    if(ast_exprList.size() == numOfExpr){
+      System.out.println("ast_exprList: list full");
+    } else {
+      System.out.println("ast_exprList has size: " + ast_exprList.size());
     }
   }
 }

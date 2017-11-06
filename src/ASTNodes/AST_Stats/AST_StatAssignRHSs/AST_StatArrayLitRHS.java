@@ -23,23 +23,24 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS{
     }
   }
 
+  @Override
   public void setSyntacticAttributes(String value){
     System.out.println("No String Syntactic Attributes");
   }
 
-
+  @Override
   public String getSyntacticAttributes(String strToGet){
     System.out.println("No String Syntactic Attributes");
     return null;
   }
 
 
-
+  @Override
   public boolean isEmbeddedNodesFull(){
     return ast_exprList.size() == numOfExpr;
   }
 
-
+  @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     if(astToGet.equals("ast_exprList")){
       return ast_exprList.get(counter);
@@ -48,8 +49,9 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS{
     return null;
   }
 
+  @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("ast_exprList")){
+    if(astToSet.equals("expr")){
       ast_exprList.add((AST_Expr)nodeToSet);
     } else {
       System.out.println("Unrecognised AST Node.");
@@ -57,16 +59,27 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS{
   }
 
 
-
+  @Override
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(){
     return true;
   }
 
+  @Override
   // Called from visitor
   public void Check(){
     if(CheckSemantics()){
       //Do symbol table stuff
+    }
+  }
+
+  @Override
+  public void printContents(){
+    System.out.println("numOfExpr: " + numOfExpr);
+    if(ast_exprList.size() == numOfExpr){
+      System.out.println("ast_exprList: List full");
+    } else {
+      System.out.println("ast_exprList has size: " + ast_exprList.size());
     }
   }
 }

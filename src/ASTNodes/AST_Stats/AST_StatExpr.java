@@ -13,20 +13,13 @@ public class AST_StatExpr extends AST_Stat{
     this.expr = null;
   }
 
+  @Override
   public boolean isEmbeddedNodesFull(){
     return expr != null;
   }
 
-  public void setSyntacticAttributes(String value){
-    System.out.println("No String Syntactic Attributes");
-  }
 
-
-  public String getSyntacticAttributes(String strToGet){
-    System.out.println("No String Syntactic Attributes");
-    return null;
-  }
-
+  @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     if(astToGet.equals("expr")){
       return expr;
@@ -35,6 +28,7 @@ public class AST_StatExpr extends AST_Stat{
     return null;
   }
 
+  @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("expr")){
       expr = (AST_Expr) nodeToSet;
@@ -55,6 +49,16 @@ public class AST_StatExpr extends AST_Stat{
   public void Check(){
     if(CheckSemantics()){
       //Do symbol table stuff
+    }
+  }
+
+  @Override
+  public void printContents(){
+    super.printContents();
+    if(expr == null){
+      System.out.println("expr: null");
+    } else {
+      System.out.println("expr: has content");
     }
   }
 

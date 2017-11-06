@@ -14,10 +14,12 @@ public class AST_ExprUnary extends AST_Expr{
     this.astExpr = null;
   }
 
+  @Override
   public boolean isEmbeddedNodesFull(){
     return astExpr != null;
   }
 
+  @Override
   public void setSyntacticAttributes(String value){
     if(opName == null){
       this.opName = value;
@@ -27,6 +29,7 @@ public class AST_ExprUnary extends AST_Expr{
   }
 
 
+  @Override
   public String getSyntacticAttributes(String strToGet){
     if(strToGet.equals("opName")){
       return opName;
@@ -36,6 +39,7 @@ public class AST_ExprUnary extends AST_Expr{
     }
   }
 
+  @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     if(astToGet.equals("astExpr")){
       return astExpr;
@@ -44,6 +48,7 @@ public class AST_ExprUnary extends AST_Expr{
     return null;
   }
 
+  @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("expr")){
       astExpr = (AST_Expr) nodeToSet;
@@ -54,14 +59,26 @@ public class AST_ExprUnary extends AST_Expr{
 
 
   //Semantic Analysis and print error message if needed
+  @Override
   protected boolean CheckSemantics(){
     return true;
   }
 
   // Called from visitor
+  @Override
   public void Check(){
     if(CheckSemantics()){
       //Do symbol table stuff
+    }
+  }
+
+  @Override
+  public void printContents(){
+    System.out.println("opName: " + opName);
+    if(astExpr == null){
+      System.out.println("astExpr: null");
+    } else {
+      System.out.println("astExpr: has content");
     }
   }
 }

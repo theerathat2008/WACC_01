@@ -1,51 +1,45 @@
-package ASTNodes.AST_Stats;
+package ASTNodes.AST_TYPES;
 
 import ASTNodes.AST_Node;
 
-public class AST_StatBeginEnd extends AST_Stat {
+public class AST_Type extends AST_Node {
   //Syntactic attributes
-  AST_Stat statAST;
+
   //Semantic attribute
 
-
   // Assign the class variables when called
-  public AST_StatBeginEnd(){
-    this.statAST = null;
+  public AST_Type(){
+
   }
 
   @Override
   public boolean isEmbeddedNodesFull(){
-    return statAST != null;
+    return true;
   }
 
   @Override
   public void setSyntacticAttributes(String value){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("Base AST Node.");
   }
+
 
   @Override
   public String getSyntacticAttributes(String strToGet){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("Base AST Node.");
     return null;
   }
 
   @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
-    if(astToGet.equals("statAST")){
-      return statAST;
-    }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Base AST Node.");
     return null;
   }
 
   @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("statement")){
-      statAST = (AST_Stat) nodeToSet;
-    } else {
-      System.out.println("Unrecognised AST Node.");
-    }
+    System.out.println("Base AST Node.");
   }
+
 
 
   //Semantic Analysis and print error message if needed
@@ -64,10 +58,6 @@ public class AST_StatBeginEnd extends AST_Stat {
 
   @Override
   public void printContents(){
-    if(statAST == null){
-      System.out.println("statAST: null");
-    } else {
-      System.out.println("statAST: has content");
-    }
+    System.out.println("Base AST Node.");
   }
 }

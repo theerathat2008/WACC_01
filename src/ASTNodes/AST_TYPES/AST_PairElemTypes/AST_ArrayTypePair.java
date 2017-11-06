@@ -1,39 +1,39 @@
-package ASTNodes.AST_Stats;
+package ASTNodes.AST_TYPES.AST_PairElemTypes;
 
 import ASTNodes.AST_Node;
-import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
+import ASTNodes.AST_TYPES.AST_Type;
 
-public class AST_StatRead extends AST_Stat{
+public class AST_ArrayTypePair extends  AST_PairElemType{
   //Syntactic attributes
-  AST_StatAssignLHS ast_statAssignLHS;
+  AST_Type ast_type;
   //Semantic attribute
 
   // Assign the class variables when called
-  public AST_StatRead(){
-    this.ast_statAssignLHS = null;
+  public AST_ArrayTypePair(){
+    this.ast_type = null;
+  }
+
+  @Override
+  public boolean isEmbeddedNodesFull(){
+    return ast_type != null;
   }
 
   @Override
   public void setSyntacticAttributes(String value){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("No Syntactic Attribute");
   }
 
 
   @Override
   public String getSyntacticAttributes(String strToGet){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("No Syntactic Attribute");
     return null;
   }
 
   @Override
-  public boolean isEmbeddedNodesFull(){
-    return ast_statAssignLHS != null;
-  }
-
-  @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
-    if(astToGet.equals("ast_statAssignLHS")){
-      return ast_statAssignLHS;
+    if(astToGet.equals("ast_type")){
+      return ast_type;
     }
     System.out.println("Unrecognised AST Node.");
     return null;
@@ -41,13 +41,12 @@ public class AST_StatRead extends AST_Stat{
 
   @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    if(astToSet.equals("ast_statAssignLHS")){
-      ast_statAssignLHS = (AST_StatAssignLHS) nodeToSet;
+    if(astToSet.equals("ast_type")){
+      ast_type = (AST_Type) nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node.");
     }
   }
-
 
   //Semantic Analysis and print error message if needed
   @Override
@@ -65,11 +64,10 @@ public class AST_StatRead extends AST_Stat{
 
   @Override
   public void printContents(){
-    if(ast_statAssignLHS == null){
-      System.out.println("stat1: null");
+    if(ast_type == null){
+      System.out.println("ast_type: null");
     } else {
-      System.out.println("stat1: has content");
+      System.out.println("ast_type: has content");
     }
   }
-
 }

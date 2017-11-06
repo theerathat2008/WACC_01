@@ -20,21 +20,25 @@ public class AST_ExprEnclosed extends AST_Expr{
 
 
 
+  @Override
   public void setSyntacticAttributes(String value){
     System.out.println("No String Syntactic Attributes");
   }
 
 
+  @Override
   public String getSyntacticAttributes(String strToGet){
     System.out.println("No String Syntactic Attributes");
     return null;
   }
 
 
+  @Override
   public boolean isEmbeddedNodesFull(){
     return leftSepAST != null && exprAST != null && rightSepAST != null;
   }
 
+  @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     if(astToGet.equals("leftSepAST")){
       return leftSepAST;
@@ -47,6 +51,7 @@ public class AST_ExprEnclosed extends AST_Expr{
     return null;
   }
 
+  @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("leftSepAST")){
       leftSepAST = (AST_Separator) nodeToSet;
@@ -61,14 +66,35 @@ public class AST_ExprEnclosed extends AST_Expr{
 
 
   //Semantic Analysis and print error message if needed
+  @Override
   protected boolean CheckSemantics(){
     return true;
   }
 
   // Called from visitor
+  @Override
   public void Check(){
     if(CheckSemantics()){
       //Do symbol table stuff
+    }
+  }
+
+  @Override
+  public void printContents(){
+    if(leftSepAST == null){
+      System.out.println("leftSepAST: null");
+    } else {
+      System.out.println("leftSepAST: has content");
+    }
+    if(exprAST == null){
+      System.out.println("exprAST: null");
+    } else {
+      System.out.println("exprAST: has content");
+    }
+    if(rightSepAST == null){
+      System.out.println("rightSepAST: null");
+    } else {
+      System.out.println("rightSepAST: has content");
     }
   }
 }

@@ -10,6 +10,7 @@ public class AST_Separator extends AST_Node {
     this.separatorType = null;
   }
 
+  @Override
   public void setSyntacticAttributes(String value){
     if(separatorType == null){
       this.separatorType = value;
@@ -19,6 +20,7 @@ public class AST_Separator extends AST_Node {
   }
 
 
+  @Override
   public String getSyntacticAttributes(String strToGet){
     if(strToGet.equals("separatorType")){
       return separatorType;
@@ -29,30 +31,40 @@ public class AST_Separator extends AST_Node {
   }
 
 
+  @Override
   public boolean isEmbeddedNodesFull(){
     return true;
   }
 
+  @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
-    System.out.println("Terminal AST Node.");
+    System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
     return null;
   }
 
+  @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    System.out.println("Terminal AST Node.");
+    System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
   }
 
 
 
   //Semantic Analysis and print error message if needed
+  @Override
   protected boolean CheckSemantics(){
     return true;
   }
 
   // Called from visitor
+  @Override
   public void Check(){
     if(CheckSemantics()){
       //Do symbol table stuff
     }
+  }
+
+  @Override
+  public void printContents(){
+    System.out.println("separatorType: " + separatorType);
   }
 }
