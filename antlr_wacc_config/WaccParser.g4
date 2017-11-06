@@ -8,36 +8,38 @@ options {
 
 program : BEGIN (func)* stat END EOF;
 
-func : type IDENT open_paren param_list? close_paren IS stat END  ;
+func : type IDENT OPEN_PAREN param_list? CLOSE_PAREN IS stat END  ;
 param_list : param ( COMMA param )* ;
 param : type IDENT  ;
 
-stat : SKIP                                           # SKIP
-     | type IDENT EQUAL assign_rhs                    # ASSIGN
-     | assign_lhs EQUAL assign_rhs                    # EQUALS
-     | READ assign_lhs                                # READ
-     | FREE expr                                      # FREE
-     | RETURN expr                                    # RETURN
-     | EXIT expr                                      # EXIT
-     | PRINT expr                                     # PRINT
-     | PRINTLN expr                                   # PRINTLN
-     | IF expr THEN stat ELSE stat FI                 # IF
-     | WHILE expr DO stat DONE                        # WHILE
-     | BEGIN stat END                                 # BEGIN_END
-     | stat SEMI_COLON stat                           # SEMI
+stat : SKIP                                            # SKIP_STAT
+     | type IDENT EQUAL assign_rhs                     # VAR_DECL_STAT
+     | assign_lhs EQUAL assign_rhs                     # ASSIGN_STAT
+     | READ assign_lhs                                 # READ_STAT
+     | FREE expr                                       # FREE_STAT
+     | RETURN expr                                     # RETURN_STAT
+     | EXIT expr                                       # EXIT_STAT
+     | PRINT expr                                      # PRINT_STAT
+     | PRINTLN expr                                    # PRINTLN_STAT
+     | IF expr THEN stat ELSE stat FI                  # IF_STAT
+     | WHILE expr DO stat DONE                         # WHILE_STAT
+     | BEGIN stat END                                  # BEGIN_END_STAT
+     | stat SEMI_COLON stat                            # MULT_STAT
      ;
 
- assign_rhs : expr                                    # EXPR
-      | array_liter                                   # ARRAY_LITER
-      | NEWPAIR OPEN_PAREN expr COMMA expr CLOSE_PAREN # NEWPAIR
-      | pair_elem                                      # PAIR_ELEM_RHS
-      | CALL IDENT OPEN_PAREN (arg_list)? CLOSE_PAREN  # CALL
+
+assign_lhs : IDENT                                     # IDENT_ASSIGN
+     | array_elem                                      # ARRAY_ELEM_LHS
+     | pair_elem                                       # PAIR_ELEM_LHS
+     ;
+
+
+ assign_rhs : expr                                      # EXPR_ASSIGN
+      | SQUARE_OPEN (expr (COMMA expr)*)? SQUARE_CLOSED # ARRAY_LITER_RHS
+      | NEWPAIR OPEN_PAREN expr COMMA expr CLOSE_PAREN  # NEWPAIR_RHS
+      | pair_elem                                       # PAIR_ELEM_RHS
+      | CALL IDENT OPEN_PAREN (arg_list)? CLOSE_PAREN   # CALL_ASSIGN
       ;
-
-assign_lhs : IDENT                                    # IDENT
-     | array_elem                                     # ARRAY_ELEM_LHS
-     | pair_elem                                      # PAIR_ELEM_LHS
-     ;
 
 arg_list : expr (COMMA expr )*  ;
 
@@ -45,34 +47,28 @@ pair_elem : FST expr                                  # PAIR_FST
      | SND expr                                       # PAIR_SND
      ;
 
-type : BASE_TYPE                                      # BASE_TYPE
-     | type SQUARE_OPEN SQUARE_CLOSED                 # ARRAY_TYPE
-     | pair_type                                      # PAIR_TYPE
+type : BASE_TYPE                                                                  # BASE_TYPE
+     | type SQUARE_OPEN SQUARE_CLOSED                                             # ARRAY_TYPE
+     | PAIR_STRING OPEN_PAREN pair_elem_type COMMA pair_elem_type CLOSE_PAREN     # PAIR_TYPE
      ;
-
-pair_type : PAIR_STRING OPEN_PAREN pair_elem_type COMMA pair_elem_type CLOSE_PAREN ;
 
 pair_elem_type : BASE_TYPE                            # BASE_TYPE_PAIR
      | type SQUARE_OPEN SQUARE_CLOSED                 # ARRAY_TYPE_PAIR
      | PAIR_STRING                                    # PAIR_STRING
      ;
 
-expr : INT_LITER                                      # INT_LITER
-     | BOOL_LITER                                     # BOOL_LITER
-     | CHAR_LITER                                     # CHAR_LITER
-     | STR_LITER                                      # STR_LITER
-     | PAIR_LITER                                     # PAIR_LITER
+expr : INT_LITER                                      # INT_LITER_EXPR
+     | BOOL_LITER                                     # BOOL_LITER_EXPR
+     | CHAR_LITER                                     # CHAR_LITER_EXPR
+     | STR_LITER                                      # STR_LITER_EXPR
+     | PAIR_LITER                                     # PAIR_LITER_EXPR
      | IDENT                                          # IDENT_EXPR
-     | array_elem                                     # ARRAY_ELEM
-     | UNARY_OPER expr                                # UNARY_OP
-     | expr BINARY_OPER expr                          # BINARY_OP
-     | OPEN_PAREN expr CLOSE_PAREN                    # CLOSED_EXPR
+     | array_elem                                     # ARRAY_ELEM_EXPR
+     | UNARY_OPER expr                                # UNARY_OP_EXPR
+     | expr BINARY_OPER expr                          # BINARY_OP_EXPR
+     | OPEN_PAREN expr CLOSE_PAREN                    # ENCLOSED_EXPR
      ;
 
 array_elem : IDENT (SQUARE_OPEN expr SQUARE_CLOSED )+  ;
 
-array_liter: SQUARE_OPEN (expr (COMMA expr)*)? SQUARE_CLOSED ;
 
-open_paren : OPEN_PAREN;
-
-close_paren : CLOSE_PAREN;
