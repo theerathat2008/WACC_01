@@ -14,7 +14,7 @@ fragment ESCAPEDCHAR : '0' | 'b' | 't' | 'n' | 'f' | 'r' | '"' | '\'' | '\\';
 fragment DIGIT     : '0'..'9';
 fragment LOWERCHAR : 'a'..'z';
 fragment UPPERCHAR : 'A'..'Z';
-fragment CHARACTER : ~'\\' | ~'\'' | ~'"' | '\\' ESCAPEDCHAR;
+fragment CHARACTER : ~('\\' | '\'' | '"' ) | '\\' ESCAPEDCHAR ;
 fragment NULL      : 'null';
 fragment TRUE      : 'true';
 fragment FALSE     : 'false';
