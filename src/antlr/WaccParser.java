@@ -19,16 +19,16 @@ public class WaccParser extends Parser {
 	public static final int
 		PRINT=12, CALL=16, FI=7, PRINTLN=13, SND=18, NEWPAIR=15, SQUARE_OPEN=26, 
 		STR_LITER=34, PAIR_LITER=36, BEGIN=1, DO=21, FREE=9, COMMENT=39, PAIR_STRING=19, 
-		RETURN=10, WHITESPACE=40, UNARY_OPER=30, ELSE=6, SKIP=14, IF=4, BOOL_LITER=32, 
-		COMMA=24, DONE=22, FST=17, EQUAL=25, BINARY_OPER=31, IS=3, CHAR_LITER=33, 
+		RETURN=10, WHITESPACE=40, UNARY_OPER=31, ELSE=6, SKIP=14, IF=4, BOOL_LITER=32, 
+		COMMA=24, DONE=22, FST=17, EQUAL=25, BINARY_OPER=30, IS=3, CHAR_LITER=33, 
 		INT_LITER=35, READ=8, OPEN_PAREN=28, SQUARE_CLOSED=27, IDENT=38, END=2, 
 		THEN=5, WHILE=20, SEMI_COLON=23, CLOSE_PAREN=29, EXIT=11, BASE_TYPE=37;
 	public static final String[] tokenNames = {
 		"<INVALID>", "'begin'", "'end'", "'is'", "'if'", "'then'", "'else'", "'fi'", 
 		"'read'", "'free'", "'return'", "'exit'", "'print'", "'println'", "'skip'", 
 		"'newpair'", "'call'", "'fst'", "'snd'", "'pair'", "'while'", "'do'", 
-		"'done'", "';'", "','", "'='", "'['", "']'", "'('", "')'", "UNARY_OPER", 
-		"BINARY_OPER", "BOOL_LITER", "CHAR_LITER", "STR_LITER", "INT_LITER", "'null'", 
+		"'done'", "';'", "','", "'='", "'['", "']'", "'('", "')'", "BINARY_OPER", 
+		"UNARY_OPER", "BOOL_LITER", "CHAR_LITER", "STR_LITER", "INT_LITER", "'null'", 
 		"BASE_TYPE", "IDENT", "COMMENT", "WHITESPACE"
 	};
 	public static final int
@@ -1668,14 +1668,14 @@ public class WaccParser extends Parser {
 		"\u00b1\3\2\2\2\u00b4\u00bb\7\'\2\2\u00b5\u00b6\5\24\13\2\u00b6\u00b7\7"+
 		"\34\2\2\u00b7\u00b8\7\35\2\2\u00b8\u00bb\3\2\2\2\u00b9\u00bb\7\25\2\2"+
 		"\u00ba\u00b4\3\2\2\2\u00ba\u00b5\3\2\2\2\u00ba\u00b9\3\2\2\2\u00bb\27"+
-		"\3\2\2\2\u00bc\u00bd\b\r\1\2\u00bd\u00be\7 \2\2\u00be\u00cb\5\30\r\5\u00bf"+
+		"\3\2\2\2\u00bc\u00bd\b\r\1\2\u00bd\u00be\7!\2\2\u00be\u00cb\5\30\r\5\u00bf"+
 		"\u00cb\7%\2\2\u00c0\u00cb\7\"\2\2\u00c1\u00cb\7#\2\2\u00c2\u00cb\7$\2"+
 		"\2\u00c3\u00cb\7&\2\2\u00c4\u00cb\7(\2\2\u00c5\u00cb\5\32\16\2\u00c6\u00c7"+
 		"\7\36\2\2\u00c7\u00c8\5\30\r\2\u00c8\u00c9\7\37\2\2\u00c9\u00cb\3\2\2"+
 		"\2\u00ca\u00bc\3\2\2\2\u00ca\u00bf\3\2\2\2\u00ca\u00c0\3\2\2\2\u00ca\u00c1"+
 		"\3\2\2\2\u00ca\u00c2\3\2\2\2\u00ca\u00c3\3\2\2\2\u00ca\u00c4\3\2\2\2\u00ca"+
 		"\u00c5\3\2\2\2\u00ca\u00c6\3\2\2\2\u00cb\u00d1\3\2\2\2\u00cc\u00cd\f\4"+
-		"\2\2\u00cd\u00ce\7!\2\2\u00ce\u00d0\5\30\r\5\u00cf\u00cc\3\2\2\2\u00d0"+
+		"\2\2\u00cd\u00ce\7 \2\2\u00ce\u00d0\5\30\r\5\u00cf\u00cc\3\2\2\2\u00d0"+
 		"\u00d3\3\2\2\2\u00d1\u00cf\3\2\2\2\u00d1\u00d2\3\2\2\2\u00d2\31\3\2\2"+
 		"\2\u00d3\u00d1\3\2\2\2\u00d4\u00d9\7(\2\2\u00d5\u00d6\7\34\2\2\u00d6\u00d7"+
 		"\5\30\r\2\u00d7\u00d8\7\35\2\2\u00d8\u00da\3\2\2\2\u00d9\u00d5\3\2\2\2"+

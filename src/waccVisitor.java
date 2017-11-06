@@ -60,16 +60,20 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Create the node for the current visitor function
     AST_FuncDecl funcNode = new AST_FuncDecl();
 
-    //For returnTypeName
-    //Visit type and get the corresponding visitor function to set the type in func AST Node
-    visitChildren(ctx.type());
-
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("functionList", funcNode);
 
     //Set parentNode of AST class and global visitor class
     funcNode.setParentNode(parentVisitorNode);
     parentVisitorNode = funcNode;
+
+    //For returnTypeName
+    //Visit type and get the corresponding visitor function to set the type in func AST Node
+    visitChildren(ctx.type());
+
+    //For functionName
+    System.out.println(ctx.IDENT().getText());
+    funcNode.setSyntacticAttributes(ctx.IDENT().getText());
 
     //Do semantic analysis
     funcNode.Check();
@@ -111,6 +115,10 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Create the node for the current visitor function
     AST_Param paramNode = new AST_Param();
+
+    //For returnTypeName
+    //Visit type and get the corresponding visitor function to set the type in func AST Node
+    visitChildren(ctx.type());
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("listParam", paramNode);
@@ -233,14 +241,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     System.out.println("statPairElemLHS");
 
     //Iterate through rest of the tree
-    return visitChildren(ctx);
-  }
-
-  //TODO ------------------------
-  //TODO Check if we need visit PAIR STRING : Probably not, embedded as string info in VarDecl Param and FuncDecl
-  //TODO -------------------------
-  @Override
-  public Void visitPAIR_STRING(WaccParser.PAIR_STRINGContext ctx) {
     return visitChildren(ctx);
   }
 
@@ -705,16 +705,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   }
 
 
-  //TODO ------------------------
-  //TODO Check Whether to visit ARRAY_TYPE_PAIR: Probably not, value store in type
-  //TODO -------------------------
-
-  @Override
-  public Void visitARRAY_TYPE_PAIR(WaccParser.ARRAY_TYPE_PAIRContext ctx) {
-    return visitChildren(ctx);
-  }
-
-
   @Override
   public Void visitBINARY_OP_EXPR(WaccParser.BINARY_OP_EXPRContext ctx) {
     //Create the node for the current visitor function
@@ -759,16 +749,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     return visitChildren(ctx);
   }
 
-/**
-  //TODO ------------------------
-  //TODO Got rid of array type
-  //TODO -------------------------
 
-  @Override
-  public Void visitARRAY_TYPE(WaccParser.ARRAY_TYPEContext ctx) {
-    return visitChildren(ctx);
-  }
-**/
+
 
   @Override
   public Void visitSTR_LITER_EXPR(WaccParser.STR_LITER_EXPRContext ctx) {
@@ -845,14 +827,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     return visitChildren(ctx);
   }
 
-  //TODO ------------------------
-  //TODO Check Whether to visit BASE_TYPR_PAIR : Probably not, stored in pair_type
-  //TODO -------------------------
-
-  @Override
-  public Void visitBASE_TYPE_PAIR(WaccParser.BASE_TYPE_PAIRContext ctx) {
-    return visitChildren(ctx);
-  }
 
   //TODO ------------------------
   //TODO Check Whether to visit PAIR_SND :  Probably not, value stored in pair elem rhs and pair elem lhs, ASTs
@@ -885,14 +859,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     return visitChildren(ctx);
   }
 
-  //TODO ------------------------
-  //TODO Check Whether to visit PAIR_TYPE : NO
-  //TODO -------------------------
-
-  @Override
-  public Void visitPAIR_TYPE(WaccParser.PAIR_TYPEContext ctx) {
-    return visitChildren(ctx);
-  }
 
   @Override
   public Void visitPAIR_LITER_EXPR(WaccParser.PAIR_LITER_EXPRContext ctx) {
@@ -948,11 +914,61 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   @Override
   public Void visitBASE_TYPE(WaccParser.BASE_TYPEContext ctx) {
     //set the parent node of basetype to have the appropriate member variable to be the base type
-    System.out.println("Visiting BASE TYPE with parent Node: ");
-    System.out.println(parentVisitorNode.toString());
+    System.out.println("Visiting BASE TYPE with parent Node: " + parentVisitorNode.toString());
     parentVisitorNode.setSyntacticAttributes(ctx.getText());
     return null;
   }
+
+  //TODO ------------------------
+  //TODO Got rid of array type
+  //TODO -------------------------
+
+  @Override
+  public Void visitARRAY_TYPE(WaccParser.ARRAY_TYPEContext ctx) {
+    System.out.println("Visiting ARRAY TYPE with parent Node: " + parentVisitorNode.toString());
+    return visitChildren(ctx);
+  }
+
+  //TODO ------------------------
+  //TODO Check Whether to visit PAIR_TYPE :
+  //TODO -------------------------
+
+  @Override
+  public Void visitPAIR_TYPE(WaccParser.PAIR_TYPEContext ctx) {
+    return visitChildren(ctx);
+  }
+
+
+  //TODO ------------------------
+  //TODO Check Whether to visit BASE_TYPR_PAIR : Probably not, stored in pair_type
+  //TODO -------------------------
+
+  @Override
+  public Void visitBASE_TYPE_PAIR(WaccParser.BASE_TYPE_PAIRContext ctx) {
+    return visitChildren(ctx);
+  }
+
+
+
+  //TODO ------------------------
+  //TODO Check Whether to visit ARRAY_TYPE_PAIR: Probably not, value store in type
+  //TODO -------------------------
+
+  @Override
+  public Void visitARRAY_TYPE_PAIR(WaccParser.ARRAY_TYPE_PAIRContext ctx) {
+    return visitChildren(ctx);
+  }
+
+
+  //TODO ------------------------
+  //TODO Check if we need visit PAIR STRING : Probably not, embedded as string info in VarDecl Param and FuncDecl
+  //TODO -------------------------
+  @Override
+  public Void visitPAIR_STRING(WaccParser.PAIR_STRINGContext ctx) {
+    return visitChildren(ctx);
+  }
+
+
 
 
 
