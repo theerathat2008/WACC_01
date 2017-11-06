@@ -57,8 +57,8 @@ CLOSE_PAREN : ')' ;
 
 //Operators
 
-UNARY_OPER : '!' | '-' | 'len' | 'ord' | 'chr'  ;
 BINARY_OPER : '*' | '/' | '%' | '+' | '-' | '>' | '>=' | '<' | '<=' | '==' | '!=' | '&&' | '||'  ;
+UNARY_OPER : '!' | '-' | 'len' | 'ord' | 'chr'  ;
 
 //Literals
 
