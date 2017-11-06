@@ -16,9 +16,9 @@ fragment LOWERCHAR : 'a'..'z';
 fragment UPPERCHAR : 'A'..'Z';
 fragment CHARACTER : ~'\\' | ~'\'' | ~'"' | '\\' ESCAPEDCHAR;
 fragment NULL      : 'null';
-//fragment INTSIGN   : '+' | '-'  ;
 fragment TRUE      : 'true';
 fragment FALSE     : 'false';
+
 
 //Reserved Keywords
 
@@ -46,9 +46,28 @@ DO : 'do' ;
 DONE : 'done' ;
 SEMI_COLON : ';' ;
 MINUS: '-' ;
+PLUS: '+' ;
+
+//Unary Operators
+CHR: 'chr' ;
+ORD: 'ord' ;
+LEN: 'len' ;
+EXCL: '!' ;
+
+//Binary Operators
+MULT: '*' ;
+DIV: '/' ;
+MOD: '%' ;
+GRTHAN: '>' ;
+GREQTO: '>=' ;
+LSTHAN: '<' ;
+LSEQTO: '<=' ;
+EQTO: '==' ;
+NEQTO: '!=' ;
+AND: '&&' ;
+OR: '||' ;
 
 //Seperators
-
 COMMA : ',' ;
 EQUAL : '=' ;
 SQUARE_OPEN : '[' ;
@@ -56,19 +75,12 @@ SQUARE_CLOSED : ']' ;
 OPEN_PAREN : '(' ;
 CLOSE_PAREN : ')' ;
 
-//Operators
-
-UNARY_OPER : '!' | 'len' | 'ord' | 'chr'  ;
-BINARY_OPER : '*' | '/' | '%' | '+' | '>' | '>=' | '<' | '<=' | '==' | '!=' | '&&' | '||'  ;
-
-
 
 //Literals
-
 BOOL_LITER :  TRUE | FALSE  ;
 CHAR_LITER : '\'' CHARACTER '\''  ;
 STR_LITER : '"' CHARACTER* '"'  ;
-INT_LITER: ('+' | '-')? DIGIT+;
+INT_LITER:  DIGIT+;
 PAIR_LITER : 'null' ;
 
 BASE_TYPE : INT_STRING
@@ -83,3 +95,4 @@ IDENT: (UNDERSCORE | LOWERCHAR | UPPERCHAR ) (UNDERSCORE | LOWERCHAR | UPPERCHAR
 
 COMMENT : '#' ~[\r\n]* -> skip;
 WHITESPACE : [ \t\n]+ -> skip;
+

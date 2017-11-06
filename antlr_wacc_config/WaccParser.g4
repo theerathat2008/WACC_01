@@ -57,20 +57,21 @@ pair_elem_type : BASE_TYPE                            # BASE_TYPE_PAIR
      | PAIR_STRING                                    # PAIR_STRING
      ;
 
-expr : INT_LITER                                      # INT_LITER_EXPR
+expr : unaryOp expr                                # UNARY_OP_EXPR
+     | expr binaryOp expr                          # BINARY_OP_EXPR
      | BOOL_LITER                                     # BOOL_LITER_EXPR
      | CHAR_LITER                                     # CHAR_LITER_EXPR
      | STR_LITER                                      # STR_LITER_EXPR
      | PAIR_LITER                                     # PAIR_LITER_EXPR
      | IDENT                                          # IDENT_EXPR
      | array_elem                                     # ARRAY_ELEM_EXPR
-     | UNARY_OPER expr                                # UNARY_OP_EXPR
-     | MINUS expr                                # UNARY_OP_EXPR
-     | expr BINARY_OPER expr                          # BINARY_OP_EXPR
-     | expr MINUS expr                          # BINARY_OP_EXPR
-
+     | (PLUS | MINUS)? INT_LITER                                      # INT_LITER_EXPR
      | OPEN_PAREN expr CLOSE_PAREN                    # ENCLOSED_EXPR
      ;
+
+unaryOp : CHR | ORD | LEN | EXCL | MINUS ;
+
+binaryOp : MULT | DIV | MOD | PLUS | MINUS | GRTHAN | GREQTO | LSTHAN | LSEQTO | EQTO | NEQTO | AND | OR ;
 
 array_elem : IDENT (SQUARE_OPEN expr SQUARE_CLOSED )+  ;
 
