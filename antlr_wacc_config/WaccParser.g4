@@ -29,19 +29,17 @@ stat : SKIPTOK                                            # SKIP_STAT
 
 
 assign_lhs : IDENT                                     # IDENT_ASSIGN
-     | array_elem                                      # ARRAY_ELEM_LHS
+     | IDENT (SQUARE_OPEN expr SQUARE_CLOSED )+        # ARRAY_ELEM_LHS
      | pair_elem                                       # PAIR_ELEM_LHS
      ;
 
 
- assign_rhs : expr                                      # EXPR_ASSIGN
-      | SQUARE_OPEN (expr (COMMA expr)*)? SQUARE_CLOSED # ARRAY_LITER_RHS
-      | NEWPAIR OPEN_PAREN expr COMMA expr CLOSE_PAREN  # NEWPAIR_RHS
-      | pair_elem                                       # PAIR_ELEM_RHS
-      | CALL IDENT OPEN_PAREN (arg_list)? CLOSE_PAREN   # CALL_ASSIGN
+ assign_rhs : expr                                                 # EXPR_ASSIGN
+      | SQUARE_OPEN (expr (COMMA expr)*)? SQUARE_CLOSED            # ARRAY_LITER_RHS
+      | NEWPAIR OPEN_PAREN expr COMMA expr CLOSE_PAREN             # NEWPAIR_RHS
+      | pair_elem                                                  # PAIR_ELEM_RHS
+      | CALL IDENT OPEN_PAREN (expr (COMMA expr )*)? CLOSE_PAREN   # CALL_ASSIGN
       ;
-
-arg_list : expr (COMMA expr )*  ;
 
 pair_elem : FST expr                                  # PAIR_FST
      | SND expr                                       # PAIR_SND
@@ -57,15 +55,15 @@ pair_elem_type : BASE_TYPE                            # BASE_TYPE_PAIR
      | PAIR_STRING                                    # PAIR_STRING
      ;
 
-expr : unaryOp expr                                # UNARY_OP_EXPR
-     | expr binaryOp expr                          # BINARY_OP_EXPR
+expr : unaryOp expr                                   # UNARY_OP_EXPR
+     | expr binaryOp expr                             # BINARY_OP_EXPR
      | BOOL_LITER                                     # BOOL_LITER_EXPR
      | CHAR_LITER                                     # CHAR_LITER_EXPR
      | STR_LITER                                      # STR_LITER_EXPR
      | PAIR_LITER                                     # PAIR_LITER_EXPR
      | IDENT                                          # IDENT_EXPR
-     | array_elem                                     # ARRAY_ELEM_EXPR
-     | (PLUS | MINUS)? INT_LITER                                      # INT_LITER_EXPR
+     | IDENT (SQUARE_OPEN expr SQUARE_CLOSED )+       # ARRAY_ELEM_EXPR
+     | (PLUS | MINUS)? INT_LITER                      # INT_LITER_EXPR
      | OPEN_PAREN expr CLOSE_PAREN                    # ENCLOSED_EXPR
      ;
 
@@ -73,6 +71,6 @@ unaryOp : CHR | ORD | LEN | EXCL | MINUS ;
 
 binaryOp : MULT | DIV | MOD | PLUS | MINUS | GRTHAN | GREQTO | LSTHAN | LSEQTO | EQTO | NEQTO | AND | OR ;
 
-array_elem : IDENT (SQUARE_OPEN expr SQUARE_CLOSED )+  ;
+
 
 

@@ -1,8 +1,9 @@
 package ASTNodes;
 
-//import SymbolTable.SymbolTable;
 
 import SymbolTable.SymbolTable;
+import java.util.ArrayDeque;
+
 
 /**
  * Empty Base class for the AST Tree that is generated from the parse tree
@@ -24,6 +25,8 @@ public abstract class AST_Node {
     return this.getClass().getSimpleName();
   }
 
+  public abstract ArrayDeque<AST_Node> getNodes();
+
   public abstract void setSyntacticAttributes(String value);
 
   public abstract String getSyntacticAttributes(String strToGet);
@@ -42,4 +45,7 @@ public abstract class AST_Node {
 
   // Called from visitor
   public abstract void Check(SymbolTable ST);
+
+  public abstract void printContents();
+
 }

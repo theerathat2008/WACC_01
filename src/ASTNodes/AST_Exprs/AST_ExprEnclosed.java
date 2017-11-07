@@ -4,6 +4,8 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_Separator;
 import SymbolTable.SymbolTable;
 
+import java.util.ArrayDeque;
+
 public class AST_ExprEnclosed extends AST_Expr{
   //Syntactic attributes
   AST_Separator leftSepAST;
@@ -13,29 +15,44 @@ public class AST_ExprEnclosed extends AST_Expr{
 
   // Assign the class variables when called
   public AST_ExprEnclosed(){
-    this.leftSepAST = null;
+    this.leftSepAST = new AST_Separator();
+    this.leftSepAST.setSyntacticAttributes("(");
     this.exprAST = null;
-    this.rightSepAST = null;
+    this.rightSepAST = new AST_Separator();
+    this.rightSepAST.setSyntacticAttributes(")");
+  }
 
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    returnList.addLast(leftSepAST);
+    returnList.addLast(exprAST);
+    returnList.addLast(rightSepAST);
+    return returnList;
   }
 
 
 
+  @Override
   public void setSyntacticAttributes(String value){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
   }
 
 
+  @Override
   public String getSyntacticAttributes(String strToGet){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
     return null;
   }
 
 
+  @Override
   public boolean isEmbeddedNodesFull(){
     return leftSepAST != null && exprAST != null && rightSepAST != null;
   }
 
+  @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     if(astToGet.equals("leftSepAST")){
       return leftSepAST;
@@ -44,10 +61,11 @@ public class AST_ExprEnclosed extends AST_Expr{
     } else if (astToGet.equals("rightSepAST")){
       return rightSepAST;
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
+  @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("leftSepAST")){
       leftSepAST = (AST_Separator) nodeToSet;
@@ -56,7 +74,7 @@ public class AST_ExprEnclosed extends AST_Expr{
     } else if (astToSet.equals("rightSepAST")){
       rightSepAST = (AST_Separator) nodeToSet;
     } else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
   }
 
@@ -71,6 +89,26 @@ public class AST_ExprEnclosed extends AST_Expr{
     if(CheckSemantics(ST)){
       setType(exprAST.type);
       //Do symbol table stuff
+    }
+  }
+
+  @Override
+  public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
+    if(leftSepAST == null){
+      System.out.println("leftSepAST: null");
+    } else {
+      System.out.println("leftSepAST: has content");
+    }
+    if(exprAST == null){
+      System.out.println("exprAST: null");
+    } else {
+      System.out.println("exprAST: has content");
+    }
+    if(rightSepAST == null){
+      System.out.println("rightSepAST: null");
+    } else {
+      System.out.println("rightSepAST: has content");
     }
   }
 }

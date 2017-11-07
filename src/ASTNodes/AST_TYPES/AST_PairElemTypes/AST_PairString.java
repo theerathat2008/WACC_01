@@ -1,21 +1,17 @@
-package ASTNodes.AST_Exprs;
+package ASTNodes.AST_TYPES.AST_PairElemTypes;
 
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
-
 import java.util.ArrayDeque;
 
-public class AST_ExprLiter extends AST_Expr{
+public class AST_PairString extends AST_PairElemType{
   //Syntactic attributes
-  String constant;    //TODO change to content
-  String literal;
+  String pairString;
   //Semantic attribute
 
   // Assign the class variables when called
-  public AST_ExprLiter(){
-    this.constant = null;
-    this.literal = null;
-
+  public AST_PairString(){
+    this.pairString = null;
   }
 
   @Override
@@ -26,11 +22,14 @@ public class AST_ExprLiter extends AST_Expr{
 
 
   @Override
+  public boolean isEmbeddedNodesFull(){
+    return true;
+  }
+
+  @Override
   public void setSyntacticAttributes(String value){
-    if(constant == null){
-      this.constant = value;
-    } else if(literal == null){
-      this.literal = value;
+    if(pairString == null){
+      this.pairString = value;
     } else {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
@@ -39,19 +38,12 @@ public class AST_ExprLiter extends AST_Expr{
 
   @Override
   public String getSyntacticAttributes(String strToGet){
-    if(strToGet.equals("constant")){
-      return constant;
-    } else if(strToGet.equals("literal")){
-      return literal;
+    if(strToGet.equals("pairString")){
+      return pairString;
     } else {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
-  }
-
-  @Override
-  public boolean isEmbeddedNodesFull(){
-    return true;
   }
 
   @Override
@@ -66,35 +58,28 @@ public class AST_ExprLiter extends AST_Expr{
   }
 
 
+
   //Semantic Analysis and print error message if needed
+  @Override
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
   // Called from visitor
+  @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
-      if (literal.equals("INT_LITER")) {
-        setType("int");
-      } else if (literal.equals("BOOL_LITER")) {
-        setType("bool");
-      } else if (literal.equals("CHAR_LITER")) {
-        setType("char");
-      } else if(literal.equals("STRING_LITER")) {
-        setType("string");
-      } else if(literal.equals("PAIR_LITER")) {
-        setType("pair");
-      } else {
-        setType("null");
-      }
+      //Do symbol table stuff
     }
+  }
+
+  public String toString() {
+    return pairString;
   }
 
   @Override
   public void printContents(){
     System.out.println(this.getClass().getSimpleName() + ": ");
-    System.out.println("constant: " + constant);
-    System.out.println("literal: " + literal);
-
+    System.out.println("pairString: " + pairString);
   }
 }

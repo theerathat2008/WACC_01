@@ -3,6 +3,8 @@ package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 
+import java.util.ArrayDeque;
+
 public class AST_StatIdentLHS extends AST_StatAssignLHS{
   //Syntactic attributes
   String identName;
@@ -16,49 +18,66 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS{
 
   }
 
+
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
+    return null;
+  }
+
+  @Override
   public void setSyntacticAttributes(String value){
     if(identName == null){
       this.identName = value;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
 
-
+  @Override
   public String getSyntacticAttributes(String strToGet){
     if(strToGet.equals("identName")){
       return identName;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
   }
 
+  @Override
   public boolean isEmbeddedNodesFull(){
     return true;
   }
 
-
+  @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
-    System.out.println("Terminal AST Node.");
+    System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
     return null;
   }
 
+  @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    System.out.println("Terminal AST Node.");
+    System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
   }
 
 
-
+  @Override
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
+  @Override
   // Called from visitor
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       setType(ST.lookupAll(identName).toString());
     }
+  }
+
+  @Override
+  public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
+    System.out.println("identName: " + identName);
   }
 }
