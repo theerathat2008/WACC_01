@@ -2,6 +2,7 @@ package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
+import SymbolTable.SymbolTable;
 
 public class AST_StatRead extends AST_Stat{
   //Syntactic attributes
@@ -46,14 +47,14 @@ public class AST_StatRead extends AST_Stat{
 
   //Semantic Analysis and print error message if needed
   @Override
-  protected boolean CheckSemantics(){
+  protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
   // Called from visitor
   @Override
-  public void Check(){
-    if(CheckSemantics()){
+  public void Check(SymbolTable ST){
+    if(CheckSemantics(ST)){
       //Do symbol table stuff
     }
   }

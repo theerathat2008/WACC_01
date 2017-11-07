@@ -2,9 +2,15 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
+import IdentifierObjects.FunctionObj;
+import IdentifierObjects.IDENTIFIER;
+import SymbolTable.SymbolTable;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.System.exit;
+
 
 public class AST_StatCallRHS extends AST_StatAssignRHS{
   //Syntactic attributes
@@ -39,6 +45,12 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
     }
   }
 
+  @Override
+  public String getType(SymbolTable ST) {
+    FunctionObj type = (FunctionObj)ST.lookupAll(funcName);
+    return type.getReturnTypeName();
+  }
+
   public boolean isEmbeddedNodesFull(){
     return ast_exprList.size() == numOfExpr;
   }
@@ -61,14 +73,26 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
 
 
   //Semantic Analysis and print error message if needed
-  protected boolean CheckSemantics(){
-    return true;
+  protected boolean CheckSemantics(SymbolTable ST){
+    IDENTIFIER type =  ST.lookupAll(funcName);
+    if (type != null) {
+      if (type instanceof FunctionObj) {
+        if (((FunctionObj) type).getparamListObj().toString() == "PARAM_LIST") { //TODO check parameters are same in function call and function declaration
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   // Called from visitor
-  public void Check(){
-    if(CheckSemantics()){
+  public void Check(SymbolTable ST){
+    if(CheckSemantics(ST)){
       //Do symbol table stuff
+    } else {
+      System.out.println("#semantic_error#");
+      System.out.println("Insert Error message here");
+      exit(200);
     }
   }
 }
