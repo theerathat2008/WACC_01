@@ -104,7 +104,7 @@ public class AST_StatAssign extends AST_Stat{
     if (ast_statAssignLHS.getType(ST).equals(ast_statAssignRHS.getType(ST))) {
       return true;
     } else {
-      new TypeMismatchError(new FilePosition(ctx)).printAll();
+      //PRASH - new TypeMismatchError(new FilePosition(ctx)).printAll();
       return false;
     }
   }
