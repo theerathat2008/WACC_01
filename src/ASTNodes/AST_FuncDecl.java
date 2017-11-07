@@ -145,7 +145,7 @@ public class AST_FuncDecl extends AST_Node {
   //Semantic Analysis and print error message if needed
   @Override
   protected boolean CheckSemantics(SymbolTable ST){
-    System.out.println(((FunctionObj) ST.lookupAll(funcName)).toString());
+    //System.out.println(((FunctionObj) ST.lookupAll(funcName)).toString());
     if (ST.lookupAll(funcName) == null) {
       return true;
     } else {

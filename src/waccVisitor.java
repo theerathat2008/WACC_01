@@ -103,8 +103,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Iterate through rest of the tree
     visitChildren(ctx);
-    currentTree = currentTree.encSymTable;
     funcNode.Check(currentTree);
+    currentTree = currentTree.encSymTable;
 
     if (funcNode.checkForParamList()) {
     currentTree = currentTree.encSymTable;  //if function visits a param list do this again
