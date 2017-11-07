@@ -4,11 +4,13 @@ public class FunctionObj extends IDENTIFIER {
   String returnTypeName; //type
   IDENTIFIER returnType;
   ParamListObj paramListObj;  //TODO set this at some point
+  ASTNodes.AST_FuncDecl parent;
 
-  public FunctionObj(String name, IDENTIFIER returnType) {
+  public FunctionObj(String name, IDENTIFIER returnType, ASTNodes.AST_FuncDecl parent) {
     this.name = name;
     this.returnType = returnType;
     returnTypeName = returnType.toString();
+    this.parent = parent;
   }
 
   public boolean equals(IDENTIFIER other) {
@@ -27,7 +29,7 @@ public class FunctionObj extends IDENTIFIER {
   }
 
   public String getReturnTypeName() {
-    return returnTypeName;
+    return parent.getReturnTypeName();
   }
 
   public ParamListObj getparamListObj() {

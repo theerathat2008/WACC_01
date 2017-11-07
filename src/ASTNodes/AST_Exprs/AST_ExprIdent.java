@@ -64,14 +64,14 @@ public class AST_ExprIdent extends AST_Expr{
 
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
-    return true;
+    return ST.lookupAll(varName) != null;
   }
 
   // Called from visitor
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
-      ST.add(varName, ST.stringToIdent(varName,type));
-      setType(ST.lookupAll(varName).toString());
+//      ST.add(varName, ST.stringToIdent(varName,type));
+//      setType(ST.lookupAll(varName).toString());
 
     }
   }
