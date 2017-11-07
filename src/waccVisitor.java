@@ -196,7 +196,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitPRINTLN_STAT(WaccParser.PRINTLN_STATContext ctx) {
 
     //Create the node for the current visitor function
-    AST_StatExpr printlnExprNode = new AST_StatExpr();
+    AST_StatExpr printlnExprNode = new AST_StatExpr(ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", printlnExprNode);
@@ -474,7 +474,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   @Override
   public Void visitIDENT_EXPR(WaccParser.IDENT_EXPRContext ctx) {
     //Create the node for the current visitor function
-    AST_ExprIdent exprIdentNode = new AST_ExprIdent();
+    AST_ExprIdent exprIdentNode = new AST_ExprIdent(ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("expr", exprIdentNode);
@@ -561,7 +561,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   @Override
   public Void visitPRINT_STAT(WaccParser.PRINT_STATContext ctx) {
     //Create the node for the current visitor function
-    AST_StatExpr printNode = new AST_StatExpr();
+    AST_StatExpr printNode = new AST_StatExpr(ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", printNode);
@@ -588,7 +588,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   @Override
   public Void visitASSIGN_STAT(WaccParser.ASSIGN_STATContext ctx) {
     //Create the node for the current visitor function
-    AST_StatAssign statAssignNode = new AST_StatAssign();
+    AST_StatAssign statAssignNode = new AST_StatAssign(ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", statAssignNode);
@@ -688,7 +688,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   @Override
   public Void visitVAR_DECL_STAT(WaccParser.VAR_DECL_STATContext ctx) {
     //Create the node for the current visitor function
-    AST_StatVarDecl statVarDeclNode = new AST_StatVarDecl();
+    AST_StatVarDecl statVarDeclNode = new AST_StatVarDecl(ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", statVarDeclNode);
@@ -715,7 +715,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   @Override
   public Void visitFREE_STAT(WaccParser.FREE_STATContext ctx) {
     //Create the node for the current visitor function
-    AST_StatExpr statExprNode = new AST_StatExpr();
+    AST_StatExpr statExprNode = new AST_StatExpr(ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", statExprNode);
@@ -791,7 +791,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   @Override
   public Void visitCALL_ASSIGN(WaccParser.CALL_ASSIGNContext ctx) {
     //Create the node for the current visitor function
-    AST_StatCallRHS statCallRHSNode = new AST_StatCallRHS(ctx.getChildCount());
+    AST_StatCallRHS statCallRHSNode = new AST_StatCallRHS(ctx.getChildCount(), ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statAssignRHS", statCallRHSNode);
@@ -949,7 +949,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   @Override
   public Void visitEXIT_STAT(WaccParser.EXIT_STATContext ctx) {
     //Create the node for the current visitor function
-    AST_StatExpr exitNode = new AST_StatExpr();
+    AST_StatExpr exitNode = new AST_StatExpr(ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", exitNode);
@@ -1056,7 +1056,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   @Override
   public Void visitRETURN_STAT(WaccParser.RETURN_STATContext ctx) {
     //Create the node for the current visitor function
-    AST_StatExpr returnStatNode = new AST_StatExpr();
+    AST_StatExpr returnStatNode = new AST_StatExpr(ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", returnStatNode);

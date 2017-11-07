@@ -11,7 +11,7 @@ public class TypeError extends ErrorMessage {
 
   @Override
   public void printError() {
-    System.out.println("ERROR: Incorrect type used"); //" on line:..."
+    System.out.print("ERROR: Incorrect type used"); //" on line:..."
   }
 
 

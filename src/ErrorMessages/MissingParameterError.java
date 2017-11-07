@@ -11,7 +11,7 @@ public class MissingParameterError  extends ErrorMessage{
 
   @Override
   public void printError() {
-    System.out.println("ERROR: Missing parameter(s) in function"); //" on line:..."
+    System.out.print("ERROR: Missing parameter(s) in function"); //" on line:..."
   }
 
 }

@@ -11,7 +11,7 @@ public class UndefinedIdentError extends ErrorMessage{
 
   @Override
   public void printError() {
-    System.out.println("ERROR: Undeclared Variable"); //" on line:..."
+    System.out.print("ERROR: Undeclared Variable"); //" on line:..."
   }
 
 

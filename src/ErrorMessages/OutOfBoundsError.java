@@ -11,7 +11,7 @@ public class OutOfBoundsError extends ErrorMessage{
 
   @Override
   public void printError() {
-    System.out.println("ERROR: Value Out of Bounds"); //" on line:..."
+    System.out.print("ERROR: Value Out of Bounds"); //" on line:..."
   }
 
 }

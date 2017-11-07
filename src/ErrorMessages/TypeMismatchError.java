@@ -11,6 +11,6 @@ public class TypeMismatchError extends ErrorMessage {
 
   @Override
   public void printError() {
-    System.out.println("ERROR: Different types used"); //" on line:..."
+    System.out.print("ERROR: Different types used"); //" on line:..."
   }
 }

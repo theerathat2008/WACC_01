@@ -11,7 +11,7 @@ public class UndefinedFunctionError extends ErrorMessage {
 
   @Override
   public void printError() {
-    System.out.println("ERROR: Undeclared Function"); //" on line:..."
+    System.out.print("ERROR: Undeclared Function"); //" on line:..."
   }
 
 }

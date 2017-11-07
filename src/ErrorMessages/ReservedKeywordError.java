@@ -11,7 +11,7 @@ public class ReservedKeywordError extends ErrorMessage {
 
   @Override
   public void printError() {
-    System.out.println("ERROR: Variable name is a reserved keyword therefore not allowed "); //" on line:..."
+    System.out.print("ERROR: Variable name is a reserved keyword therefore not allowed "); //" on line:..."
   }
 
 }

@@ -12,7 +12,7 @@ public class VariableRedeclarationError extends ErrorMessage{
 
   @Override
   public void printError() {
-    System.out.println("ERROR: Variable declared again"); //" on line:..."
+    System.out.print("ERROR: Variable declared again"); //" on line:..."
   }
 
 }
