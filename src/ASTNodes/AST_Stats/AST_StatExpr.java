@@ -88,9 +88,8 @@ public class AST_StatExpr extends AST_Stat{
   // Called from visitor
   @Override
   public void Check(SymbolTable ST){
-    if(CheckSemantics(ST)){
+    //CheckSemantics(ST))
       //Do symbol table stuff
-    }
   }
 
   @Override
