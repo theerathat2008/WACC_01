@@ -2,6 +2,9 @@ package ASTNodes;
 
 
 import SymbolTable.SymbolTable;
+import org.antlr.v4.runtime.ParserRuleContext;
+import src.FilePosition;
+
 import java.util.ArrayDeque;
 
 
@@ -9,8 +12,16 @@ import java.util.ArrayDeque;
  * Empty Base class for the AST Tree that is generated from the parse tree
  */
 public abstract class AST_Node {
+  ParserRuleContext ctx;
 
   protected AST_Node parentNode;
+
+  public AST_Node(ParserRuleContext ctx){
+    this.ctx = ctx;
+
+  }
+
+
 
   public AST_Node getParentNode(){
     return parentNode;

@@ -4,7 +4,13 @@ import ASTNodes.AST_Stats.AST_Stat;
 import IdentifierObjects.FunctionObj;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
+import org.antlr.v4.runtime.ParserRuleContext;
+import src.ErrorMessages.FunctionRedeclarationError;
+import src.FilePosition;
+
 import java.util.ArrayDeque;
+
+import static java.lang.System.exit;
 
 
 public class AST_FuncDecl extends AST_Node {
@@ -14,14 +20,16 @@ public class AST_FuncDecl extends AST_Node {
   int numOfChildren;
   AST_ParamList paramList;
   AST_Stat statement;
+  ParserRuleContext ctx;
   //Semantic attribute
 
-  public AST_FuncDecl(int numOfChildren){
+  public AST_FuncDecl(int numOfChildren){//, ParserRuleContext ctx){
     this.numOfChildren = numOfChildren;
     this.ast_type = null;
     this.funcName = null;
     this.paramList = null;
     this.statement = null;
+    this.ctx = ctx;
   }
 
   @Override
@@ -109,13 +117,20 @@ public class AST_FuncDecl extends AST_Node {
   //Semantic Analysis and print error message if needed
   @Override
   protected boolean CheckSemantics(SymbolTable ST){
-    return ST.lookupAll(funcName) == null;
+    if (ST.lookupAll(funcName) == null) {
+      return true;
+    } else {
+      //System.out.println("Error on line " + ctx.getStart().getLine() + ". Function of same name already defined");
+      new FunctionRedeclarationError(new FilePosition(ctx)).printAll();
+      return false;
+    }
   }
 
   @Override
   // Called from visitor
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
+
       System.out.println("Added " + funcName + " to the symbol tree.");
       ST.encSymTable.add(funcName, new FunctionObj(funcName, ST.stringToIdent(funcName,ast_type.toString()), this));
       //System.out.println(ST.encSymTable.lookup(funcName)==null);

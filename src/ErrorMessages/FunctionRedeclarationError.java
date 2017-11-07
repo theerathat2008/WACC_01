@@ -11,6 +11,6 @@ public class FunctionRedeclarationError extends ErrorMessage {
 
   @Override
   public void printError() {
-    System.out.println("ERROR: Function declared again"); //" on line:..."
+    System.out.print("ERROR: Function declared again"); //" on line:..."
   }
 }

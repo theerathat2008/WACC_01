@@ -2,6 +2,8 @@ package src.ErrorMessages;
 
 import src.FilePosition;
 
+import static java.lang.System.exit;
+
 public abstract class ErrorMessage {
 
   FilePosition filePosition;
@@ -13,12 +15,14 @@ public abstract class ErrorMessage {
   }
 
   public void printPos(FilePosition filePosition){
-    System.out.print(filePosition.toString());
+    System.out.println(filePosition.toString());
   }
 
   public void printAll(){
+    System.out.println("#semantic_error#");
     printError();
     printPos(filePosition);
+    exit(200);
   }
 
 
