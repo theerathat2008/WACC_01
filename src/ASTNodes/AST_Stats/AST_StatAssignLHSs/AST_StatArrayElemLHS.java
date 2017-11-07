@@ -3,28 +3,33 @@ package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
+/**
+ * Class representing node in AST tree for DECLARING ARRAY VARIABLE
+ */
 public class AST_StatArrayElemLHS extends AST_StatAssignLHS{
   //Syntactic attributes
   String identName;
   List<AST_Expr> ast_exprList;
   int numOfExpr;
-  //Semantic attribute
 
-
-  // Assign the class variables when called
+  /**
+   * Constructor for class - initialises class variables
+   * @param numberOfChildren - Shows the number of parameters in the parameter list of function
+   */
   public AST_StatArrayElemLHS(int numberOfChildren){
     ast_exprList = new ArrayList<>();
     this.numOfExpr = (numberOfChildren - 1) / 3;
     this.identName = null;
   }
 
+  /**
+   * Gets all children nodes of current node
+   * @return list of AST nodes that are the children of the current node
+   */
   @Override
   public ArrayDeque<AST_Node> getNodes(){
     ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
@@ -34,6 +39,10 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS{
     return returnList;
   }
 
+  /**
+   * Sets syntactic attributes of class variables by assigning it a value
+   * @param value - Value to be assigned to class variable
+   */
   @Override
   public void setSyntacticAttributes(String value){
     if(identName == null){
@@ -43,6 +52,10 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS{
     }
   }
 
+  /**
+   * Gets syntactic attributes of class variables
+   * @param strToGet - Value to be retrieved from class variable
+   */
   @Override
   public String getSyntacticAttributes(String strToGet){
     if(strToGet.equals("identName")){
@@ -53,12 +66,20 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS{
     }
   }
 
+  /**
+   * Returns true if the embedded Nodes have value
+   */
   @Override
   public boolean isEmbeddedNodesFull(){
     return ast_exprList.size() == numOfExpr;
   }
 
 
+  /**
+   * @param astToGet Shows which child to get from current node
+   * @param counter Shows which child of child to get from current node
+   * @return Returns the required child AST Node (determined by the astToGet parameter)
+   */
   @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     if(astToGet.equals("ast_exprList")){
@@ -68,6 +89,10 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS{
     return null;
   }
 
+  /**
+   * @param astToSet Shows which child to set from current node
+   * @param nodeToSet Shows which child of child to set from current node
+   */
   @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("expr")){
@@ -96,6 +121,9 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS{
     return null;
   }
 
+  /**
+   * Used for testing - Prints out contents of current AST node
+   */
   @Override
   public void printContents(){
     System.out.println(this.getClass().getSimpleName() + ": ");

@@ -2,24 +2,30 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
-
 import java.util.ArrayDeque;
 
+/**
+ * Class representing node in AST tree for BINARY EXPRESSIONS
+ */
 public class AST_ExprBinary extends AST_Expr{
   //Syntactic attributes
-
   String opName;
   AST_Expr exprLeftAST;
   AST_Expr exprRightAST;
-  //Semantic attribute
 
-  // Assign the class variables when called
+  /**
+   * Constructor for class - initialises class variables to NULL
+   */
   public AST_ExprBinary(){
     this.exprLeftAST = null;
     this.exprRightAST = null;
     this.opName = null;
   }
 
+  /**
+   * Gets all children nodes of current node
+   * @return list of AST nodes that are the children of the current node
+   */
   @Override
   public ArrayDeque<AST_Node> getNodes(){
     ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
@@ -29,6 +35,10 @@ public class AST_ExprBinary extends AST_Expr{
   }
 
 
+  /**
+   * Sets syntactic attributes of class variables by assigning it a value
+   * @param value - Value to be assigned to class variable
+   */
   @Override
   public void setSyntacticAttributes(String value){
     if(opName == null){
@@ -38,7 +48,10 @@ public class AST_ExprBinary extends AST_Expr{
     }
   }
 
-
+  /**
+   * Gets syntactic attributes of class variables
+   * @param strToGet - Value to be retrieved from class variable
+   */
   @Override
   public String getSyntacticAttributes(String strToGet){
     if(strToGet.equals("opName")){
@@ -49,12 +62,19 @@ public class AST_ExprBinary extends AST_Expr{
     }
   }
 
-
+  /**
+   * Returns true if the embedded Nodes have value
+   */
   @Override
   public boolean isEmbeddedNodesFull(){
     return exprLeftAST != null && exprRightAST != null;
   }
 
+  /**
+   * @param astToGet Shows which child to get from current node
+   * @param counter Shows which child of child to get from current node
+   * @return Returns the required child AST Node (determined by the astToGet parameter)
+   */
   @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     if(astToGet.equals("exprLeftAST")){
@@ -66,6 +86,10 @@ public class AST_ExprBinary extends AST_Expr{
     return null;
   }
 
+  /**
+   * @param astToSet Shows which child to set from current node
+   * @param nodeToSet Shows which child of child to set from current node
+   */
   @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("expr")){
@@ -106,6 +130,9 @@ public class AST_ExprBinary extends AST_Expr{
     }
   }
 
+  /**
+   * Used for testing - Prints out contents of current AST node
+   */
   @Override
   public void printContents(){
     System.out.println(this.getClass().getSimpleName() + ": ");

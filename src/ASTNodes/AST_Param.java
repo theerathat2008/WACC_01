@@ -5,19 +5,27 @@ import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 import java.util.ArrayDeque;
 
+/**
+ * Class representing node in AST tree for PARAMS
+ */
 public class AST_Param extends AST_Node {
   //Syntactic attributes
   AST_Type ast_type;
   String paramName;
-  //Semantic attribute
 
-  // Assign the class variables when called
+  /**
+   * Constructor for node class initialising variables to null
+   */
   public AST_Param(){
     this.paramName = null;
     this.ast_type = null;
   }
 
 
+  /**
+   * Gets all children nodes of current node
+   * @return list of AST nodes that are the children of the current node
+   */
   @Override
   public ArrayDeque<AST_Node> getNodes(){
     ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
@@ -25,8 +33,10 @@ public class AST_Param extends AST_Node {
     return returnList;
   }
 
-
-
+  /**
+   * Sets syntactic attributes of class variables by assigning it a value
+   * @param value - Value to be assigned to class variable
+   */
   @Override
   public void setSyntacticAttributes(String value){
     if (paramName == null){
@@ -36,7 +46,10 @@ public class AST_Param extends AST_Node {
     }
   }
 
-
+  /**
+   * Gets syntactic attributes of class variables
+   * @param strToGet - Value to be retrieved from class variable
+   */
   @Override
   public String getSyntacticAttributes(String strToGet){
     if (strToGet.equals("paramName")){
@@ -55,6 +68,11 @@ public class AST_Param extends AST_Node {
     return ast_type != null;
   }
 
+  /**
+   * @param astToGet Shows which child to get from current node
+   * @param counter Shows which child of child to get from current node
+   * @return Returns the required child AST Node (determined by the astToGet parameter)
+   */
   @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     if (astToGet.equals("ast_type")){
@@ -64,6 +82,10 @@ public class AST_Param extends AST_Node {
     return null;
   }
 
+  /**
+   * @param astToSet Shows which child to set from current node
+   * @param nodeToSet Shows which child of child to set from current node
+   */
   @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("ast_type")){
@@ -86,6 +108,9 @@ public class AST_Param extends AST_Node {
     }
   }
 
+  /**
+   * Used for testing - Prints out contents of current AST node
+   */
   @Override
   public void printContents(){
     System.out.println(this.getClass().getSimpleName() + ": ");
