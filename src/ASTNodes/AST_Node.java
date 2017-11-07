@@ -12,16 +12,8 @@ import java.util.ArrayDeque;
  * Empty Base class for the AST Nodes that is generated for the parse tree
  */
 public abstract class AST_Node {
-  ParserRuleContext ctx;
 
   protected AST_Node parentNode;
-
-  public AST_Node(ParserRuleContext ctx){
-    this.ctx = ctx;
-
-  }
-
-
 
   public AST_Node getParentNode(){
     return parentNode;
