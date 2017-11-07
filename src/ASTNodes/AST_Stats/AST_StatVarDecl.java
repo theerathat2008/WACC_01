@@ -6,6 +6,8 @@ import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 import SymbolTable.SymbolTable;
 
 import ASTNodes.AST_TYPES.AST_Type;
+import src.ErrorMessages.TypeMismatchError;
+import src.FilePosition;
 
 import java.util.ArrayDeque;
 
@@ -87,12 +89,14 @@ public class AST_StatVarDecl extends AST_Stat {
   protected boolean CheckSemantics(SymbolTable ST) {
     System.out.println(ast_assignRHS.getType(ST));
     if (ST.lookup(identName) != null) {
+      new TypeMismatchError(new FilePosition(ctx)).printAll();
       return false;
     } else if (null == ast_assignRHS.getType(ST)) {
       return true;
     } else if (ast_type.toString() == ast_assignRHS.getType(ST)) {
       return true;
     } else {
+      new TypeMismatchError(new FilePosition(ctx)).printAll();
       return false;
     }
   }

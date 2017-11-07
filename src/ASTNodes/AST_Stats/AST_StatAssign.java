@@ -4,6 +4,9 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 import SymbolTable.SymbolTable;
+import src.ErrorMessages.TypeMismatchError;
+import src.FilePosition;
+
 import java.util.ArrayDeque;
 
 /**
@@ -95,8 +98,12 @@ public class AST_StatAssign extends AST_Stat{
 
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
-    System.out.println(ast_statAssignLHS.getType(ST));
-    return ast_statAssignLHS.getType(ST).equals(ast_statAssignRHS.getType(ST));
+    if (ast_statAssignLHS.getType(ST).equals(ast_statAssignRHS.getType(ST))) {
+      return true;
+    } else {
+      new TypeMismatchError(new FilePosition(ctx)).printAll();
+      return false;
+    }
   }
 
   // Called from visitor

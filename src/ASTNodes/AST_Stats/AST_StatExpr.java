@@ -5,6 +5,8 @@ import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
 import SymbolTable.SymbolTable;
+import src.ErrorMessages.TypeError;
+import src.FilePosition;
 
 import java.util.ArrayDeque;
 
@@ -60,6 +62,7 @@ public class AST_StatExpr extends AST_Stat{
       while (!(parent instanceof AST_FuncDecl)) {
         if (parent instanceof AST_Program) {
           System.out.println("Return statement not inside of a function.");
+          new TypeError(new FilePosition(ctx)).printAll();
           return false;
         }
         parent = getParentNode();
@@ -76,6 +79,7 @@ public class AST_StatExpr extends AST_Stat{
     } else if (statName.equals("PRINTLN")) {
       return true;
     }
+    new TypeError(new FilePosition(ctx)).printAll();
     return false;
   }
 

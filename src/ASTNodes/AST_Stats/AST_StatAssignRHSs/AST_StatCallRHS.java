@@ -5,6 +5,9 @@ import ASTNodes.AST_Node;
 import IdentifierObjects.FunctionObj;
 import IdentifierObjects.IDENTIFIER;
 import SymbolTable.SymbolTable;
+import src.ErrorMessages.UndefinedFunctionError;
+import src.FilePosition;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -134,6 +137,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
         //}
       }
     }
+    new UndefinedFunctionError(new FilePosition(ctx)).printAll();
     return false;
   }
 

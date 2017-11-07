@@ -3,6 +3,9 @@ package ASTNodes.AST_Exprs;
 import ASTNodes.AST_Node;
 import IdentifierObjects.*;
 import SymbolTable.SymbolTable;
+import src.ErrorMessages.UndefinedIdentError;
+import src.FilePosition;
+
 import java.util.ArrayDeque;
 
 /**
@@ -90,7 +93,12 @@ public class AST_ExprIdent extends AST_Expr{
 
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
-    return ST.lookupAll(varName) != null;
+    if (ST.lookupAll(varName) != null) {
+      return true;
+    } else {
+      new UndefinedIdentError(new FilePosition(ctx)).printAll();
+      return false;
+    }
   }
 
   // Called from visitor
