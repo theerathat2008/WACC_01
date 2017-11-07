@@ -82,7 +82,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitFunc(WaccParser.FuncContext ctx) {
 
     //Create the node for the current visitor function
-    AST_FuncDecl funcNode = new AST_FuncDecl(ctx.getChildCount());
+    AST_FuncDecl funcNode = new AST_FuncDecl(ctx.getChildCount(), ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("functionList", funcNode);
@@ -237,7 +237,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = statArrayElemLHSNode;
 
     //Do semantic analysis
-
 
     //Debug statement
     System.out.println("statArrayElemLHS");
