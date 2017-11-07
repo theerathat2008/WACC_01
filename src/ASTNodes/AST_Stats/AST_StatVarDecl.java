@@ -85,9 +85,12 @@ public class AST_StatVarDecl extends AST_Stat {
 
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST) {
+    System.out.println(ast_assignRHS.getType(ST));
     if (ST.lookup(identName) != null) {
       return false;
-    } else if (ast_type.toString() != ast_assignRHS.getType(ST)) {
+    } else if (null == ast_assignRHS.getType(ST)) {
+      return true;
+    } else if (ast_type.toString() == ast_assignRHS.getType(ST)) {
       return true;
     } else {
       return false;
@@ -97,7 +100,7 @@ public class AST_StatVarDecl extends AST_Stat {
   // Called from visitor
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
-      //Do symbol table stuff
+      ST.add(identName, ST.stringToIdent(identName, ast_type.toString()));
     }
   }
 

@@ -45,6 +45,17 @@ public class AST_FuncDecl extends AST_Node {
     return returnList;
   }
 
+
+  /**
+   * returns true if the function has any parameters
+   *
+   */
+
+  public boolean checkForParamList(){
+    return numOfChildren == 8;
+  }
+
+  
   /**
    * Returns true if the embedded Nodes have values
    */
@@ -135,7 +146,9 @@ public class AST_FuncDecl extends AST_Node {
   // Called from visitor
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
-      ST.encSymTable.add(funcName, new FunctionObj(funcName, ST.stringToIdent(funcName,ast_type.toString())));
+      System.out.println("Added " + funcName + " to the symbol tree.");
+      ST.encSymTable.add(funcName, new FunctionObj(funcName, ST.stringToIdent(funcName,ast_type.toString()), this));
+      //System.out.println(ST.encSymTable.lookup(funcName)==null);
       //Create new symbol table   DONE
       //Add necessary contents specific to func to symbol table  DONE
       //set enclosing symbol table to curr symbol table   does this before check
