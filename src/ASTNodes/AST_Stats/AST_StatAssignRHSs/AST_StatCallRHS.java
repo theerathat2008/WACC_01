@@ -5,6 +5,8 @@ import ASTNodes.AST_Node;
 import IdentifierObjects.FunctionObj;
 import IdentifierObjects.IDENTIFIER;
 import SymbolTable.SymbolTable;
+import org.antlr.v4.runtime.ParserRuleContext;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +20,13 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
   String funcName;
   int numOfExpr;
   List<AST_Expr> ast_exprList;
+  ParserRuleContext ctx;
 
   /**
    * Constructor for class - initialises class variables
    * @param numberOfChildren - Shows the number of parameters in the parameter list of function
    */
-  public AST_StatCallRHS(int numberOfChildren){
+  public AST_StatCallRHS(int numberOfChildren, ParserRuleContext ctx){
     ast_exprList = new ArrayList<>();
     if(numberOfChildren == 4){
       this.numOfExpr = 0;
@@ -31,6 +34,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
       this.numOfExpr = (numberOfChildren - 3) / 2;
     }
     this.funcName = null;
+    this.ctx = ctx;
   }
 
   /**

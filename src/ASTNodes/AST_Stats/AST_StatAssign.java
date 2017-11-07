@@ -4,6 +4,8 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 import SymbolTable.SymbolTable;
+import org.antlr.v4.runtime.ParserRuleContext;
+
 import java.util.ArrayDeque;
 
 /**
@@ -13,13 +15,15 @@ public class AST_StatAssign extends AST_Stat{
   //Syntactic attributes
   AST_StatAssignLHS ast_statAssignLHS;
   AST_StatAssignRHS ast_statAssignRHS;
+  ParserRuleContext ctx;
 
   /**
    * Constructor for class - initialises class variables to NULL
    */
-  public AST_StatAssign(){
+  public AST_StatAssign(ParserRuleContext ctx){
     this.ast_statAssignLHS = null;
     this.ast_statAssignRHS = null;
+    this.ctx = ctx;
   }
 
   /**

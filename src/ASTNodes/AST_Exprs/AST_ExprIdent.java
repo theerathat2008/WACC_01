@@ -3,6 +3,8 @@ package ASTNodes.AST_Exprs;
 import ASTNodes.AST_Node;
 import IdentifierObjects.*;
 import SymbolTable.SymbolTable;
+import org.antlr.v4.runtime.ParserRuleContext;
+
 import java.util.ArrayDeque;
 
 /**
@@ -11,12 +13,14 @@ import java.util.ArrayDeque;
 public class AST_ExprIdent extends AST_Expr{
   //Syntactic attributes
   String varName;
+  ParserRuleContext ctx;
 
   /**
    * Constructor for class - initialises class variables to NULL
    */
-  public AST_ExprIdent(){
+  public AST_ExprIdent(ParserRuleContext ctx){
     this.varName = null;
+    this.ctx = ctx;
   }
 
   /**

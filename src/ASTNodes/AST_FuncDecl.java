@@ -7,12 +7,7 @@ import ASTNodes.AST_TYPES.AST_Type;
 import org.antlr.v4.runtime.ParserRuleContext;
 import src.ErrorMessages.FunctionRedeclarationError;
 import src.FilePosition;
-
 import java.util.ArrayDeque;
-
-
-
-
 
 /**
  * Class representing node in AST tree for FUNCTION

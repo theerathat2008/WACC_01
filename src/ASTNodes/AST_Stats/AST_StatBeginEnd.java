@@ -8,8 +8,6 @@ import java.util.ArrayDeque;
 public class AST_StatBeginEnd extends AST_Stat {
   //Syntactic attributes
   AST_Stat statAST;
-  //Semantic attribute
-
 
   // Assign the class variables when called
   public AST_StatBeginEnd(){
