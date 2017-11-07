@@ -43,7 +43,7 @@ public class AST_ArrayType extends AST_Type{
     if(astToGet.equals("ast_type")){
       return ast_type;
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -52,7 +52,7 @@ public class AST_ArrayType extends AST_Type{
     if(astToSet.equals("ast_type")){
       ast_type = (AST_Type) nodeToSet;
     } else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
   }
 

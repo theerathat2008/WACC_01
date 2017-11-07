@@ -36,14 +36,12 @@ assign_lhs : IDENT                                     # IDENT_ASSIGN
      ;
 
 
- assign_rhs : expr                                      # EXPR_ASSIGN
-      | SQUARE_OPEN (expr (COMMA expr)*)? SQUARE_CLOSED # ARRAY_LITER_RHS
-      | NEWPAIR OPEN_PAREN expr COMMA expr CLOSE_PAREN  # NEWPAIR_RHS
-      | pair_elem                                       # PAIR_ELEM_RHS
-      | CALL IDENT OPEN_PAREN (arg_list)? CLOSE_PAREN   # CALL_ASSIGN
+ assign_rhs : expr                                                 # EXPR_ASSIGN
+      | SQUARE_OPEN (expr (COMMA expr)*)? SQUARE_CLOSED            # ARRAY_LITER_RHS
+      | NEWPAIR OPEN_PAREN expr COMMA expr CLOSE_PAREN             # NEWPAIR_RHS
+      | pair_elem                                                  # PAIR_ELEM_RHS
+      | CALL IDENT OPEN_PAREN (expr (COMMA expr )*)? CLOSE_PAREN   # CALL_ASSIGN
       ;
-
-arg_list : expr (COMMA expr )*  ;
 
 pair_elem : FST expr                                  # PAIR_FST
      | SND expr                                       # PAIR_SND

@@ -26,7 +26,7 @@ public class AST_ExprIdent extends AST_Expr{
     if(varName == null){
       this.varName = value;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
 
@@ -36,7 +36,7 @@ public class AST_ExprIdent extends AST_Expr{
     if(strToGet.equals("varName")){
       return varName;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
   }

@@ -18,13 +18,20 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
   // Assign the class variables when called
   public AST_StatCallRHS(int numberOfChildren){
     ast_exprList = new ArrayList<>();
-    this.numOfExpr = (numberOfChildren + 1) / 2;
+    if(numberOfChildren == 4){
+      this.numOfExpr = 0;
+    } else {
+      this.numOfExpr = (numberOfChildren - 3) / 2;
+    }
     this.funcName = null;
   }
 
   @Override
   public ArrayDeque<AST_Node> getNodes(){
     ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    if(ast_exprList.size() == 0){
+      return null;
+    }
     for(AST_Expr expr : ast_exprList){
       returnList.addLast(expr);
     }
@@ -37,7 +44,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
     if(funcName == null){
       this.funcName = value;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
 
@@ -46,7 +53,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
     if(strToGet.equals("funcName")){
       return funcName;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
   }
@@ -61,7 +68,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
     if(astToGet.equals("ast_exprList")){
       return ast_exprList.get(counter);
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -70,7 +77,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
     if(astToSet.equals("expr")){
       ast_exprList.add((AST_Expr)nodeToSet);
     } else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
   }
 

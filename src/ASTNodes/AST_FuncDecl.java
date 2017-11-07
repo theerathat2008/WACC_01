@@ -8,23 +8,27 @@ import java.util.ArrayDeque;
 public class AST_FuncDecl extends AST_Node {
   //Syntactic attributes
   AST_Type ast_type;
-  String funcName;  //IDENT
+  String funcName;
+  int numOfChildren;
   AST_ParamList paramList;
   AST_Stat statement;
   //Semantic attribute
 
-  public AST_FuncDecl(){
-    ast_type = null;
-    funcName = null;
-    paramList = null;
-    statement = null;
+  public AST_FuncDecl(int numOfChildren){
+    this.numOfChildren = numOfChildren;
+    this.ast_type = null;
+    this.funcName = null;
+    this.paramList = null;
+    this.statement = null;
   }
 
   @Override
   public ArrayDeque<AST_Node> getNodes(){
     ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
     returnList.addLast(ast_type);
-    returnList.addLast(paramList);
+    if(paramList != null){
+      returnList.addLast(paramList);
+    }
     returnList.addLast(statement);
     return returnList;
   }
@@ -36,6 +40,9 @@ public class AST_FuncDecl extends AST_Node {
    */
   @Override
   public boolean isEmbeddedNodesFull(){
+    if(numOfChildren == 7){
+      return ast_type != null && statement != null;
+    }
     return ast_type != null && statement != null && paramList != null;
   }
 
@@ -44,7 +51,7 @@ public class AST_FuncDecl extends AST_Node {
     if (funcName == null){
       this.funcName = value;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
 
@@ -53,7 +60,7 @@ public class AST_FuncDecl extends AST_Node {
     if (strToGet.equals("funcName")){
       return funcName;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
   }
@@ -67,7 +74,7 @@ public class AST_FuncDecl extends AST_Node {
     } else if (astToGet.equals("ast_type")){
       return ast_type;
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -80,7 +87,7 @@ public class AST_FuncDecl extends AST_Node {
     } else if (astToSet.equals("ast_type")){
       ast_type = (AST_Type) nodeToSet;
     } else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class for " + astToSet + " : " + this.getClass().getSimpleName());
     }
   }
 

@@ -24,7 +24,7 @@ public class AST_Keyword extends AST_Node {
     if(keyword_name == null){
       this.keyword_name = value;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
 
@@ -34,7 +34,7 @@ public class AST_Keyword extends AST_Node {
     if(strToGet.equals("keyword_name")){
       return keyword_name;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
   }

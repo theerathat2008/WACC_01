@@ -33,7 +33,7 @@ public class AST_Stat extends AST_Node {
     if(statName == null){
       this.statName = value;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
 
@@ -43,7 +43,7 @@ public class AST_Stat extends AST_Node {
     if(strToGet.equals("statName")){
       return statName;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
   }

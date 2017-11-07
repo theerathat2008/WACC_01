@@ -33,7 +33,7 @@ public class AST_StatExpr extends AST_Stat{
     if(astToGet.equals("expr")){
       return expr;
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -42,7 +42,7 @@ public class AST_StatExpr extends AST_Stat{
     if(astToSet.equals("expr")){
       expr = (AST_Expr) nodeToSet;
     } else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
   }
 

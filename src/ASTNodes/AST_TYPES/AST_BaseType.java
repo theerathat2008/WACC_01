@@ -30,7 +30,7 @@ public class AST_BaseType extends AST_Type {
     if(baseTypeName == null){
       this.baseTypeName = value;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
 
@@ -40,7 +40,7 @@ public class AST_BaseType extends AST_Type {
     if(strToGet.equals("baseTypeName")){
       return baseTypeName;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
   }

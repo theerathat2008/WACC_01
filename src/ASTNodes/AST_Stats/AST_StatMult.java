@@ -49,14 +49,13 @@ public class AST_StatMult extends AST_Stat{
     } else if (astToGet.equals("stat2")){
       return stat2;
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
   @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("statement")){
-
       if(stat1 == null){
         stat1 = (AST_Stat) nodeToSet;
       } else if (stat2 == null){
@@ -66,7 +65,7 @@ public class AST_StatMult extends AST_Stat{
       }
 
     } else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
   }
 

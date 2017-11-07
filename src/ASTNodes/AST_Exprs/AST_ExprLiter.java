@@ -31,7 +31,7 @@ public class AST_ExprLiter extends AST_Expr{
     } else if(literal == null){
       this.literal = value;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
 
@@ -43,7 +43,7 @@ public class AST_ExprLiter extends AST_Expr{
     } else if(strToGet.equals("literal")){
       return literal;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
   }

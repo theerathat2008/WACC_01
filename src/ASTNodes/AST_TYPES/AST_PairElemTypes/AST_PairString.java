@@ -31,7 +31,7 @@ public class AST_PairString extends AST_PairElemType{
     if(pairString == null){
       this.pairString = value;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
 
@@ -41,7 +41,7 @@ public class AST_PairString extends AST_PairElemType{
     if(strToGet.equals("pairString")){
       return pairString;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
   }

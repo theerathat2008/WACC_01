@@ -58,7 +58,7 @@ public class AST_StatIf extends AST_Stat{
     } else if (astToGet.equals("elseStat")){
       return elseStat;
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -77,7 +77,7 @@ public class AST_StatIf extends AST_Stat{
       }
 
     } else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
   }
 

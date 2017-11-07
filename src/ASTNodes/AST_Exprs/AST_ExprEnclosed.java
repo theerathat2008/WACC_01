@@ -60,7 +60,7 @@ public class AST_ExprEnclosed extends AST_Expr{
     } else if (astToGet.equals("rightSepAST")){
       return rightSepAST;
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -73,7 +73,7 @@ public class AST_ExprEnclosed extends AST_Expr{
     } else if (astToSet.equals("rightSepAST")){
       rightSepAST = (AST_Separator) nodeToSet;
     } else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
   }
 

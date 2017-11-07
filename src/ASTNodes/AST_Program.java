@@ -58,7 +58,7 @@ public class AST_Program extends AST_Node {
     } else if (astToGet.equals("statement")){
       return statement;
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -69,7 +69,7 @@ public class AST_Program extends AST_Node {
     } else if (astToSet.equals("statement")){
       statement = (AST_Stat) nodeToSet;
     } else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
 
   }

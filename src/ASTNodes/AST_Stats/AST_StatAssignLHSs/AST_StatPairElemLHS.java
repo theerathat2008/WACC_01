@@ -30,7 +30,7 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS{
     if(typeName == null){
       this.typeName = value;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
 
@@ -39,7 +39,7 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS{
     if(strToGet.equals("typeName")){
       return typeName;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
   }
@@ -54,7 +54,7 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS{
     if(astToGet.equals("ast_expr")){
       return ast_expr;
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -63,7 +63,7 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS{
     if(astToSet.equals("expr")){
       ast_expr = (AST_Expr) nodeToSet;
     } else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
   }
 

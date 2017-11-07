@@ -56,7 +56,7 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS{
     if(astToGet.equals("ast_exprList")){
       return ast_exprList.get(counter);
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -65,7 +65,7 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS{
     if(astToSet.equals("expr")){
       ast_exprList.add((AST_Expr)nodeToSet);
     } else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
   }
 

@@ -212,12 +212,6 @@ public interface WaccParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParam_list(@NotNull WaccParser.Param_listContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link WaccParser#arg_list}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArg_list(@NotNull WaccParser.Arg_listContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code BASE_TYPE_PAIR}
 	 * labeled alternative in {@link WaccParser#pair_elem_type}.
 	 * @param ctx the parse tree

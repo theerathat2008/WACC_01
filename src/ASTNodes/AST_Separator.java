@@ -23,7 +23,7 @@ public class AST_Separator extends AST_Node {
     if(separatorType == null){
       this.separatorType = value;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
 
@@ -33,7 +33,7 @@ public class AST_Separator extends AST_Node {
     if(strToGet.equals("separatorType")){
       return separatorType;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
   }

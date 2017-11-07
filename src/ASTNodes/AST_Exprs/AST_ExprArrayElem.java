@@ -34,7 +34,7 @@ public class AST_ExprArrayElem extends AST_Expr{
     if(arrayName == null){
       this.arrayName = value;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
 
@@ -44,7 +44,7 @@ public class AST_ExprArrayElem extends AST_Expr{
     if(strToGet.equals("arrayName")){
       return arrayName;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
   }
@@ -60,7 +60,7 @@ public class AST_ExprArrayElem extends AST_Expr{
     if(astToGet.equals("ast_exprList")){
       return ast_exprList.get(counter);
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -69,7 +69,7 @@ public class AST_ExprArrayElem extends AST_Expr{
     if(astToSet.equals("expr")){
       ast_exprList.add((AST_Expr)nodeToSet);
     } else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
   }
 

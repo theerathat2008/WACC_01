@@ -14,12 +14,15 @@ public class AST_ParamList extends AST_Node{
   // Assign the class variables when called
   public AST_ParamList(int numberOfChildren){
     this.listParam = new ArrayList<>();
-    this.numOfParam = numberOfChildren;
+    this.numOfParam = (numberOfChildren + 1) / 2;
   }
 
   @Override
   public ArrayDeque<AST_Node> getNodes(){
     ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    if(listParam.size() == 0){
+      return null;
+    }
     for(AST_Param param : listParam){
       returnList.addLast(param);
     }
@@ -50,7 +53,7 @@ public class AST_ParamList extends AST_Node{
     if(astToGet.equals("listParam")){
       return listParam.get(counter);
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -59,7 +62,7 @@ public class AST_ParamList extends AST_Node{
     if(astToSet.equals("listParam")){
       listParam.add((AST_Param) nodeToSet);
     } else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
   }
 

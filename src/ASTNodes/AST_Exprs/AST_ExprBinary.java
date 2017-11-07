@@ -32,7 +32,7 @@ public class AST_ExprBinary extends AST_Expr{
     if(opName == null){
       this.opName = value;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
 
@@ -42,7 +42,7 @@ public class AST_ExprBinary extends AST_Expr{
     if(strToGet.equals("opName")){
       return opName;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
   }
@@ -60,7 +60,7 @@ public class AST_ExprBinary extends AST_Expr{
     } else if (astToGet.equals("exprRightAST")){
       return exprRightAST;
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -75,7 +75,7 @@ public class AST_ExprBinary extends AST_Expr{
         System.out.println("If and then in AST_StatIf have already been assigned.");
       }
     }  else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
   }
 

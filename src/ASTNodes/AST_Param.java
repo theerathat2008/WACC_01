@@ -31,7 +31,7 @@ public class AST_Param extends AST_Node {
     if (paramName == null){
       this.paramName = value;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
 
@@ -41,7 +41,7 @@ public class AST_Param extends AST_Node {
     if (strToGet.equals("paramName")){
       return paramName;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
   }
@@ -59,7 +59,7 @@ public class AST_Param extends AST_Node {
     if (astToGet.equals("ast_type")){
       return ast_type;
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -68,7 +68,7 @@ public class AST_Param extends AST_Node {
     if(astToSet.equals("ast_type")){
       ast_type = (AST_Type) nodeToSet;
     } else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
   }
 

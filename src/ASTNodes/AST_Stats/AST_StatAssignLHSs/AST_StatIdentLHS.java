@@ -29,7 +29,7 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS{
     if(identName == null){
       this.identName = value;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
 
@@ -38,7 +38,7 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS{
     if(strToGet.equals("identName")){
       return identName;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
   }

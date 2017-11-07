@@ -36,7 +36,7 @@ public class AST_StatVarDecl extends AST_Stat {
     if(identName == null){
       this.identName = value;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
 
@@ -46,7 +46,7 @@ public class AST_StatVarDecl extends AST_Stat {
     if(identName == null){
       return identName;
     } else {
-      System.out.println("Unrecognised String Attribute");
+      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
   }
@@ -63,7 +63,7 @@ public class AST_StatVarDecl extends AST_Stat {
     } else if (astToGet.equals("ast_type")){
       return ast_type;
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -74,7 +74,7 @@ public class AST_StatVarDecl extends AST_Stat {
     } else if(astToSet.equals("ast_type")){
       ast_type = (AST_Type) nodeToSet;
     }else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
   }
 

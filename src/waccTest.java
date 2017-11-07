@@ -38,7 +38,7 @@ public class waccTest {
 
     System.out.println("---------TESTING------------");
     AST_Program root = visitor.getRootNode();
-    //visitor.printNodes(root);
+    visitor.printNodes(root);
     System.out.println("---------TESTING------------");
 
 

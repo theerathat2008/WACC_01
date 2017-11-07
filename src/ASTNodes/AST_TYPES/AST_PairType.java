@@ -50,7 +50,7 @@ public class AST_PairType extends AST_Type{
     } else if (astToGet.equals("pairElemTypeSnd")){
       return pairElemTypeSnd;
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -65,7 +65,7 @@ public class AST_PairType extends AST_Type{
         System.out.println("pairElemTypeFst and pairElemTypeSnd in AST_PairType have already been assigned.");
       }
     } else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
   }
 
