@@ -69,7 +69,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     progBase.Check(currentTree);
 
     //Debug statement
-    System.out.println("Prog");
+    //System.out.println("Prog");
 
     //Iterate through rest of the tree
 
@@ -99,7 +99,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("Func");
+    //System.out.println("Func");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -131,7 +131,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     currentTree = new SymbolTable(currentTree); //creates tree for function scope
 
     //Debug statement
-    System.out.println("ParamList");
+    //System.out.println("ParamList");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -160,7 +160,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("Param");
+    //System.out.println("Param");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -185,7 +185,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("StatExprAssign");
+    //System.out.println("StatExprAssign");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -210,7 +210,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = printlnExprNode;
 
     //Debug statement
-    System.out.println("printlnStat");
+    //System.out.println("printlnStat");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -240,7 +240,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Do semantic analysis
 
     //Debug statement
-    System.out.println("statArrayElemLHS");
+    //System.out.println("statArrayElemLHS");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -264,7 +264,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("statPairElemLHS");
+    //System.out.println("statPairElemLHS");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -288,7 +288,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("statPairElemRHS");
+    //System.out.println("statPairElemRHS");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -318,12 +318,12 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("exprCharLiter");
+    //System.out.println("exprCharLiter");
 
     //Set the parent node for terminal node
     while(parentVisitorNode.isEmbeddedNodesFull()){
       if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
-        System.out.println("End of visitor function");
+        //System.out.println("End of visitor function");
         break;
       }
       parentVisitorNode = parentVisitorNode.getParentNode();
@@ -353,7 +353,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("exprUnary");
+    //System.out.println("exprUnary");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -381,12 +381,12 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("Skip");
+    ////System.out.println("Skip");
 
     //Set the parent node for terminal node
     while(parentVisitorNode.isEmbeddedNodesFull()){
       if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
-        System.out.println("End of visitor function");
+        //System.out.println("End of visitor function");
         break;
       }
       parentVisitorNode = parentVisitorNode.getParentNode();
@@ -414,7 +414,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("statRead");
+    //System.out.println("statRead");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -438,7 +438,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("statWhile");
+    //System.out.println("statWhile");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -463,7 +463,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("statNewPairRHS");
+    //System.out.println("statNewPairRHS");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -491,12 +491,12 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("exprIdent");
+    //System.out.println("exprIdent");
 
     //Set the parent node for terminal node
     while(parentVisitorNode.isEmbeddedNodesFull()){
       if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
-        System.out.println("End of visitor function");
+        //System.out.println("End of visitor function");
         break;
       }
       parentVisitorNode = parentVisitorNode.getParentNode();
@@ -527,7 +527,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("exprArrayElem");
+    //System.out.println("exprArrayElem");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -551,7 +551,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("exprEnclosed");
+    //System.out.println("exprEnclosed");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -577,7 +577,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("statExprNode");
+    //System.out.println("statExprNode");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -602,7 +602,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("statAssign");
+    //System.out.println("statAssign");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -630,12 +630,12 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("statIdentLHS");
+    //System.out.println("statIdentLHS");
 
     //Set the parent node for terminal node
     while(parentVisitorNode.isEmbeddedNodesFull()){
       if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
-        System.out.println("End of visitor function");
+        //System.out.println("End of visitor function");
         break;
       }
       parentVisitorNode = parentVisitorNode.getParentNode();
@@ -670,12 +670,12 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("exprIntLiter");
+    //System.out.println("exprIntLiter");
 
     //Set the parent node for terminal node
     while(parentVisitorNode.isEmbeddedNodesFull()){
       if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
-        System.out.println("End of visitor function");
+        //System.out.println("End of visitor function");
         break;
       }
       parentVisitorNode = parentVisitorNode.getParentNode();
@@ -705,7 +705,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("statVarDecl");
+    //System.out.println("statVarDecl");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -732,7 +732,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("statExpr");
+    //System.out.println("statExpr");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -757,7 +757,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     statBeginEndNode.Check(currentTree);
 
     //Debug statement
-    System.out.println("statBeginEnd");
+    //System.out.println("statBeginEnd");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -781,7 +781,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("statIf");
+    //System.out.println("statIf");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -808,14 +808,14 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("statCallRHS");
+    //System.out.println("statCallRHS");
 
     //If there are no expression, treat this visitor function as a terminal node
     if(ctx.expr().size() == 0){
       //Set the parent node for terminal node
       while(parentVisitorNode.isEmbeddedNodesFull()){
         if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
-          System.out.println("End of visitor function");
+          //System.out.println("End of visitor function");
           break;
         }
         parentVisitorNode = parentVisitorNode.getParentNode();
@@ -850,7 +850,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("exprBinary");
+    //System.out.println("exprBinary");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -874,7 +874,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("statMult");
+    //System.out.println("statMult");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -906,12 +906,12 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Do semantic analysis
 
     //Debug statement
-    System.out.println("str_liter");
+    //System.out.println("str_liter");
 
     //Set the parent node for terminal node
     while(parentVisitorNode.isEmbeddedNodesFull()){
       if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
-        System.out.println("End of visitor function");
+        //System.out.println("End of visitor function");
         break;
       }
       parentVisitorNode = parentVisitorNode.getParentNode();
@@ -939,7 +939,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("statArrayLitRHS");
+    //System.out.println("statArrayLitRHS");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -966,7 +966,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("exit");
+    //System.out.println("exit");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -998,12 +998,12 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("boolLiter");
+    //System.out.println("boolLiter");
 
     //Set the parent node for terminal node
     while(parentVisitorNode.isEmbeddedNodesFull()){
       if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
-        System.out.println("End of visitor function");
+        //System.out.println("End of visitor function");
         break;
       }
       parentVisitorNode = parentVisitorNode.getParentNode();
@@ -1037,12 +1037,12 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("pairLiter");
+    //System.out.println("pairLiter");
 
     //Set the parent node for terminal node
     while(parentVisitorNode.isEmbeddedNodesFull()){
       if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
-        System.out.println("End of visitor function");
+        //System.out.println("End of visitor function");
         break;
       }
       parentVisitorNode = parentVisitorNode.getParentNode();
@@ -1073,7 +1073,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("returnStat");
+    //System.out.println("returnStat");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -1102,12 +1102,12 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("baseType");
+    //System.out.println("baseType");
 
     //Set the parent node for terminal node
     while(parentVisitorNode.isEmbeddedNodesFull()){
       if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
-        System.out.println("End of visitor function");
+        //System.out.println("End of visitor function");
         break;
       }
       parentVisitorNode = parentVisitorNode.getParentNode();
@@ -1136,7 +1136,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("arrayType");
+    //System.out.println("arrayType");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -1160,7 +1160,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("pairType");
+    //System.out.println("pairType");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -1189,12 +1189,12 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("baseTypePair");
+    //System.out.println("baseTypePair");
 
     //Set the parent node for terminal node
     while(parentVisitorNode.isEmbeddedNodesFull()){
       if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
-        System.out.println("End of visitor function");
+        //System.out.println("End of visitor function");
         break;
       }
       parentVisitorNode = parentVisitorNode.getParentNode();
@@ -1222,7 +1222,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("arrayTypePair");
+    //System.out.println("arrayTypePair");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
@@ -1251,12 +1251,12 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
 
     //Debug statement
-    System.out.println("pairString");
+    //System.out.println("pairString");
 
     //Set the parent node for terminal node
     while(parentVisitorNode.isEmbeddedNodesFull()){
       if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
-        System.out.println("End of visitor function");
+        //System.out.println("End of visitor function");
         break;
       }
       parentVisitorNode = parentVisitorNode.getParentNode();
@@ -1275,7 +1275,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode.setSyntacticAttributes(ctx.FST().getText());
 
     //Debug statement
-    System.out.println("pairFst");
+    //System.out.println("pairFst");
 
     //Iterate through rest of the tree
     return visitChildren(ctx);
@@ -1289,7 +1289,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode.setSyntacticAttributes(ctx.SND().getText());
 
     //Debug statement
-    System.out.println("pairSnd");
+    //System.out.println("pairSnd");
 
     return visitChildren(ctx);
   }
