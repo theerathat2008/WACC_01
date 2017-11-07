@@ -103,6 +103,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Iterate through rest of the tree
     visitChildren(ctx);
+    //PRASH - I SWAPPED THE BOTTOM TWO LINES
     funcNode.Check(currentTree);
     currentTree = currentTree.encSymTable;
 
