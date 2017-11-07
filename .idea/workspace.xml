@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="431c883a-b8e2-4a74-8bb2-a50838ad4121" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ErrorMessages/ErrorMessage.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ErrorMessages/FunctionRedeclarationError.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ErrorMessages/MissingParameterError.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ErrorMessages/OutOfBoundsError.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ErrorMessages/ReservedKeywordError.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ErrorMessages/TypeError.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ErrorMessages/TypeMismatchError.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ErrorMessages/UndefinedFunctionError.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ErrorMessages/UndefinedIdentError.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ErrorMessages/VariableRedeclarationError.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/FilePosition.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="431c883a-b8e2-4a74-8bb2-a50838ad4121" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
