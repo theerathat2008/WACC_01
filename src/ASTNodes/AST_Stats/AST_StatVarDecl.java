@@ -8,6 +8,7 @@ import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 import src.ErrorMessages.TypeMismatchError;
 import src.FilePosition;
+import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.ArrayDeque;
 
@@ -17,14 +18,14 @@ public class AST_StatVarDecl extends AST_Stat {
   AST_Type ast_type;
   String identName;
   AST_StatAssignRHS ast_assignRHS;
-  //Semantic attribute
-  //VariableObj var;
+  ParserRuleContext ctx;
 
   // Assign the class variables when called
-  public AST_StatVarDecl(){
+  public AST_StatVarDecl(ParserRuleContext ctx){
     this.ast_assignRHS = null;
     this.statName = null;
     this.identName = null;
+    this.ctx = ctx;
   }
 
   @Override

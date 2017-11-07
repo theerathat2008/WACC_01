@@ -7,17 +7,19 @@ import ASTNodes.AST_Program;
 import SymbolTable.SymbolTable;
 import src.ErrorMessages.TypeError;
 import src.FilePosition;
+import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.ArrayDeque;
 
 public class AST_StatExpr extends AST_Stat{
   //Syntactic attributes
   AST_Expr expr;
-  //Semantic attribute
+  ParserRuleContext ctx;
 
   // Assign the class variables when called
-  public AST_StatExpr(){
+  public AST_StatExpr(ParserRuleContext ctx){
     this.expr = null;
+    this.ctx = ctx;
   }
 
   @Override
