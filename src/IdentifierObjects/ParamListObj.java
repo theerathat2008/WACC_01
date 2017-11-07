@@ -20,7 +20,11 @@ public class ParamListObj extends IDENTIFIER{
   }
 
   public String toString() {
-    return "PARAM_LIST";
-  }
+    String ret = "(";
+    for (int i = 0; i<paramObjList.size();i++) {
+      ret = ret + paramObjList.get(i).toString() + ",";
+    }
+    return ret;
+    }
 
 }

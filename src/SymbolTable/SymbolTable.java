@@ -1,10 +1,7 @@
 package SymbolTable;
 
 
-import IdentifierObjects.ArrayObj;
-import IdentifierObjects.BaseTypeObj;
-import IdentifierObjects.IDENTIFIER;
-import IdentifierObjects.KeywordObj;
+import IdentifierObjects.*;
 
 import java.util.*;
 
@@ -84,19 +81,19 @@ public class SymbolTable {
       return new BaseTypeObj(name, "char");
     } else if (type.equals("string")) {
       return new BaseTypeObj(name, "string");
-    } else if (type.equals("array")) {
+    } else if (type.endsWith("[]")) {
+      return new ArrayObj(name, stringToIdent(name, type.substring(0, type.length()-3)));
+    } else if (type.startsWith("PAIR(")) {
 
-    } else if (type.equals("pair")) {
-
-    } else if (type.equals("function")) {
-
+    } else if (type.endsWith(" FUNCTION")) {
+      return new FunctionObj(name, stringToIdent(name, type.substring(0, type.length()-10)));
     } else if (type.equals("param_list")) {
 
     } else if (type.equals("keyword")) {
 
     }
-    return new BaseTypeObj(name, "int");
-    }
+    return null;
+  }
 }
 
 
