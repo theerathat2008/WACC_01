@@ -111,9 +111,9 @@ public class AST_StatAssign extends AST_Stat{
 
   // Called from visitor
   public void Check(SymbolTable ST){
-    if(CheckSemantics(ST)){
+    /*if(CheckSemantics(ST)){
       //Do symbol table stuff
-    }
+    }*/
   }
 
   /**
