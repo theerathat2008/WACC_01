@@ -55,7 +55,7 @@ public class AST_FuncDecl extends AST_Node {
     return numOfChildren == 8;
   }
 
-  
+
   /**
    * Returns true if the embedded Nodes have values
    */
