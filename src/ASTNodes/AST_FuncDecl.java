@@ -71,6 +71,10 @@ public class AST_FuncDecl extends AST_Node {
     }
   }
 
+  public String getReturnTypeName() {
+    return returnTypeName;
+  }
+
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
     return ST.lookupAll(funcName) == null;

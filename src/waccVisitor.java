@@ -158,13 +158,15 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = statExprRHSNode;
 
     //Do semantic analysis
-    statExprRHSNode.Check(currentTree);
+
 
     //Debug statement
     System.out.println("StatExprAssign");
 
     //Iterate through rest of the tree
-    return visitChildren(ctx);
+    visitChildren(ctx);
+    statExprRHSNode.Check(currentTree);
+    return null;
   }
 
   //TODO ------------------------
@@ -191,13 +193,15 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = statExprNode;
 
     //Do semantic analysis
-    statExprNode.Check(currentTree);
+
 
     //Debug statement
     System.out.println("printlnStat");
 
     //Iterate through rest of the tree
-    return visitChildren(ctx);
+    visitChildren(ctx);
+    statExprNode.Check(currentTree);
+    return null;
   }
 
 
@@ -290,7 +294,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = exprLiterNode;
 
     //Do semantic analysis
-    exprLiterNode.Check(currentTree);
+
 
     //Debug statement
     System.out.println("exprCharLiter");
@@ -300,7 +304,9 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
       parentVisitorNode = parentVisitorNode.getParentNode();
     }
     //Iterate through rest of the tree
-    return visitChildren(ctx);
+    visitChildren(ctx);
+    exprLiterNode.Check(currentTree);
+    return null;
   }
 
   @Override
@@ -494,13 +500,15 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = statExprNode;
 
     //Do semantic analysis
-    statExprNode.Check(currentTree);
+
 
     //Debug statement
     System.out.println("statExprNode");
 
     //Iterate through rest of the tree
-    return visitChildren(ctx);
+    visitChildren(ctx);
+    statExprNode.Check(currentTree);
+    return null;
   }
 
   @Override
@@ -560,13 +568,15 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = exprLiterNode;
 
     //Do semantic analysis
-    exprLiterNode.Check(currentTree);
+
 
     //Debug statement
     System.out.println("exprIntLiter");
 
     //Iterate through rest of the tree
-    return visitChildren(ctx);
+    visitChildren(ctx);
+    exprLiterNode.Check(currentTree);
+    return null;
   }
 
   @Override
@@ -604,13 +614,15 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = statExprNode;
 
     //Do semantic analysis
-    statExprNode.Check(currentTree);
+
 
     //Debug statement
     System.out.println("statExpr");
 
     //Iterate through rest of the tree
-    return visitChildren(ctx);
+    visitChildren(ctx);
+    statExprNode.Check(currentTree);
+    return null;
   }
 
   @Override
@@ -796,13 +808,15 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = exprLiterNode;
 
     //Do semantic analysis
-    exprLiterNode.Check(currentTree);
+
 
     //Debug statement
     System.out.println("exprStringLiter");
 
     //Iterate through rest of the tree
-    return visitChildren(ctx);
+    visitChildren(ctx);
+    exprLiterNode.Check(currentTree);
+    return null;
   }
 
   @Override
@@ -840,13 +854,15 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = exitNode;
 
     //Do semantic analysis
-    exitNode.Check(currentTree);
+
 
     //Debug statement
     System.out.println("exit");
 
     //Iterate through rest of the tree
-    return visitChildren(ctx);
+    visitChildren(ctx);
+    exitNode.Check(currentTree);
+    return null;
   }
 
   //TODO ------------------------
@@ -889,13 +905,15 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = boolLiterNode;
 
     //Do semantic analysis
-    boolLiterNode.Check(currentTree);
+
 
     //Debug statement
     System.out.println("boolLiter");
 
     //Iterate through rest of the tree
-    return visitChildren(ctx);
+    visitChildren(ctx);
+    boolLiterNode.Check(currentTree);
+    return null;
   }
 
   //TODO ------------------------
@@ -920,13 +938,15 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = pairLiterNode;
 
     //Do semantic analysis
-    pairLiterNode.Check(currentTree);
+
 
     //Debug statement
     System.out.println("pairLiter");
 
     //Iterate through rest of the tree
-    return visitChildren(ctx);
+    visitChildren(ctx);
+    pairLiterNode.Check(currentTree);
+    return null;
   }
 
 
@@ -943,13 +963,15 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = returnStatNode;
 
     //Do semantic analysis
-    returnStatNode.Check(currentTree);
+
 
     //Debug statement
     System.out.println("returnStat");
 
     //Iterate through rest of the tree
-    return visitChildren(ctx);
+    visitChildren(ctx);
+    returnStatNode.Check(currentTree);
+    return null;
   }
 
 
