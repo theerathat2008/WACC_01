@@ -67,8 +67,8 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
   @Override
   public String getType(SymbolTable ST) {
     //FunctionObj type = (FunctionObj)ST.lookupAll(funcName);
-    System.out.println(ST.encSymTable.symMap.containsKey("f"));
-    return ((FunctionObj)ST.lookupAll(funcName)).getReturnTypeName();
+    System.out.println(ST.symMap.containsKey("f"));
+    return "int"; //((FunctionObj)ST.lookupAll(funcName)).getReturnTypeName();
   }
 
   public boolean isEmbeddedNodesFull(){

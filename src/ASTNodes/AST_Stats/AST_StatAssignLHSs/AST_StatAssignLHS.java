@@ -58,11 +58,11 @@ public class AST_StatAssignLHS extends AST_Stat {
   }
 
   public void setType(String type) {
-
+    this.type = type;
   }
 
   public String getType(SymbolTable ST) {
-    return null;
+    return type;
   }
 
   @Override

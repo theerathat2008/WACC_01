@@ -100,7 +100,7 @@ public class AST_StatVarDecl extends AST_Stat {
   // Called from visitor
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
-      //Do symbol table stuff
+      ST.add(identName, ST.stringToIdent(identName, ast_type.toString()));
     }
   }
 
