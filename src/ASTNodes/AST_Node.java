@@ -9,7 +9,7 @@ import java.util.ArrayDeque;
 
 
 /**
- * Empty Base class for the AST Tree that is generated from the parse tree
+ * Empty Base class for the AST Nodes that is generated for the parse tree
  */
 public abstract class AST_Node {
   ParserRuleContext ctx;
