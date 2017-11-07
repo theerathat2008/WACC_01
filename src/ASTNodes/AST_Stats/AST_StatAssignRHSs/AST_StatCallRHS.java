@@ -140,7 +140,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
         //}
       }
     }
-    new UndefinedFunctionError(new FilePosition(ctx)).printAll();
+    //new UndefinedFunctionError(new FilePosition(ctx)).printAll();
     return false;
   }
 
