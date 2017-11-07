@@ -1,6 +1,8 @@
 package ASTNodes;
 
 
+import SymbolTable.SymbolTable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,13 +53,13 @@ public class AST_ParamList extends AST_Node{
 
 
   //Semantic Analysis and print error message if needed
-  protected boolean CheckSemantics(){
+  protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
   // Called from visitor
-  public void Check(){
-    if(CheckSemantics()){
+  public void Check(SymbolTable ST){
+    if(CheckSemantics(ST)){
       //Do symbol table stuff
     }
   }

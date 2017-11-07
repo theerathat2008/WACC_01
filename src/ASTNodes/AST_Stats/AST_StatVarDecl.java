@@ -2,6 +2,7 @@ package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
+import SymbolTable.SymbolTable;
 
 public class AST_StatVarDecl extends AST_Stat {
   //Syntactic attributes
@@ -62,13 +63,19 @@ public class AST_StatVarDecl extends AST_Stat {
 
 
   //Semantic Analysis and print error message if needed
-  protected boolean CheckSemantics(){
-    return true;
+  protected boolean CheckSemantics(SymbolTable ST) {
+    if (ST.lookup(identName) != null) {
+      return false;
+    } else if (typeName != ast_assignRHS.getType(ST)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // Called from visitor
-  public void Check(){
-    if(CheckSemantics()){
+  public void Check(SymbolTable ST){
+    if(CheckSemantics(ST)){
       //Do symbol table stuff
     }
   }

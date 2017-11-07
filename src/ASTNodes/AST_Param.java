@@ -1,5 +1,7 @@
 package ASTNodes;
 
+import SymbolTable.SymbolTable;
+
 public class AST_Param extends AST_Node {
   //Syntactic attributes
   String paramType;
@@ -52,14 +54,14 @@ public class AST_Param extends AST_Node {
   }
 
   //Semantic Analysis and print error message if needed
-  protected boolean CheckSemantics(){
+  protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
   // Called from visitor
-  public void Check(){
-    if(CheckSemantics()){
-      //Do symbol table stuff
+  public void Check(SymbolTable ST){
+    if(CheckSemantics(ST)){
+      ST.add(paramName, ST.stringToIdent(paramName, paramType));
     }
   }
 }

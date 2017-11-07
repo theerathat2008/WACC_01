@@ -1,9 +1,11 @@
 package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
+import SymbolTable.SymbolTable;
 
 public class AST_ExprBinary extends AST_Expr{
   //Syntactic attributes
+
   String opName;
   AST_Expr exprLeftAST;
   AST_Expr exprRightAST;
@@ -61,14 +63,26 @@ public class AST_ExprBinary extends AST_Expr{
 
 
   //Semantic Analysis and print error message if needed
-  protected boolean CheckSemantics(){
+  protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
   // Called from visitor
-  public void Check(){
-    if(CheckSemantics()){
-      //Do symbol table stuff
+  public void Check(SymbolTable ST){
+    if(CheckSemantics(ST)){
+      if (opName.equals("*")) {
+        setType("int");
+      } else if (opName.equals("/")) {
+        setType("int");
+      } else if (opName.equals("%")) {
+        setType("int");
+      } else if(opName.equals("+")) {
+        setType("int");
+      } else if(opName.equals("-")) {
+        setType("int");
+      } else {
+        setType("bool");
+      }
     }
   }
 }

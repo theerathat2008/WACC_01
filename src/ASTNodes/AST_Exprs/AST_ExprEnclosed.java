@@ -2,6 +2,7 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Separator;
+import SymbolTable.SymbolTable;
 
 public class AST_ExprEnclosed extends AST_Expr{
   //Syntactic attributes
@@ -61,13 +62,14 @@ public class AST_ExprEnclosed extends AST_Expr{
 
 
   //Semantic Analysis and print error message if needed
-  protected boolean CheckSemantics(){
+  protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
   // Called from visitor
-  public void Check(){
-    if(CheckSemantics()){
+  public void Check(SymbolTable ST){
+    if(CheckSemantics(ST)){
+      setType(exprAST.type);
       //Do symbol table stuff
     }
   }

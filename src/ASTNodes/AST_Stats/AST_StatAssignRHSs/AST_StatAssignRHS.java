@@ -2,6 +2,7 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_Stat;
+import SymbolTable.SymbolTable;
 
 public class AST_StatAssignRHS extends AST_Stat {
   //Syntactic attributes
@@ -31,6 +32,10 @@ public class AST_StatAssignRHS extends AST_Stat {
     }
   }
 
+  public String getType(SymbolTable ST) {
+    return null;
+  }
+
   public boolean isEmbeddedNodesFull(){
     return true;
   }
@@ -47,13 +52,13 @@ public class AST_StatAssignRHS extends AST_Stat {
 
 
   //Semantic Analysis and print error message if needed
-  protected boolean CheckSemantics(){
+  protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
   // Called from visitor
-  public void Check(){
-    if(CheckSemantics()){
+  public void Check(SymbolTable ST){
+    if(CheckSemantics(ST)){
       //Do symbol table stuff
     }
   }

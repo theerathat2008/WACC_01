@@ -1,5 +1,9 @@
 package ASTNodes;
 
+//import SymbolTable.SymbolTable;
+
+import SymbolTable.SymbolTable;
+
 /**
  * Empty Base class for the AST Tree that is generated from the parse tree
  */
@@ -34,8 +38,8 @@ public abstract class AST_Node {
   public abstract void setEmbeddedAST(String astToSet, AST_Node nodeToSet);
 
   //Semantic Analysis and print error message if needed
-  protected abstract boolean CheckSemantics();
+  protected abstract boolean CheckSemantics(SymbolTable ST);
 
   // Called from visitor
-  public abstract void Check();
+  public abstract void Check(SymbolTable ST);
 }

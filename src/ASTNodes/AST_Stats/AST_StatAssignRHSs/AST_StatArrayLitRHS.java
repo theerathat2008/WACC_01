@@ -2,6 +2,7 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
+import SymbolTable.SymbolTable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS{
   //Syntactic attributes
   List<AST_Expr> ast_exprList;
   int numOfExpr;
+  String type;
   //Semantic attribute
 
 
@@ -56,16 +58,20 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS{
     }
   }
 
+  @Override
+  public String getType(SymbolTable ST) {
+    return ast_exprList.get(0).toString() + "[]";
+  }
 
 
   //Semantic Analysis and print error message if needed
-  protected boolean CheckSemantics(){
+  protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
   // Called from visitor
-  public void Check(){
-    if(CheckSemantics()){
+  public void Check(SymbolTable ST){
+    if(CheckSemantics(ST)){
       //Do symbol table stuff
     }
   }
