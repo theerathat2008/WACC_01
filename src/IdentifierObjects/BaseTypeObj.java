@@ -8,11 +8,15 @@ public class BaseTypeObj extends IDENTIFIER {
   List<String> types = Arrays.asList("int", "string", "char", "bool", "pair");
   public BaseTypeObj(String name, String base_type) {
     this.name = name;
-    if (types.contains(base_type)) {
-      this.base_type = base_type;
-    } else {
-      System.out.println("Unrecognised base type");
-    }
+    this.base_type = base_type;
+    System.out.println("Setting base type to: " +base_type);
+
+  }
+
+  public BaseTypeObj(String base_type) {
+    this.base_type = base_type;
+    System.out.println("Setting base type to: " +base_type);
+
   }
 
   public boolean equals(IDENTIFIER other) {

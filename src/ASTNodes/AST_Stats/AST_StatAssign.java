@@ -101,11 +101,12 @@ public class AST_StatAssign extends AST_Stat{
 
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
-    if (ast_statAssignLHS.getType(ST).equals(ast_statAssignRHS.getType(ST))) {
+    System.out.println("checking semantic of assign statement");
+    if (ast_statAssignLHS.getIdentifier().equals(ast_statAssignRHS.getIdentifier())) {
       return true;
     } else {
-      System.out.println(ast_statAssignLHS.getType(ST));
-      System.out.println(ast_statAssignRHS.getType(ST));
+      System.out.println(ast_statAssignLHS.getIdentifier().toString());
+      System.out.println(ast_statAssignRHS.identifier.toString());
       new TypeMismatchError(new FilePosition(ctx)).printAll();
       return false;
     }

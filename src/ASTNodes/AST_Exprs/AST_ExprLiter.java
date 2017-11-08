@@ -43,7 +43,9 @@ public class AST_ExprLiter extends AST_Expr{
       this.constant = value;
     } else if(literal == null){
       this.literal = value;
-      identifier = new BaseTypeObj(null, literal);
+      System.out.println("Set literal as base type object: " + literal);
+      identifier = new BaseTypeObj(literal);
+      System.out.println(identifier.toString());
     } else {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }

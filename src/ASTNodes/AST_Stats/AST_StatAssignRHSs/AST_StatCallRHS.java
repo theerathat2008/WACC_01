@@ -133,12 +133,13 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
   protected boolean CheckSemantics(SymbolTable ST){
 
     System.out.println("Checking if " + funcName + " is in the symbol tree.");
-    IDENTIFIER type = identifier;
-    if (type != null) {
-      if (type instanceof FunctionObj) {
-        //if (((FunctionObj) type).getparamListObj().toString().equals(paramsToString())) { //TODO check parameters are same in function call and function declaration
+    FunctionObj thisType = (FunctionObj) identifier;
+    IDENTIFIER tableType = ST.lookupAll(funcName);
+    if (tableType != null) {
+      if (tableType instanceof FunctionObj) {
+        if (((FunctionObj) tableType).equals(thisType)) { //TODO check parameters are same in function call and function declaration
           return true;
-        //}
+        }
       }
     }
     new UndefinedFunctionError(new FilePosition(ctx)).printAll();

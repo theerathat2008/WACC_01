@@ -8,6 +8,10 @@ public class ArrayObj extends IDENTIFIER {
     this.type = type;
   }
 
+  public ArrayObj(IDENTIFIER type) {
+    this.type = type;
+  }
+
   public boolean equals(IDENTIFIER other) {
    if (other instanceof ArrayObj) {
      if (((ArrayObj) other).type.equals(type)) {

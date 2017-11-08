@@ -11,7 +11,7 @@ import IdentifierObjects.IDENTIFIER;
 public class AST_Expr extends AST_Node{
   //Syntactic attributes
   String type;
-  public IDENTIFIER identifier;
+  IDENTIFIER identifier;
 
   /**
    * Gets all children nodes of current node
@@ -105,6 +105,10 @@ public class AST_Expr extends AST_Node{
     System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("BASE TYPE");
 
+  }
+
+  public IDENTIFIER getIdentifier() {
+    return identifier;
   }
 
 }
