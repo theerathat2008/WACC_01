@@ -59,8 +59,7 @@ public class AST_FuncDecl extends AST_Node {
    */
 
   public boolean checkForParamList(){
-    //PRASH return numOfChildren == 8 previousy for some reason
-    return (numOfChildren > 0);
+    return numOfChildren == 8;
   }
 
 
