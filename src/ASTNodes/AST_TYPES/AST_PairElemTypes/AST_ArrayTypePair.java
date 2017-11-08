@@ -3,6 +3,7 @@ package ASTNodes.AST_TYPES.AST_PairElemTypes;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_TYPES.AST_Type;
 import SymbolTable.SymbolTable;
+import IdentifierObjects.*;
 
 import java.util.ArrayDeque;
 
@@ -113,5 +114,9 @@ public class AST_ArrayTypePair extends  AST_PairElemType{
     } else {
       System.out.println("ast_type: has content");
     }
+  }
+
+  public IDENTIFIER getIdentifier() {
+    return new ArrayObj(null, ast_type.getIdentifier());
   }
 }

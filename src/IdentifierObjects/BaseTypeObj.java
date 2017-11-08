@@ -5,7 +5,7 @@ import java.util.List;
 
 public class BaseTypeObj extends IDENTIFIER {
   String base_type;
-  List<String> types = Arrays.asList("int", "string", "char", "bool");
+  List<String> types = Arrays.asList("int", "string", "char", "bool", "pair");
   public BaseTypeObj(String name, String base_type) {
     this.name = name;
     if (types.contains(base_type)) {
@@ -18,6 +18,8 @@ public class BaseTypeObj extends IDENTIFIER {
   public boolean equals(IDENTIFIER other) {
     if (other instanceof BaseTypeObj) {
       if (((BaseTypeObj) other).base_type.equals(base_type)) {
+        return true;
+      } else if (other instanceof PairObj && base_type.equals("pair")) {
         return true;
       }
     }

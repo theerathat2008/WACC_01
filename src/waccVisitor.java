@@ -329,8 +329,10 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
       parentVisitorNode = parentVisitorNode.getParentNode();
     }
     //Iterate through rest of the tree
+    currentTree = new SymbolTable(currentTree);
     visitChildren(ctx);
     exprLiterNode.Check(currentTree);
+    currentTree = currentTree.encSymTable;
     return null;
   }
 

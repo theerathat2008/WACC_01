@@ -3,6 +3,7 @@ package ASTNodes.AST_TYPES;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
+import IdentifierObjects.IDENTIFIER;
 
 /**
  * Class representing node in AST tree for TYPES - ALL TYPES EXTEND THIS CLASS
@@ -100,5 +101,9 @@ public class AST_Type extends AST_Node {
   public void printContents(){
     System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("Base AST Node.");
+  }
+
+  public IDENTIFIER getIdentifier() {
+    return null;
   }
 }

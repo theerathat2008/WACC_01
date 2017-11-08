@@ -3,6 +3,7 @@ package ASTNodes.AST_TYPES;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
+import IdentifierObjects.*;
 
 public class AST_ArrayType extends AST_Type{
   //Syntactic attributes
@@ -110,5 +111,9 @@ public class AST_ArrayType extends AST_Type{
     } else {
       System.out.println("ast_type: has content");
     }
+  }
+
+  public IDENTIFIER getIdentifier() {
+    return new ArrayObj(null, ast_type.getIdentifier());
   }
 }

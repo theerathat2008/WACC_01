@@ -3,6 +3,7 @@ package ASTNodes.AST_TYPES.AST_PairElemTypes;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
+import IdentifierObjects.*;
 
 public class AST_BaseTypePair extends AST_PairElemType{
   //Syntactic attributes
@@ -111,5 +112,8 @@ public class AST_BaseTypePair extends AST_PairElemType{
     System.out.println("baseTypeName: " + baseTypeName);
   }
 
+  public IDENTIFIER getIdentifier() {
+    return new BaseTypeObj(null, baseTypeName);
+  }
 
 }

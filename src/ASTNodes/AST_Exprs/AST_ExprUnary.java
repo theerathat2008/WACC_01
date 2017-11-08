@@ -3,6 +3,7 @@ package ASTNodes.AST_Exprs;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
+import IdentifierObjects.*;
 
 /**
  * Class representing node in AST tree for UNARY EXPRESSIONS
@@ -48,11 +49,23 @@ public class AST_ExprUnary extends AST_Expr{
   public void setSyntacticAttributes(String value){
     if(opName == null){
       this.opName = value;
+      if (opName.equals("!")) {
+        identifier = new BaseTypeObj(null, "bool");
+      } else if (opName.equals("-")) {
+        identifier = new BaseTypeObj(null, "int");
+      } else if (opName.equals("len")) {
+        identifier = new BaseTypeObj(null, "int");
+      } else if(opName.equals("ord")) {
+        identifier = new BaseTypeObj(null, "int");
+      } else if(opName.equals("chr")) {
+        identifier = new BaseTypeObj(null, "char");
+      } else {
+        identifier = null;
+      }
     } else {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
-
 
   /**
    * Gets syntactic attributes of class variables
@@ -62,6 +75,7 @@ public class AST_ExprUnary extends AST_Expr{
   public String getSyntacticAttributes(String strToGet){
     if(strToGet.equals("opName")){
       return opName;
+
     } else {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;

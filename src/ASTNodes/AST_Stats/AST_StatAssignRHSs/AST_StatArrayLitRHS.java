@@ -6,6 +6,7 @@ import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import IdentifierObjects.*;
 
 /**
  * Class representing node in AST tree for ARRAY LITERAL ASSIGNMENT
@@ -91,6 +92,9 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS{
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("expr")){
       ast_exprList.add((AST_Expr)nodeToSet);
+      if (ast_exprList.size() == 1) {
+        identifier = new ArrayObj(null, ast_exprList.get(0).identifier);
+      }
     } else {
       System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }

@@ -131,8 +131,9 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
 
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
+
     System.out.println("Checking if " + funcName + " is in the symbol tree.");
-    IDENTIFIER type =  ST.lookupAll(funcName);
+    IDENTIFIER type = identifier;
     if (type != null) {
       if (type instanceof FunctionObj) {
         //if (((FunctionObj) type).getparamListObj().toString().equals(paramsToString())) { //TODO check parameters are same in function call and function declaration

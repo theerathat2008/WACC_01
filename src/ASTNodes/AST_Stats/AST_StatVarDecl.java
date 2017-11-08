@@ -7,6 +7,7 @@ import SymbolTable.SymbolTable;
 
 import ASTNodes.AST_TYPES.AST_Type;
 import src.ErrorMessages.TypeMismatchError;
+import src.ErrorMessages.VariableRedeclarationError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 
@@ -89,12 +90,13 @@ public class AST_StatVarDecl extends AST_Stat {
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST) {
     System.out.println(ast_assignRHS.getType(ST));
+    System.out.println(ast_type.getIdentifier().toString());
     if (ST.lookup(identName) != null) {
-      new TypeMismatchError(new FilePosition(ctx)).printAll();
+      new VariableRedeclarationError(new FilePosition(ctx)).printAll();
       return false;
-    } else if (null == ast_assignRHS.getType(ST)) {
+    } else if (null == ast_assignRHS.getIdentifier()) {
       return true;
-    } else if (ast_type.toString() == ast_assignRHS.getType(ST)) {
+    } else if (ast_type.getIdentifier().equals(ast_assignRHS.getIdentifier())) {
       return true;
     } else {
       new TypeMismatchError(new FilePosition(ctx)).printAll();

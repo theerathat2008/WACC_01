@@ -14,6 +14,10 @@ public class PairObj extends IDENTIFIER {
       if (((PairObj) other).LHS.equals(LHS) && ((PairObj) other).RHS.equals(RHS)) {
         return true;
       }
+    } else if (other instanceof BaseTypeObj) {
+      if (other.toString().equals("pair")) {
+        return true;
+      }
     }
     return false;
   }

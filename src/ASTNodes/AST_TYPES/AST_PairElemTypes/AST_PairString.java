@@ -3,6 +3,7 @@ package ASTNodes.AST_TYPES.AST_PairElemTypes;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
+import IdentifierObjects.*;
 
 public class AST_PairString extends AST_PairElemType{
   //Syntactic attributes
@@ -109,5 +110,9 @@ public class AST_PairString extends AST_PairElemType{
   public void printContents(){
     System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("pairString: " + pairString);
+  }
+
+  public IDENTIFIER getIdentifier() {
+    return new BaseTypeObj(null, "pair");
   }
 }

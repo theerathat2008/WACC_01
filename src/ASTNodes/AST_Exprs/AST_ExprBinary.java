@@ -3,6 +3,7 @@ package ASTNodes.AST_Exprs;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
+import IdentifierObjects.*;
 
 /**
  * Class representing node in AST tree for BINARY EXPRESSIONS
@@ -43,6 +44,19 @@ public class AST_ExprBinary extends AST_Expr{
   public void setSyntacticAttributes(String value){
     if(opName == null){
       this.opName = value;
+      if (opName.equals("*")) {
+        identifier = new BaseTypeObj(null, "int");
+      } else if (opName.equals("/")) {
+        identifier = new BaseTypeObj(null, "int");
+      } else if (opName.equals("%")) {
+        identifier = new BaseTypeObj(null, "int");
+      } else if(opName.equals("+")) {
+        identifier = new BaseTypeObj(null, "int");
+      } else if(opName.equals("-")) {
+        identifier = new BaseTypeObj(null, "int");
+      } else {
+        identifier = new BaseTypeObj(null, "bool");
+      }
     } else {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }

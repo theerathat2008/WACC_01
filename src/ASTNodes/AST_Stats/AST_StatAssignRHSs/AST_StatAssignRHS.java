@@ -4,11 +4,14 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_Stat;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
+import IdentifierObjects.*;
 
 /**
  * Class representing node in AST tree for ASSIGNMENT BASE CLASS
  */
 public class AST_StatAssignRHS extends AST_Stat {
+
+  IDENTIFIER identifier;
 
   /**
    * Gets all children nodes of current node
@@ -92,6 +95,14 @@ public class AST_StatAssignRHS extends AST_Stat {
   @Override
   public void printContents() {
     System.out.println("BASE CLASS");
+  }
+
+  public IDENTIFIER getIdentifier() {
+    return identifier;
+  }
+
+  public void setIdentifier(IDENTIFIER identifier) {
+    this.identifier = identifier;
   }
 }
 

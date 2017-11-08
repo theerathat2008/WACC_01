@@ -3,6 +3,7 @@ package ASTNodes.AST_TYPES;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
+import IdentifierObjects.*;
 
 /**
  * Class representing node in AST tree for BASETYPE
@@ -111,5 +112,9 @@ public class AST_BaseType extends AST_Type {
   public void printContents(){
     System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("baseTypeName: " + baseTypeName);
+  }
+
+  public IDENTIFIER getIdentifier() {
+    return new BaseTypeObj(null, baseTypeName);
   }
 }

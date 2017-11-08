@@ -3,6 +3,7 @@ package ASTNodes.AST_Exprs;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
+import IdentifierObjects.*;
 
 /**
  * Class representing node in AST tree for LITERAL EXPRESSIONS
@@ -42,6 +43,7 @@ public class AST_ExprLiter extends AST_Expr{
       this.constant = value;
     } else if(literal == null){
       this.literal = value;
+      identifier = new BaseTypeObj(null, literal);
     } else {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }

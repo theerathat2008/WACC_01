@@ -3,6 +3,7 @@ package ASTNodes.AST_Exprs;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
+import IdentifierObjects.IDENTIFIER;
 
 /**
  * Class representing node in AST tree for EXPRESSIONS - USED AS BASE CLASS FOR OTHER EXPRESSIONS
@@ -10,6 +11,7 @@ import java.util.ArrayDeque;
 public class AST_Expr extends AST_Node{
   //Syntactic attributes
   String type;
+  public IDENTIFIER identifier;
 
   /**
    * Gets all children nodes of current node

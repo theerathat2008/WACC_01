@@ -4,6 +4,7 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairElemType;
 import ASTNodes.AST_TYPES.AST_Type;
 import SymbolTable.SymbolTable;
+import IdentifierObjects.*;
 
 import java.util.ArrayDeque;
 
@@ -132,5 +133,9 @@ public class AST_PairType extends AST_Type{
     } else {
       System.out.println("pairElemTypeSnd: has content");
     }
+  }
+
+  public IDENTIFIER getIdentifier() {
+    return new PairObj(null, pairElemTypeFst.getIdentifier(), pairElemTypeSnd.getIdentifier());
   }
 }
