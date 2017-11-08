@@ -1,36 +1,32 @@
-package ASTNodes.AST_Stats;
+package ASTNodes.AST_TYPES.AST_PairElemTypes;
 
 import ASTNodes.AST_Node;
+import ASTNodes.AST_TYPES.AST_Type;
 import SymbolTable.SymbolTable;
+
 import java.util.ArrayDeque;
 
-/**
- * Class representing node in AST tree for STATEMENT NODES
- */
-public class AST_Stat extends AST_Node {
+public class AST_PairElemType extends AST_Type {
   //Syntactic attributes
-  String statName;
 
   /**
    * Constructor for class - initialises class variables to NULL
    */
-  public AST_Stat(){
-    this.statName = null;
-  }
+  public AST_PairElemType(){}
+
 
   /**
    * Gets all children nodes of current node
    * @return list of AST nodes that are the children of the current node
-   */@Override
+   */
+  @Override
   public ArrayDeque<AST_Node> getNodes(){
     System.out.println("BASE AST Node at: " + this.getClass().getSimpleName());
     return null;
   }
 
 
-  /**
-   * Returns true if the embedded Nodes have value
-   */
+
   @Override
   public boolean isEmbeddedNodesFull(){
     return true;
@@ -42,12 +38,9 @@ public class AST_Stat extends AST_Node {
    */
   @Override
   public void setSyntacticAttributes(String value){
-    if(statName == null){
-      this.statName = value;
-    } else {
-      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
-    }
+    System.out.println("Base AST Node.");
   }
+
 
   /**
    * Gets syntactic attributes of class variables
@@ -55,12 +48,8 @@ public class AST_Stat extends AST_Node {
    */
   @Override
   public String getSyntacticAttributes(String strToGet){
-    if(strToGet.equals("statName")){
-      return statName;
-    } else {
-      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
-      return null;
-    }
+    System.out.println("Base AST Node.");
+    return null;
   }
 
   /**
@@ -86,11 +75,13 @@ public class AST_Stat extends AST_Node {
 
 
   //Semantic Analysis and print error message if needed
+  @Override
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
   // Called from visitor
+  @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       //Do symbol table stuff
@@ -103,6 +94,6 @@ public class AST_Stat extends AST_Node {
   @Override
   public void printContents(){
     System.out.println(this.getClass().getSimpleName() + ": ");
-    System.out.println("statName: " + statName);
+    System.out.println("Base AST Node.");
   }
 }

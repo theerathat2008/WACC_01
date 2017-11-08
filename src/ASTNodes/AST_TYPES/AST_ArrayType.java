@@ -1,39 +1,34 @@
-package ASTNodes.AST_Stats;
+package ASTNodes.AST_TYPES;
 
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
 
-/**
- * Class representing node in AST tree for STATEMENT NODES
- */
-public class AST_Stat extends AST_Node {
+public class AST_ArrayType extends AST_Type{
   //Syntactic attributes
-  String statName;
+  AST_Type ast_type;
 
   /**
    * Constructor for class - initialises class variables to NULL
    */
-  public AST_Stat(){
-    this.statName = null;
+  public AST_ArrayType(){
+    this.ast_type = null;
   }
 
   /**
    * Gets all children nodes of current node
    * @return list of AST nodes that are the children of the current node
-   */@Override
-  public ArrayDeque<AST_Node> getNodes(){
-    System.out.println("BASE AST Node at: " + this.getClass().getSimpleName());
-    return null;
-  }
-
-
-  /**
-   * Returns true if the embedded Nodes have value
    */
   @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    returnList.addLast(ast_type);
+    return returnList;
+  }
+
+  @Override
   public boolean isEmbeddedNodesFull(){
-    return true;
+    return ast_type != null;
   }
 
   /**
@@ -42,12 +37,9 @@ public class AST_Stat extends AST_Node {
    */
   @Override
   public void setSyntacticAttributes(String value){
-    if(statName == null){
-      this.statName = value;
-    } else {
-      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
-    }
+    System.out.println("No Syntactic Attribute");
   }
+
 
   /**
    * Gets syntactic attributes of class variables
@@ -55,12 +47,8 @@ public class AST_Stat extends AST_Node {
    */
   @Override
   public String getSyntacticAttributes(String strToGet){
-    if(strToGet.equals("statName")){
-      return statName;
-    } else {
-      System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
-      return null;
-    }
+    System.out.println("No Syntactic Attribute");
+    return null;
   }
 
   /**
@@ -70,7 +58,10 @@ public class AST_Stat extends AST_Node {
    */
   @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
-    System.out.println("Base AST Node.");
+    if(astToGet.equals("ast_type")){
+      return ast_type;
+    }
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -80,21 +71,32 @@ public class AST_Stat extends AST_Node {
    */
   @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    System.out.println("Base AST Node.");
+    if(astToSet.equals("ast_type")){
+      ast_type = (AST_Type) nodeToSet;
+    } else {
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
+    }
   }
 
-
-
   //Semantic Analysis and print error message if needed
+  @Override
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
   // Called from visitor
+  @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       //Do symbol table stuff
     }
+  }
+
+  /**
+   * @return - Returns a string representation of the current node
+   */
+  public String toString() {
+    return ast_type.toString() + "[]";
   }
 
   /**
@@ -103,6 +105,10 @@ public class AST_Stat extends AST_Node {
   @Override
   public void printContents(){
     System.out.println(this.getClass().getSimpleName() + ": ");
-    System.out.println("statName: " + statName);
+    if(ast_type == null){
+      System.out.println("ast_type: null");
+    } else {
+      System.out.println("ast_type: has content");
+    }
   }
 }

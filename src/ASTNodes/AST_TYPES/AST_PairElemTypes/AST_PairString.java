@@ -1,36 +1,31 @@
-package ASTNodes.AST_Stats;
+package ASTNodes.AST_TYPES.AST_PairElemTypes;
 
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
 
-/**
- * Class representing node in AST tree for STATEMENT NODES
- */
-public class AST_Stat extends AST_Node {
+public class AST_PairString extends AST_PairElemType{
   //Syntactic attributes
-  String statName;
+  String pairString;
 
   /**
    * Constructor for class - initialises class variables to NULL
    */
-  public AST_Stat(){
-    this.statName = null;
+  public AST_PairString(){
+    this.pairString = null;
   }
 
   /**
    * Gets all children nodes of current node
    * @return list of AST nodes that are the children of the current node
-   */@Override
+   */
+  @Override
   public ArrayDeque<AST_Node> getNodes(){
-    System.out.println("BASE AST Node at: " + this.getClass().getSimpleName());
+    System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
     return null;
   }
 
 
-  /**
-   * Returns true if the embedded Nodes have value
-   */
   @Override
   public boolean isEmbeddedNodesFull(){
     return true;
@@ -42,12 +37,13 @@ public class AST_Stat extends AST_Node {
    */
   @Override
   public void setSyntacticAttributes(String value){
-    if(statName == null){
-      this.statName = value;
+    if(pairString == null){
+      this.pairString = value;
     } else {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
+
 
   /**
    * Gets syntactic attributes of class variables
@@ -55,8 +51,8 @@ public class AST_Stat extends AST_Node {
    */
   @Override
   public String getSyntacticAttributes(String strToGet){
-    if(strToGet.equals("statName")){
-      return statName;
+    if(strToGet.equals("pairString")){
+      return pairString;
     } else {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
@@ -70,7 +66,7 @@ public class AST_Stat extends AST_Node {
    */
   @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
-    System.out.println("Base AST Node.");
+    System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
     return null;
   }
 
@@ -80,21 +76,30 @@ public class AST_Stat extends AST_Node {
    */
   @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
-    System.out.println("Base AST Node.");
+    System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
   }
 
 
 
   //Semantic Analysis and print error message if needed
+  @Override
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
   // Called from visitor
+  @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       //Do symbol table stuff
     }
+  }
+
+  /**
+   * @return - Returns a string representation of the current node
+   */
+  public String toString() {
+    return pairString;
   }
 
   /**
@@ -103,6 +108,6 @@ public class AST_Stat extends AST_Node {
   @Override
   public void printContents(){
     System.out.println(this.getClass().getSimpleName() + ": ");
-    System.out.println("statName: " + statName);
+    System.out.println("pairString: " + pairString);
   }
 }

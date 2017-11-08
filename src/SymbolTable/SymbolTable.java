@@ -86,7 +86,7 @@ public class SymbolTable {
     } else if (type.startsWith("PAIR(")) {
 
     } else if (type.endsWith(" FUNCTION")) {
-      return new FunctionObj(name, stringToIdent(name, type.substring(0, type.length()-10)));
+      return new FunctionObj(name, stringToIdent(name, type.substring(0, type.length()-10)), null);
     } else if (type.equals("param_list")) {
 
     } else if (type.equals("keyword")) {

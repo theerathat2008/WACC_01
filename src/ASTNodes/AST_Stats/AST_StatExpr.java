@@ -5,44 +5,51 @@ import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
 import SymbolTable.SymbolTable;
+import src.ErrorMessages.TypeError;
+import src.FilePosition;
+import org.antlr.v4.runtime.ParserRuleContext;
+
+import java.util.ArrayDeque;
 
 public class AST_StatExpr extends AST_Stat{
   //Syntactic attributes
   AST_Expr expr;
-  //Semantic attribute
+  ParserRuleContext ctx;
 
   // Assign the class variables when called
-  public AST_StatExpr(){
+  public AST_StatExpr(ParserRuleContext ctx){
     this.expr = null;
+    this.ctx = ctx;
   }
 
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    returnList.addLast(expr);
+    return returnList;
+  }
+
+  @Override
   public boolean isEmbeddedNodesFull(){
     return expr != null;
   }
 
-  public void setSyntacticAttributes(String value){
-    System.out.println("No String Syntactic Attributes");
-  }
 
-
-  public String getSyntacticAttributes(String strToGet){
-    System.out.println("No String Syntactic Attributes");
-    return null;
-  }
-
+  @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     if(astToGet.equals("expr")){
       return expr;
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
+  @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("expr")){
       expr = (AST_Expr) nodeToSet;
     } else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
   }
 
@@ -57,6 +64,7 @@ public class AST_StatExpr extends AST_Stat{
       while (!(parent instanceof AST_FuncDecl)) {
         if (parent instanceof AST_Program) {
           System.out.println("Return statement not inside of a function.");
+          new TypeError(new FilePosition(ctx)).printAll();
           return false;
         }
         parent = getParentNode();
@@ -73,14 +81,25 @@ public class AST_StatExpr extends AST_Stat{
     } else if (statName.equals("PRINTLN")) {
       return true;
     }
+    //new TypeError(new FilePosition(ctx)).printAll();
     return false;
   }
 
   // Called from visitor
   @Override
   public void Check(SymbolTable ST){
-    if(CheckSemantics(ST)){
+    //CheckSemantics(ST))
       //Do symbol table stuff
+  }
+
+  @Override
+  public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
+    super.printContents();
+    if(expr == null){
+      System.out.println("expr: null");
+    } else {
+      System.out.println("expr: has content");
     }
   }
 

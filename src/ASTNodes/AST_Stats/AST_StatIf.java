@@ -4,6 +4,8 @@ import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 
+import java.util.ArrayDeque;
+
 public class AST_StatIf extends AST_Stat{
   //Syntactic attributes
   AST_Expr expr;
@@ -19,21 +21,36 @@ public class AST_StatIf extends AST_Stat{
     this.elseStat = null;
   }
 
-  public void setSyntacticAttributes(String value){
-    System.out.println("No String Syntactic Attributes");
+  @Override
+  public ArrayDeque<AST_Node> getNodes(){
+    ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
+    returnList.addLast(expr);
+    returnList.addLast(thenStat);
+    returnList.addLast(elseStat);
+    return returnList;
   }
 
 
+
+
+  @Override
+  public void setSyntacticAttributes(String value){
+    System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
+  }
+
+  @Override
   public String getSyntacticAttributes(String strToGet){
-    System.out.println("No String Syntactic Attributes");
+    System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
     return null;
   }
 
+  @Override
   public boolean isEmbeddedNodesFull(){
     return expr != null && thenStat != null && elseStat != null;
   }
 
 
+  @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     if(astToGet.equals("expr")){
       return expr;
@@ -42,10 +59,11 @@ public class AST_StatIf extends AST_Stat{
     } else if (astToGet.equals("elseStat")){
       return elseStat;
     }
-    System.out.println("Unrecognised AST Node.");
+    System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     return null;
   }
 
+  @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("expr")){
       expr = (AST_Expr) nodeToSet;
@@ -60,7 +78,7 @@ public class AST_StatIf extends AST_Stat{
       }
 
     } else {
-      System.out.println("Unrecognised AST Node.");
+      System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
   }
 
@@ -74,6 +92,26 @@ public class AST_StatIf extends AST_Stat{
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       //Do symbol table stuff
+    }
+  }
+
+  @Override
+  public void printContents(){
+    System.out.println(this.getClass().getSimpleName() + ": ");
+    if(expr == null){
+      System.out.println("expr: null");
+    } else {
+      System.out.println("expr: has content");
+    }
+    if(thenStat == null){
+      System.out.println("thenStat: null");
+    } else {
+      System.out.println("thenStat: has content");
+    }
+    if(elseStat == null){
+      System.out.println("elseStat: null");
+    } else {
+      System.out.println("elseStat: has content");
     }
   }
 }

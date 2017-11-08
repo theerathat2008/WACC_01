@@ -182,12 +182,6 @@ public interface WaccParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCALL_ASSIGN(WaccParser.CALL_ASSIGNContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link WaccParser#arg_list}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArg_list(WaccParser.Arg_listContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code PAIR_FST}
 	 * labeled alternative in {@link WaccParser#pair_elem}.
 	 * @param ctx the parse tree
@@ -325,10 +319,4 @@ public interface WaccParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBinaryOp(WaccParser.BinaryOpContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link WaccParser#array_elem}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArray_elem(WaccParser.Array_elemContext ctx);
 }
