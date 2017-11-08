@@ -79,7 +79,7 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("expr")){
       ast_expr = (AST_Expr)nodeToSet;
-      setIdentifier(ast_expr.identifier);
+
     } else {
       System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
@@ -95,6 +95,9 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       //Do symbol table stuff
+      System.out.println(ast_expr.getIdentifier());
+      identifier = ast_expr.getIdentifier();
+      System.out.println(identifier.toString());
     }
   }
 

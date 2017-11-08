@@ -766,7 +766,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode.setEmbeddedAST("ast_statAssignLHS", statIdentLHSNode);
 
     //Set the syntactic value of the AST Class
-    statIdentLHSNode.setSyntacticAttributes(ctx.IDENT().getText());
+    statIdentLHSNode.setSyntacticAttributes(ctx.IDENT().getText(), currentTree);
 
     //Set parentNode of AST class and global visitor class
     statIdentLHSNode.setParentNode(parentVisitorNode);
@@ -985,7 +985,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode.setEmbeddedAST("statAssignRHS", statCallRHSNode);
 
     //Set the syntactic value of the AST Class
-    statCallRHSNode.setSyntacticAttributes(ctx.IDENT().getText());
+    statCallRHSNode.setSyntacticAttributes(ctx.IDENT().getText(), currentTree);
 
     //Set parentNode of AST class and global visitor class
     statCallRHSNode.setParentNode(parentVisitorNode);

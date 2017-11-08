@@ -4,6 +4,7 @@ package ASTNodes;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 import java.util.ArrayDeque;
+import IdentifierObjects.*;
 
 /**
  * Class representing node in AST tree for PARAMS
@@ -104,7 +105,7 @@ public class AST_Param extends AST_Node {
   // Called from visitor
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
-      ST.add(paramName, ST.stringToIdent(paramName, ast_type.toString()));
+      ST.encSymTable.add(paramName, ast_type.getIdentifier());
     }
   }
 

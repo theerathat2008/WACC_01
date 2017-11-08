@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_Stat;
 import SymbolTable.SymbolTable;
+import IdentifierObjects.*;
 
 import java.util.ArrayDeque;
 
@@ -11,6 +12,7 @@ import java.util.ArrayDeque;
  */
 public class AST_StatAssignLHS extends AST_Stat {
   String type;
+  public IDENTIFIER identifier;
 
   /**
    * Gets all children nodes of current node
@@ -99,5 +101,13 @@ public class AST_StatAssignLHS extends AST_Stat {
   public void printContents() {
     System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("BASE CLASS");
+  }
+
+  public IDENTIFIER getIdentifier() {
+    return identifier;
+  }
+
+  public void setIdentifier(IDENTIFIER identifier) {
+    this.identifier = identifier;
   }
 }

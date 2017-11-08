@@ -2,8 +2,7 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
-import IdentifierObjects.FunctionObj;
-import IdentifierObjects.IDENTIFIER;
+import IdentifierObjects.*;
 import SymbolTable.SymbolTable;
 import src.ErrorMessages.UndefinedFunctionError;
 import src.FilePosition;
@@ -60,10 +59,11 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
    * Sets syntactic attributes of class variables by assigning it a value
    * @param value - Value to be assigned to class variable
    */
-  @Override
-  public void setSyntacticAttributes(String value){
+
+  public void setSyntacticAttributes(String value, SymbolTable ST){
     if(funcName == null){
       this.funcName = value;
+      identifier = ST.lookupAll(value);
     } else {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
@@ -133,12 +133,13 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
   protected boolean CheckSemantics(SymbolTable ST){
 
     System.out.println("Checking if " + funcName + " is in the symbol tree.");
-    IDENTIFIER type = identifier;
-    if (type != null) {
-      if (type instanceof FunctionObj) {
-        //if (((FunctionObj) type).getparamListObj().toString().equals(paramsToString())) { //TODO check parameters are same in function call and function declaration
+    FunctionObj thisType = (FunctionObj) identifier;
+    IDENTIFIER tableType = ST.lookupAll(funcName);
+    if (tableType != null) {
+      if (tableType instanceof FunctionObj) {
+        if (((FunctionObj) tableType).equals(thisType)) { //TODO check parameters are same in function call and function declaration
           return true;
-        //}
+        }
       }
     }
     new UndefinedFunctionError(new FilePosition(ctx)).printAll();

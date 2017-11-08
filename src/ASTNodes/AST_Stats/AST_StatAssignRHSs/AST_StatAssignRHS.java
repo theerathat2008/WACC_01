@@ -11,7 +11,7 @@ import IdentifierObjects.*;
  */
 public class AST_StatAssignRHS extends AST_Stat {
 
-  IDENTIFIER identifier;
+  public IDENTIFIER identifier;
 
   /**
    * Gets all children nodes of current node
@@ -98,6 +98,7 @@ public class AST_StatAssignRHS extends AST_Stat {
   }
 
   public IDENTIFIER getIdentifier() {
+    System.out.println("getting: " + identifier);
     return identifier;
   }
 

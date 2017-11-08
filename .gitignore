@@ -4,6 +4,6 @@
 # Log file
 *.log
 
-# ignore intellgi directories
-idea/
-out/ 
+# ignore intellj directories
+.idea/
+out/
