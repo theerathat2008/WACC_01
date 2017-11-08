@@ -11,6 +11,9 @@ public class waccTest {
 
 
   public static void main(String[] args) throws Exception {
+
+    System.out.println("-- Compiling...");
+
     CharStream input = CharStreams.fromStream(System.in);
 
     WaccLexer lexer = new WaccLexer(input);
@@ -22,7 +25,10 @@ public class waccTest {
     ParseTree tree = parser.program();
 
     if (parser.getNumberOfSyntaxErrors() != 0) {
+      System.out.println("Errors detected during compilation! Exit code 100 returned.");
       System.out.println("#syntax_error#");
+      System.out.println(parser.getNumberOfSyntaxErrors() + " parser error(s) detected, " +
+          "no further compilation attempted.");
       System.exit(100);
     }
 
@@ -36,10 +42,10 @@ public class waccTest {
 
 
 
-    System.out.println("---------TESTING------------");
-    AST_Program root = visitor.getRootNode();
+    //System.out.println("---------TESTING------------");
+    //AST_Program root = visitor.getRootNode();
     //visitor.printNodes(root);
-    System.out.println("---------TESTING------------");
+    //System.out.println("---------TESTING------------");
 
 
 
