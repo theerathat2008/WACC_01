@@ -98,9 +98,15 @@ public class SymbolTable {
     System.out.println("The symbol table contents for: " + T.scope);
     Iterator<String> it = T.symMap.keySet().iterator();
     while (it.hasNext()) {
-      String code = (String)it.next();
-      System.out.println(code + ": " + T.symMap.get(code).getClass().getSimpleName());
+      String str = (String)it.next();
+      if(T.symMap.get(str) == null ){
+        System.out.println(str + " has a null IDENTIFIER");
+      } else {
+        System.out.println(str + ": " + T.symMap.get(str).getClass().getSimpleName());
+      }
+
     }
+
   }
 
   public IDENTIFIER stringToIdent(String name, String type) {
