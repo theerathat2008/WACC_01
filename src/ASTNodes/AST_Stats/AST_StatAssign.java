@@ -101,21 +101,19 @@ public class AST_StatAssign extends AST_Stat{
 
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
-    if (ast_statAssignLHS.getType(ST).equals(ast_statAssignRHS.getType(ST))) {
+    /*if (ast_statAssignLHS.getType(ST).equals(ast_statAssignRHS.getType(ST))) {
       return true;
     } else {
       System.out.println(ast_statAssignLHS.getType(ST));
       System.out.println(ast_statAssignRHS.getType(ST));
       new TypeMismatchError(new FilePosition(ctx)).printAll();
       return false;
-    }
+    }*/ return true;
   }
 
   // Called from visitor
   public void Check(SymbolTable ST){
-    if(CheckSemantics(ST)){
-      //Do symbol table stuff
-    }
+    CheckSemantics(ST);
   }
 
   /**

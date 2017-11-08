@@ -81,16 +81,15 @@ public class AST_StatExpr extends AST_Stat{
     } else if (statName.equals("PRINTLN")) {
       return true;
     }
-    new TypeError(new FilePosition(ctx)).printAll();
+    //new TypeError(new FilePosition(ctx)).printAll();
     return false;
   }
 
   // Called from visitor
   @Override
   public void Check(SymbolTable ST){
-    if(CheckSemantics(ST)){
+    //CheckSemantics(ST))
       //Do symbol table stuff
-    }
   }
 
   @Override

@@ -58,7 +58,8 @@ public class AST_FuncDecl extends AST_Node {
    */
 
   public boolean checkForParamList(){
-    return numOfChildren == 8;
+    //PRASH return numOfChildren == 8 previousy for some reason
+    return (numOfChildren > 0);
   }
 
 
@@ -145,6 +146,7 @@ public class AST_FuncDecl extends AST_Node {
   //Semantic Analysis and print error message if needed
   @Override
   protected boolean CheckSemantics(SymbolTable ST){
+    //System.out.println(((FunctionObj) ST.lookupAll(funcName)).toString());
     if (ST.lookupAll(funcName) == null) {
       return true;
     } else {
@@ -157,18 +159,15 @@ public class AST_FuncDecl extends AST_Node {
   @Override
   // Called from visitor
   public void Check(SymbolTable ST){
-    if(CheckSemantics(ST)){
-
-      System.out.println("Added " + funcName + " to the symbol tree.");
-      ST.encSymTable.add(funcName, new FunctionObj(funcName, ST.stringToIdent(funcName,ast_type.toString()), this));
+    //CheckSemantics(ST);
+    System.out.println("Added " + funcName + " to the symbol tree.");
+    ST.encSymTable.add(funcName, new FunctionObj(funcName, ST.stringToIdent(funcName,ast_type.toString()), this));
       //System.out.println(ST.encSymTable.lookup(funcName)==null);
       //Create new symbol table   DONE
       //Add necessary contents specific to func to symbol table  DONE
       //set enclosing symbol table to curr symbol table   does this before check
       //Set curr symbol table to new symbol table
-    } else {
-      //ERROR
-    }
+
   }
 
   /**

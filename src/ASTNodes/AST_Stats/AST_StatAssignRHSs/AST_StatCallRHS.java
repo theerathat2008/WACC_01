@@ -154,9 +154,8 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
 
   // Called from visitor
   public void Check(SymbolTable ST){
-    if(CheckSemantics(ST)){
+    //CheckSemantics(ST)
       //Do symbol table stuff
-    }
   }
 
   /**
