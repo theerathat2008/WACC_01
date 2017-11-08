@@ -104,6 +104,8 @@ public class AST_StatAssign extends AST_Stat{
     if (ast_statAssignLHS.getType(ST).equals(ast_statAssignRHS.getType(ST))) {
       return true;
     } else {
+      System.out.println(ast_statAssignLHS.getType(ST));
+      System.out.println(ast_statAssignRHS.getType(ST));
       new TypeMismatchError(new FilePosition(ctx)).printAll();
       return false;
     }
