@@ -17,6 +17,10 @@ public class SymbolTable {
     this.scope = scope;
   }
 
+  public String getScope(){
+    return this.scope;
+  }
+
   public SymbolTable() {
     System.out.println("made top level symbol table");
     this.scope = "top_level";

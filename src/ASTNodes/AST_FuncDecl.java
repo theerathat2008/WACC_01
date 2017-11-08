@@ -160,8 +160,15 @@ public class AST_FuncDecl extends AST_Node {
   // Called from visitor
   public void Check(SymbolTable ST){
     //CheckSemantics(ST);
-    System.out.println("Added " + funcName + " to the symbol tree.");
-    ST.encSymTable.add(funcName, new FunctionObj(funcName, ast_type.getIdentifier(), this));
+    if(CheckSemantics(ST)){
+      //Add function to global scope i.e. program
+      while(!ST.getScope().equals("global")){
+        ST = ST.encSymTable;
+      }
+      System.out.println("Added " + funcName + " to the symbol tree: " + ST.getScope());
+      ST.add(funcName, new FunctionObj(funcName, ast_type.getIdentifier(), this));
+    }
+
       //System.out.println(ST.encSymTable.lookup(funcName)==null);
       //Create new symbol table   DONE
       //Add necessary contents specific to func to symbol table  DONE
