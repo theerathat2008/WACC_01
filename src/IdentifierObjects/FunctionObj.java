@@ -10,6 +10,7 @@ public class FunctionObj extends IDENTIFIER {
     this.name = name;
     this.returnType = returnType;
     returnTypeName = returnType.toString();
+    this.paramListObj = paramListObj;
     this.parent = parent;
   }
 
@@ -34,5 +35,9 @@ public class FunctionObj extends IDENTIFIER {
 
   public ParamListObj getparamListObj() {
     return paramListObj;
+  }
+
+  public void setParamListObj(ParamListObj paramListObj){
+    this.paramListObj = paramListObj;
   }
 }

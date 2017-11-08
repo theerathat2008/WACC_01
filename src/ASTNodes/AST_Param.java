@@ -22,6 +22,10 @@ public class AST_Param extends AST_Node {
     this.ast_type = null;
   }
 
+  public String getParamName(){
+    return paramName;
+  }
+
 
   /**
    * Gets all children nodes of current node
@@ -109,8 +113,6 @@ public class AST_Param extends AST_Node {
       while(!ST.getScope().equals("param_list")){
         ST = ST.encSymTable;
       }
-      System.out.println("SYMBOL TABLE IS : " + ST.getScope());
-      System.out.println("ADDING PARAMNAME: " + paramName);
       ST.add(paramName, ast_type.getIdentifier());
     }
   }

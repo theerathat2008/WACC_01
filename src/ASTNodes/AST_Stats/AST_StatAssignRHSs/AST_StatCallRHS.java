@@ -2,8 +2,15 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
+import ASTNodes.AST_FuncDecl;
+import ASTNodes.AST_ParamList;
+import ASTNodes.AST_Param;
 import IdentifierObjects.*;
+import IdentifierObjects.ParamListObj;
+import IdentifierObjects.FunctionObj;
 import SymbolTable.SymbolTable;
+import src.ErrorMessages.MissingParameterError;
+import src.ErrorMessages.TypeError;
 import src.ErrorMessages.UndefinedFunctionError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -64,7 +71,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
     if(funcName == null){
       this.funcName = value;
       identifier = ST.lookupAll(funcName);
-      System.out.println("Checking if " + funcName + " is in the symbol tree.");
     } else {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
@@ -132,22 +138,72 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
 
-    FunctionObj thisType = (FunctionObj) identifier;
-    IDENTIFIER tableType = ST.lookupAll(funcName);
-    if (tableType != null) {
-      if (tableType instanceof FunctionObj) {
-        if (((FunctionObj) tableType).equals(thisType)) { //TODO check parameters are same in function call and function declaration
-          identifier = ((FunctionObj) identifier).returnType;
-          return true;
+
+
+    //Nested function call case
+    if(ST.getScope().equals("param_list") && ST.lookup(funcName) == null){
+      AST_Node tempNode = this;
+      while(!(tempNode instanceof AST_FuncDecl)){
+        tempNode = tempNode.getParentNode();
+      }
+
+      if(!((AST_FuncDecl)tempNode).getFuncName().equals(funcName)){
+        new UndefinedFunctionError(new FilePosition(ctx)).printAll();
+      }
+      //Check parameters of paramList against expressions
+      if(ast_exprList.size() > 0){
+        List<AST_Param> parameters = new ArrayList<>();
+        parameters = ((AST_ParamList)tempNode.getEmbeddedAST("paramList", 0)).getListParam();
+
+        if(parameters.size() != ast_exprList.size()){
+          new MissingParameterError(new FilePosition(ctx)).printAll();
+        }
+
+        for(int i = 0; i < ast_exprList.size(); i++){
+          String typeExpr = ast_exprList.get(i).getType();
+          String typeParam = ((parameters.get(i)).getEmbeddedAST("ast_type", 0)).toString();
+          System.out.println("typeEXPR is : " + typeExpr);
+          System.out.println("typeParam is : " + typeParam);
+          if(!typeExpr.equals(typeParam)){
+            new TypeError(new FilePosition(ctx)).printAll();
+          }
         }
       }
-    } else {
-      System.out.println("Looking for: " + funcName);
-      ST.printAllTables();
-      System.out.println("TableTYpe is null");
+    } else{
+      //Non-nested function call case
+      //Check parameters of paramList against expressions
+      if(ast_exprList.size() > 0){
+
+        System.out.println("Current st is: " + ST.getScope());
+        System.out.println("Non-nested call");
+        List<IDENTIFIER> parameters = new ArrayList<>();
+        System.out.println("Func name is: " + funcName);
+        System.out.println("Current st is: " + ST.getScope());
+        if((((FunctionObj)(ST.lookupAll(funcName.concat("_paramList")))).getparamListObj()) == null){
+          System.out.println("PARMALIST IS NOULt SJSA");
+
+        }
+        parameters = (((FunctionObj)(ST.lookupAll(funcName))).getparamListObj()).getParamObjList();
+
+        if(parameters.size() != ast_exprList.size()){
+          new MissingParameterError(new FilePosition(ctx)).printAll();
+        }
+
+        for(int i = 0; i < ast_exprList.size(); i++){
+          String typeExpr = ast_exprList.get(i).getType();
+          String typeParam = parameters.get(i).toString();
+          System.out.println("typeEXPR is : " + typeExpr);
+          System.out.println("typeParam is : " + typeParam);
+          if(!typeExpr.equals(typeParam)){
+            new TypeError(new FilePosition(ctx)).printAll();
+          }
+        }
+      }
+
     }
-    new UndefinedFunctionError(new FilePosition(ctx)).printAll();
-    return false;
+
+
+    return true;
   }
 
   private String paramsToString() {

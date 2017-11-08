@@ -107,11 +107,10 @@ public class AST_ExprIdent extends AST_Expr{
 
   // Called from visitor
   public void Check(SymbolTable ST){
-    //CheckSemantics(ST))
-//      ST.add(varName, ST.stringToIdent(varName,type));
-//      setType(ST.lookupAll(varName).toString());
-
-
+    if (CheckSemantics(ST)){
+      //ST.add(varName, ST.stringToIdent(varName,type));
+      setType(ST.lookupAll(varName).toString());
+    }
   }
 
   /**

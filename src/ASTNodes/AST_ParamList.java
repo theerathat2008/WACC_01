@@ -2,6 +2,9 @@ package ASTNodes;
 
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
+import IdentifierObjects.IDENTIFIER;
+import IdentifierObjects.ParamListObj;
+import IdentifierObjects.BaseTypeObj;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +23,10 @@ public class AST_ParamList extends AST_Node{
   public AST_ParamList(int numberOfChildren){
     this.listParam = new ArrayList<>();
     this.numOfParam = (numberOfChildren + 1) / 2;
+  }
+
+  public List<AST_Param> getListParam() {
+    return listParam;
   }
 
   /**
@@ -101,7 +108,11 @@ public class AST_ParamList extends AST_Node{
   // Called from visitor
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
-      //Do symbol table stuff
+      List<IDENTIFIER> paramObjList = new ArrayList<>();
+      for(AST_Param param : listParam){
+        paramObjList.add(new BaseTypeObj(param.getParamName(), (param.getEmbeddedAST("ast_type", 0)).toString()));
+      }
+      ST.encSymTable.add(((AST_FuncDecl)this.getParentNode()).getFuncName().concat("_paramList"), new ParamListObj(paramObjList));
     }
   }
 

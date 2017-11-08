@@ -2,6 +2,8 @@ package ASTNodes;
 
 import ASTNodes.AST_Stats.AST_Stat;
 import IdentifierObjects.FunctionObj;
+import IdentifierObjects.IDENTIFIER;
+import IdentifierObjects.ParamListObj;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -35,6 +37,10 @@ public class AST_FuncDecl extends AST_Node {
     this.paramList = null;
     this.statement = null;
     this.ctx = ctx;
+  }
+
+  public String getFuncName() {
+    return funcName;
   }
 
   /**
@@ -161,11 +167,15 @@ public class AST_FuncDecl extends AST_Node {
 
     if(CheckSemantics(ST)){
       //Add function to global scope i.e. program
+      IDENTIFIER funcObj = new FunctionObj(funcName, ast_type.getIdentifier(), this);
+      ((FunctionObj)funcObj).setParamListObj((ParamListObj) ST.lookup(funcName.concat("_paramList")));
+
       while(!ST.getScope().equals("global")){
         ST = ST.encSymTable;
       }
       System.out.println("Added " + funcName + " to the symbol tree: " + ST.getScope());
-      ST.add(funcName, new FunctionObj(funcName, ast_type.getIdentifier(), this));
+      ST.add(funcName, funcObj);
+
     }
 
       //System.out.println(ST.encSymTable.lookup(funcName)==null);
