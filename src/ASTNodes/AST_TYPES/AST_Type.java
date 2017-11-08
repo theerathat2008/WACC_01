@@ -10,10 +10,21 @@ import IdentifierObjects.IDENTIFIER;
  */
 public class AST_Type extends AST_Node {
 
+  String compositeType;
+
   /**
    * Constructor for class
    */
   public AST_Type(){}
+
+  public String getCompositeType(){
+    return compositeType;
+  }
+
+  public void setCompositeType(String compositeType){
+    this.compositeType = compositeType;
+  }
+
 
   /**
    * Gets all children nodes of current node

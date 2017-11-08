@@ -23,6 +23,11 @@ public class AST_Param extends AST_Node {
     this.ast_type = null;
   }
 
+  public String getParamName(){
+    return paramName;
+  }
+
+
   /**
    * Gets all children nodes of current node
    * @return list of AST nodes that are the children of the current node
@@ -112,7 +117,11 @@ public class AST_Param extends AST_Node {
   @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
-      ST.encSymTable.add(paramName, ast_type.getIdentifier());
+
+      while(!ST.getScope().equals("param_list")){
+        ST = ST.encSymTable;
+      }
+      ST.add(paramName, ast_type.getIdentifier());
     }
   }
 

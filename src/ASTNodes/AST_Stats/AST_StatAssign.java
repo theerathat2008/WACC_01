@@ -105,15 +105,14 @@ public class AST_StatAssign extends AST_Stat{
   @Override
   protected boolean CheckSemantics(SymbolTable ST){
     System.out.println("checking semantic of assign statement");
+    System.out.println("LHS identifier is: " + ast_statAssignLHS.getIdentifier());
+    System.out.println("RHS identifier is: " + ast_statAssignRHS.getIdentifier());
     if (ast_statAssignLHS.getIdentifier().equals(ast_statAssignRHS.getIdentifier())) {
       return true;
     } else {
-      System.out.println(ast_statAssignLHS.getIdentifier().toString());
-      System.out.println(ast_statAssignRHS.identifier.toString());
       new TypeMismatchError(new FilePosition(ctx)).printAll();
       return false;
     }
-
   }
 
   /**

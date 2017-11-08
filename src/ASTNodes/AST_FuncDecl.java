@@ -2,6 +2,8 @@ package ASTNodes;
 
 import ASTNodes.AST_Stats.AST_Stat;
 import IdentifierObjects.FunctionObj;
+import IdentifierObjects.IDENTIFIER;
+import IdentifierObjects.ParamListObj;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -38,6 +40,10 @@ public class AST_FuncDecl extends AST_Node {
     this.ctx = ctx;
   }
 
+  public String getFuncName() {
+    return funcName;
+  }
+
   /**
    * Gets all children nodes of current node
    * @return list of AST nodes that are the children of the current node
@@ -58,8 +64,7 @@ public class AST_FuncDecl extends AST_Node {
    *
    */
   public boolean checkForParamList(){
-    //PRASH return numOfChildren == 8 previousy for some reason
-    return (numOfChildren > 0);
+    return numOfChildren == 8;
   }
 
   /**
@@ -148,11 +153,10 @@ public class AST_FuncDecl extends AST_Node {
    */
   @Override
   protected boolean CheckSemantics(SymbolTable ST){
-    //System.out.println(((FunctionObj) ST.lookupAll(funcName)).toString());
     if (ST.lookupAll(funcName) == null) {
       return true;
     } else {
-      //System.out.println("Error on line " + ctx.getStart().getLine() + ". Function of same name already defined");
+      System.out.println("Error on line " + ctx.getStart().getLine() + ". Function of same name already defined");
       new FunctionRedeclarationError(new FilePosition(ctx)).printAll();
       return false;
     }
@@ -164,9 +168,20 @@ public class AST_FuncDecl extends AST_Node {
    */
   @Override
   public void Check(SymbolTable ST){
-    //CheckSemantics(ST);
-    System.out.println("Added " + funcName + " to the symbol tree.");
-    ST.encSymTable.add(funcName, new FunctionObj(funcName, ast_type.getIdentifier(), this));
+
+    if(CheckSemantics(ST)){
+      //Add function to global scope i.e. program
+      IDENTIFIER funcObj = new FunctionObj(funcName, ast_type.getIdentifier(), this);
+      ((FunctionObj)funcObj).setParamListObj((ParamListObj) ST.lookup(funcName.concat("_paramList")));
+
+      while(!ST.getScope().equals("global")){
+        ST = ST.encSymTable;
+      }
+      System.out.println("Added " + funcName + " to the symbol tree: " + ST.getScope());
+      ST.add(funcName, funcObj);
+
+    }
+
       //System.out.println(ST.encSymTable.lookup(funcName)==null);
       //Create new symbol table   DONE
       //Add necessary contents specific to func to symbol table  DONE

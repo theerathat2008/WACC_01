@@ -2,8 +2,16 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
+import ASTNodes.AST_FuncDecl;
+import ASTNodes.AST_ParamList;
+import ASTNodes.AST_Param;
 import IdentifierObjects.*;
+import IdentifierObjects.ParamListObj;
+import IdentifierObjects.FunctionObj;
+import IdentifierObjects.IDENTIFIER;
 import SymbolTable.SymbolTable;
+import src.ErrorMessages.MissingParameterError;
+import src.ErrorMessages.TypeError;
 import src.ErrorMessages.UndefinedFunctionError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -62,7 +70,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
   public void setSyntacticAttributes(String value, SymbolTable ST){
     if(funcName == null){
       this.funcName = value;
-      identifier = ST.lookupAll(value);
+      identifier = ST.lookupAll(funcName);
     } else {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
@@ -72,7 +80,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
    * Gets syntactic attributes of class variables
    * @param strToGet - Value to be retrieved from class variable
    */
-  @Override
   public String getSyntacticAttributes(String strToGet){
     if(strToGet.equals("funcName")){
       return funcName;
@@ -133,18 +140,60 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
    */
   @Override
   protected boolean CheckSemantics(SymbolTable ST){
-    System.out.println("Checking if " + funcName + " is in the symbol tree.");
-    FunctionObj thisType = (FunctionObj) identifier;
-    IDENTIFIER tableType = ST.lookupAll(funcName);
-    if (tableType != null) {
-      if (tableType instanceof FunctionObj) {
-        if (((FunctionObj) tableType).equals(thisType)) { //TODO check parameters are same in function call and function declaration
-          return true;
+
+    //Nested function call case
+    if(ST.getScope().equals("param_list") && ST.lookup(funcName) == null){
+      AST_Node tempNode = this;
+      while(!(tempNode instanceof AST_FuncDecl)){
+        tempNode = tempNode.getParentNode();
+      }
+
+      if(!((AST_FuncDecl)tempNode).getFuncName().equals(funcName)){
+        new UndefinedFunctionError(new FilePosition(ctx)).printAll();
+      }
+      //Check parameters of paramList against expressions
+      if(ast_exprList.size() > 0){
+        List<AST_Param> parameters = new ArrayList<>();
+        parameters = ((AST_ParamList)tempNode.getEmbeddedAST("paramList", 0)).getListParam();
+
+        if(parameters.size() != ast_exprList.size()){
+          new MissingParameterError(new FilePosition(ctx)).printAll();
+        }
+
+        for(int i = 0; i < ast_exprList.size(); i++){
+          String typeExpr = ast_exprList.get(i).getType();
+          String typeParam = ((parameters.get(i)).getEmbeddedAST("ast_type", 0)).toString();
+          if(!typeExpr.equals(typeParam)){
+            new TypeError(new FilePosition(ctx)).printAll();
+          }
         }
       }
+    } else{
+      //Non-nested function call case
+      //Check parameters of paramList against expressions
+      if(ast_exprList.size() > 0){
+
+        List<IDENTIFIER> parameters = new ArrayList<>();
+
+        parameters = (((FunctionObj)(ST.lookupAll(funcName))).getparamListObj()).getParamObjList();
+
+        if(parameters.size() != ast_exprList.size()){
+          new MissingParameterError(new FilePosition(ctx)).printAll();
+        }
+
+        for(int i = 0; i < ast_exprList.size(); i++){
+          String typeExpr = ast_exprList.get(i).getType();
+          String typeParam = parameters.get(i).toString();
+          if(!typeExpr.equals(typeParam)){
+            new TypeError(new FilePosition(ctx)).printAll();
+          }
+        }
+      }
+      setIdentifier(((FunctionObj)(ST.lookup(funcName))).getReturnType());
     }
-    new UndefinedFunctionError(new FilePosition(ctx)).printAll();
-    return false;
+
+
+    return true;
   }
 
   /**
@@ -164,7 +213,9 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
    */
   @Override
   public void Check(SymbolTable ST){
-    //CheckSemantics(ST)
+    if (CheckSemantics(ST)) {
+
+    }
       //Do symbol table stuff
   }
 

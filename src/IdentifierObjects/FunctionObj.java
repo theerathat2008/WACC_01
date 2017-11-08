@@ -3,7 +3,7 @@ package IdentifierObjects;
 public class FunctionObj extends IDENTIFIER {
 
   String returnTypeName; //type
-  IDENTIFIER returnType;
+  public IDENTIFIER returnType;
   ParamListObj paramListObj;  //TODO set this at some point
   ASTNodes.AST_FuncDecl parent;
 
@@ -11,6 +11,7 @@ public class FunctionObj extends IDENTIFIER {
     this.name = name;
     this.returnType = returnType;
     returnTypeName = returnType.toString();
+    this.paramListObj = paramListObj;
     this.parent = parent;
   }
 
@@ -22,12 +23,17 @@ public class FunctionObj extends IDENTIFIER {
   public boolean equals(IDENTIFIER other) {
     if (other instanceof FunctionObj) {
       if (((FunctionObj) other).returnType.equals(returnType)) {
-        if (((FunctionObj) other).paramListObj.equals(paramListObj)) {
+        //if (((FunctionObj) other).paramListObj.equals(paramListObj)) {
           return true;
-        }
+        //}
       }
     }
     return false;
+  }
+
+  
+  public IDENTIFIER getReturnType() {
+    return returnType;
   }
 
   /**
@@ -44,5 +50,9 @@ public class FunctionObj extends IDENTIFIER {
 
   public ParamListObj getparamListObj() {
     return paramListObj;
+  }
+
+  public void setParamListObj(ParamListObj paramListObj){
+    this.paramListObj = paramListObj;
   }
 }

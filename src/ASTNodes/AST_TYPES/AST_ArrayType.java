@@ -97,7 +97,6 @@ public class AST_ArrayType extends AST_Type{
   @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
-      //Do symbol table stuff
     }
   }
 

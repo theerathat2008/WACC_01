@@ -102,7 +102,9 @@ public class AST_Expr extends AST_Node{
   /**
    * @param type - sets the type of the current expression
    */
-  public void setType(String type) {}
+  public void setType(String type) {
+    this.type = type;
+  }
 
   /**
    * Used for testing - Prints out contents of current AST node

@@ -110,7 +110,6 @@ public class AST_StatAssignRHS extends AST_Stat {
    * @return returns the identifier of the attribute
    */
   public IDENTIFIER getIdentifier() {
-    System.out.println("getting: " + identifier);
     return identifier;
   }
 

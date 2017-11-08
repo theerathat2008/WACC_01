@@ -105,7 +105,6 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
       //Do symbol table stuff
       System.out.println(ast_expr.getIdentifier());
       identifier = ast_expr.getIdentifier();
-      System.out.println(identifier.toString());
     }
   }
 

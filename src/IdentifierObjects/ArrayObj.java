@@ -33,6 +33,9 @@ public class ArrayObj extends IDENTIFIER {
    */
   @Override
   public String toString() {
+    if(type == null){
+      return "";
+    }
     return type.toString() + "[]";
   }
 

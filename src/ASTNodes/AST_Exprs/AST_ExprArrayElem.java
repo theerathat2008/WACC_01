@@ -125,6 +125,7 @@ public class AST_ExprArrayElem extends AST_Expr{
     if(CheckSemantics(ST)){
       setType(ast_exprList.get(0).type + "[]");
     }
+
   }
 
   /**
