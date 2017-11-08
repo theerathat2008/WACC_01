@@ -17,6 +17,7 @@ import static java.lang.System.exit;
  * Class representing node in AST tree for CALL ASSIGNMENT
  */
 public class AST_StatCallRHS extends AST_StatAssignRHS{
+
   //Syntactic attributes
   String funcName;
   int numOfExpr;
@@ -54,12 +55,10 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
     return returnList;
   }
 
-
   /**
    * Sets syntactic attributes of class variables by assigning it a value
    * @param value - Value to be assigned to class variable
    */
-
   public void setSyntacticAttributes(String value, SymbolTable ST){
     if(funcName == null){
       this.funcName = value;
@@ -128,10 +127,12 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
     }
   }
 
-
-  //Semantic Analysis and print error message if needed
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
+  @Override
   protected boolean CheckSemantics(SymbolTable ST){
-
     System.out.println("Checking if " + funcName + " is in the symbol tree.");
     FunctionObj thisType = (FunctionObj) identifier;
     IDENTIFIER tableType = ST.lookupAll(funcName);
@@ -146,6 +147,9 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
     return false;
   }
 
+  /**
+   * Helper method to convert list of params to string
+   */
   private String paramsToString() {
     String res = "(";
     for (int i = 0; i< ast_exprList.size(); i++ ) {
@@ -154,7 +158,11 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
     return res + ")";
   }
 
-  // Called from visitor
+  /**
+   * Called from visitor
+   * @param ST
+   */
+  @Override
   public void Check(SymbolTable ST){
     //CheckSemantics(ST)
       //Do symbol table stuff
@@ -173,6 +181,5 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
     } else {
       System.out.println("ast_exprList has size: " + ast_exprList.size());
     }
-
   }
 }

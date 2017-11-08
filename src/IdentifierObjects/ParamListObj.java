@@ -5,6 +5,10 @@ import java.util.List;
 public class ParamListObj extends IDENTIFIER{
   List<IDENTIFIER> paramObjList;
 
+  /**
+   * Compares value for equality
+   * @param other
+   */
   public boolean equals(IDENTIFIER other) {
     if (other instanceof ParamListObj) {
       if (((ParamListObj) other).paramObjList.size() == paramObjList.size()) {
@@ -19,12 +23,14 @@ public class ParamListObj extends IDENTIFIER{
     return false;
   }
 
+  /**
+   * Get String object representation of this class
+   */
   public String toString() {
     String ret = "(";
     for (int i = 0; i<paramObjList.size();i++) {
       ret = ret + paramObjList.get(i).toString() + ",";
     }
     return ret;
-    }
-
+  }
 }

@@ -14,6 +14,7 @@ import java.util.ArrayDeque;
  */
 
 public class AST_FuncDecl extends AST_Node {
+
   //Syntactic attributes
   public AST_Type ast_type;
   String funcName;
@@ -52,17 +53,14 @@ public class AST_FuncDecl extends AST_Node {
     return returnList;
   }
 
-
   /**
    * returns true if the function has any parameters
    *
    */
-
   public boolean checkForParamList(){
     //PRASH return numOfChildren == 8 previousy for some reason
     return (numOfChildren > 0);
   }
-
 
   /**
    * Returns true if the embedded Nodes have values
@@ -144,7 +142,10 @@ public class AST_FuncDecl extends AST_Node {
     return ast_type.toString();
   }
 
-  //Semantic Analysis and print error message if needed
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
   @Override
   protected boolean CheckSemantics(SymbolTable ST){
     //System.out.println(((FunctionObj) ST.lookupAll(funcName)).toString());
@@ -157,8 +158,11 @@ public class AST_FuncDecl extends AST_Node {
     }
   }
 
+  /**
+   * Called from visitor
+   * @param ST
+   */
   @Override
-  // Called from visitor
   public void Check(SymbolTable ST){
     //CheckSemantics(ST);
     System.out.println("Added " + funcName + " to the symbol tree.");
@@ -194,6 +198,5 @@ public class AST_FuncDecl extends AST_Node {
       System.out.println("ast_type: has content");
     }
   }
-
 }
 

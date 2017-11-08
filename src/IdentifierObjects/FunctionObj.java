@@ -1,6 +1,7 @@
 package IdentifierObjects;
 
 public class FunctionObj extends IDENTIFIER {
+
   String returnTypeName; //type
   IDENTIFIER returnType;
   ParamListObj paramListObj;  //TODO set this at some point
@@ -13,6 +14,11 @@ public class FunctionObj extends IDENTIFIER {
     this.parent = parent;
   }
 
+  /**
+   * Compares value for equality
+   * @param other
+   */
+  @Override
   public boolean equals(IDENTIFIER other) {
     if (other instanceof FunctionObj) {
       if (((FunctionObj) other).returnType.equals(returnType)) {
@@ -24,6 +30,10 @@ public class FunctionObj extends IDENTIFIER {
     return false;
   }
 
+  /**
+   * Get String object representation of this class
+   */
+  @Override
   public String toString() {
     return returnTypeName + " FUNCTION";
   }

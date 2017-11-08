@@ -11,6 +11,7 @@ import IdentifierObjects.*;
  */
 public class AST_StatAssignRHS extends AST_Stat {
 
+  //Syntactic attribute
   public IDENTIFIER identifier;
 
   /**
@@ -42,6 +43,9 @@ public class AST_StatAssignRHS extends AST_Stat {
     return null;
   }
 
+  /**
+   * @return returns the type of the expression
+   */
   public String getType(SymbolTable ST) {
     return null;
   }
@@ -74,15 +78,20 @@ public class AST_StatAssignRHS extends AST_Stat {
     System.out.println("Base AST Node.");
   }
 
+  /**
+   * //Semantic Analysis and print error message if needed
+   * @param ST
+   */
   @Override
-  //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
-
   }
 
+  /**
+   * Called from visitor
+   * @param ST
+   */
   @Override
-  // Called from visitor
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       //Do symbol table stuff
@@ -97,11 +106,17 @@ public class AST_StatAssignRHS extends AST_Stat {
     System.out.println("BASE CLASS");
   }
 
+  /**
+   * @return returns the identifier of the attribute
+   */
   public IDENTIFIER getIdentifier() {
     System.out.println("getting: " + identifier);
     return identifier;
   }
 
+  /**
+   * @param identifier - sets the identifier of the current attribute
+   */
   public void setIdentifier(IDENTIFIER identifier) {
     this.identifier = identifier;
   }

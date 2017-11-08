@@ -98,8 +98,11 @@ public class AST_StatAssign extends AST_Stat{
     }
   }
 
-
-  //Semantic Analysis and print error message if needed
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
+  @Override
   protected boolean CheckSemantics(SymbolTable ST){
     System.out.println("checking semantic of assign statement");
     if (ast_statAssignLHS.getIdentifier().equals(ast_statAssignRHS.getIdentifier())) {
@@ -113,7 +116,11 @@ public class AST_StatAssign extends AST_Stat{
 
   }
 
-  // Called from visitor
+  /**
+   * Called from visitor
+   * @param ST
+   */
+  @Override
   public void Check(SymbolTable ST){
     CheckSemantics(ST);
   }
@@ -135,5 +142,4 @@ public class AST_StatAssign extends AST_Stat{
       System.out.println("ast_statAssignRHS: has content");
     }
   }
-
 }

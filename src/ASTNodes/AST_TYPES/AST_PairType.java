@@ -12,6 +12,7 @@ import java.util.ArrayDeque;
  * Class representing node in AST tree for PAIRTYPE
  */
 public class AST_PairType extends AST_Type{
+
   //Syntactic attributes
   AST_PairElemType pairElemTypeFst;
   AST_PairElemType pairElemTypeSnd;
@@ -36,6 +37,9 @@ public class AST_PairType extends AST_Type{
     return returnList;
   }
 
+  /**
+   * Returns true if the embedded Nodes have value
+   */
   @Override
   public boolean isEmbeddedNodesFull(){
     return pairElemTypeFst != null && pairElemTypeSnd != null;
@@ -49,7 +53,6 @@ public class AST_PairType extends AST_Type{
   public void setSyntacticAttributes(String value){
     System.out.println("No Syntactic Attribute");
   }
-
 
   /**
    * Gets syntactic attributes of class variables
@@ -96,13 +99,19 @@ public class AST_PairType extends AST_Type{
     }
   }
 
-  //Semantic Analysis and print error message if needed
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
   @Override
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
-  // Called from visitor
+  /**
+   * Called from visitor
+   * @param ST
+   */
   @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
@@ -135,6 +144,9 @@ public class AST_PairType extends AST_Type{
     }
   }
 
+  /**
+   * @return returns the identifier of the attribute
+   */
   public IDENTIFIER getIdentifier() {
     return new PairObj(null, pairElemTypeFst.getIdentifier(), pairElemTypeSnd.getIdentifier());
   }

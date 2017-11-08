@@ -11,6 +11,8 @@ import java.util.ArrayDeque;
  * Class representing node in AST tree for DECLARING VARIABLES - BASE CLASS
  */
 public class AST_StatAssignLHS extends AST_Stat {
+
+  //Syntactic attributes
   String type;
   public IDENTIFIER identifier;
 
@@ -72,27 +74,38 @@ public class AST_StatAssignLHS extends AST_Stat {
     System.out.println("Base AST Node.");
   }
 
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
   @Override
-  //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
 
   }
 
+  /**
+   * Called from visitor
+   * @param ST
+   */
   @Override
-  // Called from visitor
   public void Check(SymbolTable ST){
 
   }
 
+  /**
+   * @param type - sets the type of the current expression
+   */
   public void setType(String type) {
     this.type = type;
   }
 
+  /**
+   * @return returns the type of the expression
+   */
   public String getType(SymbolTable ST) {
     return type;
   }
-
 
   /**
    * Used for testing - Prints out contents of current AST node
@@ -103,10 +116,16 @@ public class AST_StatAssignLHS extends AST_Stat {
     System.out.println("BASE CLASS");
   }
 
+  /**
+   * @return returns the identifier of the attribute
+   */
   public IDENTIFIER getIdentifier() {
     return identifier;
   }
 
+  /**
+   * @param identifier - sets the identifier of the current attribute
+   */
   public void setIdentifier(IDENTIFIER identifier) {
     this.identifier = identifier;
   }

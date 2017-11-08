@@ -1,6 +1,7 @@
 package IdentifierObjects;
 
 public class PairObj extends IDENTIFIER {
+
   IDENTIFIER LHS;
   IDENTIFIER RHS;
 
@@ -9,6 +10,11 @@ public class PairObj extends IDENTIFIER {
     this.LHS = LHS;
     this.RHS = RHS;
   }
+
+  /**
+   * Compares value for equality
+   * @param other
+   */
   public boolean equals(IDENTIFIER other) {
     if (other instanceof PairObj) {
       if (((PairObj) other).LHS.equals(LHS) && ((PairObj) other).RHS.equals(RHS)) {
@@ -22,6 +28,9 @@ public class PairObj extends IDENTIFIER {
     return false;
   }
 
+  /**
+   * Get String object representation of this class
+   */
   public String toString() {
     return "PAIR(" + LHS.toString() + "," + RHS.toString() + ")";
   }

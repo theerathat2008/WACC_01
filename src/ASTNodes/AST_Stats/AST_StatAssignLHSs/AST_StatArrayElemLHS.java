@@ -12,6 +12,7 @@ import IdentifierObjects.*;
  * Class representing node in AST tree for DECLARING ARRAY VARIABLE
  */
 public class AST_StatArrayElemLHS extends AST_StatAssignLHS{
+
   //Syntactic attributes
   String identName;
   List<AST_Expr> ast_exprList;
@@ -75,7 +76,6 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS{
     return ast_exprList.size() == numOfExpr;
   }
 
-
   /**
    * @param astToGet Shows which child to get from current node
    * @param counter Shows which child of child to get from current node
@@ -106,20 +106,25 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS{
     }
   }
 
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
   @Override
-  //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
+  /**
+   * Called from visitor
+   * @param ST
+   */
   @Override
-  // Called from visitor
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       setType(ast_exprList.get(0).getType());
     }
   }
-
 
   public String getType(SymbolTable ST) {
     return null;
@@ -139,5 +144,4 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS{
       System.out.println("ast_exprList has size: " + ast_exprList.size());
     }
   }
-
 }

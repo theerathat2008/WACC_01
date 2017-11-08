@@ -10,12 +10,19 @@ public class SymbolTable {
   public SymbolTable encSymTable;
   public Map<String, IDENTIFIER> symMap;
 
+  /**
+   * Public constructor for creating a new Symbol Table
+   * @param st
+   */
   public SymbolTable(SymbolTable st){
     System.out.println("Created new SYMBOL TABLE!!!!!");
     symMap = new HashMap<String, IDENTIFIER>();
     encSymTable = st;
   }
 
+  /**
+   * Initialise synbol table with WACC language syntax
+   */
   public SymbolTable() {
     System.out.println("made top level symbol table");
     symMap = new HashMap<String, IDENTIFIER>();
@@ -56,6 +63,10 @@ public class SymbolTable {
     symMap.put(name, obj);
   }
 
+  /**
+   * Search for value of the identifier with a given name
+   * @param name
+   */
   public IDENTIFIER lookup(String name){
     return symMap.get(name);
   }

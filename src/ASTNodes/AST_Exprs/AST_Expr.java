@@ -72,12 +72,20 @@ public class AST_Expr extends AST_Node{
     System.out.println("Base AST Node.");
   }
 
-  //Semantic Analysis and print error message if needed
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
+  @Override
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
-  // Called from visitor
+  /**
+   * Called from visitor
+   * @param ST
+   */
+  @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       //Do symbol table stuff
@@ -104,8 +112,11 @@ public class AST_Expr extends AST_Node{
     System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("BASE TYPE");
   }
+
+  /**
+   * @return returns the identifier of the attribute
+   */
   public IDENTIFIER getIdentifier() {
     return identifier;
   }
-  
 }

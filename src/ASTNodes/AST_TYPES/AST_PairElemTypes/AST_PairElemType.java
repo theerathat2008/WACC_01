@@ -15,7 +15,6 @@ public class AST_PairElemType extends AST_Type {
    */
   public AST_PairElemType(){}
 
-
   /**
    * Gets all children nodes of current node
    * @return list of AST nodes that are the children of the current node
@@ -26,8 +25,9 @@ public class AST_PairElemType extends AST_Type {
     return null;
   }
 
-
-
+  /**
+   * Returns true if the embedded Nodes have value
+   */
   @Override
   public boolean isEmbeddedNodesFull(){
     return true;
@@ -41,7 +41,6 @@ public class AST_PairElemType extends AST_Type {
   public void setSyntacticAttributes(String value){
     System.out.println("Base AST Node.");
   }
-
 
   /**
    * Gets syntactic attributes of class variables
@@ -73,15 +72,19 @@ public class AST_PairElemType extends AST_Type {
     System.out.println("Base AST Node.");
   }
 
-
-
-  //Semantic Analysis and print error message if needed
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
   @Override
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
-  // Called from visitor
+  /**
+   * Called from visitor
+   * @param ST
+   */
   @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
@@ -98,6 +101,9 @@ public class AST_PairElemType extends AST_Type {
     System.out.println("Base AST Node.");
   }
 
+  /**
+   * @return returns the identifier of the attribute
+   */
   public IDENTIFIER getIdentifier() {
     return null;
   }

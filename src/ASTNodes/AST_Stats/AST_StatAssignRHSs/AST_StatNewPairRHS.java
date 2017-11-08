@@ -9,6 +9,7 @@ import java.util.ArrayDeque;
  * Class representing node in AST tree for NEW PAIR ASSIGNMENT
  */
 public class AST_StatNewPairRHS extends AST_StatAssignRHS{
+
   //Syntactic attributes
   AST_Expr ast_expr_first;
   AST_Expr ast_expr_second;
@@ -105,12 +106,20 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS{
     return "PAIR(" + ast_expr_first.toString() + "," + ast_expr_second + ")";
   }
 
-  //Semantic Analysis and print error message if needed
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
+  @Override
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
-  // Called from visitor
+  /**
+   * Called from visitor
+   * @param ST
+   */
+  @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       //Do symbol table stuff

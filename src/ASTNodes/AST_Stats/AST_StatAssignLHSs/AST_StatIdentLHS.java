@@ -8,6 +8,7 @@ import java.util.ArrayDeque;
  * Class representing node in AST tree for DECLARING IDENTIFIERS
  */
 public class AST_StatIdentLHS extends AST_StatAssignLHS{
+
   //Syntactic attributes
   String identName;
 
@@ -17,7 +18,6 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS{
    */
   public AST_StatIdentLHS(){
     this.identName = null;
-
   }
 
   /**
@@ -86,15 +86,20 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS{
     System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
   }
 
-
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
   @Override
-  //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
+  /**
+   * Called from visitor
+   * @param ST
+   */
   @Override
-  // Called from visitor
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       setType(ST.lookupAll(identName).toString());

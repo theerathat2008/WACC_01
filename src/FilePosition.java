@@ -3,6 +3,7 @@ package src;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 public class FilePosition {
+
   int line;
   int column;
 
@@ -19,6 +20,9 @@ public class FilePosition {
     return this.line;
   }
 
+  /**
+   * Get String object representation of this class
+   */
   public String toString(){
     return " on line: " + this.line; //+ "   column: " + this.column;
   }

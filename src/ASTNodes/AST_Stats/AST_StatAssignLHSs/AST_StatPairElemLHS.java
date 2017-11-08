@@ -9,6 +9,7 @@ import java.util.ArrayDeque;
  * Class representing node in AST tree for PAIR VARIABLES
  */
 public class AST_StatPairElemLHS extends AST_StatAssignLHS{
+
   //Syntactic attributes
   String typeName;
   AST_Expr ast_expr;
@@ -94,15 +95,20 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS{
     }
   }
 
-
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
   @Override
-  //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
+  /**
+   * Called from visitor
+   * @param ST
+   */
   @Override
-  // Called from visitor
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       setType(ast_expr.getType());

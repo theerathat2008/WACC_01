@@ -15,13 +15,17 @@ import java.util.ArrayDeque;
 
 
 public class AST_StatVarDecl extends AST_Stat {
+
   //Syntactic attributes
   AST_Type ast_type;
   String identName;
   AST_StatAssignRHS ast_assignRHS;
   ParserRuleContext ctx;
 
-  // Assign the class variables when called
+  /**
+   * Assign the class variables when called
+   * @param ctx
+   */
   public AST_StatVarDecl(ParserRuleContext ctx){
     this.ast_assignRHS = null;
     this.statName = null;
@@ -29,6 +33,10 @@ public class AST_StatVarDecl extends AST_Stat {
     this.ctx = ctx;
   }
 
+  /**
+   * Gets all children nodes of current node
+   * @return list of AST nodes that are the children of the current node
+   */
   @Override
   public ArrayDeque<AST_Node> getNodes(){
     ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
@@ -37,8 +45,10 @@ public class AST_StatVarDecl extends AST_Stat {
     return returnList;
   }
 
-
-
+  /**
+   * Sets syntactic attributes of class variables by assigning it a value
+   * @param value - Value to be assigned to class variable
+   */
   @Override
   public void setSyntacticAttributes(String value){
     if(identName == null){
@@ -48,7 +58,10 @@ public class AST_StatVarDecl extends AST_Stat {
     }
   }
 
-
+  /**
+   * Gets syntactic attributes of class variables
+   * @param strToGet - Value to be retrieved from class variable
+   */
   @Override
   public String getSyntacticAttributes(String strToGet){
     if(identName == null){
@@ -59,11 +72,19 @@ public class AST_StatVarDecl extends AST_Stat {
     }
   }
 
+  /**
+   * Returns true if the embedded Nodes have value
+   */
   @Override
   public boolean isEmbeddedNodesFull(){
     return ast_assignRHS != null;
   }
 
+  /**
+   * @param astToGet Shows which child to get from current node
+   * @param counter Shows which child of child to get from current node
+   * @return Returns the required child AST Node (determined by the astToGet parameter)
+   */
   @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter){
     if(astToGet.equals("ast_assignRHS")){
@@ -75,6 +96,10 @@ public class AST_StatVarDecl extends AST_Stat {
     return null;
   }
 
+  /**
+   * @param astToSet Shows which child to set from current node
+   * @param nodeToSet Shows which child of child to set from current node
+   */
   @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet){
     if(astToSet.equals("statAssignRHS")){
@@ -86,8 +111,11 @@ public class AST_StatVarDecl extends AST_Stat {
     }
   }
 
-
-  //Semantic Analysis and print error message if needed
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
+  @Override
   protected boolean CheckSemantics(SymbolTable ST) {
     System.out.println(ast_assignRHS.getType(ST));
     System.out.println(ast_type.getIdentifier().toString());
@@ -104,13 +132,19 @@ public class AST_StatVarDecl extends AST_Stat {
     }
   }
 
-  // Called from visitor
+  /**
+   * Called from visitor
+   * @param ST
+   */
+  @Override
   public void Check(SymbolTable ST){
     //CheckSemantics(ST);
     ST.add(identName, ST.stringToIdent(identName, ast_type.toString()));
-
   }
 
+  /**
+   * Used for testing - Prints out contents of current AST node
+   */
   @Override
   public void printContents(){
     System.out.println(this.getClass().getSimpleName() + ": ");

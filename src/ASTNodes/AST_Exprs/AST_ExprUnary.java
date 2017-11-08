@@ -9,6 +9,7 @@ import IdentifierObjects.*;
  * Class representing node in AST tree for UNARY EXPRESSIONS
  */
 public class AST_ExprUnary extends AST_Expr{
+
   //Syntactic attributes
   String opName;
   AST_Expr astExpr;
@@ -20,7 +21,6 @@ public class AST_ExprUnary extends AST_Expr{
     this.opName = null;
     this.astExpr = null;
   }
-
 
   /**
    * Gets all children nodes of current node
@@ -109,13 +109,20 @@ public class AST_ExprUnary extends AST_Expr{
     }
   }
 
-
-  //Semantic Analysis and print error message if needed
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
+  @Override
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
-  // Called from visitor
+  /**
+   * Called from visitor
+   * @param ST
+   */
+  @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       if (opName.equals("!")) {

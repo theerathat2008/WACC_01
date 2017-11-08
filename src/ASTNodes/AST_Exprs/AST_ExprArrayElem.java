@@ -11,6 +11,7 @@ import IdentifierObjects.*;
  * Class representing node in AST tree for EXPRESSIONS that are Array Elements
  */
 public class AST_ExprArrayElem extends AST_Expr{
+
   //Syntactic attributes
   String arrayName;
   int numOfExpr;
@@ -22,7 +23,7 @@ public class AST_ExprArrayElem extends AST_Expr{
    * @param numberOfChildren - Shows the number of expressions
    */
   public AST_ExprArrayElem(int numberOfChildren){
-    ast_exprList = new ArrayList<>();
+    this.ast_exprList = new ArrayList<>();
     this.numOfExpr = (numberOfChildren - 1) / 3;
     this.arrayName = null;
   }
@@ -106,14 +107,20 @@ public class AST_ExprArrayElem extends AST_Expr{
     }
   }
 
-
-
-  //Semantic Analysis and print error message if needed
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
+  @Override
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
-  // Called from visitor
+  /**
+   * Called from visitor
+   * @param ST
+   */
+  @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       setType(ast_exprList.get(0).type + "[]");

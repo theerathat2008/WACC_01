@@ -10,6 +10,7 @@ import IdentifierObjects.*;
  * Class representing node in AST tree for PARAMS
  */
 public class AST_Param extends AST_Node {
+
   //Syntactic attributes
   AST_Type ast_type;
   String paramName;
@@ -21,7 +22,6 @@ public class AST_Param extends AST_Node {
     this.paramName = null;
     this.ast_type = null;
   }
-
 
   /**
    * Gets all children nodes of current node
@@ -96,13 +96,20 @@ public class AST_Param extends AST_Node {
     }
   }
 
-  //Semantic Analysis and print error message if needed
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
   @Override
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
-  // Called from visitor
+  /**
+   * Called from visitor
+   * @param ST
+   */
+  @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       ST.encSymTable.add(paramName, ast_type.getIdentifier());

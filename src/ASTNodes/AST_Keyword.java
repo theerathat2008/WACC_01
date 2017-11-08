@@ -7,6 +7,7 @@ import java.util.ArrayDeque;
  * Class representing node in AST tree for KEYWORDS
  */
 public class AST_Keyword extends AST_Node {
+
   //Syntactic attributes
   String keyword_name;
   //Semantic attribute
@@ -40,7 +41,6 @@ public class AST_Keyword extends AST_Node {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
-
 
   /**
    * Gets syntactic attributes of class variables
@@ -84,14 +84,20 @@ public class AST_Keyword extends AST_Node {
     System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
   }
 
-
-  //Semantic Analysis and print error message if needed
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
+  @Override
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
-  // Called from visitor
-
+  /**
+   * Called from visitor
+   * @param ST
+   */
+  @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       //Do symbol table stuff

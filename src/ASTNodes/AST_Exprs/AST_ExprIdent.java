@@ -14,6 +14,7 @@ import java.util.ArrayDeque;
  * Class representing node in AST tree for IDENT EXPRESSIONS
  */
 public class AST_ExprIdent extends AST_Expr{
+
   //Syntactic attributes
   String varName;
   ParserRuleContext ctx;
@@ -36,7 +37,6 @@ public class AST_ExprIdent extends AST_Expr{
     return null;
   }
 
-
   /**
    * Sets syntactic attributes of class variables by assigning it a value
    * @param value - Value to be assigned to class variable
@@ -49,7 +49,6 @@ public class AST_ExprIdent extends AST_Expr{
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
   }
-
 
   /**
    * Gets syntactic attributes of class variables
@@ -64,7 +63,6 @@ public class AST_ExprIdent extends AST_Expr{
       return null;
     }
   }
-
 
   /**
    * Returns true if the embedded Nodes have value
@@ -94,8 +92,11 @@ public class AST_ExprIdent extends AST_Expr{
     System.out.println("Terminal AST Node at: " + this.getClass().getSimpleName());
   }
 
-
-  //Semantic Analysis and print error message if needed
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
+  @Override
   protected boolean CheckSemantics(SymbolTable ST){
     if (ST.lookupAll(varName) != null) {
       return true;
@@ -105,11 +106,15 @@ public class AST_ExprIdent extends AST_Expr{
     }
   }
 
-  // Called from visitor
+  /**
+   * Called from visitor
+   * @param ST
+   */
+  @Override
   public void Check(SymbolTable ST){
     //CheckSemantics(ST))
-//      ST.add(varName, ST.stringToIdent(varName,type));
-//      setType(ST.lookupAll(varName).toString());
+    //ST.add(varName, ST.stringToIdent(varName,type));
+    //setType(ST.lookupAll(varName).toString());
 
 
   }

@@ -9,6 +9,7 @@ import java.util.ArrayDeque;
  * Class representing node in AST tree for EXPRESSION ASSIGNMENT
  */
 public class AST_StatExprRHS extends AST_StatAssignRHS {
+
   //Syntactic attributes
   AST_Expr ast_expr;
 
@@ -85,13 +86,20 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
     }
   }
 
-
-  //Semantic Analysis and print error message if needed
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
+  @Override
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
-  // Called from visitor
+  /**
+   * Called from visitor
+   * @param ST
+   */
+  @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       //Do symbol table stuff

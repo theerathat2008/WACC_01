@@ -6,19 +6,23 @@ import java.util.List;
 public class BaseTypeObj extends IDENTIFIER {
   String base_type;
   List<String> types = Arrays.asList("int", "string", "char", "bool", "pair");
+
   public BaseTypeObj(String name, String base_type) {
     this.name = name;
     this.base_type = base_type;
     System.out.println("Setting base type to: " +base_type);
-
   }
 
   public BaseTypeObj(String base_type) {
     this.base_type = base_type;
     System.out.println("Setting base type to: " +base_type);
-
   }
 
+  /**
+   * Compares value for equality
+   * @param other
+   */
+  @Override
   public boolean equals(IDENTIFIER other) {
     if (other instanceof BaseTypeObj) {
       if (((BaseTypeObj) other).base_type.equals(base_type)) {
@@ -30,6 +34,10 @@ public class BaseTypeObj extends IDENTIFIER {
   return false;
   }
 
+  /**
+   * Get String object representation of this class
+   */
+  @Override
   public String toString() {
    return base_type;
   }

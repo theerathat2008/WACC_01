@@ -9,6 +9,7 @@ import java.util.ArrayDeque;
  * Class representing node in AST tree for ENCLOSED EXPRESSIONS
  */
 public class AST_ExprEnclosed extends AST_Expr{
+
   //Syntactic attributes
   AST_Separator leftSepAST;
   AST_Expr exprAST;
@@ -25,7 +26,6 @@ public class AST_ExprEnclosed extends AST_Expr{
     this.rightSepAST.setSyntacticAttributes(")");
   }
 
-
   /**
    * Gets all children nodes of current node
    * @return list of AST nodes that are the children of the current node
@@ -39,8 +39,6 @@ public class AST_ExprEnclosed extends AST_Expr{
     return returnList;
   }
 
-
-
   /**
    * Sets syntactic attributes of class variables by assigning it a value
    * @param value - Value to be assigned to class variable
@@ -49,7 +47,6 @@ public class AST_ExprEnclosed extends AST_Expr{
   public void setSyntacticAttributes(String value){
     System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
   }
-
 
   /**
    * Gets syntactic attributes of class variables
@@ -60,7 +57,6 @@ public class AST_ExprEnclosed extends AST_Expr{
     System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
     return null;
   }
-
 
   /**
    * Returns true if the embedded Nodes have value
@@ -105,13 +101,20 @@ public class AST_ExprEnclosed extends AST_Expr{
     }
   }
 
-
-  //Semantic Analysis and print error message if needed
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
+  @Override
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
-  // Called from visitor
+  /**
+   * Called from visitor
+   * @param ST
+   */
+  @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       setType(exprAST.type);

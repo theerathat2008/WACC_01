@@ -12,6 +12,7 @@ import IdentifierObjects.*;
  * Class representing node in AST tree for ARRAY LITERAL ASSIGNMENT
  */
 public class AST_StatArrayLitRHS extends AST_StatAssignRHS{
+
   //Syntactic attributes
   List<AST_Expr> ast_exprList;
   int numOfExpr;
@@ -104,19 +105,24 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS{
    * @param ST - Parameter of current symbol table in scope
    * @return - Returns the type of the identifier variable
    */
-  @Override
   public String getType(SymbolTable ST) {
     return ast_exprList.get(0).toString() + "[]";
   }
 
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
   @Override
-  //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
+  /**
+   * Called from visitor
+   * @param ST
+   */
   @Override
-  // Called from visitor
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       //Do symbol table stuff

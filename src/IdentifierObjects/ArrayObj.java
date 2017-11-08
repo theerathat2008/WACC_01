@@ -1,6 +1,8 @@
 package IdentifierObjects;
 
 public class ArrayObj extends IDENTIFIER {
+
+  //private field for storing type of identifier
   IDENTIFIER type;
 
   public ArrayObj(String name, IDENTIFIER type) {
@@ -12,6 +14,11 @@ public class ArrayObj extends IDENTIFIER {
     this.type = type;
   }
 
+  /**
+   * Compares value for equality
+   * @param other
+   */
+  @Override
   public boolean equals(IDENTIFIER other) {
    if (other instanceof ArrayObj) {
      if (((ArrayObj) other).type.equals(type)) {
@@ -21,6 +28,10 @@ public class ArrayObj extends IDENTIFIER {
    return false;
   }
 
+  /**
+   * Get String object representation of this class
+   */
+  @Override
   public String toString() {
     return type.toString() + "[]";
   }

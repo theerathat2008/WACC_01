@@ -8,6 +8,7 @@ import java.util.ArrayDeque;
  * Class representing node in AST tree for STATEMENT NODES
  */
 public class AST_Stat extends AST_Node {
+
   //Syntactic attributes
   String statName;
 
@@ -21,12 +22,12 @@ public class AST_Stat extends AST_Node {
   /**
    * Gets all children nodes of current node
    * @return list of AST nodes that are the children of the current node
-   */@Override
+   */
+  @Override
   public ArrayDeque<AST_Node> getNodes(){
     System.out.println("BASE AST Node at: " + this.getClass().getSimpleName());
     return null;
   }
-
 
   /**
    * Returns true if the embedded Nodes have value
@@ -83,14 +84,20 @@ public class AST_Stat extends AST_Node {
     System.out.println("Base AST Node.");
   }
 
-
-
-  //Semantic Analysis and print error message if needed
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
+  @Override
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
-  // Called from visitor
+  /**
+   * Called from visitor
+   * @param ST
+   */
+  @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       //Do symbol table stuff

@@ -12,6 +12,7 @@ import java.util.List;
  * Class representing node in AST tree for PROGRAM
  */
 public class AST_Program extends AST_Node {
+
   //Syntactic attributes
   List<AST_FuncDecl> funcDeclList;
   int numOfFunc;
@@ -101,12 +102,20 @@ public class AST_Program extends AST_Node {
 
   }
 
-  //Semantic Analysis and print error message if needed
+  /**
+   * Semantic Analysis and print error message if needed
+   * @param ST
+   */
+  @Override
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
   }
 
-  // Called from visitor
+  /**
+   * Called from visitor
+   * @param ST
+   */
+  @Override
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
       //Do symbol table stuff     Nothing to check here (I think)
