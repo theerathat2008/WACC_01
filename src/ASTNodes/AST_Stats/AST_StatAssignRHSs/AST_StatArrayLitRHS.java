@@ -94,6 +94,7 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS{
       ast_exprList.add((AST_Expr)nodeToSet);
       if (ast_exprList.size() == 1) {
         identifier = new ArrayObj(ast_exprList.get(0).getIdentifier());
+        System.out.println(identifier);
       }
     } else {
       System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());

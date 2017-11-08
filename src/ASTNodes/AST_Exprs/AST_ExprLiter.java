@@ -103,19 +103,7 @@ public class AST_ExprLiter extends AST_Expr{
   // Called from visitor
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
-      if (literal.equals("INT_LITER")) {
-        setType("int");
-      } else if (literal.equals("BOOL_LITER")) {
-        setType("bool");
-      } else if (literal.equals("CHAR_LITER")) {
-        setType("char");
-      } else if(literal.equals("STRING_LITER")) {
-        setType("string");
-      } else if(literal.equals("PAIR_LITER")) {
-        setType("pair");
-      } else {
-        setType("null");
-      }
+      setType(literal);
     }
   }
 

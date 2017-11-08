@@ -25,6 +25,10 @@ public class FunctionObj extends IDENTIFIER {
     return false;
   }
 
+  public IDENTIFIER getReturnType() {
+    return returnType;
+  }
+
   public String toString() {
     return returnTypeName + " FUNCTION";
   }

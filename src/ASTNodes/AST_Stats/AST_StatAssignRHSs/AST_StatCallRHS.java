@@ -8,6 +8,7 @@ import ASTNodes.AST_Param;
 import IdentifierObjects.*;
 import IdentifierObjects.ParamListObj;
 import IdentifierObjects.FunctionObj;
+import IdentifierObjects.IDENTIFIER;
 import SymbolTable.SymbolTable;
 import src.ErrorMessages.MissingParameterError;
 import src.ErrorMessages.TypeError;
@@ -162,8 +163,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
         for(int i = 0; i < ast_exprList.size(); i++){
           String typeExpr = ast_exprList.get(i).getType();
           String typeParam = ((parameters.get(i)).getEmbeddedAST("ast_type", 0)).toString();
-          System.out.println("typeEXPR is : " + typeExpr);
-          System.out.println("typeParam is : " + typeParam);
           if(!typeExpr.equals(typeParam)){
             new TypeError(new FilePosition(ctx)).printAll();
           }
@@ -174,15 +173,8 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
       //Check parameters of paramList against expressions
       if(ast_exprList.size() > 0){
 
-        System.out.println("Current st is: " + ST.getScope());
-        System.out.println("Non-nested call");
         List<IDENTIFIER> parameters = new ArrayList<>();
-        System.out.println("Func name is: " + funcName);
-        System.out.println("Current st is: " + ST.getScope());
-        if((((FunctionObj)(ST.lookupAll(funcName.concat("_paramList")))).getparamListObj()) == null){
-          System.out.println("PARMALIST IS NOULt SJSA");
 
-        }
         parameters = (((FunctionObj)(ST.lookupAll(funcName))).getparamListObj()).getParamObjList();
 
         if(parameters.size() != ast_exprList.size()){
@@ -192,14 +184,12 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
         for(int i = 0; i < ast_exprList.size(); i++){
           String typeExpr = ast_exprList.get(i).getType();
           String typeParam = parameters.get(i).toString();
-          System.out.println("typeEXPR is : " + typeExpr);
-          System.out.println("typeParam is : " + typeParam);
           if(!typeExpr.equals(typeParam)){
             new TypeError(new FilePosition(ctx)).printAll();
           }
         }
       }
-
+      setIdentifier(((FunctionObj)(ST.lookup(funcName))).getReturnType());
     }
 
 
