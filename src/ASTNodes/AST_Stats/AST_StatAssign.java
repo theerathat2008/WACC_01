@@ -105,8 +105,6 @@ public class AST_StatAssign extends AST_Stat{
     if (ast_statAssignLHS.getIdentifier().equals(ast_statAssignRHS.getIdentifier())) {
       return true;
     } else {
-      System.out.println(ast_statAssignLHS.getIdentifier().toString());
-      System.out.println(ast_statAssignRHS.identifier.toString());
       new TypeMismatchError(new FilePosition(ctx)).printAll();
       return false;
     }

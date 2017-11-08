@@ -63,7 +63,9 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
   public void setSyntacticAttributes(String value, SymbolTable ST){
     if(funcName == null){
       this.funcName = value;
-      identifier = ST.lookupAll(value);
+      identifier = ST.lookupAll(funcName);
+      System.out.println(identifier.toString());
+      System.out.println("Checking if " + funcName + " is in the symbol tree.");
     } else {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
@@ -132,12 +134,12 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
 
-    System.out.println("Checking if " + funcName + " is in the symbol tree.");
     FunctionObj thisType = (FunctionObj) identifier;
     IDENTIFIER tableType = ST.lookupAll(funcName);
     if (tableType != null) {
       if (tableType instanceof FunctionObj) {
         if (((FunctionObj) tableType).equals(thisType)) { //TODO check parameters are same in function call and function declaration
+          identifier = ((FunctionObj) identifier).returnType;
           return true;
         }
       }
@@ -156,7 +158,9 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
 
   // Called from visitor
   public void Check(SymbolTable ST){
-    //CheckSemantics(ST)
+    if (CheckSemantics(ST)) {
+
+    }
       //Do symbol table stuff
   }
 
