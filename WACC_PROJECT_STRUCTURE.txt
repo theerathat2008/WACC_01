@@ -1,0 +1,27 @@
+The implementation of the project relies on antlr4.7 generating the Visitor classes from the Lexer and Parser grammar files.
+
+The generation of the AST Tree which is the internal representation of the input program is done in one parse of the
+visitor function.
+
+The waccVisitor class has visitor functions for all the alternative labels from the Parser grammar file.
+There are two generic templates for the visitor function.
+1. The Non-Terminal Node has the structure:
+    - Create the corresponding AST Node for the current visitor function
+    - Set the current created AST Node as an embedded AST Node of the parent node if neccessary
+    - Set the syntactic string member variable of the current node if neccessary
+    - Set the ParentNode variable of the current AST Node
+    - Set the member variable of the waccVisitor class which is parentVisitorNode to be the current AST Node
+    - Carry out semantic anaylsis on the current node if necessary
+    - Print out a debug statement
+    - Visit the rest of the children nodes
+
+2. The Terminal Node has a similiar structure bar the fact that instead of visiting the children nodes,
+   the parentVisitorNode will cycle up the AST Tree via accessing the ParentNode variable until it reaches
+   a AST Node which has not filled its current sub-tree.
+
+The abstract AST Node class has member variable parent Node which represent the AST Node directly above the current
+node in the AST Tree. It also has getters and setters for the member variables of its sub-classes for both the embedded
+AST Nodes and the syntactic string member variables.
+
+There are also helper functions such as isEmbeddedNodeFull which aid in the construction of the tree through the visitor
+pattern and a print function which helps in debugging the tree.

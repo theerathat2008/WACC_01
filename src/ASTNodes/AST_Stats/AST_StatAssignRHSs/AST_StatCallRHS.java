@@ -93,6 +93,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
       System.out.println("#semantic_error#");
       System.out.println("Insert Error message here");
       exit(200);
-    }
+    } 
   }
 }
