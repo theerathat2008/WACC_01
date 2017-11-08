@@ -89,8 +89,6 @@ AST_Node -> AST_FuncDecl
 
 The non-terminal classes (Base classes) in the inheritance structure are used as holders for their subclasses.
 
-> ErrorMessages directory <
 
-> IdentifierObjects directory <
 
 

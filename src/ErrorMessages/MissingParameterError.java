@@ -2,10 +2,11 @@ package src.ErrorMessages;
 
 import src.FilePosition;
 
-public class MissingParameterError  extends ErrorMessage {
+public class MissingParameterError extends ErrorMessage {
 
   /**
    * WHEN FUNCTIONS ARE MISSING ONE OR MORE PARAMETERS - USE TYPEERROR FOR INCORRECT TYPE OF PARAMS
+   *
    * @param filePosition
    */
   public MissingParameterError(FilePosition filePosition) {

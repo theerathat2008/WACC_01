@@ -7,15 +7,15 @@ public class FilePosition {
   int line;
   int column;
 
-  public FilePosition (ParserRuleContext ctx){//, int column) {
+  public FilePosition(ParserRuleContext ctx) {//, int column) {
     this.line = ctx.getStart().getLine();
-   // this.column = column;
+    // this.column = column;
   }
 
- /* public int getColumn() {
-    return this.column;
-  }
-*/
+  /* public int getColumn() {
+     return this.column;
+   }
+ */
   public int getLine() {
     return this.line;
   }
@@ -23,7 +23,7 @@ public class FilePosition {
   /**
    * Get String object representation of this class
    */
-  public String toString(){
+  public String toString() {
     return " on line: " + this.line; //+ "   column: " + this.column;
   }
 }

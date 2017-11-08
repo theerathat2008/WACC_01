@@ -6,6 +6,7 @@ public class TypeError extends ErrorMessage {
 
   /**
    * WHEN INCORRECT TYPE USED E.G. INT INSTEAD OF STRING
+   *
    * @param filePosition
    */
   public TypeError(FilePosition filePosition) {

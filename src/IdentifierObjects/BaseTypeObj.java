@@ -18,6 +18,7 @@ public class BaseTypeObj extends IDENTIFIER {
 
   /**
    * Compares value for equality
+   *
    * @param other
    */
   @Override
@@ -29,7 +30,7 @@ public class BaseTypeObj extends IDENTIFIER {
         return true;
       }
     }
-  return false;
+    return false;
   }
 
   /**
@@ -37,6 +38,6 @@ public class BaseTypeObj extends IDENTIFIER {
    */
   @Override
   public String toString() {
-   return base_type;
+    return base_type;
   }
 }

@@ -2,10 +2,11 @@ package src.ErrorMessages;
 
 import src.FilePosition;
 
-public class VariableRedeclarationError extends ErrorMessage{
+public class VariableRedeclarationError extends ErrorMessage {
 
   /**
    * //WHEN VARIABLE HAS ALREADY BEEN DECLARED
+   *
    * @param filePosition
    */
   public VariableRedeclarationError(FilePosition filePosition) {

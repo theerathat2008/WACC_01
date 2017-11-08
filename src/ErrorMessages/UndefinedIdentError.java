@@ -6,6 +6,7 @@ public class UndefinedIdentError extends ErrorMessage {
 
   /**
    * WHEN IDENT THAT HAS NOT BEEN DECLARED YET IS USED
+   *
    * @param filePosition
    */
   public UndefinedIdentError(FilePosition filePosition) {

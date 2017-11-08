@@ -2,16 +2,17 @@ package IdentifierObjects;
 
 import java.util.List;
 
-public class ParamListObj extends IDENTIFIER{
+public class ParamListObj extends IDENTIFIER {
   List<IDENTIFIER> paramObjList;
 
 
-  public ParamListObj(List<IDENTIFIER> paramObjList){
+  public ParamListObj(List<IDENTIFIER> paramObjList) {
     this.paramObjList = paramObjList;
   }
 
   /**
    * Compares value for equality
+   *
    * @param other
    */
   public boolean equals(IDENTIFIER other) {
@@ -29,7 +30,7 @@ public class ParamListObj extends IDENTIFIER{
   }
 
 
-  public List<IDENTIFIER> getParamObjList(){
+  public List<IDENTIFIER> getParamObjList() {
     return paramObjList;
   }
 
@@ -38,7 +39,7 @@ public class ParamListObj extends IDENTIFIER{
    */
   public String toString() {
     String ret = "(";
-    for (int i = 0; i<paramObjList.size();i++) {
+    for (int i = 0; i < paramObjList.size(); i++) {
       ret = ret + paramObjList.get(i).toString() + ",";
     }
     return ret;

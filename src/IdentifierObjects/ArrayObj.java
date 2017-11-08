@@ -16,16 +16,17 @@ public class ArrayObj extends IDENTIFIER {
 
   /**
    * Compares value for equality
+   *
    * @param other
    */
   @Override
   public boolean equals(IDENTIFIER other) {
-   if (other instanceof ArrayObj) {
-     if (((ArrayObj) other).type.equals(type)) {
-       return true;
-     }
-   }
-   return false;
+    if (other instanceof ArrayObj) {
+      if (((ArrayObj) other).type.equals(type)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -33,7 +34,7 @@ public class ArrayObj extends IDENTIFIER {
    */
   @Override
   public String toString() {
-    if(type == null){
+    if (type == null) {
       return "";
     }
     return type.toString() + "[]";

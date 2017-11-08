@@ -30,7 +30,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   private AST_Node parentVisitorNode;
 
   //private field for storing Top level symbol table which initialises the wacc keywords
-  private SymbolTable TOP_ST =  new SymbolTable();
+  private SymbolTable TOP_ST = new SymbolTable();
 
   //private field for storing current symbol table
   //and initialises it with Top level symbol table
@@ -38,9 +38,10 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
   /**
    * Get the root node of the tree
+   *
    * @return progBase
    */
-  public AST_Program getRootNode(){
+  public AST_Program getRootNode() {
     return progBase;
   }
 
@@ -48,11 +49,12 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Iterate through every AST nodes to print out our own AST tree
    * Call method printContents which is unique for each AST nodes to print out the class names
    * and the private fields from the node class
+   *
    * @param noded
    */
-  public void printNodes(AST_Node noded){
-    if(noded.getNodes() != null){
-      for(AST_Node node : noded.getNodes()){
+  public void printNodes(AST_Node noded) {
+    if (noded.getNodes() != null) {
+      for (AST_Node node : noded.getNodes()) {
         node.printContents();
         printNodes(node);
       }
@@ -74,6 +76,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   /**
    * Visitor function for Program.
    * Non-Terminal Node
+   *
    * @param ctx
    */
   @Override
@@ -89,7 +92,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Added symbol table for the program (global) scope
     SymbolTable newSymbolTable = new SymbolTable("global");
     newSymbolTable.setEncSymTable(currentGlobalTree);
-    newSymbolTable.printAllTables();
     currentGlobalTree = newSymbolTable;
 
     //Do semantic analysis
@@ -110,6 +112,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for Func.
    * Non-Terminal Node
    * Assigns AST_FuncDecl node to parent AST Node (AST_Program)
+   *
    * @param ctx
    */
   @Override
@@ -131,7 +134,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Creates a tree either for func scope or param list scope if it exists.
     SymbolTable newSymbolTable = new SymbolTable("func");
     newSymbolTable.setEncSymTable(currentGlobalTree);
-    newSymbolTable.printAllTables();
     currentGlobalTree = newSymbolTable;
 
     //Debug statement
@@ -157,6 +159,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for Param_list.
    * Non-Terminal Node
    * Assigns AST_ParamList node to parent AST Node (AST_FuncDecl)
+   *
    * @param ctx
    */
   @Override
@@ -175,7 +178,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //uses tree created in symbol tree to create tree for function scope
     SymbolTable newSymbolTable = new SymbolTable("param_list");
     newSymbolTable.setEncSymTable(currentGlobalTree);
-    newSymbolTable.printAllTables();
     currentGlobalTree = newSymbolTable;
 
     //Debug statement
@@ -193,6 +195,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for Param.
    * Non-Terminal Node
    * Assigns AST_Param node to parent AST Node (AST_ParamList)
+   *
    * @param ctx
    */
   @Override
@@ -226,6 +229,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for EXPR_ASSIGN.
    * Non-Terminal Node
    * Assigns AST_StatExprRHS node to parent AST Node (AST_StatAssign and AST_StatVarDecl)
+   *
    * @param ctx
    */
   @Override
@@ -256,6 +260,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for PRINTLN_STAT.
    * Non-Terminal Node
    * Assigns AST_StatExpr node to parent AST Node (AST_Stat)
+   *
    * @param ctx
    */
   @Override
@@ -289,6 +294,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for ARRAY_ELEM_LHS.
    * Non-Terminal Node
    * Assigns AST_StatArrayElemLHS node to parent AST Node (AST_StatAssign)
+   *
    * @param ctx
    */
   @Override
@@ -322,6 +328,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for PAIR_ELEM_LHS.
    * Non-Terminal Node
    * Assigns AST_StatPairElemLHS node to parent AST Node (AST_StatAssign)
+   *
    * @param ctx
    */
   @Override
@@ -352,6 +359,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for PAIR_ELEM_RHS.
    * Non-Terminal Node
    * Assigns AST_StatPairElemRHS node to parent AST Node (AST_StatVarDecl and AST_StatAssign)
+   *
    * @param ctx
    */
   @Override
@@ -382,6 +390,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for CHAR_LITER_EXPR.
    * Terminal Node
    * Assigns AST_ExprLiter node to parent AST Node (AST_Expr)
+   *
    * @param ctx
    */
   @Override
@@ -406,8 +415,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //System.out.println("exprCharLiter");
 
     //Set the parent node for terminal node
-    while(parentVisitorNode.isEmbeddedNodesFull()){
-      if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
+    while (parentVisitorNode.isEmbeddedNodesFull()) {
+      if (parentVisitorNode.getClass().getSimpleName().equals("AST_Program")) {
         //System.out.println("End of visitor function");
         break;
       }
@@ -417,7 +426,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Iterate through rest of the tree
     SymbolTable newSymbolTable = new SymbolTable("char_literal");
     newSymbolTable.setEncSymTable(currentGlobalTree);
-    newSymbolTable.printAllTables();
     currentGlobalTree = newSymbolTable;
 
     visitChildren(ctx);
@@ -434,6 +442,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for UNARY_OP_EXPR.
    * Non-Terminal Node
    * Assigns AST_ExprUnary node to parent AST Node (AST_Expr)
+   *
    * @param ctx
    */
   @Override
@@ -467,6 +476,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for SKIP_STAT.
    * Terminal Node
    * Assigns AST_Stat node to parent AST Node (AST_FuncDecl and AST_Program)
+   *
    * @param ctx
    */
   @Override
@@ -489,8 +499,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //System.out.println("Skip");
 
     //Set the parent node for terminal node
-    while(parentVisitorNode.isEmbeddedNodesFull()){
-      if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
+    while (parentVisitorNode.isEmbeddedNodesFull()) {
+      if (parentVisitorNode.getClass().getSimpleName().equals("AST_Program")) {
         //System.out.println("End of visitor function");
         break;
       }
@@ -509,9 +519,10 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for READ_STAT.
    * Non-Terminal Node
    * Assigns AST_StatRead node to parent AST Node (AST_Stat)
+   *
    * @param ctx
    */
-  @Override 
+  @Override
   public Void visitREAD_STAT(WaccParser.READ_STATContext ctx) {
 
     //Create the node for the current visitor function
@@ -539,6 +550,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for WHILE_STAT.
    * Non-Terminal Node
    * Assigns AST_StatWhile node to parent AST Node (AST_Stat)
+   *
    * @param ctx
    */
   @Override
@@ -569,6 +581,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for NEWPAIR_RHS.
    * Non-Terminal Node
    * Assigns AST_StatNewPairRHS node to parent AST Node (AST_StatVarDecl and AST_StatAssign)
+   *
    * @param ctx
    */
   @Override
@@ -599,6 +612,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for IDENT_EXPR.
    * Terminal Node
    * Assigns AST_ExprIdent node to parent AST Node (AST_Expr)
+   *
    * @param ctx
    */
   @Override
@@ -621,8 +635,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //System.out.println("exprIdent");
 
     //Set the parent node for terminal node
-    while(parentVisitorNode.isEmbeddedNodesFull()){
-      if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
+    while (parentVisitorNode.isEmbeddedNodesFull()) {
+      if (parentVisitorNode.getClass().getSimpleName().equals("AST_Program")) {
         //System.out.println("End of visitor function");
         break;
       }
@@ -641,6 +655,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for ARRAY_ELEM_EXPR.
    * Non-Terminal Node
    * Assigns AST_ExprArrayElem node to parent AST Node (AST_Expr)
+   *
    * @param ctx
    */
   @Override
@@ -674,6 +689,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for ENCLOSED_EXPR.
    * Non-Terminal Node
    * Assigns AST_ExprEnclosed node to parent AST Node (AST_Expr)
+   *
    * @param ctx
    */
   @Override
@@ -704,6 +720,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for PRINT_STAT.
    * Non-Terminal Node
    * Assigns AST_StatExpr node to parent AST Node (AST_Stat)
+   *
    * @param ctx
    */
   @Override
@@ -737,6 +754,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for ASSIGN_STAT.
    * Non-Terminal Node
    * Assigns AST_StatAssign node to parent AST Node (AST_Stat)
+   *
    * @param ctx
    */
   @Override
@@ -767,6 +785,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for IDENT_ASSIGN.
    * Terminal Node
    * Assigns AST_StatIdentLHS node to parent AST Node (AST_StatAssign)
+   *
    * @param ctx
    */
   @Override
@@ -789,8 +808,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //System.out.println("statIdentLHS");
 
     //Set the parent node for terminal node
-    while(parentVisitorNode.isEmbeddedNodesFull()){
-      if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
+    while (parentVisitorNode.isEmbeddedNodesFull()) {
+      if (parentVisitorNode.getClass().getSimpleName().equals("AST_Program")) {
         //System.out.println("End of visitor function");
         break;
       }
@@ -809,6 +828,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for INT_LITER_EXPR.
    * Terminal Node
    * Assigns AST_ExprLiter node to parent AST Node (AST_Expr)
+   *
    * @param ctx
    */
   @Override
@@ -834,8 +854,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //System.out.println("exprIntLiter");
 
     //Set the parent node for terminal node
-    while(parentVisitorNode.isEmbeddedNodesFull()){
-      if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
+    while (parentVisitorNode.isEmbeddedNodesFull()) {
+      if (parentVisitorNode.getClass().getSimpleName().equals("AST_Program")) {
         //System.out.println("End of visitor function");
         break;
       }
@@ -854,6 +874,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for VAR_DECL_STAT.
    * Non-Terminal Node
    * Assigns AST_StatVarDecl node to parent AST Node (AST_Stat)
+   *
    * @param ctx
    */
   @Override
@@ -887,6 +908,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for FREE_STAT.
    * Non-Terminal Node
    * Assigns AST_StatExpr node to parent AST Node (AST_Stat)
+   *
    * @param ctx
    */
   @Override
@@ -920,6 +942,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for BEGIN_END_STAT.
    * Non-Terminal Node
    * Assigns AST_StatBeginEnd node to parent AST Node (AST_Stat)
+   *
    * @param ctx
    */
   @Override
@@ -938,7 +961,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Added symbol table for the program scope
     SymbolTable newSymbolTable = new SymbolTable("begin_end");
     newSymbolTable.setEncSymTable(currentGlobalTree);
-    newSymbolTable.printAllTables();
     currentGlobalTree = newSymbolTable;
 
     //Do semantic analysis
@@ -959,6 +981,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for IF_STAT.
    * Non-Terminal Node
    * Assigns AST_StatIf node to parent AST Node (AST_Stat)
+   *
    * @param ctx
    */
   @Override
@@ -989,6 +1012,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for CALL_ASSIGN.
    * Terminal Node
    * Assigns AST_StatCallRHS node to parent AST Node (AST_StatVarDecl and AST_StatAssign)
+   *
    * @param ctx
    */
   @Override
@@ -1011,10 +1035,10 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //System.out.println("statCallRHS");
 
     //If there are no expression, treat this visitor function as a terminal node
-    if(ctx.expr().size() == 0){
+    if (ctx.expr().size() == 0) {
       //Set the parent node for terminal node
-      while(parentVisitorNode.isEmbeddedNodesFull()){
-        if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
+      while (parentVisitorNode.isEmbeddedNodesFull()) {
+        if (parentVisitorNode.getClass().getSimpleName().equals("AST_Program")) {
           //System.out.println("End of visitor function");
           break;
         }
@@ -1034,6 +1058,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for BINARY_OP_EXPR.
    * Non-Terminal Node
    * Assigns AST_ExprBinary node to parent AST Node (AST_Expr)
+   *
    * @param ctx
    */
   @Override
@@ -1067,6 +1092,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for MULT_STAT.
    * Non-Terminal Node
    * Assigns AST_StatMult node to parent AST Node (AST_Stat)
+   *
    * @param ctx
    */
   @Override
@@ -1097,6 +1123,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for STR_LITER_EXPR.
    * Terminal Node
    * Assigns AST_ExprLiter node to parent AST Node (AST_Expr)
+   *
    * @param ctx
    */
   @Override
@@ -1121,8 +1148,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //System.out.println("str_liter");
 
     //Set the parent node for terminal node
-    while(parentVisitorNode.isEmbeddedNodesFull()){
-      if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
+    while (parentVisitorNode.isEmbeddedNodesFull()) {
+      if (parentVisitorNode.getClass().getSimpleName().equals("AST_Program")) {
         //System.out.println("End of visitor function");
         break;
       }
@@ -1141,6 +1168,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for ARRAY_LITER_RHS.
    * Non-Terminal Node
    * Assigns AST_StatArrayLitRHS node to parent AST Node (AST_StatVarDecl and AST_StatAssign)
+   *
    * @param ctx
    */
   @Override
@@ -1171,6 +1199,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for EXIT_STAT.
    * Non-Terminal Node
    * Assigns AST_StatExpr node to parent AST Node (AST_Stat)
+   *
    * @param ctx
    */
   @Override
@@ -1204,6 +1233,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for BOOL_LITER_EXPR.
    * Terminal Node
    * Assigns AST_ExprLiter node to parent AST Node (AST_Expr)
+   *
    * @param ctx
    */
   @Override
@@ -1228,8 +1258,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //System.out.println("boolLiter");
 
     //Set the parent node for terminal node
-    while(parentVisitorNode.isEmbeddedNodesFull()){
-      if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
+    while (parentVisitorNode.isEmbeddedNodesFull()) {
+      if (parentVisitorNode.getClass().getSimpleName().equals("AST_Program")) {
         //System.out.println("End of visitor function");
         break;
       }
@@ -1248,6 +1278,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for PAIR_LITER_EXPR.
    * Terminal Node
    * Assigns AST_ExprLiter node to parent AST Node (AST_Expr)
+   *
    * @param ctx
    */
   @Override
@@ -1272,8 +1303,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //System.out.println("pairLiter");
 
     //Set the parent node for terminal node
-    while(parentVisitorNode.isEmbeddedNodesFull()){
-      if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
+    while (parentVisitorNode.isEmbeddedNodesFull()) {
+      if (parentVisitorNode.getClass().getSimpleName().equals("AST_Program")) {
         //System.out.println("End of visitor function");
         break;
       }
@@ -1292,6 +1323,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for RETURN_STAT.
    * Non-Terminal Node
    * Assigns AST_StatExpr node to parent AST Node (AST_Stat)
+   *
    * @param ctx
    */
   @Override
@@ -1325,6 +1357,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for BASE_TYPE.
    * Terminal Node
    * Assigns AST_BaseType node to parent AST Node (AST_Type)
+   *
    * @param ctx
    */
   @Override
@@ -1347,8 +1380,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //System.out.println("baseType");
 
     //Set the parent node for terminal node
-    while(parentVisitorNode.isEmbeddedNodesFull()){
-      if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
+    while (parentVisitorNode.isEmbeddedNodesFull()) {
+      if (parentVisitorNode.getClass().getSimpleName().equals("AST_Program")) {
         //System.out.println("End of visitor function");
         break;
       }
@@ -1367,6 +1400,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for ARRAY_TYPE.
    * Non-Terminal Node
    * Assigns AST_ArrayType node to parent AST Node (AST_Type)
+   *
    * @param ctx
    */
   @Override
@@ -1397,6 +1431,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for PAIR_TYPE.
    * Non-Terminal Node
    * Assigns AST_PairType node to parent AST Node (AST_Type)
+   *
    * @param ctx
    */
   @Override
@@ -1427,6 +1462,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for BASE_TYPE_PAIR.
    * Terminal Node
    * Assigns AST_BaseTypePair node to parent AST Node (AST_PairElemType and AST_PairType)
+   *
    * @param ctx
    */
   @Override
@@ -1449,8 +1485,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //System.out.println("baseTypePair");
 
     //Set the parent node for terminal node
-    while(parentVisitorNode.isEmbeddedNodesFull()){
-      if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
+    while (parentVisitorNode.isEmbeddedNodesFull()) {
+      if (parentVisitorNode.getClass().getSimpleName().equals("AST_Program")) {
         //System.out.println("End of visitor function");
         break;
       }
@@ -1469,6 +1505,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for ARRAY_TYPE_PAIR.
    * Non-Terminal Node
    * Assigns AST_ArrayTypePair node to parent AST Node (AST_PairElemType and AST_PairType)
+   *
    * @param ctx
    */
   @Override
@@ -1499,6 +1536,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * Visitor function for PAIR_STRING.
    * Terminal Node
    * Assigns AST_PairString node to parent AST Node (AST_PairElemType and AST_PairType)
+   *
    * @param ctx
    */
   @Override
@@ -1521,8 +1559,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //System.out.println("pairString");
 
     //Set the parent node for terminal node
-    while(parentVisitorNode.isEmbeddedNodesFull()){
-      if(parentVisitorNode.getClass().getSimpleName().equals("AST_Program")){
+    while (parentVisitorNode.isEmbeddedNodesFull()) {
+      if (parentVisitorNode.getClass().getSimpleName().equals("AST_Program")) {
         //System.out.println("End of visitor function");
         break;
       }
@@ -1540,6 +1578,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   /**
    * Visitor function for PAIR_FST.
    * Non-Terminal Node
+   *
    * @param ctx
    */
   @Override
@@ -1558,6 +1597,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   /**
    * Visitor function for PAIR_SND.
    * Non-Terminal Node
+   *
    * @param ctx
    */
   @Override
@@ -1575,11 +1615,9 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 }
 
 /**
-
-1. Override all the Base Visitor functions
-   - Add the node to the AST node to the symbol table
-   - Depending on the function do semantic analysis on it by calling check function of the AST Node class
-2. Override all the Base Visitor functions
-  - Create an AST Class which corresponds to the Visitor function
-
-**/
+ * 1. Override all the Base Visitor functions
+ * - Add the node to the AST node to the symbol table
+ * - Depending on the function do semantic analysis on it by calling check function of the AST Node class
+ * 2. Override all the Base Visitor functions
+ * - Create an AST Class which corresponds to the Visitor function
+ **/

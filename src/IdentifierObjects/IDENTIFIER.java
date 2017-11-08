@@ -1,8 +1,8 @@
 package IdentifierObjects;
 
 /**
-Could hold reference to the ASTNode that declares IDENTIFIER
-**/
+ * Could hold reference to the ASTNode that declares IDENTIFIER
+ **/
 
 public abstract class IDENTIFIER {
   String name;

@@ -12,13 +12,12 @@ public class SymbolTable {
   String scope;
 
 
-  public SymbolTable(String scope){
-    System.out.println("Created new SYMBOL TABLE!!!!!");
+  public SymbolTable(String scope) {
     symMap = new HashMap<String, IDENTIFIER>();
     this.scope = scope;
   }
 
-  public String getScope(){
+  public String getScope() {
     return this.scope;
   }
 
@@ -26,7 +25,6 @@ public class SymbolTable {
    * Initialise synbol table with WACC language syntax
    */
   public SymbolTable() {
-    System.out.println("made top level symbol table");
     this.scope = "top_level";
     symMap = new HashMap<String, IDENTIFIER>();
     encSymTable = null;
@@ -62,23 +60,24 @@ public class SymbolTable {
     add("null", new KeywordObj());
   }
 
-  public void add(String name, IDENTIFIER obj){
+  public void add(String name, IDENTIFIER obj) {
     symMap.put(name, obj);
   }
 
   /**
    * Search for value of the identifier with a given name
+   *
    * @param name
    */
-  public IDENTIFIER lookup(String name){
+  public IDENTIFIER lookup(String name) {
     return symMap.get(name);
   }
 
-  public IDENTIFIER lookupAll(String name){
+  public IDENTIFIER lookupAll(String name) {
     SymbolTable S = this;
-    while(S != null){
+    while (S != null) {
       IDENTIFIER obj = S.lookup(name);
-      if(obj != null){
+      if (obj != null) {
         return obj;
       }
       S = S.encSymTable;
@@ -86,15 +85,14 @@ public class SymbolTable {
     return null;
   }
 
-  public void setEncSymTable(SymbolTable toSet){
+  public void setEncSymTable(SymbolTable toSet) {
     this.encSymTable = toSet;
   }
 
-  public void printAllTables(){
-    System.out.println("Printing all symbol tables: ");
+  public void printAllTables() {
     SymbolTable S = this;
-    while(S != null){
-      if(S.encSymTable == null){
+    while (S != null) {
+      if (S.encSymTable == null) {
         break;
       }
       printKeysTable(S);
@@ -102,12 +100,12 @@ public class SymbolTable {
     }
   }
 
-  public void printKeysTable(SymbolTable T){
+  public void printKeysTable(SymbolTable T) {
     System.out.println("The symbol table contents for: " + T.scope);
     Iterator<String> it = T.symMap.keySet().iterator();
     while (it.hasNext()) {
-      String str = (String)it.next();
-      if(T.symMap.get(str) == null ){
+      String str = (String) it.next();
+      if (T.symMap.get(str) == null) {
         System.out.println(str + " has a null IDENTIFIER");
       } else {
         System.out.println(str + ": " + T.symMap.get(str).getClass().getSimpleName());
@@ -127,11 +125,11 @@ public class SymbolTable {
     } else if (type.equals("string")) {
       return new BaseTypeObj(name, "string");
     } else if (type.endsWith("[]")) {
-      return new ArrayObj(name, stringToIdent(name, type.substring(0, type.length()-3)));
+      return new ArrayObj(name, stringToIdent(name, type.substring(0, type.length() - 3)));
     } else if (type.startsWith("PAIR(")) {
 
     } else if (type.endsWith(" FUNCTION")) {
-      return new FunctionObj(name, stringToIdent(name, type.substring(0, type.length()-10)), null);
+      return new FunctionObj(name, stringToIdent(name, type.substring(0, type.length() - 10)), null);
     } else if (type.equals("param_list")) {
 
     } else if (type.equals("keyword")) {

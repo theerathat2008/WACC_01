@@ -17,6 +17,7 @@ public class FunctionObj extends IDENTIFIER {
 
   /**
    * Compares value for equality
+   *
    * @param other
    */
   @Override
@@ -24,14 +25,14 @@ public class FunctionObj extends IDENTIFIER {
     if (other instanceof FunctionObj) {
       if (((FunctionObj) other).returnType.equals(returnType)) {
         //if (((FunctionObj) other).paramListObj.equals(paramListObj)) {
-          return true;
+        return true;
         //}
       }
     }
     return false;
   }
 
-  
+
   public IDENTIFIER getReturnType() {
     return returnType;
   }
@@ -52,7 +53,7 @@ public class FunctionObj extends IDENTIFIER {
     return paramListObj;
   }
 
-  public void setParamListObj(ParamListObj paramListObj){
+  public void setParamListObj(ParamListObj paramListObj) {
     this.paramListObj = paramListObj;
   }
 }

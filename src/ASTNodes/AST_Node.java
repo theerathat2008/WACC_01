@@ -19,15 +19,16 @@ public abstract class AST_Node {
   /**
    * Return the parent node of the node called
    */
-  public AST_Node getParentNode(){
+  public AST_Node getParentNode() {
     return parentNode;
   }
 
   /**
    * set the parent node of the node parameter
+   *
    * @param nodeToSet
    */
-  public void setParentNode(AST_Node nodeToSet){
+  public void setParentNode(AST_Node nodeToSet) {
     parentNode = nodeToSet;
   }
 
@@ -35,7 +36,7 @@ public abstract class AST_Node {
    * Return classname in string form
    */
   @Override
-  public String toString(){
+  public String toString() {
     return this.getClass().getSimpleName();
   }
 
@@ -46,12 +47,14 @@ public abstract class AST_Node {
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
+   *
    * @param value - Value to be assigned to class variable
    */
   public abstract void setSyntacticAttributes(String value);
 
   /**
    * Gets syntactic attributes of class variables
+   *
    * @param strToGet - Value to be retrieved from class variable
    */
   public abstract String getSyntacticAttributes(String strToGet);
@@ -63,6 +66,7 @@ public abstract class AST_Node {
 
   /**
    * Return embeded AST nodes if they exist
+   *
    * @param astToGet
    * @param counter
    */
@@ -70,6 +74,7 @@ public abstract class AST_Node {
 
   /**
    * Set embeded AST nodes if they exist
+   *
    * @param astToSet
    * @param nodeToSet
    */
@@ -77,12 +82,14 @@ public abstract class AST_Node {
 
   /**
    * Semantic Analysis and print error message if needed
+   *
    * @param ST
    */
   protected abstract boolean CheckSemantics(SymbolTable ST);
 
   /**
    * Called from visitor
+   *
    * @param ST
    */
   public abstract void Check(SymbolTable ST);
