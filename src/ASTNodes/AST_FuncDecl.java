@@ -146,11 +146,11 @@ public class AST_FuncDecl extends AST_Node {
   //Semantic Analysis and print error message if needed
   @Override
   protected boolean CheckSemantics(SymbolTable ST){
-    //System.out.println(((FunctionObj) ST.lookupAll(funcName)).toString());
+    ST.printAllTables();
     if (ST.lookupAll(funcName) == null) {
       return true;
     } else {
-      //System.out.println("Error on line " + ctx.getStart().getLine() + ". Function of same name already defined");
+      System.out.println("Error on line " + ctx.getStart().getLine() + ". Function of same name already defined");
       new FunctionRedeclarationError(new FilePosition(ctx)).printAll();
       return false;
     }
@@ -159,7 +159,7 @@ public class AST_FuncDecl extends AST_Node {
   @Override
   // Called from visitor
   public void Check(SymbolTable ST){
-    //CheckSemantics(ST);
+
     if(CheckSemantics(ST)){
       //Add function to global scope i.e. program
       while(!ST.getScope().equals("global")){

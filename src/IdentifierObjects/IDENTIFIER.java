@@ -9,6 +9,10 @@ public abstract class IDENTIFIER {
   public abstract boolean equals(IDENTIFIER other);
   public abstract String toString();
 
+  public String getName(){
+    return name;
+  }
+
 }
 
 

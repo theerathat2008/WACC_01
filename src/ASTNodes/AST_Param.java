@@ -105,7 +105,13 @@ public class AST_Param extends AST_Node {
   // Called from visitor
   public void Check(SymbolTable ST){
     if(CheckSemantics(ST)){
-      ST.encSymTable.add(paramName, ast_type.getIdentifier());
+
+      while(!ST.getScope().equals("param_list")){
+        ST = ST.encSymTable;
+      }
+      System.out.println("SYMBOL TABLE IS : " + ST.getScope());
+      System.out.println("ADDING PARAMNAME: " + paramName);
+      ST.add(paramName, ast_type.getIdentifier());
     }
   }
 

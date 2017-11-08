@@ -93,7 +93,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     currentGlobalTree = newSymbolTable;
 
     //Do semantic analysis
-    progBase.Check(currentGlobalTree);
+    progBase.Check(newSymbolTable);
 
     //Debug statement
     //System.out.println("Prog");
@@ -141,7 +141,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     visitChildren(ctx);
 
     //Do semantic analysis
-    funcNode.Check(currentGlobalTree);
+    funcNode.Check(newSymbolTable);
 
     //Set current symbol table scope
     currentGlobalTree = newSymbolTable.encSymTable;
@@ -185,7 +185,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     visitChildren(ctx);
 
     //Do semantic analysis
-    paramListNode.Check(currentGlobalTree);
+    paramListNode.Check(newSymbolTable);
     return null;
   }
 
@@ -423,7 +423,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     visitChildren(ctx);
 
     //Do semantic analysis
-    exprLiterNode.Check(currentGlobalTree);
+    exprLiterNode.Check(newSymbolTable);
 
     //Set current symbol table scope
     currentGlobalTree = newSymbolTable.encSymTable;
@@ -942,7 +942,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     currentGlobalTree = newSymbolTable;
 
     //Do semantic analysis
-    statBeginEndNode.Check(currentGlobalTree);
+    statBeginEndNode.Check(newSymbolTable);
 
     //Debug statement
     //System.out.println("statBeginEnd");
