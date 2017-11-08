@@ -58,7 +58,7 @@ public class AST_StatExpr extends AST_Stat{
   @Override
   protected boolean CheckSemantics(SymbolTable ST){
     if (statName.equals("FREE")) {
-      return expr.identifier.toString().contains("[]") || expr.identifier.toString().startsWith("PAIR(");
+      return expr.getIdentifier().toString().contains("[]") || expr.getIdentifier().toString().startsWith("PAIR(");
     } else if (statName.equals("RETURN")) {
       AST_Node parent = getParentNode();
       while (!(parent instanceof AST_FuncDecl)) {
@@ -71,11 +71,11 @@ public class AST_StatExpr extends AST_Stat{
         System.out.println("Going to AST parent, looking for function");
       }
       AST_FuncDecl temp = (AST_FuncDecl) parent;
-      if (temp.ast_type.getIdentifier().equals(expr.identifier)) {
+      if (temp.ast_type.getIdentifier().equals(expr.getIdentifier())) {
         return true;
       }
     } else if (statName.equals("EXIT")) {
-      return expr.identifier.toString().equals("int");
+      return expr.getIdentifier().toString().equals("int");
     } else if (statName.equals("PRINT")) {
       return true;
     } else if (statName.equals("PRINTLN")) {

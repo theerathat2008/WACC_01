@@ -63,7 +63,8 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
   public void setSyntacticAttributes(String value, SymbolTable ST){
     if(funcName == null){
       this.funcName = value;
-      identifier = ST.lookupAll(value);
+      identifier = ST.lookupAll(funcName);
+      System.out.println("Checking if " + funcName + " is in the symbol tree.");
     } else {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
@@ -73,7 +74,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
    * Gets syntactic attributes of class variables
    * @param strToGet - Value to be retrieved from class variable
    */
-  @Override
   public String getSyntacticAttributes(String strToGet){
     if(strToGet.equals("funcName")){
       return funcName;
@@ -132,13 +132,14 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
 
-    System.out.println("Checking if " + funcName + " is in the symbol tree.");
-    IDENTIFIER type = identifier;
-    if (type != null) {
-      if (type instanceof FunctionObj) {
-        //if (((FunctionObj) type).getparamListObj().toString().equals(paramsToString())) { //TODO check parameters are same in function call and function declaration
+    FunctionObj thisType = (FunctionObj) identifier;
+    IDENTIFIER tableType = ST.lookupAll(funcName);
+    if (tableType != null) {
+      if (tableType instanceof FunctionObj) {
+        if (((FunctionObj) tableType).equals(thisType)) { //TODO check parameters are same in function call and function declaration
+          identifier = ((FunctionObj) identifier).returnType;
           return true;
-        //}
+        }
       }
     }
     new UndefinedFunctionError(new FilePosition(ctx)).printAll();
@@ -155,7 +156,9 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
 
   // Called from visitor
   public void Check(SymbolTable ST){
-    //CheckSemantics(ST)
+    if (CheckSemantics(ST)) {
+
+    }
       //Do symbol table stuff
   }
 

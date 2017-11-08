@@ -115,6 +115,6 @@ public class AST_BaseType extends AST_Type {
   }
 
   public IDENTIFIER getIdentifier() {
-    return new BaseTypeObj(null, baseTypeName);
+    return new BaseTypeObj(baseTypeName);
   }
 }
