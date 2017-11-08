@@ -34,10 +34,11 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS{
    * Sets syntactic attributes of class variables by assigning it a value
    * @param value - Value to be assigned to class variable
    */
-  @Override
-  public void setSyntacticAttributes(String value){
+
+  public void setSyntacticAttributes(String value, SymbolTable ST){
     if(identName == null){
       this.identName = value;
+      identifier = ST.lookupAll(identName);
     } else {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }

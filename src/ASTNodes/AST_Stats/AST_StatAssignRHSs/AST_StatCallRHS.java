@@ -2,8 +2,7 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
-import IdentifierObjects.FunctionObj;
-import IdentifierObjects.IDENTIFIER;
+import IdentifierObjects.*;
 import SymbolTable.SymbolTable;
 import src.ErrorMessages.UndefinedFunctionError;
 import src.FilePosition;
@@ -60,10 +59,11 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
    * Sets syntactic attributes of class variables by assigning it a value
    * @param value - Value to be assigned to class variable
    */
-  @Override
-  public void setSyntacticAttributes(String value){
+
+  public void setSyntacticAttributes(String value, SymbolTable ST){
     if(funcName == null){
       this.funcName = value;
+      identifier = ST.lookupAll(value);
     } else {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
     }
