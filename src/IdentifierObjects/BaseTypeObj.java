@@ -9,14 +9,11 @@ public class BaseTypeObj extends IDENTIFIER {
   public BaseTypeObj(String name, String base_type) {
     this.name = name;
     this.base_type = base_type;
-    System.out.println("Setting base type to: " +base_type);
 
   }
 
   public BaseTypeObj(String base_type) {
     this.base_type = base_type;
-    System.out.println("Setting base type to: " +base_type);
-
   }
 
   public boolean equals(IDENTIFIER other) {

@@ -9,15 +9,17 @@ public class SymbolTable {
 
   public SymbolTable encSymTable;
   public Map<String, IDENTIFIER> symMap;
+  String scope;
 
-  public SymbolTable(SymbolTable st){
+  public SymbolTable(String scope){
     System.out.println("Created new SYMBOL TABLE!!!!!");
     symMap = new HashMap<String, IDENTIFIER>();
-    encSymTable = st;
+    this.scope = scope;
   }
 
   public SymbolTable() {
     System.out.println("made top level symbol table");
+    this.scope = "top_level";
     symMap = new HashMap<String, IDENTIFIER>();
     encSymTable = null;
     add("int", new KeywordObj());
@@ -70,6 +72,31 @@ public class SymbolTable {
       S = S.encSymTable;
     }
     return null;
+  }
+
+  public void setEncSymTable(SymbolTable toSet){
+    this.encSymTable = toSet;
+  }
+
+  public void printAllTables(){
+    System.out.println("Printing all symbol tables: ");
+    SymbolTable S = this;
+    while(S != null){
+      if(S.encSymTable == null){
+        break;
+      }
+      printKeysTable(S);
+      S = S.encSymTable;
+    }
+  }
+
+  public void printKeysTable(SymbolTable T){
+    System.out.println("The symbol table contents for: " + T.scope);
+    Iterator<String> it = T.symMap.keySet().iterator();
+    while (it.hasNext()) {
+      String code = (String)it.next();
+      System.out.println(code + ": " + T.symMap.get(code).getClass().getSimpleName());
+    }
   }
 
   public IDENTIFIER stringToIdent(String name, String type) {

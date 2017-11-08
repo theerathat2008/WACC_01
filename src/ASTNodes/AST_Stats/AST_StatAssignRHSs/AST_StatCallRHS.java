@@ -141,6 +141,10 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
           return true;
         }
       }
+    } else {
+      System.out.println("Looking for: " + funcName);
+      ST.printAllTables();
+      System.out.println("TableTYpe is null");
     }
     new UndefinedFunctionError(new FilePosition(ctx)).printAll();
     return false;
