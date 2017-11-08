@@ -162,7 +162,7 @@ public class AST_FuncDecl extends AST_Node {
   public void Check(SymbolTable ST){
     //CheckSemantics(ST);
     System.out.println("Added " + funcName + " to the symbol tree.");
-    ST.encSymTable.encSymTable.add(funcName, new FunctionObj(funcName, ast_type.getIdentifier(), this));
+    ST.encSymTable.add(funcName, new FunctionObj(funcName, ast_type.getIdentifier(), this));
       //System.out.println(ST.encSymTable.lookup(funcName)==null);
       //Create new symbol table   DONE
       //Add necessary contents specific to func to symbol table  DONE

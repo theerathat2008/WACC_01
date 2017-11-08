@@ -64,7 +64,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
     if(funcName == null){
       this.funcName = value;
       identifier = ST.lookupAll(funcName);
-      System.out.println(identifier.toString());
       System.out.println("Checking if " + funcName + " is in the symbol tree.");
     } else {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
@@ -75,7 +74,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS{
    * Gets syntactic attributes of class variables
    * @param strToGet - Value to be retrieved from class variable
    */
-  @Override
   public String getSyntacticAttributes(String strToGet){
     if(strToGet.equals("funcName")){
       return funcName;
