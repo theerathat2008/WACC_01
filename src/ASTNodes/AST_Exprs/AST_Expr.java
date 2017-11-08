@@ -6,9 +6,11 @@ import java.util.ArrayDeque;
 import IdentifierObjects.IDENTIFIER;
 
 /**
- * Class representing node in AST tree for EXPRESSIONS - USED AS BASE CLASS FOR OTHER EXPRESSIONS
+ * Class representing node in AST tree for EXPRESSIONS
+ * USED AS BASE CLASS FOR OTHER EXPRESSIONS
  */
 public class AST_Expr extends AST_Node{
+
   //Syntactic attributes
   String type;
   IDENTIFIER identifier;
@@ -40,7 +42,6 @@ public class AST_Expr extends AST_Node{
     System.out.println("Base AST Node");
   }
 
-
   /**
    * Gets syntactic attributes of class variables
    * @param strToGet - Value to be retrieved from class variable
@@ -71,7 +72,6 @@ public class AST_Expr extends AST_Node{
     System.out.println("Base AST Node.");
   }
 
-
   //Semantic Analysis and print error message if needed
   protected boolean CheckSemantics(SymbolTable ST){
     return true;
@@ -96,7 +96,6 @@ public class AST_Expr extends AST_Node{
    */
   public void setType(String type) {}
 
-
   /**
    * Used for testing - Prints out contents of current AST node
    */
@@ -104,11 +103,9 @@ public class AST_Expr extends AST_Node{
   public void printContents(){
     System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("BASE TYPE");
-
   }
-
   public IDENTIFIER getIdentifier() {
     return identifier;
   }
-
+  
 }
