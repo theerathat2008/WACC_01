@@ -19,6 +19,7 @@ public abstract class ErrorMessage {
   }
 
   public void printAll(){
+    System.out.println("Errors detected during compilation! Exit code 200 returned.");
     System.out.println("#semantic_error#");
     printError();
     printPos(filePosition);
