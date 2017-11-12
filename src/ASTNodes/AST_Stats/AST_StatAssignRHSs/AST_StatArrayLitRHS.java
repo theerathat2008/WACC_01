@@ -1,14 +1,14 @@
-package ASTNodes.AST_Stats.AST_StatAssignRHSs;
+package src.ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
-import ASTNodes.AST_Exprs.AST_Expr;
-import ASTNodes.AST_Node;
-import SymbolTable.SymbolTable;
+import src.ASTNodes.AST_Exprs.AST_Expr;
+import src.ASTNodes.AST_Node;
+import src.SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
-import IdentifierObjects.*;
+import src.IdentifierObjects.*;
 
 /**
  * Class representing node in AST tree for ARRAY LITERAL ASSIGNMENT

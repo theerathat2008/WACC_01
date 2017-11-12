@@ -1,7 +1,7 @@
-package ASTNodes.AST_Stats;
+package src.ASTNodes.AST_Stats;
 
-import ASTNodes.AST_Node;
-import SymbolTable.SymbolTable;
+import src.ASTNodes.AST_Node;
+import src.SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
 

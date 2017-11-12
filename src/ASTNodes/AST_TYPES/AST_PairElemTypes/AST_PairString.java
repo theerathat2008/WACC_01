@@ -1,11 +1,11 @@
-package ASTNodes.AST_TYPES.AST_PairElemTypes;
+package src.ASTNodes.AST_TYPES.AST_PairElemTypes;
 
-import ASTNodes.AST_Node;
-import SymbolTable.SymbolTable;
+import src.ASTNodes.AST_Node;
+import src.SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
 
-import IdentifierObjects.*;
+import src.IdentifierObjects.*;
 
 public class AST_PairString extends AST_PairElemType {
   //Syntactic attributes

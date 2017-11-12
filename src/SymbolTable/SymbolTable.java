@@ -1,7 +1,7 @@
-package SymbolTable;
+package src.SymbolTable;
 
 
-import IdentifierObjects.*;
+import src.IdentifierObjects.*;
 
 import java.util.*;
 

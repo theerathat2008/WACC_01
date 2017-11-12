@@ -1,12 +1,12 @@
-package ASTNodes;
+package src.ASTNodes;
 
 
-import SymbolTable.SymbolTable;
-import ASTNodes.AST_TYPES.AST_Type;
+import src.SymbolTable.SymbolTable;
+import src.ASTNodes.AST_TYPES.AST_Type;
 
 import java.util.ArrayDeque;
 
-import IdentifierObjects.*;
+import src.IdentifierObjects.*;
 
 /**
  * Class representing node in AST tree for PARAMS

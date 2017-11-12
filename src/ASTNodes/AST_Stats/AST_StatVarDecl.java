@@ -1,11 +1,11 @@
-package ASTNodes.AST_Stats;
+package src.ASTNodes.AST_Stats;
 
-import ASTNodes.AST_Node;
-import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
+import src.ASTNodes.AST_Node;
+import src.ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 
-import SymbolTable.SymbolTable;
+import src.SymbolTable.SymbolTable;
 
-import ASTNodes.AST_TYPES.AST_Type;
+import src.ASTNodes.AST_TYPES.AST_Type;
 import src.ErrorMessages.TypeMismatchError;
 import src.ErrorMessages.VariableRedeclarationError;
 import src.FilePosition;

@@ -1,4 +1,4 @@
-package IdentifierObjects;
+package src.IdentifierObjects;
 
 /**
  * Could hold reference to the ASTNode that declares IDENTIFIER

@@ -1,11 +1,11 @@
 package src;
 
-import ASTNodes.AST_Node;
-import ASTNodes.AST_Program;
+import src.ASTNodes.AST_Node;
+import src.ASTNodes.AST_Program;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
-import antlr.*;
+import src.antlr.*;
 
 public class waccTest {
 

@@ -1,7 +1,7 @@
-package ASTNodes;
+package src.ASTNodes;
 
 
-import SymbolTable.SymbolTable;
+import src.SymbolTable.SymbolTable;
 import org.antlr.v4.runtime.ParserRuleContext;
 import src.FilePosition;
 

@@ -1,12 +1,12 @@
-package ASTNodes;
+package src.ASTNodes;
 
-import SymbolTable.SymbolTable;
+import src.SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
 
-import IdentifierObjects.IDENTIFIER;
-import IdentifierObjects.ParamListObj;
-import IdentifierObjects.BaseTypeObj;
+import src.IdentifierObjects.IDENTIFIER;
+import src.IdentifierObjects.ParamListObj;
+import src.IdentifierObjects.BaseTypeObj;
 
 import java.util.ArrayList;
 import java.util.List;

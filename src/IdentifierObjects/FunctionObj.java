@@ -1,13 +1,15 @@
-package IdentifierObjects;
+package src.IdentifierObjects;
+
+import src.ASTNodes.AST_FuncDecl;
 
 public class FunctionObj extends IDENTIFIER {
 
   String returnTypeName; //type
   public IDENTIFIER returnType;
   ParamListObj paramListObj;  //TODO set this at some point
-  ASTNodes.AST_FuncDecl parent;
+  AST_FuncDecl parent;
 
-  public FunctionObj(String name, IDENTIFIER returnType, ASTNodes.AST_FuncDecl parent) {
+  public FunctionObj(String name, IDENTIFIER returnType, AST_FuncDecl parent) {
     this.name = name;
     this.returnType = returnType;
     returnTypeName = returnType.toString();

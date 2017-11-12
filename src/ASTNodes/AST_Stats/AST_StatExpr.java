@@ -1,10 +1,10 @@
-package ASTNodes.AST_Stats;
+package src.ASTNodes.AST_Stats;
 
-import ASTNodes.AST_Exprs.AST_Expr;
-import ASTNodes.AST_FuncDecl;
-import ASTNodes.AST_Node;
-import ASTNodes.AST_Program;
-import SymbolTable.SymbolTable;
+import src.ASTNodes.AST_Exprs.AST_Expr;
+import src.ASTNodes.AST_FuncDecl;
+import src.ASTNodes.AST_Node;
+import src.ASTNodes.AST_Program;
+import src.SymbolTable.SymbolTable;
 import src.ErrorMessages.TypeError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;

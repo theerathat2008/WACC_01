@@ -1,8 +1,8 @@
-package ASTNodes.AST_Exprs;
+package src.ASTNodes.AST_Exprs;
 
-import ASTNodes.AST_Node;
-import IdentifierObjects.*;
-import SymbolTable.SymbolTable;
+import src.ASTNodes.AST_Node;
+import src.IdentifierObjects.*;
+import src.SymbolTable.SymbolTable;
 import src.ErrorMessages.UndefinedIdentError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;

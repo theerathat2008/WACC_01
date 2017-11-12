@@ -1,12 +1,12 @@
-package ASTNodes.AST_Stats.AST_StatAssignRHSs;
+package src.ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
-import ASTNodes.AST_Node;
-import ASTNodes.AST_Stats.AST_Stat;
-import SymbolTable.SymbolTable;
+import src.ASTNodes.AST_Node;
+import src.ASTNodes.AST_Stats.AST_Stat;
+import src.SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
 
-import IdentifierObjects.*;
+import src.IdentifierObjects.*;
 
 /**
  * Class representing node in AST tree for ASSIGNMENT BASE CLASS

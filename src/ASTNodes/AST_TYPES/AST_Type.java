@@ -1,11 +1,11 @@
-package ASTNodes.AST_TYPES;
+package src.ASTNodes.AST_TYPES;
 
-import ASTNodes.AST_Node;
-import SymbolTable.SymbolTable;
+import src.ASTNodes.AST_Node;
+import src.SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
 
-import IdentifierObjects.IDENTIFIER;
+import src.IdentifierObjects.IDENTIFIER;
 
 /**
  * Class representing node in AST tree for TYPES - ALL TYPES EXTEND THIS CLASS

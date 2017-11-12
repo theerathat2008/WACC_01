@@ -1,9 +1,9 @@
-package ASTNodes.AST_Stats;
+package src.ASTNodes.AST_Stats;
 
-import ASTNodes.AST_Node;
-import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
-import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
-import SymbolTable.SymbolTable;
+import src.ASTNodes.AST_Node;
+import src.ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
+import src.ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
+import src.SymbolTable.SymbolTable;
 import src.ErrorMessages.TypeMismatchError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
