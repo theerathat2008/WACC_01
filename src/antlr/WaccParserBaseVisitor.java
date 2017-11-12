@@ -1,5 +1,5 @@
 // Generated from ./WaccParser.g4 by ANTLR 4.7
-package antlr;
+package src.antlr;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
