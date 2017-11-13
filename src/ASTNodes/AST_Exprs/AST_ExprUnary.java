@@ -1,6 +1,9 @@
 package src.ASTNodes.AST_Exprs;
 
+import org.antlr.v4.runtime.ParserRuleContext;
 import src.ASTNodes.AST_Node;
+import src.ErrorMessages.TypeError;
+import src.FilePosition;
 import src.SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -15,13 +18,15 @@ public class AST_ExprUnary extends AST_Expr {
   //Syntactic attributes
   String opName;
   AST_Expr astExpr;
+  ParserRuleContext ctx;
 
   /**
    * Constructor for class - initialises class variables to NULL
    */
-  public AST_ExprUnary() {
+  public AST_ExprUnary(ParserRuleContext ctx) {
     this.opName = null;
     this.astExpr = null;
+    this.ctx = ctx;
   }
 
   /**
@@ -121,6 +126,50 @@ public class AST_ExprUnary extends AST_Expr {
    */
   @Override
   protected boolean CheckSemantics(SymbolTable ST) {
+
+    //TODO
+    // if unaryOp ='!', conditional expression must be of type bool
+    if (opName.equals("!")) {
+      if (!astExpr.getIdentifier().toString().equals("bool")) {
+        System.out.println("Unary operator '!' can only be used when the statement is of type 'bool'.");
+        new TypeError(new FilePosition(ctx)).printAll();
+        return false;
+      }
+    }
+
+    //if unaryOp = '-', expression must be of type int
+    if (opName.equals("-")) {
+      if (!astExpr.getIdentifier().toString().equals("int")) {
+        System.out.println("Unary operator '-' can only be used with statement of type 'int'.");
+        new TypeError(new FilePosition(ctx)).printAll();
+        return false;
+      }
+    }
+
+    //TODO
+    //if unaryOp = 'len', array must be of valid type
+    if (opName.equals("len")) {
+      System.out.println("The array after the keyword 'len' is with an invalid type");
+      new TypeError(new FilePosition(ctx)).printAll();
+      return false;
+    }
+
+    //if unaryOp = 'ord', statement must be of type char
+    if (opName.equals("ord")) {
+      if (!astExpr.getIdentifier().toString().equals("char")) {
+        System.out.println("The statement after the keyword 'ord' must be of type 'char'.");
+        new TypeError(new FilePosition(ctx)).printAll();
+        return false;
+      }
+    }
+
+    if (opName.equals("chr")) {
+      if (!astExpr.getIdentifier().toString().equals("int")) {
+        System.out.println("The statement after the keyword 'chr' must be of type 'int'.");
+        new TypeError(new FilePosition(ctx)).printAll();
+        return false;
+      }
+    }
     return true;
   }
 
