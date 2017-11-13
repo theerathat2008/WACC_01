@@ -106,12 +106,16 @@ public class AST_StatExpr extends AST_Stat {
         return false;
       }
     } else if (statName.equals("EXIT")) {
+      //Integer followed the keyword 'exit' must be in the range of 0-256
+
+      //expression must be of type int
       if (!expr.getIdentifier().toString().equals("int")) {
         System.out.println("Statement following exit must be of type 'int'.");
         new TypeError(new FilePosition(ctx)).printAll();
         return false;
       }
 
+      //integer in the range 0-256
       String exprString = expr.getIdentifier().toString();
       if (Integer.parseInt(exprString) < 0 || Integer.parseInt(exprString) > 256) {
         System.out.println("The exit code given is out of range. It should be inside the interval" +
@@ -121,6 +125,7 @@ public class AST_StatExpr extends AST_Stat {
       }
 
     } else if (statName.equals("PRINT")) {
+      //expression inside print can only be of type string, char, int, bool, array types, pair
       String exprString = expr.getIdentifier().toString();
       if (!(exprString.equals("string") || exprString.equals("char") || exprString.equals("int")
               || exprString.equals("bool") || exprString.contains("pair")
@@ -132,6 +137,7 @@ public class AST_StatExpr extends AST_Stat {
       }
       return true;
     } else if (statName.equals("PRINTLN")) {
+      //expression inside print can only be of type string, char, int, bool, array types, pair
       String exprString = expr.getIdentifier().toString();
       if (!(exprString.equals("string") || exprString.equals("char") || exprString.equals("int")
               || exprString.equals("bool") || exprString.contains("pair")
