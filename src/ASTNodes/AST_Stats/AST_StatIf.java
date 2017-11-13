@@ -1,10 +1,15 @@
 package src.ASTNodes.AST_Stats;
 
+
 import src.ASTNodes.AST_Exprs.AST_Expr;
 import src.ASTNodes.AST_Node;
+import src.ErrorMessages.TypeError;
+import src.FilePosition;
 import src.SymbolTable.SymbolTable;
+import antlr.WaccParser;
 
 import java.util.ArrayDeque;
+import src.waccVisitor;
 
 public class AST_StatIf extends AST_Stat {
 
@@ -13,14 +18,16 @@ public class AST_StatIf extends AST_Stat {
   AST_Stat thenStat;
   AST_Stat elseStat;
   //Semantic attribute
+  WaccParser.IF_STATContext ctx;
 
   /**
    * Assign the class variables when called
    */
-  public AST_StatIf() {
+  public AST_StatIf(WaccParser.IF_STATContext ctx) {
     this.expr = null;
     this.thenStat = null;
     this.elseStat = null;
+    this.ctx = ctx;
   }
 
   /**
@@ -114,7 +121,16 @@ public class AST_StatIf extends AST_Stat {
    */
   @Override
   protected boolean CheckSemantics(SymbolTable ST) {
-    return true;
+
+    //get type of the expr of the context to see whether it is equal to type bool
+    //maybe needs .getExprType?
+    if (getExprType(ctx.expr()).equals("bool")) {
+      return true;
+    } else {
+      new TypeError(new FilePosition(ctx)).printAll();
+      return false;
+    }
+
   }
 
   /**

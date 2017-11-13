@@ -14,7 +14,7 @@ import src.ASTNodes.AST_TYPES.AST_PairElemTypes.AST_ArrayTypePair;
 import src.ASTNodes.AST_TYPES.AST_PairElemTypes.AST_BaseTypePair;
 import src.ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairString;
 import src.ASTNodes.AST_TYPES.AST_PairType;
-import src.antlr.*;
+import antlr.*;
 
 /**
  * Go through all the nodes in parse tree
@@ -988,7 +988,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitIF_STAT(WaccParser.IF_STATContext ctx) {
 
     //Create the node for the current visitor function
-    AST_StatIf statIfNode = new AST_StatIf();
+    AST_StatIf statIfNode = new AST_StatIf(ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", statIfNode);
@@ -1613,6 +1613,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     return visitChildren(ctx);
   }
 }
+
+
 
 /**
  * 1. Override all the Base Visitor functions

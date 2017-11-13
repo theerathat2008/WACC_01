@@ -1,5 +1,6 @@
 package src.ASTNodes;
 
+import org.antlr.v4.runtime.ParserRuleContext;
 import src.ASTNodes.AST_Stats.AST_Stat;
 import src.SymbolTable.SymbolTable;
 
@@ -17,6 +18,7 @@ public class AST_Program extends AST_Node {
   List<AST_FuncDecl> funcDeclList;
   int numOfFunc;
   AST_Stat statement;
+  ParserRuleContext ctx;
 
   /**
    * Assign the member variables when called and set the number of children
@@ -112,6 +114,7 @@ public class AST_Program extends AST_Node {
    */
   @Override
   protected boolean CheckSemantics(SymbolTable ST) {
+
     return true;
   }
 

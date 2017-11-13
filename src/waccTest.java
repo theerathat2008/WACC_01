@@ -5,7 +5,7 @@ import src.ASTNodes.AST_Program;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
-import src.antlr.*;
+import antlr.*;
 
 public class waccTest {
 
