@@ -148,6 +148,10 @@ public class AST_StatVarDecl extends AST_Stat {
     ST.add(identName, ST.stringToIdent(identName, ast_type.toString()));
   }
 
+  public void Assign(SymbolTable ST) {
+    ST.add(identName, ast_type.getIdentifier());
+  }
+
   /**
    * Used for testing - Prints out contents of current AST node
    */

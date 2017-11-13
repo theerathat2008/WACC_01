@@ -102,7 +102,11 @@ public class SymbolTable {
 
   public void printKeysTable(SymbolTable T) {
     System.out.println("The symbol table contents for: " + T.scope);
+    System.out.println("Enclosed Symbol Table has scope: " + T.encSymTable.getScope());
     Iterator<String> it = T.symMap.keySet().iterator();
+    if (!it.hasNext()) {
+      System.out.println("symbol table has no contents");
+    }
     while (it.hasNext()) {
       String str = (String) it.next();
       if (T.symMap.get(str) == null) {

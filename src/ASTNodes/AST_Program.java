@@ -17,7 +17,7 @@ public class AST_Program extends AST_Node {
   List<AST_FuncDecl> funcDeclList;
   int numOfFunc;
   AST_Stat statement;
-  SymbolTable symbolTable;
+  public SymbolTable symbolTable;
 
   /**
    * Assign the member variables when called and set the number of children
@@ -131,10 +131,6 @@ public class AST_Program extends AST_Node {
     } else {
 
     }
-  }
-
-  public void Assign(SymbolTable ST) {
-
   }
 
   /**

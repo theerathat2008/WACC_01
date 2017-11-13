@@ -92,29 +92,15 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Set parentNode of AST class and global visitor class
     progBase.setParentNode(null);
     parentVisitorNode = progBase;
+    progBase.symbolTable.setEncSymTable(TOP_ST);
 
-<<<<<<< HEAD
-    //Added symbol table for the program (global) scope
-//    SymbolTable newSymbolTable = new SymbolTable("global");
-//    newSymbolTable.setEncSymTable(currentGlobalTree);
-//    currentGlobalTree = newSymbolTable;
 
-    //Do semantic analysis
-    progBase.Assign(currentGlobalTree);
-
-=======
->>>>>>> origin/ASTVisitorPattern
     //Debug statement
     //System.out.println("Prog");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
-<<<<<<< HEAD
 
-    //Set current symbol table scope
-//    currentGlobalTree = newSymbolTable.encSymTable;
-=======
->>>>>>> origin/ASTVisitorPattern
     return null;
   }
 
@@ -140,34 +126,20 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Set parentNode of AST class and global visitor class
     funcNode.setParentNode(parentVisitorNode);
     parentVisitorNode = funcNode;
+    //currentGlobalTree = progBase.symbolTable;
 
-<<<<<<< HEAD
-    //Creates a tree either for func scope or param list scope if it exists.
-//    SymbolTable newSymbolTable = new SymbolTable("func");
-//    newSymbolTable.setEncSymTable(currentGlobalTree);
-//    currentGlobalTree = newSymbolTable;
-=======
->>>>>>> origin/ASTVisitorPattern
+
 
     //Debug statement
     //System.out.println("Func");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
-<<<<<<< HEAD
+
 
     //Do semantic analysis
-    funcNode.Assign(currentGlobalTree);
+    funcNode.Assign();
 
-    //Set current symbol table scope
-//    currentGlobalTree = newSymbolTable.encSymTable;
-
-//    //if function visits a param list, reassign the current symbol table scope
-//    if (funcNode.checkForParamList()) {
-//    currentGlobalTree = currentGlobalTree.encSymTable;
-//    }
-=======
->>>>>>> origin/ASTVisitorPattern
     return null;
   }
 
@@ -191,25 +163,15 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     paramListNode.setParentNode(parentVisitorNode);
     parentVisitorNode = paramListNode;
 
-<<<<<<< HEAD
-    //uses tree created in symbol tree to create tree for function scope
-//    SymbolTable newSymbolTable = new SymbolTable("param_list");
-//    newSymbolTable.setEncSymTable(currentGlobalTree);
-//    currentGlobalTree = newSymbolTable;
 
-=======
->>>>>>> origin/ASTVisitorPattern
     //Debug statement
     //System.out.println("ParamList");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
-<<<<<<< HEAD
 
     //Do semantic analysis
-    paramListNode.Assign(currentGlobalTree);
-=======
->>>>>>> origin/ASTVisitorPattern
+
     return null;
   }
 
@@ -241,6 +203,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Iterate through rest of the tree
     visitChildren(ctx);
+    paramNode.Assign();
     return null;
   }
 
@@ -427,22 +390,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
       parentVisitorNode = parentVisitorNode.getParentNode();
     }
 
-<<<<<<< HEAD
-    //Iterate through rest of the tree
-//    SymbolTable newSymbolTable = new SymbolTable("char_literal");
-//    newSymbolTable.setEncSymTable(currentGlobalTree);
-//    currentGlobalTree = newSymbolTable;
-
     visitChildren(ctx);
 
-    //Do semantic analysis
-    exprLiterNode.Check(currentGlobalTree);
-
-    //Set current symbol table scope
-//    currentGlobalTree = newSymbolTable.encSymTable;
-=======
-    visitChildren(ctx);
->>>>>>> origin/ASTVisitorPattern
     return null;
   }
 
@@ -924,28 +873,12 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     statBeginEndNode.setParentNode(parentVisitorNode);
     parentVisitorNode = statBeginEndNode;
 
-<<<<<<< HEAD
-    //Added symbol table for the program scope
-//    SymbolTable newSymbolTable = new SymbolTable("begin_end");
-//    newSymbolTable.setEncSymTable(currentGlobalTree);
-//    currentGlobalTree = newSymbolTable;
-
-    //Do semantic analysis
-    statBeginEndNode.Check(currentGlobalTree);
-
-=======
->>>>>>> origin/ASTVisitorPattern
     //Debug statement
     //System.out.println("statBeginEnd");
 
     //Iterate through rest of the tree
     visitChildren(ctx);
-<<<<<<< HEAD
 
-    //Set current symbol table scope
-//    currentGlobalTree = newSymbolTable.encSymTable;
-=======
->>>>>>> origin/ASTVisitorPattern
     return null;
   }
 

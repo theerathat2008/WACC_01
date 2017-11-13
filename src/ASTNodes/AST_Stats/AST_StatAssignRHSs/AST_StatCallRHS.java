@@ -25,7 +25,7 @@ import static java.lang.System.exit;
 /**
  * Class representing node in AST tree for CALL ASSIGNMENT
  */
-public class AST_StatCallRHS extends AST_StatAssignRHS {
+public class  AST_StatCallRHS extends AST_StatAssignRHS {
 
   //Syntactic attributes
   String funcName;

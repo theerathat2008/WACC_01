@@ -137,5 +137,6 @@ public class AST_StatWhile extends AST_Stat {
     } else {
       System.out.println("statAST: has content");
     }
+    symbolTable.printKeysTable(symbolTable);
   }
 }

@@ -151,5 +151,7 @@ public class AST_ParamList extends AST_Node {
     } else {
       System.out.println("ParamList has size: " + listParam.size());
     }
+    symbolTable.printKeysTable(symbolTable);
+
   }
 }

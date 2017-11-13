@@ -124,5 +124,6 @@ public class AST_StatIfElse extends AST_StatSubIf{
     } else {
       System.out.println("elseStat: has content");
     }
+    symbolTable.printKeysTable(symbolTable);
   }
 }

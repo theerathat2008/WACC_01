@@ -122,5 +122,6 @@ public class AST_StatBeginEnd extends AST_Stat {
     } else {
       System.out.println("statAST: has content");
     }
+    symbolTable.printKeysTable(symbolTable);
   }
 }

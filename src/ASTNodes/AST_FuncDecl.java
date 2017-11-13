@@ -201,8 +201,12 @@ public class AST_FuncDecl extends AST_Node {
 
   }
 
-  public void Assign(SymbolTable ST) {
-
+  public void Assign() {
+    SymbolTable ST = symbolTable;
+    while (!ST.getScope().equals("program")) {
+      ST = ST.encSymTable;
+    }
+    ST.add(funcName, ast_type.getIdentifier());
   }
 
   /**
@@ -226,7 +230,10 @@ public class AST_FuncDecl extends AST_Node {
       System.out.println("ast_type: null");
     } else {
       System.out.println("ast_type: has content");
+
+
     }
+    symbolTable.printKeysTable(symbolTable);
   }
 }
 

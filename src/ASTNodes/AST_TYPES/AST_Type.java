@@ -1,6 +1,7 @@
 package ASTNodes.AST_TYPES;
 
 import ASTNodes.AST_Node;
+import IdentifierObjects.BaseTypeObj;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -131,6 +132,6 @@ public class AST_Type extends AST_Node {
    * @return returns the identifier of the attribute
    */
   public IDENTIFIER getIdentifier() {
-    return null;
+    return new BaseTypeObj("int");
   }
 }

@@ -124,12 +124,15 @@ public class AST_Param extends AST_Node {
   @Override
   public void Check(SymbolTable ST) {
     if (CheckSemantics(ST)) {
-
       while (!ST.getScope().equals("param_list")) {
         ST = ST.encSymTable;
       }
       ST.add(paramName, ast_type.getIdentifier());
     }
+  }
+
+  public void Assign() {
+    ((AST_ParamList) parentNode).symbolTable.add(paramName, ast_type.getIdentifier());
   }
 
   /**
