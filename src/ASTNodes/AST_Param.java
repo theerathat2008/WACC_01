@@ -132,7 +132,11 @@ public class AST_Param extends AST_Node {
   }
 
   public void Assign() {
-    ((AST_ParamList) parentNode).symbolTable.add(paramName, ast_type.getIdentifier());
+    ((AST_FuncDecl) parentNode.getParentNode()).symbolTable.add(paramName, ast_type.getIdentifier());
+  }
+
+  public IDENTIFIER getIdentifier() {
+    return ast_type.getIdentifier();
   }
 
   /**

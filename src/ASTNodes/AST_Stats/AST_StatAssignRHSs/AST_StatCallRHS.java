@@ -1,5 +1,6 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
+import antlr.WaccParser;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_FuncDecl;
@@ -10,9 +11,9 @@ import IdentifierObjects.ParamListObj;
 import IdentifierObjects.FunctionObj;
 import IdentifierObjects.IDENTIFIER;
 import SymbolTable.SymbolTable;
-import src.ErrorMessages.MissingParameterError;
-import src.ErrorMessages.TypeError;
-import src.ErrorMessages.UndefinedFunctionError;
+import ErrorMessages.MissingParameterError;
+import ErrorMessages.TypeError;
+import ErrorMessages.UndefinedFunctionError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 
@@ -31,7 +32,7 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
   String funcName;
   int numOfExpr;
   List<AST_Expr> ast_exprList;
-  ParserRuleContext ctx;
+  ParserRuleContext ctx;;
 
   /**
    * Constructor for class - initialises class variables
@@ -223,6 +224,11 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
     if (CheckSemantics(ST)) {
 
     }
+
+//    while(!ST.getScope().equals("TargetScope")){
+//      ST = ST.encSymTable;
+//    }
+
     //Do symbol table stuff
   }
 

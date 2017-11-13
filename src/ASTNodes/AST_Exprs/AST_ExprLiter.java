@@ -1,6 +1,10 @@
 package ASTNodes.AST_Exprs;
 
+import antlr.WaccParser;
+import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
+import ErrorMessages.OutOfBoundsError;
+import src.FilePosition;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -15,13 +19,15 @@ public class AST_ExprLiter extends AST_Expr {
   //Syntactic attributes
   String constant;    //TODO change to content
   String literal;
+  ParserRuleContext ctx;
 
   /**
    * Constructor for class - initialises class variables to NULL
    */
-  public AST_ExprLiter() {
+  public AST_ExprLiter(ParserRuleContext ctx) {
     this.constant = null;
     this.literal = null;
+    this.ctx = ctx;
 
   }
 
@@ -105,6 +111,60 @@ public class AST_ExprLiter extends AST_Expr {
    */
   @Override
   protected boolean CheckSemantics(SymbolTable ST) {
+
+    //if it is int liter, check whether the number is inside the integer bounds
+    if (literal.equals("int")) {
+      if (Integer.parseInt(constant) >= Math.pow(2, 31) || Integer.parseInt(constant) < -Math.pow(2, 31)) {
+        new OutOfBoundsError(new FilePosition(ctx)).printAll();
+      }
+    }
+
+    //TODO implements error
+    //check for only 'true' or 'false'
+    if (literal.equals("bool")) {
+      if (!(constant.equals("true") || constant.equals("false"))) {
+        System.out.println("Boolean literal can only be 'true or 'false'.");
+        return false;
+      }
+    }
+
+    //check if it does not point to any pair
+    if (literal.contains("pair")) {
+      //TODO if it does not point to any pair
+      if (constant != null) {
+        System.out.println("The only pair literal is 'null.");
+        return false;
+      }
+    }
+
+    //TODO implement errors
+    if (literal.equals("string")) {
+      //check if the string literals are between two '"' symbols
+      if (!(constant.charAt(0) =='"') && (constant.charAt(constant.length() - 1) == '"')) {
+        System.out.println("String literals must be between two symbols");
+        return false;
+      }
+
+      //check whether it is sequences of characters
+      for (int i = 1; i < constant.length() - 1; i++) {
+        if (!Character.isLetterOrDigit(constant.charAt(i))) {
+          System.out.println("String literals must only consist of a sequence of character literals.");
+          return false;
+        }
+      }
+    }
+
+    if (literal.equals("char")) {
+      if (constant.length() == 1) {
+        System.out.println("Character literals must be of length 1.");
+        return false;
+      }
+
+      if (!Character.isLetterOrDigit(constant.charAt(0))) {
+        System.out.println("Valid character literals must be ASCII character.");
+        return false;
+      }
+    }
     return true;
   }
 

@@ -4,9 +4,7 @@ import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
 
-import IdentifierObjects.IDENTIFIER;
-import IdentifierObjects.ParamListObj;
-import IdentifierObjects.BaseTypeObj;
+import IdentifierObjects.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +27,7 @@ public class AST_ParamList extends AST_Node {
   public AST_ParamList(int numberOfChildren) {
     this.listParam = new ArrayList<>();
     this.numOfParam = (numberOfChildren + 1) / 2;
-    symbolTable = new SymbolTable("param_list");
+    symbolTable = new SymbolTable("function");
   }
 
   public List<AST_Param> getListParam() {
@@ -137,6 +135,14 @@ public class AST_ParamList extends AST_Node {
 
   public void Assign(SymbolTable ST) {
 
+  }
+
+  public IDENTIFIER getIdentifier() {
+    List<IDENTIFIER> params = new ArrayList<>();
+    for (AST_Param param : listParam) {
+      params.add(param.getIdentifier());
+    }
+    return new ParamListObj(params);
   }
 
   /**

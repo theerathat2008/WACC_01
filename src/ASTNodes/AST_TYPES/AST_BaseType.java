@@ -97,6 +97,12 @@ public class AST_BaseType extends AST_Type {
    */
   @Override
   protected boolean CheckSemantics(SymbolTable ST) {
+
+    if (!(baseTypeName.equals("int") || baseTypeName.equals("bool") || baseTypeName.equals("char")
+            || baseTypeName.equals("string"))) {
+      System.out.println("int, bool, char, string are the only valid base types.");
+      return false;
+    }
     return true;
   }
 

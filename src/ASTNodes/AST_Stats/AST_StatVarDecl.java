@@ -6,8 +6,8 @@ import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 import SymbolTable.SymbolTable;
 
 import ASTNodes.AST_TYPES.AST_Type;
-import src.ErrorMessages.TypeMismatchError;
-import src.ErrorMessages.VariableRedeclarationError;
+import ErrorMessages.TypeMismatchError;
+import ErrorMessages.VariableRedeclarationError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 

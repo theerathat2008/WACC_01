@@ -10,7 +10,7 @@ public class AST_StatIfElse extends AST_StatSubIf{
 
   //Syntactic attributes
   AST_Stat elseStat;
-  SymbolTable symbolTable;
+  public SymbolTable symbolTable;
   //Semantic attribute
 
   /**

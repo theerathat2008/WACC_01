@@ -1,13 +1,16 @@
 package IdentifierObjects;
 
+import ASTNodes.AST_FuncDecl;
+import ASTNodes.AST_ParamList;
+
 public class FunctionObj extends IDENTIFIER {
 
   String returnTypeName; //type
   public IDENTIFIER returnType;
   ParamListObj paramListObj;  //TODO set this at some point
-  ASTNodes.AST_FuncDecl parent;
+  AST_FuncDecl parent;
 
-  public FunctionObj(String name, IDENTIFIER returnType, ASTNodes.AST_FuncDecl parent) {
+  public FunctionObj(String name, IDENTIFIER returnType, ParamListObj paramListObj) {
     this.name = name;
     this.returnType = returnType;
     returnTypeName = returnType.toString();

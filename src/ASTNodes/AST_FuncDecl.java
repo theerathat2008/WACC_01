@@ -7,7 +7,7 @@ import IdentifierObjects.ParamListObj;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 import org.antlr.v4.runtime.ParserRuleContext;
-import src.ErrorMessages.FunctionRedeclarationError;
+import ErrorMessages.FunctionRedeclarationError;
 import src.FilePosition;
 
 import java.util.ArrayDeque;
@@ -139,6 +139,7 @@ public class AST_FuncDecl extends AST_Node {
       paramList = (AST_ParamList) nodeToSet;
       paramList.symbolTable.encSymTable = symbolTable;
       symbolTable.addChild(paramList.symbolTable);
+      symbolTable.changeScope("param_list");
 
     } else if (astToSet.equals("statement")) {
       statement = (AST_Stat) nodeToSet;
@@ -182,13 +183,13 @@ public class AST_FuncDecl extends AST_Node {
 
     if (CheckSemantics(ST)) {
       //Add function to global scope i.e. program
-      IDENTIFIER funcObj = new FunctionObj(funcName, ast_type.getIdentifier(), this);
-      ((FunctionObj) funcObj).setParamListObj((ParamListObj) ST.lookup(funcName.concat("_paramList")));
+      //IDENTIFIER funcObj = new FunctionObj(funcName, ast_type.getIdentifier(), this);
+      //((FunctionObj) funcObj).setParamListObj((ParamListObj) ST.lookup(funcName.concat("_paramList")));
 
       while (!ST.getScope().equals("global")) {
         ST = ST.encSymTable;
       }
-      ST.add(funcName, funcObj);
+      //ST.add(funcName, funcObj);
 
     }
 
@@ -206,7 +207,11 @@ public class AST_FuncDecl extends AST_Node {
     while (!ST.getScope().equals("program")) {
       ST = ST.encSymTable;
     }
-    ST.add(funcName, ast_type.getIdentifier());
+    if (checkForParamList()) {
+      ST.add(funcName, new FunctionObj(funcName, ast_type.getIdentifier(), (ParamListObj) paramList.getIdentifier()));
+    } else {
+      ST.add(funcName, new FunctionObj(funcName, ast_type.getIdentifier(), null));
+    }
   }
 
   /**

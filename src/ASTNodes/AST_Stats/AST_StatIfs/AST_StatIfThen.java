@@ -11,7 +11,7 @@ public class AST_StatIfThen extends AST_StatSubIf{
 
   //Syntactic attributes
   AST_Stat thenStat;
-  SymbolTable symbolTable;
+  public SymbolTable symbolTable;
   //Semantic attribute
 
   /**

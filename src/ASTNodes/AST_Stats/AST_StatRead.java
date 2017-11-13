@@ -1,7 +1,11 @@
 package ASTNodes.AST_Stats;
 
+import antlr.WaccParser;
+import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
+import ErrorMessages.TypeError;
+import src.FilePosition;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -11,12 +15,15 @@ public class AST_StatRead extends AST_Stat {
   //Syntactic attributes
   AST_StatAssignLHS ast_statAssignLHS;
   //Semantic attribute
+  ParserRuleContext ctx;
 
   /**
    * Assign the class variables when called
    */
-  public AST_StatRead() {
+  public AST_StatRead(ParserRuleContext ctx) {
+
     this.ast_statAssignLHS = null;
+    this.ctx = ctx;
   }
 
   /**
@@ -95,6 +102,15 @@ public class AST_StatRead extends AST_Stat {
    */
   @Override
   protected boolean CheckSemantics(SymbolTable ST) {
+
+    //get Type of the statement
+    String type = ast_statAssignLHS.getType(ST);
+
+    //only valid if it is of type char and int
+    if (!(type.equals("char") || type.equals("int"))) {
+      new TypeError(new FilePosition(ctx)).printAll();
+      return false;
+    }
     return true;
   }
 

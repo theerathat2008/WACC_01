@@ -3,7 +3,7 @@ package ASTNodes.AST_Exprs;
 import ASTNodes.AST_Node;
 import IdentifierObjects.*;
 import SymbolTable.SymbolTable;
-import src.ErrorMessages.UndefinedIdentError;
+import ErrorMessages.UndefinedIdentError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 

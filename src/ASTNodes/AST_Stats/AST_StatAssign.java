@@ -4,7 +4,7 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 import SymbolTable.SymbolTable;
-import src.ErrorMessages.TypeMismatchError;
+import ErrorMessages.TypeMismatchError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 

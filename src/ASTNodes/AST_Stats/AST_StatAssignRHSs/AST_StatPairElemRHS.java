@@ -1,7 +1,10 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
+import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
+import ErrorMessages.TypeError;
+import src.FilePosition;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -14,13 +17,15 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
   //Syntactic attributes
   String typeName;
   AST_Expr ast_expr;
+  ParserRuleContext ctx;
 
   /**
    * Constructor for class - initialises class variables to NULL
    */
-  public AST_StatPairElemRHS() {
+  public AST_StatPairElemRHS(ParserRuleContext ctx) {
     this.ast_expr = null;
     this.typeName = null;
+    this.ctx = ctx;
   }
 
   /**
@@ -114,6 +119,14 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
    */
   @Override
   protected boolean CheckSemantics(SymbolTable ST) {
+
+    //check for valid pair elem types
+    if (!(typeName.equals("int") || typeName.equals("bool") || typeName.equals("char") ||
+            typeName.equals("pair"))) {
+      System.out.println("Invalid type for pair elem.");
+      new TypeError(new FilePosition(ctx)).printAll();
+      return false;
+    }
     return true;
   }
 

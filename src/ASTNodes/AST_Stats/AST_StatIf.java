@@ -6,8 +6,13 @@ import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatSubIf;
 import SymbolTable.SymbolTable;
+import ErrorMessages.*;
+import src.FilePosition;
 
 import java.util.ArrayDeque;
+
+import org.antlr.v4.runtime.ParserRuleContext;
+import src.waccVisitor;
 
 public class AST_StatIf extends AST_Stat {
 
@@ -16,14 +21,16 @@ public class AST_StatIf extends AST_Stat {
   AST_StatIfThen thenStat;
   AST_StatIfElse elseStat;
   //Semantic attribute
+  ParserRuleContext ctx;
 
   /**
    * Assign the class variables when called
    */
-  public AST_StatIf() {
+  public AST_StatIf(ParserRuleContext ctx) {
     this.expr = null;
     this.thenStat = null;
     this.elseStat = null;
+    this.ctx = ctx;
   }
 
   /**
@@ -117,7 +124,16 @@ public class AST_StatIf extends AST_Stat {
    */
   @Override
   protected boolean CheckSemantics(SymbolTable ST) {
-    return true;
+
+    //get type of the expr of the context to see whether it is equal to type bool
+    String typeExpr = expr.getIdentifier().toString();
+
+    if (typeExpr.equals("bool")) {
+      return true;
+    } else {
+      new TypeError(new FilePosition(ctx)).printAll();
+      return false;
+    }
   }
 
   /**

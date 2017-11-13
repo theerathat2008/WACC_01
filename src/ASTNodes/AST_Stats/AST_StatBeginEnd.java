@@ -9,7 +9,7 @@ public class AST_StatBeginEnd extends AST_Stat {
 
   //Syntactic attributes
   AST_Stat statAST;
-  SymbolTable symbolTable;
+  public SymbolTable symbolTable;
 
   /**
    * Assign the class variables when called

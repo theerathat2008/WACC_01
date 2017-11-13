@@ -1,7 +1,6 @@
 package SymbolTable;
 
 import IdentifierObjects.*;
-
 import java.util.*;
 
 public class SymbolTable {
@@ -19,6 +18,10 @@ public class SymbolTable {
 
   public String getScope() {
     return this.scope;
+  }
+
+  public void changeScope(String scope) {
+    this.scope = scope;
   }
 
   /**

@@ -2,10 +2,79 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdc9372c-2751-45fe-aa16-196bd46bfe1e" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/WaccLexer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/WaccLexer.tokens" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/WaccParser.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/WaccParser.tokens" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/WaccParserBaseVisitor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antlr/WaccParserVisitor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_Expr.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_Expr.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprArrayElem.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprArrayElem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprBinary.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprBinary.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprEnclosed.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprEnclosed.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprIdent.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprIdent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprLiter.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprLiter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprUnary.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprUnary.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_FuncDecl.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_FuncDecl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Keyword.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Keyword.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Node.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Node.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Param.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Param.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_ParamList.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_ParamList.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Program.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Program.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Separator.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Separator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_Stat.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_Stat.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssign.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssign.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatArrayElemLHS.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatArrayElemLHS.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatAssignLHS.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatAssignLHS.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatIdentLHS.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatIdentLHS.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatPairElemLHS.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatPairElemLHS.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatArrayLitRHS.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatArrayLitRHS.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatAssignRHS.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatAssignRHS.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatCallRHS.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatCallRHS.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatExprRHS.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatExprRHS.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatNewPairRHS.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatNewPairRHS.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatPairElemRHS.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatPairElemRHS.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatBeginEnd.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatBeginEnd.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatExpr.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatExpr.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIf.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIf.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIfs/AST_StatIfElse.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIfs/AST_StatIfElse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIfs/AST_StatIfThen.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIfs/AST_StatIfThen.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatMult.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatMult.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatRead.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatRead.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatVarDecl.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatVarDecl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatWhile.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatWhile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_ArrayType.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_ArrayType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_BaseType.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_BaseType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_ArrayTypePair.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_ArrayTypePair.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_BaseTypePair.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_BaseTypePair.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_PairElemType.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_PairElemType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_PairString.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_PairString.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairType.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_Type.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_Type.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ErrorMessages/ErrorMessage.java" afterPath="$PROJECT_DIR$/src/ErrorMessages/ErrorMessage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ErrorMessages/FunctionRedeclarationError.java" afterPath="$PROJECT_DIR$/src/ErrorMessages/FunctionRedeclarationError.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ErrorMessages/MissingParameterError.java" afterPath="$PROJECT_DIR$/src/ErrorMessages/MissingParameterError.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ErrorMessages/OutOfBoundsError.java" afterPath="$PROJECT_DIR$/src/ErrorMessages/OutOfBoundsError.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ErrorMessages/ReservedKeywordError.java" afterPath="$PROJECT_DIR$/src/ErrorMessages/ReservedKeywordError.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ErrorMessages/TypeError.java" afterPath="$PROJECT_DIR$/src/ErrorMessages/TypeError.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ErrorMessages/TypeMismatchError.java" afterPath="$PROJECT_DIR$/src/ErrorMessages/TypeMismatchError.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ErrorMessages/UndefinedFunctionError.java" afterPath="$PROJECT_DIR$/src/ErrorMessages/UndefinedFunctionError.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ErrorMessages/UndefinedIdentError.java" afterPath="$PROJECT_DIR$/src/ErrorMessages/UndefinedIdentError.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ErrorMessages/VariableRedeclarationError.java" afterPath="$PROJECT_DIR$/src/ErrorMessages/VariableRedeclarationError.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IdentifierObjects/ArrayObj.java" afterPath="$PROJECT_DIR$/src/IdentifierObjects/ArrayObj.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IdentifierObjects/BaseTypeObj.java" afterPath="$PROJECT_DIR$/src/IdentifierObjects/BaseTypeObj.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IdentifierObjects/FunctionObj.java" afterPath="$PROJECT_DIR$/src/IdentifierObjects/FunctionObj.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IdentifierObjects/IDENTIFIER.java" afterPath="$PROJECT_DIR$/src/IdentifierObjects/IDENTIFIER.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IdentifierObjects/KeywordObj.java" afterPath="$PROJECT_DIR$/src/IdentifierObjects/KeywordObj.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IdentifierObjects/PairObj.java" afterPath="$PROJECT_DIR$/src/IdentifierObjects/PairObj.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IdentifierObjects/ParamListObj.java" afterPath="$PROJECT_DIR$/src/IdentifierObjects/ParamListObj.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IdentifierObjects/ProgramObj.java" afterPath="$PROJECT_DIR$/src/IdentifierObjects/ProgramObj.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SymbolTable/SymbolTable.java" afterPath="$PROJECT_DIR$/src/SymbolTable/SymbolTable.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/waccTest.java" afterPath="$PROJECT_DIR$/src/waccTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/waccVisitor.java" afterPath="$PROJECT_DIR$/src/waccVisitor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wacc_01.iml" afterPath="$PROJECT_DIR$/wacc_01.iml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,12 +85,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="waccVisitor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/waccVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="52" column="15" lean-forward="false" selection-start-line="52" selection-start-column="15" selection-end-line="52" selection-end-column="15" />
+            <state relative-caret-position="-4112">
+              <caret line="969" column="62" lean-forward="false" selection-start-line="969" selection-start-column="62" selection-end-line="969" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -29,35 +98,113 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AST_StatExpr.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatExpr.java">
+      <file leaf-file-name="AST_StatIfThen.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIfs/AST_StatIfThen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="123" column="22" lean-forward="false" selection-start-line="123" selection-start-column="22" selection-end-line="123" selection-end-column="22" />
+            <state relative-caret-position="181">
+              <caret line="13" column="9" lean-forward="false" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AST_Stat.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_Stat.java">
+      <file leaf-file-name="AST_StatIfElse.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIfs/AST_StatIfElse.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="17" column="5" lean-forward="false" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+            <state relative-caret-position="168">
+              <caret line="12" column="9" lean-forward="false" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AST_StatVarDecl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatVarDecl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="133" column="12" lean-forward="false" selection-start-line="133" selection-start-column="12" selection-end-line="133" selection-end-column="12" />
               <folding>
-                <element signature="e#2749#2750#0" expanded="true" />
-                <element signature="e#2802#2803#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#4118#4119#0" expanded="true" />
+                <element signature="e#4171#4172#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="waccTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/waccTest.java">
+      <file leaf-file-name="AST_Param.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Param.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="407">
-              <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="412">
+              <caret line="134" column="101" lean-forward="false" selection-start-line="134" selection-start-column="101" selection-end-line="134" selection-end-column="101" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3345#3346#0" expanded="true" />
+                <element signature="e#3386#3387#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FunctionObj.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/IdentifierObjects/FunctionObj.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="17" column="25" lean-forward="false" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AST_FuncDecl.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_FuncDecl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="454">
+              <caret line="209" column="30" lean-forward="false" selection-start-line="209" selection-start-column="30" selection-end-line="209" selection-end-column="30" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SymbolTable.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/SymbolTable/SymbolTable.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="23" column="23" lean-forward="false" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#463#464#0" expanded="true" />
+                <element signature="e#491#492#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AST_ParamList.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_ParamList.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="609">
+              <caret line="29" column="43" lean-forward="false" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParamListObj.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/IdentifierObjects/ParamListObj.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+              <folding>
+                <element signature="e#187#188#0" expanded="true" />
+                <element signature="e#229#230#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -73,10 +220,18 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>type</find>
       <find>ifthen</find>
       <find>if_stat</find>
       <find>then</find>
+      <find>Statif</find>
+      <find>while</find>
+      <find>statbe</find>
+      <find>type</find>
+      <find>param</find>
+      <find>ast_pa</find>
+      <find>ast_par</find>
+      <find>head</find>
+      <find>param_</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -95,22 +250,65 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/ASTNodes/AST_FuncDecl.java" />
+        <option value="$PROJECT_DIR$/src/ErrorMessages/ReservedKeywordError.java" />
+        <option value="$PROJECT_DIR$/src/ErrorMessages/TypeError.java" />
+        <option value="$PROJECT_DIR$/src/ErrorMessages/TypeMismatchError.java" />
+        <option value="$PROJECT_DIR$/src/ErrorMessages/UndefinedFunctionError.java" />
+        <option value="$PROJECT_DIR$/src/ErrorMessages/UndefinedIdentError.java" />
+        <option value="$PROJECT_DIR$/src/ErrorMessages/VariableRedeclarationError.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatExprRHS.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatNewPairRHS.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatPairElemRHS.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_Stat.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssign.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatExpr.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatMult.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatRead.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatAssignLHS.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatIdentLHS.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatPairElemLHS.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatArrayElemLHS.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatArrayLitRHS.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatAssignRHS.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Separator.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Program.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Keyword.java" />
+        <option value="$PROJECT_DIR$/src/IdentifierObjects/ParamListObj.java" />
+        <option value="$PROJECT_DIR$/src/IdentifierObjects/ArrayObj.java" />
+        <option value="$PROJECT_DIR$/src/IdentifierObjects/BaseTypeObj.java" />
+        <option value="$PROJECT_DIR$/src/IdentifierObjects/KeywordObj.java" />
+        <option value="$PROJECT_DIR$/src/IdentifierObjects/PairObj.java" />
+        <option value="$PROJECT_DIR$/src/IdentifierObjects/ProgramObj.java" />
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_Type.java" />
-        <option value="$PROJECT_DIR$/antlr_wacc_config/WaccParser.g4" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairType.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_ArrayType.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_BaseType.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_ArrayTypePair.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_BaseTypePair.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_PairElemType.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_PairString.java" />
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIf.java" />
+        <option value="$PROJECT_DIR$/src/waccTest.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatCallRHS.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatWhile.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatBeginEnd.java" />
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIfs/AST_StatIfThen.java" />
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIfs/AST_StatIfElse.java" />
-        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIfs/AST_StatSubIf.java" />
-        <option value="$PROJECT_DIR$/src/waccTest.java" />
         <option value="$PROJECT_DIR$/src/waccVisitor.java" />
-        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_Stat.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatVarDecl.java" />
+        <option value="$PROJECT_DIR$/src/IdentifierObjects/FunctionObj.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Param.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_ParamList.java" />
+        <option value="$PROJECT_DIR$/src/SymbolTable/SymbolTable.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_FuncDecl.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="width" value="960" />
-    <option name="height" value="1032" />
+  <component name="ProjectFrameBounds" extendedState="4">
+    <option name="x" value="224" />
+    <option name="y" value="52" />
+    <option name="width" value="1696" />
+    <option name="height" value="1028" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -127,13 +325,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="wacc_01" type="b2602c69:ProjectViewProjectNode" />
               <item name="wacc_01" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wacc_01" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wacc_01" type="462c0819:PsiDirectoryNode" />
+              <item name="antlr_wacc_config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="wacc_01" type="b2602c69:ProjectViewProjectNode" />
@@ -149,13 +352,14 @@
               <item name="wacc_01" type="b2602c69:ProjectViewProjectNode" />
               <item name="wacc_01" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="antlr" type="462c0819:PsiDirectoryNode" />
+              <item name="ASTNodes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="wacc_01" type="b2602c69:ProjectViewProjectNode" />
               <item name="wacc_01" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="ASTNodes" type="462c0819:PsiDirectoryNode" />
+              <item name="AST_Exprs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="wacc_01" type="b2602c69:ProjectViewProjectNode" />
@@ -164,13 +368,64 @@
               <item name="ASTNodes" type="462c0819:PsiDirectoryNode" />
               <item name="AST_Stats" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="wacc_01" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wacc_01" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ASTNodes" type="462c0819:PsiDirectoryNode" />
+              <item name="AST_Stats" type="462c0819:PsiDirectoryNode" />
+              <item name="AST_StatAssignLHSs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wacc_01" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wacc_01" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ASTNodes" type="462c0819:PsiDirectoryNode" />
+              <item name="AST_Stats" type="462c0819:PsiDirectoryNode" />
+              <item name="AST_StatAssignRHSs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wacc_01" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wacc_01" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ASTNodes" type="462c0819:PsiDirectoryNode" />
+              <item name="AST_Stats" type="462c0819:PsiDirectoryNode" />
+              <item name="AST_StatIfs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wacc_01" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wacc_01" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ASTNodes" type="462c0819:PsiDirectoryNode" />
+              <item name="AST_TYPES" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wacc_01" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wacc_01" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ASTNodes" type="462c0819:PsiDirectoryNode" />
+              <item name="AST_TYPES" type="462c0819:PsiDirectoryNode" />
+              <item name="AST_PairElemTypes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wacc_01" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wacc_01" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="IdentifierObjects" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wacc_01" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wacc_01" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="SymbolTable" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -289,33 +544,33 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="1922" height="1033" extended-state="6" />
+    <frame x="224" y="52" width="1696" height="1028" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32937366" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27708334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20990565" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32982087" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -323,134 +578,330 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairType.java">
+    <entry file="file://$PROJECT_DIR$/src/ErrorMessages/UndefinedFunctionError.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ErrorMessages/UndefinedIdentError.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ErrorMessages/VariableRedeclarationError.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_Stat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" column="7" lean-forward="false" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssign.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <caret line="6" column="7" lean-forward="false" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_BaseTypePair.java">
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatExpr.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        <state relative-caret-position="84">
+          <caret line="4" column="7" lean-forward="false" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_PairString.java">
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatMult.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        <state relative-caret-position="60">
+          <caret line="3" column="7" lean-forward="false" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatCallRHS.java">
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatRead.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        <state relative-caret-position="168">
+          <caret line="8" column="7" lean-forward="false" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatVarDecl.java">
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatAssignLHS.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="19" column="9" lean-forward="false" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
+        <state relative-caret-position="105">
+          <caret line="5" column="7" lean-forward="false" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_ArrayType.java">
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatIdentLHS.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="33" column="50" lean-forward="false" selection-start-line="33" selection-start-column="50" selection-end-line="33" selection-end-column="50" />
+        <state relative-caret-position="60">
+          <caret line="3" column="7" lean-forward="false" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_Type.java">
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatPairElemLHS.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="14" column="23" lean-forward="false" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
+        <state relative-caret-position="146">
+          <caret line="7" column="7" lean-forward="false" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_FuncDecl.java">
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatArrayElemLHS.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="21" column="27" lean-forward="false" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatNewPairRHS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatBeginEnd.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="84" column="5" lean-forward="true" selection-start-line="84" selection-start-column="5" selection-end-line="84" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatPairElemRHS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="210">
+          <caret line="10" column="7" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatArrayLitRHS.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        <state relative-caret-position="292">
+          <caret line="14" column="7" lean-forward="false" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatAssignRHS.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="114" column="0" lean-forward="true" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
+        <state relative-caret-position="84">
+          <caret line="4" column="7" lean-forward="true" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="19" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatNewPairRHS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatExprRHS.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
+        <state relative-caret-position="231">
           <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatPairElemRHS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Separator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Program.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="6" column="7" lean-forward="false" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/antlr_wacc_config/WaccParser.g4">
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Node.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="31" column="17" lean-forward="false" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
+        <state relative-caret-position="294">
+          <caret line="14" column="22" lean-forward="false" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Keyword.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IdentifierObjects/BaseTypeObj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IdentifierObjects/IDENTIFIER.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IdentifierObjects/KeywordObj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IdentifierObjects/PairObj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IdentifierObjects/ProgramObj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" column="7" lean-forward="false" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_Type.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_ArrayType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="7" lean-forward="false" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_BaseType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="7" lean-forward="false" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_ArrayTypePair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="7" lean-forward="false" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_BaseTypePair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="7" lean-forward="false" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_PairElemType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="7" lean-forward="false" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_TYPES/AST_PairElemTypes/AST_PairString.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" column="31" lean-forward="false" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IdentifierObjects/ArrayObj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIf.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-414">
-          <caret line="100" column="33" lean-forward="false" selection-start-line="100" selection-start-column="33" selection-end-line="100" selection-end-column="33" />
+        <state relative-caret-position="189">
+          <caret line="9" column="24" lean-forward="false" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/waccTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="45" column="25" lean-forward="false" selection-start-line="45" selection-start-column="25" selection-end-line="45" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatWhile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="18" column="9" lean-forward="false" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -459,73 +910,131 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/antlr/WaccParserBaseVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="136" column="34" lean-forward="false" selection-start-line="136" selection-start-column="34" selection-end-line="136" selection-end-column="34" />
+        <state relative-caret-position="307">
+          <caret line="103" column="21" lean-forward="false" selection-start-line="103" selection-start-column="21" selection-end-line="103" selection-end-column="21" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatCallRHS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="223" column="29" lean-forward="false" selection-start-line="223" selection-start-column="29" selection-end-line="223" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatBeginEnd.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="11" column="9" lean-forward="false" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIfs/AST_StatIfThen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="84" column="26" lean-forward="false" selection-start-line="84" selection-start-column="18" selection-end-line="84" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="181">
+          <caret line="13" column="9" lean-forward="false" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIfs/AST_StatIfElse.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIfs/AST_StatSubIf.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/waccTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+        <state relative-caret-position="168">
+          <caret line="12" column="9" lean-forward="false" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/waccVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="52" column="15" lean-forward="false" selection-start-line="52" selection-start-column="15" selection-end-line="52" selection-end-column="15" />
+        <state relative-caret-position="-4112">
+          <caret line="969" column="62" lean-forward="false" selection-start-line="969" selection-start-column="62" selection-end-line="969" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatExpr.java">
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatVarDecl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="123" column="22" lean-forward="false" selection-start-line="123" selection-start-column="22" selection-end-line="123" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="76">
+          <caret line="133" column="12" lean-forward="false" selection-start-line="133" selection-start-column="12" selection-end-line="133" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4118#4119#0" expanded="true" />
+            <element signature="e#4171#4172#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_Stat.java">
+    <entry file="file://$PROJECT_DIR$/src/IdentifierObjects/ParamListObj.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="17" column="5" lean-forward="false" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+        <state relative-caret-position="84">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
           <folding>
-            <element signature="e#2749#2750#0" expanded="true" />
-            <element signature="e#2802#2803#0" expanded="true" />
+            <element signature="e#187#188#0" expanded="true" />
+            <element signature="e#229#230#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Param.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="134" column="101" lean-forward="false" selection-start-line="134" selection-start-column="101" selection-end-line="134" selection-end-column="101" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3345#3346#0" expanded="true" />
+            <element signature="e#3386#3387#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_ParamList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="29" column="43" lean-forward="false" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SymbolTable/SymbolTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="23" column="23" lean-forward="false" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#463#464#0" expanded="true" />
+            <element signature="e#491#492#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IdentifierObjects/FunctionObj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="17" column="25" lean-forward="false" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_FuncDecl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="454">
+          <caret line="209" column="30" lean-forward="false" selection-start-line="209" selection-start-column="30" selection-end-line="209" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

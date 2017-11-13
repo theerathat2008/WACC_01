@@ -5,7 +5,7 @@ import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
 import SymbolTable.SymbolTable;
-import src.ErrorMessages.TypeError;
+import ErrorMessages.TypeError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 

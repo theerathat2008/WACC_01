@@ -1,4 +1,4 @@
-package src.ErrorMessages;
+package ErrorMessages;
 
 import src.FilePosition;
 
