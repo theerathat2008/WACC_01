@@ -4,6 +4,8 @@ import src.ASTNodes.AST_Exprs.AST_Expr;
 import src.ASTNodes.AST_FuncDecl;
 import src.ASTNodes.AST_Node;
 import src.ASTNodes.AST_Program;
+import src.ErrorMessages.OutOfBoundsError;
+import src.ErrorMessages.TypeMismatchError;
 import src.SymbolTable.SymbolTable;
 import src.ErrorMessages.TypeError;
 import src.FilePosition;
@@ -97,12 +99,48 @@ public class AST_StatExpr extends AST_Stat {
       AST_FuncDecl temp = (AST_FuncDecl) parent;
       if (temp.ast_type.getIdentifier().equals(expr.getIdentifier())) {
         return true;
+      } else {
+        System.out.println("Return type of the return statement must matched the function's" +
+                "return type.");
+        new TypeMismatchError(new FilePosition(ctx)).printAll();
+        return false;
       }
     } else if (statName.equals("EXIT")) {
-      return expr.getIdentifier().toString().equals("int");
+      if (!expr.getIdentifier().toString().equals("int")) {
+        System.out.println("Statement following exit must be of type 'int'.");
+        new TypeError(new FilePosition(ctx)).printAll();
+        return false;
+      }
+
+      String exprString = expr.getIdentifier().toString();
+      if (Integer.parseInt(exprString) < 0 || Integer.parseInt(exprString) > 256) {
+        System.out.println("The exit code given is out of range. It should be inside the interval" +
+                "of 0 and 256.");
+        new OutOfBoundsError(new FilePosition(ctx)).printAll();
+        return false;
+      }
+
     } else if (statName.equals("PRINT")) {
+      String exprString = expr.getIdentifier().toString();
+      if (!(exprString.equals("string") || exprString.equals("char") || exprString.equals("int")
+              || exprString.equals("bool") || exprString.contains("pair")
+              || exprString.contains("[]"))) {
+        System.out.println("The type of argument can only be of type 'string' 'char' 'int' " +
+                "'bool' 'array types' 'pair'." );
+        new TypeError(new FilePosition(ctx)).printAll();
+        return false;
+      }
       return true;
     } else if (statName.equals("PRINTLN")) {
+      String exprString = expr.getIdentifier().toString();
+      if (!(exprString.equals("string") || exprString.equals("char") || exprString.equals("int")
+              || exprString.equals("bool") || exprString.contains("pair")
+              || exprString.contains("[]"))) {
+        System.out.println("The type of argument can only be of type 'string' 'char' 'int' " +
+                "'bool' 'array types' 'pair'." );
+        new TypeError(new FilePosition(ctx)).printAll();
+        return false;
+      }
       return true;
     }
     new TypeError(new FilePosition(ctx)).printAll();

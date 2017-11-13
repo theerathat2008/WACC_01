@@ -109,7 +109,7 @@ public class AST_StatWhile extends AST_Stat {
   @Override
   protected boolean CheckSemantics(SymbolTable ST) {
 
-    //get type for the expression inside the while statement (while(....0) must be of type bool
+    //get type for the expression inside the while statement (while(....0) must be of type bool)
     String condition = exprAST.getIdentifier().toString();
 
     if (!(condition.equals("bool"))) {
