@@ -1,26 +1,21 @@
-package ASTNodes.AST_Stats;
+package ASTNodes.AST_Stats.AST_StatIfs;
 
-import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
-import ASTNodes.AST_Stats.AST_StatIfs.AST_StatSubIf;
+import ASTNodes.AST_Stats.AST_Stat;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
 
-public class AST_StatIf extends AST_Stat {
+public class AST_StatIfElse extends AST_StatSubIf{
 
   //Syntactic attributes
-  AST_Expr expr;
-  AST_StatSubIf thenStat;
-  AST_StatSubIf elseStat;
+  AST_Stat elseStat;
   //Semantic attribute
 
   /**
    * Assign the class variables when called
    */
-  public AST_StatIf() {
-    this.expr = null;
-    this.thenStat = null;
+  public AST_StatIfElse() {
     this.elseStat = null;
   }
 
@@ -32,8 +27,6 @@ public class AST_StatIf extends AST_Stat {
   @Override
   public ArrayDeque<AST_Node> getNodes() {
     ArrayDeque<AST_Node> returnList = new ArrayDeque<>();
-    returnList.addLast(expr);
-    returnList.addLast(thenStat);
     returnList.addLast(elseStat);
     return returnList;
   }
@@ -64,7 +57,7 @@ public class AST_StatIf extends AST_Stat {
    */
   @Override
   public boolean isEmbeddedNodesFull() {
-    return expr != null && thenStat != null && elseStat != null;
+    return elseStat != null;
   }
 
   /**
@@ -74,11 +67,7 @@ public class AST_StatIf extends AST_Stat {
    */
   @Override
   public AST_Node getEmbeddedAST(String astToGet, int counter) {
-    if (astToGet.equals("expr")) {
-      return expr;
-    } else if (astToGet.equals("thenStat")) {
-      return thenStat;
-    } else if (astToGet.equals("elseStat")) {
+    if (astToGet.equals("elseStat")) {
       return elseStat;
     }
     System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
@@ -91,18 +80,8 @@ public class AST_StatIf extends AST_Stat {
    */
   @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet) {
-    if (astToSet.equals("expr")) {
-      expr = (AST_Expr) nodeToSet;
-    } else if (astToSet.equals("statement")) {
-
-      if (thenStat == null) {
-        thenStat = (AST_StatSubIf) nodeToSet;
-      } else if (elseStat == null) {
-        elseStat = (AST_StatSubIf) nodeToSet;
-      } else {
-        System.out.println("If and then in AST_StatIf have already been assigned.");
-      }
-
+    if (astToSet.equals("statement")) {
+      elseStat = (AST_Stat) nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
@@ -136,16 +115,6 @@ public class AST_StatIf extends AST_Stat {
   @Override
   public void printContents() {
     System.out.println(this.getClass().getSimpleName() + ": ");
-    if (expr == null) {
-      System.out.println("expr: null");
-    } else {
-      System.out.println("expr: has content");
-    }
-    if (thenStat == null) {
-      System.out.println("thenStat: null");
-    } else {
-      System.out.println("thenStat: has content");
-    }
     if (elseStat == null) {
       System.out.println("elseStat: null");
     } else {
