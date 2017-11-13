@@ -17,6 +17,7 @@ public class AST_Program extends AST_Node {
   List<AST_FuncDecl> funcDeclList;
   int numOfFunc;
   AST_Stat statement;
+  SymbolTable symbolTable;
 
   /**
    * Assign the member variables when called and set the number of children
@@ -25,6 +26,7 @@ public class AST_Program extends AST_Node {
     this.numOfFunc = numberOfChildren - 4;
     this.funcDeclList = new ArrayList<>();
     statement = null;
+    symbolTable = new SymbolTable("program");
   }
 
   /**
@@ -97,6 +99,8 @@ public class AST_Program extends AST_Node {
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet) {
     if (astToSet.equals("functionList")) {
       funcDeclList.add(((AST_FuncDecl) nodeToSet));
+      ((AST_FuncDecl) nodeToSet).symbolTable.encSymTable = symbolTable;
+      symbolTable.addChild(((AST_FuncDecl) nodeToSet).symbolTable);
     } else if (astToSet.equals("statement")) {
       statement = (AST_Stat) nodeToSet;
     } else {

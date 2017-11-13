@@ -1,6 +1,5 @@
 package SymbolTable;
 
-
 import IdentifierObjects.*;
 
 import java.util.*;
@@ -10,6 +9,7 @@ public class SymbolTable {
   public SymbolTable encSymTable;
   public Map<String, IDENTIFIER> symMap;
   String scope;
+  public List<SymbolTable> childTables = new ArrayList<>();
 
 
   public SymbolTable(String scope) {
@@ -115,28 +115,35 @@ public class SymbolTable {
 
   }
 
-  public IDENTIFIER stringToIdent(String name, String type) {
-    if (type.equals("int")) {
-      return new BaseTypeObj(name, "int");
-    } else if (type.equals("bool")) {
-      return new BaseTypeObj(name, "bool");
-    } else if (type.equals("char")) {
-      return new BaseTypeObj(name, "char");
-    } else if (type.equals("string")) {
-      return new BaseTypeObj(name, "string");
-    } else if (type.endsWith("[]")) {
-      return new ArrayObj(name, stringToIdent(name, type.substring(0, type.length() - 3)));
-    } else if (type.startsWith("PAIR(")) {
-
-    } else if (type.endsWith(" FUNCTION")) {
-      return new FunctionObj(name, stringToIdent(name, type.substring(0, type.length() - 10)), null);
-    } else if (type.equals("param_list")) {
-
-    } else if (type.equals("keyword")) {
-
-    }
-    return null;
+  public void addChild(SymbolTable ST) {
+    childTables.add(ST);
   }
+
+  public List<SymbolTable> getChildren() {
+    return childTables;
+  }
+//  public IDENTIFIER stringToIdent(String name, String type) {
+//    if (type.equals("int")) {
+//      return new BaseTypeObj(name, "int");
+//    } else if (type.equals("bool")) {
+//      return new BaseTypeObj(name, "bool");
+//    } else if (type.equals("char")) {
+//      return new BaseTypeObj(name, "char");
+//    } else if (type.equals("string")) {
+//      return new BaseTypeObj(name, "string");
+//    } else if (type.endsWith("[]")) {
+//      return new ArrayObj(name, stringToIdent(name, type.substring(0, type.length() - 3)));
+//    } else if (type.startsWith("PAIR(")) {
+//
+//    } else if (type.endsWith(" FUNCTION")) {
+//      return new FunctionObj(name, stringToIdent(name, type.substring(0, type.length() - 10)), null);
+//    } else if (type.equals("param_list")) {
+//
+//    } else if (type.equals("keyword")) {
+//
+//    }
+//    return null;
+//  }
 }
 
 

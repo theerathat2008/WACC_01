@@ -90,9 +90,9 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = progBase;
 
     //Added symbol table for the program (global) scope
-    SymbolTable newSymbolTable = new SymbolTable("global");
-    newSymbolTable.setEncSymTable(currentGlobalTree);
-    currentGlobalTree = newSymbolTable;
+//    SymbolTable newSymbolTable = new SymbolTable("global");
+//    newSymbolTable.setEncSymTable(currentGlobalTree);
+//    currentGlobalTree = newSymbolTable;
 
     //Do semantic analysis
     progBase.Check(newSymbolTable);
@@ -104,7 +104,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     visitChildren(ctx);
 
     //Set current symbol table scope
-    currentGlobalTree = newSymbolTable.encSymTable;
+//    currentGlobalTree = newSymbolTable.encSymTable;
     return null;
   }
 
@@ -132,9 +132,9 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = funcNode;
 
     //Creates a tree either for func scope or param list scope if it exists.
-    SymbolTable newSymbolTable = new SymbolTable("func");
-    newSymbolTable.setEncSymTable(currentGlobalTree);
-    currentGlobalTree = newSymbolTable;
+//    SymbolTable newSymbolTable = new SymbolTable("func");
+//    newSymbolTable.setEncSymTable(currentGlobalTree);
+//    currentGlobalTree = newSymbolTable;
 
     //Debug statement
     //System.out.println("Func");
@@ -146,7 +146,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     funcNode.Check(newSymbolTable);
 
     //Set current symbol table scope
-    currentGlobalTree = newSymbolTable.encSymTable;
+//    currentGlobalTree = newSymbolTable.encSymTable;
 
 //    //if function visits a param list, reassign the current symbol table scope
 //    if (funcNode.checkForParamList()) {
@@ -176,9 +176,9 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = paramListNode;
 
     //uses tree created in symbol tree to create tree for function scope
-    SymbolTable newSymbolTable = new SymbolTable("param_list");
-    newSymbolTable.setEncSymTable(currentGlobalTree);
-    currentGlobalTree = newSymbolTable;
+//    SymbolTable newSymbolTable = new SymbolTable("param_list");
+//    newSymbolTable.setEncSymTable(currentGlobalTree);
+//    currentGlobalTree = newSymbolTable;
 
     //Debug statement
     //System.out.println("ParamList");
@@ -424,9 +424,9 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     }
 
     //Iterate through rest of the tree
-    SymbolTable newSymbolTable = new SymbolTable("char_literal");
-    newSymbolTable.setEncSymTable(currentGlobalTree);
-    currentGlobalTree = newSymbolTable;
+//    SymbolTable newSymbolTable = new SymbolTable("char_literal");
+//    newSymbolTable.setEncSymTable(currentGlobalTree);
+//    currentGlobalTree = newSymbolTable;
 
     visitChildren(ctx);
 
@@ -434,7 +434,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     exprLiterNode.Check(newSymbolTable);
 
     //Set current symbol table scope
-    currentGlobalTree = newSymbolTable.encSymTable;
+//    currentGlobalTree = newSymbolTable.encSymTable;
     return null;
   }
 
@@ -959,9 +959,9 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = statBeginEndNode;
 
     //Added symbol table for the program scope
-    SymbolTable newSymbolTable = new SymbolTable("begin_end");
-    newSymbolTable.setEncSymTable(currentGlobalTree);
-    currentGlobalTree = newSymbolTable;
+//    SymbolTable newSymbolTable = new SymbolTable("begin_end");
+//    newSymbolTable.setEncSymTable(currentGlobalTree);
+//    currentGlobalTree = newSymbolTable;
 
     //Do semantic analysis
     statBeginEndNode.Check(newSymbolTable);
@@ -973,7 +973,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     visitChildren(ctx);
 
     //Set current symbol table scope
-    currentGlobalTree = newSymbolTable.encSymTable;
+//    currentGlobalTree = newSymbolTable.encSymTable;
     return null;
   }
 

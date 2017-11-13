@@ -19,6 +19,7 @@ public class AST_ParamList extends AST_Node {
   //Syntactic attributes
   List<AST_Param> listParam;
   int numOfParam;
+  public SymbolTable symbolTable;
 
   /**
    * Constructor for class - initialises class variables
@@ -28,6 +29,7 @@ public class AST_ParamList extends AST_Node {
   public AST_ParamList(int numberOfChildren) {
     this.listParam = new ArrayList<>();
     this.numOfParam = (numberOfChildren + 1) / 2;
+    symbolTable = new SymbolTable("param_list");
   }
 
   public List<AST_Param> getListParam() {

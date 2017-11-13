@@ -9,12 +9,14 @@ public class AST_StatBeginEnd extends AST_Stat {
 
   //Syntactic attributes
   AST_Stat statAST;
+  SymbolTable symbolTable;
 
   /**
    * Assign the class variables when called
    */
   public AST_StatBeginEnd() {
     this.statAST = null;
+    symbolTable = new SymbolTable("begin_end");
   }
 
   /**

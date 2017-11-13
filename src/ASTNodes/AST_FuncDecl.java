@@ -25,6 +25,7 @@ public class AST_FuncDecl extends AST_Node {
   AST_ParamList paramList;
   AST_Stat statement;
   ParserRuleContext ctx;
+  public SymbolTable symbolTable;
 
   //Semantic attribute
 
@@ -39,6 +40,8 @@ public class AST_FuncDecl extends AST_Node {
     this.paramList = null;
     this.statement = null;
     this.ctx = ctx;
+    symbolTable = new SymbolTable("function");
+
   }
 
   public String getFuncName() {
@@ -134,6 +137,9 @@ public class AST_FuncDecl extends AST_Node {
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet) {
     if (astToSet.equals("paramList")) {
       paramList = (AST_ParamList) nodeToSet;
+      paramList.symbolTable.encSymTable = symbolTable;
+      symbolTable.addChild(paramList.symbolTable);
+
     } else if (astToSet.equals("statement")) {
       statement = (AST_Stat) nodeToSet;
     } else if (astToSet.equals("ast_type")) {
