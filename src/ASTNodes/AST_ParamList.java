@@ -135,6 +135,10 @@ public class AST_ParamList extends AST_Node {
     }
   }
 
+  public void Assign(SymbolTable ST) {
+
+  }
+
   /**
    * Used for testing - Prints out contents of current AST node
    */

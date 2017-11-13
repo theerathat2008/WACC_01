@@ -108,7 +108,8 @@ public class SymbolTable {
       if (T.symMap.get(str) == null) {
         System.out.println(str + " has a null IDENTIFIER");
       } else {
-        System.out.println(str + ": " + T.symMap.get(str).getClass().getSimpleName());
+        System.out.print(str + ": " + T.symMap.get(str).getClass().getSimpleName() + " --- ");
+        System.out.println(T.lookupAll(str).toString());
       }
 
     }
@@ -122,28 +123,28 @@ public class SymbolTable {
   public List<SymbolTable> getChildren() {
     return childTables;
   }
-//  public IDENTIFIER stringToIdent(String name, String type) {
-//    if (type.equals("int")) {
-//      return new BaseTypeObj(name, "int");
-//    } else if (type.equals("bool")) {
-//      return new BaseTypeObj(name, "bool");
-//    } else if (type.equals("char")) {
-//      return new BaseTypeObj(name, "char");
-//    } else if (type.equals("string")) {
-//      return new BaseTypeObj(name, "string");
-//    } else if (type.endsWith("[]")) {
-//      return new ArrayObj(name, stringToIdent(name, type.substring(0, type.length() - 3)));
-//    } else if (type.startsWith("PAIR(")) {
-//
-//    } else if (type.endsWith(" FUNCTION")) {
-//      return new FunctionObj(name, stringToIdent(name, type.substring(0, type.length() - 10)), null);
-//    } else if (type.equals("param_list")) {
-//
-//    } else if (type.equals("keyword")) {
-//
-//    }
-//    return null;
-//  }
+  public IDENTIFIER stringToIdent(String name, String type) {
+    if (type.equals("int")) {
+      return new BaseTypeObj(name, "int");
+    } else if (type.equals("bool")) {
+      return new BaseTypeObj(name, "bool");
+    } else if (type.equals("char")) {
+      return new BaseTypeObj(name, "char");
+    } else if (type.equals("string")) {
+      return new BaseTypeObj(name, "string");
+    } else if (type.endsWith("[]")) {
+      return new ArrayObj(name, stringToIdent(name, type.substring(0, type.length() - 3)));
+    } else if (type.startsWith("PAIR(")) {
+
+    } else if (type.endsWith(" FUNCTION")) {
+      return new FunctionObj(name, stringToIdent(name, type.substring(0, type.length() - 10)), null);
+    } else if (type.equals("param_list")) {
+
+    } else if (type.equals("keyword")) {
+
+    }
+    return null;
+  }
 }
 
 

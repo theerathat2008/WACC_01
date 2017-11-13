@@ -192,11 +192,16 @@ public class AST_FuncDecl extends AST_Node {
 
     }
 
+
     //System.out.println(ST.encSymTable.lookup(funcName)==null);
     //Create new symbol table   DONE
     //Add necessary contents specific to func to symbol table  DONE
     //set enclosing symbol table to curr symbol table   does this before check
     //Set curr symbol table to new symbol table
+
+  }
+
+  public void Assign(SymbolTable ST) {
 
   }
 
