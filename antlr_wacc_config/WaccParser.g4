@@ -21,12 +21,15 @@ stat : SKIPTOK                                         # SKIP_STAT
      | EXIT expr                                       # EXIT_STAT
      | PRINT expr                                      # PRINT_STAT
      | PRINTLN expr                                    # PRINTLN_STAT
-     | IF expr THEN stat ELSE stat FI                  # IF_STAT
+     | IF expr THEN thenstat ELSE elsestat FI          # IF_STAT
      | WHILE expr DO stat DONE                         # WHILE_STAT
      | BEGIN stat END                                  # BEGIN_END_STAT
      | stat SEMI_COLON stat                            # MULT_STAT
      ;
 
+thenstat : stat ;
+
+elsestat : stat ;
 
 assign_lhs : IDENT                                     # IDENT_ASSIGN
      | IDENT (SQUARE_OPEN expr SQUARE_CLOSED )+        # ARRAY_ELEM_LHS

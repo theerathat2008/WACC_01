@@ -7,6 +7,8 @@ import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatArrayElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatPairElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.*;
+import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
+import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_ArrayType;
 import ASTNodes.AST_TYPES.AST_BaseType;
@@ -1007,6 +1009,53 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     statIfNode.Check(currentGlobalTree);
     return null;
   }
+
+  @Override
+  public Void visitThenstat(WaccParser.ThenstatContext ctx) {
+    //Create the node for the current visitor function
+    AST_StatIfThen statIfThenNode = new AST_StatIfThen();
+
+    //Set currNode to corresponding embedded AST in parent node
+    parentVisitorNode.setEmbeddedAST("statement", statIfThenNode);
+
+    //Set parentNode of AST class and global visitor class
+    statIfThenNode.setParentNode(parentVisitorNode);
+    parentVisitorNode = statIfThenNode;
+
+    //Debug statement
+    //System.out.println("statThenIf");
+
+    //Iterate through rest of the tree
+    visitChildren(ctx);
+
+    //Do semantic analysis
+    statIfThenNode.Check(currentGlobalTree);
+    return null;
+  }
+
+  @Override
+  public Void visitElsestat(WaccParser.ElsestatContext ctx) {
+    //Create the node for the current visitor function
+    AST_StatIfElse statIfElseNode = new AST_StatIfElse();
+
+    //Set currNode to corresponding embedded AST in parent node
+    parentVisitorNode.setEmbeddedAST("statement", statIfElseNode);
+
+    //Set parentNode of AST class and global visitor class
+    statIfElseNode.setParentNode(parentVisitorNode);
+    parentVisitorNode = statIfElseNode;
+
+    //Debug statement
+    //System.out.println("statElseIf");
+
+    //Iterate through rest of the tree
+    visitChildren(ctx);
+
+    //Do semantic analysis
+    statIfElseNode.Check(currentGlobalTree);
+    return null;
+  }
+
 
   /**
    * Visitor function for CALL_ASSIGN.
