@@ -1,6 +1,7 @@
 package src.ASTNodes.AST_Stats;
 
 
+import org.antlr.v4.runtime.ParserRuleContext;
 import src.ASTNodes.AST_Exprs.AST_Expr;
 import src.ASTNodes.AST_Node;
 import src.ErrorMessages.TypeError;
@@ -18,12 +19,12 @@ public class AST_StatIf extends AST_Stat {
   AST_Stat thenStat;
   AST_Stat elseStat;
   //Semantic attribute
-  WaccParser.IF_STATContext ctx;
+  ParserRuleContext ctx;
 
   /**
    * Assign the class variables when called
    */
-  public AST_StatIf(WaccParser.IF_STATContext ctx) {
+  public AST_StatIf(ParserRuleContext ctx) {
     this.expr = null;
     this.thenStat = null;
     this.elseStat = null;
@@ -123,14 +124,14 @@ public class AST_StatIf extends AST_Stat {
   protected boolean CheckSemantics(SymbolTable ST) {
 
     //get type of the expr of the context to see whether it is equal to type bool
-    //maybe needs .getExprType?
-    if (getExprType(ctx.expr()).equals("bool")) {
+    String typeExpr = expr.getIdentifier().toString();
+
+    if (typeExpr.equals("bool")) {
       return true;
     } else {
       new TypeError(new FilePosition(ctx)).printAll();
       return false;
     }
-
   }
 
   /**

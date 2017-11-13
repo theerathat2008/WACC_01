@@ -397,7 +397,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitCHAR_LITER_EXPR(WaccParser.CHAR_LITER_EXPRContext ctx) {
 
     //Create the node for the current visitor function
-    AST_ExprLiter exprLiterNode = new AST_ExprLiter();
+    AST_ExprLiter exprLiterNode = new AST_ExprLiter(ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("expr", exprLiterNode);
@@ -526,7 +526,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitREAD_STAT(WaccParser.READ_STATContext ctx) {
 
     //Create the node for the current visitor function
-    AST_StatRead statReadNode = new AST_StatRead();
+    AST_StatRead statReadNode = new AST_StatRead(ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", statReadNode);
@@ -557,7 +557,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitWHILE_STAT(WaccParser.WHILE_STATContext ctx) {
 
     //Create the node for the current visitor function
-    AST_StatWhile statWhileNode = new AST_StatWhile();
+    AST_StatWhile statWhileNode = new AST_StatWhile(ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", statWhileNode);
@@ -835,7 +835,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitINT_LITER_EXPR(WaccParser.INT_LITER_EXPRContext ctx) {
 
     //Create the node for the current visitor function
-    AST_ExprLiter exprLiterNode = new AST_ExprLiter();
+    AST_ExprLiter exprLiterNode = new AST_ExprLiter(ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("expr", exprLiterNode);
@@ -1130,7 +1130,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitSTR_LITER_EXPR(WaccParser.STR_LITER_EXPRContext ctx) {
 
     //Create the node for the current visitor function
-    AST_ExprLiter str_literNode = new AST_ExprLiter();
+    AST_ExprLiter str_literNode = new AST_ExprLiter(ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("expr", str_literNode);
@@ -1175,7 +1175,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitARRAY_LITER_RHS(WaccParser.ARRAY_LITER_RHSContext ctx) {
 
     //Create the node for the current visitor function
-    AST_StatArrayLitRHS statArrayLitRHSNode = new AST_StatArrayLitRHS(ctx.getChildCount());
+    AST_StatArrayLitRHS statArrayLitRHSNode = new AST_StatArrayLitRHS(ctx.getChildCount(), ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statAssignRHS", statArrayLitRHSNode);
@@ -1240,7 +1240,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitBOOL_LITER_EXPR(WaccParser.BOOL_LITER_EXPRContext ctx) {
 
     //Create the node for the current visitor function
-    AST_ExprLiter boolLiterNode = new AST_ExprLiter();
+    AST_ExprLiter boolLiterNode = new AST_ExprLiter(ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("expr", boolLiterNode);
@@ -1285,7 +1285,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitPAIR_LITER_EXPR(WaccParser.PAIR_LITER_EXPRContext ctx) {
 
     //Create the node for the current visitor function
-    AST_ExprLiter pairLiterNode = new AST_ExprLiter();
+    AST_ExprLiter pairLiterNode = new AST_ExprLiter(ctx);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("expr", pairLiterNode);

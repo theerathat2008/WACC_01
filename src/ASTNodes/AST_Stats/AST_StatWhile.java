@@ -1,8 +1,12 @@
 package src.ASTNodes.AST_Stats;
 
 
+import antlr.WaccParser;
+import org.antlr.v4.runtime.ParserRuleContext;
 import src.ASTNodes.AST_Exprs.AST_Expr;
 import src.ASTNodes.AST_Node;
+import src.ErrorMessages.TypeError;
+import src.FilePosition;
 import src.SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -13,13 +17,15 @@ public class AST_StatWhile extends AST_Stat {
   AST_Expr exprAST;
   AST_Stat statAST;
   //Semantic attribute
+  ParserRuleContext ctx;
 
   /**
    * Assign the class variables when called
    */
-  public AST_StatWhile() {
+  public AST_StatWhile(ParserRuleContext ctx) {
     this.exprAST = null;
     this.statAST = null;
+    this.ctx = ctx;
   }
 
   /**
@@ -102,6 +108,14 @@ public class AST_StatWhile extends AST_Stat {
    */
   @Override
   protected boolean CheckSemantics(SymbolTable ST) {
+
+    //get type for the expression inside the while statement (while(....0) must be of type bool
+    String condition = exprAST.getIdentifier().toString();
+
+    if (!(condition.equals("bool"))) {
+      new TypeError(new FilePosition(ctx)).printAll();
+      return false;
+    }
     return true;
   }
 

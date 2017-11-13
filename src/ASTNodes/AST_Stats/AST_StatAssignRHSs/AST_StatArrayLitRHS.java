@@ -1,7 +1,11 @@
 package src.ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
+import antlr.WaccParser;
+import org.antlr.v4.runtime.ParserRuleContext;
 import src.ASTNodes.AST_Exprs.AST_Expr;
 import src.ASTNodes.AST_Node;
+import src.ErrorMessages.TypeMismatchError;
+import src.FilePosition;
 import src.SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -19,19 +23,21 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
   List<AST_Expr> ast_exprList;
   int numOfExpr;
   String type;
+  ParserRuleContext ctx;
 
   /**
    * Constructor for class - initialises class variables
    *
    * @param numberOfChildren - Shows the number of parameters in the parameter list of function
    */
-  public AST_StatArrayLitRHS(int numberOfChildren) {
+  public AST_StatArrayLitRHS(int numberOfChildren, ParserRuleContext ctx) {
     ast_exprList = new ArrayList<>();
     if (numberOfChildren == 2) {
       this.numOfExpr = 0;
     } else {
       this.numOfExpr = (numberOfChildren - 1) / 2;
     }
+    this.ctx = ctx;
   }
 
   /**
@@ -123,6 +129,22 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
    */
   @Override
   protected boolean CheckSemantics(SymbolTable ST) {
+
+    //empty array is always true
+    if (ast_exprList == null) {
+      return true;
+    }
+
+    //get type of the first index in the array
+    String firstType = ast_exprList.get(0).getIdentifier().toString();
+
+    //check if every elements in the array has the same type
+    for (AST_Expr exprList : ast_exprList) {
+      if (!(exprList.getIdentifier().toString()).equals(firstType)) {
+        new TypeMismatchError(new FilePosition(ctx)).printAll();
+        return false;
+      }
+    }
     return true;
   }
 

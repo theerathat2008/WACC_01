@@ -1,6 +1,10 @@
 package src.ASTNodes.AST_Exprs;
 
+import antlr.WaccParser;
+import org.antlr.v4.runtime.ParserRuleContext;
 import src.ASTNodes.AST_Node;
+import src.ErrorMessages.OutOfBoundsError;
+import src.FilePosition;
 import src.SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -15,13 +19,15 @@ public class AST_ExprLiter extends AST_Expr {
   //Syntactic attributes
   String constant;    //TODO change to content
   String literal;
+  ParserRuleContext ctx;
 
   /**
    * Constructor for class - initialises class variables to NULL
    */
-  public AST_ExprLiter() {
+  public AST_ExprLiter(ParserRuleContext ctx) {
     this.constant = null;
     this.literal = null;
+    this.ctx = ctx;
 
   }
 
@@ -105,6 +111,21 @@ public class AST_ExprLiter extends AST_Expr {
    */
   @Override
   protected boolean CheckSemantics(SymbolTable ST) {
+
+    //if it is int liter, check whether the number is inside the integer bounds
+    if (identifier.equals("int")) {
+      if (Integer.parseInt(constant) >= Math.pow(2, 31) || Integer.parseInt(constant) < -Math.pow(2, 31)) {
+        new OutOfBoundsError(new FilePosition(ctx)).printAll();
+      }
+    }
+
+    if (identifier.equals("bool")) {
+
+    }
+
+    if (identifier.toString().contains("pair")) {
+
+    }
     return true;
   }
 
