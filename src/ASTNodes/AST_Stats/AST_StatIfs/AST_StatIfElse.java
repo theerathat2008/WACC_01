@@ -10,13 +10,17 @@ public class AST_StatIfElse extends AST_StatSubIf{
 
   //Syntactic attributes
   AST_Stat elseStat;
+  SymbolTable symbolTable;
   //Semantic attribute
 
   /**
    * Assign the class variables when called
    */
-  public AST_StatIfElse() {
+  public AST_StatIfElse(SymbolTable ST) {
     this.elseStat = null;
+    symbolTable = new SymbolTable("else");
+    ST.childTables.add(symbolTable);
+    symbolTable.setEncSymTable(ST);
   }
 
   /**

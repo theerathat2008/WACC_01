@@ -14,9 +14,11 @@ public class AST_StatBeginEnd extends AST_Stat {
   /**
    * Assign the class variables when called
    */
-  public AST_StatBeginEnd() {
+  public AST_StatBeginEnd(SymbolTable ST) {
     this.statAST = null;
     symbolTable = new SymbolTable("begin_end");
+    ST.childTables.add(symbolTable);
+    symbolTable.setEncSymTable(ST);
   }
 
   /**

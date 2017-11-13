@@ -11,13 +11,17 @@ public class AST_StatIfThen extends AST_StatSubIf{
 
   //Syntactic attributes
   AST_Stat thenStat;
+  SymbolTable symbolTable;
   //Semantic attribute
 
   /**
    * Assign the class variables when called
    */
-  public AST_StatIfThen() {
+  public AST_StatIfThen(SymbolTable ST) {
     this.thenStat = null;
+    symbolTable = new SymbolTable("then");
+    ST.childTables.add(symbolTable);
+    symbolTable.setEncSymTable(ST);
   }
 
   /**

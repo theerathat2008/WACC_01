@@ -154,5 +154,7 @@ public class AST_Program extends AST_Node {
     } else {
       System.out.println("statement: has content");
     }
+    System.out.println("Printing Symbol Table: ");
+    symbolTable.printKeysTable(symbolTable);
   }
 }

@@ -12,14 +12,18 @@ public class AST_StatWhile extends AST_Stat {
   //Syntactic attributes
   AST_Expr exprAST;
   AST_Stat statAST;
+  SymbolTable symbolTable;
   //Semantic attribute
 
   /**
    * Assign the class variables when called
    */
-  public AST_StatWhile() {
+  public AST_StatWhile(SymbolTable ST) {
     this.exprAST = null;
     this.statAST = null;
+    symbolTable = new SymbolTable("while");
+    ST.childTables.add(symbolTable);
+    symbolTable.setEncSymTable(ST);
   }
 
   /**

@@ -2,6 +2,8 @@ package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
+import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
+import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatSubIf;
 import SymbolTable.SymbolTable;
 
@@ -11,8 +13,8 @@ public class AST_StatIf extends AST_Stat {
 
   //Syntactic attributes
   AST_Expr expr;
-  AST_StatSubIf thenStat;
-  AST_StatSubIf elseStat;
+  AST_StatIfThen thenStat;
+  AST_StatIfElse elseStat;
   //Semantic attribute
 
   /**
@@ -96,9 +98,9 @@ public class AST_StatIf extends AST_Stat {
     } else if (astToSet.equals("statement")) {
 
       if (thenStat == null) {
-        thenStat = (AST_StatSubIf) nodeToSet;
+        thenStat = (AST_StatIfThen) nodeToSet;
       } else if (elseStat == null) {
-        elseStat = (AST_StatSubIf) nodeToSet;
+        elseStat = (AST_StatIfElse) nodeToSet;
       } else {
         System.out.println("If and then in AST_StatIf have already been assigned.");
       }

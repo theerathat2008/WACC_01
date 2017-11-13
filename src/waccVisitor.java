@@ -559,7 +559,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitWHILE_STAT(WaccParser.WHILE_STATContext ctx) {
 
     //Create the node for the current visitor function
-    AST_StatWhile statWhileNode = new AST_StatWhile();
+    AST_StatWhile statWhileNode = new AST_StatWhile(currentGlobalTree);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", statWhileNode);
@@ -951,7 +951,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitBEGIN_END_STAT(WaccParser.BEGIN_END_STATContext ctx) {
 
     //Create the node for the current visitor function
-    AST_StatBeginEnd statBeginEndNode = new AST_StatBeginEnd();
+    AST_StatBeginEnd statBeginEndNode = new AST_StatBeginEnd(currentGlobalTree);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", statBeginEndNode);
@@ -1013,7 +1013,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   @Override
   public Void visitThenstat(WaccParser.ThenstatContext ctx) {
     //Create the node for the current visitor function
-    AST_StatIfThen statIfThenNode = new AST_StatIfThen();
+    AST_StatIfThen statIfThenNode = new AST_StatIfThen(currentGlobalTree);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", statIfThenNode);
@@ -1036,7 +1036,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   @Override
   public Void visitElsestat(WaccParser.ElsestatContext ctx) {
     //Create the node for the current visitor function
-    AST_StatIfElse statIfElseNode = new AST_StatIfElse();
+    AST_StatIfElse statIfElseNode = new AST_StatIfElse(currentGlobalTree);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", statIfElseNode);

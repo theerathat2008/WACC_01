@@ -41,10 +41,10 @@ public class waccTest {
     System.out.println("===");
 
 
-    //System.out.println("---------TESTING------------");
-    //AST_Program root = visitor.getRootNode();
-    //visitor.printNodes(root);
-    //System.out.println("---------TESTING------------");
+    System.out.println("---------TESTING------------");
+    AST_Program root = visitor.getRootNode();
+    visitor.printNodes(root);
+    System.out.println("---------TESTING------------");
 
 
   }
