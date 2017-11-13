@@ -115,7 +115,6 @@ public class AST_Stat extends AST_Node {
    */
   @Override
   public void printContents() {
-    System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("statName: " + statName);
   }
 }
