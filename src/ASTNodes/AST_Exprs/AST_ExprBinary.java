@@ -4,7 +4,7 @@ import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
-
+import VisitorClass.AST_NodeVisitor;
 import IdentifierObjects.*;
 
 /**
@@ -128,10 +128,9 @@ public class AST_ExprBinary extends AST_Expr {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
     return true;
   }
 
@@ -142,7 +141,7 @@ public class AST_ExprBinary extends AST_Expr {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       if (opName.equals("*")) {
         setType("int");
       } else if (opName.equals("/")) {
@@ -176,5 +175,11 @@ public class AST_ExprBinary extends AST_Expr {
     } else {
       System.out.println("exprRightAST: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    exprLeftAST.accept(visitor);
+    exprRightAST.accept(visitor);
   }
 }

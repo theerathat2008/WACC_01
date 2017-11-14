@@ -1,12 +1,11 @@
 package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
-import IdentifierObjects.*;
 import SymbolTable.SymbolTable;
 import ErrorMessages.UndefinedIdentError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
-
+import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 
@@ -18,11 +17,13 @@ public class AST_ExprIdent extends AST_Expr {
   //Syntactic attributes
   String varName;
   ParserRuleContext ctx;
+  SymbolTable symbolTable;
 
   /**
    * Constructor for class - initialises class variables to NULL
    */
-  public AST_ExprIdent(ParserRuleContext ctx) {
+  public AST_ExprIdent(ParserRuleContext ctx, SymbolTable symbolTable) {
+    this.symbolTable = symbolTable;
     this.varName = null;
     this.ctx = ctx;
   }
@@ -101,7 +102,8 @@ public class AST_ExprIdent extends AST_Expr {
    * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
+    SymbolTable ST = this.symbolTable;
     if (ST.lookupAll(varName) != null) {
       return true;
     } else {
@@ -117,7 +119,7 @@ public class AST_ExprIdent extends AST_Expr {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       //ST.add(varName, ST.stringToIdent(varName,type));
       setType(ST.lookupAll(varName).toString());
     }
@@ -130,5 +132,8 @@ public class AST_ExprIdent extends AST_Expr {
   public void printContents() {
     System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("varName: " + varName);
+  }
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
   }
 }

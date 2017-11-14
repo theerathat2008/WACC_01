@@ -1,13 +1,10 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
-import antlr.WaccParser;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_ParamList;
 import ASTNodes.AST_Param;
-import IdentifierObjects.*;
-import IdentifierObjects.ParamListObj;
 import IdentifierObjects.FunctionObj;
 import IdentifierObjects.IDENTIFIER;
 import SymbolTable.SymbolTable;
@@ -15,13 +12,12 @@ import ErrorMessages.MissingParameterError;
 import ErrorMessages.TypeError;
 import ErrorMessages.UndefinedFunctionError;
 import src.FilePosition;
+import VisitorClass.AST_NodeVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.System.exit;
 
 /**
  * Class representing node in AST tree for CALL ASSIGNMENT
@@ -32,14 +28,15 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
   String funcName;
   int numOfExpr;
   List<AST_Expr> ast_exprList;
-  ParserRuleContext ctx;;
+  ParserRuleContext ctx;
+  SymbolTable symbolTable;
 
   /**
    * Constructor for class - initialises class variables
    *
    * @param numberOfChildren - Shows the number of parameters in the parameter list of function
    */
-  public AST_StatCallRHS(int numberOfChildren, ParserRuleContext ctx) {
+  public AST_StatCallRHS(int numberOfChildren, ParserRuleContext ctx, SymbolTable symbolTable) {
     ast_exprList = new ArrayList<>();
     if (numberOfChildren == 4) {
       this.numOfExpr = 0;
@@ -48,6 +45,7 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
     }
     this.funcName = null;
     this.ctx = ctx;
+    this.symbolTable = symbolTable;
   }
 
   /**
@@ -143,10 +141,11 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
+
+    SymbolTable ST = this.symbolTable;
 
     //Nested function call case
     if (ST.getScope().equals("param_list") && ST.lookup(funcName) == null) {
@@ -221,7 +220,7 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
 
     }
 
@@ -244,6 +243,13 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
       System.out.println("ast_exprList: List full");
     } else {
       System.out.println("ast_exprList has size: " + ast_exprList.size());
+    }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    for(AST_Expr expr : ast_exprList){
+      expr.accept(visitor);
     }
   }
 }

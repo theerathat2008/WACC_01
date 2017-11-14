@@ -1,14 +1,12 @@
 package ASTNodes;
 
-import ASTNodes.AST_FuncDecl;
-import ASTNodes.AST_Node;
-import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Stats.AST_Stat;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import VisitorClass.AST_NodeVisitor;
 
 
 /**
@@ -116,10 +114,9 @@ public class AST_Program extends AST_Node {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
 
     return true;
   }
@@ -131,7 +128,7 @@ public class AST_Program extends AST_Node {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       //Do symbol table stuff     Nothing to check here (I think)
     } else {
 
@@ -157,5 +154,13 @@ public class AST_Program extends AST_Node {
     }
     System.out.println("Printing Symbol Table: ");
     symbolTable.printKeysTable(symbolTable);
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    for(AST_FuncDecl func : funcDeclList){
+      func.accept(visitor);
+    }
+    statement.accept(visitor);
   }
 }

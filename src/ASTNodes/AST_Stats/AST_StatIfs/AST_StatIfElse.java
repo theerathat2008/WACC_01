@@ -3,7 +3,7 @@ package ASTNodes.AST_Stats.AST_StatIfs;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_Stat;
 import SymbolTable.SymbolTable;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 public class AST_StatIfElse extends AST_StatSubIf{
@@ -94,10 +94,9 @@ public class AST_StatIfElse extends AST_StatSubIf{
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
     return true;
   }
 
@@ -108,7 +107,7 @@ public class AST_StatIfElse extends AST_StatSubIf{
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       //Do symbol table stuff
     }
   }
@@ -125,5 +124,10 @@ public class AST_StatIfElse extends AST_StatSubIf{
       System.out.println("elseStat: has content");
     }
     symbolTable.printKeysTable(symbolTable);
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    elseStat.accept(visitor);
   }
 }

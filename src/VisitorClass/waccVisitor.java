@@ -1,4 +1,4 @@
-package src;
+package VisitorClass;
 
 import ASTNodes.*;
 import ASTNodes.AST_Exprs.*;
@@ -163,7 +163,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     AST_ParamList paramListNode = new AST_ParamList(ctx.getChildCount());
 
     //Set currNode to corresponding embedded AST in parent node
-    System.out.println("PArent noide is: " + parentVisitorNode.getClass().getSimpleName());
     parentVisitorNode.setEmbeddedAST("paramList", paramListNode);
 
     //Set parentNode of AST class and global visitor class
@@ -486,7 +485,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitREAD_STAT(WaccParser.READ_STATContext ctx) {
 
     //Create the node for the current visitor function
-    AST_StatRead statReadNode = new AST_StatRead(ctx);
+    AST_StatRead statReadNode = new AST_StatRead(ctx, currentGlobalTree);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", statReadNode);
@@ -573,7 +572,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitIDENT_EXPR(WaccParser.IDENT_EXPRContext ctx) {
 
     //Create the node for the current visitor function
-    AST_ExprIdent exprIdentNode = new AST_ExprIdent(ctx);
+    AST_ExprIdent exprIdentNode = new AST_ExprIdent(ctx, currentGlobalTree);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("expr", exprIdentNode);
@@ -814,7 +813,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitVAR_DECL_STAT(WaccParser.VAR_DECL_STATContext ctx) {
 
     //Create the node for the current visitor function
-    AST_StatVarDecl statVarDeclNode = new AST_StatVarDecl(ctx);
+    AST_StatVarDecl statVarDeclNode = new AST_StatVarDecl(ctx, currentGlobalTree);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", statVarDeclNode);
@@ -983,7 +982,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitCALL_ASSIGN(WaccParser.CALL_ASSIGNContext ctx) {
 
     //Create the node for the current visitor function
-    AST_StatCallRHS statCallRHSNode = new AST_StatCallRHS(ctx.getChildCount(), ctx);
+    AST_StatCallRHS statCallRHSNode = new AST_StatCallRHS(ctx.getChildCount(), ctx, currentGlobalTree);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statAssignRHS", statCallRHSNode);

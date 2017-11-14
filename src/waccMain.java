@@ -2,12 +2,14 @@ package src;
 
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
+import VisitorClass.AST_VisitSemantic;
+import VisitorClass.waccVisitor;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
 import antlr.*;
 
-public class waccTest {
+public class waccMain {
 
 
   public static void main(String[] args) throws Exception {
@@ -45,7 +47,10 @@ public class waccTest {
     AST_Program root = visitor.getRootNode();
     root.printContents();
     visitor.printNodes(root);
+    System.out.println("---------------------Second Visitor implementation-------------------------");
+    root.accept(new AST_VisitSemantic());
     System.out.println("---------TESTING------------");
+
 
   }
 

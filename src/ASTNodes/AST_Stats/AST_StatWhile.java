@@ -1,13 +1,13 @@
 package ASTNodes.AST_Stats;
 
 
-import antlr.WaccParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import ErrorMessages.TypeError;
 import src.FilePosition;
 import SymbolTable.SymbolTable;
+import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 
@@ -109,10 +109,9 @@ public class AST_StatWhile extends AST_Stat {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
 
     //get type for the expression inside the while statement (while(....0) must be of type bool
     String condition = exprAST.getIdentifier().toString();
@@ -131,7 +130,7 @@ public class AST_StatWhile extends AST_Stat {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       //Do symbol table stuff
     }
   }
@@ -153,5 +152,11 @@ public class AST_StatWhile extends AST_Stat {
       System.out.println("statAST: has content");
     }
     symbolTable.printKeysTable(symbolTable);
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    exprAST.accept(visitor);
+    statAST.accept(visitor);
   }
 }

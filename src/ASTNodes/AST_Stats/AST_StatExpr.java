@@ -8,7 +8,7 @@ import SymbolTable.SymbolTable;
 import ErrorMessages.TypeError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 public class AST_StatExpr extends AST_Stat {
@@ -77,10 +77,9 @@ public class AST_StatExpr extends AST_Stat {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
     if (statName.equals("FREE")) {
       return expr.getIdentifier().toString().contains("[]") || expr.getIdentifier().toString().startsWith("PAIR(");
     } else if (statName.equals("RETURN")) {
@@ -132,5 +131,10 @@ public class AST_StatExpr extends AST_Stat {
     } else {
       System.out.println("expr: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    expr.accept(visitor);
   }
 }

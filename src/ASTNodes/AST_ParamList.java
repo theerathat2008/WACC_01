@@ -4,8 +4,10 @@ import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
 
-import IdentifierObjects.*;
-
+import IdentifierObjects.IDENTIFIER;
+import IdentifierObjects.ParamListObj;
+import IdentifierObjects.BaseTypeObj;
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,10 +112,9 @@ public class AST_ParamList extends AST_Node {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
     return true;
   }
 
@@ -124,7 +125,7 @@ public class AST_ParamList extends AST_Node {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       List<IDENTIFIER> paramObjList = new ArrayList<>();
       for (AST_Param param : listParam) {
         paramObjList.add(new BaseTypeObj(param.getParamName(), (param.getEmbeddedAST("ast_type", 0)).toString()));
@@ -159,5 +160,12 @@ public class AST_ParamList extends AST_Node {
     }
     symbolTable.printKeysTable(symbolTable);
 
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    for(AST_Param param : listParam){
+      param.accept(visitor);
+    }
   }
 }

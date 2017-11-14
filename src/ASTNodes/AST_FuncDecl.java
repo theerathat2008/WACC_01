@@ -2,13 +2,13 @@ package ASTNodes;
 
 import ASTNodes.AST_Stats.AST_Stat;
 import IdentifierObjects.FunctionObj;
-import IdentifierObjects.IDENTIFIER;
 import IdentifierObjects.ParamListObj;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ErrorMessages.FunctionRedeclarationError;
 import src.FilePosition;
+import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 
@@ -163,7 +163,8 @@ public class AST_FuncDecl extends AST_Node {
    * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
+    SymbolTable ST = this.symbolTable;
     if (ST.lookupAll(funcName) == null) {
       return true;
     } else {
@@ -181,7 +182,7 @@ public class AST_FuncDecl extends AST_Node {
   @Override
   public void Check(SymbolTable ST) {
 
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       //Add function to global scope i.e. program
       //IDENTIFIER funcObj = new FunctionObj(funcName, ast_type.getIdentifier(), this);
       //((FunctionObj) funcObj).setParamListObj((ParamListObj) ST.lookup(funcName.concat("_paramList")));
@@ -239,6 +240,15 @@ public class AST_FuncDecl extends AST_Node {
 
     }
     symbolTable.printKeysTable(symbolTable);
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    ast_type.accept(visitor);
+    if(checkForParamList()){
+      //paramList.accept(visitor);
+    }
+    statement.accept(visitor);
   }
 }
 

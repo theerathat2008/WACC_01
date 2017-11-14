@@ -5,6 +5,7 @@ import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 
 import java.util.ArrayDeque;
+import VisitorClass.AST_NodeVisitor;
 
 import IdentifierObjects.*;
 
@@ -109,10 +110,9 @@ public class AST_Param extends AST_Node {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
     return true;
   }
 
@@ -123,7 +123,7 @@ public class AST_Param extends AST_Node {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       while (!ST.getScope().equals("param_list")) {
         ST = ST.encSymTable;
       }
@@ -151,5 +151,10 @@ public class AST_Param extends AST_Node {
       System.out.println("ast_type: has content");
     }
     System.out.println("paramName: " + paramName);
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    ast_type.accept(visitor);
   }
 }

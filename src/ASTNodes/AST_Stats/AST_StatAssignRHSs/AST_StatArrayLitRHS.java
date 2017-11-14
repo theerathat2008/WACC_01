@@ -1,13 +1,12 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
-import antlr.WaccParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import ErrorMessages.TypeMismatchError;
 import src.FilePosition;
 import SymbolTable.SymbolTable;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -125,10 +124,9 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
 
     //empty array is always true
     if (ast_exprList == null) {
@@ -155,7 +153,7 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       //Do symbol table stuff
     }
   }
@@ -173,4 +171,13 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
       System.out.println("ast_exprList has size: " + ast_exprList.size());
     }
   }
+
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    for(AST_Expr expr : ast_exprList){
+      expr.accept(visitor);
+    }
+  }
+
 }

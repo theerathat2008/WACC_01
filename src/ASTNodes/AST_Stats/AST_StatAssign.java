@@ -7,7 +7,7 @@ import SymbolTable.SymbolTable;
 import ErrorMessages.TypeMismatchError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 /**
@@ -104,10 +104,9 @@ public class AST_StatAssign extends AST_Stat {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
     System.out.println("checking semantic of assign statement");
     System.out.println("LHS identifier is: " + ast_statAssignLHS.getIdentifier());
     System.out.println("RHS identifier is: " + ast_statAssignRHS.getIdentifier());
@@ -126,7 +125,7 @@ public class AST_StatAssign extends AST_Stat {
    */
   @Override
   public void Check(SymbolTable ST) {
-    CheckSemantics(ST);
+    CheckSemantics();
   }
 
   /**
@@ -145,5 +144,11 @@ public class AST_StatAssign extends AST_Stat {
     } else {
       System.out.println("ast_statAssignRHS: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    ast_statAssignLHS.accept(visitor);
+    ast_statAssignRHS.accept(visitor);
   }
 }

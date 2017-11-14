@@ -10,6 +10,7 @@ import ErrorMessages.TypeMismatchError;
 import ErrorMessages.VariableRedeclarationError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
+import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 
@@ -21,17 +22,19 @@ public class AST_StatVarDecl extends AST_Stat {
   String identName;
   AST_StatAssignRHS ast_assignRHS;
   ParserRuleContext ctx;
+  SymbolTable symbolTable;
 
   /**
    * Assign the class variables when called
    *
    * @param ctx
    */
-  public AST_StatVarDecl(ParserRuleContext ctx) {
+  public AST_StatVarDecl(ParserRuleContext ctx, SymbolTable symbolTable) {
     this.ast_assignRHS = null;
     this.statName = null;
     this.identName = null;
     this.ctx = ctx;
+    this.symbolTable = symbolTable;
   }
 
   /**
@@ -118,10 +121,11 @@ public class AST_StatVarDecl extends AST_Stat {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
+
+    SymbolTable ST = this.symbolTable;
     System.out.println(ast_assignRHS.getType(ST));
     System.out.println(ast_type.getIdentifier().toString());
     if (ST.lookup(identName) != null) {
@@ -169,5 +173,11 @@ public class AST_StatVarDecl extends AST_Stat {
     } else {
       System.out.println("ast_type: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    ast_type.accept(visitor);
+    ast_assignRHS.accept(visitor);
   }
 }

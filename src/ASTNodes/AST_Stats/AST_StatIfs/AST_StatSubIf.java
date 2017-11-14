@@ -5,6 +5,7 @@ import ASTNodes.AST_Stats.AST_Stat;
 import IdentifierObjects.IDENTIFIER;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
+import VisitorClass.AST_NodeVisitor;
 
 public class AST_StatSubIf extends AST_Stat {
 
@@ -82,10 +83,9 @@ public class AST_StatSubIf extends AST_Stat {
   /**
    * //Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
     return true;
   }
 
@@ -96,7 +96,7 @@ public class AST_StatSubIf extends AST_Stat {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       //Do symbol table stuff
     }
   }
@@ -121,5 +121,10 @@ public class AST_StatSubIf extends AST_Stat {
    */
   public void setIdentifier(IDENTIFIER identifier) {
     this.identifier = identifier;
+  }
+
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
   }
 }

@@ -6,7 +6,7 @@ import ASTNodes.AST_Node;
 import ErrorMessages.TypeError;
 import src.FilePosition;
 import SymbolTable.SymbolTable;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 /**
@@ -108,10 +108,9 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
 
     //check for valid pair elem types
     if (!(typeName.equals("int") || typeName.equals("bool") || typeName.equals("char") ||
@@ -130,7 +129,7 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       setType(ast_expr.getType());
     }
   }
@@ -147,5 +146,10 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
     } else {
       System.out.println("ast_expr: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    ast_expr.accept(visitor);
   }
 }

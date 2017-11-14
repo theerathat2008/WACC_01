@@ -5,6 +5,7 @@ import ASTNodes.AST_Separator;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
+import VisitorClass.AST_NodeVisitor;
 
 /**
  * Class representing node in AST tree for ENCLOSED EXPRESSIONS
@@ -108,10 +109,9 @@ public class AST_ExprEnclosed extends AST_Expr {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
     return true;
   }
 
@@ -122,7 +122,7 @@ public class AST_ExprEnclosed extends AST_Expr {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       setType(exprAST.type);
       //Do symbol table stuff
     }
@@ -149,5 +149,12 @@ public class AST_ExprEnclosed extends AST_Expr {
     } else {
       System.out.println("rightSepAST: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    leftSepAST.accept(visitor);
+    exprAST.accept(visitor);
+    rightSepAST.accept(visitor);
   }
 }

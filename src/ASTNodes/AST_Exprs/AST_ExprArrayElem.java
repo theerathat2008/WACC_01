@@ -6,6 +6,7 @@ import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import VisitorClass.AST_NodeVisitor;
 
 import IdentifierObjects.*;
 
@@ -116,10 +117,9 @@ public class AST_ExprArrayElem extends AST_Expr {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
     return true;
   }
 
@@ -130,7 +130,7 @@ public class AST_ExprArrayElem extends AST_Expr {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       setType(ast_exprList.get(0).type + "[]");
     }
 
@@ -148,6 +148,14 @@ public class AST_ExprArrayElem extends AST_Expr {
       System.out.println("ast_exprList: list full");
     } else {
       System.out.println("ast_exprList has size: " + ast_exprList.size());
+    }
+  }
+
+  @Override
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    for(AST_Expr expr : ast_exprList){
+      expr.accept(visitor);
     }
   }
 }

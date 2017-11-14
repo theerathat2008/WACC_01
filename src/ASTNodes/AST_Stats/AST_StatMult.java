@@ -2,7 +2,7 @@ package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 
@@ -102,10 +102,9 @@ public class AST_StatMult extends AST_Stat {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
     return true;
   }
 
@@ -116,7 +115,7 @@ public class AST_StatMult extends AST_Stat {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       //Do symbol table stuff
     }
   }
@@ -137,5 +136,12 @@ public class AST_StatMult extends AST_Stat {
     } else {
       System.out.println("stat2: has content");
     }
+  }
+
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    stat1.accept(visitor);
+    stat2.accept(visitor);
   }
 }

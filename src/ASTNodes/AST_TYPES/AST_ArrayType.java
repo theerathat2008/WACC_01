@@ -2,7 +2,7 @@ package ASTNodes.AST_TYPES;
 
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 import IdentifierObjects.*;
@@ -89,10 +89,9 @@ public class AST_ArrayType extends AST_Type {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
     return true;
   }
 
@@ -103,7 +102,7 @@ public class AST_ArrayType extends AST_Type {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
     }
   }
 
@@ -125,6 +124,11 @@ public class AST_ArrayType extends AST_Type {
     } else {
       System.out.println("ast_type: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    ast_type.accept(visitor);
   }
 
   /**

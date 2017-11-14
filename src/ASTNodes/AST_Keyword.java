@@ -3,6 +3,7 @@ package ASTNodes;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
+import VisitorClass.AST_NodeVisitor;
 
 /**
  * Class representing node in AST tree for KEYWORDS
@@ -91,10 +92,9 @@ public class AST_Keyword extends AST_Node {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
     return true;
   }
 
@@ -105,7 +105,7 @@ public class AST_Keyword extends AST_Node {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       //Do symbol table stuff
     }
   }
@@ -117,5 +117,9 @@ public class AST_Keyword extends AST_Node {
   public void printContents() {
     System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("keyword_name: " + keyword_name);
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
   }
 }

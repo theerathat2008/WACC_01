@@ -2,9 +2,7 @@ package ASTNodes;
 
 
 import SymbolTable.SymbolTable;
-import org.antlr.v4.runtime.ParserRuleContext;
-import src.FilePosition;
-import antlr.WaccParser;
+import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 
@@ -84,9 +82,8 @@ public abstract class AST_Node {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
-  protected abstract boolean CheckSemantics(SymbolTable ST);
+  public abstract boolean CheckSemantics();
 
   /**
    * Called from visitor
@@ -100,36 +97,6 @@ public abstract class AST_Node {
    */
   public abstract void printContents();
 
-  public String getExprType(WaccParser.ExprContext exprContext) {
-    if (exprContext instanceof WaccParser.INT_LITER_EXPRContext) {
-      return "int";
-    } else if (exprContext instanceof WaccParser.UNARY_OP_EXPRContext) {
-      return "int";
-    } else if (exprContext instanceof WaccParser.CHAR_LITER_EXPRContext) {
-      return "char";
-    } else if (exprContext instanceof WaccParser.STR_LITER_EXPRContext) {
-      return "string";
-    } else if (exprContext instanceof WaccParser.BOOL_LITER_EXPRContext) {
-      return "bool";
-    } else if (exprContext instanceof WaccParser.IDENT_EXPRContext) {
-      WaccParser.IDENT_EXPRContext ctx = (WaccParser.IDENT_EXPRContext) exprContext;
-      return null;
-    } else if (exprContext instanceof WaccParser.PAIR_LITER_EXPRContext) {
-      return "pair";
-    } else if (exprContext instanceof WaccParser.ARRAY_ELEM_EXPRContext) {
-      String ident = exprContext.getText();
-      String[] identToks = ident.split("\\[");
-      WaccParser.ARRAY_ELEM_EXPRContext ctx = (WaccParser.ARRAY_ELEM_EXPRContext) exprContext;
 
-      String type;
-      //return type.split("\\[")[0];
-      return null;
-    } else if (exprContext instanceof WaccParser.BINARY_OP_EXPRContext) {
-
-    } else {
-      return null;
-    }
-    return null;
-  }
-
+  public abstract void accept(AST_NodeVisitor visitor);
 }

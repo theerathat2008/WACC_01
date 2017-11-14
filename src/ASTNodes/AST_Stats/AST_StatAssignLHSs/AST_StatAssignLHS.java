@@ -4,7 +4,7 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_Stat;
 import SymbolTable.SymbolTable;
 import IdentifierObjects.*;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 /**
@@ -80,10 +80,9 @@ public class AST_StatAssignLHS extends AST_Stat {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
     return true;
 
   }
@@ -133,5 +132,9 @@ public class AST_StatAssignLHS extends AST_Stat {
    */
   public void setIdentifier(IDENTIFIER identifier) {
     this.identifier = identifier;
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
   }
 }

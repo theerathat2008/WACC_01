@@ -1,13 +1,12 @@
 package ASTNodes.AST_Stats;
 
-import antlr.WaccParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
 import ErrorMessages.TypeError;
 import src.FilePosition;
 import SymbolTable.SymbolTable;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 public class AST_StatRead extends AST_Stat {
@@ -16,12 +15,13 @@ public class AST_StatRead extends AST_Stat {
   AST_StatAssignLHS ast_statAssignLHS;
   //Semantic attribute
   ParserRuleContext ctx;
+  SymbolTable symbolTable;
 
   /**
    * Assign the class variables when called
    */
-  public AST_StatRead(ParserRuleContext ctx) {
-
+  public AST_StatRead(ParserRuleContext ctx, SymbolTable symbolTable) {
+    this.symbolTable = symbolTable;
     this.ast_statAssignLHS = null;
     this.ctx = ctx;
   }
@@ -97,11 +97,12 @@ public class AST_StatRead extends AST_Stat {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    * @return
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
+
+    SymbolTable ST = this.symbolTable;
 
     //get Type of the statement
     String type = ast_statAssignLHS.getType(ST);
@@ -121,7 +122,7 @@ public class AST_StatRead extends AST_Stat {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       //Do symbol table stuff
     }
   }
@@ -137,5 +138,10 @@ public class AST_StatRead extends AST_Stat {
     } else {
       System.out.println("stat1: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    ast_statAssignLHS.accept(visitor);
   }
 }

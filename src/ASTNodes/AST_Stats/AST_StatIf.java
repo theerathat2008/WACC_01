@@ -4,15 +4,13 @@ import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
-import ASTNodes.AST_Stats.AST_StatIfs.AST_StatSubIf;
 import SymbolTable.SymbolTable;
 import ErrorMessages.*;
 import src.FilePosition;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 import org.antlr.v4.runtime.ParserRuleContext;
-import src.waccVisitor;
 
 public class AST_StatIf extends AST_Stat {
 
@@ -120,10 +118,9 @@ public class AST_StatIf extends AST_Stat {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
 
     //get type of the expr of the context to see whether it is equal to type bool
     String typeExpr = expr.getIdentifier().toString();
@@ -143,7 +140,7 @@ public class AST_StatIf extends AST_Stat {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       //Do symbol table stuff
     }
   }
@@ -170,4 +167,12 @@ public class AST_StatIf extends AST_Stat {
       System.out.println("elseStat: has content");
     }
   }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    expr.accept(visitor);
+    thenStat.accept(visitor);
+    elseStat.accept(visitor);
+  }
+
 }

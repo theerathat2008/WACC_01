@@ -1,6 +1,5 @@
 package ASTNodes.AST_Exprs;
 
-import antlr.WaccParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
 import ErrorMessages.OutOfBoundsError;
@@ -8,6 +7,7 @@ import src.FilePosition;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
+import VisitorClass.AST_NodeVisitor;
 
 import IdentifierObjects.*;
 
@@ -107,10 +107,9 @@ public class AST_ExprLiter extends AST_Expr {
   /**
    * Semantic Analysis and print error message if needed
    *
-   * @param ST
    */
   @Override
-  protected boolean CheckSemantics(SymbolTable ST) {
+  public boolean CheckSemantics() {
 
     //if it is int liter, check whether the number is inside the integer bounds
     if (literal.equals("int")) {
@@ -175,7 +174,7 @@ public class AST_ExprLiter extends AST_Expr {
    */
   @Override
   public void Check(SymbolTable ST) {
-    if (CheckSemantics(ST)) {
+    if (CheckSemantics()) {
       setType(literal);
     }
   }
@@ -188,5 +187,9 @@ public class AST_ExprLiter extends AST_Expr {
     System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("constant: " + constant);
     System.out.println("literal: " + literal);
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
   }
 }
