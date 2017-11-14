@@ -4,7 +4,7 @@ import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
-
+import VisitorClass.AST_NodeVisitor;
 import IdentifierObjects.*;
 
 /**
@@ -176,5 +176,11 @@ public class AST_ExprBinary extends AST_Expr {
     } else {
       System.out.println("exprRightAST: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    exprLeftAST.accept(visitor);
+    exprRightAST.accept(visitor);
   }
 }

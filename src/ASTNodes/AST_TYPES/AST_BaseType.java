@@ -2,7 +2,7 @@ package ASTNodes.AST_TYPES;
 
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 import IdentifierObjects.*;
@@ -126,6 +126,10 @@ public class AST_BaseType extends AST_Type {
   public void printContents() {
     System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("baseTypeName: " + baseTypeName);
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
   }
 
   /**

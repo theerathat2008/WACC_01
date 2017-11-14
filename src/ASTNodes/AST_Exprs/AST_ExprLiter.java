@@ -4,6 +4,7 @@ import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
+import VisitorClass.AST_NodeVisitor;
 
 import IdentifierObjects.*;
 
@@ -128,5 +129,9 @@ public class AST_ExprLiter extends AST_Expr {
     System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("constant: " + constant);
     System.out.println("literal: " + literal);
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
   }
 }

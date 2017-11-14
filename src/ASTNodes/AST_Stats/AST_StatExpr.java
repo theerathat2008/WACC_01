@@ -8,7 +8,7 @@ import SymbolTable.SymbolTable;
 import src.ErrorMessages.TypeError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 public class AST_StatExpr extends AST_Stat {
@@ -132,5 +132,10 @@ public class AST_StatExpr extends AST_Stat {
     } else {
       System.out.println("expr: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    expr.accept(visitor);
   }
 }

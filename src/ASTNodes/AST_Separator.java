@@ -3,6 +3,7 @@ package ASTNodes;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
+import VisitorClass.AST_NodeVisitor;
 
 /**
  * Class representing node in AST tree for SEPARATORS
@@ -117,5 +118,9 @@ public class AST_Separator extends AST_Node {
   public void printContents() {
     System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("separatorType: " + separatorType);
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
   }
 }

@@ -4,6 +4,7 @@ package ASTNodes.AST_Stats;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
+import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 
@@ -133,5 +134,11 @@ public class AST_StatWhile extends AST_Stat {
     } else {
       System.out.println("statAST: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    exprAST.accept(visitor);
+    statAST.accept(visitor);
   }
 }

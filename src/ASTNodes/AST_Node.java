@@ -4,6 +4,7 @@ package ASTNodes;
 import SymbolTable.SymbolTable;
 import org.antlr.v4.runtime.ParserRuleContext;
 import src.FilePosition;
+import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 
@@ -99,4 +100,5 @@ public abstract class AST_Node {
    */
   public abstract void printContents();
 
+  public abstract void accept(AST_NodeVisitor visitor);
 }

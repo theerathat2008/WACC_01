@@ -14,6 +14,7 @@ import src.ErrorMessages.MissingParameterError;
 import src.ErrorMessages.TypeError;
 import src.ErrorMessages.UndefinedFunctionError;
 import src.FilePosition;
+import VisitorClass.AST_NodeVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.ArrayDeque;
@@ -238,6 +239,13 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
       System.out.println("ast_exprList: List full");
     } else {
       System.out.println("ast_exprList has size: " + ast_exprList.size());
+    }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    for(AST_Expr expr : ast_exprList){
+      expr.accept(visitor);
     }
   }
 }

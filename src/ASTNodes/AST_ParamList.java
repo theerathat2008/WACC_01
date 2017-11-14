@@ -7,7 +7,7 @@ import java.util.ArrayDeque;
 import IdentifierObjects.IDENTIFIER;
 import IdentifierObjects.ParamListObj;
 import IdentifierObjects.BaseTypeObj;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,6 +144,13 @@ public class AST_ParamList extends AST_Node {
       System.out.println("ParamList: List full");
     } else {
       System.out.println("ParamList has size: " + listParam.size());
+    }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    for(AST_Param param : listParam){
+      param.accept(visitor);
     }
   }
 }

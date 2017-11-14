@@ -1,9 +1,10 @@
 package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
+import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -150,6 +151,13 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
       System.out.println("ast_exprList: List full");
     } else {
       System.out.println("ast_exprList has size: " + ast_exprList.size());
+    }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    for(AST_Expr expr : ast_exprList){
+      expr.accept(visitor);
     }
   }
 }

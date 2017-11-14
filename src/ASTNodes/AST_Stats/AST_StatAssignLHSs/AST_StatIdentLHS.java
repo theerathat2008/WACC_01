@@ -2,7 +2,7 @@ package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 /**
@@ -121,4 +121,9 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS {
     System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("identName: " + identName);
   }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+  }
+
 }

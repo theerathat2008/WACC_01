@@ -2,7 +2,7 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 import IdentifierObjects.*;
@@ -160,5 +160,10 @@ public class AST_ExprUnary extends AST_Expr {
     } else {
       System.out.println("astExpr: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    astExpr.accept(visitor);
   }
 }

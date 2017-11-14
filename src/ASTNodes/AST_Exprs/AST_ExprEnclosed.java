@@ -5,6 +5,7 @@ import ASTNodes.AST_Separator;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
+import VisitorClass.AST_NodeVisitor;
 
 /**
  * Class representing node in AST tree for ENCLOSED EXPRESSIONS
@@ -149,5 +150,12 @@ public class AST_ExprEnclosed extends AST_Expr {
     } else {
       System.out.println("rightSepAST: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    leftSepAST.accept(visitor);
+    exprAST.accept(visitor);
+    rightSepAST.accept(visitor);
   }
 }

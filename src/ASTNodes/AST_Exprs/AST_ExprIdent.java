@@ -6,7 +6,7 @@ import SymbolTable.SymbolTable;
 import src.ErrorMessages.UndefinedIdentError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
-
+import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 
@@ -130,5 +130,8 @@ public class AST_ExprIdent extends AST_Expr {
   public void printContents() {
     System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("varName: " + varName);
+  }
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
   }
 }

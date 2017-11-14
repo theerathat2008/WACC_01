@@ -10,6 +10,7 @@ import src.ErrorMessages.TypeMismatchError;
 import src.ErrorMessages.VariableRedeclarationError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
+import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 
@@ -165,5 +166,11 @@ public class AST_StatVarDecl extends AST_Stat {
     } else {
       System.out.println("ast_type: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    ast_type.accept(visitor);
+    ast_assignRHS.accept(visitor);
   }
 }

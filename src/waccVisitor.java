@@ -55,7 +55,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
    * @param root
    */
   public void printNodes(AST_Node root) {
-    root.printContents();
     if (root.getNodes() != null) {
       for (AST_Node node : root.getNodes()) {
         node.printContents();

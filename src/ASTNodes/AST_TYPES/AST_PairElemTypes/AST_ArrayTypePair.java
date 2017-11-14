@@ -4,7 +4,7 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_TYPES.AST_Type;
 import SymbolTable.SymbolTable;
 import IdentifierObjects.*;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 public class AST_ArrayTypePair extends AST_PairElemType {
@@ -128,6 +128,11 @@ public class AST_ArrayTypePair extends AST_PairElemType {
     } else {
       System.out.println("ast_type: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    ast_type.accept(visitor);
   }
 
   /**

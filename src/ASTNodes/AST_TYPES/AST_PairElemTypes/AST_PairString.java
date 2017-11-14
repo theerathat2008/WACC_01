@@ -2,7 +2,7 @@ package ASTNodes.AST_TYPES.AST_PairElemTypes;
 
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 import IdentifierObjects.*;
@@ -127,7 +127,11 @@ public class AST_PairString extends AST_PairElemType {
   /**
    * @return returns the identifier of the attribute
    */
-  public IDENTIFIER getIdentifier() {
-    return new BaseTypeObj(null, "pair");
+  public IDENTIFIER getIdentifier(){
+    return new BaseTypeObj("pair");
+  };
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
   }
 }

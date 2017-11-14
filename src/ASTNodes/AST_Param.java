@@ -5,6 +5,7 @@ import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 
 import java.util.ArrayDeque;
+import VisitorClass.AST_NodeVisitor;
 
 import IdentifierObjects.*;
 
@@ -144,5 +145,10 @@ public class AST_Param extends AST_Node {
       System.out.println("ast_type: has content");
     }
     System.out.println("paramName: " + paramName);
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    ast_type.accept(visitor);
   }
 }

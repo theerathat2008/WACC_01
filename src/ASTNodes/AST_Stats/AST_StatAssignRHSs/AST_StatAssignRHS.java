@@ -1,9 +1,10 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
+import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_Stat;
 import SymbolTable.SymbolTable;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 import IdentifierObjects.*;
@@ -125,6 +126,10 @@ public class AST_StatAssignRHS extends AST_Stat {
    */
   public void setIdentifier(IDENTIFIER identifier) {
     this.identifier = identifier;
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
   }
 }
 

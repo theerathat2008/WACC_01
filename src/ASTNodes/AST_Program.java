@@ -6,6 +6,7 @@ import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import VisitorClass.AST_NodeVisitor;
 
 
 /**
@@ -146,5 +147,13 @@ public class AST_Program extends AST_Node {
     } else {
       System.out.println("statement: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    for(AST_FuncDecl func : funcDeclList){
+      func.accept(visitor);
+    }
+    statement.accept(visitor);
   }
 }

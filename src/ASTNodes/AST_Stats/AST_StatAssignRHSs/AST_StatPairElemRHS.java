@@ -3,7 +3,7 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 /**
@@ -142,5 +142,8 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
       System.out.println("ast_expr: has content");
     }
   }
-
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    ast_expr.accept(visitor);
+  }
 }

@@ -2,6 +2,7 @@ package src;
 
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
+import VisitorClass.AST_VisitSemantic;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
@@ -41,10 +42,12 @@ public class waccTest {
     System.out.println("===");
 
 
-    //System.out.println("---------TESTING------------");
+    System.out.println("---------TESTING------------");
     AST_Program root = visitor.getRootNode();
     visitor.printNodes(root);
-    //System.out.println("---------TESTING------------");
+    System.out.println("---------------------Second Visitor implementation-------------------------");
+    root.accept(new AST_VisitSemantic());
+    System.out.println("---------TESTING------------");
 
 
   }

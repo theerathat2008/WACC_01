@@ -7,7 +7,7 @@ import SymbolTable.SymbolTable;
 import src.ErrorMessages.TypeMismatchError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 /**
@@ -145,5 +145,11 @@ public class AST_StatAssign extends AST_Stat {
     } else {
       System.out.println("ast_statAssignRHS: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    ast_statAssignLHS.accept(visitor);
+    ast_statAssignRHS.accept(visitor);
   }
 }

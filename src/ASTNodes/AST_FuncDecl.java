@@ -9,6 +9,7 @@ import ASTNodes.AST_TYPES.AST_Type;
 import org.antlr.v4.runtime.ParserRuleContext;
 import src.ErrorMessages.FunctionRedeclarationError;
 import src.FilePosition;
+import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 
@@ -216,6 +217,13 @@ public class AST_FuncDecl extends AST_Node {
     } else {
       System.out.println("ast_type: has content");
     }
+  }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    ast_type.accept(visitor);
+    paramList.accept(visitor);
+    statement.accept(visitor);
   }
 }
 

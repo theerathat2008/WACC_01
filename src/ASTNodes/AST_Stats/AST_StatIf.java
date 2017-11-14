@@ -4,7 +4,7 @@ import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatSubIf;
 import SymbolTable.SymbolTable;
-
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 public class AST_StatIf extends AST_Stat {
@@ -152,4 +152,12 @@ public class AST_StatIf extends AST_Stat {
       System.out.println("elseStat: has content");
     }
   }
+
+  public void accept(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    expr.accept(visitor);
+    thenStat.accept(visitor);
+    elseStat.accept(visitor);
+  }
+
 }
