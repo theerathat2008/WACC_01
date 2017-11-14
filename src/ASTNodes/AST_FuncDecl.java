@@ -159,8 +159,6 @@ public class AST_FuncDecl extends AST_Node {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
-   * @param ST
    */
   @Override
   public boolean CheckSemantics() {
