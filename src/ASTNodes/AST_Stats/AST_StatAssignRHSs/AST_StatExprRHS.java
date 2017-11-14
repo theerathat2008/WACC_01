@@ -1,9 +1,9 @@
-package ASTNodes.AST_Stats.AST_StatAssignRHSs;
+package src.ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
-import ASTNodes.AST_Exprs.AST_Expr;
-import ASTNodes.AST_Node;
-import SymbolTable.SymbolTable;
-import VisitorClass.AST_NodeVisitor;
+import src.ASTNodes.AST_Exprs.AST_Expr;
+import src.ASTNodes.AST_Node;
+import src.SymbolTable.SymbolTable;
+import src.VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 /**

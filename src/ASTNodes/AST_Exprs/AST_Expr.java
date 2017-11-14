@@ -1,11 +1,11 @@
-package ASTNodes.AST_Exprs;
+package src.ASTNodes.AST_Exprs;
 
-import ASTNodes.AST_Node;
-import SymbolTable.SymbolTable;
-import VisitorClass.AST_NodeVisitor;
+import src.ASTNodes.AST_Node;
+import src.SymbolTable.SymbolTable;
+import src.VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
-import IdentifierObjects.IDENTIFIER;
+import src.IdentifierObjects.IDENTIFIER;
 
 /**
  * Class representing node in AST tree for EXPRESSIONS

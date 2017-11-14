@@ -1,13 +1,13 @@
-package ASTNodes.AST_Stats;
+package src.ASTNodes.AST_Stats;
 
-import ASTNodes.AST_Exprs.AST_Expr;
-import ASTNodes.AST_Node;
-import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
-import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
-import SymbolTable.SymbolTable;
-import ErrorMessages.*;
+import src.ASTNodes.AST_Exprs.AST_Expr;
+import src.ASTNodes.AST_Node;
+import src.ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
+import src.ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
+import src.SymbolTable.SymbolTable;
+import src.ErrorMessages.*;
 import src.FilePosition;
-import VisitorClass.AST_NodeVisitor;
+import src.VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 import org.antlr.v4.runtime.ParserRuleContext;

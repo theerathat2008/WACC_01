@@ -1,15 +1,15 @@
-package ASTNodes.AST_Exprs;
+package src.ASTNodes.AST_Exprs;
 
 import org.antlr.v4.runtime.ParserRuleContext;
-import ASTNodes.AST_Node;
-import ErrorMessages.OutOfBoundsError;
+import src.ASTNodes.AST_Node;
+import src.ErrorMessages.OutOfBoundsError;
 import src.FilePosition;
-import SymbolTable.SymbolTable;
+import src.SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
-import VisitorClass.AST_NodeVisitor;
+import src.VisitorClass.AST_NodeVisitor;
 
-import IdentifierObjects.*;
+import src.IdentifierObjects.*;
 
 /**
  * Class representing node in AST tree for LITERAL EXPRESSIONS

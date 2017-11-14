@@ -1,14 +1,14 @@
-package ASTNodes.AST_Exprs;
+package src.ASTNodes.AST_Exprs;
 
-import ASTNodes.AST_Node;
-import SymbolTable.SymbolTable;
+import src.ASTNodes.AST_Node;
+import src.SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
-import VisitorClass.AST_NodeVisitor;
+import src.VisitorClass.AST_NodeVisitor;
 
-import IdentifierObjects.*;
+import src.IdentifierObjects.*;
 
 /**
  * Class representing node in AST tree for EXPRESSIONS that are Array Elements

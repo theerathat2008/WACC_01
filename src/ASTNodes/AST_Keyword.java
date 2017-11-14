@@ -1,9 +1,9 @@
-package ASTNodes;
+package src.ASTNodes;
 
-import SymbolTable.SymbolTable;
+import src.SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
-import VisitorClass.AST_NodeVisitor;
+import src.VisitorClass.AST_NodeVisitor;
 
 /**
  * Class representing node in AST tree for KEYWORDS

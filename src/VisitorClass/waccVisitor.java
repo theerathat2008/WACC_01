@@ -1,21 +1,21 @@
-package VisitorClass;
+package src.VisitorClass;
 
-import ASTNodes.*;
-import ASTNodes.AST_Exprs.*;
-import ASTNodes.AST_Stats.*;
-import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatArrayElemLHS;
-import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
-import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatPairElemLHS;
-import ASTNodes.AST_Stats.AST_StatAssignRHSs.*;
-import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
-import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
-import SymbolTable.SymbolTable;
-import ASTNodes.AST_TYPES.AST_ArrayType;
-import ASTNodes.AST_TYPES.AST_BaseType;
-import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_ArrayTypePair;
-import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_BaseTypePair;
-import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairString;
-import ASTNodes.AST_TYPES.AST_PairType;
+import src.ASTNodes.*;
+import src.ASTNodes.AST_Exprs.*;
+import src.ASTNodes.AST_Stats.*;
+import src.ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatArrayElemLHS;
+import src.ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
+import src.ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatPairElemLHS;
+import src.ASTNodes.AST_Stats.AST_StatAssignRHSs.*;
+import src.ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
+import src.ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
+import src.SymbolTable.SymbolTable;
+import src.ASTNodes.AST_TYPES.AST_ArrayType;
+import src.ASTNodes.AST_TYPES.AST_BaseType;
+import src.ASTNodes.AST_TYPES.AST_PairElemTypes.AST_ArrayTypePair;
+import src.ASTNodes.AST_TYPES.AST_PairElemTypes.AST_BaseTypePair;
+import src.ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairString;
+import src.ASTNodes.AST_TYPES.AST_PairType;
 
 import antlr.*;
 

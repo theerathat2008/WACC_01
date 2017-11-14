@@ -1,9 +1,9 @@
-package ASTNodes.AST_Stats.AST_StatIfs;
+package src.ASTNodes.AST_Stats.AST_StatIfs;
 
-import ASTNodes.AST_Node;
-import ASTNodes.AST_Stats.AST_Stat;
-import SymbolTable.SymbolTable;
-import VisitorClass.AST_NodeVisitor;
+import src.ASTNodes.AST_Node;
+import src.ASTNodes.AST_Stats.AST_Stat;
+import src.SymbolTable.SymbolTable;
+import src.VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 public class AST_StatIfElse extends AST_StatSubIf{

@@ -1,10 +1,10 @@
-package ASTNodes.AST_Stats.AST_StatAssignLHSs;
+package src.ASTNodes.AST_Stats.AST_StatAssignLHSs;
 
-import ASTNodes.AST_Node;
-import ASTNodes.AST_Stats.AST_Stat;
-import SymbolTable.SymbolTable;
-import IdentifierObjects.*;
-import VisitorClass.AST_NodeVisitor;
+import src.ASTNodes.AST_Node;
+import src.ASTNodes.AST_Stats.AST_Stat;
+import src.SymbolTable.SymbolTable;
+import src.IdentifierObjects.*;
+import src.VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 /**

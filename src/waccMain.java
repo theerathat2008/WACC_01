@@ -1,9 +1,9 @@
 package src;
 
-import ASTNodes.AST_Node;
-import ASTNodes.AST_Program;
-import VisitorClass.AST_VisitSemantic;
-import VisitorClass.waccVisitor;
+import src.ASTNodes.AST_Node;
+import src.ASTNodes.AST_Program;
+import src.VisitorClass.AST_VisitSemantic;
+import src.VisitorClass.waccVisitor;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 

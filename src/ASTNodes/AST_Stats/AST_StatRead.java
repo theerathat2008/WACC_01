@@ -1,12 +1,12 @@
-package ASTNodes.AST_Stats;
+package src.ASTNodes.AST_Stats;
 
 import org.antlr.v4.runtime.ParserRuleContext;
-import ASTNodes.AST_Node;
-import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
-import ErrorMessages.TypeError;
+import src.ASTNodes.AST_Node;
+import src.ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
+import src.ErrorMessages.TypeError;
 import src.FilePosition;
-import SymbolTable.SymbolTable;
-import VisitorClass.AST_NodeVisitor;
+import src.SymbolTable.SymbolTable;
+import src.VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 public class AST_StatRead extends AST_Stat {

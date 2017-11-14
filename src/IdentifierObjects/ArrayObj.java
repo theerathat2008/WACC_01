@@ -1,4 +1,4 @@
-package IdentifierObjects;
+package src.IdentifierObjects;
 
 public class ArrayObj extends IDENTIFIER {
 

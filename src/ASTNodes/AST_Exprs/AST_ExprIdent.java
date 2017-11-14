@@ -1,11 +1,11 @@
-package ASTNodes.AST_Exprs;
+package src.ASTNodes.AST_Exprs;
 
-import ASTNodes.AST_Node;
-import SymbolTable.SymbolTable;
-import ErrorMessages.UndefinedIdentError;
+import src.ASTNodes.AST_Node;
+import src.SymbolTable.SymbolTable;
+import src.ErrorMessages.UndefinedIdentError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
-import VisitorClass.AST_NodeVisitor;
+import src.VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 

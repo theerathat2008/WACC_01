@@ -1,10 +1,10 @@
-package ASTNodes.AST_TYPES;
+package src.ASTNodes.AST_TYPES;
 
-import ASTNodes.AST_Node;
-import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairElemType;
-import SymbolTable.SymbolTable;
-import IdentifierObjects.*;
-import VisitorClass.AST_NodeVisitor;
+import src.ASTNodes.AST_Node;
+import src.ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairElemType;
+import src.SymbolTable.SymbolTable;
+import src.IdentifierObjects.*;
+import src.VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
 /**

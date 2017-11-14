@@ -1,8 +1,8 @@
-package ASTNodes;
+package src.ASTNodes;
 
 
-import SymbolTable.SymbolTable;
-import VisitorClass.AST_NodeVisitor;
+import src.SymbolTable.SymbolTable;
+import src.VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 

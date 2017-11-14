@@ -1,18 +1,18 @@
-package ASTNodes.AST_Stats.AST_StatAssignRHSs;
+package src.ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
-import ASTNodes.AST_Exprs.AST_Expr;
-import ASTNodes.AST_Node;
-import ASTNodes.AST_FuncDecl;
-import ASTNodes.AST_ParamList;
-import ASTNodes.AST_Param;
-import IdentifierObjects.FunctionObj;
-import IdentifierObjects.IDENTIFIER;
-import SymbolTable.SymbolTable;
-import ErrorMessages.MissingParameterError;
-import ErrorMessages.TypeError;
-import ErrorMessages.UndefinedFunctionError;
+import src.ASTNodes.AST_Exprs.AST_Expr;
+import src.ASTNodes.AST_Node;
+import src.ASTNodes.AST_FuncDecl;
+import src.ASTNodes.AST_ParamList;
+import src.ASTNodes.AST_Param;
+import src.IdentifierObjects.FunctionObj;
+import src.IdentifierObjects.IDENTIFIER;
+import src.SymbolTable.SymbolTable;
+import src.ErrorMessages.MissingParameterError;
+import src.ErrorMessages.TypeError;
+import src.ErrorMessages.UndefinedFunctionError;
 import src.FilePosition;
-import VisitorClass.AST_NodeVisitor;
+import src.VisitorClass.AST_NodeVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.ArrayDeque;
