@@ -4,6 +4,7 @@ import src.ASTNodes.AST_Exprs.AST_Expr;
 import src.ASTNodes.AST_FuncDecl;
 import src.ASTNodes.AST_Node;
 import src.ASTNodes.AST_Program;
+import src.ErrorMessages.TypeMismatchError;
 import src.SymbolTable.SymbolTable;
 import src.ErrorMessages.TypeError;
 import src.FilePosition;
@@ -84,18 +85,24 @@ public class AST_StatExpr extends AST_Stat {
       return expr.getIdentifier().toString().contains("[]") || expr.getIdentifier().toString().startsWith("pair(");
     } else if (statName.equals("return")) {
       AST_Node parent = getParentNode();
+
+      //TODO fix this while loop because it loops forever
       while (!(parent instanceof AST_FuncDecl)) {
         if (parent instanceof AST_Program) {
           System.out.println("Return statement not inside of a function.");
           new TypeError(new FilePosition(ctx)).printAll();
           return false;
         }
+
         parent = getParentNode();
         System.out.println("Going to AST parent, looking for function");
       }
+      //TODO need to have a way to check if the return type is the same type as function type
+      //parent = getParentNode();
       AST_FuncDecl temp = (AST_FuncDecl) parent;
-      if (temp.ast_type.getIdentifier().equals(expr.getIdentifier())) {
-        return true;
+      if (!temp.ast_type.getIdentifier().equals(expr.getIdentifier())) {
+        new TypeMismatchError(new FilePosition(ctx)).printAll();
+        return false;
       }
     } else if (statName.equals("exit")) {
       return expr.getIdentifier().toString().equals("int");

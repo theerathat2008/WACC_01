@@ -130,8 +130,6 @@ public class AST_Program extends AST_Node {
   public void Check(SymbolTable ST) {
     if (CheckSemantics()) {
       //Do symbol table stuff     Nothing to check here (I think)
-    } else {
-
     }
   }
 
