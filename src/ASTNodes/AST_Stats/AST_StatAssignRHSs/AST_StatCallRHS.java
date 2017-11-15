@@ -185,16 +185,32 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
 
         if (parameters.size() != ast_exprList.size()) {
           new MissingParameterError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+
+        //Debug statement to see what is inside param
+        for (IDENTIFIER param : parameters) {
+          System.out.println(param);
         }
 
         for (int i = 0; i < ast_exprList.size(); i++) {
+          //TODO set the value for ast_exprList because right now it is null
           String typeExpr = ast_exprList.get(i).getType();
+          System.out.println(typeExpr);
           String typeParam = parameters.get(i).toString();
+          System.out.println(typeParam);
+          //TODO typeExpr is null
           if (!typeExpr.equals(typeParam)) {
             new TypeError(new FilePosition(ctx)).printAll();
+            return false;
           }
         }
       }
+      //Debug statement
+      System.out.println(funcName);
+      //TODO ST.lookup(funcname) returns null
+      System.out.println(ST.lookup(funcName));
+      //TODO this statement also has NullPointer exception
       setIdentifier(((FunctionObj) (ST.lookup(funcName))).getReturnType());
     }
 
