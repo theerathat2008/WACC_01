@@ -86,7 +86,7 @@ public class AST_StatExpr extends AST_Stat {
     } else if (statName.equals("return")) {
       AST_Node parent = getParentNode();
 
-      //TODO fix this while loop because it loops forever
+      //TODO fix this while loop because it loops forever, is there any other way to implement this
       while (!(parent instanceof AST_FuncDecl)) {
         if (parent instanceof AST_Program) {
           System.out.println("Return statement not inside of a function.");
@@ -94,13 +94,14 @@ public class AST_StatExpr extends AST_Stat {
           return false;
         }
 
-        parent = getParentNode();
+        parent = parent.getParentNode();
+
         System.out.println("Going to AST parent, looking for function");
       }
       //TODO need to have a way to check if the return type is the same type as function type
       //parent = getParentNode();
       AST_FuncDecl temp = (AST_FuncDecl) parent;
-      if (!temp.ast_type.getIdentifier().equals(expr.getIdentifier())) {
+      if (!temp.ast_type.getIdentifier().toString().equals(expr.getIdentifier())) {
         new TypeMismatchError(new FilePosition(ctx)).printAll();
         return false;
       }

@@ -2,6 +2,7 @@ package src.ASTNodes;
 
 import src.ASTNodes.AST_Stats.AST_Stat;
 import src.IdentifierObjects.FunctionObj;
+import src.IdentifierObjects.IDENTIFIER;
 import src.IdentifierObjects.ParamListObj;
 import src.SymbolTable.SymbolTable;
 import src.ASTNodes.AST_TYPES.AST_Type;
@@ -163,12 +164,19 @@ public class AST_FuncDecl extends AST_Node {
   @Override
   public boolean CheckSemantics() {
     SymbolTable ST = this.symbolTable;
-    if (ST.lookupAll(funcName) == null) {
+    if (ST.lookup(funcName) == null) {
       return true;
+
     } else {
-      System.out.println("Error on line " + ctx.getStart().getLine() + ". Function of same name already defined");
-      new FunctionRedeclarationError(new FilePosition(ctx)).printAll();
-      return false;
+      IDENTIFIER type = this.symbolTable.lookup(funcName);
+      if (ast_type.getIdentifier().equals(type)) {
+        return true;
+      } else {
+        System.out.println("Error on line " + ctx.getStart().getLine() + ". Function of same name already defined");
+        new FunctionRedeclarationError(new FilePosition(ctx)).printAll();
+        return false;
+      }
+
     }
   }
 
