@@ -159,10 +159,10 @@ public class AST_ExprLiter extends AST_Expr {
         return false;
       }
 
-      if (!Character.isLetterOrDigit(constant.charAt(0))) {
+      /*if (!Character.isLetterOrDigit(constant.charAt(0))) {
         System.out.println("Valid character literals must be ASCII character.");
         return false;
-      }
+      }*/
     }
     return true;
   }

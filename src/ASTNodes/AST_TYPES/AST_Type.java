@@ -135,6 +135,18 @@ public class AST_Type extends AST_Node {
    * @return returns the identifier of the attribute
    */
   public IDENTIFIER getIdentifier() {
-    return new BaseTypeObj("int");
+
+    /*if (compositeType.equals("int")) {
+      return new BaseTypeObj("int");
+    } else if (compositeType.equals("char")) {
+      return new BaseTypeObj("char");
+    } else if (compositeType.equals("bool")) {
+      return new BaseTypeObj(("bool"));
+    } else if (compositeType.equals("string")) {
+      return new BaseTypeObj("string");
+    } else {
+      return new BaseTypeObj("pair");
+    }*/
+    return new BaseTypeObj("char");
   }
 }

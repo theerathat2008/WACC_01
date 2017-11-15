@@ -80,9 +80,9 @@ public class AST_StatExpr extends AST_Stat {
    */
   @Override
   public boolean CheckSemantics() {
-    if (statName.equals("FREE")) {
-      return expr.getIdentifier().toString().contains("[]") || expr.getIdentifier().toString().startsWith("PAIR(");
-    } else if (statName.equals("RETURN")) {
+    if (statName.equals("free")) {
+      return expr.getIdentifier().toString().contains("[]") || expr.getIdentifier().toString().startsWith("pair(");
+    } else if (statName.equals("return")) {
       AST_Node parent = getParentNode();
       while (!(parent instanceof AST_FuncDecl)) {
         if (parent instanceof AST_Program) {
@@ -97,11 +97,11 @@ public class AST_StatExpr extends AST_Stat {
       if (temp.ast_type.getIdentifier().equals(expr.getIdentifier())) {
         return true;
       }
-    } else if (statName.equals("EXIT")) {
+    } else if (statName.equals("exit")) {
       return expr.getIdentifier().toString().equals("int");
-    } else if (statName.equals("PRINT")) {
+    } else if (statName.equals("print")) {
       return true;
-    } else if (statName.equals("PRINTLN")) {
+    } else if (statName.equals("println")) {
       return true;
     }
     new TypeError(new FilePosition(ctx)).printAll();

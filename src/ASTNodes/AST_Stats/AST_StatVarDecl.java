@@ -128,17 +128,20 @@ public class AST_StatVarDecl extends AST_Stat {
     SymbolTable ST = this.symbolTable;
     System.out.println(ast_assignRHS.getType(ST));
     System.out.println(ast_type.getIdentifier().toString());
-    if (ST.lookup(identName) != null) {
+    /*if (ST.lookup(identName) != null) {
       new VariableRedeclarationError(new FilePosition(ctx)).printAll();
       return false;
-    } else if (null == ast_assignRHS.getIdentifier()) {
+    } */
+    if (null == ast_assignRHS.getIdentifier()) {
       return true;
-    } else if (ast_type.getIdentifier().equals(ast_assignRHS.getIdentifier())) {
-      return true;
-    } else {
+    }
+
+    //TODO ast_assignRHS has a null value, so it might have not yet been assigned
+    if (!ast_type.getCompositeType().equals(ast_assignRHS.getIdentifier().toString())) {
       new TypeMismatchError(new FilePosition(ctx)).printAll();
       return false;
     }
+    return true;
   }
 
   /**
