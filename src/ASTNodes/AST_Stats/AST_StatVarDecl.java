@@ -165,6 +165,9 @@ public class AST_StatVarDecl extends AST_Stat {
   }
 
   public void Assign(SymbolTable ST) {
+    if (ast_type == null) {
+      System.out.println("Variable " + identName + "'s AST_Type not set yet");
+    }
     ST.add(identName, ast_type.getIdentifier());
   }
 

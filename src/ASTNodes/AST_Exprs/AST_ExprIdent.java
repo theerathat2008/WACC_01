@@ -136,4 +136,8 @@ public class AST_ExprIdent extends AST_Expr {
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }
+
+  public String getVarName() {
+    return varName;
+  }
 }

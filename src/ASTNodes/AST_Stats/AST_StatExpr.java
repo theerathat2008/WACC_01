@@ -1,10 +1,11 @@
 package src.ASTNodes.AST_Stats;
 
-import src.ASTNodes.AST_Exprs.AST_Expr;
+import src.ASTNodes.AST_Exprs.*;
 import src.ASTNodes.AST_FuncDecl;
 import src.ASTNodes.AST_Node;
 import src.ASTNodes.AST_Program;
 import src.ErrorMessages.TypeMismatchError;
+import src.IdentifierObjects.IDENTIFIER;
 import src.SymbolTable.SymbolTable;
 import src.ErrorMessages.TypeError;
 import src.FilePosition;
@@ -17,15 +18,16 @@ public class AST_StatExpr extends AST_Stat {
   //Syntactic attributes
   AST_Expr expr;
   ParserRuleContext ctx;
-
+  SymbolTable symbolTable;
   /**
    * Assign the class variables when called
    *
    * @param ctx
    */
-  public AST_StatExpr(ParserRuleContext ctx) {
+  public AST_StatExpr(ParserRuleContext ctx, SymbolTable symbolTable) {
     this.expr = null;
     this.ctx = ctx;
+    this.symbolTable = symbolTable;
   }
 
   /**
@@ -109,13 +111,43 @@ public class AST_StatExpr extends AST_Stat {
       }
 
       //TODO expr has null value
-      if (!(temp.ast_type.getIdentifier().toString().equals("int"))) {
+      if (expr instanceof AST_ExprEnclosed || expr instanceof AST_ExprBinary
+              || expr instanceof AST_ExprUnary) {
+        return true;
+      } else if ((temp.ast_type.getIdentifier().equals(expr.getIdentifier()))) {
+        return true;
+      } else {
         new TypeMismatchError(new FilePosition(ctx)).printAll();
         return false;
       }
-      return true;
     } else if (statName.equals("exit")) {
-      return expr.getIdentifier().toString().equals("int");
+      //Debug statement
+      System.out.println(expr);
+      if (expr instanceof AST_ExprUnary || expr instanceof AST_ExprEnclosed) {
+        if (expr.getIdentifier().toString().equals("int")) {
+          return true;
+        } else {
+          System.out.println("Expression after exit statement must be of type int.");
+          new TypeError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      } else if (expr instanceof AST_ExprIdent) {
+        SymbolTable ST = this.symbolTable;
+        System.out.println(expr);
+        expr.printContents();
+        String varName = ((AST_ExprIdent) expr).getVarName();
+        IDENTIFIER type = ST.lookup(varName);
+        //Debug statement
+        System.out.println(type);
+        if (type.toString().equals("int")) {
+          return true;
+        } else {
+          new TypeMismatchError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      } else {
+        return true;
+      }
     } else if (statName.equals("print")) {
       return true;
     } else if (statName.equals("println")) {
