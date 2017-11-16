@@ -95,6 +95,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     progBase.setParentNode(null);
     parentVisitorNode = progBase;
     progBase.symbolTable.setEncSymTable(TOP_ST);
+    currentGlobalTree = progBase.symbolTable;
 
 
     //Debug statement
@@ -102,6 +103,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Iterate through rest of the tree
     visitChildren(ctx);
+    currentGlobalTree = progBase.symbolTable.encSymTable;
 
     return null;
   }

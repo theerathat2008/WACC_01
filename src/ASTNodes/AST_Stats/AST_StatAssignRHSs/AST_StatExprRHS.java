@@ -120,9 +120,9 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
   public void printContents() {
     System.out.println(this.getClass().getSimpleName() + ": ");
     if (ast_expr == null) {
-      System.out.println("ast_exprList: null");
+      System.out.println("ast_expr: null");
     } else {
-      System.out.println("ast_exprList: has content");
+      System.out.println("ast_expr: has content");
     }
   }
 

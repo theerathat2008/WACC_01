@@ -130,15 +130,17 @@ public class AST_StatVarDecl extends AST_Stat {
     System.out.println(ast_type.getIdentifier());
 
     //TODO symbol table has nothing inside and maybe sth wrong with getType(ST)
+    //Maybe ST has content but ast_assignRHS is null so it cannot find type
     SymbolTable ST = this.symbolTable;
-    System.out.println(ast_assignRHS.getType(ST));
+    System.out.println("printing contents");
+    ast_assignRHS.printContents();
     System.out.println(ast_type.getIdentifier().toString());
 
     //Comment out because ST has nothing inside
-    /*if (ST.lookup(identName) != null) {
+    if (ST.encSymTable.lookup(identName) != null) {
       new VariableRedeclarationError(new FilePosition(ctx)).printAll();
       return false;
-    } */
+    }
     if (null == ast_assignRHS.getIdentifier()) {
       return true;
     }

@@ -126,18 +126,12 @@ public class AST_ExprUnary extends AST_Expr {
   @Override
   public boolean CheckSemantics() {
 
-    //Debug statement
-    System.out.println(opName);
-    System.out.println(astExpr);
-
     //TODO
     // if unaryOp ='!', conditional expression must be of type bool
 
-    //Debug statement
-    System.out.println(astExpr.getIdentifier());
-    System.out.println(opName);
 
-    if (opName.equals("!")) {
+
+    /*if (opName.equals("!")) {
       //TODO astExpr has null value --> fix
       if (!astExpr.getIdentifier().toString().equals("bool")) {
         System.out.println("Unary operator '!' can only be used when the statement is of type 'bool'.");
@@ -145,6 +139,17 @@ public class AST_ExprUnary extends AST_Expr {
         return false;
       } else {
         return true;
+      }
+    }*/
+    if (opName.equals("!")) {
+      if (astExpr instanceof AST_ExprBinary || astExpr instanceof AST_ExprUnary
+              || astExpr instanceof AST_ExprEnclosed) {
+        return true;
+      } else if (astExpr.getType().toString().equals("bool"))  {
+        return true;
+      } else {
+        new TypeError(new FilePosition(ctx)).printAll();
+        return false;
       }
     }
 
