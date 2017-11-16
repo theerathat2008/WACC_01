@@ -6,5 +6,6 @@
 
 # ignore intellj directories
 .idea/
+*.xml
 out/
 wacc_01.iml

@@ -127,7 +127,7 @@ public class AST_PairString extends AST_PairElemType {
    */
   public IDENTIFIER getIdentifier(){
     return new BaseTypeObj("pair");
-  };
+  }
 
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);

@@ -182,4 +182,5 @@ public class AST_ExprBinary extends AST_Expr {
     exprLeftAST.accept(visitor);
     exprRightAST.accept(visitor);
   }
+
 }
