@@ -416,7 +416,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitUNARY_OP_EXPR(WaccParser.UNARY_OP_EXPRContext ctx) {
 
     //Create the node for the current visitor function
-    AST_ExprUnary exprUnaryNode = new AST_ExprUnary(ctx);
+    AST_ExprUnary exprUnaryNode = new AST_ExprUnary(ctx, currentGlobalTree);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("expr", exprUnaryNode);

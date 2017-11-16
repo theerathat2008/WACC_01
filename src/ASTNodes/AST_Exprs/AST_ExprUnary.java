@@ -3,6 +3,7 @@ package src.ASTNodes.AST_Exprs;
 import org.antlr.v4.runtime.ParserRuleContext;
 import src.ASTNodes.AST_Node;
 import src.ErrorMessages.TypeError;
+import src.ErrorMessages.TypeMismatchError;
 import src.FilePosition;
 import src.SymbolTable.SymbolTable;
 import src.VisitorClass.AST_NodeVisitor;
@@ -19,14 +20,16 @@ public class AST_ExprUnary extends AST_Expr {
   String opName;
   AST_Expr astExpr;
   ParserRuleContext ctx;
+  SymbolTable symbolTable;
 
   /**
    * Constructor for class - initialises class variables to NULL
    */
-  public AST_ExprUnary(ParserRuleContext ctx) {
+  public AST_ExprUnary(ParserRuleContext ctx, SymbolTable symbolTable) {
     this.opName = null;
     this.astExpr = null;
     this.ctx = ctx;
+    this.symbolTable = symbolTable;
   }
 
   /**
@@ -155,12 +158,23 @@ public class AST_ExprUnary extends AST_Expr {
 
     //if unaryOp = '-', expression must be of type int
     if (opName.equals("-")) {
-      if (!astExpr.getIdentifier().toString().equals("int")) {
-        System.out.println("Unary operator '-' can only be used with statement of type 'int'.");
-        new TypeError(new FilePosition(ctx)).printAll();
-        return false;
-      } else {
+      if (astExpr instanceof AST_ExprEnclosed) {
         return true;
+      } if (astExpr instanceof AST_ExprIdent) {
+        SymbolTable ST = this.symbolTable;
+        System.out.println(astExpr);
+        astExpr.printContents();
+        String varName = ((AST_ExprIdent) astExpr).getVarName();
+        IDENTIFIER type = ST.lookup(varName);
+        //Debug statement
+        System.out.println(type);
+        if (type.toString().equals("int")) {
+          return true;
+        } else {
+          System.out.println("Unary operator '-' can only be used with statement of type 'int'.");
+          new TypeMismatchError(new FilePosition(ctx)).printAll();
+          return false;
+        }
       }
     }
 
