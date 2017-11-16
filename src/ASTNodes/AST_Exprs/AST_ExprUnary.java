@@ -145,11 +145,23 @@ public class AST_ExprUnary extends AST_Expr {
       }
     }*/
     if (opName.equals("!")) {
-      if (astExpr instanceof AST_ExprBinary || astExpr instanceof AST_ExprUnary
-              || astExpr instanceof AST_ExprEnclosed) {
+      if (astExpr instanceof AST_ExprEnclosed) {
         return true;
-      } else if (astExpr.getType().toString().equals("bool"))  {
-        return true;
+      } else if (astExpr instanceof AST_ExprIdent) {
+        SymbolTable ST = this.symbolTable;
+        System.out.println(astExpr);
+        astExpr.printContents();
+        String varName = ((AST_ExprIdent) astExpr).getVarName();
+        IDENTIFIER type = ST.lookup(varName);
+        //Debug statement
+        System.out.println(type);
+        if (type.toString().equals("bool")) {
+          return true;
+        } else {
+          System.out.println("Unary operator '!' can only be used with statement of type 'bool'.");
+          new TypeMismatchError(new FilePosition(ctx)).printAll();
+          return false;
+        }
       } else {
         new TypeError(new FilePosition(ctx)).printAll();
         return false;
@@ -160,7 +172,7 @@ public class AST_ExprUnary extends AST_Expr {
     if (opName.equals("-")) {
       if (astExpr instanceof AST_ExprEnclosed) {
         return true;
-      } if (astExpr instanceof AST_ExprIdent) {
+      } else if (astExpr instanceof AST_ExprIdent) {
         SymbolTable ST = this.symbolTable;
         System.out.println(astExpr);
         astExpr.printContents();
@@ -181,38 +193,77 @@ public class AST_ExprUnary extends AST_Expr {
     //TODO
     //if unaryOp = 'len', array must be of valid type
     if (opName.equals("len")) {
-      String type = astExpr.getIdentifier().toString();
 
-      //check whether it is a valid type
-      if (type.equals("int") || type.equals("bool") || type.equals("char") || type.equals("string")
-              || type.contains("[]") || type.contains("pair")) {
+      if (astExpr instanceof AST_ExprEnclosed) {
         return true;
+      } else if (astExpr instanceof AST_ExprIdent) {
+        SymbolTable ST = this.symbolTable;
+        System.out.println(astExpr);
+        astExpr.printContents();
+        String varName = ((AST_ExprIdent) astExpr).getVarName();
+        IDENTIFIER type = ST.lookup(varName);
+        //Debug statement
+        System.out.println(type);
+        if (type.toString().equals("char") || type.toString().equals("bool") || type.toString().equals("string")
+                || type.toString().contains("[]") || type.toString().contains("pair")) {
+          return true;
+        } else {
+          System.out.println("Unary operator 'len' can only be used with statement of type 'char' 'bool'" +
+                  "'string' 'array' 'pair'.");
+          new TypeError(new FilePosition(ctx)).printAll();
+          return false;
+        }
       } else {
-        System.out.println("The array after the keyword 'len' is with an invalid type");
         new TypeError(new FilePosition(ctx)).printAll();
         return false;
       }
-
     }
 
     //if unaryOp = 'ord', statement must be of type char
     if (opName.equals("ord")) {
-      if (!astExpr.getIdentifier().toString().equals("char")) {
-        System.out.println("The statement after the keyword 'ord' must be of type 'char'.");
+
+      if (astExpr instanceof AST_ExprEnclosed) {
+        return true;
+      } else if (astExpr instanceof AST_ExprIdent) {
+        SymbolTable ST = this.symbolTable;
+        System.out.println(astExpr);
+        astExpr.printContents();
+        String varName = ((AST_ExprIdent) astExpr).getVarName();
+        IDENTIFIER type = ST.lookup(varName);
+        //Debug statement
+        System.out.println(type);
+        if (type.toString().equals("char")) {
+          return true;
+        } else {
+          System.out.println("Unary operator 'ord' can only be used with statement of type 'char'.");
+          new TypeError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      } else {
         new TypeError(new FilePosition(ctx)).printAll();
         return false;
-      } else {
-        return true;
       }
     }
 
     if (opName.equals("chr")) {
-      if (!astExpr.getIdentifier().toString().equals("int")) {
-        System.out.println("The statement after the keyword 'chr' must be of type 'int'.");
-        new TypeError(new FilePosition(ctx)).printAll();
-        return false;
-      } else {
+
+      if (astExpr instanceof AST_ExprEnclosed) {
         return true;
+      } else if (astExpr instanceof AST_ExprIdent) {
+        SymbolTable ST = this.symbolTable;
+        System.out.println(astExpr);
+        astExpr.printContents();
+        String varName = ((AST_ExprIdent) astExpr).getVarName();
+        IDENTIFIER type = ST.lookup(varName);
+        //Debug statement
+        System.out.println(type);
+        if (type.toString().equals("int")) {
+          return true;
+        } else {
+          System.out.println("Unary operator 'chr' can only be used with statement of type 'int'.");
+          new TypeMismatchError(new FilePosition(ctx)).printAll();
+          return false;
+        }
       }
     }
     return true;
