@@ -164,6 +164,8 @@ public class AST_FuncDecl extends AST_Node {
   @Override
   public boolean CheckSemantics() {
     SymbolTable ST = this.symbolTable;
+    System.out.println(funcName);
+    System.out.println(ast_type);
     if (ST.lookup(funcName) == null) {
       return true;
 

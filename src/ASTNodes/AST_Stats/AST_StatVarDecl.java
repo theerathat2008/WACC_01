@@ -125,9 +125,16 @@ public class AST_StatVarDecl extends AST_Stat {
   @Override
   public boolean CheckSemantics() {
 
+    //Debug statement
+    System.out.println(ast_assignRHS);
+    System.out.println(ast_type.getIdentifier());
+
+    //TODO symbol table has nothing inside and maybe sth wrong with getType(ST)
     SymbolTable ST = this.symbolTable;
     System.out.println(ast_assignRHS.getType(ST));
     System.out.println(ast_type.getIdentifier().toString());
+
+    //Comment out because ST has nothing inside
     /*if (ST.lookup(identName) != null) {
       new VariableRedeclarationError(new FilePosition(ctx)).printAll();
       return false;
@@ -175,6 +182,7 @@ public class AST_StatVarDecl extends AST_Stat {
       System.out.println("ast_type: null");
     } else {
       System.out.println("ast_type: has content");
+      System.out.println(ast_type.getIdentifier().toString());
     }
   }
 

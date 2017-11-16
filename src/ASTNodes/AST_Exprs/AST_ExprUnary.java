@@ -126,6 +126,10 @@ public class AST_ExprUnary extends AST_Expr {
   @Override
   public boolean CheckSemantics() {
 
+    //Debug statement
+    System.out.println(opName);
+    System.out.println(astExpr);
+
     //TODO
     // if unaryOp ='!', conditional expression must be of type bool
 
@@ -230,6 +234,8 @@ public class AST_ExprUnary extends AST_Expr {
       System.out.println("astExpr: null");
     } else {
       System.out.println("astExpr: has content");
+      //Debug statement
+      System.out.println(astExpr);
     }
   }
 
