@@ -180,4 +180,8 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
     }
   }
 
+  public void genCode(List<String> instructions){
+
+  }
+
 }

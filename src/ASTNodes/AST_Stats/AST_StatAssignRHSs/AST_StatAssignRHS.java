@@ -5,6 +5,7 @@ import ASTNodes.AST_Stats.AST_Stat;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 import IdentifierObjects.*;
 
@@ -128,6 +129,10 @@ public class AST_StatAssignRHS extends AST_Stat {
 
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
+  }
+
+  public void genCode(List<String> instructions){
+
   }
 }
 

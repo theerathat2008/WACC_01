@@ -8,6 +8,7 @@ import src.FilePosition;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 public class AST_StatRead extends AST_Stat {
 
@@ -143,5 +144,9 @@ public class AST_StatRead extends AST_Stat {
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_statAssignLHS.accept(visitor);
+  }
+
+  public void genCode(List<String> instructions){
+
   }
 }

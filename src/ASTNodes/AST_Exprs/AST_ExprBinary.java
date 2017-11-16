@@ -4,6 +4,8 @@ import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
+import java.util.List;
+
 import VisitorClass.AST_NodeVisitor;
 import IdentifierObjects.*;
 
@@ -181,5 +183,9 @@ public class AST_ExprBinary extends AST_Expr {
     visitor.visit(this);
     exprLeftAST.accept(visitor);
     exprRightAST.accept(visitor);
+  }
+
+  public void genCode(List<String> instructions){
+
   }
 }

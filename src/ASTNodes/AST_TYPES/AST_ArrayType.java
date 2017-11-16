@@ -4,6 +4,7 @@ import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 import IdentifierObjects.*;
 
@@ -136,5 +137,9 @@ public class AST_ArrayType extends AST_Type {
    */
   public IDENTIFIER getIdentifier() {
     return new ArrayObj(null, ast_type.getIdentifier());
+  }
+
+  public void genCode(List<String> instructions){
+
   }
 }

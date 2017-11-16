@@ -7,6 +7,8 @@ import src.FilePosition;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
+import java.util.List;
+
 import VisitorClass.AST_NodeVisitor;
 
 import IdentifierObjects.*;
@@ -192,4 +194,9 @@ public class AST_ExprLiter extends AST_Expr {
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }
+
+  public void genCode(List<String> instructions){
+
+  }
+
 }

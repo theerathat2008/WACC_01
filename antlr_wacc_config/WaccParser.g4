@@ -58,7 +58,10 @@ pair_elem_type : BASE_TYPE                            # BASE_TYPE_PAIR
      | PAIR_STRING                                    # PAIR_STRING
      ;
 
-expr : unaryOp expr                                   # UNARY_OP_EXPR
+//CHANGED ORDERING OF UNARYOP AND +/- INT_LITER
+
+expr : (PLUS | MINUS)? INT_LITER                      # INT_LITER_EXPR
+     | unaryOp expr                                   # UNARY_OP_EXPR
      | expr binaryOp expr                             # BINARY_OP_EXPR
      | BOOL_LITER                                     # BOOL_LITER_EXPR
      | CHAR_LITER                                     # CHAR_LITER_EXPR
@@ -66,7 +69,6 @@ expr : unaryOp expr                                   # UNARY_OP_EXPR
      | PAIR_LITER                                     # PAIR_LITER_EXPR
      | IDENT                                          # IDENT_EXPR
      | IDENT (SQUARE_OPEN expr SQUARE_CLOSED )+       # ARRAY_ELEM_EXPR
-     | (PLUS | MINUS)? INT_LITER                      # INT_LITER_EXPR
      | OPEN_PAREN expr CLOSE_PAREN                    # ENCLOSED_EXPR
      ;
 

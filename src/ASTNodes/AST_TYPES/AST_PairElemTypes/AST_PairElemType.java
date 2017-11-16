@@ -6,6 +6,7 @@ import SymbolTable.SymbolTable;
 import IdentifierObjects.*;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 public class AST_PairElemType extends AST_Type {
   //Syntactic attributes
@@ -116,4 +117,9 @@ public class AST_PairElemType extends AST_Type {
   public IDENTIFIER getIdentifier() {
     return null;
   }
+
+  public void genCode(List<String> instructions){
+
+  }
+
 }

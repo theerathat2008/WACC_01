@@ -3,6 +3,8 @@ package ASTNodes;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
+import java.util.List;
+
 import VisitorClass.AST_NodeVisitor;
 
 /**
@@ -121,5 +123,10 @@ public class AST_Separator extends AST_Node {
 
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
+  }
+
+  @Override
+  public void genCode(List<String> instructions) {
+
   }
 }

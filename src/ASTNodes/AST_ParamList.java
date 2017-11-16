@@ -168,4 +168,9 @@ public class AST_ParamList extends AST_Node {
       param.accept(visitor);
     }
   }
+
+  @Override
+  public void genCode(List<String> instructions) {
+
+  }
 }

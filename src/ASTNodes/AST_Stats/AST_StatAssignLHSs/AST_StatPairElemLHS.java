@@ -8,6 +8,7 @@ import src.FilePosition;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 /**
  * Class representing node in AST tree for PAIR VARIABLES
@@ -151,5 +152,9 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_expr.accept(visitor);
+  }
+
+  public void genCode(List<String> instructions){
+
   }
 }

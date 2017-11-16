@@ -4,6 +4,8 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_Stat;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
+import java.util.List;
+
 import VisitorClass.AST_NodeVisitor;
 
 public class AST_StatIfThen extends AST_StatSubIf{
@@ -130,5 +132,9 @@ public class AST_StatIfThen extends AST_StatSubIf{
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     thenStat.accept(visitor);
+  }
+
+  public void genCode(List<String> instructions){
+
   }
 }

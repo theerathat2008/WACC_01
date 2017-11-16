@@ -11,6 +11,7 @@ import src.FilePosition;
 import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
+import java.util.List;
 
 /**
  * Class representing node in AST tree for FUNCTION
@@ -248,5 +249,10 @@ public class AST_FuncDecl extends AST_Node {
     }
     statement.accept(visitor);
   }
+
+  public void genCode(List<String> instructions){
+
+  }
+
 }
 

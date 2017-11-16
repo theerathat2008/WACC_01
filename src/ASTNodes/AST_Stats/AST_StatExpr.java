@@ -10,6 +10,7 @@ import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 public class AST_StatExpr extends AST_Stat {
 
@@ -136,5 +137,9 @@ public class AST_StatExpr extends AST_Stat {
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     expr.accept(visitor);
+  }
+
+  public void genCode(List<String> instructions){
+
   }
 }

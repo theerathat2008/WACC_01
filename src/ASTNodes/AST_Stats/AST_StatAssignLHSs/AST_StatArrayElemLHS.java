@@ -158,4 +158,8 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
       expr.accept(visitor);
     }
   }
+
+  public void genCode(List<String> instructions){
+
+  }
 }

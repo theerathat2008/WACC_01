@@ -158,4 +158,8 @@ public class AST_ExprArrayElem extends AST_Expr {
       expr.accept(visitor);
     }
   }
+
+  public void genCode(List<String> instructions){
+
+  }
 }

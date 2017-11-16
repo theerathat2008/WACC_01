@@ -163,4 +163,15 @@ public class AST_Program extends AST_Node {
     }
     statement.accept(visitor);
   }
+
+  @Override
+  public void genCode(List<String> instructions) {
+    instructions.add(".text");
+    instructions.add("new_line");
+    instructions.add("main:");
+    instructions.add("begin_indent");
+    instructions.add("sstsdjf");
+    instructions.add("sstsdjf");
+    instructions.add("sstsdjf");
+  }
 }

@@ -4,6 +4,7 @@ import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 
 public class AST_StatMult extends AST_Stat {
@@ -144,4 +145,9 @@ public class AST_StatMult extends AST_Stat {
     stat1.accept(visitor);
     stat2.accept(visitor);
   }
+
+  public void genCode(List<String> instructions){
+
+  }
+
 }

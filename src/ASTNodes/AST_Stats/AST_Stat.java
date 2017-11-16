@@ -4,6 +4,7 @@ import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 /**
  * Class representing node in AST tree for STATEMENT NODES
@@ -119,5 +120,10 @@ public class AST_Stat extends AST_Node {
 
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
+  }
+
+  @Override
+  public void genCode(List<String> instructions) {
+
   }
 }

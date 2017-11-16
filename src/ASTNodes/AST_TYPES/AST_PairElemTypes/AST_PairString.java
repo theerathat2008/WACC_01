@@ -4,6 +4,8 @@ import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
+
 import IdentifierObjects.*;
 
 public class AST_PairString extends AST_PairElemType {
@@ -132,4 +134,9 @@ public class AST_PairString extends AST_PairElemType {
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }
+
+  public void genCode(List<String> instructions){
+
+  }
+
 }

@@ -252,4 +252,9 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
       expr.accept(visitor);
     }
   }
+
+  public void genCode(List<String> instructions){
+
+  }
+
 }

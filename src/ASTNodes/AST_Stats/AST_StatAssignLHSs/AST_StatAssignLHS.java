@@ -6,6 +6,7 @@ import SymbolTable.SymbolTable;
 import IdentifierObjects.*;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 /**
  * Class representing node in AST tree for DECLARING VARIABLES - BASE CLASS
@@ -136,5 +137,9 @@ public class AST_StatAssignLHS extends AST_Stat {
 
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
+  }
+
+  public void genCode(List<String> instructions){
+
   }
 }

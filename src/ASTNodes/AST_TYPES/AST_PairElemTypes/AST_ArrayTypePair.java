@@ -6,6 +6,7 @@ import SymbolTable.SymbolTable;
 import IdentifierObjects.*;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 public class AST_ArrayTypePair extends AST_PairElemType {
 
@@ -139,5 +140,9 @@ public class AST_ArrayTypePair extends AST_PairElemType {
    */
   public IDENTIFIER getIdentifier() {
     return new ArrayObj(null, ast_type.getIdentifier());
+  }
+
+  public void genCode(List<String> instructions){
+
   }
 }

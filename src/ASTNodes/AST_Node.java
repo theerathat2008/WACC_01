@@ -5,6 +5,7 @@ import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
+import java.util.List;
 
 
 /**
@@ -99,4 +100,7 @@ public abstract class AST_Node {
 
 
   public abstract void accept(AST_NodeVisitor visitor);
+
+  public abstract void genCode(List<String> instructions);
+
 }

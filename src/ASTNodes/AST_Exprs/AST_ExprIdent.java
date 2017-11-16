@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
+import java.util.List;
 
 /**
  * Class representing node in AST tree for IDENT EXPRESSIONS
@@ -136,4 +137,10 @@ public class AST_ExprIdent extends AST_Expr {
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }
+
+
+  public void genCode(List<String> instructions){
+
+  }
+
 }

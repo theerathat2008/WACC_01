@@ -5,6 +5,8 @@ import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 
 import java.util.ArrayDeque;
+import java.util.List;
+
 import VisitorClass.AST_NodeVisitor;
 
 import IdentifierObjects.*;
@@ -156,5 +158,10 @@ public class AST_Param extends AST_Node {
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_type.accept(visitor);
+  }
+
+  @Override
+  public void genCode(List<String> instructions) {
+
   }
 }

@@ -10,6 +10,7 @@ import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
+import java.util.List;
 
 public class AST_StatWhile extends AST_Stat {
 
@@ -158,5 +159,9 @@ public class AST_StatWhile extends AST_Stat {
     visitor.visit(this);
     exprAST.accept(visitor);
     statAST.accept(visitor);
+  }
+
+  public void genCode(List<String> instructions){
+
   }
 }

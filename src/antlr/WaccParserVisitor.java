@@ -292,19 +292,19 @@ public interface WaccParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIDENT_EXPR(WaccParser.IDENT_EXPRContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code UNARY_OP_EXPR}
-	 * labeled alternative in {@link WaccParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUNARY_OP_EXPR(WaccParser.UNARY_OP_EXPRContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code INT_LITER_EXPR}
 	 * labeled alternative in {@link WaccParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitINT_LITER_EXPR(WaccParser.INT_LITER_EXPRContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UNARY_OP_EXPR}
+	 * labeled alternative in {@link WaccParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUNARY_OP_EXPR(WaccParser.UNARY_OP_EXPRContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code BINARY_OP_EXPR}
 	 * labeled alternative in {@link WaccParser#expr}.
