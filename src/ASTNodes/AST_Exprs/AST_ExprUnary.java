@@ -128,11 +128,19 @@ public class AST_ExprUnary extends AST_Expr {
 
     //TODO
     // if unaryOp ='!', conditional expression must be of type bool
+
+    //Debug statement
+    System.out.println(astExpr.getIdentifier());
+    System.out.println(opName);
+
     if (opName.equals("!")) {
+      //TODO astExpr has null value --> fix
       if (!astExpr.getIdentifier().toString().equals("bool")) {
         System.out.println("Unary operator '!' can only be used when the statement is of type 'bool'.");
         new TypeError(new FilePosition(ctx)).printAll();
         return false;
+      } else {
+        return true;
       }
     }
 
@@ -142,15 +150,26 @@ public class AST_ExprUnary extends AST_Expr {
         System.out.println("Unary operator '-' can only be used with statement of type 'int'.");
         new TypeError(new FilePosition(ctx)).printAll();
         return false;
+      } else {
+        return true;
       }
     }
 
     //TODO
     //if unaryOp = 'len', array must be of valid type
     if (opName.equals("len")) {
-      System.out.println("The array after the keyword 'len' is with an invalid type");
-      new TypeError(new FilePosition(ctx)).printAll();
-      return false;
+      String type = astExpr.getIdentifier().toString();
+
+      //check whether it is a valid type
+      if (type.equals("int") || type.equals("bool") || type.equals("char") || type.equals("string")
+              || type.contains("[]") || type.contains("pair")) {
+        return true;
+      } else {
+        System.out.println("The array after the keyword 'len' is with an invalid type");
+        new TypeError(new FilePosition(ctx)).printAll();
+        return false;
+      }
+
     }
 
     //if unaryOp = 'ord', statement must be of type char
@@ -159,6 +178,8 @@ public class AST_ExprUnary extends AST_Expr {
         System.out.println("The statement after the keyword 'ord' must be of type 'char'.");
         new TypeError(new FilePosition(ctx)).printAll();
         return false;
+      } else {
+        return true;
       }
     }
 
@@ -167,6 +188,8 @@ public class AST_ExprUnary extends AST_Expr {
         System.out.println("The statement after the keyword 'chr' must be of type 'int'.");
         new TypeError(new FilePosition(ctx)).printAll();
         return false;
+      } else {
+        return true;
       }
     }
     return true;
