@@ -31,22 +31,26 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   List<String> assemblyOutput = new LinkedList<>();
 
 
+
+
   /** ATHI'S AWESOME PLAN
    * 1. Visit AST_Node using visitor pattern
-   * 2. Generate instruction for each AST_Node
-   *    - Pass in variables needed for assembly code
-   *    - Pass in registers needed for assembly code
-   * 3. Each instruction generates blocks of assembly code stored within that specific instruction class
+   * 2. Generate instruction for each AST_Node by calling genInstructions(instructionList)
+   *    - Pass in variables in instruction class constructor needed for assembly code
+   * 3. Populate the instruction list
+   **** At this point we have a full instruction list with no assembly code generated
    * 4. In generateAssembly iterate through the instructions
+   * 5. Work out which register to use
    * 5. Hard code the special cases and output the right order to assembly output
    * 6. Print out ordered assembly instructions in printAssembly
    */
 
-
   public void generateAssembly(){
     //takes instructions list and add instructions into assembly output
-    for(Instruction out : instructions){
 
+    for(Instruction out : instructions){
+      //Allocate the right register to use
+      //out.genInstruction();
     }
   }
 
