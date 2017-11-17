@@ -111,7 +111,7 @@ public class SymbolTable {
       System.out.println("symbol table has no contents");
     }
     while (it.hasNext()) {
-      String str = (String) it.next();
+      String str = it.next();
       if (T.symMap.get(str) == null) {
         System.out.println(str + " has a null IDENTIFIER");
       } else {

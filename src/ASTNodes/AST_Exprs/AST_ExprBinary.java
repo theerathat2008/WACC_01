@@ -185,7 +185,10 @@ public class AST_ExprBinary extends AST_Expr {
     exprRightAST.accept(visitor);
   }
 
+<<<<<<< HEAD
   public void genCode(List<String> instructions){
 
   }
+=======
+>>>>>>> origin/Instructions
 }
