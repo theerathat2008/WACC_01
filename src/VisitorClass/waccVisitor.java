@@ -704,7 +704,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitASSIGN_STAT(WaccParser.ASSIGN_STATContext ctx) {
 
     //Create the node for the current visitor function
-    AST_StatAssign statAssignNode = new AST_StatAssign(ctx);
+    AST_StatAssign statAssignNode = new AST_StatAssign(ctx, currentGlobalTree);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", statAssignNode);

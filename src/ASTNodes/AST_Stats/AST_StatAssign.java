@@ -1,5 +1,7 @@
 package src.ASTNodes.AST_Stats;
 
+import src.ASTNodes.AST_Exprs.AST_ExprBinary;
+import src.ASTNodes.AST_Exprs.AST_ExprIdent;
 import src.ASTNodes.AST_Node;
 import src.ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
 import src.ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
@@ -18,14 +20,16 @@ public class AST_StatAssign extends AST_Stat {
   AST_StatAssignLHS ast_statAssignLHS;
   AST_StatAssignRHS ast_statAssignRHS;
   ParserRuleContext ctx;
+  SymbolTable symbolTable;
 
   /**
    * Constructor for class - initialises class variables to NULL
    */
-  public AST_StatAssign(ParserRuleContext ctx) {
+  public AST_StatAssign(ParserRuleContext ctx, SymbolTable symbolTable) {
     this.ast_statAssignLHS = null;
     this.ast_statAssignRHS = null;
     this.ctx = ctx;
+    this.symbolTable = symbolTable;
   }
 
   /**
@@ -111,6 +115,10 @@ public class AST_StatAssign extends AST_Stat {
     System.out.println("checking semantic of assign statement");
     System.out.println("LHS identifier is: " + ast_statAssignLHS.getIdentifier());
     System.out.println("RHS identifier is: " + ast_statAssignRHS.getIdentifier());
+
+    SymbolTable ST = this.symbolTable;
+
+
     if (ast_statAssignLHS.getIdentifier().equals(ast_statAssignRHS.getIdentifier())) {
       return true;
     } else {
@@ -144,6 +152,7 @@ public class AST_StatAssign extends AST_Stat {
       System.out.println("ast_statAssignRHS: null");
     } else {
       System.out.println("ast_statAssignRHS: has content");
+      ast_statAssignRHS.printContents();
     }
   }
 

@@ -166,6 +166,7 @@ public class AST_FuncDecl extends AST_Node {
     SymbolTable ST = this.symbolTable;
     System.out.println(funcName);
     System.out.println(ast_type);
+    //TODO needs to search for duplication
     if (ST.lookup(funcName) == null) {
       return true;
 

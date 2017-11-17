@@ -126,31 +126,37 @@ public class AST_StatVarDecl extends AST_Stat {
   public boolean CheckSemantics() {
 
     //Debug statement
-    System.out.println(ast_assignRHS);
-    System.out.println(ast_type.getIdentifier());
 
-    //TODO symbol table has nothing inside and maybe sth wrong with getType(ST)
     //Maybe ST has content but ast_assignRHS is null so it cannot find type
-    SymbolTable ST = this.symbolTable;
+    SymbolTable ST = symbolTable;
     System.out.println("printing contents");
-    ast_assignRHS.printContents();
     System.out.println(ast_type.getIdentifier().toString());
+    System.out.println(ST.getScope());
+    System.out.println(identName);
+    System.out.println(ST.lookup(identName));
+    System.out.println(ST.lookupAll(identName));
+    System.out.println(ST.encSymTable.lookup("s2"));
+    System.out.println(ast_type.getIdentifier());
+    System.out.println(ast_assignRHS.getIdentifier());
 
-    //Comment out because ST has nothing inside
+    //TODO find out why it is already assigned
     if (ST.encSymTable.lookup(identName) != null) {
       new VariableRedeclarationError(new FilePosition(ctx)).printAll();
       return false;
     }
-    if (null == ast_assignRHS.getIdentifier()) {
+
+    if (ast_assignRHS.getIdentifier() == null) {
       return true;
     }
 
-    //TODO ast_assignRHS has a null value, so it might have not yet been assigned
-    if (!ast_type.getCompositeType().equals(ast_assignRHS.getIdentifier().toString())) {
+    //ast_type.getIdentifier() returns "str" so it's the problem
+    if (!(ast_type.getIdentifier().toString().contains(ast_assignRHS.getIdentifier().toString())
+            || ast_assignRHS.getIdentifier().toString().contains(ast_type.getIdentifier().toString()))) {
       new TypeMismatchError(new FilePosition(ctx)).printAll();
       return false;
     }
     return true;
+
   }
 
   /**

@@ -88,6 +88,15 @@ public class SymbolTable {
     return null;
   }
 
+  public int count(String name) {
+    SymbolTable S = this;
+    int value = 0;
+    if (symMap.containsKey(name)) {
+
+    }
+    return value;
+  }
+
   public void setEncSymTable(SymbolTable toSet) {
     this.encSymTable = toSet;
   }

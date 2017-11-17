@@ -146,6 +146,9 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
   public boolean CheckSemantics() {
 
     SymbolTable ST = this.symbolTable;
+    System.out.println(funcName);
+    System.out.println(ast_exprList);
+    System.out.println(ST.getScope());
 
     //Nested function call case
     if (ST.getScope().equals("param_list") && ST.lookup(funcName) == null) {
@@ -177,6 +180,7 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
     } else {
       //Non-nested function call case
       //Check parameters of paramList against expressions
+
       if (ast_exprList.size() > 0) {
 
         List<IDENTIFIER> parameters = new ArrayList<>();
