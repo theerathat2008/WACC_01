@@ -5,6 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *
+ *
+ * THIS CLASS ACTUALLY HOLDS INFO OF REGISTERS - NOT FULLY IMPLEMENTED
+ *
+ * DELETE THIS CLASS IF NOT NEEDED
+ *
+ * USE REGISTERALLOCATION.JAVA IF NOT NEEDED
+ *
+ *
+ *
+ *
+ */
 public class RegisterTargeting<T>{
 
   Map<RegisterARM, T> registerMap = new HashMap<>();
