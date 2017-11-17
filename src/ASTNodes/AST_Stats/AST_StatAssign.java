@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import ErrorMessages.TypeMismatchError;
 import src.FilePosition;
@@ -153,7 +154,7 @@ public class AST_StatAssign extends AST_Stat {
     ast_statAssignRHS.accept(visitor);
   }
 
-  public void genCode(List<String> instructions){
+  public void genInstruction(List<Instruction> instructionList){
 
   }
 }

@@ -19,249 +19,261 @@ import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairElemType;
 import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairString;
 import ASTNodes.AST_TYPES.AST_PairType;
 import ASTNodes.AST_TYPES.AST_Type;
+import InstructionSet.Instruction;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class AST_VisitCodeGen implements AST_NodeVisitor {
 
-  List<String> instructions = new LinkedList<>();
+  List<Instruction> instructions = new LinkedList<>();
+
+  List<String> assemblyOutput = new LinkedList<>();
+
+
+  /** ATHI'S AWESOME PLAN
+   * 1. Visit AST_Node using visitor pattern
+   * 2. Generate instruction for each AST_Node
+   *    - Pass in variables needed for assembly code
+   *    - Pass in registers needed for assembly code
+   * 3. Each instruction generates blocks of assembly code stored within that specific instruction class
+   * 4. In generateAssembly iterate through the instructions
+   * 5. Hard code the special cases and output the right order to assembly output
+   * 6. Print out ordered assembly instructions in printAssembly
+   */
 
   public void generateAssembly(){
-    String indent = "\t";
-    for(String str : instructions){
-      if(str.equals("begin_indent")){
-        indent = "\t\t";
-        continue;
-      } else if(str.equals("end_indent")){
-        indent = "\t";
-        continue;
-      } else if(str.equals("new_line")){
-        System.out.println();
-        continue;
-      }
-      System.out.println(indent.concat(str));
+    //takes instructions list and add instructions into assembly output
+    for(Instruction out : instructions){
+
+    }
+  }
+
+  public void printAssembly(){
+
+    for(String out : assemblyOutput){
+      System.out.println(out);
     }
   }
 
 
   @Override
   public void visit(AST_FuncDecl funcDecl) {
-    funcDecl.genCode(instructions);
+    funcDecl.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_Keyword keyword) {
-    keyword.genCode(instructions);
+    keyword.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_Param param) {
-    param.genCode(instructions);
+    param.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_ParamList paramList) {
-    paramList.genCode(instructions);
+    paramList.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_Program program) {
-    program.genCode(instructions);
+    program.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_Separator separator) {
-    separator.genCode(instructions);
+    separator.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_ExprArrayElem exprArrayElem) {
-    exprArrayElem.genCode(instructions);
+    exprArrayElem.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_ExprBinary exprBinary) {
-    exprBinary.genCode(instructions);
+    exprBinary.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_ExprEnclosed exprEnclosed) {
-    exprEnclosed.genCode(instructions);
+    exprEnclosed.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_ExprIdent exprIdent) {
-    exprIdent.genCode(instructions);
+    exprIdent.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_ExprLiter exprLiter) {
-    exprLiter.genCode(instructions);
+    exprLiter.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_ExprUnary exprUnary) {
-    exprUnary.genCode(instructions);
+    exprUnary.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatAssign statAssign) {
-    statAssign.genCode(instructions);
+    statAssign.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatBeginEnd statBeginEnd) {
-    statBeginEnd.genCode(instructions);
+    statBeginEnd.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatExpr statExpr) {
-    statExpr.genCode(instructions);
+    statExpr.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatIf statIf) {
-    statIf.genCode(instructions);
+    statIf.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatMult statMult) {
-    statMult.genCode(instructions);
+    statMult.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatRead statRead) {
-    statRead.genCode(instructions);
+    statRead.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatVarDecl statVarDecl) {
-    statVarDecl.genCode(instructions);
+    statVarDecl.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatWhile statWhile) {
-    statWhile.genCode(instructions);
+    statWhile.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatArrayElemLHS statArrayElemLHS) {
-    statArrayElemLHS.genCode(instructions);
+    statArrayElemLHS.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatIdentLHS statIdentLHS) {
-    statIdentLHS.genCode(instructions);
+    statIdentLHS.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatPairElemLHS statPairElemLHS) {
-    statPairElemLHS.genCode(instructions);
+    statPairElemLHS.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatArrayLitRHS statArrayLitRHS) {
-    statArrayLitRHS.genCode(instructions);
+    statArrayLitRHS.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatCallRHS statCallRHS) {
-    statCallRHS.genCode(instructions);
+    statCallRHS.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatExprRHS statExprRHS) {
-    statExprRHS.genCode(instructions);
+    statExprRHS.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatNewPairRHS statNewPairRHS) {
-    statNewPairRHS.genCode(instructions);
+    statNewPairRHS.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatPairElemRHS statPairElemRHS) {
-    statPairElemRHS.genCode(instructions);
+    statPairElemRHS.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatIfElse statIfElse) {
-    statIfElse.genCode(instructions);
+    statIfElse.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatIfThen statIfThen) {
-    statIfThen.genCode(instructions);
+    statIfThen.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_ArrayType arrayType) {
-    arrayType.genCode(instructions);
+    arrayType.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_BaseType baseType) {
-    baseType.genCode(instructions);
+    baseType.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_PairType pairType) {
-    pairType.genCode(instructions);
+    pairType.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_ArrayTypePair arrayTypePair) {
-    arrayTypePair.genCode(instructions);
+    arrayTypePair.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_BaseTypePair baseTypePair) {
-    baseTypePair.genCode(instructions);
+    baseTypePair.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_PairString pairString) {
-    pairString.genCode(instructions);
+    pairString.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_Node ast_node) {
-    ast_node.genCode(instructions);
+    ast_node.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_Expr ast_expr) {
-    ast_expr.genCode(instructions);
+    ast_expr.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_Stat ast_stat) {
-    ast_stat.genCode(instructions);
+    ast_stat.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatAssignLHS ast_statAssignLHS) {
-    ast_statAssignLHS.genCode(instructions);
+    ast_statAssignLHS.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatAssignRHS ast_statAssignRHS) {
-    ast_statAssignRHS.genCode(instructions);
+    ast_statAssignRHS.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_Type ast_type) {
-    ast_type.genCode(instructions);
+    ast_type.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_PairElemType ast_pairElemType) {
-    ast_pairElemType.genCode(instructions);
+    ast_pairElemType.genInstruction(instructions);
   }
 
   @Override
   public void visit(AST_StatSubIf ast_statSubIf) {
-    ast_statSubIf.genCode(instructions);
+    ast_statSubIf.genInstruction(instructions);
   }
 }

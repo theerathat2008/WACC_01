@@ -1,4 +1,4 @@
 package InstructionSet;
 
-public class InstructionWhile extends Instructiongit ta {
+public class InstructionWhile extends Instruction {
 }

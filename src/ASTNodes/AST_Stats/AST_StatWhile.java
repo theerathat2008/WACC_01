@@ -1,6 +1,7 @@
 package ASTNodes.AST_Stats;
 
 
+import InstructionSet.Instruction;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
@@ -161,7 +162,7 @@ public class AST_StatWhile extends AST_Stat {
     statAST.accept(visitor);
   }
 
-  public void genCode(List<String> instructions){
+  public void genInstruction(List<Instruction> instructionList){
 
   }
 }

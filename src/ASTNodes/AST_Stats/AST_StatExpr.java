@@ -4,6 +4,7 @@ import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import ErrorMessages.TypeError;
 import src.FilePosition;
@@ -139,7 +140,7 @@ public class AST_StatExpr extends AST_Stat {
     expr.accept(visitor);
   }
 
-  public void genCode(List<String> instructions){
+  public void genInstruction(List<Instruction> instructionList){
 
   }
 }

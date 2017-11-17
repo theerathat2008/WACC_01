@@ -3,6 +3,7 @@ package ASTNodes;
 import ASTNodes.AST_Stats.AST_Stat;
 import IdentifierObjects.FunctionObj;
 import IdentifierObjects.ParamListObj;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -250,7 +251,7 @@ public class AST_FuncDecl extends AST_Node {
     statement.accept(visitor);
   }
 
-  public void genCode(List<String> instructions){
+  public void genInstruction(List<Instruction> instructionList){
 
   }
 

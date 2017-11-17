@@ -1,6 +1,7 @@
 package ASTNodes;
 
 
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 
@@ -101,6 +102,6 @@ public abstract class AST_Node {
 
   public abstract void accept(AST_NodeVisitor visitor);
 
-  public abstract void genCode(List<String> instructions);
+  public abstract void genInstruction(List<Instruction> instructionList);
 
 }

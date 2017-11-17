@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 
 import ASTNodes.AST_TYPES.AST_Type;
@@ -182,7 +183,7 @@ public class AST_StatVarDecl extends AST_Stat {
     ast_assignRHS.accept(visitor);
   }
 
-  public void genCode(List<String> instructions){
+  public void genInstruction(List<Instruction> instructionList){
 
   }
 }

@@ -2,6 +2,7 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Separator;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -159,7 +160,7 @@ public class AST_ExprEnclosed extends AST_Expr {
     exprAST.accept(visitor);
     rightSepAST.accept(visitor);
   }
-  public void genCode(List<String> instructions){
+  public void genInstruction(List<Instruction> instructionList){
 
   }
 

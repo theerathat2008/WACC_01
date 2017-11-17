@@ -4,6 +4,7 @@ import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import ErrorMessages.*;
 import src.FilePosition;
@@ -176,7 +177,7 @@ public class AST_StatIf extends AST_Stat {
     elseStat.accept(visitor);
   }
 
-  public void genCode(List<String> instructions){
+  public void genInstruction(List<Instruction> instructionList){
 
   }
 

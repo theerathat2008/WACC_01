@@ -1,6 +1,7 @@
 package ASTNodes.AST_TYPES.AST_PairElemTypes;
 
 import ASTNodes.AST_Node;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
@@ -135,7 +136,7 @@ public class AST_PairString extends AST_PairElemType {
     visitor.visit(this);
   }
 
-  public void genCode(List<String> instructions){
+  public void genInstruction(List<Instruction> instructionList){
 
   }
 

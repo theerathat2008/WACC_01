@@ -7,6 +7,7 @@ import ASTNodes.AST_ParamList;
 import ASTNodes.AST_Param;
 import IdentifierObjects.FunctionObj;
 import IdentifierObjects.IDENTIFIER;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import ErrorMessages.MissingParameterError;
 import ErrorMessages.TypeError;
@@ -253,7 +254,7 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
     }
   }
 
-  public void genCode(List<String> instructions){
+  public void genInstruction(List<Instruction> instructionList){
 
   }
 

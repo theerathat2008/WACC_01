@@ -2,6 +2,7 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
@@ -156,7 +157,7 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
     ast_expr_second.accept(visitor);
   }
 
-  public void genCode(List<String> instructions){
+  public void genInstruction(List<Instruction> instructionList){
 
   }
 }

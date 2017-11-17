@@ -1,6 +1,7 @@
 package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -185,10 +186,7 @@ public class AST_ExprBinary extends AST_Expr {
     exprRightAST.accept(visitor);
   }
 
-<<<<<<< HEAD
-  public void genCode(List<String> instructions){
+  public void genInstruction(List<Instruction> instructionList){
 
   }
-=======
->>>>>>> origin/Instructions
 }

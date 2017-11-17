@@ -2,6 +2,7 @@ package ASTNodes.AST_TYPES;
 
 import ASTNodes.AST_Node;
 import IdentifierObjects.BaseTypeObj;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
@@ -133,7 +134,7 @@ public class AST_Type extends AST_Node {
   }
 
   @Override
-  public void genCode(List<String> instructions) {
+  public void genInstruction(List<Instruction> instructionList) {
 
   }
 

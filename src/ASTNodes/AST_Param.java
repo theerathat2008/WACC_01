@@ -1,6 +1,7 @@
 package ASTNodes;
 
 
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 
@@ -161,7 +162,7 @@ public class AST_Param extends AST_Node {
   }
 
   @Override
-  public void genCode(List<String> instructions) {
+  public void genInstruction(List<Instruction> instructionList) {
 
   }
 }

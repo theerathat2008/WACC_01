@@ -1,6 +1,7 @@
 package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 
 import ASTNodes.AST_Node;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
@@ -126,7 +127,7 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS {
     visitor.visit(this);
   }
 
-  public void genCode(List<String> instructions){
+  public void genInstruction(List<Instruction> instructionList){
 
   }
 

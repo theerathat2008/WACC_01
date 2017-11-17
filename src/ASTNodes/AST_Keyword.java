@@ -1,5 +1,6 @@
 package ASTNodes;
 
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -126,7 +127,7 @@ public class AST_Keyword extends AST_Node {
   }
 
   @Override
-  public void genCode(List<String> instructions) {
+  public void genInstruction(List<Instruction> instructionList) {
 
   }
 
