@@ -58,7 +58,4 @@ public class RegisterTargeting<T>{
     return registerNotInUse.contains(register);
   }
 
-  public RegisterARM getNextAvailableRegister() {
-
-  }
 }

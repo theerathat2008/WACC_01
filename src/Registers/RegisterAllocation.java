@@ -2,12 +2,20 @@ package src.Registers;
 
 import java.util.*;
 
+/**
+ * Class to keep track of free registers and allocate registers
+ */
 public class RegisterAllocation{
+  /**
+   * Stack holding all free registers
+   */
   Stack<RegisterARM> freeRegisters = new Stack<>();
 
+  /**
+   * Class Constructor - Adds all normal registers to the stack
+   */
   public RegisterAllocation() {
-    List<RegisterARM> allRegs = new ArrayList<RegisterARM>(Arrays.asList(RegisterARM.values()));
-    freeRegisters.addAll(allRegs);
+    freeRegisters.addAll(getNormalRegisters());
   }
 
   /**
@@ -45,4 +53,20 @@ public class RegisterAllocation{
     return !freeRegisters.contains(register);
   }
 
+  /**
+   * @return - Returns a list of all normal registers that can be put in the free reg stack
+   */
+  public List<RegisterARM> getNormalRegisters() {
+    List<RegisterARM> allRegs = new ArrayList<RegisterARM>(Arrays.asList(RegisterARM.values()));
+    allRegs.remove(RegisterARM.CPSR);
+    allRegs.remove(RegisterARM.LR);
+    allRegs.remove(RegisterARM.PC);
+    allRegs.remove(RegisterARM.SP);
+    allRegs.remove(RegisterARM.SPSR);
+    return allRegs;
+  }
+
+  public static String getRegName(RegisterARM register) {
+    return register.name();
+  }
 }
