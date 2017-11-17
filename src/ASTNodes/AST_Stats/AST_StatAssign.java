@@ -112,14 +112,16 @@ public class AST_StatAssign extends AST_Stat {
    */
   @Override
   public boolean CheckSemantics() {
+
+    String identifierLHS = ast_statAssignLHS.getIdentifier().toString();
+    String identifierRHS = ast_statAssignRHS.getIdentifier().toString();
     System.out.println("checking semantic of assign statement");
     System.out.println("LHS identifier is: " + ast_statAssignLHS.getIdentifier());
     System.out.println("RHS identifier is: " + ast_statAssignRHS.getIdentifier());
 
     SymbolTable ST = this.symbolTable;
 
-
-    if (ast_statAssignLHS.getIdentifier().equals(ast_statAssignRHS.getIdentifier())) {
+    if (identifierLHS.contains(identifierRHS) || identifierRHS.contains(identifierLHS)) {
       return true;
     } else {
       new TypeMismatchError(new FilePosition(ctx)).printAll();

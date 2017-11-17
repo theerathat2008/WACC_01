@@ -224,14 +224,23 @@ public class AST_ExprUnary extends AST_Expr {
     //if unaryOp = 'ord', statement must be of type char
     if (opName.equals("ord")) {
 
+      //Debug statement
+      System.out.println("hi");
+      System.out.println(astExpr.getIdentifier());
+
       if (astExpr instanceof AST_ExprEnclosed) {
         return true;
       } else if (astExpr instanceof AST_ExprIdent) {
         //SymbolTable ST = this.symbolTable;
         System.out.println(astExpr);
         astExpr.printContents();
+
+        System.out.println(astExpr.getIdentifier());
         String varName = ((AST_ExprIdent) astExpr).getVarName();
         IDENTIFIER type = ST.lookup(varName);
+        System.out.println(varName);
+        System.out.println(type);
+
         //Debug statement
         System.out.println(type);
         if (type.toString().equals("char")) {
@@ -241,6 +250,8 @@ public class AST_ExprUnary extends AST_Expr {
           new TypeError(new FilePosition(ctx)).printAll();
           return false;
         }
+      } else if (astExpr.getIdentifier().toString().equals("char")) {
+        return true;
       } else {
         new TypeError(new FilePosition(ctx)).printAll();
         return false;
