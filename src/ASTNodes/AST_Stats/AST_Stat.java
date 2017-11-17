@@ -1,9 +1,11 @@
 package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Node;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 /**
  * Class representing node in AST tree for STATEMENT NODES
@@ -119,5 +121,10 @@ public class AST_Stat extends AST_Node {
 
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
+  }
+
+  @Override
+  public void genInstruction(List<Instruction> instructionList) {
+
   }
 }

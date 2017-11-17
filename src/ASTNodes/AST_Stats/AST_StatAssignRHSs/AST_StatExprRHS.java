@@ -2,9 +2,11 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 /**
  * Class representing node in AST tree for EXPRESSION ASSIGNMENT
@@ -129,5 +131,9 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_expr.accept(visitor);
+  }
+
+  public void genInstruction(List<Instruction> instructionList){
+
   }
 }

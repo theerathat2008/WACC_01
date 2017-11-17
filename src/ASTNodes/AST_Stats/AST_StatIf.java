@@ -4,11 +4,13 @@ import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import ErrorMessages.*;
 import src.FilePosition;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 
@@ -173,6 +175,10 @@ public class AST_StatIf extends AST_Stat {
     expr.accept(visitor);
     thenStat.accept(visitor);
     elseStat.accept(visitor);
+  }
+
+  public void genInstruction(List<Instruction> instructionList){
+
   }
 
 }

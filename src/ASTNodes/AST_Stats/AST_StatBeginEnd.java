@@ -1,9 +1,11 @@
 package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Node;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 public class AST_StatBeginEnd extends AST_Stat {
 
@@ -127,5 +129,9 @@ public class AST_StatBeginEnd extends AST_Stat {
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     statAST.accept(visitor);
+  }
+
+  public void genInstruction(List<Instruction> instructionList){
+
   }
 }

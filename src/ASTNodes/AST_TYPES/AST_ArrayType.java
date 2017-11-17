@@ -1,9 +1,11 @@
 package ASTNodes.AST_TYPES;
 
 import ASTNodes.AST_Node;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 import IdentifierObjects.*;
 
@@ -136,5 +138,9 @@ public class AST_ArrayType extends AST_Type {
    */
   public IDENTIFIER getIdentifier() {
     return new ArrayObj(null, ast_type.getIdentifier());
+  }
+
+  public void genInstruction(List<Instruction> instructionList){
+
   }
 }

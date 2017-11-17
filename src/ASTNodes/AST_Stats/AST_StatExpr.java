@@ -4,12 +4,14 @@ import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import ErrorMessages.TypeError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 public class AST_StatExpr extends AST_Stat {
 
@@ -136,5 +138,9 @@ public class AST_StatExpr extends AST_Stat {
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     expr.accept(visitor);
+  }
+
+  public void genInstruction(List<Instruction> instructionList){
+
   }
 }

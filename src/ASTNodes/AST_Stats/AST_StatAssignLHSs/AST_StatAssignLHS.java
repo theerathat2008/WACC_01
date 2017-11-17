@@ -2,10 +2,12 @@ package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_Stat;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import IdentifierObjects.*;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 /**
  * Class representing node in AST tree for DECLARING VARIABLES - BASE CLASS
@@ -136,5 +138,9 @@ public class AST_StatAssignLHS extends AST_Stat {
 
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
+  }
+
+  public void genInstruction(List<Instruction> instructionList){
+
   }
 }

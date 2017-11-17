@@ -1,5 +1,6 @@
 package ASTNodes.AST_Exprs;
 
+import InstructionSet.Instruction;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
 import ErrorMessages.OutOfBoundsError;
@@ -7,6 +8,8 @@ import src.FilePosition;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
+import java.util.List;
+
 import VisitorClass.AST_NodeVisitor;
 
 import IdentifierObjects.*;
@@ -192,4 +195,9 @@ public class AST_ExprLiter extends AST_Expr {
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }
+
+  public void genInstruction(List<Instruction> instructionList){
+
+  }
+
 }

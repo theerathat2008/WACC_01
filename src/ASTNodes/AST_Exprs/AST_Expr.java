@@ -1,9 +1,11 @@
 package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 import IdentifierObjects.IDENTIFIER;
 
@@ -123,6 +125,11 @@ public class AST_Expr extends AST_Node {
 
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
+  }
+
+  @Override
+  public void genInstruction(List<Instruction> instructionList) {
+
   }
 
   /**

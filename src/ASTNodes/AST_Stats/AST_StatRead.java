@@ -1,5 +1,6 @@
 package ASTNodes.AST_Stats;
 
+import InstructionSet.Instruction;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
@@ -8,6 +9,7 @@ import src.FilePosition;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 public class AST_StatRead extends AST_Stat {
 
@@ -143,5 +145,9 @@ public class AST_StatRead extends AST_Stat {
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_statAssignLHS.accept(visitor);
+  }
+
+  public void genInstruction(List<Instruction> instructionList){
+
   }
 }

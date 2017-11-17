@@ -2,6 +2,8 @@ package src;
 
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
+import VisitorClass.AST_NodeVisitor;
+import VisitorClass.AST_VisitCodeGen;
 import VisitorClass.AST_VisitSemantic;
 import VisitorClass.waccVisitor;
 import org.antlr.v4.runtime.*;
@@ -47,9 +49,21 @@ public class waccMain {
     AST_Program root = visitor.getRootNode();
     root.printContents();
     visitor.printNodes(root);
-    System.out.println("---------------------Second Visitor implementation-------------------------");
+    System.out.println("------------------CHECK SEMANTICS------------------------");
     root.accept(new AST_VisitSemantic());
     System.out.println("---------TESTING------------");
+
+    System.out.println();
+
+
+    System.out.println("------------------CODE GENERATION--------------------");
+    AST_VisitCodeGen codeGen = new AST_VisitCodeGen();
+    root.accept(codeGen);
+    System.out.println("------------------CODE GENERATION--------------------");
+    System.out.println();
+    System.out.println("------------------GENERATING CODE--------------------");
+    codeGen.generateAssembly();
+    System.out.println("------------------GENERATING CODE--------------------");
 
 
   }

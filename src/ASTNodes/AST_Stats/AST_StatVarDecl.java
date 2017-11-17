@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 
 import ASTNodes.AST_TYPES.AST_Type;
@@ -13,6 +14,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
+import java.util.List;
 
 
 public class AST_StatVarDecl extends AST_Stat {
@@ -179,5 +181,9 @@ public class AST_StatVarDecl extends AST_Stat {
     visitor.visit(this);
     ast_type.accept(visitor);
     ast_assignRHS.accept(visitor);
+  }
+
+  public void genInstruction(List<Instruction> instructionList){
+
   }
 }

@@ -3,8 +3,11 @@ package ASTNodes.AST_Stats.AST_StatIfs;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_Stat;
 import IdentifierObjects.IDENTIFIER;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
+import java.util.List;
+
 import VisitorClass.AST_NodeVisitor;
 
 public class AST_StatSubIf extends AST_Stat {
@@ -126,5 +129,9 @@ public class AST_StatSubIf extends AST_Stat {
 
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
+  }
+
+  public void genInstruction(List<Instruction> instructionList){
+
   }
 }

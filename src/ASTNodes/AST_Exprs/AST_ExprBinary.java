@@ -1,9 +1,12 @@
 package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
+import java.util.List;
+
 import VisitorClass.AST_NodeVisitor;
 import IdentifierObjects.*;
 
@@ -184,5 +187,8 @@ public class AST_ExprBinary extends AST_Expr {
   }
 
 
+  public void genInstruction(List<Instruction> instructionList){
+
+  }
 
 }

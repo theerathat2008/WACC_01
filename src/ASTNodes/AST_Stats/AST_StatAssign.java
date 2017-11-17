@@ -3,12 +3,14 @@ package ASTNodes.AST_Stats;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import ErrorMessages.TypeMismatchError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 /**
  * Class representing node in AST tree for ASSIGNMENT STATEMENTS
@@ -150,5 +152,9 @@ public class AST_StatAssign extends AST_Stat {
     visitor.visit(this);
     ast_statAssignLHS.accept(visitor);
     ast_statAssignRHS.accept(visitor);
+  }
+
+  public void genInstruction(List<Instruction> instructionList){
+
   }
 }

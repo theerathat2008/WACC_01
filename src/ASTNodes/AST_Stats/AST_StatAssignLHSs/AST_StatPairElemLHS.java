@@ -1,5 +1,6 @@
 package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 
+import InstructionSet.Instruction;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
@@ -8,6 +9,7 @@ import src.FilePosition;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 /**
  * Class representing node in AST tree for PAIR VARIABLES
@@ -151,5 +153,9 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_expr.accept(visitor);
+  }
+
+  public void genInstruction(List<Instruction> instructionList){
+
   }
 }

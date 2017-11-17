@@ -2,9 +2,11 @@ package ASTNodes.AST_TYPES;
 
 import ASTNodes.AST_Node;
 import IdentifierObjects.BaseTypeObj;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 import IdentifierObjects.IDENTIFIER;
 
@@ -129,6 +131,11 @@ public class AST_Type extends AST_Node {
 
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
+  }
+
+  @Override
+  public void genInstruction(List<Instruction> instructionList) {
+
   }
 
   /**

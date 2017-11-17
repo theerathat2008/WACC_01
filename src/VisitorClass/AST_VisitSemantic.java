@@ -38,7 +38,6 @@ public class AST_VisitSemantic implements AST_NodeVisitor {
     param.CheckSemantics();
   }
 
-
   public void visit(AST_ParamList paramList) {
     System.out.println("Visiting: " + paramList.getClass().getSimpleName());
     paramList.CheckSemantics();

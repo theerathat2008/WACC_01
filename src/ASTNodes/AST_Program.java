@@ -1,6 +1,7 @@
 package ASTNodes;
 
 import ASTNodes.AST_Stats.AST_Stat;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -162,5 +163,9 @@ public class AST_Program extends AST_Node {
       func.accept(visitor);
     }
     statement.accept(visitor);
+  }
+
+  @Override
+  public void genInstruction(List<Instruction> instructionList) {
   }
 }

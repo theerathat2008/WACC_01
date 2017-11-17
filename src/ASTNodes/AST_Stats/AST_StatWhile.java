@@ -1,6 +1,7 @@
 package ASTNodes.AST_Stats;
 
 
+import InstructionSet.Instruction;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
@@ -10,6 +11,7 @@ import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
+import java.util.List;
 
 public class AST_StatWhile extends AST_Stat {
 
@@ -158,5 +160,9 @@ public class AST_StatWhile extends AST_Stat {
     visitor.visit(this);
     exprAST.accept(visitor);
     statAST.accept(visitor);
+  }
+
+  public void genInstruction(List<Instruction> instructionList){
+
   }
 }

@@ -2,9 +2,12 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Separator;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
+import java.util.List;
+
 import VisitorClass.AST_NodeVisitor;
 
 /**
@@ -157,4 +160,8 @@ public class AST_ExprEnclosed extends AST_Expr {
     exprAST.accept(visitor);
     rightSepAST.accept(visitor);
   }
+  public void genInstruction(List<Instruction> instructionList){
+
+  }
+
 }

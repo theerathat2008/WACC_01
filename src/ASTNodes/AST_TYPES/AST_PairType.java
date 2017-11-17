@@ -2,10 +2,12 @@ package ASTNodes.AST_TYPES;
 
 import ASTNodes.AST_Node;
 import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairElemType;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import IdentifierObjects.*;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 /**
  * Class representing node in AST tree for PAIRTYPE
@@ -158,5 +160,9 @@ public class AST_PairType extends AST_Type {
    */
   public IDENTIFIER getIdentifier() {
     return new PairObj(null, pairElemTypeFst.getIdentifier(), pairElemTypeSnd.getIdentifier());
+  }
+
+  public void genInstruction(List<Instruction> instructionList){
+
   }
 }

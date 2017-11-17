@@ -1,4 +1,5 @@
 package InstructionSet;
+import java.util.LinkedList;
 
 import java.util.List;
 
@@ -7,8 +8,10 @@ public class InstructionArithmetic extends Instruction {
   String dst;
   String fst;
   String snd;
-
   public InstructionArithmetic(String operand, String dst, String fst, String snd) {
+
+  List<String> instr = new LinkedList<>();
+
     this.operand = operand;
     this.dst = dst;
     this.fst = fst;
@@ -28,6 +31,10 @@ public class InstructionArithmetic extends Instruction {
     builder.append(" ");
     builder.append(snd);
     output.add(builder.toString());
+  }
+
+  public void makeInstr(){
+    instr.add(make());
   }
 
 }

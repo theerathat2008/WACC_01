@@ -63,6 +63,7 @@ AST_Node -> AST_FuncDecl
                            -> AST_ExprIdent
                            -> AST_ExprLiter
                            -> AST_ExprUnary
+
          -> AST_Stat       -> AST_StatAssign
                            -> AST_StatBeginEnd
                            -> AST_StatExpr
@@ -70,15 +71,18 @@ AST_Node -> AST_FuncDecl
                            -> AST_StatMult
                            -> AST_StatRead
                            -> AST_StatVarDecl
-                           -> AST_While
+                           -> AST_StatWhile
+
                            -> AST_StatAssignLHS   -> AST_StatArrayElemLHS
                                                   -> AST_StatIdentLHS
                                                   -> AST_StatPairElemLHS
+
                            -> AST_StatAssignRHS   -> AST_StatArrayLitRHS
                                                   -> AST_StatCallRHS
                                                   -> AST_StatExprRHS
                                                   -> AST_StatNewPairRHS
                                                   -> AST_StatPairElemRHS
+
          -> AST_Type       -> AST_ArrayType
                            -> AST_BaseType
                            -> AST_PairType

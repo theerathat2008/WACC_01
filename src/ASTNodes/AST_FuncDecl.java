@@ -3,6 +3,7 @@ package ASTNodes;
 import ASTNodes.AST_Stats.AST_Stat;
 import IdentifierObjects.FunctionObj;
 import IdentifierObjects.ParamListObj;
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -11,6 +12,7 @@ import src.FilePosition;
 import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
+import java.util.List;
 
 /**
  * Class representing node in AST tree for FUNCTION
@@ -248,5 +250,10 @@ public class AST_FuncDecl extends AST_Node {
     }
     statement.accept(visitor);
   }
+
+  public void genInstruction(List<Instruction> instructionList){
+
+  }
+
 }
 

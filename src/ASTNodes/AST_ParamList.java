@@ -1,5 +1,6 @@
 package ASTNodes;
 
+import InstructionSet.Instruction;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -167,5 +168,10 @@ public class AST_ParamList extends AST_Node {
     for(AST_Param param : listParam){
       param.accept(visitor);
     }
+  }
+
+  @Override
+  public void genInstruction(List<Instruction> instructionList) {
+
   }
 }
