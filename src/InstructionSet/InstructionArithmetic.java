@@ -1,6 +1,6 @@
 package InstructionSet;
 
-public class InstructionArithmetic extends Instruction{
+public class InstructionArithmetic extends Instruction {
   String operand;
   String output;
   String fst;
