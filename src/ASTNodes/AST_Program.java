@@ -167,6 +167,5 @@ public class AST_Program extends AST_Node {
 
   @Override
   public void genInstruction(List<Instruction> instructionList) {
-
   }
 }

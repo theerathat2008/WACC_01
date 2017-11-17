@@ -42,6 +42,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
    * 6. Print out ordered assembly instructions in printAssembly
    */
 
+
   public void generateAssembly(){
     //takes instructions list and add instructions into assembly output
     for(Instruction out : instructions){
@@ -50,7 +51,6 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   }
 
   public void printAssembly(){
-
     for(String out : assemblyOutput){
       System.out.println(out);
     }
