@@ -20,16 +20,25 @@ public class RegisterAllocation{
     freeRegisters.addAll(getNormalRegisters());
   }
 
+  /**
+   * @return - Returns register R0
+   */
   public RegisterARM getRegR0() {
     return RegisterARM.R0;
   }
 
+  /**
+   * @return - Returns register R1
+   */
   public RegisterARM getRegR1() {
     return RegisterARM.R1;
   }
 
-  public RegisterARM getRegR3() {
-    return RegisterARM.R3;
+  /**
+   * @return - Returns register R2
+   */
+  public RegisterARM getRegR2() {
+    return RegisterARM.R2;
   }
 
   /**
@@ -69,6 +78,9 @@ public class RegisterAllocation{
     return RegisterARM.values()[register.ordinal() - 1];
   }
 
+  /**
+   * @return - Returns last used register
+   */
   public RegisterARM getLastUsedRegister() {
     return registerInUse.get(registerInUse.size() - 1);
   }
@@ -90,17 +102,24 @@ public class RegisterAllocation{
   }
 
   /**
-   * Add register from the parameter to the registerInUse list
+   * Add register from the parameter to the registerInUse list, meaning that this register is not free
    * @param register
    */
   public void addRegisterInUse(RegisterARM register) {
     registerInUse.add(register);
   }
 
+  /**
+   * Remove register from the parameter from the registerInUse list, meaning that this register becomes free
+   * @param register
+   */
   public void removeRegisterInUse(RegisterARM register) {
     registerInUse.remove(register);
   }
 
+  /**
+   * Remove all elements from the registerInUse list
+   */
   public void clearRegisterInUseList() {
     registerInUse.clear();
   }
@@ -153,10 +172,17 @@ public class RegisterAllocation{
     return allRegs;
   }
 
+  /**
+   * @param register
+   * @return - Returns register name
+   */
   public static String getRegName(RegisterARM register) {
     return register.name();
   }
 
+  /**
+   * Remove all elements from the freeRegister stack
+   */
   public void clearFreeRegisters() {
     freeRegisters.clear();
   }
