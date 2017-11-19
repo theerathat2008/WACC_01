@@ -10,14 +10,100 @@ public class RegisterAllocation{
    * Stack holding all free registers
    */
   Stack<RegisterARM> freeRegisters = new Stack<>();
+  List<RegisterARM> registerInUse = new ArrayList<>();
 
   /**
    * Class Constructor - Adds all normal registers to the stack
+   * constructor for freeRegisters
    */
   public RegisterAllocation() {
     freeRegisters.addAll(getNormalRegisters());
   }
 
+  public RegisterARM getRegR0() {
+    return RegisterARM.R0;
+  }
+
+  public RegisterARM getRegR1() {
+    return RegisterARM.R1;
+  }
+
+  public RegisterARM getRegR3() {
+    return RegisterARM.R3;
+  }
+
+  /**
+   * @return - Returns Stack Pointer Register
+   */
+  public RegisterARM getSPReg() {
+    return RegisterARM.SP;
+  }
+
+  /**
+   * @return - Returns Link Register
+   */
+  public RegisterARM getLinkReg() {
+    return RegisterARM.LR;
+  }
+
+  /**
+   * @return - Returns Program Counter Register
+   */
+  public RegisterARM getPCReg() {
+    return RegisterARM.PC;
+  }
+
+  /**
+   * @param register
+   * @return - Returns next register of the register given in the parameter
+   */
+  public RegisterARM getNextReg(RegisterARM register) {
+    return RegisterARM.values()[register.ordinal() + 1];
+  }
+
+  /**
+   * @param register
+   * @return - Returns previous register of the register given in the parameter
+   */
+  public RegisterARM getPreviousRegister(RegisterARM register) {
+    return RegisterARM.values()[register.ordinal() - 1];
+  }
+
+  public RegisterARM getLastUsedRegister() {
+    return registerInUse.get(registerInUse.size() - 1);
+  }
+
+  /**
+   * @return - Returns next free register
+   */
+  public RegisterARM getNextFreeRegister() {
+    RegisterARM nxtFreeReg = getNextReg(getLastUsedRegister());
+    return nxtFreeReg;
+  }
+
+  /**
+   * @param register
+   * @return - Returns true if the register from the parameter is in the registerInUse list
+   */
+  public boolean checkIfRegisterInUse(RegisterARM register) {
+    return registerInUse.contains(register);
+  }
+
+  /**
+   * Add register from the parameter to the registerInUse list
+   * @param register
+   */
+  public void addRegisterInUse(RegisterARM register) {
+    registerInUse.add(register);
+  }
+
+  public void removeRegisterInUse(RegisterARM register) {
+    registerInUse.remove(register);
+  }
+
+  public void clearRegisterInUseList() {
+    registerInUse.clear();
+  }
   /**
    * @return - Returns a free register and removes it from the stack
    * Throws exception if no free registers remaining
@@ -33,7 +119,7 @@ public class RegisterAllocation{
    * @param register frees a register and pushes onto freeReg stack
    */
   public void freeRegister(RegisterARM register) {
-    if (checkRegisterNotPresent(register)) {
+    if (checkRegisterNotPresentOnStack(register)) {
       freeRegisters.push(register);
     }
   }
@@ -48,8 +134,9 @@ public class RegisterAllocation{
   /**
    * @param register - Register to be searched in stack
    * @return - Returns true if register is not in the stack
+   * This means that the register is not free
    */
-  public boolean checkRegisterNotPresent(RegisterARM register) {
+  public boolean checkRegisterNotPresentOnStack(RegisterARM register) {
     return !freeRegisters.contains(register);
   }
 
@@ -68,5 +155,9 @@ public class RegisterAllocation{
 
   public static String getRegName(RegisterARM register) {
     return register.name();
+  }
+
+  public void clearFreeRegisters() {
+    freeRegisters.clear();
   }
 }
