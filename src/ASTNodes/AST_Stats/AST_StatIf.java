@@ -5,6 +5,7 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionIf;
 import SymbolTable.SymbolTable;
 import ErrorMessages.*;
 import src.FilePosition;
@@ -178,7 +179,10 @@ public class AST_StatIf extends AST_Stat {
   }
 
   public void genInstruction(List<Instruction> instructionList){
-
+    InstructionIf instructionIf = new InstructionIf();
+    instructionIf.allocateRegisters();
+    instructionIf.genInstruction();
+    instructionList.add(instructionIf);
   }
 
 }

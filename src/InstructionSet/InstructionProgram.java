@@ -1,7 +1,5 @@
 package InstructionSet;
 
-import java.util.List;
-
 public class InstructionProgram extends Instruction {
 
   public String block1;
@@ -11,7 +9,7 @@ public class InstructionProgram extends Instruction {
 
 
   @Override
-  public void genInstruction(List<Instruction> instructions) {
+  public void genInstruction() {
     StringBuilder builder = new StringBuilder("\t.global main\n");
     builder.append("\tmain:\n");
     builder.append("\t\tPUSH (lr)");
@@ -22,4 +20,5 @@ public class InstructionProgram extends Instruction {
     builder2.append("\t\t.ltorg");
     block2 = builder2.toString();
   }
+
 }

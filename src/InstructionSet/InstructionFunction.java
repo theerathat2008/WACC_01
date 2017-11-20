@@ -7,4 +7,5 @@ public class InstructionFunction extends Instruction {
   public void make(List<Instruction> instructions) {
 
   }
+
 }
