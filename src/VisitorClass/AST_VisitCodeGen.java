@@ -54,6 +54,9 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
     }
   }
 
+  /**
+   * Outputs the final assembly file as text
+   */
   public void printAssembly(){
     for(String out : assemblyOutput){
       System.out.println(out);
