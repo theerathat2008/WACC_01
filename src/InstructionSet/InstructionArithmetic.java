@@ -33,8 +33,5 @@ public class InstructionArithmetic extends Instruction {
     output.add(builder.toString());
   }
 
-  public void makeInstr(){
-    instr.add(make());
-  }
 
 }

@@ -17,6 +17,8 @@ public abstract class AST_Node {
   //private field to store parent node
   protected AST_Node parentNode;
 
+
+
   /**
    * Return the parent node of the node called
    */
