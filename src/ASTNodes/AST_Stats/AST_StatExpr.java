@@ -83,10 +83,13 @@ public class AST_StatExpr extends AST_Stat {
    */
   @Override
   public boolean CheckSemantics() {
+    SymbolTable ST = this.symbolTable;
+    AST_Node parent = getParentNode();
+
     if (statName.equals("free")) {
       return expr.getIdentifier().toString().contains("[]") || expr.getIdentifier().toString().startsWith("pair(");
     } else if (statName.equals("return")) {
-      AST_Node parent = getParentNode();
+
 
       //search until find function declaration
       while (!(parent instanceof AST_FuncDecl)) {
@@ -100,8 +103,29 @@ public class AST_StatExpr extends AST_Stat {
 
         System.out.println("Going to AST parent, looking for function");
       }
+
       //check if the return type is the same type as function type
       AST_FuncDecl temp = (AST_FuncDecl) parent;
+
+      if (expr instanceof AST_ExprIdent) {
+        String varName = ((AST_ExprIdent) expr).getVarName();
+        AST_Node tempNode = this.getParentNode();
+        IDENTIFIER typeExpr = ST.encSymTable.lookup(varName);
+
+        while (!(tempNode instanceof AST_FuncDecl)) {
+          if (tempNode instanceof AST_Program) {
+            typeExpr = ST.lookup(varName);
+            break;
+          }
+          tempNode = tempNode.getParentNode();
+        }
+        if (temp.ast_type.getIdentifier().equals(typeExpr)) {
+          return true;
+        } else {
+          new TypeMismatchError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      }
 
       //debug message
       System.out.println(temp.ast_type.getIdentifier().toString());
@@ -132,11 +156,20 @@ public class AST_StatExpr extends AST_Stat {
           return false;
         }
       } else if (expr instanceof AST_ExprIdent) {
-        SymbolTable ST = this.symbolTable;
         System.out.println(expr);
         expr.printContents();
         String varName = ((AST_ExprIdent) expr).getVarName();
-        IDENTIFIER type = ST.lookup(varName);
+
+        AST_Node tempNode = this.getParentNode();
+        IDENTIFIER type = ST.encSymTable.lookup(varName);
+
+        while (!(tempNode instanceof AST_FuncDecl)) {
+          if (tempNode instanceof AST_Program) {
+            type = ST.lookup(varName);
+            break;
+          }
+          tempNode = tempNode.getParentNode();
+        }
         //Debug statement
         System.out.println(type);
         if (type.toString().equals("int")) {

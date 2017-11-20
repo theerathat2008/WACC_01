@@ -1,8 +1,11 @@
 package src.ASTNodes.AST_Stats;
 
+import src.ASTNodes.AST_FuncDecl;
 import src.ASTNodes.AST_Node;
+import src.ASTNodes.AST_Program;
 import src.ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 
+import src.IdentifierObjects.IDENTIFIER;
 import src.SymbolTable.SymbolTable;
 
 import src.ASTNodes.AST_TYPES.AST_Type;
@@ -138,9 +141,28 @@ public class AST_StatVarDecl extends AST_Stat {
     System.out.println(ST.encSymTable.lookup("s2"));
     System.out.println(ast_type.getIdentifier());
     System.out.println(ast_assignRHS.getIdentifier());
+    System.out.println(ast_assignRHS);
+
+    AST_Node parent = getParentNode();
+
+    IDENTIFIER type = ST.encSymTable.lookup(identName);
+    System.out.println(type);
+
+    while (!(parent instanceof AST_FuncDecl)) {
+      if (parent instanceof AST_Program) {
+        System.out.println("Hey, I'm inside the if statement");
+        type = ST.lookup(identName);
+        break;
+      }
+      parent = parent.getParentNode();
+    }
+    System.out.println(type);
+    System.out.println(ast_type);
 
     //TODO find out why it is already assigned
-    if (ST.encSymTable.lookup(identName) != null) {
+    //find other way to check
+    //maybe use not equal to the already assigned type?
+    if (!type.equals(ast_type.getIdentifier())) {
       new VariableRedeclarationError(new FilePosition(ctx)).printAll();
       return false;
     }
