@@ -128,22 +128,29 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
   @Override
   public boolean CheckSemantics() {
 
+    //Debug statement
+    System.out.println(ast_exprList);
+    System.out.println(numOfExpr);
+    System.out.println(type);
+
     //empty array is always true
     if (ast_exprList == null) {
       return true;
-    }
+    } else if (numOfExpr == 0) {
+      return true;
+    } else {
+      //get type of the first index in the array
+      String firstType = ast_exprList.get(0).getIdentifier().toString();
 
-    //get type of the first index in the array
-    String firstType = ast_exprList.get(0).getIdentifier().toString();
-
-    //check if every elements in the array has the same type
-    for (AST_Expr exprList : ast_exprList) {
-      if (!(exprList.getIdentifier().toString()).equals(firstType)) {
-        new TypeMismatchError(new FilePosition(ctx)).printAll();
-        return false;
+      //check if every elements in the array has the same type
+      for (AST_Expr exprList : ast_exprList) {
+        if (!(exprList.getIdentifier().toString()).equals(firstType)) {
+          new TypeMismatchError(new FilePosition(ctx)).printAll();
+          return false;
+        }
       }
+      return true;
     }
-    return true;
   }
 
   /**
