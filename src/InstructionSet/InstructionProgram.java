@@ -17,7 +17,7 @@ public class InstructionProgram extends Instruction {
 
     StringBuilder builder2 = new StringBuilder("\t\tLDR r0, =0\n");
     builder2.append("\t\tPOP (pc)");
-    builder2.append("\t\t.ltorg");
+    builder2.append("\t\t.ltorg\n");
     block2 = builder2.toString();
   }
 

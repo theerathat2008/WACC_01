@@ -8,6 +8,7 @@ public class InstructionArithmetic extends Instruction {
   String dst;
   String fst;
   String snd;
+  public String block1;
   public InstructionArithmetic(String operand, String dst, String fst, String snd) {
 
   List<String> instr = new LinkedList<>();
@@ -22,15 +23,16 @@ public class InstructionArithmetic extends Instruction {
     instructions.add(this);
   }
 
-  public void genCode(List<String> output) {
-    StringBuilder builder = new StringBuilder(operand);
+  public void genInstruction(List<Instruction> output) {
+    StringBuilder builder = new StringBuilder("\t\t" + operand + "S");
     builder.append(" ");
     builder.append(dst);
     builder.append(" ");
     builder.append(fst);
     builder.append(" ");
     builder.append(snd);
-    output.add(builder.toString());
+    builder.append("\n\t\tBLVS p_throw_overflow_error\n");
+    block1 = builder.toString();
   }
 
 
