@@ -1,4 +1,6 @@
-package src.InstructionSet;
+package InstructionSet;
+
+import Registers.RegisterARM;
 
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class InstructionIf extends Instruction {
   }
 
   public void allocateRegisters(RegisterARM registerARM){
-    this.exprReg = regList.get(0);
+    this.exprReg = registerARM.name();
   }
 
   @Override

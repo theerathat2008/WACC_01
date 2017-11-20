@@ -6,6 +6,8 @@ import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionIf;
+import Registers.RegisterARM;
+import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.*;
 import src.FilePosition;
@@ -178,10 +180,14 @@ public class AST_StatIf extends AST_Stat {
     elseStat.accept(visitor);
   }
 
-  public void genInstruction(List<Instruction> instructionList){
+
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception{
     InstructionIf instructionIf = new InstructionIf();
-    instructionIf.allocateRegisters();
-    instructionIf.genInstruction();
+
+    RegisterARM registerARM = registerAllocation.useRegister();
+    registerAllocation.addRegisterMap("cmp_eval", registerARM);
+    instructionIf.allocateRegisters(registerARM);
+
     instructionList.add(instructionIf);
   }
 

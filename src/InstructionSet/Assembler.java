@@ -1,5 +1,8 @@
 package InstructionSet;
 
+import Registers.RegisterARM;
+import Registers.RegisterAllocation;
+
 import java.util.List;
 
 /**
@@ -9,6 +12,7 @@ import java.util.List;
 public class Assembler {
 
   List<Instruction> instructions;
+  RegisterAllocation registerAlloc;
 
   private static Assembler instance = null;
 
@@ -20,8 +24,15 @@ public class Assembler {
     this.instructions = instructions;
   }
 
-  private void parseInstructions(){
+  public void setRegisterAlloc(RegisterAllocation registerAlloc){
+    this.registerAlloc = registerAlloc;
+  }
+
+  private void parseInstructions() throws Exception{
     for(Instruction currInstr : instructions){
+
+
+
       currInstr.genInstruction();
     }
   }

@@ -1,4 +1,4 @@
-package src.Registers;
+package Registers;
 
 import java.util.ArrayList;
 import java.util.List;

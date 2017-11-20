@@ -1,4 +1,4 @@
-package src.InstructionSet;
+package InstructionSet;
 
 public class InstructionComparison extends Instruction {
 }

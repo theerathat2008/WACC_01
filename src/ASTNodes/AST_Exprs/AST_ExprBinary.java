@@ -2,6 +2,9 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionComparison;
+import Registers.RegisterARM;
+import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -187,8 +190,19 @@ public class AST_ExprBinary extends AST_Expr {
   }
 
 
-  public void genInstruction(List<Instruction> instructionList){
+  /**
+   *
+   */
 
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation){
+    InstructionComparison instructionCompare = new InstructionComparison();
+
+    RegisterARM dstReg = registerAllocation.getRegisterMap("cmp_eval");
+    instructionCompare.allocateRegisters(dstReg);
+
+    instructionList.add(instructionCompare);
+
+    
   }
 
 }

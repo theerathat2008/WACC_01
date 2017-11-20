@@ -1,4 +1,4 @@
-package src.Registers;
+package Registers;
 
 import java.util.*;
 
@@ -11,6 +11,8 @@ public class RegisterAllocation{
    */
   Stack<RegisterARM> freeRegisters = new Stack<>();
   List<RegisterARM> registerInUse = new ArrayList<>();
+
+  Map<String, RegisterARM> registerInUseMap = new HashMap<>();
 
   /**
    * Class Constructor - Adds all normal registers to the stack
@@ -217,6 +219,20 @@ public class RegisterAllocation{
     }
     return freeRegisters.pop();
   }
+
+
+  public void addRegisterMap(String key, RegisterARM registerARM){
+    registerInUseMap.put(key, registerARM);
+  }
+
+  public void removeRegisterMap(String key){
+    registerInUseMap.remove(key);
+  }
+
+  public RegisterARM getRegisterMap(String key){
+    return registerInUseMap.get(key);
+  }
+
 
   /**
    * @param register frees a register and pushes onto freeReg stack

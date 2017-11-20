@@ -1,4 +1,4 @@
-package src.InstructionSet;
+package InstructionSet;
 
 import java.util.List;
 

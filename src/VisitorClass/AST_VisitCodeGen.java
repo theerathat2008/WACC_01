@@ -21,6 +21,7 @@ import ASTNodes.AST_TYPES.AST_PairType;
 import ASTNodes.AST_TYPES.AST_Type;
 import InstructionSet.Assembler;
 import InstructionSet.Instruction;
+import Registers.RegisterAllocation;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,6 +29,8 @@ import java.util.List;
 public class AST_VisitCodeGen implements AST_NodeVisitor {
 
   List<Instruction> instructions = new LinkedList<>();
+
+  RegisterAllocation registerAllocation = new RegisterAllocation();
 
 
 
@@ -131,7 +134,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
 
   @Override
   public void visit(AST_StatIf statIf) {
-    statIf.genInstruction(instructions);
+    statIf.genInstruction(instructions, registerAllocation);
   }
 
   @Override
