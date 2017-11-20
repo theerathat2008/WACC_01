@@ -22,4 +22,5 @@ public class InstructionFunction extends Instruction {
     builder2.append("\t\t.ltorg\n");
     block2 = builder2.toString();
   }
+
 }

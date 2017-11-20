@@ -11,6 +11,5 @@ public abstract class Instruction {
 
   }
 
-  public abstract void genInstruction(List<Instruction> instructions);
-
+  public abstract void genInstruction();
 }
