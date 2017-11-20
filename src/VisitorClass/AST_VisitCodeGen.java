@@ -19,6 +19,7 @@ import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairElemType;
 import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairString;
 import ASTNodes.AST_TYPES.AST_PairType;
 import ASTNodes.AST_TYPES.AST_Type;
+import InstructionSet.Assembler;
 import InstructionSet.Instruction;
 
 import java.util.LinkedList;
@@ -27,8 +28,6 @@ import java.util.List;
 public class AST_VisitCodeGen implements AST_NodeVisitor {
 
   List<Instruction> instructions = new LinkedList<>();
-
-  List<String> assemblyOutput = new LinkedList<>();
 
 
 
@@ -45,23 +44,14 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
    * 6. Print out ordered assembly instructions in printAssembly
    */
 
+
+
+
   public void generateAssembly(){
-    //takes instructions list and add instructions into assembly output
-
-    for(Instruction out : instructions){
-      //Allocate the right register to use
-      //out.genInstruction();
-    }
+    Assembler assembler = Assembler.getInstance();
+    assembler.setInstructions(instructions);
   }
 
-  /**
-   * Outputs the final assembly file as text
-   */
-  public void printAssembly(){
-    for(String out : assemblyOutput){
-      System.out.println(out);
-    }
-  }
 
 
   @Override

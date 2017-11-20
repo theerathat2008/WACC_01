@@ -1,29 +1,37 @@
-package src.InstructionSet;
-
+package InstructionSet;
 import java.util.LinkedList;
+
 import java.util.List;
 
 public class InstructionArithmetic extends Instruction {
   String operand;
-  String output;
+  String dst;
   String fst;
   String snd;
+  public InstructionArithmetic(String operand, String dst, String fst, String snd) {
 
   List<String> instr = new LinkedList<>();
 
-  public InstructionArithmetic(String operand, String output, String fst, String snd) {
     this.operand = operand;
-    this.output = output;
+    this.dst = dst;
     this.fst = fst;
     this.snd = snd;
   }
 
-  public String make() {
-    return operand + output + fst + snd;
+  public void addInstruction(List<Instruction> instructions) {
+    instructions.add(this);
   }
 
-  public void makeInstr(){
-    instr.add(make());
+  public void genCode(List<String> output) {
+    StringBuilder builder = new StringBuilder(operand);
+    builder.append(" ");
+    builder.append(dst);
+    builder.append(" ");
+    builder.append(fst);
+    builder.append(" ");
+    builder.append(snd);
+    output.add(builder.toString());
   }
+
 
 }
