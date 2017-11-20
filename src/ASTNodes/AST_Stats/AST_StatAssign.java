@@ -1,10 +1,15 @@
 package src.ASTNodes.AST_Stats;
 
+import src.ASTNodes.AST_Exprs.AST_Expr;
 import src.ASTNodes.AST_Exprs.AST_ExprBinary;
+import src.ASTNodes.AST_Exprs.AST_ExprEnclosed;
 import src.ASTNodes.AST_Exprs.AST_ExprIdent;
 import src.ASTNodes.AST_Node;
+import src.ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatArrayElemLHS;
 import src.ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
 import src.ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
+import src.ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
+import src.IdentifierObjects.IDENTIFIER;
 import src.SymbolTable.SymbolTable;
 import src.ErrorMessages.TypeMismatchError;
 import src.FilePosition;
@@ -113,20 +118,69 @@ public class AST_StatAssign extends AST_Stat {
   @Override
   public boolean CheckSemantics() {
 
-    String identifierLHS = ast_statAssignLHS.getIdentifier().toString();
-    String identifierRHS = ast_statAssignRHS.getIdentifier().toString();
+    SymbolTable ST = this.symbolTable;
+
     System.out.println("checking semantic of assign statement");
+    System.out.println(ast_statAssignLHS.toString());
+    System.out.println(ast_statAssignRHS.toString());
     System.out.println("LHS identifier is: " + ast_statAssignLHS.getIdentifier());
     System.out.println("RHS identifier is: " + ast_statAssignRHS.getIdentifier());
 
-    SymbolTable ST = this.symbolTable;
+    IDENTIFIER typeLHS = null;
+    IDENTIFIER typeRHS = null;
+
+    if (ast_statAssignLHS instanceof AST_StatArrayElemLHS) {
+      System.out.println("I'm instance of AST_StatArrayElemLHS");
+      //check the size of the array if it contains any element inside
+      if (((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().size() != 0) {
+        System.out.println("I'm inside if statement");
+        System.out.println(((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().get(0));
+        AST_Expr firstElem = ((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().get(0);
+
+        //check if it is instace of AST_ExprIdent if it is an ident
+        if (firstElem instanceof AST_ExprEnclosed) {
+          return true;
+        } else if (firstElem instanceof AST_ExprIdent) {
+          String varName = ((AST_ExprIdent) firstElem).getVarName();
+          System.out.println(varName);
+          typeLHS = ST.encSymTable.lookup(varName);
+          System.out.println(typeLHS);
+        }
+      }
+
+
+      System.out.println("ast_statAssignRHS");
+      if (ast_statAssignRHS instanceof AST_StatExprRHS) {
+        AST_Expr ast_expr = ((AST_StatExprRHS) ast_statAssignRHS).getAst_expr();
+
+        if (ast_expr instanceof AST_ExprIdent) {
+          System.out.println("RHS is instance of AST_ExprIdent");
+          String varName = ((AST_ExprIdent) ast_expr).getVarName();
+          System.out.println(varName);
+          typeRHS = ST.encSymTable.lookup(varName);
+          System.out.println(typeRHS);
+        }
+      }
+
+
+    }
+
+    if (typeLHS.toString().contains(typeRHS.toString()) || typeRHS.toString().contains(typeLHS.toString())) {
+      return true;
+    } else {
+      new TypeMismatchError(new FilePosition(ctx)).printAll();
+      return false;
+    }
+
+    /*String identifierLHS = ast_statAssignLHS.getIdentifier().toString();
+    String identifierRHS = ast_statAssignRHS.getIdentifier().toString();
 
     if (identifierLHS.contains(identifierRHS) || identifierRHS.contains(identifierLHS)) {
       return true;
     } else {
       new TypeMismatchError(new FilePosition(ctx)).printAll();
       return false;
-    }
+    }*/
   }
 
   /**

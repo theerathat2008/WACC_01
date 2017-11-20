@@ -135,4 +135,8 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
   public IDENTIFIER getIdentifier() {
     return ast_expr.getIdentifier();
   }
+
+  public AST_Expr getAst_expr() {
+    return ast_expr;
+  }
 }

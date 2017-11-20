@@ -158,4 +158,8 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
       expr.accept(visitor);
     }
   }
+
+  public List<AST_Expr> getAst_exprList() {
+    return ast_exprList;
+  }
 }
