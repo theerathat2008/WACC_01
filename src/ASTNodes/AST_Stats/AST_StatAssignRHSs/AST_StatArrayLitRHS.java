@@ -136,7 +136,7 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
     //empty array is always true
     if (ast_exprList == null) {
       return true;
-    } else if (numOfExpr == 0) {
+    } else if (numOfExpr == 0 || numOfExpr == 1) {
       return true;
     } else {
       //get type of the first index in the array
