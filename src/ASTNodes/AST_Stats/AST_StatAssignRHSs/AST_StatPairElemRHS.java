@@ -147,7 +147,8 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
       System.out.println(typeExpr);
 
       if (typeExpr.toString().equals("int") || typeExpr.toString().equals("bool")
-              || typeExpr.toString().equals("char") || typeExpr.toString().contains("PAIR") || typeExpr.toString().contains("str")) {
+              || typeExpr.toString().equals("char") || typeExpr.toString().contains("PAIR")
+              || typeExpr.toString().contains("str")) {
         return true;
       } else {
         new TypeError((new FilePosition(ctx))).printAll();

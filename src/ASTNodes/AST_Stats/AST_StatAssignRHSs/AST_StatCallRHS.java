@@ -3,6 +3,7 @@ package src.ASTNodes.AST_Stats.AST_StatAssignRHSs;
 import src.ASTNodes.*;
 import src.ASTNodes.AST_Exprs.AST_Expr;
 import src.ASTNodes.AST_Exprs.AST_ExprIdent;
+import src.IdentifierObjects.BaseTypeObj;
 import src.IdentifierObjects.FunctionObj;
 import src.IdentifierObjects.IDENTIFIER;
 import src.SymbolTable.SymbolTable;
@@ -181,13 +182,22 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
 
       if (ast_exprList.size() > 0) {
 
+        System.out.println(ast_exprList);
         AST_Node parent = this.getParentNode();
         System.out.println("Parent node is");
         System.out.println(parent);
+        System.out.println(ST.lookupAll(funcName));
 
         List<IDENTIFIER> parameters = new ArrayList<>();
 
-        parameters = (((FunctionObj) (ST.lookupAll(funcName))).getparamListObj()).getParamObjList();
+        //if it is a baseType obj, we add it to a list instead of assigning it
+        if (ST.lookupAll(funcName) instanceof BaseTypeObj) {
+          parameters.add(ST.lookupAll(funcName));
+        } else if (ST.lookupAll(funcName) instanceof FunctionObj) {
+          //TODO BaseTypeObj cannot cast to FunctionObj
+          parameters = (((FunctionObj) (ST.lookupAll(funcName))).getparamListObj()).getParamObjList();
+        }
+
 
         //checking if number of parameters is as expected
         if (parameters.size() != ast_exprList.size()) {
@@ -222,8 +232,10 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
           //when size of the list i 1
           if (ast_exprList.size() == 1) {
             if (ast_exprList.get(i) instanceof AST_ExprIdent) {
+              System.out.println("Hey, I'm instance of AST_ExprIdent");
               String varName = ((AST_ExprIdent) ast_exprList.get(i)).getVarName();
               IDENTIFIER typeExpr = ST.encSymTable.lookup(varName);
+              System.out.println(typeExpr);
 
               while (!(parent instanceof AST_FuncDecl)) {
                 if (parent instanceof AST_Program) {
@@ -231,6 +243,12 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
                   break;
                 }
                 parent = parent.getParentNode();
+              }
+
+              //TODO maybe there is a better method to check if it's a function call, then check both enc and current ST
+              //check if it's null so can reassign again (hard coding)
+              if (typeExpr == null) {
+                typeExpr = ST.encSymTable.lookup(varName);
               }
 
               System.out.println("varName is:" + varName);

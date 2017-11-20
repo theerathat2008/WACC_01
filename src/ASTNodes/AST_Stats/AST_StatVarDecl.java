@@ -132,6 +132,7 @@ public class AST_StatVarDecl extends AST_Stat {
 
     //Maybe ST has content but ast_assignRHS is null so it cannot find type
     SymbolTable ST = symbolTable;
+
     System.out.println("printing contents");
     System.out.println(ast_type.getIdentifier().toString());
     System.out.println(ST.getScope());
@@ -148,16 +149,30 @@ public class AST_StatVarDecl extends AST_Stat {
     IDENTIFIER type = ST.encSymTable.lookup(identName);
     System.out.println(type);
 
-    while (!(parent instanceof AST_FuncDecl)) {
-      if (parent instanceof AST_Program) {
-        System.out.println("Hey, I'm inside the if statement");
+    AST_Node tempNode = parent;
+
+    while (!(tempNode instanceof AST_FuncDecl)) {
+      if (tempNode instanceof AST_Program) {
+        System.out.println("Hey, I'm inside the while statement");
         type = ST.lookup(identName);
         break;
       }
-      parent = parent.getParentNode();
+      tempNode = tempNode.getParentNode();
     }
     System.out.println(type);
     System.out.println(ast_type);
+
+    System.out.println(ast_assignRHS.getIdentifier());
+
+    if (ast_type.getIdentifier() != null && ast_assignRHS.getIdentifier() != null) {
+      //ast_type.getIdentifier() returns "str" so it's the problem
+      if (!(ast_type.getIdentifier().toString().contains(ast_assignRHS.getIdentifier().toString())
+              || ast_assignRHS.getIdentifier().toString().contains(ast_type.getIdentifier().toString()))) {
+        new TypeMismatchError(new FilePosition(ctx)).printAll();
+        return false;
+      }
+      return true;
+    }
 
     //TODO find out why it is already assigned
     //find other way to check
@@ -166,18 +181,9 @@ public class AST_StatVarDecl extends AST_Stat {
       new VariableRedeclarationError(new FilePosition(ctx)).printAll();
       return false;
     }
-
-    if (ast_assignRHS.getIdentifier() == null) {
-      return true;
-    }
-
-    //ast_type.getIdentifier() returns "str" so it's the problem
-    if (!(ast_type.getIdentifier().toString().contains(ast_assignRHS.getIdentifier().toString())
-            || ast_assignRHS.getIdentifier().toString().contains(ast_type.getIdentifier().toString()))) {
-      new TypeMismatchError(new FilePosition(ctx)).printAll();
-      return false;
-    }
     return true;
+
+
 
   }
 
