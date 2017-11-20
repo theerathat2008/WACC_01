@@ -1,4 +1,4 @@
-package InstructionSet;
+package src.InstructionSet;
 
 public class InstructionFunction extends Instruction {
 }

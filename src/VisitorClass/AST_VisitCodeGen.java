@@ -33,7 +33,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
 
 
 
-  /** ATHI'S AWESOME PLAN
+  /** PLAN 1
    * 1. Visit AST_Node using visitor pattern
    * 2. Generate instruction for each AST_Node by calling genInstructions(instructionList)
    *    - Pass in variables in instruction class constructor needed for assembly code
