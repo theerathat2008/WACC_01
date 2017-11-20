@@ -161,6 +161,7 @@ public class AST_ExprUnary extends AST_Expr {
         while (!(parent instanceof AST_FuncDecl)) {
           if (parent instanceof AST_Program) {
             type = ST.lookup(varName);
+            break;
           }
           parent = parent.getParentNode();
         }
@@ -197,6 +198,7 @@ public class AST_ExprUnary extends AST_Expr {
         while (!(parent instanceof AST_FuncDecl)) {
           if (parent instanceof AST_Program) {
             type = ST.lookup(varName);
+            break;
           }
           parent = parent.getParentNode();
         }
@@ -231,6 +233,7 @@ public class AST_ExprUnary extends AST_Expr {
         while (!(parent instanceof AST_FuncDecl)) {
           if (parent instanceof AST_Program) {
             type = ST.lookup(varName);
+            break;
           }
           parent = parent.getParentNode();
         }
@@ -277,6 +280,7 @@ public class AST_ExprUnary extends AST_Expr {
         while (!(parent instanceof AST_FuncDecl)) {
           if (parent instanceof AST_Program) {
             type = ST.lookup(varName);
+            break;
           }
           parent = parent.getParentNode();
         }
@@ -336,6 +340,7 @@ public class AST_ExprUnary extends AST_Expr {
         while (!(parent instanceof AST_FuncDecl)) {
           if (parent instanceof AST_Program) {
             type = ST.lookup(varName);
+            break;
           }
           parent = parent.getParentNode();
         }

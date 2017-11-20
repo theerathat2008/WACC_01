@@ -1,11 +1,8 @@
 package src.ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
+import src.ASTNodes.*;
 import src.ASTNodes.AST_Exprs.AST_Expr;
 import src.ASTNodes.AST_Exprs.AST_ExprIdent;
-import src.ASTNodes.AST_Node;
-import src.ASTNodes.AST_FuncDecl;
-import src.ASTNodes.AST_ParamList;
-import src.ASTNodes.AST_Param;
 import src.IdentifierObjects.FunctionObj;
 import src.IdentifierObjects.IDENTIFIER;
 import src.SymbolTable.SymbolTable;
@@ -184,10 +181,15 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
 
       if (ast_exprList.size() > 0) {
 
+        AST_Node parent = this.getParentNode();
+        System.out.println("Parent node is");
+        System.out.println(parent);
+
         List<IDENTIFIER> parameters = new ArrayList<>();
 
         parameters = (((FunctionObj) (ST.lookupAll(funcName))).getparamListObj()).getParamObjList();
 
+        //checking if number of parameters is as expected
         if (parameters.size() != ast_exprList.size()) {
           new MissingParameterError(new FilePosition(ctx)).printAll();
           return false;
@@ -201,7 +203,13 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
         System.out.println("ast_exprList.size: " + ast_exprList.size());
 
         for (int i = 0; i < ast_exprList.size(); i++) {
+
+          //TODO check whether the type of param is the same as when it is declared
+
           //TODO set the value for ast_exprList because right now it is null
+          IDENTIFIER typeParam = parameters.get(i);
+
+          //Debug statement
           for (AST_Expr ast : ast_exprList) {
             System.out.println("AST_EXPR are");
             System.out.println(ast);
@@ -211,13 +219,23 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
           System.out.println(ast_exprList);
           ast_exprList.get(i).printContents();
 
+          //when size of the list i 1
           if (ast_exprList.size() == 1) {
             if (ast_exprList.get(i) instanceof AST_ExprIdent) {
               String varName = ((AST_ExprIdent) ast_exprList.get(i)).getVarName();
               IDENTIFIER typeExpr = ST.encSymTable.lookup(varName);
+
+              while (!(parent instanceof AST_FuncDecl)) {
+                if (parent instanceof AST_Program) {
+                  typeExpr = ST.lookup(varName);
+                  break;
+                }
+                parent = parent.getParentNode();
+              }
+
               System.out.println("varName is:" + varName);
               System.out.println("typeExpr is: " + typeExpr);
-              IDENTIFIER typeParam = parameters.get(i);
+              //IDENTIFIER typeParam = parameters.get(i);
               System.out.println("typeParam is: " + typeParam);
               if (!typeExpr.equals(typeParam)) {
                 new TypeError(new FilePosition(ctx)).printAll();
@@ -228,7 +246,7 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
             } else {
               System.out.println("Hello I'm here");
               IDENTIFIER typeExpr = ast_exprList.get(i).getIdentifier();
-              IDENTIFIER typeParam = parameters.get(i);
+              //IDENTIFIER typeParam = parameters.get(i);
               if (!typeExpr.equals(typeParam)) {
                 new TypeError(new FilePosition(ctx)).printAll();
                 return false;
@@ -238,15 +256,41 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
             }
           }
 
+          //Cases when the element is instance of AST_ExprIdent
+          if (ast_exprList.get(i) instanceof AST_ExprIdent) {
+            String varName = ((AST_ExprIdent) ast_exprList.get(i)).getVarName();
+            IDENTIFIER typeExpr = ST.encSymTable.lookup(varName);
+
+            while (!(parent instanceof AST_FuncDecl)) {
+              if (parent instanceof AST_Program) {
+                typeExpr = ST.lookup(varName);
+                break;
+              }
+              parent = parent.getParentNode();
+            }
+
+            System.out.println("varName is:" + varName);
+            System.out.println("typeExpr is: " + typeExpr);
+            //IDENTIFIER typeParam = parameters.get(i);
+            System.out.println("typeParam is: " + typeParam);
+
+            if (typeExpr.toString().contains(typeParam.toString()) || typeParam.toString().contains(typeExpr.toString())) {
+              return true;
+            } else {
+              new TypeError(new FilePosition(ctx)).printAll();
+              return false;
+            }
+          }
+
           IDENTIFIER typeExpr = ast_exprList.get(i).getIdentifier();
           System.out.println(typeExpr);
 
           System.out.println();
 
-          IDENTIFIER typeParam = parameters.get(i);
+          //IDENTIFIER typeParam = parameters.get(i);
           System.out.println(typeParam);
 
-          if (!typeExpr.equals(typeParam)) {
+          if (!(typeExpr.toString().contains(typeParam.toString()) || typeParam.toString().contains(typeExpr.toString()))) {
             new TypeError(new FilePosition(ctx)).printAll();
             return false;
           }

@@ -156,7 +156,7 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
       for (int i = 1; i < numOfExpr; i++) {
         System.out.println("I'm inside the for loop");
         System.out.println(ast_exprList.get(i));
-        if ((ast_exprList.get(i).toString()).equals(firstElem.toString())) {
+        if ((ast_exprList.get(i).toString()).contains(firstElem.toString()) || firstElem.toString().contains(ast_exprList.get(i).toString())) {
           System.out.println("Same type");
         } else {
           new TypeMismatchError(new FilePosition(ctx)).printAll();
