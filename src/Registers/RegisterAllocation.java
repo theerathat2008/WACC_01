@@ -42,6 +42,76 @@ public class RegisterAllocation{
   }
 
   /**
+   * @return - Returns register R3
+   */
+  public RegisterARM getRegR3() {
+    return RegisterARM.R3;
+  }
+
+  /**
+   * @return - Returns register R4
+   */
+  public RegisterARM getRegR4() {
+    return RegisterARM.R4;
+  }
+
+  /**
+   * @return - Returns register R5
+   */
+  public RegisterARM getRegR5() {
+    return RegisterARM.R5;
+  }
+
+  /**
+   * @return - Returns register R6
+   */
+  public RegisterARM getRegR6() {
+    return RegisterARM.R6;
+  }
+
+  /**
+   * @return - Returns register R7
+   */
+  public RegisterARM getRegR7() {
+    return RegisterARM.R7;
+  }
+
+  /**
+   * @return - Returns register R8
+   */
+  public RegisterARM getRegR8() {
+    return RegisterARM.R8;
+  }
+
+  /**
+   * @return - Returns register R9
+   */
+  public RegisterARM getRegR9() {
+    return RegisterARM.R9;
+  }
+
+  /**
+   * @return - Returns register R10
+   */
+  public RegisterARM getRegR10() {
+    return RegisterARM.R10;
+  }
+
+  /**
+   * @return - Returns register R11
+   */
+  public RegisterARM getRegR11() {
+    return RegisterARM.R11;
+  }
+
+  /**
+   * @return - Returns register R12
+   */
+  public RegisterARM getRegR12() {
+    return RegisterARM.R12;
+  }
+
+  /**
    * @return - Returns Stack Pointer Register
    */
   public RegisterARM getSPReg() {
@@ -60,6 +130,20 @@ public class RegisterAllocation{
    */
   public RegisterARM getPCReg() {
     return RegisterARM.PC;
+  }
+
+  /**
+   * @return - Returns Current Program Status Register
+   */
+  public RegisterARM getCPSRReg() {
+    return RegisterARM.CPSR;
+  }
+
+  /**
+   * @return - Returns Saved Program Status Register
+   */
+  public RegisterARM getSPSRReg() {
+    return RegisterARM.SPSR;
   }
 
   /**
