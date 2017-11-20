@@ -145,7 +145,11 @@ public class AST_StatAssign extends AST_Stat {
           System.out.println(varName);
           typeLHS = ST.encSymTable.lookup(varName);
           System.out.println(typeLHS);
+        } else {
+          typeLHS = ast_statAssignLHS.getIdentifier();
         }
+      } else {
+        typeLHS = ast_statAssignLHS.getIdentifier();
       }
 
 
@@ -159,10 +163,18 @@ public class AST_StatAssign extends AST_Stat {
           System.out.println(varName);
           typeRHS = ST.encSymTable.lookup(varName);
           System.out.println(typeRHS);
+        } else {
+          typeRHS = ast_statAssignRHS.getIdentifier();
         }
+      } else {
+        typeRHS  =ast_statAssignRHS.getIdentifier();
       }
 
+      //TODO implement general cases for typeLHS and typeRHS
 
+    } else {
+      typeLHS = ast_statAssignLHS.getIdentifier();
+      typeRHS = ast_statAssignRHS.getIdentifier();
     }
 
     if (typeLHS.toString().contains(typeRHS.toString()) || typeRHS.toString().contains(typeLHS.toString())) {
