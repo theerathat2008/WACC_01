@@ -26,9 +26,9 @@ public class InstructionArithmetic extends Instruction {
     builder.append(" ");
     builder.append(dst);
     builder.append(" ");
-    builder.append(fst);
+    builder.append(reg1);
     builder.append(" ");
-    builder.append(snd);
+    builder.append(reg2);
     builder.append("\n\t\tBLVS p_throw_overflow_error\n");
     block1 = builder.toString();
   }
