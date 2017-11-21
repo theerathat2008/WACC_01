@@ -23,7 +23,7 @@ public class InstructionArithmetic extends Instruction {
     instructions.add(this);
   }
 
-  public void genInstruction(List<Instruction> output) {
+  public void genInstruction() {
     StringBuilder builder = new StringBuilder("\t\t" + operand + "S");
     builder.append(" ");
     builder.append(dst);

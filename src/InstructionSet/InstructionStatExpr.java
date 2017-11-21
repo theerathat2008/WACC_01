@@ -7,7 +7,7 @@ public class InstructionStatExpr extends Instruction {
 
 
   @Override
-  public void genInstruction(List<Instruction> instructions) {
+  public void genInstruction() {
 
   }
 }

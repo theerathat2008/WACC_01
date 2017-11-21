@@ -16,7 +16,7 @@ public class InstructionLoadStore extends Instruction{
   }
 
   @Override
-  public void genInstruction(List<Instruction> instructions) {
+  public void genInstruction() {
     StringBuilder builder = new StringBuilder("\t\t");
     builder.append(op);
     builder.append(" ");
