@@ -5,7 +5,10 @@ import IdentifierObjects.FunctionObj;
 import IdentifierObjects.IDENTIFIER;
 import IdentifierObjects.ParamListObj;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionFunction;
+import InstructionSet.InstructionProgram;
 import Registers.RegisterAllocation;
+import Registers.RegisterARM;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -258,13 +261,15 @@ public class AST_FuncDecl extends AST_Node {
     visitor.visit(this);
     ast_type.accept(visitor);
     if(checkForParamList()){
-      //paramList.accept(visitor);
+      paramList.accept(visitor);
     }
     statement.accept(visitor);
   }
 
+  @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-
+    InstructionFunction instructionFunction = new InstructionFunction(funcName);
+    instructionList.add(instructionFunction);
   }
 
 }

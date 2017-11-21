@@ -30,12 +30,19 @@ public class Assembler {
 
   private void parseInstructions() throws Exception{
     for(Instruction currInstr : instructions){
-
-
-
-      currInstr.genInstruction();
+      if(currInstr instanceof InstructionIf){
+        RegisterARM freeReg = registerAlloc.useRegister();
+      }
     }
   }
+
+
+
+  public void allocateRegInstr(InstructionIf instructionIf) throws Exception{
+    RegisterARM freeReg = registerAlloc.useRegister();
+    instructionIf.allocateRegisters(freeReg);
+  }
+
 
   public static Assembler getInstance(){
     if(instance == null){

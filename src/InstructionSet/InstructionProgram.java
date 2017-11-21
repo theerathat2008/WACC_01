@@ -8,6 +8,10 @@ public class InstructionProgram extends Instruction {
   public InstructionProgram() {}
 
 
+  /**
+   * Uses special registers lr(link register) and pc(program counter)
+   */
+
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder("\t.global main\n");

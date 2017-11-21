@@ -195,15 +195,14 @@ public class AST_ExprBinary extends AST_Expr {
    */
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    //InstructionComparison instructionCompare = new InstructionComparison();
-
-   // RegisterARM dstReg = registerAllocation.getRegisterMap("cmp_eval");
-    //instructionCompare.allocateRegisters(dstReg);
-
-   // instructionList.add(instructionCompare);
+    InstructionComparison instructionCompare = new InstructionComparison(opName);
+    //RegisterARM reg1, RegisterARM reg2, RegisterARM dst)
+    RegisterARM dstReg = registerAllocation.getRegisterMap("cmp_eval");
+    instructionCompare.allocateRegisters(dstReg);
+    instructionList.add(instructionCompare);
 
     registerAllocation.removeRegisterMap("cmp_eval");
-    //registerAllocation.freeRegister(dstReg);
+    registerAllocation.freeRegister(dstReg);
 
 
   }

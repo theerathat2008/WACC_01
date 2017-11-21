@@ -180,16 +180,9 @@ public class AST_StatIf extends AST_Stat {
     elseStat.accept(visitor);
   }
 
-
+  @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     InstructionIf instructionIf = new InstructionIf();
-    try{
-      RegisterARM registerARM = registerAllocation.useRegister();
-      registerAllocation.addRegisterMap("cmp_eval", registerARM);
-      instructionIf.allocateRegisters(registerARM);
-    } catch (Exception e){
-      e.printStackTrace();
-    }
     instructionList.add(instructionIf);
   }
 }

@@ -128,15 +128,16 @@ public class AST_Expr extends AST_Node {
     visitor.visit(this);
   }
 
-  @Override
-  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-
-  }
-
-  /**
+    /**
    * @return returns the identifier of the attribute
    */
   public IDENTIFIER getIdentifier() {
     return identifier;
   }
+
+  @Override
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    System.out.println("Base class AST_Expr");
+  }
+
 }
