@@ -11,6 +11,8 @@ import src.ErrorMessages.TypeError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 import src.VisitorClass.AST_NodeVisitor;
+
+import java.lang.reflect.Type;
 import java.util.ArrayDeque;
 
 public class AST_StatExpr extends AST_Stat {
@@ -87,7 +89,40 @@ public class AST_StatExpr extends AST_Stat {
     AST_Node parent = getParentNode();
 
     if (statName.equals("free")) {
-      return expr.getIdentifier().toString().contains("[]") || expr.getIdentifier().toString().startsWith("pair(");
+      System.out.println(expr);
+      System.out.println(expr.getIdentifier());
+      if (expr instanceof AST_ExprIdent) {
+        String varName = ((AST_ExprIdent) expr).getVarName();
+        AST_Node tempNode = this.getParentNode();
+        IDENTIFIER typeExpr = ST.encSymTable.lookup(varName);
+
+        while (!(tempNode instanceof AST_FuncDecl)) {
+          if (tempNode instanceof AST_Program) {
+            typeExpr = ST.lookup(varName);
+            break;
+          }
+          tempNode = tempNode.getParentNode();
+        }
+        if (ST.lookup(varName) == null) {
+          typeExpr = ST.encSymTable.lookup(varName);
+        }
+        System.out.println("The typeExpr is: ");
+        System.out.println(typeExpr);
+        if (typeExpr.toString().contains("PAIR") || typeExpr.toString().contains("[]")) {
+          return true;
+        } else {
+          new TypeError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      } else {
+        if (expr.getIdentifier().toString().contains("[]") || expr.getIdentifier().toString().contains("PAIR")) {
+          return true;
+        } else {
+          new TypeError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      }
+
     } else if (statName.equals("return")) {
 
 
