@@ -8,7 +8,6 @@ public abstract class Instruction {
   //into the instruction which are then used to compute the output instruction.
   public Instruction() {
 
-
   }
 
   public abstract void genInstruction();

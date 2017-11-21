@@ -20,7 +20,7 @@ public class InstructionComparison extends Instruction {
   }
 
   @Override
-  public void genInstruction(List<Instruction> instructions) {
+  public void genInstruction() {
     StringBuilder builder = new StringBuilder("\t\t");
     if (!(op.equals("&&")||op.equals("||"))) {
         builder.append("CMP");

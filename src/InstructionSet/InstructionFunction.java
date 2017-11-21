@@ -11,7 +11,7 @@ public class InstructionFunction extends Instruction {
   }
 
   @Override
-  public void genInstruction(List<Instruction> instructions) {
+  public void genInstruction() {
     StringBuilder builder = new StringBuilder("\t");
     builder.append("f_" + name);
     builder.append("\n");
