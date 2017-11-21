@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e4d2f29-9a6c-4ed4-90cd-372693623358" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssign.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssign.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatPairElemLHS.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatPairElemLHS.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatPairElemRHS.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatPairElemRHS.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VisitorClass/waccVisitor.java" afterPath="$PROJECT_DIR$/src/VisitorClass/waccVisitor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprLiter.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprLiter.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,16 +40,38 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AST_StatPairElemLHS.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AST_StatPairElemLHS.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatPairElemLHS.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="511">
-              <caret line="203" column="9" lean-forward="false" selection-start-line="203" selection-start-column="9" selection-end-line="203" selection-end-column="9" />
+            <state relative-caret-position="79">
+              <caret line="179" column="33" lean-forward="false" selection-start-line="179" selection-start-column="33" selection-end-line="179" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#7621#7622#0" expanded="true" />
                 <element signature="e#7646#7647#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AST_ExprLiter.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprLiter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="118" column="34" lean-forward="false" selection-start-line="118" selection-start-column="34" selection-end-line="118" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OutOfBoundsError.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ErrorMessages/OutOfBoundsError.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -100,6 +118,7 @@
       <find>Unrecognised AST Node at class: AST_StatAssign</find>
       <find>Unrecognised AST Node at class:</find>
       <find>AST_StatAssign</find>
+      <find>parseInt</find>
     </findStrings>
     <replaceStrings>
       <replace>import IdentifierObjects.*;</replace>
@@ -135,7 +154,6 @@
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_ParamList.java" />
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_Program.java" />
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprArrayElem.java" />
-        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprLiter.java" />
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprUnary.java" />
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIf.java" />
         <option value="$PROJECT_DIR$/src/Registers/RegisterARM.java" />
@@ -157,12 +175,15 @@
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatPairElemRHS.java" />
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssign.java" />
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatPairElemLHS.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprLiter.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="width" value="960" />
-    <option name="height" value="1032" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="160" />
+    <option name="y" value="362" />
+    <option name="width" value="1272" />
+    <option name="height" value="711" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -203,6 +224,13 @@
               <item name="wacc_01" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="ASTNodes" type="462c0819:PsiDirectoryNode" />
+              <item name="AST_Exprs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wacc_01" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wacc_01" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ASTNodes" type="462c0819:PsiDirectoryNode" />
               <item name="AST_Stats" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -220,6 +248,12 @@
               <item name="ASTNodes" type="462c0819:PsiDirectoryNode" />
               <item name="AST_Stats" type="462c0819:PsiDirectoryNode" />
               <item name="AST_StatAssignRHSs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wacc_01" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wacc_01" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ErrorMessages" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="wacc_01" type="b2602c69:ProjectViewProjectNode" />
@@ -352,7 +386,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1922" height="1033" extended-state="6" />
+    <frame x="160" y="362" width="1272" height="711" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -367,7 +401,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1328125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2007874" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -509,14 +543,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="12" column="7" lean-forward="false" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprLiter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="7" lean-forward="false" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
           <folding />
         </state>
       </provider>
@@ -686,6 +712,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -785,6 +814,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ErrorMessages/OutOfBoundsError.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatPairElemLHS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="79">
+          <caret line="179" column="33" lean-forward="false" selection-start-line="179" selection-start-column="33" selection-end-line="179" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#7621#7622#0" expanded="true" />
+            <element signature="e#7646#7647#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatPairElemRHS.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1386">
@@ -796,14 +845,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatPairElemLHS.java">
+    <entry file="jar:///usr/lib/jvm/default-java/jre/lib/rt.jar!/java/lang/Integer.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="511">
-          <caret line="203" column="9" lean-forward="false" selection-start-line="203" selection-start-column="9" selection-end-line="203" selection-end-column="9" />
+        <state relative-caret-position="163">
+          <caret line="149" column="28" lean-forward="false" selection-start-line="149" selection-start-column="20" selection-end-line="149" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprLiter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="118" column="34" lean-forward="false" selection-start-line="118" selection-start-column="34" selection-end-line="118" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7621#7622#0" expanded="true" />
-            <element signature="e#7646#7647#0" expanded="true" />
           </folding>
         </state>
       </provider>

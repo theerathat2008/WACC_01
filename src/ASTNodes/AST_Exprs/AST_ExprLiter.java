@@ -116,9 +116,17 @@ public class AST_ExprLiter extends AST_Expr {
   public boolean CheckSemantics() {
 
     //if it is int liter, check whether the number is inside the integer bounds
+    //TODO reuntimeErr cases check
     if (literal.equals("int")) {
-      if (Integer.parseInt(constant) >= Math.pow(2, 31) || Integer.parseInt(constant) < -Math.pow(2, 31)) {
+      System.out.println("Hey, I'm in the int check");
+      System.out.println("Checking if Integer.parseInt stat works: ");
+      System.out.println(Integer.parseInt("1"));
+
+      if (Long.parseLong(constant) > Math.pow(2, 31) || Long.parseLong(constant) < -Math.pow(2, 31)) {
         new OutOfBoundsError(new FilePosition(ctx)).printAll();
+        return false;
+      } else {
+        return true;
       }
     }
 
@@ -128,6 +136,8 @@ public class AST_ExprLiter extends AST_Expr {
       if (!(constant.equals("true") || constant.equals("false"))) {
         System.out.println("Boolean literal can only be 'true or 'false'.");
         return false;
+      } else {
+        return true;
       }
     }
 
@@ -137,6 +147,8 @@ public class AST_ExprLiter extends AST_Expr {
       if (constant != null) {
         System.out.println("The only pair literal is 'null.");
         return false;
+      } else {
+        return true;
       }
     }
 
