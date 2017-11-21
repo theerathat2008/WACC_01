@@ -318,7 +318,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitPAIR_ELEM_LHS(WaccParser.PAIR_ELEM_LHSContext ctx) {
 
     //Create the node for the current visitor function
-    AST_StatPairElemLHS statPairElemLHSNode = new AST_StatPairElemLHS(ctx);
+    AST_StatPairElemLHS statPairElemLHSNode = new AST_StatPairElemLHS(ctx, currentGlobalTree);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("ast_statAssignLHS", statPairElemLHSNode);

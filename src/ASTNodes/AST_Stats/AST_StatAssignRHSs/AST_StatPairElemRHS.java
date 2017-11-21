@@ -202,4 +202,8 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }
+
+  public AST_Expr getAst_expr() {
+    return ast_expr;
+  }
 }

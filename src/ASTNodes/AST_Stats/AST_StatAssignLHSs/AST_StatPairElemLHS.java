@@ -1,5 +1,9 @@
 package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 
+import ASTNodes.AST_Exprs.AST_ExprIdent;
+import ASTNodes.AST_FuncDecl;
+import ASTNodes.AST_Program;
+import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -9,6 +13,7 @@ import ErrorMessages.TypeError;
 import src.FilePosition;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
+
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -22,14 +27,16 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
   AST_Expr ast_expr;
 
   ParserRuleContext ctx;
+  SymbolTable symboltable;
 
   /**
    * Constructor for class - initialises class variables to NULL
    */
-  public AST_StatPairElemLHS(ParserRuleContext ctx) {
+  public AST_StatPairElemLHS(ParserRuleContext ctx, SymbolTable symbolTable) {
     this.typeName = null;
     this.ast_expr = null;
     this.ctx = ctx;
+    this.symboltable = symbolTable;
   }
 
   /**
@@ -115,14 +122,108 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
   @Override
   public boolean CheckSemantics() {
 
-    //check for valid pair elem types
-    if (!(typeName.equals("int") || typeName.equals("bool") || typeName.equals("char") ||
-            typeName.equals("pair"))) {
-      System.out.println("Invalid type for pair elem.");
-      new TypeError(new FilePosition(ctx)).printAll();
-      return false;
+    System.out.println("Type name for this case is: ");
+    System.out.println(typeName);
+
+    IDENTIFIER type;
+    SymbolTable ST = this.symboltable;
+
+    if (typeName.equals("fst")) {
+      System.out.println("reach fst");
+      if (ast_expr instanceof AST_ExprIdent) {
+        System.out.println("Hey, I'm instance of AST_ExprIdent");
+        String varName = ((AST_ExprIdent) ast_expr).getVarName();
+
+        type = ST.encSymTable.lookup(varName);
+        System.out.println(type);
+
+        AST_Node tempNode = this.getParentNode();
+
+        while (!(tempNode instanceof AST_FuncDecl)) {
+          if (tempNode instanceof AST_Program) {
+            type = ST.lookup(varName);
+            break;
+          }
+          tempNode = tempNode.getParentNode();
+        }
+
+        if (ST.lookup(varName) == null) {
+          type = ST.encSymTable.lookup(varName);
+        }
+
+        String typeString = type.toString();
+
+        if (typeString.contains("int") || typeString.contains("bool") || typeString.contains("char")
+                || typeString.contains("PAIR") || typeString.contains("str")) {
+          return true;
+        } else {
+          new TypeError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      } else {
+        if (typeName.equals("int") || typeName.equals("bool") || typeName.equals("char") ||
+                typeName.contains("PAIR") || typeName.contains("str")) {
+          return true;
+        } else {
+          System.out.println("Invalid type for pair elem.");
+          new TypeError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      }
+    } else if (typeName.equals("snd")) {
+      System.out.println("reach snd");
+      if (ast_expr instanceof AST_ExprIdent) {
+        System.out.println("Hey, I'm instance of AST_ExprIdent");
+        String varName = ((AST_ExprIdent) ast_expr).getVarName();
+
+        type = ST.encSymTable.lookup(varName);
+        System.out.println(type);
+
+        AST_Node tempNode = this.getParentNode();
+
+        while (!(tempNode instanceof AST_FuncDecl)) {
+          if (tempNode instanceof AST_Program) {
+            type = ST.lookup(varName);
+            break;
+          }
+          tempNode = tempNode.getParentNode();
+        }
+
+        if (ST.lookup(varName) == null) {
+          type = ST.encSymTable.lookup(varName);
+        }
+
+        String typeString = type.toString();
+
+        if (typeString.contains("int") || typeString.contains("bool") || typeString.contains("char")
+                || typeString.contains("PAIR") || typeString.contains("str")) {
+          return true;
+        } else {
+          new TypeError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      } else {
+        if (typeName.equals("int") || typeName.equals("bool") || typeName.equals("char") ||
+                typeName.contains("PAIR") || typeName.contains("str")) {
+          return true;
+        } else {
+          System.out.println("Invalid type for pair elem.");
+          new TypeError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      }
+
+
+    } else {
+      if (!(typeName.equals("int") || typeName.equals("bool") || typeName.equals("char") ||
+              typeName.contains("PAIR") || typeName.contains("str"))) {
+        System.out.println("Invalid type for pair elem.");
+        new TypeError(new FilePosition(ctx)).printAll();
+        return false;
+      }
     }
     return true;
+
   }
 
   /**
@@ -158,5 +259,9 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
+  }
+
+  public AST_Expr getAst_expr() {
+    return ast_expr;
   }
 }
