@@ -5,16 +5,17 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 
+import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 
-import src.ASTNodes.AST_TYPES.AST_Type;
-import src.ErrorMessages.TypeMismatchError;
-import src.ErrorMessages.VariableRedeclarationError;
+import ASTNodes.AST_TYPES.AST_Type;
+import ErrorMessages.TypeMismatchError;
+import ErrorMessages.VariableRedeclarationError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
-import src.VisitorClass.AST_NodeVisitor;
+import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 import java.util.List;

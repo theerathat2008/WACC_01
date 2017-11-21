@@ -11,7 +11,7 @@ import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.*;
 import src.FilePosition;
-import src.VisitorClass.AST_NodeVisitor;
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.List;
 

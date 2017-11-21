@@ -8,7 +8,7 @@ import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.List;
 
-import src.IdentifierObjects.*;
+import IdentifierObjects.*;
 
 /**
  * Class representing node in AST tree for BASETYPE

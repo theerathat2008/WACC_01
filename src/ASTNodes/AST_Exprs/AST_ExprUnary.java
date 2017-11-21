@@ -1,17 +1,17 @@
-package src.ASTNodes.AST_Exprs;
+package ASTNodes.AST_Exprs;
 
 import org.antlr.v4.runtime.ParserRuleContext;
-import src.ASTNodes.AST_FuncDecl;
-import src.ASTNodes.AST_Node;
-import src.ASTNodes.AST_Program;
-import src.ErrorMessages.TypeError;
-import src.ErrorMessages.TypeMismatchError;
+import ASTNodes.AST_FuncDecl;
+import ASTNodes.AST_Node;
+import ASTNodes.AST_Program;
+import ErrorMessages.TypeError;
+import ErrorMessages.TypeMismatchError;
 import src.FilePosition;
-import src.SymbolTable.SymbolTable;
-import src.VisitorClass.AST_NodeVisitor;
+import SymbolTable.SymbolTable;
+import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 
-import src.IdentifierObjects.*;
+import IdentifierObjects.*;
 
 /**
  * Class representing node in AST tree for UNARY EXPRESSIONS

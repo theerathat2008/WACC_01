@@ -13,7 +13,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.IdentifierObjects.*;
+import IdentifierObjects.*;
 
 /**
  * Class representing node in AST tree for ARRAY LITERAL ASSIGNMENT

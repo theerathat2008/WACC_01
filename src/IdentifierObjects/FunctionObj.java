@@ -1,7 +1,7 @@
 package IdentifierObjects;
 
-import src.ASTNodes.AST_FuncDecl;
-import src.ASTNodes.AST_ParamList;
+import ASTNodes.AST_FuncDecl;
+import ASTNodes.AST_ParamList;
 
 public class FunctionObj extends IDENTIFIER {
 

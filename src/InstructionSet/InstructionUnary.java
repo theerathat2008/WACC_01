@@ -10,13 +10,9 @@ public class InstructionUnary extends Instruction{
   String reg2;
   String op;
   public String block1;
-  String reg1;
-  String reg2;
 
   public InstructionUnary(String op) {
-    this.reg1 = reg1;
     this.op = op;
-    this.reg2 = reg2;
   }
 
   public void allocateRegisters(RegisterARM reg1, RegisterARM reg2){

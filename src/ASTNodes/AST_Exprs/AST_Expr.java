@@ -8,7 +8,7 @@ import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.List;
 
-import src.IdentifierObjects.IDENTIFIER;
+import IdentifierObjects.IDENTIFIER;
 
 /**
  * Class representing node in AST tree for EXPRESSIONS

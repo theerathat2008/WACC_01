@@ -1,6 +1,6 @@
 package SymbolTable;
 
-import src.IdentifierObjects.*;
+import IdentifierObjects.*;
 import java.util.*;
 
 public class SymbolTable {

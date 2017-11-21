@@ -2,6 +2,7 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
+import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
@@ -134,16 +135,13 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
     ast_expr.accept(visitor);
   }
 
-<<<<<<< HEAD
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-
-=======
+      }
   public IDENTIFIER getIdentifier() {
     return ast_expr.getIdentifier();
   }
 
   public AST_Expr getAst_expr() {
     return ast_expr;
->>>>>>> 4ee869212a7a64659182a064edb15e3d80e4cbe6
   }
 }

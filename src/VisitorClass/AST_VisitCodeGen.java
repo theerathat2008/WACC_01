@@ -60,7 +60,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_FuncDecl funcDecl) {
     try {
-      funcDecl.genInstruction(instructions, );
+      funcDecl.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -69,7 +69,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_Keyword keyword) {
     try {
-      keyword.genInstruction(instructions, );
+      keyword.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -78,7 +78,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_Param param) {
     try {
-      param.genInstruction(instructions, );
+      param.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -87,7 +87,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_ParamList paramList) {
     try {
-      paramList.genInstruction(instructions, );
+      paramList.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -96,7 +96,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_Program program) {
     try {
-      program.genInstruction(instructions, );
+      program.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -105,7 +105,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_Separator separator) {
     try {
-      separator.genInstruction(instructions, );
+      separator.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -114,7 +114,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_ExprArrayElem exprArrayElem) {
     try {
-      exprArrayElem.genInstruction(instructions, );
+      exprArrayElem.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -123,7 +123,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_ExprBinary exprBinary) {
     try {
-      exprBinary.genInstruction(instructions, );
+      exprBinary.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -132,7 +132,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_ExprEnclosed exprEnclosed) {
     try {
-      exprEnclosed.genInstruction(instructions, );
+      exprEnclosed.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -141,7 +141,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_ExprIdent exprIdent) {
     try {
-      exprIdent.genInstruction(instructions, );
+      exprIdent.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -150,7 +150,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_ExprLiter exprLiter) {
     try {
-      exprLiter.genInstruction(instructions, );
+      exprLiter.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -159,7 +159,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_ExprUnary exprUnary) {
     try {
-      exprUnary.genInstruction(instructions, );
+      exprUnary.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -168,7 +168,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatAssign statAssign) {
     try {
-      statAssign.genInstruction(instructions, );
+      statAssign.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -177,7 +177,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatBeginEnd statBeginEnd) {
     try {
-      statBeginEnd.genInstruction(instructions, );
+      statBeginEnd.genInstruction(instructions,registerAllocation );
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -186,7 +186,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatExpr statExpr) {
     try {
-      statExpr.genInstruction(instructions, );
+      statExpr.genInstruction(instructions,registerAllocation );
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -204,7 +204,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatMult statMult) {
     try {
-      statMult.genInstruction(instructions, );
+      statMult.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -213,7 +213,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatRead statRead) {
     try {
-      statRead.genInstruction(instructions, );
+      statRead.genInstruction(instructions,registerAllocation );
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -222,7 +222,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatVarDecl statVarDecl) {
     try {
-      statVarDecl.genInstruction(instructions, );
+      statVarDecl.genInstruction(instructions,registerAllocation );
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -231,7 +231,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatWhile statWhile) {
     try {
-      statWhile.genInstruction(instructions, );
+      statWhile.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -240,7 +240,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatArrayElemLHS statArrayElemLHS) {
     try {
-      statArrayElemLHS.genInstruction(instructions, );
+      statArrayElemLHS.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -249,7 +249,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatIdentLHS statIdentLHS) {
     try {
-      statIdentLHS.genInstruction(instructions, );
+      statIdentLHS.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -258,7 +258,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatPairElemLHS statPairElemLHS) {
     try {
-      statPairElemLHS.genInstruction(instructions, );
+      statPairElemLHS.genInstruction(instructions,registerAllocation );
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -267,7 +267,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatArrayLitRHS statArrayLitRHS) {
     try {
-      statArrayLitRHS.genInstruction(instructions, );
+      statArrayLitRHS.genInstruction(instructions,registerAllocation );
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -276,7 +276,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatCallRHS statCallRHS) {
     try {
-      statCallRHS.genInstruction(instructions, );
+      statCallRHS.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -285,7 +285,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatExprRHS statExprRHS) {
     try {
-      statExprRHS.genInstruction(instructions, );
+      statExprRHS.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -294,7 +294,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatNewPairRHS statNewPairRHS) {
     try {
-      statNewPairRHS.genInstruction(instructions, );
+      statNewPairRHS.genInstruction(instructions,registerAllocation );
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -303,7 +303,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatPairElemRHS statPairElemRHS) {
     try {
-      statPairElemRHS.genInstruction(instructions, );
+      statPairElemRHS.genInstruction(instructions,registerAllocation );
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -312,7 +312,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatIfElse statIfElse) {
     try {
-      statIfElse.genInstruction(instructions, );
+      statIfElse.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -321,7 +321,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatIfThen statIfThen) {
     try {
-      statIfThen.genInstruction(instructions, );
+      statIfThen.genInstruction(instructions,registerAllocation );
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -330,7 +330,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_ArrayType arrayType) {
     try {
-      arrayType.genInstruction(instructions, );
+      arrayType.genInstruction(instructions,registerAllocation );
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -339,7 +339,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_BaseType baseType) {
     try {
-      baseType.genInstruction(instructions, );
+      baseType.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -348,7 +348,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_PairType pairType) {
     try {
-      pairType.genInstruction(instructions, );
+      pairType.genInstruction(instructions,registerAllocation );
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -357,7 +357,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_ArrayTypePair arrayTypePair) {
     try {
-      arrayTypePair.genInstruction(instructions, );
+      arrayTypePair.genInstruction(instructions,registerAllocation );
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -366,7 +366,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_BaseTypePair baseTypePair) {
     try {
-      baseTypePair.genInstruction(instructions, );
+      baseTypePair.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -375,7 +375,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_PairString pairString) {
     try {
-      pairString.genInstruction(instructions, );
+      pairString.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -384,7 +384,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_Node ast_node) {
     try {
-      ast_node.genInstruction(instructions, );
+      ast_node.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -393,7 +393,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_Expr ast_expr) {
     try {
-      ast_expr.genInstruction(instructions, );
+      ast_expr.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -402,7 +402,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_Stat ast_stat) {
     try {
-      ast_stat.genInstruction(instructions, );
+      ast_stat.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -411,7 +411,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatAssignLHS ast_statAssignLHS) {
     try {
-      ast_statAssignLHS.genInstruction(instructions, );
+      ast_statAssignLHS.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -420,7 +420,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatAssignRHS ast_statAssignRHS) {
     try {
-      ast_statAssignRHS.genInstruction(instructions, );
+      ast_statAssignRHS.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -429,7 +429,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_Type ast_type) {
     try {
-      ast_type.genInstruction(instructions, );
+      ast_type.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -438,7 +438,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_PairElemType ast_pairElemType) {
     try {
-      ast_pairElemType.genInstruction(instructions, );
+      ast_pairElemType.genInstruction(instructions,registerAllocation );
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -447,7 +447,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   @Override
   public void visit(AST_StatSubIf ast_statSubIf) {
     try {
-      ast_statSubIf.genInstruction(instructions, );
+      ast_statSubIf.genInstruction(instructions,registerAllocation );
     } catch (Exception e) {
       e.printStackTrace();
     }

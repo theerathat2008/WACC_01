@@ -1,11 +1,14 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
+import ASTNodes.AST_Exprs.AST_ExprIdent;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_FuncDecl;
+import ASTNodes.AST_Program;
 import ASTNodes.AST_ParamList;
 import ASTNodes.AST_Param;
 import IdentifierObjects.FunctionObj;
+import IdentifierObjects.BaseTypeObj;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import Registers.RegisterAllocation;
@@ -220,7 +223,7 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
           //TODO check whether the type of param is the same as when it is declared
 
           //TODO set the value for ast_exprList because right now it is null
-          IDENTIFIER typeParam = parameters.get(i);
+          IDENTIFIER typeParam = (IDENTIFIER) parameters.get(i);
 
           //Debug statement
           for (AST_Expr ast : ast_exprList) {

@@ -9,7 +9,7 @@ import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
-import src.VisitorClass.AST_NodeVisitor;
+import VisitorClass.AST_NodeVisitor;
 
 
 /**

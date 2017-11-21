@@ -8,7 +8,7 @@ import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.List;
 
-import src.IdentifierObjects.*;
+import IdentifierObjects.*;
 
 public class AST_BaseTypePair extends AST_PairElemType {
   //Syntactic attributes

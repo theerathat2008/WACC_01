@@ -2,15 +2,16 @@ package ASTNodes;
 
 import ASTNodes.AST_Stats.AST_Stat;
 import IdentifierObjects.FunctionObj;
+import IdentifierObjects.IDENTIFIER;
 import IdentifierObjects.ParamListObj;
 import InstructionSet.Instruction;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 import org.antlr.v4.runtime.ParserRuleContext;
-import src.ErrorMessages.FunctionRedeclarationError;
+import ErrorMessages.FunctionRedeclarationError;
 import src.FilePosition;
-import src.VisitorClass.AST_NodeVisitor;
+import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 import java.util.List;
