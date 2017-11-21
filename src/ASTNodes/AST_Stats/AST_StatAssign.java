@@ -105,8 +105,7 @@ public class AST_StatAssign extends AST_Stat {
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet) {
     if (astToSet.equals("ast_statAssignLHS")) {
       ast_statAssignLHS = (AST_StatAssignLHS) nodeToSet;
-    }
-    if (astToSet.equals("statAssignRHS")) {
+    } else if (astToSet.equals("statAssignRHS")) {
       ast_statAssignRHS = (AST_StatAssignRHS) nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
