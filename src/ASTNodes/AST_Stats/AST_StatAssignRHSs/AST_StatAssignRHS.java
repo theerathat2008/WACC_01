@@ -137,4 +137,3 @@ public class AST_StatAssignRHS extends AST_Stat {
 
   }
 }
-

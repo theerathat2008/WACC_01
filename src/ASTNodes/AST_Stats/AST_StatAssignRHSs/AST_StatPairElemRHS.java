@@ -4,9 +4,13 @@ import InstructionSet.Instruction;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
+import ASTNodes.AST_Exprs.AST_ExprIdent;
+import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
+import ASTNodes.AST_Program;
 import ErrorMessages.TypeError;
 import src.FilePosition;
+import IdentifierObjects.IDENTIFIER;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
@@ -21,14 +25,16 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
   String typeName;
   AST_Expr ast_expr;
   ParserRuleContext ctx;
+  SymbolTable symbolTable;
 
   /**
    * Constructor for class - initialises class variables to NULL
    */
-  public AST_StatPairElemRHS(ParserRuleContext ctx) {
+  public AST_StatPairElemRHS(ParserRuleContext ctx, SymbolTable symbolTable) {
     this.ast_expr = null;
     this.typeName = null;
     this.ctx = ctx;
+    this.symbolTable = symbolTable;
   }
 
   /**
@@ -122,9 +128,40 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
   @Override
   public boolean CheckSemantics() {
 
+    SymbolTable ST = this.symbolTable;
+    AST_Node parent = getParentNode();
+
+    if (ast_expr instanceof AST_ExprIdent) {
+      System.out.println("Hey, I'm instance of AST_ExprIdent");
+      String varName = ((AST_ExprIdent) ast_expr).getVarName();
+      AST_Node tempNode = this.getParentNode();
+      IDENTIFIER typeExpr = ST.encSymTable.lookup(varName);
+      System.out.println("Enclosed typeExpr: ");
+      System.out.println(typeExpr);
+
+      while (!(tempNode instanceof AST_FuncDecl)) {
+        if (tempNode instanceof AST_Program) {
+          typeExpr = ST.lookup(varName);
+          break;
+        }
+        tempNode = tempNode.getParentNode();
+      }
+      System.out.println("typeExpr after: ");
+      System.out.println(typeExpr);
+
+      if (typeExpr.toString().equals("int") || typeExpr.toString().equals("bool")
+              || typeExpr.toString().equals("char") || typeExpr.toString().contains("PAIR")
+              || typeExpr.toString().contains("str")) {
+        return true;
+      } else {
+        new TypeError((new FilePosition(ctx))).printAll();
+        return false;
+      }
+
+    }
     //check for valid pair elem types
     if (!(typeName.equals("int") || typeName.equals("bool") || typeName.equals("char") ||
-            typeName.equals("pair"))) {
+            typeName.contains("PAIR") || typeName.contains("str"))) {
       System.out.println("Invalid type for pair elem.");
       new TypeError(new FilePosition(ctx)).printAll();
       return false;

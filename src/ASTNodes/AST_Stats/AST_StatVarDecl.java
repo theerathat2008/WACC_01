@@ -1,18 +1,20 @@
 package ASTNodes.AST_Stats;
 
+import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
+import ASTNodes.AST_Program;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 
 import InstructionSet.Instruction;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 
-import ASTNodes.AST_TYPES.AST_Type;
-import ErrorMessages.TypeMismatchError;
-import ErrorMessages.VariableRedeclarationError;
+import src.ASTNodes.AST_TYPES.AST_Type;
+import src.ErrorMessages.TypeMismatchError;
+import src.ErrorMessages.VariableRedeclarationError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
-import VisitorClass.AST_NodeVisitor;
+import src.VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 import java.util.List;
@@ -128,20 +130,63 @@ public class AST_StatVarDecl extends AST_Stat {
   @Override
   public boolean CheckSemantics() {
 
-    SymbolTable ST = this.symbolTable;
-    System.out.println(ast_assignRHS.getType(ST));
+    //Debug statement
+
+    //Maybe ST has content but ast_assignRHS is null so it cannot find type
+    SymbolTable ST = symbolTable;
+
+    System.out.println("printing contents");
     System.out.println(ast_type.getIdentifier().toString());
-    if (ST.lookup(identName) != null) {
+    System.out.println(ST.getScope());
+    System.out.println(identName);
+    System.out.println(ST.lookup(identName));
+    System.out.println(ST.lookupAll(identName));
+    System.out.println(ST.encSymTable.lookup("s2"));
+    System.out.println(ast_type.getIdentifier());
+    System.out.println(ast_assignRHS.getIdentifier());
+    System.out.println(ast_assignRHS);
+
+    AST_Node parent = getParentNode();
+
+    IDENTIFIER type = ST.encSymTable.lookup(identName);
+    System.out.println(type);
+
+    AST_Node tempNode = parent;
+
+    while (!(tempNode instanceof AST_FuncDecl)) {
+      if (tempNode instanceof AST_Program) {
+        System.out.println("Hey, I'm inside the while statement");
+        type = ST.lookup(identName);
+        break;
+      }
+      tempNode = tempNode.getParentNode();
+    }
+    System.out.println(type);
+    System.out.println(ast_type);
+
+    System.out.println(ast_assignRHS.getIdentifier());
+
+    if (ast_type.getIdentifier() != null && ast_assignRHS.getIdentifier() != null) {
+      //ast_type.getIdentifier() returns "str" so it's the problem
+      if (!(ast_type.getIdentifier().toString().contains(ast_assignRHS.getIdentifier().toString())
+              || ast_assignRHS.getIdentifier().toString().contains(ast_type.getIdentifier().toString()))) {
+        new TypeMismatchError(new FilePosition(ctx)).printAll();
+        return false;
+      }
+      return true;
+    }
+
+    //TODO find out why it is already assigned
+    //find other way to check
+    //maybe use not equal to the already assigned type?
+    if (!type.equals(ast_type.getIdentifier())) {
       new VariableRedeclarationError(new FilePosition(ctx)).printAll();
       return false;
-    } else if (null == ast_assignRHS.getIdentifier()) {
-      return true;
-    } else if (ast_type.getIdentifier().equals(ast_assignRHS.getIdentifier())) {
-      return true;
-    } else {
-      new TypeMismatchError(new FilePosition(ctx)).printAll();
-      return false;
     }
+    return true;
+
+
+
   }
 
   /**
@@ -156,6 +201,9 @@ public class AST_StatVarDecl extends AST_Stat {
   }
 
   public void Assign(SymbolTable ST) {
+    if (ast_type == null) {
+      System.out.println("Variable " + identName + "'s AST_Type not set yet");
+    }
     ST.add(identName, ast_type.getIdentifier());
   }
 
@@ -175,6 +223,7 @@ public class AST_StatVarDecl extends AST_Stat {
       System.out.println("ast_type: null");
     } else {
       System.out.println("ast_type: has content");
+      System.out.println(ast_type.getIdentifier().toString());
     }
   }
 

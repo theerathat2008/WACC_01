@@ -148,6 +148,9 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
   public boolean CheckSemantics() {
 
     SymbolTable ST = this.symbolTable;
+    System.out.println(funcName);
+    System.out.println(ast_exprList);
+    System.out.println(ST.getScope());
 
     //Nested function call case
     if (ST.getScope().equals("param_list") && ST.lookup(funcName) == null) {
@@ -179,24 +182,146 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
     } else {
       //Non-nested function call case
       //Check parameters of paramList against expressions
+
       if (ast_exprList.size() > 0) {
+
+        System.out.println(ast_exprList);
+        AST_Node parent = this.getParentNode();
+        System.out.println("Parent node is");
+        System.out.println(parent);
+        System.out.println(ST.lookupAll(funcName));
 
         List<IDENTIFIER> parameters = new ArrayList<>();
 
-        parameters = (((FunctionObj) (ST.lookupAll(funcName))).getparamListObj()).getParamObjList();
-
-        if (parameters.size() != ast_exprList.size()) {
-          new MissingParameterError(new FilePosition(ctx)).printAll();
+        //if it is a baseType obj, we add it to a list instead of assigning it
+        if (ST.lookupAll(funcName) instanceof BaseTypeObj) {
+          parameters.add(ST.lookupAll(funcName));
+        } else if (ST.lookupAll(funcName) instanceof FunctionObj) {
+          //TODO BaseTypeObj cannot cast to FunctionObj
+          parameters = (((FunctionObj) (ST.lookupAll(funcName))).getparamListObj()).getParamObjList();
         }
 
+
+        //checking if number of parameters is as expected
+        if (parameters.size() != ast_exprList.size()) {
+          new MissingParameterError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+
+        //Debug statement to see what is inside param
+        System.out.println("List params are: ");
+        for (IDENTIFIER param : parameters) {
+          System.out.println(param);
+        }
+        System.out.println("ast_exprList.size: " + ast_exprList.size());
+
         for (int i = 0; i < ast_exprList.size(); i++) {
-          String typeExpr = ast_exprList.get(i).getType();
-          String typeParam = parameters.get(i).toString();
-          if (!typeExpr.equals(typeParam)) {
+
+          //TODO check whether the type of param is the same as when it is declared
+
+          //TODO set the value for ast_exprList because right now it is null
+          IDENTIFIER typeParam = parameters.get(i);
+
+          //Debug statement
+          for (AST_Expr ast : ast_exprList) {
+            System.out.println("AST_EXPR are");
+            System.out.println(ast);
+            System.out.println(ast.getIdentifier());
+          }
+          System.out.println("first elem: " + ast_exprList.get(i));
+          System.out.println(ast_exprList);
+          ast_exprList.get(i).printContents();
+
+          //when size of the list i 1
+          if (ast_exprList.size() == 1) {
+            if (ast_exprList.get(i) instanceof AST_ExprIdent) {
+              System.out.println("Hey, I'm instance of AST_ExprIdent");
+              String varName = ((AST_ExprIdent) ast_exprList.get(i)).getVarName();
+              IDENTIFIER typeExpr = ST.encSymTable.lookup(varName);
+              System.out.println(typeExpr);
+
+              while (!(parent instanceof AST_FuncDecl)) {
+                if (parent instanceof AST_Program) {
+                  typeExpr = ST.lookup(varName);
+                  break;
+                }
+                parent = parent.getParentNode();
+              }
+
+              //TODO maybe there is a better method to check if it's a function call, then check both enc and current ST
+              //check if it's null so can reassign again (hard coding)
+              if (typeExpr == null) {
+                typeExpr = ST.encSymTable.lookup(varName);
+              }
+
+              System.out.println("varName is:" + varName);
+              System.out.println("typeExpr is: " + typeExpr);
+              //IDENTIFIER typeParam = parameters.get(i);
+              System.out.println("typeParam is: " + typeParam);
+              if (!typeExpr.equals(typeParam)) {
+                new TypeError(new FilePosition(ctx)).printAll();
+                return false;
+              } else {
+                return true;
+              }
+            } else {
+              System.out.println("Hello I'm here");
+              IDENTIFIER typeExpr = ast_exprList.get(i).getIdentifier();
+              //IDENTIFIER typeParam = parameters.get(i);
+              if (!typeExpr.equals(typeParam)) {
+                new TypeError(new FilePosition(ctx)).printAll();
+                return false;
+              } else {
+                return true;
+              }
+            }
+          }
+
+          //Cases when the element is instance of AST_ExprIdent
+          if (ast_exprList.get(i) instanceof AST_ExprIdent) {
+            String varName = ((AST_ExprIdent) ast_exprList.get(i)).getVarName();
+            IDENTIFIER typeExpr = ST.encSymTable.lookup(varName);
+
+            while (!(parent instanceof AST_FuncDecl)) {
+              if (parent instanceof AST_Program) {
+                typeExpr = ST.lookup(varName);
+                break;
+              }
+              parent = parent.getParentNode();
+            }
+
+            System.out.println("varName is:" + varName);
+            System.out.println("typeExpr is: " + typeExpr);
+            //IDENTIFIER typeParam = parameters.get(i);
+            System.out.println("typeParam is: " + typeParam);
+
+            if (typeExpr.toString().contains(typeParam.toString()) || typeParam.toString().contains(typeExpr.toString())) {
+              return true;
+            } else {
+              new TypeError(new FilePosition(ctx)).printAll();
+              return false;
+            }
+          }
+
+          IDENTIFIER typeExpr = ast_exprList.get(i).getIdentifier();
+          System.out.println(typeExpr);
+
+          System.out.println();
+
+          //IDENTIFIER typeParam = parameters.get(i);
+          System.out.println(typeParam);
+
+          if (!(typeExpr.toString().contains(typeParam.toString()) || typeParam.toString().contains(typeExpr.toString()))) {
             new TypeError(new FilePosition(ctx)).printAll();
+            return false;
           }
         }
       }
+      //Debug statement
+      System.out.println(funcName);
+      //TODO ST.lookup(funcname) returns null
+      System.out.println(ST.lookup(funcName));
+      //TODO this statement also has NullPointer exception
       setIdentifier(((FunctionObj) (ST.lookup(funcName))).getReturnType());
     }
 

@@ -123,9 +123,9 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
   public void printContents() {
     System.out.println(this.getClass().getSimpleName() + ": ");
     if (ast_expr == null) {
-      System.out.println("ast_exprList: null");
+      System.out.println("ast_expr: null");
     } else {
-      System.out.println("ast_exprList: has content");
+      System.out.println("ast_expr: has content");
     }
   }
 
@@ -134,7 +134,16 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
     ast_expr.accept(visitor);
   }
 
+<<<<<<< HEAD
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
+=======
+  public IDENTIFIER getIdentifier() {
+    return ast_expr.getIdentifier();
+  }
+
+  public AST_Expr getAst_expr() {
+    return ast_expr;
+>>>>>>> 4ee869212a7a64659182a064edb15e3d80e4cbe6
   }
 }

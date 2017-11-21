@@ -21,6 +21,3 @@ public class VariableRedeclarationError extends ErrorMessage {
     System.out.print("ERROR: Variable declared again"); //" on line:..."
   }
 }
-
-
-

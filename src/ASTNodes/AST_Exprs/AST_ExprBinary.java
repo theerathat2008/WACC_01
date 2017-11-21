@@ -205,7 +205,7 @@ public class AST_ExprBinary extends AST_Expr {
     registerAllocation.removeRegisterMap("cmp_eval");
     registerAllocation.freeRegister(dstReg);
 
-    
+
   }
 
 }

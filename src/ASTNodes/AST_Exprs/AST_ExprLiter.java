@@ -3,17 +3,17 @@ package ASTNodes.AST_Exprs;
 import InstructionSet.Instruction;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
-import ASTNodes.AST_Node;
-import ErrorMessages.OutOfBoundsError;
+import src.ASTNodes.AST_Node;
+import src.ErrorMessages.OutOfBoundsError;
 import src.FilePosition;
-import SymbolTable.SymbolTable;
+import src.SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
 import java.util.List;
 
 import VisitorClass.AST_NodeVisitor;
 
-import IdentifierObjects.*;
+import src.IdentifierObjects.*;
 
 /**
  * Class representing node in AST tree for LITERAL EXPRESSIONS
@@ -163,10 +163,10 @@ public class AST_ExprLiter extends AST_Expr {
         return false;
       }
 
-      if (!Character.isLetterOrDigit(constant.charAt(0))) {
+      /*if (!Character.isLetterOrDigit(constant.charAt(0))) {
         System.out.println("Valid character literals must be ASCII character.");
         return false;
-      }
+      }*/
     }
     return true;
   }

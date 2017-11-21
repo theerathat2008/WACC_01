@@ -108,7 +108,8 @@ public class AST_StatRead extends AST_Stat {
     SymbolTable ST = this.symbolTable;
 
     //get Type of the statement
-    String type = ast_statAssignLHS.getType(ST);
+    //String type = ast_statAssignLHS.getType(ST);
+    String type = ast_statAssignLHS.getIdentifier().toString();
 
     //only valid if it is of type char and int
     if (!(type.equals("char") || type.equals("int"))) {

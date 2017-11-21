@@ -9,29 +9,19 @@ import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.List;
 
-import IdentifierObjects.IDENTIFIER;
+import src.IdentifierObjects.IDENTIFIER;
 
 /**
  * Class representing node in AST tree for TYPES - ALL TYPES EXTEND THIS CLASS
  */
 public class AST_Type extends AST_Node {
 
-  String compositeType;
 
   /**
    * Constructor for class
    */
   public AST_Type() {
   }
-
-  public String getCompositeType() {
-    return compositeType;
-  }
-
-  public void setCompositeType(String compositeType) {
-    this.compositeType = compositeType;
-  }
-
 
   /**
    * Gets all children nodes of current node
@@ -143,6 +133,18 @@ public class AST_Type extends AST_Node {
    * @return returns the identifier of the attribute
    */
   public IDENTIFIER getIdentifier() {
-    return new BaseTypeObj("int");
+
+    /*if (compositeType.equals("int")) {
+      return new BaseTypeObj("int");
+    } else if (compositeType.equals("char")) {
+      return new BaseTypeObj("char");
+    } else if (compositeType.equals("bool")) {
+      return new BaseTypeObj(("bool"));
+    } else if (compositeType.equals("string")) {
+      return new BaseTypeObj("string");
+    } else {
+      return new BaseTypeObj("pair");
+    }*/
+    return new BaseTypeObj("char");
   }
 }

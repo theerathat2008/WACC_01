@@ -6,10 +6,10 @@ import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
 
-import IdentifierObjects.IDENTIFIER;
-import IdentifierObjects.ParamListObj;
-import IdentifierObjects.BaseTypeObj;
-import VisitorClass.AST_NodeVisitor;
+import src.IdentifierObjects.IDENTIFIER;
+import src.IdentifierObjects.ParamListObj;
+import src.IdentifierObjects.BaseTypeObj;
+import src.VisitorClass.AST_NodeVisitor;
 import java.util.ArrayList;
 import java.util.List;
 

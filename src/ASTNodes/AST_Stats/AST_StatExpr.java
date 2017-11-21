@@ -10,7 +10,9 @@ import SymbolTable.SymbolTable;
 import ErrorMessages.TypeError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
-import VisitorClass.AST_NodeVisitor;
+import src.VisitorClass.AST_NodeVisitor;
+
+import java.lang.reflect.Type;
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -19,15 +21,16 @@ public class AST_StatExpr extends AST_Stat {
   //Syntactic attributes
   AST_Expr expr;
   ParserRuleContext ctx;
-
+  SymbolTable symbolTable;
   /**
    * Assign the class variables when called
    *
    * @param ctx
    */
-  public AST_StatExpr(ParserRuleContext ctx) {
+  public AST_StatExpr(ParserRuleContext ctx, SymbolTable symbolTable) {
     this.expr = null;
     this.ctx = ctx;
+    this.symbolTable = symbolTable;
   }
 
   /**
@@ -83,28 +86,140 @@ public class AST_StatExpr extends AST_Stat {
    */
   @Override
   public boolean CheckSemantics() {
-    if (statName.equals("FREE")) {
-      return expr.getIdentifier().toString().contains("[]") || expr.getIdentifier().toString().startsWith("PAIR(");
-    } else if (statName.equals("RETURN")) {
-      AST_Node parent = getParentNode();
+    SymbolTable ST = this.symbolTable;
+    AST_Node parent = getParentNode();
+
+    if (statName.equals("free")) {
+      System.out.println(expr);
+      System.out.println(expr.getIdentifier());
+      if (expr instanceof AST_ExprIdent) {
+        String varName = ((AST_ExprIdent) expr).getVarName();
+        AST_Node tempNode = this.getParentNode();
+        IDENTIFIER typeExpr = ST.encSymTable.lookup(varName);
+
+        while (!(tempNode instanceof AST_FuncDecl)) {
+          if (tempNode instanceof AST_Program) {
+            typeExpr = ST.lookup(varName);
+            break;
+          }
+          tempNode = tempNode.getParentNode();
+        }
+        if (ST.lookup(varName) == null) {
+          typeExpr = ST.encSymTable.lookup(varName);
+        }
+        System.out.println("The typeExpr is: ");
+        System.out.println(typeExpr);
+        if (typeExpr.toString().contains("PAIR") || typeExpr.toString().contains("[]")) {
+          return true;
+        } else {
+          new TypeError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      } else {
+        if (expr.getIdentifier().toString().contains("[]") || expr.getIdentifier().toString().contains("PAIR")) {
+          return true;
+        } else {
+          new TypeError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      }
+
+    } else if (statName.equals("return")) {
+
+
+      //search until find function declaration
       while (!(parent instanceof AST_FuncDecl)) {
         if (parent instanceof AST_Program) {
           System.out.println("Return statement not inside of a function.");
           new TypeError(new FilePosition(ctx)).printAll();
           return false;
         }
-        parent = getParentNode();
+
+        parent = parent.getParentNode();
+
         System.out.println("Going to AST parent, looking for function");
       }
+
+      //check if the return type is the same type as function type
       AST_FuncDecl temp = (AST_FuncDecl) parent;
-      if (temp.ast_type.getIdentifier().equals(expr.getIdentifier())) {
+
+      if (expr instanceof AST_ExprIdent) {
+        String varName = ((AST_ExprIdent) expr).getVarName();
+        AST_Node tempNode = this.getParentNode();
+        IDENTIFIER typeExpr = ST.encSymTable.lookup(varName);
+
+        while (!(tempNode instanceof AST_FuncDecl)) {
+          if (tempNode instanceof AST_Program) {
+            typeExpr = ST.lookup(varName);
+            break;
+          }
+          tempNode = tempNode.getParentNode();
+        }
+        if (temp.ast_type.getIdentifier().equals(typeExpr)) {
+          return true;
+        } else {
+          new TypeMismatchError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      }
+
+      //debug message
+      System.out.println(temp.ast_type.getIdentifier().toString());
+      if (expr.getIdentifier() == null) {
+        System.out.println("null");
+        System.out.println(expr.getType());
+      }
+
+      //TODO expr has null value
+      if (expr instanceof AST_ExprEnclosed || expr instanceof AST_ExprBinary
+              || expr instanceof AST_ExprUnary) {
+        return true;
+      } else if ((temp.ast_type.getIdentifier().equals(expr.getIdentifier()))) {
+        return true;
+      } else {
+        new TypeMismatchError(new FilePosition(ctx)).printAll();
+        return false;
+      }
+    } else if (statName.equals("exit")) {
+      //Debug statement
+      System.out.println(expr);
+      if (expr instanceof AST_ExprUnary || expr instanceof AST_ExprEnclosed) {
+        if (expr.getIdentifier().toString().equals("int")) {
+          return true;
+        } else {
+          System.out.println("Expression after exit statement must be of type int.");
+          new TypeError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      } else if (expr instanceof AST_ExprIdent) {
+        System.out.println(expr);
+        expr.printContents();
+        String varName = ((AST_ExprIdent) expr).getVarName();
+
+        AST_Node tempNode = this.getParentNode();
+        IDENTIFIER type = ST.encSymTable.lookup(varName);
+
+        while (!(tempNode instanceof AST_FuncDecl)) {
+          if (tempNode instanceof AST_Program) {
+            type = ST.lookup(varName);
+            break;
+          }
+          tempNode = tempNode.getParentNode();
+        }
+        //Debug statement
+        System.out.println(type);
+        if (type.toString().equals("int")) {
+          return true;
+        } else {
+          new TypeMismatchError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      } else {
         return true;
       }
-    } else if (statName.equals("EXIT")) {
-      return expr.getIdentifier().toString().equals("int");
-    } else if (statName.equals("PRINT")) {
+    } else if (statName.equals("print")) {
       return true;
-    } else if (statName.equals("PRINTLN")) {
+    } else if (statName.equals("println")) {
       return true;
     }
     new TypeError(new FilePosition(ctx)).printAll();

@@ -8,9 +8,9 @@ import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 import org.antlr.v4.runtime.ParserRuleContext;
-import ErrorMessages.FunctionRedeclarationError;
+import src.ErrorMessages.FunctionRedeclarationError;
 import src.FilePosition;
-import VisitorClass.AST_NodeVisitor;
+import src.VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 import java.util.List;
@@ -166,12 +166,22 @@ public class AST_FuncDecl extends AST_Node {
   @Override
   public boolean CheckSemantics() {
     SymbolTable ST = this.symbolTable;
-    if (ST.lookupAll(funcName) == null) {
+    System.out.println(funcName);
+    System.out.println(ast_type);
+    //TODO needs to search for duplication
+    if (ST.lookup(funcName) == null) {
       return true;
+
     } else {
-      System.out.println("Error on line " + ctx.getStart().getLine() + ". Function of same name already defined");
-      new FunctionRedeclarationError(new FilePosition(ctx)).printAll();
-      return false;
+      IDENTIFIER type = this.symbolTable.lookup(funcName);
+      if (ast_type.getIdentifier().equals(type)) {
+        return true;
+      } else {
+        System.out.println("Error on line " + ctx.getStart().getLine() + ". Function of same name already defined");
+        new FunctionRedeclarationError(new FilePosition(ctx)).printAll();
+        return false;
+      }
+
     }
   }
 
@@ -257,4 +267,3 @@ public class AST_FuncDecl extends AST_Node {
   }
 
 }
-

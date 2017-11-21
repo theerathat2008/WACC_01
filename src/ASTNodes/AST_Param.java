@@ -11,7 +11,7 @@ import java.util.List;
 
 import VisitorClass.AST_NodeVisitor;
 
-import IdentifierObjects.*;
+import src.IdentifierObjects.*;
 
 /**
  * Class representing node in AST tree for PARAMS

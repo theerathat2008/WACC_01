@@ -1,4 +1,4 @@
-package ASTNodes.AST_Stats.AST_StatAssignLHSs;
+packageASTNodes.AST_Stats.AST_StatAssignLHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
@@ -161,7 +161,12 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
     }
   }
 
+<<<<<<< HEAD
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
+=======
+  public List<AST_Expr> getAst_exprList() {
+    return ast_exprList;
+>>>>>>> 4ee869212a7a64659182a064edb15e3d80e4cbe6
   }
 }

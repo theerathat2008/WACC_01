@@ -9,7 +9,7 @@ import SymbolTable.SymbolTable;
 import ErrorMessages.TypeMismatchError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
-import VisitorClass.AST_NodeVisitor;
+import src.VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -21,14 +21,16 @@ public class AST_StatAssign extends AST_Stat {
   AST_StatAssignLHS ast_statAssignLHS;
   AST_StatAssignRHS ast_statAssignRHS;
   ParserRuleContext ctx;
+  SymbolTable symbolTable;
 
   /**
    * Constructor for class - initialises class variables to NULL
    */
-  public AST_StatAssign(ParserRuleContext ctx) {
+  public AST_StatAssign(ParserRuleContext ctx, SymbolTable symbolTable) {
     this.ast_statAssignLHS = null;
     this.ast_statAssignRHS = null;
     this.ctx = ctx;
+    this.symbolTable = symbolTable;
   }
 
   /**
@@ -97,7 +99,8 @@ public class AST_StatAssign extends AST_Stat {
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet) {
     if (astToSet.equals("ast_statAssignLHS")) {
       ast_statAssignLHS = (AST_StatAssignLHS) nodeToSet;
-    } else if (astToSet.equals("statAssignRHS")) {
+    }
+    if (astToSet.equals("statAssignRHS")) {
       ast_statAssignRHS = (AST_StatAssignRHS) nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
@@ -110,15 +113,82 @@ public class AST_StatAssign extends AST_Stat {
    */
   @Override
   public boolean CheckSemantics() {
+
+    SymbolTable ST = this.symbolTable;
+
     System.out.println("checking semantic of assign statement");
+    System.out.println(ast_statAssignLHS.toString());
+    System.out.println(ast_statAssignRHS.toString());
     System.out.println("LHS identifier is: " + ast_statAssignLHS.getIdentifier());
     System.out.println("RHS identifier is: " + ast_statAssignRHS.getIdentifier());
-    if (ast_statAssignLHS.getIdentifier().equals(ast_statAssignRHS.getIdentifier())) {
+
+    IDENTIFIER typeLHS = null;
+    IDENTIFIER typeRHS = null;
+
+    if (ast_statAssignLHS instanceof AST_StatArrayElemLHS) {
+      System.out.println("I'm instance of AST_StatArrayElemLHS");
+      //check the size of the array if it contains any element inside
+      if (((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().size() != 0) {
+        System.out.println("I'm inside if statement");
+        System.out.println(((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().get(0));
+        AST_Expr firstElem = ((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().get(0);
+
+        //check if it is instace of AST_ExprIdent if it is an ident
+        if (firstElem instanceof AST_ExprEnclosed) {
+          return true;
+        } else if (firstElem instanceof AST_ExprIdent) {
+          String varName = ((AST_ExprIdent) firstElem).getVarName();
+          System.out.println(varName);
+          typeLHS = ST.encSymTable.lookup(varName);
+          System.out.println(typeLHS);
+        } else {
+          typeLHS = ast_statAssignLHS.getIdentifier();
+        }
+      } else {
+        typeLHS = ast_statAssignLHS.getIdentifier();
+      }
+
+
+      System.out.println("ast_statAssignRHS");
+      if (ast_statAssignRHS instanceof AST_StatExprRHS) {
+        AST_Expr ast_expr = ((AST_StatExprRHS) ast_statAssignRHS).getAst_expr();
+
+        if (ast_expr instanceof AST_ExprIdent) {
+          System.out.println("RHS is instance of AST_ExprIdent");
+          String varName = ((AST_ExprIdent) ast_expr).getVarName();
+          System.out.println(varName);
+          typeRHS = ST.encSymTable.lookup(varName);
+          System.out.println(typeRHS);
+        } else {
+          typeRHS = ast_statAssignRHS.getIdentifier();
+        }
+      } else {
+        typeRHS  =ast_statAssignRHS.getIdentifier();
+      }
+
+      //TODO implement general cases for typeLHS and typeRHS
+
+    } else {
+      typeLHS = ast_statAssignLHS.getIdentifier();
+      typeRHS = ast_statAssignRHS.getIdentifier();
+    }
+
+    if (typeLHS.toString().contains(typeRHS.toString()) || typeRHS.toString().contains(typeLHS.toString())) {
       return true;
     } else {
       new TypeMismatchError(new FilePosition(ctx)).printAll();
       return false;
     }
+
+    /*String identifierLHS = ast_statAssignLHS.getIdentifier().toString();
+    String identifierRHS = ast_statAssignRHS.getIdentifier().toString();
+
+    if (identifierLHS.contains(identifierRHS) || identifierRHS.contains(identifierLHS)) {
+      return true;
+    } else {
+      new TypeMismatchError(new FilePosition(ctx)).printAll();
+      return false;
+    }*/
   }
 
   /**
@@ -146,6 +216,7 @@ public class AST_StatAssign extends AST_Stat {
       System.out.println("ast_statAssignRHS: null");
     } else {
       System.out.println("ast_statAssignRHS: has content");
+      ast_statAssignRHS.printContents();
     }
   }
 

@@ -1,4 +1,4 @@
-package src.InstructionSet.InstructionPrint;
+package InstructionSet.InstructionPrint;
 
 /**
  * Instruction class for printing string expressions

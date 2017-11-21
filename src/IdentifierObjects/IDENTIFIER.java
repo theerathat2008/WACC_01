@@ -11,6 +11,3 @@ public abstract class IDENTIFIER {
 
   public abstract String toString();
 }
-
-
-

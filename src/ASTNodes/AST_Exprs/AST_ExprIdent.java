@@ -7,7 +7,7 @@ import SymbolTable.SymbolTable;
 import ErrorMessages.UndefinedIdentError;
 import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
-import VisitorClass.AST_NodeVisitor;
+import src.VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 import java.util.List;
@@ -140,9 +140,15 @@ public class AST_ExprIdent extends AST_Expr {
     visitor.visit(this);
   }
 
+<<<<<<< HEAD
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }
 
+=======
+  public String getVarName() {
+    return varName;
+  }
+>>>>>>> 4ee869212a7a64659182a064edb15e3d80e4cbe6
 }
