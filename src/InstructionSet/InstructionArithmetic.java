@@ -1,4 +1,6 @@
 package InstructionSet;
+import Registers.RegisterARM;
+
 import java.util.LinkedList;
 
 import java.util.List;
@@ -6,21 +8,17 @@ import java.util.List;
 public class InstructionArithmetic extends Instruction {
   String operand;
   String dst;
-  String fst;
-  String snd;
+  String reg1;
+  String reg2;
   public String block1;
   public InstructionArithmetic(String operand, String dst, String fst, String snd) {
-
-  List<String> instr = new LinkedList<>();
-
     this.operand = operand;
-    this.dst = dst;
-    this.fst = fst;
-    this.snd = snd;
   }
 
-  public void addInstruction(List<Instruction> instructions) {
-    instructions.add(this);
+  public void allocateRegisters(RegisterARM reg1, RegisterARM reg2, RegisterARM dst){
+    this.reg1 = reg1.name();
+    this.reg2 = reg2.name();
+    this.dst = dst.name();
   }
 
   public void genInstruction() {
@@ -34,6 +32,4 @@ public class InstructionArithmetic extends Instruction {
     builder.append("\n\t\tBLVS p_throw_overflow_error\n");
     block1 = builder.toString();
   }
-
-
 }
