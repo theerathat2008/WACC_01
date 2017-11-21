@@ -1,6 +1,6 @@
-package src.InstructionSet.InstructionPrint;
+package InstructionSet.InstructionPrint;
 
-import src.InstructionSet.Instruction;
+import InstructionSet.Instruction;
 
 /**
  * Base class of all print instructions.
@@ -19,5 +19,8 @@ public class InstructionPrint extends Instruction{
   }
 
 
+  @Override
+  public void genInstruction() {
 
+  }
 }
