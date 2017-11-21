@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e4d2f29-9a6c-4ed4-90cd-372693623358" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArray.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayArray.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayBool.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayChar.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayInt.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayString.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArray.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArray.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayArray.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayArray.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayBool.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayBool.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayChar.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayChar.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayInt.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayInt.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayString.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayString.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionNewPair.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionNewPair.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -78,7 +78,6 @@
         <option value="$PROJECT_DIR$/src/IdentifierObjects/FunctionObj.java" />
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_FuncDecl.java" />
         <option value="$PROJECT_DIR$/src/InstructionSet/InstructionWhile.java" />
-        <option value="$PROJECT_DIR$/src/InstructionSet/InstructionNewPair.java" />
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatVarDecl.java" />
         <option value="$PROJECT_DIR$/src/InstructionSet/InstructionUnary.java" />
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprBinary.java" />
@@ -86,17 +85,18 @@
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatExpr.java" />
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatCallRHS.java" />
         <option value="$PROJECT_DIR$/src/InstructionSet/InstructionArray.java" />
-        <option value="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArray.java" />
         <option value="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayInt.java" />
         <option value="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayChar.java" />
         <option value="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayBool.java" />
         <option value="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayArray.java" />
         <option value="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayString.java" />
+        <option value="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArray.java" />
+        <option value="$PROJECT_DIR$/src/InstructionSet/InstructionNewPair.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="24" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="y" value="31" />
     <option name="width" value="1312" />
     <option name="height" value="1032" />
   </component>
@@ -115,8 +115,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -153,8 +151,10 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -273,7 +273,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1312" height="1032" extended-state="0" />
+    <frame x="0" y="31" width="1312" height="1032" extended-state="1" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -289,6 +289,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18244275" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="ANTLR Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -301,7 +302,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -312,20 +312,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatExprRHS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="139" column="17" lean-forward="false" selection-start-line="139" selection-start-column="17" selection-end-line="139" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Node.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-851">
-          <caret line="15" column="22" lean-forward="false" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/VisitorClass/AST_VisitCodeGen.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="657">
@@ -558,14 +544,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionNewPair.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="4" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatVarDecl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
@@ -613,52 +591,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintBool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="2" lean-forward="true" selection-start-line="17" selection-start-column="2" selection-end-line="39" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintLn.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="27" column="4" lean-forward="false" selection-start-line="27" selection-start-column="4" selection-end-line="34" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintInt.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArray.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="38" lean-forward="false" selection-start-line="6" selection-start-column="38" selection-end-line="6" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#302#303#0" expanded="true" />
-            <element signature="e#328#329#0" expanded="true" />
-            <element signature="docComment;method#allocateRegisters#0;class#InstructionArray#0" expanded="false" />
-            <element signature="docComment;method#genInstruction#0;class#InstructionArray#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayBool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayChar.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
@@ -675,6 +607,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayString.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="23" column="80" lean-forward="true" selection-start-line="23" selection-start-column="80" selection-end-line="23" selection-end-column="80" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintRef.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/Instruction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="22" lean-forward="false" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayBool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayArray.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -683,11 +647,53 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayString.java">
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArray.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="38" column="66" lean-forward="false" selection-start-line="38" selection-start-column="66" selection-end-line="38" selection-end-column="66" />
+          <folding>
+            <element signature="docComment;method#allocateRegisters#0;class#InstructionArray#0" expanded="false" />
+            <element signature="docComment;method#genInstruction#0;class#InstructionArray#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintLn.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
-          <caret line="23" column="80" lean-forward="true" selection-start-line="23" selection-start-column="80" selection-end-line="23" selection-end-column="80" />
+          <caret line="27" column="4" lean-forward="false" selection-start-line="27" selection-start-column="4" selection-end-line="34" selection-end-column="41" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintBool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="30" column="4" lean-forward="false" selection-start-line="30" selection-start-column="4" selection-end-line="38" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintInt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionNewPair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="method#InstructionNewPair#0;class#InstructionNewPair#0" expanded="false" />
+            <element signature="method#allocateRegisters#0;class#InstructionNewPair#0" expanded="false" />
+            <element signature="e#777#778#0" expanded="true" />
+            <element signature="e#806#807#0" expanded="true" />
+            <element signature="method#getTypeInt#0;class#InstructionNewPair#0" expanded="false" />
+            <element signature="method#getBool#0;class#InstructionNewPair#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

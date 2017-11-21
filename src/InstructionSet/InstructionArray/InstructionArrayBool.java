@@ -18,7 +18,7 @@ public class InstructionArrayBool extends InstructionArray{
   }
 
   @Override
-  public String getArrayElem() {
+  public String getArrayElems() {
     String result = "";
 
     for (int i = 0; i < arraySize; i++) {

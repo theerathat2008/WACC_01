@@ -2,17 +2,15 @@ package InstructionSet.InstructionArray;
 
 import InstructionSet.Instruction;
 
-import java.util.List;
-
 public abstract class InstructionArray extends Instruction {
-  String resultBlock;
+  String resultBlock = "";
   String reg1;
   String reg2;
   String reg3;
   String type;
   int arraySize;
 
-  public InstructionArray(String type) {
+  protected InstructionArray(String type) {
     this.type = type;
   }
 
@@ -26,7 +24,7 @@ public abstract class InstructionArray extends Instruction {
     this.reg3 = reg3;
   }
 
-  public abstract String getArrayElem();
+  public abstract String getArrayElems();
 
   /**
    * Generates the instruction block as a string for the current instruction
@@ -35,7 +33,7 @@ public abstract class InstructionArray extends Instruction {
     resultBlock.concat("\t\tLDR " +  reg1 + ", =" + (4*(arraySize + 1)) + "\n");
     resultBlock.concat("\t\tBL malloc\n");
     resultBlock.concat("\t\tMOV " +  reg2 + ", " + reg1 + "\n");
-    resultBlock.concat(getArrayElem());
+    resultBlock.concat(getArrayElems());
     resultBlock.concat("\t\tLDR " +  reg3 + ", =" + arraySize + "\n");
     resultBlock.concat("\t\tSTR " +  reg3 + ", " + "[" + reg2 + "]" + "\n");
     resultBlock.concat("\t\tSTR " +  reg3 + ", " + "[sp]" + "\n");

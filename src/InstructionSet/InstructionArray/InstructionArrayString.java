@@ -17,7 +17,7 @@ public class InstructionArrayString extends InstructionArray {
   }
 
   @Override
-  public String getArrayElem() {
+  public String getArrayElems() {
     String result = "";
     for (int i = 1; i < arraySize + 1; i++) {
       result.concat("\t\tLDR " + reg3 + ", =msg_" + getMsgNum() + "\n");
