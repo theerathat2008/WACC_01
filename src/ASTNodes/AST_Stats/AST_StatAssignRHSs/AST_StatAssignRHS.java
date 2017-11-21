@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_Stat;
 import InstructionSet.Instruction;
+import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
@@ -132,7 +133,7 @@ public class AST_StatAssignRHS extends AST_Stat {
     visitor.visit(this);
   }
 
-  public void genInstruction(List<Instruction> instructionList){
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }
 }

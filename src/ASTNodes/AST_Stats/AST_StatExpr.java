@@ -5,6 +5,7 @@ import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
 import InstructionSet.Instruction;
+import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.TypeError;
 import src.FilePosition;
@@ -140,7 +141,7 @@ public class AST_StatExpr extends AST_Stat {
     expr.accept(visitor);
   }
 
-  public void genInstruction(List<Instruction> instructionList){
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }
 }

@@ -1,6 +1,7 @@
 package ASTNodes;
 
 import InstructionSet.Instruction;
+import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -127,7 +128,7 @@ public class AST_Separator extends AST_Node {
   }
 
   @Override
-  public void genInstruction(List<Instruction> instructionList) {
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }
 }

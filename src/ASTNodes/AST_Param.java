@@ -2,6 +2,7 @@ package ASTNodes;
 
 
 import InstructionSet.Instruction;
+import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 
@@ -162,7 +163,7 @@ public class AST_Param extends AST_Node {
   }
 
   @Override
-  public void genInstruction(List<Instruction> instructionList) {
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }
 }

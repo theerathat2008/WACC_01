@@ -181,14 +181,15 @@ public class AST_StatIf extends AST_Stat {
   }
 
 
-  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception{
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     InstructionIf instructionIf = new InstructionIf();
-
-    RegisterARM registerARM = registerAllocation.useRegister();
-    registerAllocation.addRegisterMap("cmp_eval", registerARM);
-    instructionIf.allocateRegisters(registerARM);
-
+    try{
+      RegisterARM registerARM = registerAllocation.useRegister();
+      registerAllocation.addRegisterMap("cmp_eval", registerARM);
+      instructionIf.allocateRegisters(registerARM);
+    } catch (Exception e){
+      e.printStackTrace();
+    }
     instructionList.add(instructionIf);
   }
-
 }

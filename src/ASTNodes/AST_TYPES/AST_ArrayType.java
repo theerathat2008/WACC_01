@@ -2,6 +2,7 @@ package ASTNodes.AST_TYPES;
 
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
@@ -140,7 +141,7 @@ public class AST_ArrayType extends AST_Type {
     return new ArrayObj(null, ast_type.getIdentifier());
   }
 
-  public void genInstruction(List<Instruction> instructionList){
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }
 }

@@ -2,6 +2,7 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.UndefinedIdentError;
 import src.FilePosition;
@@ -140,7 +141,7 @@ public class AST_ExprIdent extends AST_Expr {
   }
 
 
-  public void genInstruction(List<Instruction> instructionList){
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }
 

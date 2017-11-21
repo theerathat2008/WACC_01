@@ -1,6 +1,7 @@
 package ASTNodes.AST_Exprs;
 
 import InstructionSet.Instruction;
+import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
 import ErrorMessages.OutOfBoundsError;
@@ -196,7 +197,7 @@ public class AST_ExprLiter extends AST_Expr {
     visitor.visit(this);
   }
 
-  public void genInstruction(List<Instruction> instructionList){
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }
 

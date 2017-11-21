@@ -4,6 +4,7 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_Stat;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
+import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
 import java.util.List;
@@ -131,7 +132,7 @@ public class AST_StatSubIf extends AST_Stat {
     visitor.visit(this);
   }
 
-  public void genInstruction(List<Instruction> instructionList){
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }
 }

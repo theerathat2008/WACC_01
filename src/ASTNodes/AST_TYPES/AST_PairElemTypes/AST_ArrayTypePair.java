@@ -3,6 +3,7 @@ package ASTNodes.AST_TYPES.AST_PairElemTypes;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_TYPES.AST_Type;
 import InstructionSet.Instruction;
+import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import IdentifierObjects.*;
 import VisitorClass.AST_NodeVisitor;
@@ -143,7 +144,7 @@ public class AST_ArrayTypePair extends AST_PairElemType {
     return new ArrayObj(null, ast_type.getIdentifier());
   }
 
-  public void genInstruction(List<Instruction> instructionList){
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }
 }

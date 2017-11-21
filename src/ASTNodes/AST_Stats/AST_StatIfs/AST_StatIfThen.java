@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats.AST_StatIfs;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_Stat;
 import InstructionSet.Instruction;
+import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
 import java.util.List;
@@ -135,7 +136,7 @@ public class AST_StatIfThen extends AST_StatSubIf{
     thenStat.accept(visitor);
   }
 
-  public void genInstruction(List<Instruction> instructionList){
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }
 }

@@ -1,6 +1,7 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import InstructionSet.Instruction;
+import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
@@ -181,7 +182,7 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
     }
   }
 
-  public void genInstruction(List<Instruction> instructionList){
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }
 

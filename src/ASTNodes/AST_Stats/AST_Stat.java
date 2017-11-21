@@ -2,6 +2,7 @@ package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
@@ -124,7 +125,7 @@ public class AST_Stat extends AST_Node {
   }
 
   @Override
-  public void genInstruction(List<Instruction> instructionList) {
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }
 }

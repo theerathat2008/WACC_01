@@ -59,221 +59,397 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
 
   @Override
   public void visit(AST_FuncDecl funcDecl) {
-    funcDecl.genInstruction(instructions);
+    try {
+      funcDecl.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_Keyword keyword) {
-    keyword.genInstruction(instructions);
+    try {
+      keyword.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_Param param) {
-    param.genInstruction(instructions);
+    try {
+      param.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_ParamList paramList) {
-    paramList.genInstruction(instructions);
+    try {
+      paramList.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_Program program) {
-    program.genInstruction(instructions);
+    try {
+      program.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_Separator separator) {
-    separator.genInstruction(instructions);
+    try {
+      separator.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_ExprArrayElem exprArrayElem) {
-    exprArrayElem.genInstruction(instructions);
+    try {
+      exprArrayElem.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_ExprBinary exprBinary) {
-    exprBinary.genInstruction(instructions);
+    try {
+      exprBinary.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_ExprEnclosed exprEnclosed) {
-    exprEnclosed.genInstruction(instructions);
+    try {
+      exprEnclosed.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_ExprIdent exprIdent) {
-    exprIdent.genInstruction(instructions);
+    try {
+      exprIdent.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_ExprLiter exprLiter) {
-    exprLiter.genInstruction(instructions);
+    try {
+      exprLiter.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_ExprUnary exprUnary) {
-    exprUnary.genInstruction(instructions);
+    try {
+      exprUnary.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatAssign statAssign) {
-    statAssign.genInstruction(instructions);
+    try {
+      statAssign.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatBeginEnd statBeginEnd) {
-    statBeginEnd.genInstruction(instructions);
+    try {
+      statBeginEnd.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatExpr statExpr) {
-    statExpr.genInstruction(instructions);
+    try {
+      statExpr.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatIf statIf) {
-    statIf.genInstruction(instructions, registerAllocation);
+    try {
+      statIf.genInstruction(instructions, registerAllocation);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatMult statMult) {
-    statMult.genInstruction(instructions);
+    try {
+      statMult.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatRead statRead) {
-    statRead.genInstruction(instructions);
+    try {
+      statRead.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatVarDecl statVarDecl) {
-    statVarDecl.genInstruction(instructions);
+    try {
+      statVarDecl.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatWhile statWhile) {
-    statWhile.genInstruction(instructions);
+    try {
+      statWhile.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatArrayElemLHS statArrayElemLHS) {
-    statArrayElemLHS.genInstruction(instructions);
+    try {
+      statArrayElemLHS.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatIdentLHS statIdentLHS) {
-    statIdentLHS.genInstruction(instructions);
+    try {
+      statIdentLHS.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatPairElemLHS statPairElemLHS) {
-    statPairElemLHS.genInstruction(instructions);
+    try {
+      statPairElemLHS.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatArrayLitRHS statArrayLitRHS) {
-    statArrayLitRHS.genInstruction(instructions);
+    try {
+      statArrayLitRHS.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatCallRHS statCallRHS) {
-    statCallRHS.genInstruction(instructions);
+    try {
+      statCallRHS.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatExprRHS statExprRHS) {
-    statExprRHS.genInstruction(instructions);
+    try {
+      statExprRHS.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatNewPairRHS statNewPairRHS) {
-    statNewPairRHS.genInstruction(instructions);
+    try {
+      statNewPairRHS.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatPairElemRHS statPairElemRHS) {
-    statPairElemRHS.genInstruction(instructions);
+    try {
+      statPairElemRHS.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatIfElse statIfElse) {
-    statIfElse.genInstruction(instructions);
+    try {
+      statIfElse.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatIfThen statIfThen) {
-    statIfThen.genInstruction(instructions);
+    try {
+      statIfThen.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_ArrayType arrayType) {
-    arrayType.genInstruction(instructions);
+    try {
+      arrayType.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_BaseType baseType) {
-    baseType.genInstruction(instructions);
+    try {
+      baseType.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_PairType pairType) {
-    pairType.genInstruction(instructions);
+    try {
+      pairType.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_ArrayTypePair arrayTypePair) {
-    arrayTypePair.genInstruction(instructions);
+    try {
+      arrayTypePair.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_BaseTypePair baseTypePair) {
-    baseTypePair.genInstruction(instructions);
+    try {
+      baseTypePair.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_PairString pairString) {
-    pairString.genInstruction(instructions);
+    try {
+      pairString.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_Node ast_node) {
-    ast_node.genInstruction(instructions);
+    try {
+      ast_node.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_Expr ast_expr) {
-    ast_expr.genInstruction(instructions);
+    try {
+      ast_expr.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_Stat ast_stat) {
-    ast_stat.genInstruction(instructions);
+    try {
+      ast_stat.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatAssignLHS ast_statAssignLHS) {
-    ast_statAssignLHS.genInstruction(instructions);
+    try {
+      ast_statAssignLHS.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatAssignRHS ast_statAssignRHS) {
-    ast_statAssignRHS.genInstruction(instructions);
+    try {
+      ast_statAssignRHS.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_Type ast_type) {
-    ast_type.genInstruction(instructions);
+    try {
+      ast_type.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_PairElemType ast_pairElemType) {
-    ast_pairElemType.genInstruction(instructions);
+    try {
+      ast_pairElemType.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void visit(AST_StatSubIf ast_statSubIf) {
-    ast_statSubIf.genInstruction(instructions);
+    try {
+      ast_statSubIf.genInstruction(instructions, );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }
