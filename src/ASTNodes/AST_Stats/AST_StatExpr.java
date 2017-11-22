@@ -270,9 +270,18 @@ public class AST_StatExpr extends AST_Stat {
 
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    
+
+    InstructionStatExpr instructionStatExpr = new InstructionStatExpr(statName);
+
+    //REGISTER ALLOCATION
+
     switch(statName){
 
     }
+
+    instructionList.add(instructionStatExpr);
+
+
+
   }
 }

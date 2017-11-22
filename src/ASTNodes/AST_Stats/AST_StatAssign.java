@@ -251,7 +251,7 @@ public class AST_StatAssign extends AST_Stat {
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
     String type = ast_statAssignRHS.getIdentifier().toString();
-    //InstructionAssign instructionAssign = new InstructionAssign(type);
+    //InstructionNewVar instructionAssign = new InstructionNewVar(type);
 
     //Allocate three registers here
 

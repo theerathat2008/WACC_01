@@ -1,4 +1,4 @@
-package InstructionSet.InstructionNewArray;
+package InstructionSet.InstructionVarDecl.InstructionNewArray;
 
 import java.util.List;
 
@@ -26,5 +26,15 @@ public class InstructionArrayBool extends InstructionArray{
       result.concat("\t\tSTRB " + reg3 + ", [" + reg2 + ", " + "#" + (4+i) + "]\n");
     }
     return result;
+  }
+
+  @Override
+  public int requiresRegisters() {
+    return 3;
+  }
+
+  @Override
+  public boolean crossOverRegister() {
+    return false;
   }
 }

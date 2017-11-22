@@ -1,4 +1,6 @@
-package InstructionSet;
+package InstructionSet.InstructionVarDecl;
+
+import InstructionSet.Instruction;
 
 public class InstructionNewPair extends Instruction {
   String reg1;
@@ -67,6 +69,16 @@ public class InstructionNewPair extends Instruction {
     resultBlock.concat("\t\tSTR " +  reg3 + ", [" +  reg1 + "]\n");
     resultBlock.concat("\t\tSTR " +  reg1 + ", [" +  reg2 + ", #4]\n");
     resultBlock.concat("\t\tSTR " +  reg2 + ", [sp, #" + getSP2() + "]\n");
+  }
+
+  @Override
+  public int requiresRegisters() {
+    return 3;
+  }
+
+  @Override
+  public boolean crossOverRegister() {
+    return false;
   }
 
   public int getTypeInt() {
