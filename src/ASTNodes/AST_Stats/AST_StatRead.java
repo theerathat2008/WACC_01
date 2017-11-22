@@ -5,10 +5,14 @@ import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
+import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatPairElemLHS;
+import ASTNodes.AST_Exprs.AST_ExprIdent;
+import ASTNodes.AST_Exprs.AST_Expr;
 import ErrorMessages.TypeError;
 import src.FilePosition;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
+import IdentifierObjects.IDENTIFIER;
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -109,10 +113,25 @@ public class AST_StatRead extends AST_Stat {
 
     //get Type of the statement
     //String type = ast_statAssignLHS.getType(ST);
+    //Debug statement
+    System.out.println(ast_statAssignLHS);
+
+    IDENTIFIER typeName =
+
+    if (ast_statAssignLHS instanceof AST_StatPairElemLHS) {
+      AST_Expr ast_expr = ((AST_StatPairElemLHS) ast_statAssignLHS).getAst_expr();
+
+      if (ast_expr instanceof AST_ExprIdent) {
+        System.out.println("Hey, I'm an instance of AST_ExprIdent");
+        String varName = ((AST_ExprIdent) ast_expr).getVarName();
+
+      }
+    }
+
     String type = ast_statAssignLHS.getIdentifier().toString();
 
     //only valid if it is of type char and int
-    if (!(type.equals("char") || type.equals("int"))) {
+    if (!(type.equals("char") || type.equals("int") || type.contains("PAIR") || type.contains("pair"))) {
       new TypeError(new FilePosition(ctx)).printAll();
       return false;
     }
