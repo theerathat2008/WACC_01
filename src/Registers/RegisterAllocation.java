@@ -11,7 +11,7 @@ public class RegisterAllocation{
    */
   Stack<RegisterARM> freeRegisters = new Stack<>();
   List<RegisterARM> registerInUse = new ArrayList<>();
-
+  List<String> stringList = new ArrayList<>();
   Map<String, RegisterARM> registerInUseMap = new HashMap<>();
 
   /**
@@ -20,6 +20,16 @@ public class RegisterAllocation{
    */
   public RegisterAllocation() {
     freeRegisters.addAll(getNormalRegisters());
+  }
+
+  public void addString(String string) {
+    if (!stringList.contains(string)) {
+      stringList.add(string);
+    }
+  }
+
+  public int getStringID(String string) {
+    return stringList.indexOf(string);
   }
 
   /**

@@ -2,14 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e4d2f29-9a6c-4ed4-90cd-372693623358" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionAssign.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionMessage.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArray.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionNewArray/InstructionArray.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayArray.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionNewArray/InstructionArrayArray.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayBool.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionNewArray/InstructionArrayBool.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayChar.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionNewArray/InstructionArrayChar.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayInt.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionNewArray/InstructionArrayInt.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayString.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionNewArray/InstructionArrayString.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArray.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArray.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayArray.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayArray.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayBool.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayBool.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayChar.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayChar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayInt.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayInt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayString.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayString.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionNewPair.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionNewPair.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatExpr.java" afterPath="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatExpr.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintBool.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintBool.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintInt.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintInt.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintLn.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintLn.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintRef.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintRef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintString.java" afterPath="$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintString.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Registers/RegisterAllocation.java" afterPath="$PROJECT_DIR$/src/Registers/RegisterAllocation.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,7 +28,115 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="AST_Stat.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_Stat.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="12" column="3" lean-forward="true" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InstructionMessage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionMessage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InstructionAssign.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionAssign.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InstructionArrayBool.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionNewArray/InstructionArrayBool.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AST_StatIf.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIf.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2381">
+              <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AST_StatExpr.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatExpr.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="715">
+              <caret line="263" column="0" lean-forward="false" selection-start-line="263" selection-start-column="0" selection-end-line="263" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WaccParser.g4" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/antlr_wacc_config/WaccParser.g4">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="18" column="2" lean-forward="true" selection-start-line="18" selection-start-column="2" selection-end-line="22" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InstructionPrintString.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintString.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="22" column="22" lean-forward="false" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InstructionPrintBool.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintBool.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="13" column="28" lean-forward="false" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InstructionNewPair.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionNewPair.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-198">
+              <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+              <folding>
+                <element signature="method#InstructionNewPair#0;class#InstructionNewPair#0" expanded="false" />
+                <element signature="method#allocateRegisters#0;class#InstructionNewPair#0" expanded="false" />
+                <element signature="method#getTypeInt#0;class#InstructionNewPair#0" expanded="false" />
+                <element signature="method#getBool#0;class#InstructionNewPair#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -82,7 +198,6 @@
         <option value="$PROJECT_DIR$/src/InstructionSet/InstructionUnary.java" />
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprBinary.java" />
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssign.java" />
-        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatExpr.java" />
         <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatCallRHS.java" />
         <option value="$PROJECT_DIR$/src/InstructionSet/InstructionArray.java" />
         <option value="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayInt.java" />
@@ -92,12 +207,24 @@
         <option value="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayString.java" />
         <option value="$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArray.java" />
         <option value="$PROJECT_DIR$/src/InstructionSet/InstructionNewPair.java" />
+        <option value="$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintRef.java" />
+        <option value="$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintBool.java" />
+        <option value="$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintInt.java" />
+        <option value="$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintLn.java" />
+        <option value="$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintString.java" />
+        <option value="$PROJECT_DIR$/src/InstructionSet/InstructionMsg.java" />
+        <option value="$PROJECT_DIR$/src/Registers/RegisterAllocation.java" />
+        <option value="$PROJECT_DIR$/src/InstructionSet/InstructionMessage.java" />
+        <option value="$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatExpr.java" />
+        <option value="$PROJECT_DIR$/src/InstructionSet/InstructionAssign.java" />
+        <option value="$PROJECT_DIR$/src/InstructionSet/InstructionNewArray/InstructionArrayBool.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="y" value="31" />
-    <option name="width" value="1312" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="845" />
+    <option name="y" value="24" />
+    <option name="width" value="1145" />
     <option name="height" value="1032" />
   </component>
   <component name="ProjectView">
@@ -115,6 +242,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -138,23 +269,18 @@
               <item name="wacc_01" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="InstructionSet" type="462c0819:PsiDirectoryNode" />
-              <item name="InstructionArray" type="462c0819:PsiDirectoryNode" />
+              <item name="InstructionPrint" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="wacc_01" type="b2602c69:ProjectViewProjectNode" />
               <item name="wacc_01" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="InstructionSet" type="462c0819:PsiDirectoryNode" />
-              <item name="InstructionPrint" type="462c0819:PsiDirectoryNode" />
+              <item name="Registers" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -273,7 +399,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="31" width="1312" height="1032" extended-state="1" />
+    <frame x="845" y="24" width="1145" height="1032" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -288,8 +415,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18244275" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38145232" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="ANTLR Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -302,6 +428,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -312,115 +439,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/VisitorClass/AST_VisitCodeGen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="657">
-          <caret line="449" column="66" lean-forward="false" selection-start-line="449" selection-start-column="66" selection-end-line="449" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatArrayElemLHS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2862">
-          <caret line="165" column="2" lean-forward="false" selection-start-line="165" selection-start-column="2" selection-end-line="165" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_Expr.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-686">
-          <caret line="10" column="7" lean-forward="true" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SymbolTable/SymbolTable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Param.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" column="7" lean-forward="false" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Program.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="7" lean-forward="false" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprUnary.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprArrayElem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="12" column="7" lean-forward="false" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Exprs/AST_ExprLiter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="7" lean-forward="false" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_ParamList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="7" lean-forward="false" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatAssignLHS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatRead.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatWhile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIf.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Registers/RegisterARM.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_Stat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -435,13 +457,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
           <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatArrayLitRHS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="15" column="7" lean-forward="false" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -570,20 +585,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssign.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-958">
-          <caret line="158" column="46" lean-forward="false" selection-start-line="158" selection-start-column="46" selection-end-line="158" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatExpr.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1156">
-          <caret line="176" column="39" lean-forward="false" selection-start-line="176" selection-start-column="39" selection-end-line="176" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatCallRHS.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-529">
@@ -591,7 +592,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayChar.java">
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionNewArray/InstructionArrayChar.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
@@ -599,7 +600,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayInt.java">
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionNewArray/InstructionArrayInt.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="9" column="30" lean-forward="false" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
@@ -607,18 +608,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayString.java">
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionNewArray/InstructionArrayString.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
           <caret line="23" column="80" lean-forward="true" selection-start-line="23" selection-start-column="80" selection-end-line="23" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintRef.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -631,15 +624,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayBool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArrayArray.java">
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionNewArray/InstructionArrayArray.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="13" column="2" lean-forward="true" selection-start-line="13" selection-start-column="2" selection-end-line="16" selection-end-column="3" />
@@ -647,7 +632,195 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionArray/InstructionArray.java">
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatArrayElemLHS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2682">
+          <caret line="165" column="2" lean-forward="false" selection-start-line="165" selection-start-column="2" selection-end-line="165" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionLoadStore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionStatExpr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssign.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="26" column="16" lean-forward="false" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatArrayLitRHS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="20" column="13" lean-forward="false" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignRHSs/AST_StatAssignRHS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatIdentLHS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatAssignLHSs/AST_StatAssignLHS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="26" column="11" lean-forward="true" selection-start-line="26" selection-start-column="11" selection-end-line="26" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionProgram.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintRef.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="31" column="4" lean-forward="false" selection-start-line="31" selection-start-column="4" selection-end-line="39" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintInt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="73" lean-forward="false" selection-start-line="11" selection-start-column="73" selection-end-line="11" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionNewPair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-198">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding>
+            <element signature="method#InstructionNewPair#0;class#InstructionNewPair#0" expanded="false" />
+            <element signature="method#allocateRegisters#0;class#InstructionNewPair#0" expanded="false" />
+            <element signature="method#getTypeInt#0;class#InstructionNewPair#0" expanded="false" />
+            <element signature="method#getBool#0;class#InstructionNewPair#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Registers/RegisterAllocation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="27" column="5" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+          <folding>
+            <element signature="e#772#773#0" expanded="true" />
+            <element signature="e#815#816#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatExpr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="715">
+          <caret line="263" column="0" lean-forward="false" selection-start-line="263" selection-start-column="0" selection-end-line="263" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_Stat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="12" column="3" lean-forward="true" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="21" lean-forward="true" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintLn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="30" column="63" lean-forward="false" selection-start-line="30" selection-start-column="56" selection-end-line="30" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/antlr_wacc_config/WaccParser.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="18" column="2" lean-forward="true" selection-start-line="18" selection-start-column="2" selection-end-line="22" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintString.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="22" column="22" lean-forward="false" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintBool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="28" lean-forward="false" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionAssign.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionNewArray/InstructionArray.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="558">
           <caret line="38" column="66" lean-forward="false" selection-start-line="38" selection-start-column="66" selection-end-line="38" selection-end-column="66" />
@@ -658,41 +831,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintLn.java">
+    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionNewArray/InstructionArrayBool.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="27" column="4" lean-forward="false" selection-start-line="27" selection-start-column="4" selection-end-line="34" selection-end-column="41" />
+        <state relative-caret-position="396">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintBool.java">
+    <entry file="file://$PROJECT_DIR$/src/ASTNodes/AST_Stats/AST_StatIf.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="30" column="4" lean-forward="false" selection-start-line="30" selection-start-column="4" selection-end-line="38" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionPrint/InstructionPrintInt.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstructionSet/InstructionNewPair.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        <state relative-caret-position="-2381">
+          <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
           <folding>
-            <element signature="method#InstructionNewPair#0;class#InstructionNewPair#0" expanded="false" />
-            <element signature="method#allocateRegisters#0;class#InstructionNewPair#0" expanded="false" />
-            <element signature="e#777#778#0" expanded="true" />
-            <element signature="e#806#807#0" expanded="true" />
-            <element signature="method#getTypeInt#0;class#InstructionNewPair#0" expanded="false" />
-            <element signature="method#getBool#0;class#InstructionNewPair#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
