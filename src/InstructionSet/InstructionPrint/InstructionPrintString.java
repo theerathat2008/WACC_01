@@ -10,6 +10,7 @@ public class InstructionPrintString extends InstructionPrint {
   /**
    * Class constructor calls super constructor
    * @param msgNum1 - Indicates the ID of the message to be output
+   * "%.*s\0" should be added and looked up in stringMap
    */
   public InstructionPrintString(int msgNum1) {
     super(msgNum1);

@@ -9,6 +9,10 @@ public class InstructionPrintBool extends InstructionPrint {
   /**
    * Class constructor calls super constructor
    * @param msgNum1 - Indicates the ID of the message to be output
+   * @param msgNum2 - Indicates the ID of the message to be output
+   * "true\0" AND "false\0" should be added and looked up in stringMap
+   * @param msgNum1 = trueID
+   * @param msgNum2 = falseID
    */
   public InstructionPrintBool(int msgNum1, int msgNum2) {
     super(msgNum1);

@@ -15,6 +15,10 @@ public class RegisterAllocation{
 
   Map<RegisterARM, String> registerInUse = new HashMap<>();
 
+  List<String> stringList = new ArrayList<>();
+
+
+
   /**
    * Class Constructor - Adds all normal registers to the stack
    * constructor for freeRegisters
@@ -30,132 +34,18 @@ public class RegisterAllocation{
     freeRegisters.push(RegisterARM.R5);
     freeRegisters.push(RegisterARM.R4);
   }
-//
-//  /**
-//   * @return - Returns register R0
-//   */
-//  public RegisterARM getRegR0() {
-//    return RegisterARM.R0;
-//  }
-//
-//  /**
-//   * @return - Returns register R1
-//   */
-//  public RegisterARM getRegR1() {
-//    return RegisterARM.R1;
-//  }
-//
-//  /**
-//   * @return - Returns register R2
-//   */
-//  public RegisterARM getRegR2() {
-//    return RegisterARM.R2;
-//  }
-//
-//  /**
-//   * @return - Returns register R3
-//   */
-//  public RegisterARM getRegR3() {
-//    return RegisterARM.R3;
-//  }
-//
-//  /**
-//   * @return - Returns register R4
-//   */
-//  public RegisterARM getRegR4() {
-//    return RegisterARM.R4;
-//  }
-//
-//  /**
-//   * @return - Returns register R5
-//   */
-//  public RegisterARM getRegR5() {
-//    return RegisterARM.R5;
-//  }
-//
-//  /**
-//   * @return - Returns register R6
-//   */
-//  public RegisterARM getRegR6() {
-//    return RegisterARM.R6;
-//  }
-//
-//  /**
-//   * @return - Returns register R7
-//   */
-//  public RegisterARM getRegR7() {
-//    return RegisterARM.R7;
-//  }
-//
-//  /**
-//   * @return - Returns register R8
-//   */
-//  public RegisterARM getRegR8() {
-//    return RegisterARM.R8;
-//  }
-//
-//  /**
-//   * @return - Returns register R9
-//   */
-//  public RegisterARM getRegR9() {
-//    return RegisterARM.R9;
-//  }
-//
-//  /**
-//   * @return - Returns register R10
-//   */
-//  public RegisterARM getRegR10() {
-//    return RegisterARM.R10;
-//  }
-//
-//  /**
-//   * @return - Returns register R11
-//   */
-//  public RegisterARM getRegR11() {
-//    return RegisterARM.R11;
-//  }
-//
-//  /**
-//   * @return - Returns register R12
-//   */
-//  public RegisterARM getRegR12() {
-//    return RegisterARM.R12;
-//  }
-//
-//  /**
-//   * @return - Returns Stack Pointer Register
-//   */
-//  public RegisterARM getSPReg() {
-//    return RegisterARM.SP;
-//  }
-//
-//  /**
-//   * @return - Returns Link Register
-//   */
-//  public RegisterARM getLinkReg() {
-//    return RegisterARM.LR;
-//  }
-//
-//  /**
-//   * @return - Returns Program Counter Register
-//   */
-//  public RegisterARM getPCReg() {
-//    return RegisterARM.PC;
-//  }
-//
-//  /**
-//   * @return - Returns Current Program Status Register
-//   */
-//  public RegisterARM getCPSRReg() {
-//    return RegisterARM.CPSR;
-//  }
-//
-//  /**
-//   * @return - Returns Saved Program Status Register
-//   */
-//  public RegisterARM getSPSRReg() {
-//    return RegisterARM.SPSR;
-//  }
+
+
+  public void addString(String string) {
+    if (!stringList.contains(string)) {
+      stringList.add(string);
+    }
+  }
+
+  public int getStringID(String string) {
+    return stringList.indexOf(string);
+  }
+
 
   /**
    * @param register

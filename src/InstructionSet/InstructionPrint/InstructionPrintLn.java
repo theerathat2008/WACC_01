@@ -16,6 +16,7 @@ public class InstructionPrintLn extends InstructionPrint {
   /**
    * Assigned string value indicating name of register
    * @param reg1 - first register
+   * "\0" should be added and looked up in stringMap
    */
   public void allocateRegisters(String reg1) {
     this.reg1 = reg1;

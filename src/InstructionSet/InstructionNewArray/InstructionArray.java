@@ -1,4 +1,4 @@
-package InstructionSet.InstructionArray;
+package InstructionSet.InstructionNewArray;
 
 import InstructionSet.Instruction;
 
