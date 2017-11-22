@@ -1,9 +1,9 @@
-package InstructionSet.InstructionPrint;
+package InstructionSet.InstructionPrintBlocks;
 
 /**
  * Instruction class for printing boolean expressions
  */
-public class InstructionPrintBool extends InstructionPrint {
+public class InstructionPrintBlocksBool extends InstructionPrintBlocks {
   int msgNum2;
 
   /**
@@ -14,7 +14,7 @@ public class InstructionPrintBool extends InstructionPrint {
    * @param msgNum1 = trueID
    * @param msgNum2 = falseID
    */
-  public InstructionPrintBool(int msgNum1, int msgNum2) {
+  public InstructionPrintBlocksBool(int msgNum1, int msgNum2) {
     super(msgNum1);
     this.msgNum2 = msgNum2;
   }

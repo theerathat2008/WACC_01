@@ -30,4 +30,14 @@ public class InstructionErrorRuntime extends Instruction {
     resultBlock.concat("\t\tMOV " +  reg1 + ", #-1\n");
     resultBlock.concat("\t\tBL exit\n");
   }
+
+  @Override
+  public int requiresRegisters() {
+    return 1;
+  }
+
+  @Override
+  public boolean crossOverRegister() {
+    return false;
+  }
 }

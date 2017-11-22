@@ -1,11 +1,11 @@
-package InstructionSet.InstructionPrint;
+package InstructionSet.InstructionPrintBlocks;
 
 import InstructionSet.Instruction;
 
 /**
  * Base class of all print instructions.
  */
-public class InstructionPrint extends Instruction{
+public class InstructionPrintBlocks extends Instruction{
   String reg1;
   String resultBlock;
   int msgNum1;
@@ -14,7 +14,7 @@ public class InstructionPrint extends Instruction{
    * Class constructor - all subclasses use this
    * @param msgNum1 - Indicates the ID of the message to be output
    */
-  public InstructionPrint(int msgNum1) {
+  public InstructionPrintBlocks(int msgNum1) {
     this.msgNum1 = msgNum1;
   }
 
@@ -22,5 +22,15 @@ public class InstructionPrint extends Instruction{
   @Override
   public void genInstruction() {
 
+  }
+
+  @Override
+  public int requiresRegisters() {
+    return 1;
+  }
+
+  @Override
+  public boolean crossOverRegister() {
+    return false;
   }
 }

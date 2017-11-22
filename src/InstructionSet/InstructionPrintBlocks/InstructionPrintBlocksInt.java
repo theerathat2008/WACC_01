@@ -1,17 +1,17 @@
-package InstructionSet.InstructionPrint;
+package InstructionSet.InstructionPrintBlocks;
 
 /**
- * Instruction class for printing references
+ * Instruction class for printing int expressions
  */
-public class InstructionPrintRef extends InstructionPrint {
+public class InstructionPrintBlocksInt extends InstructionPrintBlocks {
   String reg2;
 
   /**
    * Class constructor calls super constructor
    * @param msgNum1 - Indicates the ID of the message to be output
-   * "%p\0" should be added and looked up in stringMap
+   * "%d\0" should be added and looked up in stringMap - result = msgNum1
    */
-  public InstructionPrintRef(int msgNum1) {
+  public InstructionPrintBlocksInt(int msgNum1) {
     super(msgNum1);
   }
 
@@ -29,9 +29,9 @@ public class InstructionPrintRef extends InstructionPrint {
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    resultBlock.concat("p_print_reference:\n");
+    resultBlock.concat("p_print_int:\n");
     resultBlock.concat("\t\tPUSH {lr}\n");
-    resultBlock.concat("\t\tMOV " +  reg2 + ", " + reg1 +"\n");
+    resultBlock.concat("\t\tMOV " +  reg2 + ", " + reg1 + "\n");
     resultBlock.concat("\t\tLDR " +  reg1 + ", =msg_" + msgNum1 + "\n");
     resultBlock.concat("\t\tADD " +  reg1 + ", " +  reg1 + ", #4\n");
     resultBlock.concat("\t\tBL printf\n");
@@ -39,4 +39,6 @@ public class InstructionPrintRef extends InstructionPrint {
     resultBlock.concat("\t\tBL fflush\n");
     resultBlock.concat("\t\tPOP {pc}\n");
   }
+
+
 }

@@ -5,8 +5,11 @@ import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
 import IdentifierObjects.IDENTIFIER;
-import InstructionSet.Instruction;
-import InstructionSet.InstructionStatExpr;
+import InstructionSet.*;
+import InstructionSet.InstructionError.InstructionErrorRuntime;
+import InstructionSet.InstructionPrintBlocks.*;
+import InstructionSet.InstructionPrintBlocks.InstructionPrintBlocksBool;
+import InstructionSet.InstructionPrintBlocks.InstructionPrintBlocksString;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.TypeError;
@@ -16,7 +19,6 @@ import src.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
 
-import java.lang.reflect.Type;
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class AST_StatExpr extends AST_Stat {
   AST_Expr expr;
   ParserRuleContext ctx;
   SymbolTable symbolTable;
+
   /**
    * Assign the class variables when called
    *
@@ -86,7 +89,6 @@ public class AST_StatExpr extends AST_Stat {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -270,18 +272,91 @@ public class AST_StatExpr extends AST_Stat {
 
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    //TODO Delete Unimplememnted Intstructionstatexpr class
 
-    InstructionStatExpr instructionStatExpr = new InstructionStatExpr(statName);
+    //REGISTER ALLOCATION TODO
+    //SP ALLOCATION TODO
 
-    //REGISTER ALLOCATION
+    switch (statName) {
+      case ("free"):
+        registerAllocation.addString("NullReferenceError: dereference a null reference\\n\\0");
+        InstructionFreePair instructionFreePair = new InstructionFreePair();
+        instructionList.add(instructionFreePair);
 
-    switch(statName){
+        InstructionFreePairBlock instructionFreePairBlock = new InstructionFreePairBlock(registerAllocation.getStringID("NullReferenceError: dereference a null reference\\n\\0"));
+        InstructionErrorRuntime instructionErrorRuntime = new InstructionErrorRuntime();
+        if (!instructionList.contains(instructionFreePairBlock)){
+          instructionList.add(instructionFreePairBlock);
+        }
+        if (!instructionList.contains(instructionErrorRuntime)){
+          instructionList.add(instructionErrorRuntime);
+        }
+        break;
 
+      case ("return"):
+        InstructionReturn instructionReturn = new InstructionReturn(expr.getType());
+        instructionList.add(instructionReturn);
+        break;
+
+      case ("exit"):
+        InstructionExit instructionExit = new InstructionExit(EXITCODE); //TODO put exit code in - can be found after <statname> <expr = EXITCODE>
+        instructionList.add(instructionExit);
+        break;
+
+      case ("println"):
+        //No break so it executes print too
+        registerAllocation.addString("\\0");
+        InstructionPrintBlocksLn instructionPrintLn = new InstructionPrintBlocksLn(registerAllocation.getStringID("\\0"));
+        if (!instructionList.contains(instructionPrintLn)) {
+          instructionList.add(instructionPrintLn);
+        }
+        instructionList.add(new InstructionPrintln());
+      case ("print"):
+        String type = expr.getType();
+        switch (type) {
+          case ("int"):
+            registerAllocation.addString("%d\\0");
+            InstructionPrintBlocksInt instructionPrintInt = new InstructionPrintBlocksInt(registerAllocation.getStringID("%d\\0"));
+            if (!instructionList.contains(instructionPrintInt)) {
+              instructionList.add(instructionPrintInt);
+            }
+            break;
+          case ("string"):
+            registerAllocation.addString("%.*s\\0");
+            InstructionPrintBlocksString instructionPrintString = new InstructionPrintBlocksString(registerAllocation.getStringID("%.*s\\0"));
+            if (!instructionList.contains(instructionPrintString)) {
+              instructionList.add(instructionPrintString);
+            }
+            break;
+          case ("char"):
+            break;
+          case ("pair"):
+            //No break since pair and array are the same
+          case ("array"):
+            registerAllocation.addString("%p\\0");
+            InstructionPrintBlocksRef instructionPrintBlocksRef = new InstructionPrintBlocksRef(registerAllocation.getStringID("%p\\0"));
+            if (!instructionList.contains(instructionPrintBlocksRef)) {
+              instructionList.add(instructionPrintBlocksRef);
+            }
+            break;
+
+          case ("bool"):
+            registerAllocation.addString("true");
+            registerAllocation.addString("false");
+            InstructionPrintBlocksBool instructionPrintBool = new InstructionPrintBlocksBool(registerAllocation.getStringID("true"), registerAllocation.getStringID("false"));
+            if (!instructionList.contains(instructionPrintBool)) {
+              instructionList.add(instructionPrintBool);
+            }
+          default:
+            break;
+        }
+        InstructionPrint instructionPrint = new InstructionPrint(type);
+        instructionList.add(instructionPrint);
+        break;
+      default:
+        System.out.println("Unrecognised statement type in AST_StatExpr");
     }
 
-    instructionList.add(instructionStatExpr);
-
-
-
   }
+
 }
