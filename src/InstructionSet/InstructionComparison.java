@@ -1,5 +1,7 @@
 package InstructionSet;
 
+import Registers.RegisterARM;
+
 import java.util.List;
 
 public class InstructionComparison extends Instruction {
@@ -12,11 +14,28 @@ public class InstructionComparison extends Instruction {
   final String tr = " " + dst + " #1";
   final String fal = " " + dst + " #0";
 
-  public InstructionComparison(String op, String reg1, String reg2, String dst) {
+  public InstructionComparison(String op) {
     this.op = op;
-    this.reg1 = reg1;
-    this.reg2 = reg2;
-    this.dst = dst;
+  }
+
+  public int requiresRegisters(){
+    return 3;
+  }
+
+  /**
+   * returns true as this claass uses registers that could be referencing the stack variables
+   * or been assigned in a variable declaration
+   */
+
+  @Override
+  public boolean crossOverRegister() {
+    return true;
+  }
+
+  public void allocateRegisters(RegisterARM reg1, RegisterARM reg2, RegisterARM dst){
+    this.reg1 = reg1.name();
+    this.reg2 = reg2.name();
+    this.dst = dst.name();
   }
 
   @Override

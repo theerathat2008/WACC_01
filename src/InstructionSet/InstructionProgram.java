@@ -8,6 +8,10 @@ public class InstructionProgram extends Instruction {
   public InstructionProgram() {}
 
 
+  /**
+   * Uses special registers lr(link register) and pc(program counter)
+   */
+
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder("\t.global main\n");
@@ -19,6 +23,16 @@ public class InstructionProgram extends Instruction {
     builder2.append("\t\tPOP (pc)");
     builder2.append("\t\t.ltorg\n");
     block2 = builder2.toString();
+  }
+
+  @Override
+  public int requiresRegisters() {
+    return 0;
+  }
+
+  @Override
+  public boolean crossOverRegister() {
+    return false;
   }
 
 }

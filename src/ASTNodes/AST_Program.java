@@ -165,6 +165,12 @@ public class AST_Program extends AST_Node {
     statement.accept(visitor);
   }
 
+  /**
+   * Produces the outer assembly code of the main program branch
+   * Doesn't use any registers
+   */
+
+
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     InstructionProgram instruction = new InstructionProgram();

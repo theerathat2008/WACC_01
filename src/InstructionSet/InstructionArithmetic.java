@@ -1,4 +1,6 @@
 package InstructionSet;
+import Registers.RegisterARM;
+
 import java.util.LinkedList;
 
 import java.util.List;
@@ -9,15 +11,16 @@ public class InstructionArithmetic extends Instruction {
   String fst;
   String snd;
   public String block1;
-  public InstructionArithmetic(String operand, String dst, String fst, String snd) {
-
-  List<String> instr = new LinkedList<>();
-
+  public InstructionArithmetic(String operand) {
     this.operand = operand;
-    this.dst = dst;
-    this.fst = fst;
-    this.snd = snd;
   }
+
+  public void allocateRegisters(RegisterARM reg1, RegisterARM reg2, RegisterARM dst){
+    this.dst = reg1.name();
+    this.fst = reg2.name();
+    this.snd = reg2.name();
+  }
+
 
   public void addInstruction(List<Instruction> instructions) {
     instructions.add(this);
@@ -33,6 +36,22 @@ public class InstructionArithmetic extends Instruction {
     builder.append(snd);
     builder.append("\n\t\tBLVS p_throw_overflow_error\n");
     block1 = builder.toString();
+  }
+
+  @Override
+  public int requiresRegisters() {
+    return 3;
+  }
+
+
+  /**
+   * returns true as this class uses registers that could be referencing the stack variables
+   * or been assigned in a variable declaration
+   */
+
+  @Override
+  public boolean crossOverRegister() {
+    return true;
   }
 
 

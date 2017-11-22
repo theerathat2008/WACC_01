@@ -124,8 +124,13 @@ public class AST_Stat extends AST_Node {
     visitor.visit(this);
   }
 
+  /**
+   * Base class
+   */
+
+
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-
+    System.out.println("Base class AST_stat doesn't produce assembly code");
   }
 }

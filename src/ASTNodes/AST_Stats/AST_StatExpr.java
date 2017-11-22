@@ -6,6 +6,7 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionStatExpr;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.TypeError;
@@ -259,7 +260,20 @@ public class AST_StatExpr extends AST_Stat {
     expr.accept(visitor);
   }
 
-  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+  /**
+   * FREE expr
+   * RETURN expr
+   * EXIT expr
+   * PRINT expr
+   * PRINTLN expr
+   */
 
+
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    InstructionStatExpr instructionStatExpr = new InstructionStatExpr();
+
+
+
+    instructionList.add(instructionStatExpr);
   }
 }

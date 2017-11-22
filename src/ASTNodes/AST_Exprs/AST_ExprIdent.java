@@ -136,16 +136,24 @@ public class AST_ExprIdent extends AST_Expr {
     System.out.println(this.getClass().getSimpleName() + ": ");
     System.out.println("varName: " + varName);
   }
+
+  public String getVarName() {
+    return varName;
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }
 
+
+  /**
+   * Effectively a variable name so need to get stack or register location of the variable linked
+   * to varName member variable.
+   * Doesn't produce any assembly code
+   */
+
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-
-  }
-
-  public String getVarName() {
-    return varName;
+    System.out.println("Terminal class ExprIdent doesn't produce assembly code");
   }
 
 }

@@ -171,8 +171,14 @@ public class AST_ParamList extends AST_Node {
     }
   }
 
+  /**
+   * Could generate variable to show total stack displacement size by working out the
+   * number and type of inbuilt parameters
+   */
+
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    System.out.println("Shouldn't generate any assembly code");
 
   }
 }

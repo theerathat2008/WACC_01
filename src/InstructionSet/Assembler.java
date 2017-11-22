@@ -28,20 +28,17 @@ public class Assembler {
     this.registerAlloc = registerAlloc;
   }
 
-  private void parseInstructions() throws Exception{
+  public void parseInstructions() throws Exception{
     for(Instruction currInstr : instructions){
-
-
-
       currInstr.genInstruction();
     }
   }
 
+  
   public static Assembler getInstance(){
     if(instance == null){
       instance = new Assembler();
     }
     return instance;
   }
-
 }

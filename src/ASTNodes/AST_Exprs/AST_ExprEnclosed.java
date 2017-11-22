@@ -161,8 +161,15 @@ public class AST_ExprEnclosed extends AST_Expr {
     exprAST.accept(visitor);
     rightSepAST.accept(visitor);
   }
-  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
+  /**
+   * Doesn't generate any assembly code
+   * Evalutes the enclosed expression
+   */
+
+
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    System.out.println("Holder class enclosed expression, doesn't generate assembly code");
   }
 
 }
