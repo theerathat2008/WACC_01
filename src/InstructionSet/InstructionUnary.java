@@ -21,6 +21,8 @@ public class InstructionUnary extends Instruction{
   }
 
 
+  //TODO DOESN't include all the necessary assembly code
+
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder("\t\t");
@@ -54,5 +56,32 @@ public class InstructionUnary extends Instruction{
         break;
     }
     block1 = builder.toString();
+  }
+
+  @Override
+  public int requiresRegisters() {
+    switch(op) {
+      case "!":
+        return 2;
+      case "-":
+
+        break;
+      case "len":
+
+        break;
+      case "ord":
+        return 1;
+      case "chr":
+        return 1;
+      default:
+        break;
+    }
+    return 2;
+  }
+
+  @Override
+  public boolean crossOverRegister() {
+    //Maybe
+    return false;
   }
 }

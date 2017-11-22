@@ -53,6 +53,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   public void generateAssembly(){
     Assembler assembler = Assembler.getInstance();
     assembler.setInstructions(instructions);
+    assembler.setRegisterAlloc(registerAllocation);
   }
 
 

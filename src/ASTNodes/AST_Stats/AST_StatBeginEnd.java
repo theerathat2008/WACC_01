@@ -132,7 +132,15 @@ public class AST_StatBeginEnd extends AST_Stat {
     statAST.accept(visitor);
   }
 
-  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+  /**
+   * Begin and end just define new scopes but don't generate new assembly code
+   * so registers mapped to values called from within a begin end scope will have different
+   * values if they have the same duplicate name, see scopeRedefine wacc example
+   * This by making adding additional scope information to the string value in the Map of either
+   * register values in use or the stack memory address map
+   */
 
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    System.out.println("Begin and end doesn't generate new assembly code");
   }
 }

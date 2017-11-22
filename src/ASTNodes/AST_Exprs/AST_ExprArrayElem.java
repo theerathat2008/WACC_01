@@ -161,7 +161,14 @@ public class AST_ExprArrayElem extends AST_Expr {
     }
   }
 
-  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
+  /**
+   * TODO Produces Assembly code?
+   * Needs to get heap location on array elem when allocating registers
+   * in pair elem lhs, newpairRhs, pairelemRhs, callAssign, return, print, println
+   */
+
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    System.out.println("No assembly code generated in AST_ExprArrayElem");
   }
 }

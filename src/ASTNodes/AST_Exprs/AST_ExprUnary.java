@@ -1,5 +1,8 @@
 package ASTNodes.AST_Exprs;
 
+import InstructionSet.Instruction;
+import InstructionSet.InstructionUnary;
+import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
@@ -10,6 +13,7 @@ import src.FilePosition;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
+import java.util.List;
 
 import IdentifierObjects.*;
 
@@ -402,5 +406,26 @@ public class AST_ExprUnary extends AST_Expr {
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     astExpr.accept(visitor);
+  }
+
+
+
+
+  /**
+   * Generates assembly code
+   * opName:  CHR   *   Needs registers to be allocated  InstructionUnary
+   *          ORD    /  Needs registers to be allocated  InstructionUnary
+   *          LEN    %  Needs registers to be allocated  InstructionUnary
+   *          EXCL   +  Needs registers to be allocated  InstructionUnary
+   *          MINUS  -  Needs registers to be allocated  InstructionUnary
+   *          TODO ALLOCATE REGISTER HERE
+   */
+
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    InstructionUnary instructionUnary = new InstructionUnary(opName);
+
+    //Allocate registers depending on which instruction is to be passed
+
+    instructionList.add(instructionUnary);
   }
 }

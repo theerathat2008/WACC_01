@@ -266,6 +266,11 @@ public class AST_FuncDecl extends AST_Node {
     statement.accept(visitor);
   }
 
+
+  /**
+   * Produces the outer assembly code for the function
+   * Doesn't require registers
+   */
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     InstructionFunction instructionFunction = new InstructionFunction(funcName);

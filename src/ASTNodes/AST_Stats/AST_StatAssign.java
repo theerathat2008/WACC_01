@@ -232,7 +232,30 @@ public class AST_StatAssign extends AST_Stat {
     ast_statAssignRHS.accept(visitor);
   }
 
+
+  /**
+   * Needs two register corresponding to the destination and source in two lines
+   * and an intermediate register to hold the value
+   *   MOV r4, #'Z'    ->CHAR
+   *	 STRB r4, [sp]
+   *	 or
+   *	 LDR r4, =20     ->INT
+   *	 STR r4, [sp]
+   *	 or
+   *	 LDR r4, =msg_1   ->STRING
+   *   STR r4, [sp]
+   *
+   */
+
+
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
+    String type = ast_statAssignRHS.getIdentifier().toString();
+    //InstructionAssign instructionAssign = new InstructionAssign(type);
+
+    //Allocate three registers here
+
+
+    //instructionList.add(instructionAssign);
   }
 }

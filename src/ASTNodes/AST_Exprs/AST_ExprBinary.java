@@ -2,6 +2,7 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionArithmetic;
 import InstructionSet.InstructionComparison;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
@@ -191,18 +192,39 @@ public class AST_ExprBinary extends AST_Expr {
 
 
   /**
+   * Generates assembly code in InstructionComparison and InstructionArithmetic depending on the
+   * opName:  MULT   *  Needs registers to be allocated  InstructionArithmetic
+   *          DIV    /  Needs registers to be allocated  InstructionArithmetic
+   *          MOD    %  Needs registers to be allocated  InstructionArithmetic
+   *          PLUS   +  Needs registers to be allocated  InstructionArithmetic
+   *          MINUS  -  Needs registers to be allocated  InstructionArithmetic
    *
+   *          GRTHAN >  Needs registers to be allocated  InstructionComparison
+   *          GREQTO >= Needs registers to be allocated  InstructionComparison
+   *          LSTHAN <  Needs registers to be allocated  InstructionComparison
+   *          LSEQTO <= Needs registers to be allocated  InstructionComparison
+   *          EQTO   == Needs registers to be allocated  InstructionComparison
+   *          NEQTO  != Needs registers to be allocated  InstructionComparison
+   *          AND    && Needs registers to be allocated  InstructionComparison
+   *          OR     || Needs registers to be allocated  InstructionComparison
+   *          TODO ALLOCATE REGISTER HERE
    */
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    InstructionComparison instructionCompare = new InstructionComparison(opName);
-    //RegisterARM reg1, RegisterARM reg2, RegisterARM dst)
-    RegisterARM dstReg = registerAllocation.getRegisterMap("cmp_eval");
-    instructionCompare.allocateRegisters(dstReg);
-    instructionList.add(instructionCompare);
 
-    registerAllocation.removeRegisterMap("cmp_eval");
-    registerAllocation.freeRegister(dstReg);
+    if(opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")){
+      InstructionArithmetic instructionArithmetic = new InstructionArithmetic(opName);
+      //RegisterARM reg1, RegisterARM reg2, RegisterARM dst
+
+
+      instructionList.add(instructionArithmetic);
+    } else {
+      InstructionComparison instructionCompare = new InstructionComparison(opName);
+      //RegisterARM reg1, RegisterARM reg2, RegisterARM reg3
+
+      instructionList.add(instructionCompare);
+    }
+
 
 
   }

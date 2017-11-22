@@ -197,8 +197,23 @@ public class AST_ExprLiter extends AST_Expr {
     visitor.visit(this);
   }
 
-  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
+  /**
+   * Terminal class which holds the actual constant value
+   * Generates Assembly code for InstructionMessage
+   * INT_LITER: Holds the constant value for =Num when loading into a register
+   * BOOL_LITER: Holds the contant value for #1 or #0 for moving into a register
+   * CHAR_LITER: generate InstructionMessage
+   * STR_LITER:  generate InstructionMessage
+   * PAIR_LITER: Corresponds to =0 in the LDR instruction
+   */
+
+  //TODO PRASHAN IMPLEMENTATION OF ADDING TO STRING LIST in registerAlloctation
+
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    if(literal.equals("str") || literal.equals("char")){
+
+    }
   }
 
 }
