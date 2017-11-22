@@ -1,8 +1,8 @@
-package InstructionSet.InstructionVarDecl;
+package InstructionSet.InstructionDeclOrAss;
 
 import InstructionSet.Instruction;
 
-public class InstructionNewBool extends Instruction {
+public class InstructionDeclAssBool extends Instruction {
   String resultBlock;
   String reg1;
   String boolData;
@@ -11,7 +11,7 @@ public class InstructionNewBool extends Instruction {
   /**
    * Class constructor calls super constructor
    */
-  public InstructionNewBool(String boolData, String sp) {
+  public InstructionDeclAssBool(String boolData, String sp) {
     this.boolData = boolData;
     this.sp = sp;
   }

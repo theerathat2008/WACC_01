@@ -1,8 +1,8 @@
-package InstructionSet.InstructionVarDecl;
+package InstructionSet.InstructionDeclOrAss;
 
 import InstructionSet.Instruction;
 
-public class InstructionNewPair extends Instruction {
+public class InstructionDeclAssPair extends Instruction {
   String reg1;
   String reg2;
   String reg3;
@@ -12,7 +12,7 @@ public class InstructionNewPair extends Instruction {
   String firstElem;
   String secondElem;
 
-  public InstructionNewPair(String firstType, String secondType, String firstElem, String secondElem) {
+  public InstructionDeclAssPair(String firstType, String secondType, String firstElem, String secondElem) {
     this.firstType = firstType;
     this.secondType = secondType;
     this.firstElem = firstElem;

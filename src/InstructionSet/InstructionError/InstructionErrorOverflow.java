@@ -29,4 +29,14 @@ public class InstructionErrorOverflow extends Instruction {
     resultBlock.concat("\t\tLDR " +  reg1 + ", =msg_2\n");
     resultBlock.concat("\t\tBL p_throw_runtime_error\n");
   }
+
+  @Override
+  public int requiresRegisters() {
+    return 1;
+  }
+
+  @Override
+  public boolean crossOverRegister() {
+    return false;
+  }
 }

@@ -1,19 +1,19 @@
-package InstructionSet.InstructionVarDecl;
+package InstructionSet.InstructionDeclOrAss;
 
 import InstructionSet.Instruction;
 
-public class InstructionNewInt extends Instruction{
+public class InstructionDeclAssChar extends Instruction {
   String resultBlock;
   String reg;
+  String charData;
   String sp;
-  String intData;
 
   /**
    * Class constructor calls super constructor
    */
-  public InstructionNewInt(String sp, String intData) {
+  public InstructionDeclAssChar(String charData, String sp) {
+    this.charData = charData;
     this.sp = sp;
-    this.intData = intData;
   }
 
   /**
@@ -28,8 +28,8 @@ public class InstructionNewInt extends Instruction{
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    resultBlock.concat("\t\tLDR " +  reg + ", =" + intData + "\n");
-    resultBlock.concat("\t\tSTR " +  reg + ", [" + sp + "]\n");
+    resultBlock.concat("\t\tMOV " + reg + ", #'" + charData + "'\n");
+    resultBlock.concat("\t\tSTRB " + reg + ", [" + sp + "]\n");
   }
 
   @Override

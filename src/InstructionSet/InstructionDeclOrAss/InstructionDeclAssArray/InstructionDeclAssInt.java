@@ -1,11 +1,11 @@
-package InstructionSet.InstructionVarDecl.InstructionNewArray;
+package InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray;
 
 import java.util.List;
 
-public class InstructionArrayInt extends InstructionArray {
+public class InstructionDeclAssInt extends InstructionDeclAssArray {
   List<Integer> arrayElems;
 
-  public InstructionArrayInt(List<Integer> arrayElems, String type) {
+  public InstructionDeclAssInt(List<Integer> arrayElems, String type) {
     super(type);
     this.arrayElems = arrayElems;
     this.arraySize = arrayElems.size();
@@ -22,4 +22,13 @@ public class InstructionArrayInt extends InstructionArray {
     return result;
   }
 
+  @Override
+  public int requiresRegisters() {
+    return 3;
+  }
+
+  @Override
+  public boolean crossOverRegister() {
+    return false;
+  }
 }

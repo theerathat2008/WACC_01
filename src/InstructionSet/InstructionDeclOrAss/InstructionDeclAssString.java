@@ -1,8 +1,8 @@
-package InstructionSet.InstructionVarDecl;
+package InstructionSet.InstructionDeclOrAss;
 
 import InstructionSet.Instruction;
 
-public class InstructionNewString extends Instruction{
+public class InstructionDeclAssString extends Instruction{
   String resultBlock;
   String reg1;
   int msgNum;
@@ -12,7 +12,7 @@ public class InstructionNewString extends Instruction{
    * Class constructor calls super constructor
    * @param msgNum - Indicates the ID of the message to be stored
    */
-  public InstructionNewString(int msgNum, String sp) {
+  public InstructionDeclAssString(int msgNum, String sp) {
     this.msgNum = msgNum;
     this.sp = sp;
   }

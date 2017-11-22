@@ -1,8 +1,8 @@
-package InstructionSet.InstructionVarDecl.InstructionNewArray;
+package InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray;
 
 import InstructionSet.Instruction;
 
-public abstract class InstructionArray extends Instruction {
+public abstract class InstructionDeclAssArray extends Instruction {
   String resultBlock = "";
   String reg1;
   String reg2;
@@ -10,7 +10,7 @@ public abstract class InstructionArray extends Instruction {
   String type;
   int arraySize;
 
-  protected InstructionArray(String type) {
+  protected InstructionDeclAssArray(String type) {
     this.type = type;
   }
 

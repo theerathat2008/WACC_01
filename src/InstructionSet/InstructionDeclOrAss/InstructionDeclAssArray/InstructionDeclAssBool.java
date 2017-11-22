@@ -1,11 +1,11 @@
-package InstructionSet.InstructionVarDecl.InstructionNewArray;
+package InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray;
 
 import java.util.List;
 
-public class InstructionArrayBool extends InstructionArray{
+public class InstructionDeclAssBool extends InstructionDeclAssArray {
   List<Boolean> arrayElems;
 
-  public InstructionArrayBool(List<Boolean> arrayElems, String type) {
+  public InstructionDeclAssBool(List<Boolean> arrayElems, String type) {
     super(type);
     this.arrayElems = arrayElems;
     this.arraySize = arrayElems.size();
