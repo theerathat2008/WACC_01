@@ -1,6 +1,7 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import InstructionSet.Instruction;
+import InstructionSet.InstructionDeclOrAss.InstructionDeclAssPairElem;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
@@ -200,7 +201,10 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-
+    //TODO use InstructionDeclAssPairElem
+    InstructionDeclAssPairElem instructionDeclAssPairElem
+            = new InstructionDeclAssPairElem(typeName);
+    instructionList.add(instructionDeclAssPairElem);
   }
 
   public AST_Expr getAst_expr() {

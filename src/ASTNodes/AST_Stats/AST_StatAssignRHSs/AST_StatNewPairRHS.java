@@ -3,6 +3,8 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray.InstructionDeclAssArrayInt;
+import InstructionSet.InstructionDeclOrAss.InstructionDeclAssPair;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
@@ -159,6 +161,10 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-
+    //TODO check if arguments are correct
+    InstructionDeclAssPair instructionDeclAssPair
+            = new InstructionDeclAssPair(ast_expr_first.getType(), ast_expr_second.getType()
+            , ast_expr_first.getIdentifier().toString(), ast_expr_second.getIdentifier().toString());
+    instructionList.add(instructionDeclAssPair);
   }
 }

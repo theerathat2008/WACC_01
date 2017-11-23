@@ -6,14 +6,17 @@ public class InstructionDeclAssInt extends Instruction{
   String resultBlock;
   String reg;
   String sp;
-  String intData;
+  //String intData;
 
   /**
    * Class constructor calls super constructor
    */
-  public InstructionDeclAssInt(String sp, String intData) {
+  public InstructionDeclAssInt(){//String intData) {
+    //this.intData = intData;
+  }
+
+  public void allocateSP(String sp) {
     this.sp = sp;
-    this.intData = intData;
   }
 
   /**
@@ -28,7 +31,7 @@ public class InstructionDeclAssInt extends Instruction{
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    resultBlock.concat("\t\tLDR " +  reg + ", =" + intData + "\n");
+    //resultBlock.concat("\t\tLDR " +  reg + ", =" + intData + "\n");
     resultBlock.concat("\t\tSTR " +  reg + ", [" + sp + "]\n");
   }
 

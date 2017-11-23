@@ -222,10 +222,9 @@ public class AST_ExprLiter extends AST_Expr {
 
   //TODO PRASHAN IMPLEMENTATION OF ADDING TO STRING LIST in registerAlloctation
 
-  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    if(literal.equals("str") || literal.equals("char")){
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) {
 
-    }
+
   }
 
 }

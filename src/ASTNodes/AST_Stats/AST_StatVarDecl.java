@@ -3,10 +3,16 @@ package ASTNodes.AST_Stats;
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
+import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatArrayLitRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionDeclOrAss.*;
+import InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray.*;
+import InstructionSet.InstructionPrintBlocks.InstructionPrintBlocksBool;
+import InstructionSet.InstructionPrintBlocks.InstructionPrintBlocksRef;
+import InstructionSet.InstructionPrintBlocks.InstructionPrintBlocksString;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 
@@ -251,7 +257,16 @@ public class AST_StatVarDecl extends AST_Stat {
     ast_assignRHS.accept(visitor);
   }
 
-  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+  /**
+   * Content of the RHS:-  AST_StatArrayLit:-  [0,0,0]
+   *                       AST_StatCall:- return value of the function
+   *                       AST_StatExpr:- evalutaion of the expression 5, 5+5
+   *                       AST_NewPair:- newpair()
+   *                       AST_StatPairElem:- fst, snd
+   *
+   */
 
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    ast_type.getIdentifier().toString();
   }
 }

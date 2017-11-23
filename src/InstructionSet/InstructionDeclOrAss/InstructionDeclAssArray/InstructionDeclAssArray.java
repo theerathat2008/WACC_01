@@ -7,11 +7,10 @@ public abstract class InstructionDeclAssArray extends Instruction {
   String reg1;
   String reg2;
   String reg3;
-  String type;
   int arraySize;
 
-  protected InstructionDeclAssArray(String type) {
-    this.type = type;
+  protected InstructionDeclAssArray() {
+
   }
 
   /**
