@@ -138,25 +138,44 @@ public class AST_StatAssign extends AST_Stat {
     if (ast_statAssignLHS instanceof AST_StatArrayElemLHS) {
       System.out.println("I'm instance of AST_StatArrayElemLHS");
       //check the size of the array if it contains any element inside
-      if (((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().size() != 0) {
+      String identName = ((AST_StatArrayElemLHS) ast_statAssignLHS).getIdentName();
+      SymbolTable temporaryST = this.symbolTable;
+      typeLHS = temporaryST.lookup(identName);
+
+      while (typeLHS == null) {
+        System.out.println("typeLHS is null");
+        temporaryST = temporaryST.encSymTable;
+        typeLHS = temporaryST.lookup(identName);
+      }
+
+      /*if (((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().size() != 0) {
         System.out.println("I'm inside if statement");
         System.out.println(((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().get(0));
         AST_Expr firstElem = ((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().get(0);
 
+        System.out.println("firstelem is: " + firstElem);
         //check if it is instace of AST_ExprIdent if it is an ident
         if (firstElem instanceof AST_ExprEnclosed) {
           return true;
         } else if (firstElem instanceof AST_ExprIdent) {
           String varName = ((AST_ExprIdent) firstElem).getVarName();
           System.out.println(varName);
-          typeLHS = ST.encSymTable.lookup(varName);
+
+          SymbolTable tempST = this.symbolTable;
+          typeLHS = tempST.lookup(varName);
+
+          while (typeLHS == null) {
+            System.out.println("typeLHS is null");
+            tempST = tempST.encSymTable;
+            typeLHS =
+          }
           System.out.println(typeLHS);
         } else {
           typeLHS = ast_statAssignLHS.getIdentifier();
         }
       } else {
         typeLHS = ast_statAssignLHS.getIdentifier();
-      }
+      }*/
 
 
       System.out.println("ast_statAssignRHS");
@@ -327,6 +346,18 @@ public class AST_StatAssign extends AST_Stat {
     System.out.println(ast_statAssignLHS.getIdentifier());
     System.out.println("typeRHS is: " + typeRHS);
     System.out.println(ast_statAssignRHS.getIdentifier());
+    if (typeLHS.toString().contains("PAIR(") && typeRHS.toString().contains("PAIR(")) {
+      String stringLHS = typeLHS.toString();
+      String pairLHS = stringLHS.substring(stringLHS.indexOf("P"), stringLHS.indexOf(")"));
+      String stringRHS = typeRHS.toString();
+      String pairRHS  =stringRHS.substring(stringRHS.indexOf("P"), stringRHS.indexOf(")"));
+      if (pairLHS.contains(pairRHS) || pairRHS.contains(pairLHS)) {
+        return true;
+      } else {
+        new TypeMismatchError(new FilePosition(ctx)).printAll();
+        return false;
+      }
+    }
     if (typeLHS.toString().contains(typeRHS.toString()) || typeRHS.toString().contains(typeLHS.toString())) {
       return true;
     } else {

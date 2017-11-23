@@ -158,16 +158,15 @@ public class AST_ExprUnary extends AST_Expr {
         System.out.println(astExpr);
         astExpr.printContents();
         String varName = ((AST_ExprIdent) astExpr).getVarName();
-        IDENTIFIER type = ST.encSymTable.lookup(varName);
+        SymbolTable tempST = this.symbolTable;
+        IDENTIFIER type = tempST.lookup(varName);
 
         AST_Node parent = getParentNode();
         //if parent is instance of AST_FuncDecl, search in encSymTable instead
-        while (!(parent instanceof AST_FuncDecl)) {
-          if (parent instanceof AST_Program) {
-            type = ST.lookup(varName);
-            break;
-          }
-          parent = parent.getParentNode();
+        while (type == null) {
+          System.out.println("type is null");
+          tempST = tempST.encSymTable;
+          type = tempST.lookup(varName);
         }
 
         //Debug statement
@@ -195,16 +194,15 @@ public class AST_ExprUnary extends AST_Expr {
         astExpr.printContents();
         String varName = ((AST_ExprIdent) astExpr).getVarName();
 
-        IDENTIFIER type = ST.encSymTable.lookup(varName);
+        SymbolTable tempST = this.symbolTable;
+        IDENTIFIER type = tempST.lookup(varName);
 
         AST_Node parent = getParentNode();
         //if parent is instance of AST_FuncDecl, search in encSymTable instead
-        while (!(parent instanceof AST_FuncDecl)) {
-          if (parent instanceof AST_Program) {
-            type = ST.lookup(varName);
-            break;
-          }
-          parent = parent.getParentNode();
+        while (type == null) {
+          System.out.println("type is null");
+          tempST = tempST.encSymTable;
+          type = tempST.lookup(varName);
         }
 
         //Debug statement
@@ -230,18 +228,17 @@ public class AST_ExprUnary extends AST_Expr {
         System.out.println(astExpr);
         astExpr.printContents();
         String varName = ((AST_ExprIdent) astExpr).getVarName();
-        IDENTIFIER type = ST.encSymTable.lookup(varName);
+
+        SymbolTable tempST = this.symbolTable;
+        IDENTIFIER type = tempST.lookup(varName);
 
         AST_Node parent = getParentNode();
         //if parent is instance of AST_FuncDecl, search in encSymTable instead
-        while (!(parent instanceof AST_FuncDecl)) {
-          if (parent instanceof AST_Program) {
-            type = ST.lookup(varName);
-            break;
-          }
-          parent = parent.getParentNode();
+        while (type == null) {
+          System.out.println("type is null");
+          tempST = tempST.encSymTable;
+          type = tempST.lookup(varName);
         }
-
 
         //Debug statement
         System.out.println(type);
@@ -277,18 +274,16 @@ public class AST_ExprUnary extends AST_Expr {
         System.out.println(astExpr.getIdentifier());
         String varName = ((AST_ExprIdent) astExpr).getVarName();
 
-        IDENTIFIER type = ST.encSymTable.lookup(varName);
+        SymbolTable tempST = this.symbolTable;
+        IDENTIFIER type = tempST.lookup(varName);
 
         AST_Node parent = getParentNode();
         //if parent is instance of AST_FuncDecl, search in encSymTable instead
-        while (!(parent instanceof AST_FuncDecl)) {
-          if (parent instanceof AST_Program) {
-            type = ST.lookup(varName);
-            break;
-          }
-          parent = parent.getParentNode();
+        while (type == null) {
+          System.out.println("type is null");
+          tempST = tempST.encSymTable;
+          type = tempST.lookup(varName);
         }
-
 
         System.out.println(varName);
         System.out.println(type);
@@ -335,18 +330,18 @@ public class AST_ExprUnary extends AST_Expr {
         System.out.println(astExpr);
         System.out.println(ST.encSymTable.lookup(varName));
         System.out.println(ST.lookup(varName));
-        IDENTIFIER type = ST.encSymTable.lookup(varName);
+
+        SymbolTable tempST = this.symbolTable;
+        IDENTIFIER type = tempST.lookup(varName);
 
         AST_Node parent = getParentNode();
         //if parent is instance of AST_FuncDecl, search in encSymTable instead
 
 
-        while (!(parent instanceof AST_FuncDecl)) {
-          if (parent instanceof AST_Program) {
-            type = ST.lookup(varName);
-            break;
-          }
-          parent = parent.getParentNode();
+        while (type == null) {
+          System.out.println("type is null");
+          tempST = tempST.encSymTable;
+          type = tempST.lookup(varName);
         }
 
         //Debug statement

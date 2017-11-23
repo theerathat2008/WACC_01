@@ -1,12 +1,15 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
+import ASTNodes.AST_Exprs.AST_ExprArrayElem;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
+import ASTNodes.AST_Exprs.AST_ExprLiter;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Program;
 import ASTNodes.AST_ParamList;
 import ASTNodes.AST_Param;
+import ErrorMessages.TypeMismatchError;
 import IdentifierObjects.FunctionObj;
 import IdentifierObjects.BaseTypeObj;
 import IdentifierObjects.IDENTIFIER;
@@ -185,9 +188,11 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
     } else {
       //Non-nested function call case
       //Check parameters of paramList against expressions
+      System.out.println("I'm in the else statement");
 
       if (ast_exprList.size() > 0) {
 
+        System.out.println("ast_exprList has size > 0");
         System.out.println(ast_exprList);
         AST_Node parent = this.getParentNode();
         System.out.println("Parent node is");
@@ -240,7 +245,7 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
 
           //when size of the list i 1
           if (ast_exprList.size() == 1) {
-            if (ast_exprList.get(i) instanceof AST_ExprIdent) {
+            if (ast_exprList.get(0) instanceof AST_ExprIdent) {
               System.out.println("Hey, I'm instance of AST_ExprIdent");
               String varName = ((AST_ExprIdent) ast_exprList.get(i)).getVarName();
               SymbolTable tempST = ST;
@@ -266,9 +271,53 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
               } else {
                 return true;
               }
+            } else if (ast_exprList.get(0) instanceof AST_ExprArrayElem) {
+              System.out.println("first elem is instance of AST_ExprArrayElem");
+              String arrayName = ((AST_ExprArrayElem) ast_exprList.get(0)).getArrayName();
+              SymbolTable tempST = this.symbolTable;
+              IDENTIFIER typeExpr = tempST.lookup(arrayName);
+
+              while (typeExpr == null) {
+                System.out.println("typeExpr is null");
+                tempST = tempST.encSymTable;
+                typeExpr = tempST.lookup(arrayName);
+              }
+
+              System.out.println("typeExpr is: " + typeExpr);
+              System.out.println("typeParam is: " + typeParam);
+              if (typeExpr.toString().contains(typeParam.toString())
+                      || typeParam.toString().contains(typeExpr.toString())) {
+                return true;
+              } else {
+                new TypeError(new FilePosition(ctx)).printAll();
+                return false;
+              }
+
+            } else if (ast_exprList.get(0) instanceof AST_ExprLiter) {
+              System.out.println("first elem is instance of AST_ExprLiter");
+              String literal = ((AST_ExprLiter) ast_exprList.get(0)).getLiteral();
+              System.out.println("typeParam is: " + typeParam);
+              System.out.println("literal is: " + literal);
+
+              if (typeParam.toString().contains("char[]")
+                      || typeParam.toString().contains("str")) {
+                if (literal.contains("char[]") || literal.contains("str")) {
+                  return true;
+                } else {
+                  new TypeMismatchError(new FilePosition(ctx)).printAll();
+                  return false;
+                }
+              } else if (typeParam.toString().contains(literal)
+                      || literal.contains(typeParam.toString())) {
+                return true;
+              } else {
+                new TypeMismatchError(new FilePosition(ctx)).printAll();
+                return false;
+              }
+
             } else {
               System.out.println("Hello I'm here");
-              IDENTIFIER typeExpr = ast_exprList.get(i).getIdentifier();
+              IDENTIFIER typeExpr = ast_exprList.get(0).getIdentifier();
               //IDENTIFIER typeParam = parameters.get(i);
               if (!typeExpr.equals(typeParam)) {
                 new TypeError(new FilePosition(ctx)).printAll();

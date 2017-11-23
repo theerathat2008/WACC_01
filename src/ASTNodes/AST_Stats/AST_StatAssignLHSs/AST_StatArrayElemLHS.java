@@ -171,4 +171,8 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
   }
+
+  public String getIdentName() {
+    return identName;
+  }
 }
