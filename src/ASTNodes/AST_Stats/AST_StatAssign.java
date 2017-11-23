@@ -189,6 +189,7 @@ public class AST_StatAssign extends AST_Stat {
             if (typeLHS.toString().contains("str")) {
               //make typeLHs = char || check the type of the first elem
               System.out.println("reaches here where converting array of string to char");
+              //TODO check the type of the first elem easier
             }
           }
         }
