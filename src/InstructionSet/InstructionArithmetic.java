@@ -8,9 +8,10 @@ import java.util.List;
 public class InstructionArithmetic extends Instruction {
   String operand;
   String dst;
-  String fst;
-  String snd;
+  String reg1;
+  String reg2;
   public String block1;
+
   public InstructionArithmetic(String operand) {
     this.operand = operand;
   }
@@ -31,9 +32,9 @@ public class InstructionArithmetic extends Instruction {
     builder.append(" ");
     builder.append(dst);
     builder.append(" ");
-    builder.append(fst);
+    builder.append(reg1);
     builder.append(" ");
-    builder.append(snd);
+    builder.append(reg2);
     builder.append("\n\t\tBLVS p_throw_overflow_error\n");
     block1 = builder.toString();
   }
@@ -53,6 +54,7 @@ public class InstructionArithmetic extends Instruction {
   public boolean crossOverRegister() {
     return true;
   }
+
 
 
 }

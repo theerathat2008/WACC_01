@@ -1,5 +1,7 @@
 package InstructionSet;
 
+import Registers.RegisterARM;
+
 import java.util.List;
 
 public class InstructionStack extends Instruction {
@@ -8,9 +10,12 @@ public class InstructionStack extends Instruction {
   String block1;
   String op;
 
-  public InstructionStack(String op, String reg) {
-    this.reg = reg;
+  public InstructionStack(String op) {
     this.op = op;
+  }
+
+  public void allocateRegisters(RegisterARM reg){
+    this.reg = reg.name();
   }
 
   @Override

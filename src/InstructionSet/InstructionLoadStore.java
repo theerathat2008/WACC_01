@@ -1,5 +1,7 @@
 package InstructionSet;
 
+import Registers.RegisterARM;
+
 import java.util.List;
 
 public class InstructionLoadStore extends Instruction{
@@ -9,10 +11,13 @@ public class InstructionLoadStore extends Instruction{
   String mem;
   String block1;
 
-  public InstructionLoadStore(String op, String reg, String mem) {
+  public InstructionLoadStore(String op) {
     this.op = op;
-    this.reg = reg;
-    this.mem = mem;
+  }
+
+  public void allocateRegisters(RegisterARM reg, RegisterARM mem){
+    this.reg = reg.name();
+    this.mem = mem.name();
   }
 
   @Override
