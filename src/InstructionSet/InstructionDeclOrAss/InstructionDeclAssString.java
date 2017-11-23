@@ -16,6 +16,7 @@ public class InstructionDeclAssString extends Instruction {
   public InstructionDeclAssString(int msgNum, String sp) {
     this.msgNum = msgNum;
     this.sp = sp;
+    reg1 = "reg1";
   }
 
   /**

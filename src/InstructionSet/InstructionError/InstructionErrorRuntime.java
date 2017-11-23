@@ -2,14 +2,14 @@ package InstructionSet.InstructionError;
 
 import InstructionSet.Instruction;
 
-public class InstructionErrorRuntime extends Instruction {
+public class InstructionErrorRuntime extends InstructionError {
   String reg1;
-  String resultBlock;
+
   /**
    * Class constructor
    */
   public InstructionErrorRuntime() {
-
+    reg1 = "reg1";
   }
 
   /**

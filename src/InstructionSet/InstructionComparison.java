@@ -14,6 +14,8 @@ public class InstructionComparison extends Instruction {
 
   public InstructionComparison(String op) {
     this.op = op;
+    reg1 = "reg1";
+    reg2 = "reg2";
   }
 
   public int requiresRegisters(){

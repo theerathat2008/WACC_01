@@ -12,6 +12,7 @@ public class InstructionAssignLit extends Instruction{
   public InstructionAssignLit(String constant, String lit){
     this.constant = constant;
     this.lit = lit;
+    reg = "reg";
   }
 
   public void registerAllocation(RegisterARM reg){

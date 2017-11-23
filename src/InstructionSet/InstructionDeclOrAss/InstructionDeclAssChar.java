@@ -14,6 +14,7 @@ public class InstructionDeclAssChar extends Instruction {
   public InstructionDeclAssChar(String charData, String sp) {
     this.charData = charData;
     this.sp = sp;
+    reg = "reg";
   }
 
   /**

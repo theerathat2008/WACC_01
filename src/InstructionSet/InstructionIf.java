@@ -22,6 +22,7 @@ public class InstructionIf extends Instruction {
 
 
   public InstructionIf(){
+    exprReg = "exprReg";
   }
 
   public void setLabels(String branchElseName, String continueName) {

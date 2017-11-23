@@ -13,7 +13,9 @@ public class InstructionWhile extends Instruction {
   public String afterLoop;
 
 
-  public InstructionWhile(){}
+  public InstructionWhile(){
+    exprReg = "exprReg";
+  }
 
   public void setLabels(String loopLabel, String loopExit) {
     this.loopLabel = loopLabel;

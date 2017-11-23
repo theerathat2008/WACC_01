@@ -8,6 +8,8 @@ public class InstructionExit extends Instruction {
 
   public InstructionExit(String exitCode) {
     this.exitCode = exitCode;
+    reg1 = "reg1";
+    reg2 = "reg2";
   }
 
   /**

@@ -7,7 +7,7 @@ import InstructionSet.Instruction;
  */
 public class InstructionReadBlocks extends Instruction{
   String reg1;
-  String resultBlock = "\t";
+  public String resultBlock = "\t";
   int msgNum1;
 
   /**
@@ -16,6 +16,7 @@ public class InstructionReadBlocks extends Instruction{
    */
   public InstructionReadBlocks(int msgNum1) {
     this.msgNum1 = msgNum1;
+    reg1 = "reg1";
   }
 
 

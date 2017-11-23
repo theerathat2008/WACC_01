@@ -13,6 +13,7 @@ public class InstructionPrintBlocksInt extends InstructionPrintBlocks {
    */
   public InstructionPrintBlocksInt(int msgNum1) {
     super(msgNum1);
+    reg1 = "reg1";
   }
 
   /**

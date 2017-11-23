@@ -9,6 +9,8 @@ public class InstructionReturn extends Instruction{
 
   public InstructionReturn(String type) {
     this.type = type;
+    reg1 = "reg1";
+    reg2 = "reg2";
   }
 
 

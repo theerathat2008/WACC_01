@@ -14,6 +14,7 @@ public class InstructionDeclAssInt extends Instruction{
   public InstructionDeclAssInt(String sp, String intData) {
     this.sp = sp;
     this.intData = intData;
+    reg = "reg";
   }
 
   /**

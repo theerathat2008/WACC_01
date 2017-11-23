@@ -9,6 +9,8 @@ public class InstructionFreePair extends Instruction {
 
   public void allocateSP(String sp) {
     this.sp = sp;
+    reg1 = "reg1";
+    reg2 = "reg2";
   }
 
   public void allocateRegisters(String reg1, String reg2) {

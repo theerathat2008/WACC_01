@@ -10,6 +10,7 @@ public class InstructionStack extends Instruction {
 
   public InstructionStack(String op) {
     this.op = op;
+    reg = "reg";
   }
 
   public void allocateRegisters(RegisterARM reg){

@@ -9,6 +9,7 @@ public class InstructionCheck extends Instruction{
 
   public InstructionCheck(int msgNum) {
     this.msgNum = msgNum;
+    reg1 = "reg1";
   }
 
 

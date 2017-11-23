@@ -115,7 +115,7 @@ public class AST_ExprLiter extends AST_Expr {
    */
   @Override
   public boolean CheckSemantics() {
-
+    setType(literal);
     //if it is int liter, check whether the number is inside the integer bounds
     //TODO reuntimeErr cases check
     if (literal.equals("int")) {
@@ -233,6 +233,9 @@ public class AST_ExprLiter extends AST_Expr {
       registerAllocation.addString(constant);
 
 
+    } else if (literal.equals("int")) {
+      InstructionAssignLit instructionAssignLit = new InstructionAssignLit(constant, literal);
+      instr = instructionAssignLit;
     }
   }
 

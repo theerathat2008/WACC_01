@@ -17,6 +17,7 @@ public class InstructionPrintBlocksBool extends InstructionPrintBlocks {
   public InstructionPrintBlocksBool(int msgNum1, int msgNum2) {
     super(msgNum1);
     this.msgNum2 = msgNum2;
+    reg1 = "reg1";
   }
 
   /**

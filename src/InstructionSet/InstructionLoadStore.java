@@ -11,6 +11,7 @@ public class InstructionLoadStore extends Instruction{
 
   public InstructionLoadStore(String op) {
     this.op = op;
+    reg = "reg";
   }
 
   public void allocateRegisters(RegisterARM reg, RegisterARM mem){

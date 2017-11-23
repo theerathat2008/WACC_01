@@ -5,6 +5,8 @@ public class InstructionCheckArrayBounds extends InstructionCheck {
 
   public InstructionCheckArrayBounds(int msgNum) {
     super(msgNum);
+    reg1 = "reg1";
+    reg2 = "reg2";
   }
 
 

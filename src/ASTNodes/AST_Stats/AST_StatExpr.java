@@ -29,7 +29,7 @@ public class AST_StatExpr extends AST_Stat {
   AST_Expr expr;
   ParserRuleContext ctx;
   SymbolTable symbolTable;
-  String instr = "undefined block in AST_StatExpr";
+  String instr = "undefined block in AST_StatExpr\n";
 
   /**
    * Assign the class variables when called

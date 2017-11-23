@@ -17,6 +17,9 @@ public class InstructionDeclAssPair extends Instruction {
     this.secondType = secondType;
     this.firstElem = firstElem;
     this.secondElem = secondElem;
+    reg1 = "reg1";
+    reg2 = "reg2";
+    reg3 = "reg3";
   }
 
   public void allocateRegisters(String reg1, String reg2, String reg3) {

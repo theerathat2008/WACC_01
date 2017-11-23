@@ -14,6 +14,7 @@ public class InstructionDeclAssBool extends Instruction {
   public InstructionDeclAssBool(String boolData, String sp) {
     this.boolData = boolData;
     this.sp = sp;
+    reg1 = "reg1";
   }
 
   public int getBoolNum(String bool){

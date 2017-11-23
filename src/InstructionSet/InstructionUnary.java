@@ -11,6 +11,8 @@ public class InstructionUnary extends Instruction{
 
   public InstructionUnary(String op) {
     this.op = op;
+    reg2 = "reg2";
+    dst = "dst";
   }
 
   public void allocateRegisters(RegisterARM dst, RegisterARM reg2){

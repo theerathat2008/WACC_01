@@ -14,6 +14,7 @@ public class InstructionPrintBlocksString extends InstructionPrintBlocks {
    */
   public InstructionPrintBlocksString(int msgNum1) {
     super(msgNum1);
+    reg1 = "reg1";
   }
 
   /**
