@@ -408,7 +408,10 @@ public class AST_ExprUnary extends AST_Expr {
     astExpr.accept(visitor);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
 
+  }
 
 
   /**

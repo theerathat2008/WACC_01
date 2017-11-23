@@ -165,6 +165,11 @@ public class AST_Program extends AST_Node {
     statement.accept(visitor);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   /**
    * Produces the outer assembly code of the main program branch
    * Doesn't use any registers

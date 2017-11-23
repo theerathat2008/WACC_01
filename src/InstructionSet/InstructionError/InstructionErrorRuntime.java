@@ -1,7 +1,6 @@
 package InstructionSet.InstructionError;
 
 import InstructionSet.Instruction;
-import Registers.RegisterARM;
 
 public class InstructionErrorRuntime extends Instruction {
   String reg1;
@@ -40,4 +39,5 @@ public class InstructionErrorRuntime extends Instruction {
   public boolean crossOverRegister() {
     return false;
   }
+
 }

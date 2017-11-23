@@ -198,6 +198,11 @@ public class AST_StatRead extends AST_Stat {
     ast_statAssignLHS.accept(visitor);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   /**
    * Generates an read instruction depending on what type the statLHS has
    * InstructionReadBlocks is the base type

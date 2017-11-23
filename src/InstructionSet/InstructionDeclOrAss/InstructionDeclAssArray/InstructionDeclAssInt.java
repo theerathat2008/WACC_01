@@ -31,4 +31,5 @@ public class InstructionDeclAssInt extends InstructionDeclAssArray {
   public boolean crossOverRegister() {
     return false;
   }
+
 }

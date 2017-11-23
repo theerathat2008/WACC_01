@@ -132,6 +132,11 @@ public class AST_StatSubIf extends AST_Stat {
     visitor.visit(this);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }

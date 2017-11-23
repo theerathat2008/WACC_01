@@ -18,4 +18,5 @@ public class InstructionAssArrayString extends InstructionAssArrayElem {
     result.concat("\t\tSTR " + reg3 + ", " + "[" + reg4 + "]" + "\n");
     return result;
   }
+
 }

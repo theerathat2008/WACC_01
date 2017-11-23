@@ -323,6 +323,11 @@ public class AST_StatAssign extends AST_Stat {
     ast_statAssignRHS.accept(visitor);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
 
   /**
    * Needs two register corresponding to the destination and source in two lines

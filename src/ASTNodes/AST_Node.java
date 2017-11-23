@@ -105,6 +105,8 @@ public abstract class AST_Node {
 
   public abstract void accept(AST_NodeVisitor visitor);
 
+  public abstract void acceptInstr(List<String> assemblyCode);
+
   public abstract void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception;
 
 }

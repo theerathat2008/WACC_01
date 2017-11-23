@@ -161,6 +161,11 @@ public class AST_ExprArrayElem extends AST_Expr {
     }
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
 
   /**
    * TODO Produces Assembly code?

@@ -128,6 +128,11 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS {
     visitor.visit(this);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }

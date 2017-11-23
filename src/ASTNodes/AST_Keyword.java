@@ -128,6 +128,11 @@ public class AST_Keyword extends AST_Node {
   }
 
   @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
+  @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     System.out.println("AST_Node not used: Keyword");
   }

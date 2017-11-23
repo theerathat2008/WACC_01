@@ -180,6 +180,15 @@ public class AST_StatIf extends AST_Stat {
     elseStat.accept(visitor);
   }
 
+  public void acceptInstr(List<String> assemblyList) {
+//    expr.acceptInstr();
+//    assemblyList.add(instruction.block1);
+//    assemblyList.add(instruction.block2);
+//    thenStat.acceptInstr();
+//    assemblyList.add(instruction.block3);
+//    elseStat.acceptInstr();
+  }
+
   /**
    * Creates an InstructionIf
    * Uses registers one of which is taken from InstructionExpr

@@ -38,4 +38,5 @@ public abstract class InstructionDeclAssArray extends Instruction {
     resultBlock.concat("\t\tSTR " +  reg3 + ", " + "[" + reg2 + "]" + "\n");
     resultBlock.concat("\t\tSTR " +  reg3 + ", " + "[sp]" + "\n");
   }
+
 }

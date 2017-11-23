@@ -2,8 +2,6 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
-import java.util.List;
-
 public class InstructionStack extends Instruction {
 
   String reg;
@@ -37,4 +35,5 @@ public class InstructionStack extends Instruction {
     //TODO
     return false;
   }
+
 }

@@ -113,6 +113,11 @@ public class AST_PairElemType extends AST_Type {
     visitor.visit(this);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   /**
    * @return returns the identifier of the attribute
    */

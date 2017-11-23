@@ -32,4 +32,5 @@ public class InstructionFreePair extends Instruction {
   public boolean crossOverRegister() {
     return false;
   }
+
 }

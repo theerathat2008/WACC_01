@@ -156,6 +156,11 @@ public class AST_PairType extends AST_Type {
     pairElemTypeSnd.accept(visitor);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   /**
    * @return returns the identifier of the attribute
    */

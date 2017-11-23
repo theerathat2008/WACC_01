@@ -128,6 +128,11 @@ public class AST_Separator extends AST_Node {
   }
 
   @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
+  @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     System.out.println("Shouldn't generate any AST_Code");
   }

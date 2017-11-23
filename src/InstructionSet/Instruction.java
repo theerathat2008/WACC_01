@@ -21,4 +21,9 @@ public abstract class Instruction {
    * @return true if the instruction requires a previously defined register
    */
   public abstract boolean crossOverRegister();
+
+  public String getID(){
+    return this.getClass().getSimpleName();
+  }
+
 }

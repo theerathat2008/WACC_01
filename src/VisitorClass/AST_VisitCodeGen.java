@@ -32,8 +32,11 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
 
   RegisterAllocation registerAllocation = new RegisterAllocation();
 
+  AST_Node rootNode;
 
-
+  public void setRootNode(AST_Node rootNode) {
+    this.rootNode = rootNode;
+  }
 
   /** PLAN 1
    * 1. Visit AST_Node using visitor pattern
@@ -54,6 +57,10 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
     Assembler assembler = Assembler.getInstance();
     assembler.setInstructions(instructions);
     assembler.setRegisterAlloc(registerAllocation);
+    assembler.setRootNode(rootNode);
+
+    //assembler.parseInstructions();
+    assembler.assembleInstructions();
   }
 
 

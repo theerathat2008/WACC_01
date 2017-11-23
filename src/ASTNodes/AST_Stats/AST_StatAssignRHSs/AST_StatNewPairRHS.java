@@ -158,6 +158,11 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
     ast_expr_second.accept(visitor);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }

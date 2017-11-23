@@ -108,6 +108,7 @@ public class AST_ExprIdent extends AST_Expr {
   public boolean CheckSemantics() {
     SymbolTable ST = this.symbolTable;
     if (ST.lookupAll(varName) != null) {
+      setType(ST.lookupAll(varName).toString());
       return true;
     } else {
       new UndefinedIdentError(new FilePosition(ctx)).printAll();
@@ -143,6 +144,11 @@ public class AST_ExprIdent extends AST_Expr {
 
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
+  }
+
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
   }
 
 

@@ -28,4 +28,5 @@ public class InstructionCheckDivideByZero extends InstructionCheck {
     resultBlock.concat("\t\tBLEQ p_throw_runtime_error\n");
     resultBlock.concat("\t\tPOP {pc}\n");
   }
+
 }

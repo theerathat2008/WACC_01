@@ -55,15 +55,17 @@ public class waccMain {
 
     System.out.println();
 
-//
-//    System.out.println("------------------CODE GENERATION--------------------");
-//    AST_VisitCodeGen codeGen = new AST_VisitCodeGen();
-//    root.accept(codeGen);
-//    System.out.println("------------------CODE GENERATION--------------------");
-//    System.out.println();
-//    System.out.println("------------------GENERATING CODE--------------------");
-//    codeGen.generateAssembly();
-//    System.out.println("------------------GENERATING CODE--------------------");
+
+    System.out.println("------------------CODE GENERATION--------------------");
+    AST_VisitCodeGen codeGen = new AST_VisitCodeGen();
+    codeGen.setRootNode(root);
+    root.accept(codeGen);
+
+    System.out.println("------------------CODE GENERATION--------------------");
+    System.out.println();
+    System.out.println("------------------GENERATING CODE--------------------");
+    codeGen.generateAssembly();
+    System.out.println("------------------GENERATING CODE--------------------");
 
 
   }

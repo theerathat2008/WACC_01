@@ -171,6 +171,11 @@ public class AST_ParamList extends AST_Node {
     }
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   /**
    * Could generate variable to show total stack displacement size by working out the
    * number and type of inbuilt parameters

@@ -45,4 +45,5 @@ public class InstructionFreePairBlock extends Instruction {
   public boolean crossOverRegister() {
     return false;
   }
+
 }

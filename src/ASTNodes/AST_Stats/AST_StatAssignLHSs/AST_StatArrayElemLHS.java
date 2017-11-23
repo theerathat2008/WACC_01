@@ -161,6 +161,11 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
     }
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   public List<AST_Expr> getAst_exprList() {
     return ast_exprList;
   }

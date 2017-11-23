@@ -148,6 +148,11 @@ public class AST_StatMult extends AST_Stat {
     stat2.accept(visitor);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   /**
    * StatMult doesn't produce any assembly code
    * Its a holder ast node for two statements which are evalutaed in the right order

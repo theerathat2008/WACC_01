@@ -209,6 +209,11 @@ public class AST_ExprLiter extends AST_Expr {
     visitor.visit(this);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
 
   /**
    * Terminal class which holds the actual constant value

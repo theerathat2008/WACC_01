@@ -94,4 +94,5 @@ public class InstructionUnary extends Instruction{
     //Maybe
     return false;
   }
+
 }

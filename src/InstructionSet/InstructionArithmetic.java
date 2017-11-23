@@ -1,8 +1,6 @@
 package InstructionSet;
 import Registers.RegisterARM;
 
-import java.util.LinkedList;
-
 import java.util.List;
 
 public class InstructionArithmetic extends Instruction {
@@ -54,7 +52,6 @@ public class InstructionArithmetic extends Instruction {
   public boolean crossOverRegister() {
     return true;
   }
-
 
 
 }

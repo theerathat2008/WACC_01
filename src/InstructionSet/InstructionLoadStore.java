@@ -2,8 +2,6 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
-import java.util.List;
-
 public class InstructionLoadStore extends Instruction{
 
   String op;
@@ -40,4 +38,5 @@ public class InstructionLoadStore extends Instruction{
   public boolean crossOverRegister() {
     return false;
   }
+
 }

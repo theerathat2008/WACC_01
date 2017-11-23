@@ -164,6 +164,11 @@ public class AST_StatWhile extends AST_Stat {
     statAST.accept(visitor);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
 
   /**
    * Generates instruction while which requires one register which holds the result of the expression evalutation

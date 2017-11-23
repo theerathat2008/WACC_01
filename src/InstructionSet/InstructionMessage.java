@@ -33,4 +33,5 @@ public class InstructionMessage extends Instruction {
   public boolean crossOverRegister() {
     return false;
   }
+
 }

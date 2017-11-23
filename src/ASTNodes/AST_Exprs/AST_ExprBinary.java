@@ -190,6 +190,11 @@ public class AST_ExprBinary extends AST_Expr {
     exprRightAST.accept(visitor);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
 
   /**
    * Generates assembly code in InstructionComparison and InstructionArithmetic depending on the

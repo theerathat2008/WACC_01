@@ -25,4 +25,5 @@ public class InstructionCheck extends Instruction{
   public boolean crossOverRegister() {
     return false;
   }
+
 }

@@ -251,6 +251,11 @@ public class AST_StatVarDecl extends AST_Stat {
     ast_assignRHS.accept(visitor);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }

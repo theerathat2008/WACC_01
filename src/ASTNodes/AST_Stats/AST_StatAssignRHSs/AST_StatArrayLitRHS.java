@@ -203,6 +203,11 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
     }
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }

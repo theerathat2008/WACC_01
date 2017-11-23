@@ -2,8 +2,6 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
-import java.util.List;
-
 public class InstructionIf extends Instruction {
 
   /**

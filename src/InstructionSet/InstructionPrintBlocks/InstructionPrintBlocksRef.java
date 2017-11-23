@@ -39,4 +39,5 @@ public class InstructionPrintBlocksRef extends InstructionPrintBlocks {
     resultBlock.concat("\t\tBL fflush\n");
     resultBlock.concat("\t\tPOP {pc}\n");
   }
+
 }

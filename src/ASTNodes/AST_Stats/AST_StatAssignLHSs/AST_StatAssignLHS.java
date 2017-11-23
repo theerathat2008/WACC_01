@@ -141,6 +141,11 @@ public class AST_StatAssignLHS extends AST_Stat {
     visitor.visit(this);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
 
   /**
    * Doesn't require a register allocation as its a base class

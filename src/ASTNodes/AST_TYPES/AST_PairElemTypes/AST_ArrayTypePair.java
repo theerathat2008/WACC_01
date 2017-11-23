@@ -137,6 +137,11 @@ public class AST_ArrayTypePair extends AST_PairElemType {
     ast_type.accept(visitor);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   /**
    * @return returns the identifier of the attribute
    */

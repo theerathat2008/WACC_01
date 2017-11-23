@@ -19,4 +19,5 @@ public class InstructionCall extends Instruction{
   public boolean crossOverRegister() {
     return false;
   }
+
 }

@@ -54,4 +54,5 @@ public abstract class InstructionAssArrayElem extends Instruction {
   public boolean crossOverRegister() {
     return false;
   }
+
 }

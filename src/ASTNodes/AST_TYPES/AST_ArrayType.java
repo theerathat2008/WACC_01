@@ -134,6 +134,11 @@ public class AST_ArrayType extends AST_Type {
     ast_type.accept(visitor);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   /**
    * @return returns the identifier of the attribute
    */

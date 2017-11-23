@@ -162,6 +162,11 @@ public class AST_Param extends AST_Node {
     ast_type.accept(visitor);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
 
   /**
    * Doesn't generate any assembly code

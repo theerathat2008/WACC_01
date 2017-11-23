@@ -124,6 +124,11 @@ public class AST_Stat extends AST_Node {
     visitor.visit(this);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   /**
    * Base class
    */

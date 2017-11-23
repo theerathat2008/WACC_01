@@ -1,7 +1,5 @@
 package InstructionSet;
 
-import java.util.List;
-
 public class InstructionStatExpr extends Instruction {
 
 
@@ -20,4 +18,5 @@ public class InstructionStatExpr extends Instruction {
   public boolean crossOverRegister() {
     return false;
   }
+
 }

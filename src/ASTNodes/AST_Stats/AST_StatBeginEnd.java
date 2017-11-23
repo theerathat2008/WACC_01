@@ -132,6 +132,11 @@ public class AST_StatBeginEnd extends AST_Stat {
     statAST.accept(visitor);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   /**
    * Begin and end just define new scopes but don't generate new assembly code
    * so registers mapped to values called from within a begin end scope will have different

@@ -266,6 +266,11 @@ public class AST_FuncDecl extends AST_Node {
     statement.accept(visitor);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
 
   /**
    * Produces the outer assembly code for the function

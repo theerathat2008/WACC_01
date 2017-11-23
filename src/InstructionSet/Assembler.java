@@ -1,8 +1,11 @@
 package InstructionSet;
 
+import ASTNodes.AST_Node;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -13,6 +16,14 @@ public class Assembler {
 
   List<Instruction> instructions;
   RegisterAllocation registerAlloc;
+
+  AST_Node rootNode;
+
+  List<String> assemblyCode = new LinkedList<>();
+
+  public void setRootNode(AST_Node rootNode) {
+    this.rootNode = rootNode;
+  }
 
   private static Assembler instance = null;
 
@@ -28,10 +39,15 @@ public class Assembler {
     this.registerAlloc = registerAlloc;
   }
 
-  public void parseInstructions() throws Exception{
+  public void parseInstructions(){
     for(Instruction currInstr : instructions){
       currInstr.genInstruction();
     }
+  }
+
+
+  public void assembleInstructions() {
+    rootNode.acceptInstr(assemblyCode);
   }
 
   

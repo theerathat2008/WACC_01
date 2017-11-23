@@ -134,6 +134,11 @@ public class AST_StatIfElse extends AST_StatSubIf{
     elseStat.accept(visitor);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }

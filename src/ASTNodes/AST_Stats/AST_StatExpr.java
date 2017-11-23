@@ -21,6 +21,7 @@ import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 import java.util.List;
+import java.util.SortedMap;
 
 public class AST_StatExpr extends AST_Stat {
 
@@ -262,6 +263,11 @@ public class AST_StatExpr extends AST_Stat {
     expr.accept(visitor);
   }
 
+  @Override
+  public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
   /**
    * FREE expr
    * RETURN expr
@@ -276,6 +282,7 @@ public class AST_StatExpr extends AST_Stat {
 
     //REGISTER ALLOCATION TODO
     //SP ALLOCATION TODO
+    System.out.println("Statement type is: "+statName);
 
     switch (statName) {
       case ("free"):
@@ -312,7 +319,9 @@ public class AST_StatExpr extends AST_Stat {
         }
         instructionList.add(new InstructionPrintln());
       case ("print"):
+        System.out.println(expr.getType());
         String type = expr.getType();
+
         switch (type) {
           case ("int"):
             registerAllocation.addString("%d\\0");
