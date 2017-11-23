@@ -161,10 +161,14 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
     }
   }
 
-  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-  }
-  
   public List<AST_Expr> getAst_exprList() {
     return ast_exprList;
+  }
+
+  /**
+   *
+   */
+
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
   }
 }

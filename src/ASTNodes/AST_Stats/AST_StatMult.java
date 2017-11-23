@@ -148,8 +148,14 @@ public class AST_StatMult extends AST_Stat {
     stat2.accept(visitor);
   }
 
-  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+  /**
+   * StatMult doesn't produce any assembly code
+   * Its a holder ast node for two statements which are evalutaed in the right order
+   */
 
+
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    System.out.println("Stat mult doesn't produce any assembly code ");
   }
 
 }

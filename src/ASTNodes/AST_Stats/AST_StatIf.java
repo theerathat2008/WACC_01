@@ -180,9 +180,17 @@ public class AST_StatIf extends AST_Stat {
     elseStat.accept(visitor);
   }
 
+  /**
+   * Creates an InstructionIf
+   * Uses registers one of which is taken from InstructionExpr
+   */
+
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     InstructionIf instructionIf = new InstructionIf();
+
+    //Allocate registers for exprReg
+
     instructionList.add(instructionIf);
   }
 }

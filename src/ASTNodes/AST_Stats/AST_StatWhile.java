@@ -2,6 +2,7 @@ package ASTNodes.AST_Stats;
 
 
 import InstructionSet.Instruction;
+import InstructionSet.InstructionWhile;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
@@ -163,7 +164,15 @@ public class AST_StatWhile extends AST_Stat {
     statAST.accept(visitor);
   }
 
+
+  /**
+   * Generates instruction while which requires one register which holds the result of the expression evalutation
+   */
+
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    InstructionWhile instructionWhile = new InstructionWhile();
+    //Allocate registers for exprReg
+    instructionList.add(instructionWhile);
 
   }
 }
