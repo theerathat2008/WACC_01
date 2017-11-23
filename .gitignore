@@ -9,3 +9,4 @@
 *.xml
 out/
 wacc_01.iml
+*.s
