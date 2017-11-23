@@ -17,6 +17,7 @@ public class InstructionDeclAssChar extends Instruction {
 
   public void allocateSP(String sp) {
     this.sp = sp;
+    reg = "reg";
   }
 
   /**

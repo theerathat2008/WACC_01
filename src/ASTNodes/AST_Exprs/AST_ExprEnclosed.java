@@ -164,7 +164,7 @@ public class AST_ExprEnclosed extends AST_Expr {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    exprAST.acceptInstr(assemblyCode);
   }
 
   /**

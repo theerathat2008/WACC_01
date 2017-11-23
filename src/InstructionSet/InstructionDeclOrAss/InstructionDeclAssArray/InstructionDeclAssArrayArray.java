@@ -6,7 +6,7 @@ public class InstructionDeclAssArrayArray<T> extends InstructionDeclAssArray {
   List<List<T>> arrayElems;
 
   public InstructionDeclAssArrayArray(List<List<T>> arrayElems, String type) {
-    super(type);
+    super();
     this.arrayElems = arrayElems;
     this.arraySize = arrayElems.size();
   }

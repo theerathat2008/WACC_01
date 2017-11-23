@@ -14,6 +14,7 @@ import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatPairElemRHS;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionAssignLit;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.TypeMismatchError;
@@ -32,6 +33,7 @@ public class AST_StatAssign extends AST_Stat {
   AST_StatAssignRHS ast_statAssignRHS;
   ParserRuleContext ctx;
   SymbolTable symbolTable;
+  Instruction instr;  //TODO put correct instruction type here
 
   /**
    * Constructor for class - initialises class variables to NULL
@@ -325,7 +327,7 @@ public class AST_StatAssign extends AST_Stat {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    assemblyCode.add(instr.toString());
   }
 
 

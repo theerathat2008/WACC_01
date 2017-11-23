@@ -5,6 +5,8 @@ public class InstructionCheckDivideByZero extends InstructionCheck {
 
   public InstructionCheckDivideByZero(int msgNum) {
     super(msgNum);
+    reg1 = "reg1";
+    reg2 = "reg2";
   }
 
 

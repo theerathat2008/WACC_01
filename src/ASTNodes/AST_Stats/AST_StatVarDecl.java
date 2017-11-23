@@ -35,6 +35,7 @@ public class AST_StatVarDecl extends AST_Stat {
   AST_StatAssignRHS ast_assignRHS;
   ParserRuleContext ctx;
   SymbolTable symbolTable;
+  Instruction instr;  //TODO change to correct instruction type
 
   /**
    * Assign the class variables when called
@@ -258,7 +259,8 @@ public class AST_StatVarDecl extends AST_Stat {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    ast_assignRHS.acceptInstr(assemblyCode);
+    assemblyCode.add("TODO\n");  //TODO change to correct implementation
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
@@ -271,6 +273,7 @@ public class AST_StatVarDecl extends AST_Stat {
      *                       AST_StatPairElem:- fst, snd
      *
      */
+
   }
 
 

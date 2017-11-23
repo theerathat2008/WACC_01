@@ -150,7 +150,8 @@ public class AST_StatMult extends AST_Stat {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    stat1.acceptInstr(assemblyCode);
+    stat2.acceptInstr(assemblyCode);
   }
 
   /**

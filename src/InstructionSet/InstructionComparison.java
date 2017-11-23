@@ -14,6 +14,8 @@ public class InstructionComparison extends Instruction {
 
   public InstructionComparison(String op) {
     this.op = op;
+    reg1 = "reg1";
+    reg2 = "reg2";
   }
 
   public int requiresRegisters(){
@@ -41,9 +43,9 @@ public class InstructionComparison extends Instruction {
     StringBuilder builder = new StringBuilder("\t\t");
     if (!(op.equals("&&")||op.equals("||"))) {
         builder.append("CMP");
-        builder.append(" ");
+        builder.append(", ");
         builder.append(reg1);
-        builder.append(" ");
+        builder.append(", ");
         builder.append(reg2);
         builder.append("\n");
         switch (op) {
@@ -80,18 +82,18 @@ public class InstructionComparison extends Instruction {
           default : break;
         }
       } else if (op.equals("&&")){
-        builder.append("ADD ");
+        builder.append("AND ");
         builder.append(dst);
-        builder.append(" ");
+        builder.append(", ");
         builder.append(reg1);
-        builder.append(" ");
+        builder.append(", ");
         builder.append(reg2 + "\n");
       } else if (op.equals("||")){
         builder.append("ORR ");
         builder.append(dst);
-        builder.append(" ");
+        builder.append(", ");
         builder.append(reg1);
-        builder.append(" ");
+        builder.append(", ");
         builder.append(reg2 + "\n");
       }
     block1 = builder.toString();

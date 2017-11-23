@@ -23,6 +23,7 @@ public class AST_StatWhile extends AST_Stat {
   public SymbolTable symbolTable;
   //Semantic attribute
   ParserRuleContext ctx;
+  InstructionWhile instr;
 
   /**
    * Assign the class variables when called
@@ -166,7 +167,11 @@ public class AST_StatWhile extends AST_Stat {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    assemblyCode.add(instr.block1);
+    exprAST.acceptInstr(assemblyCode);
+    assemblyCode.add(instr.loopEval);
+    statAST.acceptInstr(assemblyCode);
+    assemblyCode.add(instr.afterLoop);
   }
 
 

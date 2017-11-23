@@ -35,6 +35,9 @@ public class RegisterAllocation{
     freeRegisters.push(RegisterARM.R4);
   }
 
+  public List<String> getStringList() {
+    return stringList;
+  }
 
   public void addString(String string) {
     if (!stringList.contains(string)) {

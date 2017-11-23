@@ -17,6 +17,11 @@ public abstract class InstructionAssArrayElem extends Instruction {
     this.pos = posInArray;
     this.spDisp = spDisp;
     this.data = data;
+    this.reg1 = "reg1";
+    this.reg2 = "reg2";
+    this.reg3 = "reg3";
+    this.reg4 = "reg4";
+    this.reg5 = "reg5";
   }
 
   public void allocateRegisters(String reg1, String reg2, String reg3, String reg4, String reg5) {

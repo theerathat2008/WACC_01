@@ -8,13 +8,19 @@ public class InstructionWhile extends Instruction {
   String loopLabel;
   String loopExit;
 
-  String block1;
-  String loopEval;
-  String afterLoop;
+  public String block1;
+  public String loopEval;
+  public String afterLoop;
 
 
-  public InstructionWhile(){}
+  public InstructionWhile(){
+    exprReg = "exprReg";
+  }
 
+  public void setLabels(String loopLabel, String loopExit) {
+    this.loopLabel = loopLabel;
+    this.loopExit = loopExit;
+  }
 
   public void allocateRegisters(RegisterARM exprReg) {
     this.exprReg = exprReg.name();
@@ -22,7 +28,7 @@ public class InstructionWhile extends Instruction {
 
 
   public void genInstruction() {
-    block1 = "\t" + loopLabel;
+    block1 = "\t" + loopLabel + ":\n";
     //TODO put expr between block1 and 2
 
     StringBuilder block2 = new StringBuilder();
@@ -38,6 +44,7 @@ public class InstructionWhile extends Instruction {
     after.append(loopLabel);
     after.append("\n\t");
     after.append(loopExit);
+    after.append(":\n");
     afterLoop = after.toString();
 
   }

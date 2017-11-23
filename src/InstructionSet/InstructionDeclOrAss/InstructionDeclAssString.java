@@ -19,6 +19,7 @@ public class InstructionDeclAssString extends Instruction {
 
   public void allocateSP(String sp) {
     this.sp = sp;
+    reg1 = "reg1";
   }
 
   /**

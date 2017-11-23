@@ -13,6 +13,8 @@ public class InstructionReadBlocksChar extends InstructionReadBlocks {
    */
   public InstructionReadBlocksChar(int msgNum1) {
     super(msgNum1);
+    reg2 = "reg2";
+    reg1 = "reg1";
   }
 
   /**

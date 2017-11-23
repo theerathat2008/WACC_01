@@ -1,6 +1,7 @@
 package ASTNodes.AST_Exprs;
 
 import InstructionSet.Instruction;
+import InstructionSet.InstructionAssignLit;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
@@ -24,7 +25,7 @@ public class AST_ExprLiter extends AST_Expr {
   String constant;    //TODO change to content
   String literal;
   ParserRuleContext ctx;
-
+  InstructionAssignLit instr;   //TODO put correct instruction type here.
   /**
    * Constructor for class - initialises class variables to NULL
    */
@@ -114,7 +115,7 @@ public class AST_ExprLiter extends AST_Expr {
    */
   @Override
   public boolean CheckSemantics() {
-
+    setType(literal);
     //if it is int liter, check whether the number is inside the integer bounds
     //TODO reuntimeErr cases check
     if (literal.equals("int")) {
@@ -211,7 +212,7 @@ public class AST_ExprLiter extends AST_Expr {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    assemblyCode.add(instr.block1);
   }
 
 
@@ -227,8 +228,16 @@ public class AST_ExprLiter extends AST_Expr {
 
   //TODO PRASHAN IMPLEMENTATION OF ADDING TO STRING LIST in registerAlloctation
 
-  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) {
 
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    if(literal.equals("str")){
+      registerAllocation.addString(constant);
+
+
+    } else if (literal.equals("int")) {
+      InstructionAssignLit instructionAssignLit = new InstructionAssignLit(constant, literal);
+      instr = instructionAssignLit;
+    }
 
   }
 

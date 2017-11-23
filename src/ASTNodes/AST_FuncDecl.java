@@ -33,6 +33,7 @@ public class AST_FuncDecl extends AST_Node {
   AST_Stat statement;
   ParserRuleContext ctx;
   public SymbolTable symbolTable;
+  InstructionFunction instr;
 
   //Semantic attribute
 
@@ -268,7 +269,9 @@ public class AST_FuncDecl extends AST_Node {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    assemblyCode.add(instr.block1);
+    statement.acceptInstr(assemblyCode);
+    assemblyCode.add(instr.block2);
   }
 
 
@@ -280,6 +283,7 @@ public class AST_FuncDecl extends AST_Node {
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     InstructionFunction instructionFunction = new InstructionFunction(funcName);
     instructionList.add(instructionFunction);
+    instr = instructionFunction;
   }
 
 }

@@ -10,6 +10,8 @@ public class InstructionRead extends Instruction{
 
   public InstructionRead(String type) {
     this.type = type;
+    reg1 = "reg1";
+    reg2 = "reg2";
   }
 
   public void allocateSP(String sp){

@@ -27,6 +27,7 @@ public class AST_ExprUnary extends AST_Expr {
   AST_Expr astExpr;
   ParserRuleContext ctx;
   SymbolTable symbolTable;
+  InstructionUnary instr;
 
   /**
    * Constructor for class - initialises class variables to NULL
@@ -410,7 +411,8 @@ public class AST_ExprUnary extends AST_Expr {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    astExpr.acceptInstr(assemblyCode);
+    assemblyCode.add(instr.block1);
   }
 
 
@@ -430,5 +432,7 @@ public class AST_ExprUnary extends AST_Expr {
     //Allocate registers depending on which instruction is to be passed
 
     instructionList.add(instructionUnary);
+    instr = instructionUnary;
+
   }
 }

@@ -59,7 +59,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
     assembler.setRegisterAlloc(registerAllocation);
     assembler.setRootNode(rootNode);
 
-    //assembler.parseInstructions();
+    assembler.parseInstructions();
     assembler.assembleInstructions();
   }
 

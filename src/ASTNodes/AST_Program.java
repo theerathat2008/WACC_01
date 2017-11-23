@@ -22,6 +22,7 @@ public class AST_Program extends AST_Node {
   int numOfFunc;
   AST_Stat statement;
   public SymbolTable symbolTable;
+  InstructionProgram instr;
 
 
   /**
@@ -167,7 +168,12 @@ public class AST_Program extends AST_Node {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    for (AST_FuncDecl func : funcDeclList) {
+      func.acceptInstr(assemblyCode);
+    }
+    assemblyCode.add(instr.block1);
+    statement.acceptInstr(assemblyCode);
+    assemblyCode.add(instr.block2);
   }
 
   /**
@@ -180,5 +186,6 @@ public class AST_Program extends AST_Node {
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     InstructionProgram instruction = new InstructionProgram();
     instructionList.add(instruction);
+    instr = instruction;
   }
 }

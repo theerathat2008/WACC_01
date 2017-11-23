@@ -29,6 +29,7 @@ public class AST_StatExpr extends AST_Stat {
   AST_Expr expr;
   ParserRuleContext ctx;
   SymbolTable symbolTable;
+  String instr = "undefined block in AST_StatExpr\n";
 
   /**
    * Assign the class variables when called
@@ -265,7 +266,8 @@ public class AST_StatExpr extends AST_Stat {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    expr.acceptInstr(assemblyCode);
+    assemblyCode.add(instr);
   }
 
   /**
@@ -294,6 +296,7 @@ public class AST_StatExpr extends AST_Stat {
         InstructionErrorRuntime instructionErrorRuntime = new InstructionErrorRuntime();
         if (!instructionList.contains(instructionFreePairBlock)){
           instructionList.add(instructionFreePairBlock);
+          //TODO put this at special position of list dedicated to end of file instructions.
         }
         if (!instructionList.contains(instructionErrorRuntime)){
           instructionList.add(instructionErrorRuntime);
@@ -303,11 +306,13 @@ public class AST_StatExpr extends AST_Stat {
       case ("return"):
         InstructionReturn instructionReturn = new InstructionReturn(expr.getType());
         instructionList.add(instructionReturn);
+        instr = instructionReturn.resultBlock;
         break;
 
       case ("exit"):
         InstructionExit instructionExit = new InstructionExit("0");//EXITCODE); //TODO put exit code in - can be found after <statname> <expr = EXITCODE>
         instructionList.add(instructionExit);
+        instr = instructionExit.resultBlock;
         break;
 
       case ("println"):

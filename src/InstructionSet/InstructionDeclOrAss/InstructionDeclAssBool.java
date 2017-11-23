@@ -11,8 +11,15 @@ public class InstructionDeclAssBool extends Instruction {
   /**
    * Class constructor calls super constructor
    */
-  public InstructionDeclAssBool(){//String boolData) {
+
+  //public InstructionDeclAssBool(){//String boolData) {
     //this.boolData = boolData;
+
+  public InstructionDeclAssBool(){//String boolData, String sp) {
+    //this.boolData = boolData;
+    //this.sp = sp;
+    reg1 = "reg1";
+
   }
 
   public int getBoolNum(String bool){

@@ -16,11 +16,11 @@ public class InstructionProgram extends Instruction {
   public void genInstruction() {
     StringBuilder builder = new StringBuilder("\t.global main\n");
     builder.append("\tmain:\n");
-    builder.append("\t\tPUSH (lr)");
+    builder.append("\t\tPUSH (lr)\n");
     block1 = builder.toString();
 
     StringBuilder builder2 = new StringBuilder("\t\tLDR r0, =0\n");
-    builder2.append("\t\tPOP (pc)");
+    builder2.append("\t\tPOP (pc)\n");
     builder2.append("\t\t.ltorg\n");
     block2 = builder2.toString();
   }

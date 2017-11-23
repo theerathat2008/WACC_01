@@ -51,6 +51,8 @@ public class InstructionCall extends Instruction{
     return "CANNOT IDENTIFY TYPE IN GETFOURTHLINE INSTRUCTIONCALL";
   }
 
+
+
   @Override
   public void genInstruction() {
     resultBlock.concat("\t\tBL f_" + fName + "\n");

@@ -4,10 +4,12 @@ public class InstructionExit extends Instruction {
   String reg1;
   String reg2;
   String exitCode;
-  String resultBlock = "";
+  public String resultBlock = "";
 
   public InstructionExit(String exitCode) {
     this.exitCode = exitCode;
+    reg1 = "reg1";
+    reg2 = "reg2";
   }
 
   /**

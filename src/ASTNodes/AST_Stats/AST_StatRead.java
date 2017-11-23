@@ -213,7 +213,7 @@ public class AST_StatRead extends AST_Stat {
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     String type = ast_statAssignLHS.getIdentifier().toString();
-    //TODO ASSIGN MESSAGE
+    //TODO ASSIGN MESSAGE SIMILAR TO PRASHAN'S PRINT CODE
     int message = 0;
     switch (type) {
       case ("int"):

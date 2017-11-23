@@ -8,6 +8,7 @@ public class InstructionFreePairBlock extends Instruction {
 
   public InstructionFreePairBlock(int msgNum) {
     this.msgNum = msgNum;
+    reg1 = "reg1";
   }
 
   public void allocateSP(String sp) {
