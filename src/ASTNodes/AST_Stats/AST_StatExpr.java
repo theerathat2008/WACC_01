@@ -274,7 +274,8 @@ public class AST_StatExpr extends AST_Stat {
         break;
 
       case ("return"):
-
+        InstructionReturn instructionReturn = (InstructionReturn) instr;
+        assemblyCode.add(instructionReturn.getResultBlock());
         break;
 
       case ("exit"):
@@ -320,16 +321,6 @@ public class AST_StatExpr extends AST_Stat {
 
 
 
-    if(statName.equals("exit")){
-      registerAllocation.useRegister("expr");
-      expr.acceptRegister(registerAllocation);
-
-      RegisterARM reg1 = registerAllocation.searchByValue("expr");
-      InstructionExit instructionExit = (InstructionExit) instr;
-      instructionExit.allocateRegisters(RegisterARM.r0, reg1);
-      registerAllocation.freeRegister(reg1);
-    }
-
 
 
     switch (statName) {
@@ -338,10 +329,23 @@ public class AST_StatExpr extends AST_Stat {
         break;
 
       case ("return"):
+        registerAllocation.useRegister("expr");
+        expr.acceptRegister(registerAllocation);
 
+        RegisterARM reg2 = registerAllocation.searchByValue("expr");
+        InstructionReturn instructionReturn = (InstructionReturn) instr;
+        instructionReturn.allocateRegisters(RegisterARM.r0, reg2);
+        registerAllocation.freeRegister(reg2);
         break;
 
       case ("exit"):
+        registerAllocation.useRegister("expr");
+        expr.acceptRegister(registerAllocation);
+
+        RegisterARM reg1 = registerAllocation.searchByValue("expr");
+        InstructionExit instructionExit = (InstructionExit) instr;
+        instructionExit.allocateRegisters(RegisterARM.r0, reg1);
+        registerAllocation.freeRegister(reg1);
 
         break;
 
