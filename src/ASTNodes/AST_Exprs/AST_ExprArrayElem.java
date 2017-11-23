@@ -181,4 +181,8 @@ public class AST_ExprArrayElem extends AST_Expr {
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     System.out.println("No assembly code generated in AST_ExprArrayElem");
   }
+
+  public String getArrayName() {
+    return arrayName;
+  }
 }

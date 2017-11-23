@@ -103,18 +103,16 @@ public class AST_StatExpr extends AST_Stat {
       if (expr instanceof AST_ExprIdent) {
         String varName = ((AST_ExprIdent) expr).getVarName();
         AST_Node tempNode = this.getParentNode();
-        IDENTIFIER typeExpr = ST.encSymTable.lookup(varName);
 
-        while (!(tempNode instanceof AST_FuncDecl)) {
-          if (tempNode instanceof AST_Program) {
-            typeExpr = ST.lookup(varName);
-            break;
-          }
-          tempNode = tempNode.getParentNode();
+        SymbolTable tempST = ST;
+        IDENTIFIER typeExpr = tempST.lookup(varName);
+
+        while (typeExpr == null) {
+          System.out.println("typeExpr is null");
+          tempST = tempST.encSymTable;
+          typeExpr = tempST.lookup(varName);
         }
-        if (ST.lookup(varName) == null) {
-          typeExpr = ST.encSymTable.lookup(varName);
-        }
+
         System.out.println("The typeExpr is: ");
         System.out.println(typeExpr);
         if (typeExpr.toString().contains("PAIR") || typeExpr.toString().contains("[]")) {
@@ -152,17 +150,19 @@ public class AST_StatExpr extends AST_Stat {
       AST_FuncDecl temp = (AST_FuncDecl) parent;
 
       if (expr instanceof AST_ExprIdent) {
+        System.out.println("Hey I'm instance of AST_ExprIdent");
         String varName = ((AST_ExprIdent) expr).getVarName();
         AST_Node tempNode = this.getParentNode();
-        IDENTIFIER typeExpr = ST.encSymTable.lookup(varName);
+        SymbolTable tempST = this.symbolTable;
+        IDENTIFIER typeExpr = tempST.lookup(varName);
 
-        while (!(tempNode instanceof AST_FuncDecl)) {
-          if (tempNode instanceof AST_Program) {
-            typeExpr = ST.lookup(varName);
-            break;
-          }
-          tempNode = tempNode.getParentNode();
+        while (typeExpr == null) {
+          System.out.println("typeExpr is null");
+          tempST = tempST.encSymTable;
+          typeExpr = tempST.lookup(varName);
         }
+        System.out.println("type expr is: ");
+        System.out.println(typeExpr);
         if (temp.ast_type.getIdentifier().equals(typeExpr)) {
           return true;
         } else {
@@ -205,14 +205,13 @@ public class AST_StatExpr extends AST_Stat {
         String varName = ((AST_ExprIdent) expr).getVarName();
 
         AST_Node tempNode = this.getParentNode();
-        IDENTIFIER type = ST.encSymTable.lookup(varName);
+        SymbolTable tempST = ST;
+        IDENTIFIER type = tempST.lookup(varName);
 
-        while (!(tempNode instanceof AST_FuncDecl)) {
-          if (tempNode instanceof AST_Program) {
-            type = ST.lookup(varName);
-            break;
-          }
-          tempNode = tempNode.getParentNode();
+        while (type == null) {
+          System.out.println("type is null");
+          tempST = tempST.encSymTable;
+          type = tempST.lookup(varName);
         }
         //Debug statement
         System.out.println(type);

@@ -1,6 +1,8 @@
 package ASTNodes.AST_Stats;
 
 
+import ASTNodes.AST_Exprs.AST_ExprIdent;
+import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionWhile;
 import Registers.RegisterAllocation;
@@ -118,7 +120,29 @@ public class AST_StatWhile extends AST_Stat {
   @Override
   public boolean CheckSemantics() {
 
+    SymbolTable ST = this.symbolTable;
     //get type for the expression inside the while statement (while(....0) must be of type bool
+    if (exprAST instanceof AST_ExprIdent) {
+      System.out.println("I'm instance of AST_ExprLiter");
+      String varName = ((AST_ExprIdent)exprAST).getVarName();
+      SymbolTable tempST = this.symbolTable;
+      IDENTIFIER type = tempST.lookup(varName);
+
+      while (type == null) {
+        System.out.println("type is null");
+        tempST = tempST.encSymTable;
+        type = tempST.lookup(varName);
+      }
+
+      if (type.toString().contains("bool")) {
+        return true;
+      } else {
+        new TypeError(new FilePosition(ctx)).printAll();
+        return false;
+      }
+
+    }
+
     String condition = exprAST.getIdentifier().toString();
 
     if (!(condition.equals("bool"))) {

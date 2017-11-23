@@ -136,17 +136,17 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
       System.out.println("Hey, I'm instance of AST_ExprIdent");
       String varName = ((AST_ExprIdent) ast_expr).getVarName();
       AST_Node tempNode = this.getParentNode();
-      IDENTIFIER typeExpr = ST.encSymTable.lookup(varName);
+      SymbolTable tempST = ST;
+      IDENTIFIER typeExpr = tempST.lookup(varName);
       System.out.println("Enclosed typeExpr: ");
       System.out.println(typeExpr);
 
-      while (!(tempNode instanceof AST_FuncDecl)) {
-        if (tempNode instanceof AST_Program) {
-          typeExpr = ST.lookup(varName);
-          break;
-        }
-        tempNode = tempNode.getParentNode();
+      while (typeExpr == null) {
+        System.out.println("typeExpr is null");
+        tempST = tempST.encSymTable;
+        typeExpr = tempST.lookup(varName);
       }
+
       System.out.println("typeExpr after: ");
       System.out.println(typeExpr);
 
@@ -219,5 +219,9 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
 
   public AST_Expr getAst_expr() {
     return ast_expr;
+  }
+
+  public String getTypeName() {
+    return typeName;
   }
 }

@@ -127,20 +127,15 @@ public class AST_StatRead extends AST_Stat {
       if (ast_expr instanceof AST_ExprIdent) {
         System.out.println("Hey, I'm an instance of AST_ExprIdent");
         String varName = ((AST_ExprIdent) ast_expr).getVarName();
-        IDENTIFIER typeName = ST.encSymTable.lookup(varName);
+        SymbolTable tempST = this.symbolTable;
+        IDENTIFIER typeName = tempST.lookup(varName);
 
         AST_Node tempNodeRHS = this.getParentNode();
 
-        while (!(tempNodeRHS instanceof AST_FuncDecl)) {
-          if (tempNodeRHS instanceof AST_Program) {
-            typeName = ST.lookup(varName);
-            break;
-          }
-          tempNodeRHS = tempNodeRHS.getParentNode();
-        }
-
-        if (ST.lookup(varName) == null) {
-          typeName = ST.encSymTable.lookup(varName);
+        while (typeName == null) {
+          System.out.println("typeName is null");
+          tempST = tempST.encSymTable;
+          typeName = tempST.lookup(varName);
         }
 
         System.out.println("This is the most recent typeName");
