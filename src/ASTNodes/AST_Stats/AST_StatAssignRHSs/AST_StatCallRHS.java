@@ -11,6 +11,7 @@ import IdentifierObjects.FunctionObj;
 import IdentifierObjects.BaseTypeObj;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionCall;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.MissingParameterError;
@@ -389,6 +390,7 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    //TODO implement instuction call
 
   }
 

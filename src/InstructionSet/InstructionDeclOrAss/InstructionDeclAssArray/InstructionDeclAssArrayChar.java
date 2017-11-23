@@ -2,11 +2,10 @@ package InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray;
 
 import java.util.List;
 
-public class InstructionDeclAssChar extends InstructionDeclAssArray {
+public class InstructionDeclAssArrayChar extends InstructionDeclAssArray {
   List<Character> arrayElems;
 
-  public InstructionDeclAssChar(List<Character> arrayElems, String type) {
-    super(type);
+  public InstructionDeclAssArrayChar(List<Character> arrayElems) {
     this.arrayElems = arrayElems;
     this.arraySize = arrayElems.size();
   }

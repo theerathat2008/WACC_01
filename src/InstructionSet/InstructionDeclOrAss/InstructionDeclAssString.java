@@ -5,7 +5,7 @@ import InstructionSet.Instruction;
 public class InstructionDeclAssString extends Instruction {
   String resultBlock;
   String reg1;
-  int msgNum;
+  //int msgNum;
   String sp;
 
   /**
@@ -13,8 +13,11 @@ public class InstructionDeclAssString extends Instruction {
    *
    * @param msgNum - Indicates the ID of the message to be stored
    */
-  public InstructionDeclAssString(int msgNum, String sp) {
-    this.msgNum = msgNum;
+  public InstructionDeclAssString(){//int msgNum) {
+    //this.msgNum = msgNum;
+  }
+
+  public void allocateSP(String sp) {
     this.sp = sp;
   }
 
@@ -31,7 +34,7 @@ public class InstructionDeclAssString extends Instruction {
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    resultBlock.concat("\t\tLDR " + reg1 + ", =msg_" + msgNum + "\n");
+    //resultBlock.concat("\t\tLDR " + reg1 + ", =msg_" + msgNum + "\n");
     resultBlock.concat("\t\tSTR " + reg1 + ", [" + sp + "]\n");
   }
 

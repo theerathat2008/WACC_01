@@ -115,6 +115,14 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
     }
   }
 
+  public String getTypeOfArray(){
+    if (ast_exprList.size() > 0) {
+      return ast_exprList.get(0).getType();
+    }
+    return "EMPTY ARRAY IN GETTYPEOFARRAY STATARRAYLITRHS";
+
+  }
+
   /**
    * @param ST - Parameter of current symbol table in scope
    * @return - Returns the type of the identifier variable

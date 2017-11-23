@@ -5,14 +5,17 @@ import InstructionSet.Instruction;
 public class InstructionDeclAssChar extends Instruction {
   String resultBlock;
   String reg;
-  String charData;
+  //String charData;
   String sp;
 
   /**
    * Class constructor calls super constructor
    */
-  public InstructionDeclAssChar(String charData, String sp) {
-    this.charData = charData;
+  public InstructionDeclAssChar(){//String charData) {
+    //this.charData = charData;
+  }
+
+  public void allocateSP(String sp) {
     this.sp = sp;
   }
 
@@ -28,7 +31,7 @@ public class InstructionDeclAssChar extends Instruction {
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    resultBlock.concat("\t\tMOV " + reg + ", #'" + charData + "'\n");
+    //resultBlock.concat("\t\tMOV " + reg + ", #'" + charData + "'\n");
     resultBlock.concat("\t\tSTRB " + reg + ", [" + sp + "]\n");
   }
 

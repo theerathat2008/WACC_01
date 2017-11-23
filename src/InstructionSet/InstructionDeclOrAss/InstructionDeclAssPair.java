@@ -11,6 +11,8 @@ public class InstructionDeclAssPair extends Instruction {
   String secondType;
   String firstElem;
   String secondElem;
+  String sp1;
+  String sp2;
 
   public InstructionDeclAssPair(String firstType, String secondType, String firstElem, String secondElem) {
     this.firstType = firstType;
@@ -25,12 +27,9 @@ public class InstructionDeclAssPair extends Instruction {
     this.reg3 = reg3;
   }
 
-  public String getSP1() {
-    return "TODOOOOOOOOOO"; //TODO
-  }
-
-  public String getSP2() {
-    return "TODOOOOOOOOOO"; //TODO
+  public void allocateSP(String sp1, String sp2){
+    this.sp1 = sp1;
+    this.sp2 = sp2;
   }
 
   public int getMsgNum(){
@@ -48,12 +47,12 @@ public class InstructionDeclAssPair extends Instruction {
     } else if (type.equals("int")){
       return "\t\tLDR " + reg3 + ", ="  + elem + "\n";
     } else if (type.equals("array")){
-      return "\t\tLDR " + reg3 + ", [sp, #"  + getSP1() + "]\n";
+      return "\t\tLDR " + reg3 + ", [sp, #"  + sp1 + "]\n";
     }
     return "FAILED getElemBlock in Instruction New Pair\n";
   }
 
-
+  //TODO 3 blocks for below?
   public void genInstruction() {
     resultBlock.concat("\t\tLDR " +  reg1 + ", =8" + "\n");
     resultBlock.concat("\t\tBL malloc\n");
@@ -68,7 +67,7 @@ public class InstructionDeclAssPair extends Instruction {
     resultBlock.concat("\t\tBL malloc\n");
     resultBlock.concat("\t\tSTR " +  reg3 + ", [" +  reg1 + "]\n");
     resultBlock.concat("\t\tSTR " +  reg1 + ", [" +  reg2 + ", #4]\n");
-    resultBlock.concat("\t\tSTR " +  reg2 + ", [sp, #" + getSP2() + "]\n");
+    resultBlock.concat("\t\tSTR " +  reg2 + ", [sp, #" + sp2 + "]\n");
   }
 
   @Override
