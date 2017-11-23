@@ -1,6 +1,8 @@
 package ASTNodes.AST_Stats;
 
 import InstructionSet.Instruction;
+import InstructionSet.InstructionReadBlocks.InstructionReadBlocksChar;
+import InstructionSet.InstructionReadBlocks.InstructionReadBlocksInt;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
@@ -206,15 +208,17 @@ public class AST_StatRead extends AST_Stat {
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     String type = ast_statAssignLHS.getIdentifier().toString();
-
+    //TODO ASSIGN MESSAGE
+    int message = 0;
     switch (type) {
       case ("int"):
-        InstructionReadBlocksInt instructionPrintRead = new InstructionReadBlocksInt();
-        instructionList.add(instructionPrintRead);
+
+        InstructionReadBlocksInt instructionPrintReadInt = new InstructionReadBlocksInt(message);
+        instructionList.add(instructionPrintReadInt);
         break;
       case ("char"):
-        InstructionReadBlocksChar instructionPrintRead = new InstructionReadBlocksChar();
-        instructionList.add(instructionPrintRead);
+        InstructionReadBlocksChar instructionPrintReadChar = new InstructionReadBlocksChar(message);
+        instructionList.add(instructionPrintReadChar);
         break;
       default:
         break;
