@@ -107,6 +107,8 @@ public class AST_ExprIdent extends AST_Expr {
   @Override
   public boolean CheckSemantics() {
     SymbolTable ST = this.symbolTable;
+    setType(ST.lookupAll(varName).toString());
+
     if (ST.lookupAll(varName) != null) {
       return true;
     } else {

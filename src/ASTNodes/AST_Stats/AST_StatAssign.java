@@ -190,7 +190,7 @@ public class AST_StatAssign extends AST_Stat {
         System.out.println(varName);
         SymbolTable tempST = ST;
         typeRHS = tempST.lookup(varName);
-        System.out.println(typeRHS);
+
 
         AST_Node tempNodeRHS = this.getParentNode();
 
@@ -199,6 +199,7 @@ public class AST_StatAssign extends AST_Stat {
           tempST = tempST.encSymTable;
           typeRHS = tempST.lookup(varName);
         }
+        System.out.println(typeRHS);
       } else {
         typeRHS = ast_statAssignRHS.getIdentifier();
       }
@@ -211,7 +212,6 @@ public class AST_StatAssign extends AST_Stat {
         System.out.println(varName);
         SymbolTable tempST = ST;
         typeRHS = tempST.lookup(varName);
-        System.out.println(typeRHS);
 
         AST_Node tempNodeRHS = this.getParentNode();
 
@@ -220,19 +220,62 @@ public class AST_StatAssign extends AST_Stat {
           tempST = tempST.encSymTable;
           typeRHS = tempST.lookup(varName);
         }
+        System.out.println(typeRHS);
+
+        //TODO implement for fst and snd
+        String exprType = ((AST_StatPairElemRHS) ast_statAssignRHS).getTypeName();
+        System.out.println("exprType name is: " + exprType);
+
+        if (exprType.equals("fst")) {
+          //TODO add implementation to check type
+          return true;
+        } else if (exprType.equals("snd")) {
+          //TODO add implementation to check type
+          return true;
+        }
 
       } else {
         typeRHS = ast_statAssignRHS.getIdentifier();
       }
 
     } else if (ast_statAssignRHS instanceof AST_StatCallRHS) {
+      //TODO right now the type is not to supposed to be typeRHS
       System.out.println("Hey, I'm instance of AST_StatCallRHS");
       List<AST_Expr> exprList = ((AST_StatCallRHS) ast_statAssignRHS).getAst_exprList();
-      System.out.println(exprList);
-      if (exprList.size() == 1) {
-        AST_Expr firstElem = exprList.get(0);
-        System.out.println("fitstElem is: " + firstElem);
+      String funcName = ((AST_StatCallRHS) ast_statAssignRHS).getFuncName();
+      System.out.println("funcName is: " + funcName);
+      System.out.println("exprList is: " + exprList);
+
+      SymbolTable tempST = ST;
+      typeRHS = tempST.lookup(funcName);
+
+      while (typeRHS == null) {
+        System.out.println("typeRHS is null");
+        tempST = tempST.encSymTable;
+        typeRHS = tempST.lookup(funcName);
       }
+
+      System.out.println("Recent typeRHS is: " + typeRHS);
+
+      /*if (exprList.size() == 1) {
+        AST_Expr firstElem = exprList.get(0);
+        System.out.println("firstElem is: " + firstElem);
+
+        if (firstElem instanceof AST_ExprIdent) {
+          System.out.println("firstElem is instance of AST_ExprIdent");
+          String varName = ((AST_ExprIdent) firstElem).getVarName();
+          System.out.println("varName is: " + varName);
+          SymbolTable tempST = ST;
+          typeRHS = tempST.lookup(varName);
+
+          while (typeRHS == null) {
+            System.out.println("typeRHs is null");
+            tempST = tempST.encSymTable;
+            typeRHS = tempST.lookup(varName);
+          }
+          System.out.println("typeRHs is: " + typeRHS);
+        }
+      }*/
     } else {
       typeRHS = ast_statAssignRHS.getIdentifier();
     }
@@ -258,15 +301,31 @@ public class AST_StatAssign extends AST_Stat {
           typeLHS = tempST.lookup(varName);
         }
 
+        //TODO check type for fst and snd
+        if (typeLHS.toString().contains("PAIR(")) {
+          System.out.println("Hey, typeLHS is of type pair!");
+          System.out.println("The type for expression is");
+          String typeExpr = ((AST_StatPairElemLHS) ast_statAssignLHS).getTypeName();
+          System.out.println(typeExpr);
+
+          if (typeExpr.equals("fst")) {
+            //TODO add
+            return true;
+          } else if (typeExpr.equals("snd")) {
+            //TODO add
+            return true;
+          }
+        }
+
       } else {
         typeLHS = ast_statAssignLHS.getIdentifier();
       }
     }
 
     System.out.println("Hey, I reach the general cases");
-    System.out.println(typeLHS);
+    System.out.println("typeLHS is: " + typeLHS);
     System.out.println(ast_statAssignLHS.getIdentifier());
-    System.out.println(typeRHS);
+    System.out.println("typeRHS is: " + typeRHS);
     System.out.println(ast_statAssignRHS.getIdentifier());
     if (typeLHS.toString().contains(typeRHS.toString()) || typeRHS.toString().contains(typeLHS.toString())) {
       return true;

@@ -198,9 +198,12 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
 
         //if it is a baseType obj, we add it to a list instead of assigning it
         if (ST.lookupAll(funcName) instanceof BaseTypeObj) {
+          System.out.println("When funcName is instance of BaseTypeObj");
+          System.out.println(ST.lookupAll(funcName));
           parameters.add(ST.lookupAll(funcName));
         } else if (ST.lookupAll(funcName) instanceof FunctionObj) {
           //TODO BaseTypeObj cannot cast to FunctionObj
+          System.out.println("When funcName is instance of FunctionObj");
           parameters = (((FunctionObj) (ST.lookupAll(funcName))).getparamListObj()).getParamObjList();
         }
 
@@ -279,14 +282,14 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
           //Cases when the element is instance of AST_ExprIdent
           if (ast_exprList.get(i) instanceof AST_ExprIdent) {
             String varName = ((AST_ExprIdent) ast_exprList.get(i)).getVarName();
-            IDENTIFIER typeExpr = ST.encSymTable.lookup(varName);
 
-            while (!(parent instanceof AST_FuncDecl)) {
-              if (parent instanceof AST_Program) {
-                typeExpr = ST.lookup(varName);
-                break;
-              }
-              parent = parent.getParentNode();
+            SymbolTable tempST = ST;
+            IDENTIFIER typeExpr = tempST.lookup(varName);
+
+            while (typeExpr == null) {
+              System.out.println("typeExpr is null");
+              tempST = tempST.encSymTable;
+              typeExpr = tempST.lookup(varName);
             }
 
             System.out.println("varName is:" + varName);
@@ -315,13 +318,24 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
             return false;
           }
         }
+      } else {
+        System.out.println("Hey, I'm an empty list");
       }
       //Debug statement
       System.out.println(funcName);
       //TODO ST.lookup(funcname) returns null
       System.out.println(ST.lookup(funcName));
+
+      SymbolTable temporaryST = ST;
+      IDENTIFIER type = temporaryST.lookup(funcName);
+
+      while (type == null) {
+        System.out.println("type is null");
+        temporaryST = temporaryST.encSymTable;
+        type = temporaryST.lookup(funcName);
+      }
       //TODO this statement also has NullPointer exception
-      setIdentifier(((FunctionObj) (ST.lookup(funcName))).getReturnType());
+      setIdentifier(((FunctionObj) (type)).getReturnType());
     }
 
 
@@ -385,5 +399,9 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
 
   public List<AST_Expr> getAst_exprList() {
     return ast_exprList;
+  }
+
+  public String getFuncName() {
+    return funcName;
   }
 }
