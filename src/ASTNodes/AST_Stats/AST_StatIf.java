@@ -6,7 +6,6 @@ import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionIf;
-import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.*;
@@ -188,6 +187,11 @@ public class AST_StatIf extends AST_Stat {
     assemblyList.add(instr.blockElse);
     elseStat.acceptInstr(assemblyList);
     assemblyList.add(instr.blockContinue);
+  }
+
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
   }
 
   /**

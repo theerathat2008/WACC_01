@@ -167,6 +167,17 @@ public class AST_Param extends AST_Node {
 
   }
 
+  /**
+   *
+   * @param registerAllocation
+   */
+
+
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    ast_type.acceptRegister(registerAllocation);
+  }
+
 
   /**
    * Doesn't generate any assembly code

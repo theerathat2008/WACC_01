@@ -129,6 +129,11 @@ public class AST_Stat extends AST_Node {
 
   }
 
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+  }
+
   /**
    * Base class
    */

@@ -1,7 +1,11 @@
 package ASTNodes.AST_Exprs;
 
 import InstructionSet.Instruction;
+<<<<<<< HEAD
 import InstructionSet.InstructionAssignLit;
+=======
+import Registers.RegisterARM;
+>>>>>>> RegisterGenAlloc
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
@@ -116,6 +120,7 @@ public class AST_ExprLiter extends AST_Expr {
   @Override
   public boolean CheckSemantics() {
     setType(literal);
+
     //if it is int liter, check whether the number is inside the integer bounds
     //TODO reuntimeErr cases check
     if (literal.equals("int")) {
@@ -217,8 +222,25 @@ public class AST_ExprLiter extends AST_Expr {
 
 
   /**
+   *
+   */
+
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+
+    RegisterARM resultReg = registerAllocation.searchByValue("expr");
+
+    //instructionAssignLit.allocateRegisters(resultReg);
+
+
+
+  }
+
+
+  /**
    * Terminal class which holds the actual constant value
-   * Generates Assembly code for InstructionMessage
+   * Generates Assembly code for InstructionMessage and InstructionAssignLit
    * INT_LITER: Holds the constant value for =Num when loading into a register
    * BOOL_LITER: Holds the contant value for #1 or #0 for moving into a register
    * CHAR_LITER: generate InstructionMessage
@@ -238,6 +260,7 @@ public class AST_ExprLiter extends AST_Expr {
       InstructionAssignLit instructionAssignLit = new InstructionAssignLit(constant, literal);
       instr = instructionAssignLit;
     }
+
 
   }
 

@@ -174,6 +174,11 @@ public class AST_StatWhile extends AST_Stat {
     assemblyCode.add(instr.afterLoop);
   }
 
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+  }
+
 
   /**
    * Generates instruction while which requires one register which holds the result of the expression evalutation

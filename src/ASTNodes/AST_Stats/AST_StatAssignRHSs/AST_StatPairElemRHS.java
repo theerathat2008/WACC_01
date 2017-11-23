@@ -205,6 +205,11 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
 
   }
 
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+  }
+
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     //TODO use InstructionDeclAssPairElem
     InstructionDeclAssPairElem instructionDeclAssPairElem

@@ -166,6 +166,11 @@ public class AST_ExprArrayElem extends AST_Expr {
 
   }
 
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+  }
+
 
   /**
    * TODO Produces Assembly code?

@@ -8,6 +8,7 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatArrayElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
+import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatPairElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
@@ -15,7 +16,9 @@ import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatPairElemRHS;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionAssignLit;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
+import Registers.StackLocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.TypeMismatchError;
 import src.FilePosition;
@@ -330,6 +333,43 @@ public class AST_StatAssign extends AST_Stat {
     assemblyCode.add(instr.toString());
   }
 
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+    registerAllocation.useRegister("expr");
+    ast_statAssignRHS.acceptRegister(registerAllocation);
+    RegisterARM reg1 = registerAllocation.searchByValue("expr");
+    registerAllocation.freeRegister(reg1);
+
+    ast_statAssignLHS.acceptRegister(registerAllocation);
+
+    if(ast_statAssignLHS instanceof AST_StatIdentLHS){
+      String result;
+      if(registerAllocation.getStackSize() > 0){
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("[sp, #");
+        int displacement = registerAllocation.getStackSize();
+        int memSize = registerAllocation.getMemSize(ast_statAssignLHS.getIdentifier().toString());
+        builder.append(displacement + memSize);
+        result = builder.toString();
+
+        String identName = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
+        String scope = registerAllocation.getCurrentScope();
+        int location = (displacement + memSize);
+        registerAllocation.addToStack(identName, new StackLocation(location ,scope));
+      }
+
+    }
+
+
+    RegisterARM interReg = registerAllocation.useRegister("intermediate");
+    //instructionAssign.allocateRegisters(interReg, result);
+    registerAllocation.freeRegister(interReg);
+
+  }
+
 
   /**
    * Needs two register corresponding to the destination and source in two lines
@@ -343,6 +383,9 @@ public class AST_StatAssign extends AST_Stat {
    *	 LDR r4, =msg_1   ->STRING
    *   STR r4, [sp]
    *
+   *   STRB r4, [sp]    ->BOOL
+   *   LDRSB r4, [sp]
+   *
    */
 
 
@@ -350,8 +393,6 @@ public class AST_StatAssign extends AST_Stat {
 
     String type = ast_statAssignRHS.getIdentifier().toString();
     //InstructionNewVar instructionAssign = new InstructionNewVar(type);
-
-    //Allocate three registers here
 
 
     //instructionList.add(instructionAssign);

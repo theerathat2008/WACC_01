@@ -202,6 +202,33 @@ public class AST_ExprBinary extends AST_Expr {
     }
   }
 
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+
+    registerAllocation.useRegister("expr");
+    exprLeftAST.acceptRegister(registerAllocation);
+    RegisterARM reg1 = registerAllocation.searchByValue("expr");
+    registerAllocation.freeRegister(reg1);
+
+    registerAllocation.useRegister("expr");
+    exprRightAST.acceptRegister(registerAllocation);
+    RegisterARM reg2 = registerAllocation.searchByValue("expr");
+    registerAllocation.freeRegister(reg2);
+
+
+
+    if(opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")){
+      RegisterARM dst = registerAllocation.useRegister("expr");
+      instructionArithmetic.allocateRegisters(reg1, reg2, dst);
+    } else {
+      RegisterARM dst = registerAllocation.useRegister("expr");
+      instructionCompare.allocateRegisters(reg1, reg2, dst);
+    }
+
+
+  }
+
 
   /**
    * Generates assembly code in InstructionComparison and InstructionArithmetic depending on the
@@ -226,9 +253,6 @@ public class AST_ExprBinary extends AST_Expr {
 
     if(opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")){
       InstructionArithmetic instructionArithmetic = new InstructionArithmetic(opName);
-      //RegisterARM reg1, RegisterARM reg2, RegisterARM dst
-      //TODO special cases for div and mod
-
 
       instructionList.add(instructionArithmetic);
       instrA = instructionArithmetic;
@@ -240,9 +264,5 @@ public class AST_ExprBinary extends AST_Expr {
       instrC = instructionCompare;
 
     }
-
-
-
   }
-
 }

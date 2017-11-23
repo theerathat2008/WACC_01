@@ -146,6 +146,11 @@ public class AST_StatAssignLHS extends AST_Stat {
 
   }
 
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+  }
+
 
   /**
    * Doesn't require a register allocation as its a base class
