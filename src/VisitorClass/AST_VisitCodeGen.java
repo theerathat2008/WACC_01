@@ -23,6 +23,7 @@ import InstructionSet.Assembler;
 import InstructionSet.Instruction;
 import Registers.RegisterAllocation;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,6 +34,16 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   RegisterAllocation registerAllocation = new RegisterAllocation();
 
   AST_Node rootNode;
+  String filename;
+
+  public AST_VisitCodeGen(String filename) {
+    File f = new File(filename);
+
+    filename = f.getName();
+    filename = filename.substring(0, filename.lastIndexOf('.'));
+    this.filename = filename;
+    System.out.println(filename);
+  }
 
   public void setRootNode(AST_Node rootNode) {
     this.rootNode = rootNode;
@@ -61,6 +72,7 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
 
     assembler.parseInstructions();
     assembler.assembleInstructions();
+    assembler.generateOutputFile(filename);
   }
 
 
