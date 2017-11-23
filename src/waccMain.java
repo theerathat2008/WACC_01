@@ -59,12 +59,12 @@ public class waccMain {
     System.out.println("------------------CODE GENERATION--------------------");
     AST_VisitCodeGen codeGen = new AST_VisitCodeGen();
     codeGen.setRootNode(root);
-    root.accept(codeGen);
+    //root.accept(codeGen);
 
     System.out.println("------------------CODE GENERATION--------------------");
     System.out.println();
     System.out.println("------------------GENERATING CODE--------------------");
-    codeGen.generateAssembly();
+   // codeGen.generateAssembly();
     System.out.println("------------------GENERATING CODE--------------------");
 
 

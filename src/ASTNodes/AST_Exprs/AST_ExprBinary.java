@@ -4,6 +4,7 @@ import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionArithmetic;
 import InstructionSet.InstructionComparison;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 
@@ -220,10 +221,10 @@ public class AST_ExprBinary extends AST_Expr {
 
     if(opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")){
       RegisterARM dst = registerAllocation.useRegister("expr");
-      instructionArithmetic.allocateRegisters(reg1, reg2, dst);
+      instrA.allocateRegisters(reg1, reg2, dst);
     } else {
       RegisterARM dst = registerAllocation.useRegister("expr");
-      instructionCompare.allocateRegisters(reg1, reg2, dst);
+      instrC.allocateRegisters(reg1, reg2, dst);
     }
 
 

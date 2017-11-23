@@ -1,11 +1,9 @@
 package ASTNodes.AST_Exprs;
 
 import InstructionSet.Instruction;
-<<<<<<< HEAD
 import InstructionSet.InstructionAssignLit;
-=======
 import Registers.RegisterARM;
->>>>>>> RegisterGenAlloc
+
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;

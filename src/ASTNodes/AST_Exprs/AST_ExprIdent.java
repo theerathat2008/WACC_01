@@ -162,7 +162,7 @@ public class AST_ExprIdent extends AST_Expr {
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
     RegisterARM resultReg = registerAllocation.searchByValue("expr");
-    String stackLocation = registerAllocation.getStackLocation(varName);
+    int stackLocation = registerAllocation.getStackLocation(varName);
 
     //instructionAssignIdent.allocateRegisters(resultReg, stackLocation);
 
