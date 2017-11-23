@@ -3,11 +3,15 @@ package ASTNodes.AST_Stats;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Exprs.AST_ExprEnclosed;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
+import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
+import ASTNodes.AST_Program;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatArrayElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
+import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatPairElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
+import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatPairElemRHS;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import Registers.RegisterAllocation;
@@ -105,8 +109,7 @@ public class AST_StatAssign extends AST_Stat {
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet) {
     if (astToSet.equals("ast_statAssignLHS")) {
       ast_statAssignLHS = (AST_StatAssignLHS) nodeToSet;
-    }
-    if (astToSet.equals("statAssignRHS")) {
+    } else if (astToSet.equals("statAssignRHS")) {
       ast_statAssignRHS = (AST_StatAssignRHS) nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
@@ -128,8 +131,8 @@ public class AST_StatAssign extends AST_Stat {
     System.out.println("LHS identifier is: " + ast_statAssignLHS.getIdentifier());
     System.out.println("RHS identifier is: " + ast_statAssignRHS.getIdentifier());
 
-    IDENTIFIER typeLHS = null;
-    IDENTIFIER typeRHS = null;
+    IDENTIFIER typeLHS = ast_statAssignLHS.getIdentifier();
+    IDENTIFIER typeRHS = ast_statAssignRHS.getIdentifier();
 
     if (ast_statAssignLHS instanceof AST_StatArrayElemLHS) {
       System.out.println("I'm instance of AST_StatArrayElemLHS");
@@ -169,23 +172,111 @@ public class AST_StatAssign extends AST_Stat {
           typeRHS = ast_statAssignRHS.getIdentifier();
         }
       } else {
-        typeRHS  =ast_statAssignRHS.getIdentifier();
+        typeRHS = ast_statAssignRHS.getIdentifier();
       }
 
       //TODO implement general cases for typeLHS and typeRHS
 
+    }
+
+    System.out.println("ast_statAssignRHS");
+    if (ast_statAssignRHS instanceof AST_StatExprRHS) {
+      AST_Expr ast_expr = ((AST_StatExprRHS) ast_statAssignRHS).getAst_expr();
+
+      if (ast_expr instanceof AST_ExprIdent) {
+        System.out.println("RHS is instance of AST_ExprIdent");
+        String varName = ((AST_ExprIdent) ast_expr).getVarName();
+        System.out.println(varName);
+        typeRHS = ST.encSymTable.lookup(varName);
+        System.out.println(typeRHS);
+
+        AST_Node tempNodeRHS = this.getParentNode();
+
+        while (!(tempNodeRHS instanceof AST_FuncDecl)) {
+          if (tempNodeRHS instanceof AST_Program) {
+            typeRHS = ST.lookup(varName);
+            break;
+          }
+          tempNodeRHS = tempNodeRHS.getParentNode();
+        }
+
+        if (ST.lookup(varName) == null) {
+          typeRHS = ST.encSymTable.lookup(varName);
+        }
+      } else {
+        typeRHS = ast_statAssignRHS.getIdentifier();
+      }
+    } else if (ast_statAssignRHS instanceof AST_StatPairElemRHS) {
+      AST_Expr ast_expr = ((AST_StatPairElemRHS) ast_statAssignRHS).getAst_expr();
+
+      if (ast_expr instanceof AST_ExprIdent) {
+        System.out.println("RHS is instance of AST_ExprIdent");
+        String varName = ((AST_ExprIdent) ast_expr).getVarName();
+        System.out.println(varName);
+        typeRHS = ST.encSymTable.lookup(varName);
+        System.out.println(typeRHS);
+
+        AST_Node tempNodeRHS = this.getParentNode();
+
+        while (!(tempNodeRHS instanceof AST_FuncDecl)) {
+          if (tempNodeRHS instanceof AST_Program) {
+            typeRHS = ST.lookup(varName);
+            break;
+          }
+          tempNodeRHS = tempNodeRHS.getParentNode();
+        }
+
+        if (ST.lookup(varName) == null) {
+          typeRHS = ST.encSymTable.lookup(varName);
+        }
+      } else {
+        typeRHS = ast_statAssignRHS.getIdentifier();
+      }
+
     } else {
-      typeLHS = ast_statAssignLHS.getIdentifier();
       typeRHS = ast_statAssignRHS.getIdentifier();
     }
 
+    if (ast_statAssignLHS instanceof AST_StatPairElemLHS) {
+      System.out.println("Hey, I'm instance of AST_StatPairElemLHS");
+
+      AST_Expr expr = ((AST_StatPairElemLHS) ast_statAssignLHS).getAst_expr();
+      System.out.println(expr);
+
+      if (expr instanceof AST_ExprIdent) {
+        String varName = ((AST_ExprIdent) expr).getVarName();
+        System.out.println(varName);
+        typeLHS = ST.encSymTable.lookup(varName);
+        System.out.println(typeLHS);
+
+        AST_Node tempNode = this.getParentNode();
+        while (!(tempNode instanceof AST_FuncDecl)) {
+          if (tempNode instanceof AST_Program) {
+            typeLHS = ST.lookup(varName);
+            break;
+          }
+          tempNode = tempNode.getParentNode();
+        }
+
+        if (ST.lookup(varName) == null) {
+          typeLHS = ST.encSymTable.lookup(varName);
+        }
+      } else {
+        typeLHS = ast_statAssignLHS.getIdentifier();
+      }
+    }
+
+    System.out.println("Hey, I reach the general cases");
+    System.out.println(typeLHS);
+    System.out.println(ast_statAssignLHS.getIdentifier());
+    System.out.println(typeRHS);
+    System.out.println(ast_statAssignRHS.getIdentifier());
     if (typeLHS.toString().contains(typeRHS.toString()) || typeRHS.toString().contains(typeLHS.toString())) {
       return true;
     } else {
       new TypeMismatchError(new FilePosition(ctx)).printAll();
       return false;
     }
-
     /*String identifierLHS = ast_statAssignLHS.getIdentifier().toString();
     String identifierRHS = ast_statAssignRHS.getIdentifier().toString();
 

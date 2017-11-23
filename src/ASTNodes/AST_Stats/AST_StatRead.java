@@ -5,10 +5,16 @@ import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
+import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatPairElemLHS;
+import ASTNodes.AST_Exprs.AST_ExprIdent;
+import ASTNodes.AST_Exprs.AST_Expr;
+import ASTNodes.AST_FuncDecl;
+import ASTNodes.AST_Program;
 import ErrorMessages.TypeError;
 import src.FilePosition;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
+import IdentifierObjects.IDENTIFIER;
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -109,10 +115,51 @@ public class AST_StatRead extends AST_Stat {
 
     //get Type of the statement
     //String type = ast_statAssignLHS.getType(ST);
+    //Debug statement
+    System.out.println(ast_statAssignLHS);
+
+
+    if (ast_statAssignLHS instanceof AST_StatPairElemLHS) {
+      AST_Expr ast_expr = ((AST_StatPairElemLHS) ast_statAssignLHS).getAst_expr();
+
+      if (ast_expr instanceof AST_ExprIdent) {
+        System.out.println("Hey, I'm an instance of AST_ExprIdent");
+        String varName = ((AST_ExprIdent) ast_expr).getVarName();
+        IDENTIFIER typeName = ST.encSymTable.lookup(varName);
+
+        AST_Node tempNodeRHS = this.getParentNode();
+
+        while (!(tempNodeRHS instanceof AST_FuncDecl)) {
+          if (tempNodeRHS instanceof AST_Program) {
+            typeName = ST.lookup(varName);
+            break;
+          }
+          tempNodeRHS = tempNodeRHS.getParentNode();
+        }
+
+        if (ST.lookup(varName) == null) {
+          typeName = ST.encSymTable.lookup(varName);
+        }
+
+        System.out.println("This is the most recent typeName");
+        System.out.println(typeName);
+
+        String typeString = typeName.toString();
+
+        if (typeString.equals("char") || typeString.equals("int")
+                || typeString.contains("PAIR") || typeString.contains("pair")) {
+          return true;
+        } else {
+          new TypeError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      }
+    }
+
     String type = ast_statAssignLHS.getIdentifier().toString();
 
     //only valid if it is of type char and int
-    if (!(type.equals("char") || type.equals("int"))) {
+    if (!(type.equals("char") || type.equals("int") || type.contains("PAIR") || type.contains("pair"))) {
       new TypeError(new FilePosition(ctx)).printAll();
       return false;
     }

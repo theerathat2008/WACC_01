@@ -149,6 +149,7 @@ public class AST_StatVarDecl extends AST_Stat {
 
     AST_Node parent = getParentNode();
 
+
     IDENTIFIER type = ST.encSymTable.lookup(identName);
     System.out.println(type);
 
@@ -167,6 +168,20 @@ public class AST_StatVarDecl extends AST_Stat {
 
     System.out.println(ast_assignRHS.getIdentifier());
 
+    System.out.println(ast_assignRHS);
+
+    System.out.println("Printing types out for both sides");
+    System.out.println(type.toString());
+    System.out.println(ast_assignRHS.getIdentifier().toString());
+
+    if (type.toString().contains("pair") || type.toString().contains("PAIR")) {
+      System.out.println("Hey, I reach when it contains type");
+      if (ast_assignRHS.getIdentifier().toString().contains("pair")
+              || ast_assignRHS.getIdentifier().toString().contains("PAIR")) {
+        return true;
+      }
+    }
+
     if (ast_type.getIdentifier() != null && ast_assignRHS.getIdentifier() != null) {
       //ast_type.getIdentifier() returns "str" so it's the problem
       if (!(ast_type.getIdentifier().toString().contains(ast_assignRHS.getIdentifier().toString())
@@ -180,11 +195,13 @@ public class AST_StatVarDecl extends AST_Stat {
     //TODO find out why it is already assigned
     //find other way to check
     //maybe use not equal to the already assigned type?
-    if (!type.equals(ast_type.getIdentifier())) {
+    if (type.toString().contains(ast_type.getIdentifier().toString())
+            || ast_type.getIdentifier().toString().contains(type.toString())) {
+      return true;
+    } else {
       new VariableRedeclarationError(new FilePosition(ctx)).printAll();
       return false;
     }
-    return true;
 
 
 
