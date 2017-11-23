@@ -10,6 +10,7 @@ import InstructionSet.InstructionError.InstructionErrorRuntime;
 import InstructionSet.InstructionPrintBlocks.*;
 import InstructionSet.InstructionPrintBlocks.InstructionPrintBlocksBool;
 import InstructionSet.InstructionPrintBlocks.InstructionPrintBlocksString;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.TypeError;
@@ -21,7 +22,6 @@ import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 import java.util.List;
-import java.util.SortedMap;
 
 public class AST_StatExpr extends AST_Stat {
 
@@ -267,6 +267,63 @@ public class AST_StatExpr extends AST_Stat {
   public void acceptInstr(List<String> assemblyCode) {
 
   }
+
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+    registerAllocation.useRegister("expr");
+    expr.acceptRegister(registerAllocation);
+
+    RegisterARM reg1 = registerAllocation.searchByValue("expr");
+    registerAllocation.freeRegister(reg1);
+
+
+    switch (statName) {
+      case ("free"):
+
+        break;
+
+      case ("return"):
+
+        break;
+
+      case ("exit"):
+
+        break;
+
+      case ("println"):
+
+      case ("print"):
+        String type = expr.getType();
+
+        switch (type) {
+          case ("int"):
+
+            break;
+          case ("string"):
+
+            break;
+          case ("char"):
+            break;
+          case ("pair"):
+            //No break since pair and array are the same
+          case ("array"):
+
+            break;
+
+          case ("bool"):
+
+          default:
+            break;
+        }
+
+        break;
+      default:
+        System.out.println("Unrecognised statement type in AST_StatExpr");
+    }
+  }
+
+
 
   /**
    * FREE expr

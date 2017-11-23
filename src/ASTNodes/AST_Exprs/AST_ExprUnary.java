@@ -2,6 +2,7 @@ package ASTNodes.AST_Exprs;
 
 import InstructionSet.Instruction;
 import InstructionSet.InstructionUnary;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_FuncDecl;
@@ -410,6 +411,26 @@ public class AST_ExprUnary extends AST_Expr {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+    registerAllocation.useRegister("expr");
+    astExpr.acceptRegister(registerAllocation);
+    RegisterARM reg1 = registerAllocation.searchByValue("expr");
+    registerAllocation.freeRegister(reg1);
+
+
+    if(opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")){
+      RegisterARM dst = registerAllocation.useRegister("expr");
+      //instructionArithmetic.allocateRegisters(dst, reg1);
+    } else {
+      RegisterARM dst = registerAllocation.useRegister("expr");
+      //instructionCompare.allocateRegisters(dst, reg1);
+    }
+
 
   }
 

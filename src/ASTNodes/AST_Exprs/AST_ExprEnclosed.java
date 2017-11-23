@@ -167,6 +167,13 @@ public class AST_ExprEnclosed extends AST_Expr {
 
   }
 
+
+
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+  }
+
   /**
    * Doesn't generate any assembly code
    * Evalutes the enclosed expression

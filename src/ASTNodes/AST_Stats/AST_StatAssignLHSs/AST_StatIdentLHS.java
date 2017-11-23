@@ -16,6 +16,11 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS {
   //Syntactic attributes
   String identName;
 
+
+  public String getIdentName() {
+    return identName;
+  }
+
   /**
    * Constructor for class - initialises class variables
    *
@@ -130,6 +135,11 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
   }
 

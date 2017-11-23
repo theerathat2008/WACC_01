@@ -137,6 +137,15 @@ public class AST_StatBeginEnd extends AST_Stat {
 
   }
 
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    String oldScope = registerAllocation.getCurrentScope();
+    registerAllocation.setCurrentScope("BeginEnd");
+    statAST.acceptRegister(registerAllocation);
+    registerAllocation.setCurrentScope(oldScope);
+
+  }
+
   /**
    * Begin and end just define new scopes but don't generate new assembly code
    * so registers mapped to values called from within a begin end scope will have different

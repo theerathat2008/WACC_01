@@ -153,6 +153,11 @@ public class AST_StatMult extends AST_Stat {
 
   }
 
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+  }
+
   /**
    * StatMult doesn't produce any assembly code
    * Its a holder ast node for two statements which are evalutaed in the right order

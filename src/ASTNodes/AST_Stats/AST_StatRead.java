@@ -203,6 +203,11 @@ public class AST_StatRead extends AST_Stat {
 
   }
 
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+  }
+
   /**
    * Generates an read instruction depending on what type the statLHS has
    * InstructionReadBlocks is the base type

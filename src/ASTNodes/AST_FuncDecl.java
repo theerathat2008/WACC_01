@@ -6,9 +6,7 @@ import IdentifierObjects.IDENTIFIER;
 import IdentifierObjects.ParamListObj;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionFunction;
-import InstructionSet.InstructionProgram;
 import Registers.RegisterAllocation;
-import Registers.RegisterARM;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -269,6 +267,18 @@ public class AST_FuncDecl extends AST_Node {
   @Override
   public void acceptInstr(List<String> assemblyCode) {
 
+  }
+
+  /**
+   * Doesn't require any registers
+   */
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    ast_type.acceptRegister(registerAllocation);
+    if(checkForParamList()){
+      paramList.acceptRegister(registerAllocation);
+    }
+    statement.acceptRegister(registerAllocation);
   }
 
 

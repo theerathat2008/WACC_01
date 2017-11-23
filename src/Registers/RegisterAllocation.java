@@ -11,11 +11,61 @@ public class RegisterAllocation{
    */
   Stack<RegisterARM> freeRegisters = new Stack<>();
 
-  //List<RegisterARM> registerInUse = new ArrayList<>();
-
   Map<RegisterARM, String> registerInUse = new HashMap<>();
 
   List<String> stringList = new ArrayList<>();
+
+  String currentScope;
+
+  int stackSize;
+
+  public int getStackSize() {
+    return stackSize;
+  }
+
+  public void setCurrentScope(String currentScope) {
+    this.currentScope = currentScope;
+  }
+
+  public String getCurrentScope(){
+    return currentScope;
+  }
+
+  public int getMemSize(String type){
+    switch(type){
+      case "char":
+        return 1;
+      case "int":
+        return 4;
+      case "bool":
+        return 1;
+      default:
+        return 1;
+    }
+  }
+
+  //Maps ident name to stack location
+  Map<String, StackLocation> stackInUse = new HashMap<>();
+
+  public void addToStack(String identName, StackLocation stackLocation){
+    stackInUse.put(identName, stackLocation);
+  }
+
+  public int getStackLocation(String identName){
+    if(stackInUse.containsKey(identName)){
+      return stackInUse.get(identName).getLocation();
+    }
+    return -1;
+  }
+
+
+  public String getStackScope(String identName){
+    if(stackInUse.containsKey(identName)){
+      return stackInUse.get(identName).getScope();
+    }
+    return "null";
+  }
+
 
 
 
@@ -24,6 +74,8 @@ public class RegisterAllocation{
    * constructor for freeRegisters
    */
   public RegisterAllocation() {
+    stackSize = 0;
+    currentScope = "Global";
     freeRegisters.push(RegisterARM.R12);
     freeRegisters.push(RegisterARM.R11);
     freeRegisters.push(RegisterARM.R10);
@@ -46,6 +98,15 @@ public class RegisterAllocation{
     return stringList.indexOf(string);
   }
 
+
+  public RegisterARM searchByValue(String value){
+    for(Map.Entry<RegisterARM, String> entry : registerInUse.entrySet()){
+      if(value.equals(entry.getValue())){
+        return entry.getKey();
+      }
+    }
+    return null;
+  }
 
   /**
    * @param register
@@ -195,3 +256,4 @@ public class RegisterAllocation{
     freeRegisters.clear();
   }
 }
+
