@@ -41,9 +41,9 @@ public class InstructionComparison extends Instruction {
     StringBuilder builder = new StringBuilder("\t\t");
     if (!(op.equals("&&")||op.equals("||"))) {
         builder.append("CMP");
-        builder.append(" ");
+        builder.append(", ");
         builder.append(reg1);
-        builder.append(" ");
+        builder.append(", ");
         builder.append(reg2);
         builder.append("\n");
         switch (op) {
@@ -82,16 +82,16 @@ public class InstructionComparison extends Instruction {
       } else if (op.equals("&&")){
         builder.append("AND ");
         builder.append(dst);
-        builder.append(" ");
+        builder.append(", ");
         builder.append(reg1);
-        builder.append(" ");
+        builder.append(", ");
         builder.append(reg2 + "\n");
       } else if (op.equals("||")){
         builder.append("ORR ");
         builder.append(dst);
-        builder.append(" ");
+        builder.append(", ");
         builder.append(reg1);
-        builder.append(" ");
+        builder.append(", ");
         builder.append(reg2 + "\n");
       }
     block1 = builder.toString();

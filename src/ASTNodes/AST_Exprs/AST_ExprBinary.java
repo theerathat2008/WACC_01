@@ -231,12 +231,13 @@ public class AST_ExprBinary extends AST_Expr {
 
 
       instructionList.add(instructionArithmetic);
-      instr = instructionArithmetic;
+      instrA = instructionArithmetic;
     } else {
       InstructionComparison instructionCompare = new InstructionComparison(opName);
       //RegisterARM reg1, RegisterARM reg2, RegisterARM reg3
 
       instructionList.add(instructionCompare);
+      instrC = instructionCompare;
 
     }
 

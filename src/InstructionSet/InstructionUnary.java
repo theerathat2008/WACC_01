@@ -28,41 +28,41 @@ public class InstructionUnary extends Instruction{
       case "!":
         builder.append("EOR ");
         builder.append(dst);
-        builder.append(" ");
+        builder.append(", ");
         builder.append(reg2);
-        builder.append(" #1\n");
+        builder.append(", #1\n");
         break;
       case "-":
         builder.append("SUB ");
         builder.append(dst);
-        builder.append(" =0 ");
+        builder.append(", =0 ");
         builder.append(reg2);
         builder.append("\n");
         break;
       case "len":
         builder.append("LDR ");
         builder.append(dst);
-        builder.append(" ");
+        builder.append(", ");
         builder.append(reg2);
         builder.append("\n");
         break;
       case "ord":
-        builder.append("MOV R0 ");
+        builder.append("MOV R0, ");
         builder.append(reg2);
         builder.append("\n");
         builder.append("\t\tBL PUTCHAR\n");
         builder.append("\t\tMOV ");
         builder.append(dst);
-        builder.append(" r0\n");
+        builder.append(", r0\n");
         break;
       case "chr":
-        builder.append("MOV R0 ");
+        builder.append("MOV R0, ");
         builder.append(reg2);
         builder.append("\n");
         builder.append("\t\tBL PUTCHAR\n");
         builder.append("\t\tMOV ");
         builder.append(dst);
-        builder.append(" r0\n");
+        builder.append(", r0\n");
         break;
       default:
         break;

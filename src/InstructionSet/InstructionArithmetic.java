@@ -20,23 +20,45 @@ public class InstructionArithmetic extends Instruction {
     this.reg2 = reg2.name();
   }
 
-
-  public void addInstruction(List<Instruction> instructions) {
-    instructions.add(this);
-  }
-
   public void genInstruction() {
-    StringBuilder builder = new StringBuilder("\t\t" + operand + "S");
-    builder.append(" ");
-    builder.append(dst);
-    builder.append(" ");
-    builder.append(reg1);
-    builder.append(" ");
-    builder.append(reg2);
-    builder.append("\n\t\tBLVS p_throw_overflow_error\n");
-    block1 = builder.toString();
-  }
-
+    if (operand.equals("%")) {
+      StringBuilder builder = new StringBuilder("\t\tMOV r0, ");
+      builder.append(reg1);
+      builder.append("\n\t\tMOV r1, ");
+      builder.append(reg2);
+      builder.append("\n\t\tBL p_check_divide_by_zero\nBl __aeabi_idivmod\n");
+    } else if (operand.equals("/")) {
+      StringBuilder builder = new StringBuilder("\t\tMOV r0 ");
+      builder.append(reg1);
+      builder.append("\n\t\tMOV r1 ");
+      builder.append(reg2);
+      builder.append("\n\t\tBL p_check_divide_by_zero\nBl __aeabi_idiv\n");
+    } else if (operand.equals("*")) {
+      StringBuilder builder = new StringBuilder("\t\tSMULL ");
+      builder.append(reg1);
+      builder.append(", ");
+      builder.append(reg2);
+      builder.append(", ");
+      builder.append(reg1);
+      builder.append(", ");
+      builder.append(reg2);
+      builder.append("\n CMP ");
+      builder.append(reg2);
+      builder.append(", ");
+      builder.append(reg1);
+      builder.append(" ASR #31\n\t\tBLNE p_throw_overflow_error\n");
+    } else {
+        StringBuilder builder = new StringBuilder("\t\t" + operand + "S");
+        builder.append(", ");
+        builder.append(dst);
+        builder.append(", ");
+        builder.append(reg1);
+        builder.append(", ");
+        builder.append(reg2);
+        builder.append("\n\t\tBLVS p_throw_overflow_error\n");
+        block1 = builder.toString();
+      }
+    }
   @Override
   public int requiresRegisters() {
     return 3;

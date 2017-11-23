@@ -22,9 +22,9 @@ public class InstructionLoadStore extends Instruction{
   public void genInstruction() {
     StringBuilder builder = new StringBuilder("\t\t");
     builder.append(op);
-    builder.append(" ");
+    builder.append(", ");
     builder.append(reg);
-    builder.append(" ");
+    builder.append(", ");
     builder.append(mem + "\n");
     block1 = builder.toString();
   }

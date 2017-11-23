@@ -20,7 +20,7 @@ public class InstructionStack extends Instruction {
   public void genInstruction() {
     StringBuilder builder = new StringBuilder("\t\t");
     builder.append(op);
-    builder.append(" ");
+    builder.append(", ");
     builder.append(reg + "\n");
     block1 = builder.toString();
   }

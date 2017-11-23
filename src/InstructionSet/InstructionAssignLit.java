@@ -24,14 +24,14 @@ public class InstructionAssignLit extends Instruction{
       lit = "'" + lit + "'";
       StringBuilder builder = new StringBuilder("\t\tMOV ");
       builder.append(reg);
-      builder.append(" #");
+      builder.append(", #");
       builder.append(constant);
       builder.append("\n");
       block1 = builder.toString();
     } else if (lit.equals("int")) {
       StringBuilder builder = new StringBuilder("\t\tLDR ");
       builder.append(reg);
-      builder.append(" =");
+      builder.append(", =");
       builder.append(constant);
       builder.append("\n");
       block1 = builder.toString();
