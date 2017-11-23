@@ -7,6 +7,10 @@ import InstructionSet.InstructionReadBlocks.InstructionReadBlocks;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +25,7 @@ public class Assembler {
   RegisterAllocation registerAlloc;
 
   AST_Node rootNode;
+  String Output ;
 
   List<String> assemblyCode = new LinkedList<>();
 
@@ -56,6 +61,7 @@ public class Assembler {
 
 
     System.out.println(Output);
+    this.Output = Output;
   }
 
   public String generatePreCode() {
@@ -99,5 +105,14 @@ public class Assembler {
       instance = new Assembler();
     }
     return instance;
+  }
+
+  public void generateOutputFile(String name) {
+    try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+            new FileOutputStream(name+".s"), "utf-8"))) {
+      writer.write(Output);
+    } catch (Exception e) {
+      e.getMessage();
+    }
   }
 }
