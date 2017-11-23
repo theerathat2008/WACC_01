@@ -21,4 +21,15 @@ public class InstructionStack extends Instruction {
     builder.append(reg + "\n");
     block1 = builder.toString();
   }
+
+  @Override
+  public int requiresRegisters() {
+    return 2;
+  }
+
+  @Override
+  public boolean crossOverRegister() {
+    //TODO
+    return false;
+  }
 }

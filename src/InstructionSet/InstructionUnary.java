@@ -2,11 +2,9 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
-import java.util.List;
-
 public class InstructionUnary extends Instruction{
 
-  String reg1;
+  String dst;
   String reg2;
   String op;
   public String block1;
@@ -15,8 +13,8 @@ public class InstructionUnary extends Instruction{
     this.op = op;
   }
 
-  public void allocateRegisters(RegisterARM reg1, RegisterARM reg2){
-    this.reg1 = reg1.name();
+  public void allocateRegisters(RegisterARM dst, RegisterARM reg2){
+    this.dst = dst.name();
     this.reg2 = reg2.name();
   }
 
@@ -29,28 +27,42 @@ public class InstructionUnary extends Instruction{
     switch(op) {
       case "!":
         builder.append("EOR ");
-        builder.append(reg1);
+        builder.append(dst);
         builder.append(" ");
         builder.append(reg2);
-        builder.append(" #1");
+        builder.append(" #1\n");
         break;
       case "-":
-
+        builder.append("SUB ");
+        builder.append(dst);
+        builder.append(" =0 ");
+        builder.append(reg2);
+        builder.append("\n");
         break;
       case "len":
-
+        builder.append("LDR ");
+        builder.append(dst);
+        builder.append(" ");
+        builder.append(reg2);
+        builder.append("\n");
         break;
       case "ord":
         builder.append("MOV R0 ");
-        builder.append(reg1);
+        builder.append(reg2);
         builder.append("\n");
-        builder.append("\t\tBL PUTCHAR");
+        builder.append("\t\tBL PUTCHAR\n");
+        builder.append("\t\tMOV ");
+        builder.append(dst);
+        builder.append(" r0\n");
         break;
       case "chr":
         builder.append("MOV R0 ");
-        builder.append(reg1);
+        builder.append(reg2);
         builder.append("\n");
-        builder.append("\t\tBL PUTCHAR");
+        builder.append("\t\tBL PUTCHAR\n");
+        builder.append("\t\tMOV ");
+        builder.append(dst);
+        builder.append(" r0\n");
         break;
       default:
         break;
@@ -64,11 +76,9 @@ public class InstructionUnary extends Instruction{
       case "!":
         return 2;
       case "-":
-
-        break;
+        return 2;
       case "len":
-
-        break;
+        return 2;
       case "ord":
         return 1;
       case "chr":
