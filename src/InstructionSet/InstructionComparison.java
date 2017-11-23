@@ -80,7 +80,7 @@ public class InstructionComparison extends Instruction {
           default : break;
         }
       } else if (op.equals("&&")){
-        builder.append("ADD ");
+        builder.append("AND ");
         builder.append(dst);
         builder.append(" ");
         builder.append(reg1);

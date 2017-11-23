@@ -4,7 +4,6 @@ import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionArithmetic;
 import InstructionSet.InstructionComparison;
-import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 
@@ -23,6 +22,8 @@ public class AST_ExprBinary extends AST_Expr {
   String opName;
   AST_Expr exprLeftAST;
   AST_Expr exprRightAST;
+  InstructionArithmetic instrA;
+  InstructionComparison instrC;
 
   /**
    * Constructor for class - initialises class variables to NULL
@@ -192,7 +193,13 @@ public class AST_ExprBinary extends AST_Expr {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    exprLeftAST.acceptInstr(assemblyCode);
+    exprRightAST.acceptInstr(assemblyCode);
+    if(opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")) {
+      assemblyCode.add(instrA.block1);
+    } else {
+      assemblyCode.add(instrC.block1);
+    }
   }
 
 
@@ -220,14 +227,17 @@ public class AST_ExprBinary extends AST_Expr {
     if(opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")){
       InstructionArithmetic instructionArithmetic = new InstructionArithmetic(opName);
       //RegisterARM reg1, RegisterARM reg2, RegisterARM dst
+      //TODO special cases for div and mod
 
 
       instructionList.add(instructionArithmetic);
+      instr = instructionArithmetic;
     } else {
       InstructionComparison instructionCompare = new InstructionComparison(opName);
       //RegisterARM reg1, RegisterARM reg2, RegisterARM reg3
 
       instructionList.add(instructionCompare);
+
     }
 
 

@@ -25,6 +25,7 @@ public class AST_StatIf extends AST_Stat {
   AST_StatIfElse elseStat;
   //Semantic attribute
   ParserRuleContext ctx;
+  InstructionIf instr;
 
   /**
    * Assign the class variables when called
@@ -181,12 +182,12 @@ public class AST_StatIf extends AST_Stat {
   }
 
   public void acceptInstr(List<String> assemblyList) {
-//    expr.acceptInstr();
-//    assemblyList.add(instruction.block1);
-//    assemblyList.add(instruction.block2);
-//    thenStat.acceptInstr();
-//    assemblyList.add(instruction.block3);
-//    elseStat.acceptInstr();
+    expr.acceptInstr(assemblyList);
+    assemblyList.add(instr.blockIf);
+    thenStat.acceptInstr(assemblyList);
+    assemblyList.add(instr.blockElse);
+    elseStat.acceptInstr(assemblyList);
+    assemblyList.add(instr.blockContinue);
   }
 
   /**

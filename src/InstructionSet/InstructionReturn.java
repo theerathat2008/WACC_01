@@ -3,7 +3,7 @@ package InstructionSet;
 public class InstructionReturn extends Instruction{
   String reg1;
   String reg2;
-  String resultBlock = "";
+  public String resultBlock = "";
   String sp;
   String type;
 

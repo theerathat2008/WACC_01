@@ -16,12 +16,17 @@ public class InstructionIf extends Instruction {
   String branchElseName;
   String continueName;
 
-  String blockIf;
-  String blockElse;
-  String blockContinue;
+  public String blockIf;
+  public String blockElse;
+  public String blockContinue;
 
 
   public InstructionIf(){
+  }
+
+  public void setLabels(String branchElseName, String continueName) {
+    this.branchElseName = branchElseName;
+    this.continueName = continueName;
   }
 
   public void allocateRegisters(RegisterARM registerARM){
@@ -42,12 +47,12 @@ public class InstructionIf extends Instruction {
     StringBuilder block2 = new StringBuilder();
     block2.append("\t\tB ");
     block2.append(continueName);
-    block2.append("\n");
+    block2.append("\n\t");
     block2.append(branchElseName);
     block2.append(":\n");
     blockElse = block2.toString();
 
-    StringBuilder block3 = new StringBuilder();
+    StringBuilder block3 = new StringBuilder("\t");
     block3.append(blockContinue);
     block3.append(":");
     blockContinue = block3.toString();

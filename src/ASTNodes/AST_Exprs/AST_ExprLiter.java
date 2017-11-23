@@ -1,6 +1,7 @@
 package ASTNodes.AST_Exprs;
 
 import InstructionSet.Instruction;
+import InstructionSet.InstructionAssignLit;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
@@ -24,7 +25,7 @@ public class AST_ExprLiter extends AST_Expr {
   String constant;    //TODO change to content
   String literal;
   ParserRuleContext ctx;
-
+  InstructionAssignLit instr;   //TODO put correct instruction type here.
   /**
    * Constructor for class - initialises class variables to NULL
    */
@@ -211,7 +212,7 @@ public class AST_ExprLiter extends AST_Expr {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    assemblyCode.add(instr.block1);
   }
 
 
@@ -228,7 +229,9 @@ public class AST_ExprLiter extends AST_Expr {
   //TODO PRASHAN IMPLEMENTATION OF ADDING TO STRING LIST in registerAlloctation
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    if(literal.equals("str") || literal.equals("char")){
+    if(literal.equals("str")){
+      registerAllocation.addString(constant);
+
 
     }
   }
