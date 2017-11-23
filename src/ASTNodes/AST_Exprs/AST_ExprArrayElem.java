@@ -166,6 +166,11 @@ public class AST_ExprArrayElem extends AST_Expr {
 
   }
 
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+  }
+
 
   /**
    * TODO Produces Assembly code?
@@ -175,5 +180,9 @@ public class AST_ExprArrayElem extends AST_Expr {
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     System.out.println("No assembly code generated in AST_ExprArrayElem");
+  }
+
+  public String getArrayName() {
+    return arrayName;
   }
 }

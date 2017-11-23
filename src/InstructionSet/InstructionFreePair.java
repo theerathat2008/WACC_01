@@ -3,14 +3,11 @@ package InstructionSet;
 public class InstructionFreePair extends Instruction {
   String reg1;
   String reg2;
-  String sp;
   String resultBlock = "";
 
 
-  public void allocateSP(String sp) {
-    this.sp = sp;
-    reg1 = "reg1";
-    reg2 = "reg2";
+
+  public void allocateSP() {
   }
 
   public void allocateRegisters(String reg1, String reg2) {
@@ -20,7 +17,6 @@ public class InstructionFreePair extends Instruction {
 
   @Override
   public void genInstruction() {
-    resultBlock.concat("\t\tLDR " +  reg2 + ", " + sp + "\n");
     resultBlock.concat("\t\tMOV " +  reg1 + ", " + reg2 +"\n");
     resultBlock.concat("\t\tBL p_free_pair\n");
   }

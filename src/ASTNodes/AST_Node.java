@@ -18,8 +18,6 @@ public abstract class AST_Node {
   //private field to store parent node
   protected AST_Node parentNode;
 
-
-
   /**
    * Return the parent node of the node called
    */
@@ -69,7 +67,7 @@ public abstract class AST_Node {
   public abstract boolean isEmbeddedNodesFull();
 
   /**
-   * Return embeded AST nodes if they exist
+   * Return embedded AST nodes if they exist
    *
    * @param astToGet
    * @param counter
@@ -106,6 +104,8 @@ public abstract class AST_Node {
   public abstract void accept(AST_NodeVisitor visitor);
 
   public abstract void acceptInstr(List<String> assemblyCode);
+
+  public abstract void acceptRegister(RegisterAllocation registerAllocation) throws Exception;
 
   public abstract void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception;
 

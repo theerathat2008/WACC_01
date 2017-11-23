@@ -908,7 +908,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitIF_STAT(WaccParser.IF_STATContext ctx) {
 
     //Create the node for the current visitor function
-    AST_StatIf statIfNode = new AST_StatIf(ctx);
+    AST_StatIf statIfNode = new AST_StatIf(ctx, currentGlobalTree);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("statement", statIfNode);

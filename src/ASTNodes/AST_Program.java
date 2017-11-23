@@ -176,6 +176,14 @@ public class AST_Program extends AST_Node {
     assemblyCode.add(instr.block2);
   }
 
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    for(AST_FuncDecl func : funcDeclList){
+      func.acceptRegister(registerAllocation);
+    }
+    statement.acceptRegister(registerAllocation);
+  }
+
   /**
    * Produces the outer assembly code of the main program branch
    * Doesn't use any registers

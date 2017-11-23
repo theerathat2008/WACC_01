@@ -2,6 +2,7 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.UndefinedIdentError;
@@ -107,6 +108,8 @@ public class AST_ExprIdent extends AST_Expr {
   @Override
   public boolean CheckSemantics() {
     SymbolTable ST = this.symbolTable;
+    setType(ST.lookupAll(varName).toString());
+
     if (ST.lookupAll(varName) != null) {
       setType(ST.lookupAll(varName).toString());
       return true;
@@ -151,6 +154,20 @@ public class AST_ExprIdent extends AST_Expr {
 
   }
 
+  /**
+   * allocate one register which is the results register
+   *          another register which takes the stack address of the variables
+   */
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+    RegisterARM resultReg = registerAllocation.searchByValue("expr");
+    int stackLocation = registerAllocation.getStackLocation(varName);
+
+    //instructionAssignIdent.allocateRegisters(resultReg, stackLocation);
+
+  }
+
 
   /**
    * Effectively a variable name so need to get stack or register location of the variable linked
@@ -159,7 +176,7 @@ public class AST_ExprIdent extends AST_Expr {
    */
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    System.out.println("Terminal class ExprIdent doesn't produce assembly code");
+
   }
 
 }

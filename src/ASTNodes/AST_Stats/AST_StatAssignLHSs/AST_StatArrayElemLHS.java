@@ -166,6 +166,11 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
 
   }
 
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+  }
+
   public List<AST_Expr> getAst_exprList() {
     return ast_exprList;
   }
@@ -175,5 +180,9 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
    */
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+  }
+
+  public String getIdentName() {
+    return identName;
   }
 }

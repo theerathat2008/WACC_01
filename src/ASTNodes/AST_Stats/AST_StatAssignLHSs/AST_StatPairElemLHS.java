@@ -39,6 +39,10 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
     this.symboltable = symbolTable;
   }
 
+  public String getTypeName() {
+    return typeName;
+  }
+
   /**
    * Gets all children nodes of current node
    *
@@ -134,21 +138,16 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
         System.out.println("Hey, I'm instance of AST_ExprIdent");
         String varName = ((AST_ExprIdent) ast_expr).getVarName();
 
-        type = ST.encSymTable.lookup(varName);
+        SymbolTable tempST = ST;
+        type = tempST.lookup(varName);
         System.out.println(type);
 
         AST_Node tempNode = this.getParentNode();
 
-        while (!(tempNode instanceof AST_FuncDecl)) {
-          if (tempNode instanceof AST_Program) {
-            type = ST.lookup(varName);
-            break;
-          }
-          tempNode = tempNode.getParentNode();
-        }
-
-        if (ST.lookup(varName) == null) {
-          type = ST.encSymTable.lookup(varName);
+        while (type == null) {
+          System.out.println("type is null");
+          tempST = tempST.encSymTable;
+          type = tempST.lookup(varName);
         }
 
         String typeString = type.toString();
@@ -176,21 +175,16 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
         System.out.println("Hey, I'm instance of AST_ExprIdent");
         String varName = ((AST_ExprIdent) ast_expr).getVarName();
 
-        type = ST.encSymTable.lookup(varName);
+        SymbolTable tempST = ST;
+        type = tempST.lookup(varName);
         System.out.println(type);
 
         AST_Node tempNode = this.getParentNode();
 
-        while (!(tempNode instanceof AST_FuncDecl)) {
-          if (tempNode instanceof AST_Program) {
-            type = ST.lookup(varName);
-            break;
-          }
-          tempNode = tempNode.getParentNode();
-        }
-
-        if (ST.lookup(varName) == null) {
-          type = ST.encSymTable.lookup(varName);
+        while (type == null) {
+          System.out.println("type is null");
+          tempST = tempST.encSymTable;
+          type = tempST.lookup(varName);
         }
 
         String typeString = type.toString();
@@ -259,6 +253,11 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
+
+  }
+
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
   }
 

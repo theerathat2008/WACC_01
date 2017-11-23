@@ -139,6 +139,11 @@ public class AST_ArrayType extends AST_Type {
 
   }
 
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+  }
+
   /**
    * @return returns the identifier of the attribute
    */

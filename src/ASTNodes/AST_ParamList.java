@@ -177,6 +177,17 @@ public class AST_ParamList extends AST_Node {
   }
 
   /**
+   * Doesn't require registers
+   */
+
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    for(AST_Param param : listParam){
+      param.acceptRegister(registerAllocation);
+    }
+  }
+
+  /**
    * Could generate variable to show total stack displacement size by working out the
    * number and type of inbuilt parameters
    */

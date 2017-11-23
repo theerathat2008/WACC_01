@@ -8,14 +8,18 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatArrayElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
+import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatPairElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
+import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatCallRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatPairElemRHS;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionAssignLit;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
+import Registers.StackLocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.TypeMismatchError;
 import src.FilePosition;
@@ -139,25 +143,44 @@ public class AST_StatAssign extends AST_Stat {
     if (ast_statAssignLHS instanceof AST_StatArrayElemLHS) {
       System.out.println("I'm instance of AST_StatArrayElemLHS");
       //check the size of the array if it contains any element inside
-      if (((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().size() != 0) {
+      String identName = ((AST_StatArrayElemLHS) ast_statAssignLHS).getIdentName();
+      SymbolTable temporaryST = this.symbolTable;
+      typeLHS = temporaryST.lookup(identName);
+
+      while (typeLHS == null) {
+        System.out.println("typeLHS is null");
+        temporaryST = temporaryST.encSymTable;
+        typeLHS = temporaryST.lookup(identName);
+      }
+
+      /*if (((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().size() != 0) {
         System.out.println("I'm inside if statement");
         System.out.println(((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().get(0));
         AST_Expr firstElem = ((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().get(0);
 
+        System.out.println("firstelem is: " + firstElem);
         //check if it is instace of AST_ExprIdent if it is an ident
         if (firstElem instanceof AST_ExprEnclosed) {
           return true;
         } else if (firstElem instanceof AST_ExprIdent) {
           String varName = ((AST_ExprIdent) firstElem).getVarName();
           System.out.println(varName);
-          typeLHS = ST.encSymTable.lookup(varName);
+
+          SymbolTable tempST = this.symbolTable;
+          typeLHS = tempST.lookup(varName);
+
+          while (typeLHS == null) {
+            System.out.println("typeLHS is null");
+            tempST = tempST.encSymTable;
+            typeLHS =
+          }
           System.out.println(typeLHS);
         } else {
           typeLHS = ast_statAssignLHS.getIdentifier();
         }
       } else {
         typeLHS = ast_statAssignLHS.getIdentifier();
-      }
+      }*/
 
 
       System.out.println("ast_statAssignRHS");
@@ -189,22 +212,18 @@ public class AST_StatAssign extends AST_Stat {
         System.out.println("RHS is instance of AST_ExprIdent");
         String varName = ((AST_ExprIdent) ast_expr).getVarName();
         System.out.println(varName);
-        typeRHS = ST.encSymTable.lookup(varName);
-        System.out.println(typeRHS);
+        SymbolTable tempST = ST;
+        typeRHS = tempST.lookup(varName);
+
 
         AST_Node tempNodeRHS = this.getParentNode();
 
-        while (!(tempNodeRHS instanceof AST_FuncDecl)) {
-          if (tempNodeRHS instanceof AST_Program) {
-            typeRHS = ST.lookup(varName);
-            break;
-          }
-          tempNodeRHS = tempNodeRHS.getParentNode();
+        while(typeRHS == null) {
+          System.out.println("typeRHS is null");
+          tempST = tempST.encSymTable;
+          typeRHS = tempST.lookup(varName);
         }
-
-        if (ST.lookup(varName) == null) {
-          typeRHS = ST.encSymTable.lookup(varName);
-        }
+        System.out.println(typeRHS);
       } else {
         typeRHS = ast_statAssignRHS.getIdentifier();
       }
@@ -215,26 +234,72 @@ public class AST_StatAssign extends AST_Stat {
         System.out.println("RHS is instance of AST_ExprIdent");
         String varName = ((AST_ExprIdent) ast_expr).getVarName();
         System.out.println(varName);
-        typeRHS = ST.encSymTable.lookup(varName);
-        System.out.println(typeRHS);
+        SymbolTable tempST = ST;
+        typeRHS = tempST.lookup(varName);
 
         AST_Node tempNodeRHS = this.getParentNode();
 
-        while (!(tempNodeRHS instanceof AST_FuncDecl)) {
-          if (tempNodeRHS instanceof AST_Program) {
-            typeRHS = ST.lookup(varName);
-            break;
-          }
-          tempNodeRHS = tempNodeRHS.getParentNode();
+        while (typeRHS == null) {
+          System.out.println("typeRHS is null");
+          tempST = tempST.encSymTable;
+          typeRHS = tempST.lookup(varName);
+        }
+        System.out.println(typeRHS);
+
+        //TODO implement for fst and snd
+        String exprType = ((AST_StatPairElemRHS) ast_statAssignRHS).getTypeName();
+        System.out.println("exprType name is: " + exprType);
+
+        if (exprType.equals("fst")) {
+          //TODO add implementation to check type
+          return true;
+        } else if (exprType.equals("snd")) {
+          //TODO add implementation to check type
+          return true;
         }
 
-        if (ST.lookup(varName) == null) {
-          typeRHS = ST.encSymTable.lookup(varName);
-        }
       } else {
         typeRHS = ast_statAssignRHS.getIdentifier();
       }
 
+    } else if (ast_statAssignRHS instanceof AST_StatCallRHS) {
+      //TODO right now the type is not to supposed to be typeRHS
+      System.out.println("Hey, I'm instance of AST_StatCallRHS");
+      List<AST_Expr> exprList = ((AST_StatCallRHS) ast_statAssignRHS).getAst_exprList();
+      String funcName = ((AST_StatCallRHS) ast_statAssignRHS).getFuncName();
+      System.out.println("funcName is: " + funcName);
+      System.out.println("exprList is: " + exprList);
+
+      SymbolTable tempST = ST;
+      typeRHS = tempST.lookup(funcName);
+
+      while (typeRHS == null) {
+        System.out.println("typeRHS is null");
+        tempST = tempST.encSymTable;
+        typeRHS = tempST.lookup(funcName);
+      }
+
+      System.out.println("Recent typeRHS is: " + typeRHS);
+
+      /*if (exprList.size() == 1) {
+        AST_Expr firstElem = exprList.get(0);
+        System.out.println("firstElem is: " + firstElem);
+
+        if (firstElem instanceof AST_ExprIdent) {
+          System.out.println("firstElem is instance of AST_ExprIdent");
+          String varName = ((AST_ExprIdent) firstElem).getVarName();
+          System.out.println("varName is: " + varName);
+          SymbolTable tempST = ST;
+          typeRHS = tempST.lookup(varName);
+
+          while (typeRHS == null) {
+            System.out.println("typeRHs is null");
+            tempST = tempST.encSymTable;
+            typeRHS = tempST.lookup(varName);
+          }
+          System.out.println("typeRHs is: " + typeRHS);
+        }
+      }*/
     } else {
       typeRHS = ast_statAssignRHS.getIdentifier();
     }
@@ -248,31 +313,56 @@ public class AST_StatAssign extends AST_Stat {
       if (expr instanceof AST_ExprIdent) {
         String varName = ((AST_ExprIdent) expr).getVarName();
         System.out.println(varName);
-        typeLHS = ST.encSymTable.lookup(varName);
+        SymbolTable tempST = ST;
+        typeLHS = tempST.lookup(varName);
         System.out.println(typeLHS);
 
         AST_Node tempNode = this.getParentNode();
-        while (!(tempNode instanceof AST_FuncDecl)) {
-          if (tempNode instanceof AST_Program) {
-            typeLHS = ST.lookup(varName);
-            break;
-          }
-          tempNode = tempNode.getParentNode();
+
+        while (typeLHS == null) {
+          System.out.println("typeLHS is null");
+          tempST = tempST.encSymTable;
+          typeLHS = tempST.lookup(varName);
         }
 
-        if (ST.lookup(varName) == null) {
-          typeLHS = ST.encSymTable.lookup(varName);
+        //TODO check type for fst and snd
+        if (typeLHS.toString().contains("PAIR(")) {
+          System.out.println("Hey, typeLHS is of type pair!");
+          System.out.println("The type for expression is");
+          String typeExpr = ((AST_StatPairElemLHS) ast_statAssignLHS).getTypeName();
+          System.out.println(typeExpr);
+
+          if (typeExpr.equals("fst")) {
+            //TODO add
+            return true;
+          } else if (typeExpr.equals("snd")) {
+            //TODO add
+            return true;
+          }
         }
+
       } else {
         typeLHS = ast_statAssignLHS.getIdentifier();
       }
     }
 
     System.out.println("Hey, I reach the general cases");
-    System.out.println(typeLHS);
+    System.out.println("typeLHS is: " + typeLHS);
     System.out.println(ast_statAssignLHS.getIdentifier());
-    System.out.println(typeRHS);
+    System.out.println("typeRHS is: " + typeRHS);
     System.out.println(ast_statAssignRHS.getIdentifier());
+    if (typeLHS.toString().contains("PAIR(") && typeRHS.toString().contains("PAIR(")) {
+      String stringLHS = typeLHS.toString();
+      String pairLHS = stringLHS.substring(stringLHS.indexOf("P"), stringLHS.indexOf(")"));
+      String stringRHS = typeRHS.toString();
+      String pairRHS  =stringRHS.substring(stringRHS.indexOf("P"), stringRHS.indexOf(")"));
+      if (pairLHS.contains(pairRHS) || pairRHS.contains(pairLHS)) {
+        return true;
+      } else {
+        new TypeMismatchError(new FilePosition(ctx)).printAll();
+        return false;
+      }
+    }
     if (typeLHS.toString().contains(typeRHS.toString()) || typeRHS.toString().contains(typeLHS.toString())) {
       return true;
     } else {
@@ -330,6 +420,43 @@ public class AST_StatAssign extends AST_Stat {
     assemblyCode.add(instr.toString());
   }
 
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+    registerAllocation.useRegister("expr");
+    ast_statAssignRHS.acceptRegister(registerAllocation);
+    RegisterARM reg1 = registerAllocation.searchByValue("expr");
+    registerAllocation.freeRegister(reg1);
+
+    ast_statAssignLHS.acceptRegister(registerAllocation);
+
+    if(ast_statAssignLHS instanceof AST_StatIdentLHS){
+      String result;
+      if(registerAllocation.getStackSize() > 0){
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("[sp, #");
+        int displacement = registerAllocation.getStackSize();
+        int memSize = registerAllocation.getMemSize(ast_statAssignLHS.getIdentifier().toString());
+        builder.append(displacement + memSize);
+        result = builder.toString();
+
+        String identName = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
+        String scope = registerAllocation.getCurrentScope();
+        int location = (displacement + memSize);
+        registerAllocation.addToStack(identName, new StackLocation(location ,scope));
+      }
+
+    }
+
+
+    RegisterARM interReg = registerAllocation.useRegister("intermediate");
+    //instructionAssign.allocateRegisters(interReg, result);
+    registerAllocation.freeRegister(interReg);
+
+  }
+
 
   /**
    * Needs two register corresponding to the destination and source in two lines
@@ -343,6 +470,9 @@ public class AST_StatAssign extends AST_Stat {
    *	 LDR r4, =msg_1   ->STRING
    *   STR r4, [sp]
    *
+   *   STRB r4, [sp]    ->BOOL
+   *   LDRSB r4, [sp]
+   *
    */
 
 
@@ -350,8 +480,6 @@ public class AST_StatAssign extends AST_Stat {
 
     String type = ast_statAssignRHS.getIdentifier().toString();
     //InstructionNewVar instructionAssign = new InstructionNewVar(type);
-
-    //Allocate three registers here
 
 
     //instructionList.add(instructionAssign);

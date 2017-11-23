@@ -142,6 +142,11 @@ public class AST_ArrayTypePair extends AST_PairElemType {
 
   }
 
+  @Override
+  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+  }
+
   /**
    * @return returns the identifier of the attribute
    */
