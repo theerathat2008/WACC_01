@@ -172,7 +172,6 @@ public class AST_ExprIdent extends AST_Expr {
   /**
    * Effectively a variable name so need to get stack or register location of the variable linked
    * to varName member variable.
-   * Doesn't produce any assembly code
    */
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
