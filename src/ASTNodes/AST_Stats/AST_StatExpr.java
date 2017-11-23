@@ -152,15 +152,15 @@ public class AST_StatExpr extends AST_Stat {
       if (expr instanceof AST_ExprIdent) {
         String varName = ((AST_ExprIdent) expr).getVarName();
         AST_Node tempNode = this.getParentNode();
-        IDENTIFIER typeExpr = ST.encSymTable.lookup(varName);
+        IDENTIFIER typeExpr = ST.lookup(varName);
 
-        while (!(tempNode instanceof AST_FuncDecl)) {
-          if (tempNode instanceof AST_Program) {
-            typeExpr = ST.lookup(varName);
-            break;
-          }
-          tempNode = tempNode.getParentNode();
+        while (typeExpr == null) {
+          System.out.println("typeExpr is null");
+          ST = ST.encSymTable;
+          typeExpr = ST.lookup(varName);
         }
+        System.out.println("type expr is: ");
+        System.out.println(typeExpr);
         if (temp.ast_type.getIdentifier().equals(typeExpr)) {
           return true;
         } else {

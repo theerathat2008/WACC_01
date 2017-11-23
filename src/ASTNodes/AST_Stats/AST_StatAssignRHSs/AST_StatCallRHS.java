@@ -240,22 +240,18 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
             if (ast_exprList.get(i) instanceof AST_ExprIdent) {
               System.out.println("Hey, I'm instance of AST_ExprIdent");
               String varName = ((AST_ExprIdent) ast_exprList.get(i)).getVarName();
-              IDENTIFIER typeExpr = ST.encSymTable.lookup(varName);
+              SymbolTable tempST = ST;
+              IDENTIFIER typeExpr = tempST.lookup(varName);
               System.out.println(typeExpr);
 
-              while (!(parent instanceof AST_FuncDecl)) {
-                if (parent instanceof AST_Program) {
-                  typeExpr = ST.lookup(varName);
-                  break;
-                }
-                parent = parent.getParentNode();
+              while (typeExpr == null) {
+                System.out.println("typeExpr is null");
+                tempST = tempST.encSymTable;
+                typeExpr = tempST.lookup(varName);
               }
 
               //TODO maybe there is a better method to check if it's a function call, then check both enc and current ST
               //check if it's null so can reassign again (hard coding)
-              if (typeExpr == null) {
-                typeExpr = ST.encSymTable.lookup(varName);
-              }
 
               System.out.println("varName is:" + varName);
               System.out.println("typeExpr is: " + typeExpr);
@@ -387,4 +383,7 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
 
   }
 
+  public List<AST_Expr> getAst_exprList() {
+    return ast_exprList;
+  }
 }

@@ -10,6 +10,7 @@ import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatArrayElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatPairElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
+import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatCallRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatPairElemRHS;
 import IdentifierObjects.IDENTIFIER;
@@ -187,21 +188,16 @@ public class AST_StatAssign extends AST_Stat {
         System.out.println("RHS is instance of AST_ExprIdent");
         String varName = ((AST_ExprIdent) ast_expr).getVarName();
         System.out.println(varName);
-        typeRHS = ST.encSymTable.lookup(varName);
+        SymbolTable tempST = ST;
+        typeRHS = tempST.lookup(varName);
         System.out.println(typeRHS);
 
         AST_Node tempNodeRHS = this.getParentNode();
 
-        while (!(tempNodeRHS instanceof AST_FuncDecl)) {
-          if (tempNodeRHS instanceof AST_Program) {
-            typeRHS = ST.lookup(varName);
-            break;
-          }
-          tempNodeRHS = tempNodeRHS.getParentNode();
-        }
-
-        if (ST.lookup(varName) == null) {
-          typeRHS = ST.encSymTable.lookup(varName);
+        while(typeRHS == null) {
+          System.out.println("typeRHS is null");
+          tempST = tempST.encSymTable;
+          typeRHS = tempST.lookup(varName);
         }
       } else {
         typeRHS = ast_statAssignRHS.getIdentifier();
@@ -213,26 +209,30 @@ public class AST_StatAssign extends AST_Stat {
         System.out.println("RHS is instance of AST_ExprIdent");
         String varName = ((AST_ExprIdent) ast_expr).getVarName();
         System.out.println(varName);
-        typeRHS = ST.encSymTable.lookup(varName);
+        SymbolTable tempST = ST;
+        typeRHS = tempST.lookup(varName);
         System.out.println(typeRHS);
 
         AST_Node tempNodeRHS = this.getParentNode();
 
-        while (!(tempNodeRHS instanceof AST_FuncDecl)) {
-          if (tempNodeRHS instanceof AST_Program) {
-            typeRHS = ST.lookup(varName);
-            break;
-          }
-          tempNodeRHS = tempNodeRHS.getParentNode();
+        while (typeRHS == null) {
+          System.out.println("typeRHS is null");
+          tempST = tempST.encSymTable;
+          typeRHS = tempST.lookup(varName);
         }
 
-        if (ST.lookup(varName) == null) {
-          typeRHS = ST.encSymTable.lookup(varName);
-        }
       } else {
         typeRHS = ast_statAssignRHS.getIdentifier();
       }
 
+    } else if (ast_statAssignRHS instanceof AST_StatCallRHS) {
+      System.out.println("Hey, I'm instance of AST_StatCallRHS");
+      List<AST_Expr> exprList = ((AST_StatCallRHS) ast_statAssignRHS).getAst_exprList();
+      System.out.println(exprList);
+      if (exprList.size() == 1) {
+        AST_Expr firstElem = exprList.get(0);
+        System.out.println("fitstElem is: " + firstElem);
+      }
     } else {
       typeRHS = ast_statAssignRHS.getIdentifier();
     }
@@ -246,21 +246,18 @@ public class AST_StatAssign extends AST_Stat {
       if (expr instanceof AST_ExprIdent) {
         String varName = ((AST_ExprIdent) expr).getVarName();
         System.out.println(varName);
-        typeLHS = ST.encSymTable.lookup(varName);
+        SymbolTable tempST = ST;
+        typeLHS = tempST.lookup(varName);
         System.out.println(typeLHS);
 
         AST_Node tempNode = this.getParentNode();
-        while (!(tempNode instanceof AST_FuncDecl)) {
-          if (tempNode instanceof AST_Program) {
-            typeLHS = ST.lookup(varName);
-            break;
-          }
-          tempNode = tempNode.getParentNode();
+
+        while (typeLHS == null) {
+          System.out.println("typeLHS is null");
+          tempST = tempST.encSymTable;
+          typeLHS = tempST.lookup(varName);
         }
 
-        if (ST.lookup(varName) == null) {
-          typeLHS = ST.encSymTable.lookup(varName);
-        }
       } else {
         typeLHS = ast_statAssignLHS.getIdentifier();
       }
