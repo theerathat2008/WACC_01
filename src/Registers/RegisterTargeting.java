@@ -27,8 +27,8 @@ public class RegisterTargeting<T>{
   //TODO don't add special registers e.g. PC
   public RegisterTargeting() {
 
-    registerNotInUse.add(RegisterARM.R0);
-    registerNotInUse.add(RegisterARM.R1);
+    registerNotInUse.add(RegisterARM.r0);
+    registerNotInUse.add(RegisterARM.r1);
   }
 
   public void addSpecialRegister(RegisterARM register, T value) {

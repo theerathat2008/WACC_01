@@ -47,7 +47,20 @@ public class Assembler {
     this.registerAlloc = registerAlloc;
   }
 
-  public void parseInstructions(){
+  public void printInstructions(){
+    System.out.println();
+    System.out.println("---------------INSTRUCTIONS LIST --------------------");
+    for(Instruction currInstr : instructions){
+      System.out.println(currInstr.getClass().getSimpleName());
+    }
+    System.out.println("---------------INSTRUCTIONS LIST --------------------");
+  }
+
+  public void parseInstructions() throws Exception{
+
+    rootNode.acceptRegister(registerAlloc);
+    printInstructions();
+
     for(Instruction currInstr : instructions){
       currInstr.genInstruction();
     }
@@ -67,7 +80,7 @@ public class Assembler {
   public String generatePreCode() {
     List<String> stringList = registerAlloc.getStringList();
     String result = "\t.data\n\n";
-    System.out.println(stringList.size());
+   // System.out.println(stringList.size());
     for (int i = 0; i < stringList.size(); i++) {
       result.concat("\tmsg_");
       result.concat(Integer.toString(i));

@@ -230,6 +230,7 @@ public class AST_ExprLiter extends AST_Expr {
 
 
     RegisterARM resultReg = registerAllocation.searchByValue("expr");
+    instr.registerAllocation(resultReg);
 
     //instructionAssignLit.allocateRegisters(resultReg);
 
@@ -256,11 +257,11 @@ public class AST_ExprLiter extends AST_Expr {
       registerAllocation.addString(constant);
 
 
-    } else if (literal.equals("int")) {
+    } else  {
       InstructionAssignLit instructionAssignLit = new InstructionAssignLit(constant, literal);
       instr = instructionAssignLit;
+      instructionList.add(instr);
     }
-
 
   }
 

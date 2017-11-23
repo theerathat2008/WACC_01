@@ -2,6 +2,8 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionAssignIdent;
+import InstructionSet.InstructionAssignLit;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
@@ -22,6 +24,7 @@ public class AST_ExprIdent extends AST_Expr {
   String varName;
   ParserRuleContext ctx;
   SymbolTable symbolTable;
+  InstructionAssignIdent instr;
 
   /**
    * Constructor for class - initialises class variables to NULL
@@ -151,7 +154,7 @@ public class AST_ExprIdent extends AST_Expr {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    assemblyCode.add(instr.block1);
   }
 
   /**
@@ -162,9 +165,10 @@ public class AST_ExprIdent extends AST_Expr {
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
     RegisterARM resultReg = registerAllocation.searchByValue("expr");
-    int stackLocation = registerAllocation.getStackLocation(varName);
+    String stackLocation = registerAllocation.getStackLocation(varName);
 
-    //instructionAssignIdent.allocateRegisters(resultReg, stackLocation);
+    instr.registerAllocation(resultReg);
+    instr.allocateLocation(stackLocation);
 
   }
 
@@ -175,6 +179,10 @@ public class AST_ExprIdent extends AST_Expr {
    */
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+
+
+    InstructionAssignIdent instructionAssignIdent = new InstructionAssignIdent();
+    instr = instructionAssignIdent;
 
   }
 

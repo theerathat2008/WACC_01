@@ -444,7 +444,7 @@ public class AST_StatAssign extends AST_Stat {
 
         String identName = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
         String scope = registerAllocation.getCurrentScope();
-        int location = (displacement + memSize);
+        String location = result;
         registerAllocation.addToStack(identName, new StackLocation(location ,scope));
       }
 

@@ -1,15 +1,15 @@
 package Registers;
 
 public class StackLocation {
-  int location;
+  String location;
   String scope;
 
-  public StackLocation(int location, String scope){
+  public StackLocation(String location, String scope){
     this.location = location;
     this.scope = scope;
   }
 
-  public int getLocation() {
+  public String getLocation() {
     return location;
   }
 

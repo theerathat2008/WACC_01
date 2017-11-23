@@ -51,11 +51,11 @@ public class RegisterAllocation{
     stackInUse.put(identName, stackLocation);
   }
 
-  public int getStackLocation(String identName){
+  public String getStackLocation(String identName){
     if(stackInUse.containsKey(identName)){
       return stackInUse.get(identName).getLocation();
     }
-    return -1;
+    return "null";
   }
 
 
@@ -76,15 +76,15 @@ public class RegisterAllocation{
   public RegisterAllocation() {
     stackSize = 0;
     currentScope = "Global";
-    freeRegisters.push(RegisterARM.R12);
-    freeRegisters.push(RegisterARM.R11);
-    freeRegisters.push(RegisterARM.R10);
-    freeRegisters.push(RegisterARM.R9);
-    freeRegisters.push(RegisterARM.R8);
-    freeRegisters.push(RegisterARM.R7);
-    freeRegisters.push(RegisterARM.R6);
-    freeRegisters.push(RegisterARM.R5);
-    freeRegisters.push(RegisterARM.R4);
+    freeRegisters.push(RegisterARM.r12);
+    freeRegisters.push(RegisterARM.r11);
+    freeRegisters.push(RegisterARM.r10);
+    freeRegisters.push(RegisterARM.r9);
+    freeRegisters.push(RegisterARM.r8);
+    freeRegisters.push(RegisterARM.r7);
+    freeRegisters.push(RegisterARM.r6);
+    freeRegisters.push(RegisterARM.r5);
+    freeRegisters.push(RegisterARM.r4);
   }
 
   public List<String> getStringList() {

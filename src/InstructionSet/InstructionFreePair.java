@@ -5,7 +5,9 @@ public class InstructionFreePair extends Instruction {
   String reg2;
   String resultBlock = "";
 
-
+  public String getResultBlock() {
+    return resultBlock;
+  }
 
   public void allocateSP() {
   }

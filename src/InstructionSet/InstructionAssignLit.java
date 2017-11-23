@@ -21,6 +21,7 @@ public class InstructionAssignLit extends Instruction{
 
   @Override
   public void genInstruction() {
+
     if (lit.equals("char")) {
       lit = "'" + lit + "'";
       StringBuilder builder = new StringBuilder("\t\tMOV ");
@@ -36,7 +37,9 @@ public class InstructionAssignLit extends Instruction{
       builder.append(constant);
       builder.append("\n");
       block1 = builder.toString();
-    } else if (lit.equals("str")) {
+    } else if (lit.equals("bool")) {
+
+    } else if (lit.equals("pair")){
 
     }
 

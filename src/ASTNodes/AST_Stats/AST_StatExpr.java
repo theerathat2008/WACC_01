@@ -29,7 +29,7 @@ public class AST_StatExpr extends AST_Stat {
   AST_Expr expr;
   ParserRuleContext ctx;
   SymbolTable symbolTable;
-  String instr = "undefined block in AST_StatExpr\n";
+  Instruction instr;
 
   /**
    * Assign the class variables when called
@@ -266,17 +266,70 @@ public class AST_StatExpr extends AST_Stat {
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     expr.acceptInstr(assemblyCode);
-    assemblyCode.add(instr);
+
+    switch (statName) {
+      case ("free"):
+        InstructionFreePair instructionFreePair = (InstructionFreePair) instr;
+        assemblyCode.add(instructionFreePair.getResultBlock());
+        break;
+
+      case ("return"):
+
+        break;
+
+      case ("exit"):
+        InstructionExit instructionExit = (InstructionExit) instr;
+        assemblyCode.add(instructionExit.getResultBlock());
+        break;
+
+      case ("println"):
+
+      case ("print"):
+        String type = expr.getType();
+
+        switch (type) {
+          case ("int"):
+
+            break;
+          case ("string"):
+
+            break;
+          case ("char"):
+            break;
+          case ("pair"):
+            //No break since pair and array are the same
+          case ("array"):
+
+            break;
+
+          case ("bool"):
+
+          default:
+            break;
+        }
+
+        break;
+      default:
+        System.out.println("Unrecognised statement type in AST_StatExpr");
+    }
+
   }
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
-    registerAllocation.useRegister("expr");
-    expr.acceptRegister(registerAllocation);
 
-    RegisterARM reg1 = registerAllocation.searchByValue("expr");
-    registerAllocation.freeRegister(reg1);
+
+    if(statName.equals("exit")){
+      registerAllocation.useRegister("expr");
+      expr.acceptRegister(registerAllocation);
+
+      RegisterARM reg1 = registerAllocation.searchByValue("expr");
+      InstructionExit instructionExit = (InstructionExit) instr;
+      instructionExit.allocateRegisters(RegisterARM.r0, reg1);
+      registerAllocation.freeRegister(reg1);
+    }
+
 
 
     switch (statName) {
@@ -357,18 +410,20 @@ public class AST_StatExpr extends AST_Stat {
         if (!instructionList.contains(instructionErrorRuntime)){
           instructionList.add(instructionErrorRuntime);
         }
+
+        instr = instructionFreePair;
         break;
 
       case ("return"):
         InstructionReturn instructionReturn = new InstructionReturn(expr.getType());
         instructionList.add(instructionReturn);
-        instr = instructionReturn.resultBlock;
+        instr = instructionReturn;
         break;
 
       case ("exit"):
-        InstructionExit instructionExit = new InstructionExit("0");//EXITCODE); //TODO put exit code in - can be found after <statname> <expr = EXITCODE>
+        InstructionExit instructionExit = new InstructionExit();
         instructionList.add(instructionExit);
-        instr = instructionExit.resultBlock;
+        instr = instructionExit;
         break;
 
       case ("println"):
