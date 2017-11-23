@@ -267,4 +267,8 @@ public class AST_ExprLiter extends AST_Expr {
   public String getLiteral() {
     return literal;
   }
+
+  public String getConstant() {
+    return constant;
+  }
 }

@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Exprs.AST_ExprEnclosed;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
+import ASTNodes.AST_Exprs.AST_ExprLiter;
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
@@ -153,12 +154,13 @@ public class AST_StatAssign extends AST_Stat {
         typeLHS = temporaryST.lookup(identName);
       }
 
-      /*if (((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().size() != 0) {
+      //TODO need to make more check before go inside this
+      if (((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().size() != 0) {
         System.out.println("I'm inside if statement");
         System.out.println(((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().get(0));
         AST_Expr firstElem = ((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList().get(0);
 
-        System.out.println("firstelem is: " + firstElem);
+        System.out.println("firstElem is: " + firstElem);
         //check if it is instace of AST_ExprIdent if it is an ident
         if (firstElem instanceof AST_ExprEnclosed) {
           return true;
@@ -172,15 +174,30 @@ public class AST_StatAssign extends AST_Stat {
           while (typeLHS == null) {
             System.out.println("typeLHS is null");
             tempST = tempST.encSymTable;
-            typeLHS =
+            typeLHS = tempST.lookup(varName);
           }
           System.out.println(typeLHS);
-        } else {
+        } if (firstElem instanceof AST_ExprLiter) {
+          System.out.println("first elem is instance of AST_ExprLiter");
+          String literal = ((AST_ExprLiter) firstElem).getLiteral();
+          String constant = ((AST_ExprLiter) firstElem).getConstant();
+          System.out.println("literal is: " + literal);
+          System.out.println("constant is: " + constant);
+
+          //meaning it's accessing an array
+          if (literal.equals("int")) {
+            if (typeLHS.toString().contains("str")) {
+              //make typeLHs = char || check the type of the first elem
+              System.out.println("reaches here where converting array of string to char");
+            }
+          }
+        }
+        else {
           typeLHS = ast_statAssignLHS.getIdentifier();
         }
       } else {
         typeLHS = ast_statAssignLHS.getIdentifier();
-      }*/
+      }
 
 
       System.out.println("ast_statAssignRHS");
