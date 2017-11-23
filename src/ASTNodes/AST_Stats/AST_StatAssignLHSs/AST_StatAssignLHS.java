@@ -141,7 +141,13 @@ public class AST_StatAssignLHS extends AST_Stat {
     visitor.visit(this);
   }
 
+
+  /**
+   * Doesn't require a register allocation as its a base class
+   */
+
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    System.out.println("Base class statAssignLHS doesn't generate assembly");
 
   }
 }

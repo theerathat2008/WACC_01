@@ -149,7 +149,28 @@ public class AST_StatRead extends AST_Stat {
     ast_statAssignLHS.accept(visitor);
   }
 
-  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+  /**
+   * Generates an read instruction depending on what type the statLHS has
+   * InstructionReadBlocks is the base type
+   * InstructionReadBlocksBool
+   * InstructionReadBlocksInt
+   * Allocates one register
+   */
 
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    String type = ast_statAssignLHS.getIdentifier().toString();
+
+    switch (type) {
+      case ("int"):
+        InstructionReadBlocksInt instructionPrintRead = new InstructionReadBlocksInt();
+        instructionList.add(instructionPrintRead);
+        break;
+      case ("char"):
+        InstructionReadBlocksChar instructionPrintRead = new InstructionReadBlocksChar();
+        instructionList.add(instructionPrintRead);
+        break;
+      default:
+        break;
+    }
   }
 }
