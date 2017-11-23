@@ -56,4 +56,14 @@ public class InstructionIf extends Instruction {
 
   }
 
+  @Override
+  public int requiresRegisters() {
+    return 1;
+  }
+
+  @Override
+  public boolean crossOverRegister() {
+    return true;
+  }
+
 }

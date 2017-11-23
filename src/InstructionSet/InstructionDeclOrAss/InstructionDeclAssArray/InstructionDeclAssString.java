@@ -26,4 +26,13 @@ public class InstructionDeclAssString extends InstructionDeclAssArray {
     return result;
   }
 
+  @Override
+  public int requiresRegisters() {
+    return 0;
+  }
+
+  @Override
+  public boolean crossOverRegister() {
+    return false;
+  }
 }

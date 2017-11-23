@@ -41,4 +41,14 @@ public class InstructionWhile extends Instruction {
     afterLoop = after.toString();
 
   }
+
+  @Override
+  public int requiresRegisters() {
+    return 1;
+  }
+
+  @Override
+  public boolean crossOverRegister() {
+    return true;
+  }
 }

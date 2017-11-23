@@ -33,4 +33,14 @@ public class InstructionAssignLit extends Instruction{
     builder.append(constant);
     builder.append("\n");
   }
+
+  @Override
+  public int requiresRegisters() {
+    return 1;
+  }
+
+  @Override
+  public boolean crossOverRegister() {
+    return false;
+  }
 }

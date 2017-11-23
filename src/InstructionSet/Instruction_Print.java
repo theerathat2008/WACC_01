@@ -32,4 +32,14 @@ public class Instruction_Print extends Instruction{
     }
     block1 = builder.toString();
   }
+
+  @Override
+  public int requiresRegisters() {
+    return 1;
+  }
+
+  @Override
+  public boolean crossOverRegister() {
+    return true;
+  }
 }

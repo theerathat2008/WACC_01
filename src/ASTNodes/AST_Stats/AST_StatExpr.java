@@ -299,7 +299,7 @@ public class AST_StatExpr extends AST_Stat {
         break;
 
       case ("exit"):
-        InstructionExit instructionExit = new InstructionExit(EXITCODE); //TODO put exit code in - can be found after <statname> <expr = EXITCODE>
+        InstructionExit instructionExit = new InstructionExit("0");//EXITCODE); //TODO put exit code in - can be found after <statname> <expr = EXITCODE>
         instructionList.add(instructionExit);
         break;
 
