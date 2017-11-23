@@ -1,11 +1,11 @@
-package InstructionSet.InstructionPrintBlocks;
+package InstructionSet.InstructionReadBlocks;
 
 import InstructionSet.Instruction;
 
 /**
  * Base class of all print instructions.
  */
-public class InstructionPrintBlocks extends Instruction{
+public class InstructionReadBlocks extends Instruction{
   String reg1;
   String resultBlock = "\t";
   int msgNum1;
@@ -14,7 +14,7 @@ public class InstructionPrintBlocks extends Instruction{
    * Class constructor - all subclasses use this
    * @param msgNum1 - Indicates the ID of the message to be output
    */
-  public InstructionPrintBlocks(int msgNum1) {
+  public InstructionReadBlocks(int msgNum1) {
     this.msgNum1 = msgNum1;
   }
 
