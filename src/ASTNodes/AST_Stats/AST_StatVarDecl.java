@@ -402,7 +402,13 @@ public class AST_StatVarDecl extends AST_Stat {
       stackLocation.append("]");
     }
 
-    registerAllocation.setStackSize(registerAllocation.getStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
+    if(ast_assignRHS instanceof AST_StatArrayLitRHS){
+      AST_StatArrayLitRHS tempNode = (AST_StatArrayLitRHS) ast_assignRHS;
+      registerAllocation.setStackSize(registerAllocation.getStackSize() + tempNode.getArraySize());
+    } else {
+      registerAllocation.setStackSize(registerAllocation.getStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
+    }
+
 
     registerAllocation.addToStack(identName, new StackLocation(stackLocation.toString(), registerAllocation.getCurrentScope()));
 

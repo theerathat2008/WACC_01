@@ -17,7 +17,7 @@ public class InstructionArrayDeclAss extends Instruction{
 
 
   public InstructionArrayDeclAss(int arraySize, int arrayLength, String strType){
-    this.arraySize = arraySize;
+    this.arraySize = arraySize + 4;
     this.arrayLength = arrayLength;
     this.strType = strType;
   }

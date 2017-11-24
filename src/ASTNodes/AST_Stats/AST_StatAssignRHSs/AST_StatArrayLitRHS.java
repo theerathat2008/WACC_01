@@ -246,9 +246,9 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
   public int getArraySize(){
     this.type = getTypeOfArray();
     if (type.equals("bool") || type.equals("char")) {
-      return numOfExpr+4;
+      return numOfExpr;
     }
-    return (numOfExpr+1)*4;
+    return (numOfExpr)*4;
   }
 
   public int getElemSize(){
