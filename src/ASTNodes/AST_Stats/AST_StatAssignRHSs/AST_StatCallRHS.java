@@ -15,6 +15,7 @@ import IdentifierObjects.BaseTypeObj;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionCall;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.MissingParameterError;
@@ -39,6 +40,8 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
   List<AST_Expr> ast_exprList;
   ParserRuleContext ctx;
   SymbolTable symbolTable;
+
+  InstructionCall instrCall;
 
   /**
    * Constructor for class - initialises class variables
@@ -448,6 +451,8 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
     for(AST_Expr expr : ast_exprList){
       expr.acceptInstr(assemblyCode);
     }
+    System.out.println(instrCall.getResultBlock());
+    assemblyCode.add(instrCall.getResultBlock());
   }
 
   @Override
@@ -455,11 +460,18 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
     for(AST_Expr expr : ast_exprList){
       expr.acceptRegister(registerAllocation);
     }
+    registerAllocation.freeRegister(registerAllocation.searchByValue("result"));
+    registerAllocation.addRegisterInUse(RegisterARM.r0, "result");
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    //TODO implement instuction call
 
+    FunctionObj functionObj = (FunctionObj) symbolTable.lookupAll(funcName);
+    String returnType = functionObj.returnType.toString();
+
+    InstructionCall instructionCall = new InstructionCall(funcName, returnType);
+    instructionList.add(instructionCall);
+    instrCall = instructionCall;
   }
 
   public List<AST_Expr> getAst_exprList() {

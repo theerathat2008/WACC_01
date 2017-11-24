@@ -8,16 +8,22 @@ import ASTNodes.AST_Program;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatArrayLitRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 
+import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatCallRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatPairElemRHS;
 import ASTNodes.AST_TYPES.AST_PairType;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionCall;
 import InstructionSet.InstructionDeclOrAss.*;
 import InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray.*;
 import InstructionSet.InstructionPrintBlocks.InstructionPrintBlocksBool;
 import InstructionSet.InstructionPrintBlocks.InstructionPrintBlocksRef;
 import InstructionSet.InstructionPrintBlocks.InstructionPrintBlocksString;
+import InstructionSet.InstructionReturn;
+import InstructionSet.InstructionVarDecl;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
+import Registers.StackLocation;
 import SymbolTable.SymbolTable;
 
 import ASTNodes.AST_TYPES.AST_Type;
@@ -39,7 +45,8 @@ public class AST_StatVarDecl extends AST_Stat {
   AST_StatAssignRHS ast_assignRHS;
   ParserRuleContext ctx;
   SymbolTable symbolTable;
-  Instruction instr;  //TODO change to correct instruction type
+  InstructionVarDecl instrVar;
+
 
   /**
    * Assign the class variables when called
@@ -365,26 +372,56 @@ public class AST_StatVarDecl extends AST_Stat {
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     ast_assignRHS.acceptInstr(assemblyCode);
-    assemblyCode.add("TODO\n");  //TODO change to correct implementation
+    assemblyCode.add(instrVar.getResultBlock());
   }
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+    registerAllocation.useRegister("result");
     ast_assignRHS.acceptRegister(registerAllocation);
+
+    RegisterARM src = registerAllocation.searchByValue("result");
+    RegisterARM dst = registerAllocation.useRegister("dst");
+    instrVar.allocateRegisters(dst, src);
+    registerAllocation.freeRegister(src);
+    registerAllocation.freeRegister(dst);
+
+    //set stack location
+
+    StringBuilder stackLocation = new StringBuilder();
+    int displacement = registerAllocation.getStackSize();
+    if(displacement == 0){
+      stackLocation.append("[sp]");
+    } else{
+      stackLocation.append("[sp, #");
+      stackLocation.append(displacement);
+      stackLocation.append("]");
+      registerAllocation.setStackSize(displacement + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
+    }
+
+    registerAllocation.addToStack(identName, new StackLocation(stackLocation.toString(), registerAllocation.getCurrentScope()));
+
+    instrVar.setStackLocation(stackLocation.toString());
+
+
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
     /**
-     * Content of the RHS:-  AST_StatArrayLit:-  [0,0,0]
-     *                       AST_StatCall:- return value of the function
+     * Content of the RHS:-  AST_StatArrayLit:-  [0,0,0]                          ---
+     *                       AST_StatCall:- return value of the function          --- Create InstructionCall
      *                       AST_StatExpr:- evalutaion of the expression 5, 5+5
      *                       AST_NewPair:- newpair()
      *                       AST_StatPairElem:- fst, snd
-     *
+     */
+    /**
+     * Content of the LHS:- type varName
      */
 
+    InstructionVarDecl instructionVarDecl = new InstructionVarDecl(ast_type.getIdentifier().toString());
+    instructionList.add(instructionVarDecl);
+    instrVar = instructionVarDecl;
   }
-
-
 }
