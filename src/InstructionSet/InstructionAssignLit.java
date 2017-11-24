@@ -7,6 +7,7 @@ public class InstructionAssignLit extends Instruction{
   String constant;
   String lit;
   String reg;
+  String stringMsgNum;
   public String block1;
 
   public InstructionAssignLit(String constant, String lit){
@@ -19,6 +20,9 @@ public class InstructionAssignLit extends Instruction{
     this.reg = reg.name();
   }
 
+  public void setStringMsgNum(String num) {
+    this.stringMsgNum = num;
+  }
   @Override
   public void genInstruction() {
 
@@ -48,8 +52,13 @@ public class InstructionAssignLit extends Instruction{
       }
       builder.append("\n");
       block1 = builder.toString();
-    } else if (lit.equals("pair")){
-
+    } else if (lit.equals("str")){
+      StringBuilder builder = new StringBuilder("\t\tLDR ");
+      builder.append(reg);
+      builder.append(", =msg_");
+      builder.append(stringMsgNum);
+      builder.append("\n");
+      block1 = builder.toString();
     }
 
 
