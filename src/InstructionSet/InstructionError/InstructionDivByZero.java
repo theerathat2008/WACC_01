@@ -1,6 +1,7 @@
 package InstructionSet.InstructionError;
 
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 
 public class InstructionDivByZero extends InstructionError {
   String reg1;
@@ -23,23 +24,23 @@ public class InstructionDivByZero extends InstructionError {
    * Assigned string value indicating name of register
    * @param reg1 - first register
    */
-  public void allocateRegisters(String reg1, String reg2) {
-    this.reg1 = reg1;
-    this.reg2 = reg2;
+  public void allocateRegisters(RegisterARM reg1, RegisterARM reg2) {
+    this.reg1 = reg1.name();
+    this.reg2 = reg2.name();
   }
 
   /**
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    resultBlock.concat("p_check_divide_by_zero:\n");
-    resultBlock.concat("\t\tPUSH {LR}\n");
-    resultBlock.concat("\t\tCMP ");
-    resultBlock.concat(reg1);
-    resultBlock.concat(", #0");
-    resultBlock.concat("LDREQ r0, =msg_");
-    resultBlock.concat(outputMessageNumber);
-    resultBlock.concat("\n\t\tBLEQ p_throw_runtime_error\n");
+    StringBuilder builder = new StringBuilder();
+    builder.append("\tp_check_divide_by_zero:\n\t\tPUSH {LR}\n\t\tCMP ");
+    builder.append(reg1);
+    builder.append(", #0\n\t\tLDREQ r0, =msg_");
+    builder.append(outputMessageNumber);
+    builder.append("\n\t\tBLEQ p_throw_runtime_error\n");
+
+    resultBlock = builder.toString();
   }
 
   @Override

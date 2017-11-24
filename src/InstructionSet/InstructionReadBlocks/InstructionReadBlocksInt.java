@@ -4,7 +4,6 @@ package InstructionSet.InstructionReadBlocks;
  * Instruction class for printing int expressions
  */
 public class InstructionReadBlocksInt extends InstructionReadBlocks {
-  String reg2;
 
   /**
    * Class constructor calls super constructor
@@ -22,22 +21,27 @@ public class InstructionReadBlocksInt extends InstructionReadBlocks {
    * @param reg1 - first register
    * @param reg2 - second register
    */
-  public void allocateRegisters(String reg1, String reg2) {
-    this.reg1 = reg1;
-    this.reg2 = reg2;
-  }
+
 
   /**
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    resultBlock.concat("p_read_int:\n");
-    resultBlock.concat("\t\tPUSH {lr}\n");
-    resultBlock.concat("\t\tMOV " +  reg2 + ", " + reg1 + "\n");
-    resultBlock.concat("\t\tLDR " +  reg1 + ", =msg_" + msgNum1 + "\n");
-    resultBlock.concat("\t\tADD " +  reg1 + ", " +  reg1 + ", #4\n");
-    resultBlock.concat("\t\tBL scanf\n");
-    resultBlock.concat("\t\tPOP {pc}\n");
+    StringBuilder builder = new StringBuilder();
+    builder.append("\tp_read_int:\n\t\tPUSH {lr}\n\t\tMOV ");
+    builder.append(reg2);
+    builder.append(", ");
+    builder.append(reg1);
+    builder.append("\n\t\tLDR ");
+    builder.append(reg1);
+    builder.append(", =msg_");
+    builder.append(msgNum1);
+    builder.append("\n\t\tADD ");
+    builder.append(reg1);
+    builder.append(", ");
+    builder.append(reg1);
+    builder.append(", #4\n\t\tBL scanf\n\t\tPOP {pc}\n");
+    resultBlock = builder.toString();
   }
 
 

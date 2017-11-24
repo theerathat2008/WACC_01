@@ -1,6 +1,7 @@
 package InstructionSet.InstructionError;
 
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 
 public class InstructionErrorRuntime extends InstructionError {
   String reg1;
@@ -16,18 +17,20 @@ public class InstructionErrorRuntime extends InstructionError {
    * Assigned string value indicating name of register
    * @param reg1 - first register
    */
-  public void allocateRegisters(String reg1) {
-    this.reg1 = reg1;
+  public void allocateRegisters(RegisterARM reg1) {
+    this.reg1 = reg1.name();
   }
 
   /**
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    resultBlock.concat("p_throw_runtime_error:\n");
-    resultBlock.concat("\t\tBL p_print_string\n");
-    resultBlock.concat("\t\tMOV " +  reg1 + ", #-1\n");
-    resultBlock.concat("\t\tBL exit\n");
+    StringBuilder builder = new StringBuilder();
+    builder.append("\tp_throw_runtime_error:\n\t\tBL p_print_string\n\t\tMOV ");
+    builder.append(reg1);
+    builder.append(", #-1\n\t\tBL exit\n");
+
+    resultBlock = builder.toString();
   }
 
   @Override

@@ -1,13 +1,15 @@
 package InstructionSet.InstructionReadBlocks;
 
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 
 /**
  * Base class of all print instructions.
  */
 public class InstructionReadBlocks extends Instruction{
   String reg1;
-  public String resultBlock = "\t";
+  String reg2;
+  public String resultBlock;
   int msgNum1;
 
   /**
@@ -19,6 +21,10 @@ public class InstructionReadBlocks extends Instruction{
     reg1 = "reg1";
   }
 
+  public void allocateRegisters(RegisterARM reg1, RegisterARM reg2) {
+    this.reg1 = reg1.name();
+    this.reg2 = reg2.name();
+  }
 
   @Override
   public void genInstruction() {

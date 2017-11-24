@@ -5,7 +5,7 @@ import InstructionSet.Instruction;
 
 public class InstructionError extends Instruction{
 
-  public String resultBlock = "\t";
+  public String resultBlock;
 
   @Override
   public void genInstruction() {
