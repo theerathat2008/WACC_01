@@ -133,22 +133,15 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
     AST_Node parent = getParentNode();
 
     if (ast_expr instanceof AST_ExprIdent) {
-      System.out.println("Hey, I'm instance of AST_ExprIdent");
       String varName = ((AST_ExprIdent) ast_expr).getVarName();
       AST_Node tempNode = this.getParentNode();
       SymbolTable tempST = ST;
       IDENTIFIER typeExpr = tempST.lookup(varName);
-      System.out.println("Enclosed typeExpr: ");
-      System.out.println(typeExpr);
 
       while (typeExpr == null) {
-        System.out.println("typeExpr is null");
         tempST = tempST.encSymTable;
         typeExpr = tempST.lookup(varName);
       }
-
-      System.out.println("typeExpr after: ");
-      System.out.println(typeExpr);
 
       if (typeExpr.toString().equals("int") || typeExpr.toString().equals("bool")
               || typeExpr.toString().equals("char") || typeExpr.toString().contains("PAIR")

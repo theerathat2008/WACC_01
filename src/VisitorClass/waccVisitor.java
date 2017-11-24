@@ -9,6 +9,9 @@ import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatPairElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.*;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
+import ErrorMessages.FunctionRedeclarationError;
+import ErrorMessages.VariableRedeclarationError;
+import IdentifierObjects.IDENTIFIER;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_ArrayType;
 import ASTNodes.AST_TYPES.AST_BaseType;
@@ -16,6 +19,7 @@ import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_ArrayTypePair;
 import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_BaseTypePair;
 import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairString;
 import ASTNodes.AST_TYPES.AST_PairType;
+import src.FilePosition;
 
 import antlr.*;
 
@@ -132,7 +136,26 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = funcNode;
     currentGlobalTree = funcNode.symbolTable;
 
+    SymbolTable tempST = currentGlobalTree;
+    String funcName = funcNode.getFuncName();
+    IDENTIFIER type = tempST.lookup(funcName);
 
+    while (type == null) {
+      tempST = tempST.encSymTable;
+      try {
+        type = tempST.lookup(funcName);
+      } catch (NullPointerException e) {
+        System.out.println("NullPointerException caught");
+        type = null;
+        break;
+      }
+    }
+
+    System.out.println("Type is: " + type);
+
+    if (type != null) {
+      new FunctionRedeclarationError(new FilePosition(ctx)).printAll();
+    }
 
     //Debug statement
     System.out.println("Func");
@@ -827,6 +850,27 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     statVarDeclNode.setParentNode(parentVisitorNode);
     parentVisitorNode = statVarDeclNode;
 
+    SymbolTable tempST = currentGlobalTree;
+    String identName = statVarDeclNode.getIdentName();
+    IDENTIFIER type = tempST.lookup(identName);
+
+    while (type == null) {
+      tempST = tempST.encSymTable;
+      try {
+        type = tempST.lookup(identName);
+      } catch (NullPointerException e) {
+        System.out.println("NullPointerException caught");
+        type = null;
+        break;
+      }
+    }
+
+    System.out.println("Type is: " + type);
+
+    if (type != null) {
+      new VariableRedeclarationError(new FilePosition(ctx)).printAll();
+    }
+
     //Debug statement
     System.out.println("statVarDecl");
 
@@ -1026,7 +1070,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitBINARY_OP_EXPR(WaccParser.BINARY_OP_EXPRContext ctx) {
 
     //Create the node for the current visitor function
-    AST_ExprBinary exprBinaryNode = new AST_ExprBinary();
+    AST_ExprBinary exprBinaryNode = new AST_ExprBinary(ctx, currentGlobalTree);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("expr", exprBinaryNode);
@@ -1282,8 +1326,19 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     returnStatNode.setParentNode(parentVisitorNode);
     parentVisitorNode = returnStatNode;
 
+    AST_Node tempNode = parentVisitorNode;
+    System.out.println(tempNode.getClass().getSimpleName());
+
     //Debug statement
     System.out.println("returnStat");
+
+    //Syntatic check
+    if(!returnStatNode.getParentNode().isEmbeddedNodesFull()){
+      //throw syntatic error
+      System.out.println("Errors detected during compilation! Exit code 200 returned.");
+      System.out.println("#semantic_error#");
+      System.exit(200);
+    }
 
     //Iterate through rest of the tree
     visitChildren(ctx);

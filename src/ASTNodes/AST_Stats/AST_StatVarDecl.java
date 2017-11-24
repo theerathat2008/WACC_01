@@ -1,6 +1,7 @@
 package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Exprs.AST_Expr;
+import ASTNodes.AST_Exprs.AST_ExprBinary;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
@@ -9,6 +10,8 @@ import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatArrayLitRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatCallRHS;
+
+import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatPairElemRHS;
 import ASTNodes.AST_TYPES.AST_PairType;
 import IdentifierObjects.IDENTIFIER;
@@ -148,57 +151,64 @@ public class AST_StatVarDecl extends AST_Stat {
   @Override
   public boolean CheckSemantics() {
 
-    //Debug statement
-
-    //Maybe ST has content but ast_assignRHS is null so it cannot find type
     SymbolTable ST = this.symbolTable;
-
-    System.out.println("printing contents");
-    System.out.println(ast_type.getIdentifier().toString());
-    System.out.println(ST.getScope());
-    System.out.println(identName);
-    System.out.println(ST.lookup(identName));
-    System.out.println(ST.lookupAll(identName));
-    System.out.println(ST.encSymTable.lookup("s2"));
-    System.out.println(ast_type.getIdentifier());
-    System.out.println(ast_assignRHS.getIdentifier());
-    System.out.println(ast_assignRHS);
 
     AST_Node parent = getParentNode();
 
     SymbolTable tempSymTable = ST;
     IDENTIFIER type = tempSymTable.lookup(identName);
-    System.out.println(type);
 
     AST_Node tempNode = parent;
 
     while (type == null) {
-      System.out.println("type is null");
       tempSymTable = tempSymTable.encSymTable;
       type = tempSymTable.lookup(identName);
     }
 
-    System.out.println("This is the most recent type: ");
-    System.out.println(type);
-    System.out.println(ast_type);
+    if (ast_assignRHS instanceof AST_StatExprRHS) {
+      AST_Expr ast_expr = ((AST_StatExprRHS) ast_assignRHS).getAst_expr();
 
-    System.out.println(ast_assignRHS.getIdentifier());
+      if (ast_expr instanceof AST_ExprBinary) {
+        AST_Expr exprLeft = ((AST_ExprBinary) ast_expr).getExprLeftAST();
+        AST_Expr exprRight = ((AST_ExprBinary) ast_expr).getExprRightAST();
 
-    System.out.println(ast_assignRHS);
+        IDENTIFIER leftType = null;
+        IDENTIFIER rightType = null;
 
-    System.out.println("Printing types out for both sides");
+        if (exprLeft instanceof AST_ExprIdent) {
+          SymbolTable tempST = ST;
+          String varNameExprLeft = ((AST_ExprIdent) exprLeft).getVarName();
 
-    if (type != null) {
-      System.out.println(type.toString());
-    }
+          leftType = tempST.lookup(varNameExprLeft);
 
-    if (ast_assignRHS.getIdentifier()!= null) {
-      System.out.println(ast_assignRHS.getIdentifier().toString());
+          while (leftType == null) {
+            tempST = tempST.encSymTable;
+            leftType = tempST.lookup(varNameExprLeft);
+          }
+        } else {
+
+        }
+
+        if (exprRight instanceof AST_ExprIdent) {
+
+        } else {
+          rightType = exprRight.getIdentifier();
+        }
+
+        if (leftType != null && rightType != null) {
+          if (leftType.toString().contains(rightType.toString())) {
+            return true;
+          } else {
+            new TypeMismatchError(new FilePosition(ctx)).printAll();
+            return false;
+          }
+        }
+
+      }
     }
 
     if (ast_assignRHS.getIdentifier() != null && type != null) {
       if (type.toString().contains("pair") || type.toString().contains("PAIR")) {
-        System.out.println("Hey, I reach when it contains type");
         if (ast_assignRHS.getIdentifier().toString().contains("pair")
                 || ast_assignRHS.getIdentifier().toString().contains("PAIR")) {
           return true;
@@ -207,36 +217,24 @@ public class AST_StatVarDecl extends AST_Stat {
     }
 
     if (ast_assignRHS instanceof AST_StatPairElemRHS) {
-      System.out.println("Hey, I'm instance of AST_StatPairElemRHS");
       String typeName = ((AST_StatPairElemRHS) ast_assignRHS).getTypeName();
-      System.out.println("Type name is: " + typeName);
       AST_Expr ast_expr = ((AST_StatPairElemRHS) ast_assignRHS).getAst_expr();
-      System.out.println("AST_Expr is: " + ast_expr);
 
       if (typeName.equals("fst")) {
         if (ast_expr instanceof AST_ExprIdent) {
-          System.out.println("Hey, I'm instance of AST_ExprIdent");
           SymbolTable tempST = ST;
           String varName = ((AST_ExprIdent) ast_expr).getVarName();
           IDENTIFIER typeExpr = tempST.lookup(varName);
 
           while (typeExpr == null) {
-            System.out.println("typeExpr is null");
             tempST = tempST.encSymTable;
             typeExpr = tempST.lookup(varName);
           }
 
-          System.out.println("recent typeExpr is: " + typeExpr);
-
           if (typeExpr.toString().contains("PAIR")) {
             String typeString = typeExpr.toString();
             String firstType = typeString.substring(typeString.indexOf("("), typeString.indexOf(","));
-            System.out.println("first type is: " + firstType);
             String sndType = typeString.substring(typeString.indexOf(","), typeString.indexOf(")"));
-            System.out.println("second type is: " + sndType);
-
-            System.out.println("ast_type is: ");
-            System.out.println(ast_type.getIdentifier());
 
             IDENTIFIER typeIdent = ast_type.getIdentifier();
 
@@ -252,35 +250,24 @@ public class AST_StatVarDecl extends AST_Stat {
             }
           }
 
-          //TODO implement ways to check type for fst and snd
-
         }
 
       }
       else if (typeName.equals("snd")) {
         if (ast_expr instanceof AST_ExprIdent) {
-          System.out.println("Hey, I'm instance of AST_ExprIdent");
           SymbolTable tempST = ST;
           String varName = ((AST_ExprIdent) ast_expr).getVarName();
           IDENTIFIER typeExpr = tempST.lookup(varName);
 
           while (typeExpr == null) {
-            System.out.println("typeExpr is null");
             tempST = tempST.encSymTable;
             typeExpr = tempST.lookup(varName);
           }
 
-          System.out.println("recent typeExpr is: " + typeExpr);
-
           if (typeExpr.toString().contains("PAIR")) {
             String typeString = typeExpr.toString();
             String firstType = typeString.substring(typeString.indexOf("("), typeString.indexOf(","));
-            System.out.println("first type is: " + firstType);
             String sndType = typeString.substring(typeString.indexOf(","), typeString.indexOf(")"));
-            System.out.println("second type is: " + sndType);
-
-            System.out.println("ast_type is: ");
-            System.out.println(ast_type.getIdentifier());
 
             IDENTIFIER typeIdent = ast_type.getIdentifier();
 
@@ -310,9 +297,6 @@ public class AST_StatVarDecl extends AST_Stat {
       return true;
     }
 
-    //TODO find out why it is already assigned
-    //find other way to check
-    //maybe use not equal to the already assigned type?
     if (type.toString().contains(ast_type.getIdentifier().toString())
             || ast_type.getIdentifier().toString().contains(type.toString())) {
       return true;
@@ -435,5 +419,9 @@ public class AST_StatVarDecl extends AST_Stat {
     instrVar = instructionVarDecl;
 
     registerAllocation.setFinalStackSize(registerAllocation.getFinalStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
+  }
+
+  public String getIdentName() {
+    return identName;
   }
 }

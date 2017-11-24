@@ -136,42 +136,21 @@ public class AST_StatIf extends AST_Stat {
    */
   @Override
   public boolean CheckSemantics() {
-    //TODO inside an if stat if it's AST_ExprIdent
 
     //get type of the expr of the context to see whether it is equal to type bool
     SymbolTable ST = this.symbolTable;
     IDENTIFIER typeExpr = expr.getIdentifier();
-    System.out.println(typeExpr);
 
-    //
     if (expr instanceof AST_ExprIdent) {
-      System.out.println("Hey, I'm an instance of AST_ExprIdent");
       String varName = ((AST_ExprIdent) expr).getVarName();
-      System.out.println("varName is: ");
-      System.out.println(varName);
-      //IDENTIFIER typeName = ST.encSymTable.lookup(varName);
       IDENTIFIER typeName = ST.lookup(varName);
-      System.out.println(typeName);
-      System.out.println(ST.lookup(varName));
-      System.out.println(ST.encSymTable.encSymTable.lookup(varName));
 
       AST_Node tempNode = this.getParentNode();
 
-      /*if (ST.encSymTable.lookup(varName) == null) {
-        typeName = ST.lookup(varName);
-      }*/
-
       while (typeName == null) {
-        System.out.println("type name is null");
         ST = ST.encSymTable;
         typeName = ST.lookup(varName);
       }
-
-      System.out.println("This is the most recent typeName");
-      System.out.println(typeName);
-
-      System.out.println("This is typeExpr: ");
-      System.out.println(typeExpr);
 
       if (typeName.toString().contains("bool")) {
         return true;

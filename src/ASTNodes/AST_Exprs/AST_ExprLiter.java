@@ -124,13 +124,11 @@ public class AST_ExprLiter extends AST_Expr {
     //if it is int liter, check whether the number is inside the integer bounds
     //TODO reuntimeErr cases check
     if (literal.equals("int")) {
-      System.out.println("Hey, I'm in the int check");
-      System.out.println("Checking if Integer.parseInt stat works: ");
-      System.out.println(Integer.parseInt("1"));
 
       if (Long.parseLong(constant) > Math.pow(2, 31) || Long.parseLong(constant) < -Math.pow(2, 31)) {
-        new OutOfBoundsError(new FilePosition(ctx)).printAll();
-        return false;
+        System.out.println("Errors detected during compilation! Exit code 100 returned.");
+        System.out.println("#syntax_error#");
+        System.exit(100);
       } else {
         return true;
       }
@@ -268,5 +266,9 @@ public class AST_ExprLiter extends AST_Expr {
 
   public String getLiteral() {
     return literal;
+  }
+
+  public String getConstant() {
+    return constant;
   }
 }

@@ -118,17 +118,10 @@ public class AST_StatRead extends AST_Stat {
 
     SymbolTable ST = this.symbolTable;
 
-    //get Type of the statement
-    //String type = ast_statAssignLHS.getType(ST);
-    //Debug statement
-    System.out.println(ast_statAssignLHS);
-
-
     if (ast_statAssignLHS instanceof AST_StatPairElemLHS) {
       AST_Expr ast_expr = ((AST_StatPairElemLHS) ast_statAssignLHS).getAst_expr();
 
       if (ast_expr instanceof AST_ExprIdent) {
-        System.out.println("Hey, I'm an instance of AST_ExprIdent");
         String varName = ((AST_ExprIdent) ast_expr).getVarName();
         SymbolTable tempST = this.symbolTable;
         IDENTIFIER typeName = tempST.lookup(varName);
@@ -136,18 +129,14 @@ public class AST_StatRead extends AST_Stat {
         AST_Node tempNodeRHS = this.getParentNode();
 
         while (typeName == null) {
-          System.out.println("typeName is null");
           tempST = tempST.encSymTable;
           typeName = tempST.lookup(varName);
         }
 
-        System.out.println("This is the most recent typeName");
-        System.out.println(typeName);
-
         String typeString = typeName.toString();
 
         if (typeString.equals("char") || typeString.equals("int")
-                || typeString.contains("PAIR") || typeString.contains("pair")) {
+                || typeString.contains("pair")) {
           return true;
         } else {
           new TypeError(new FilePosition(ctx)).printAll();
@@ -159,7 +148,7 @@ public class AST_StatRead extends AST_Stat {
     String type = ast_statAssignLHS.getIdentifier().toString();
 
     //only valid if it is of type char and int
-    if (!(type.equals("char") || type.equals("int") || type.contains("PAIR") || type.contains("pair"))) {
+    if (!(type.equals("char") || type.equals("int") || type.contains("pair"))) {
       new TypeError(new FilePosition(ctx)).printAll();
       return false;
     }

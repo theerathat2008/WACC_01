@@ -126,26 +126,19 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
   @Override
   public boolean CheckSemantics() {
 
-    System.out.println("Type name for this case is: ");
-    System.out.println(typeName);
-
     IDENTIFIER type;
     SymbolTable ST = this.symboltable;
 
     if (typeName.equals("fst")) {
-      System.out.println("reach fst");
       if (ast_expr instanceof AST_ExprIdent) {
-        System.out.println("Hey, I'm instance of AST_ExprIdent");
         String varName = ((AST_ExprIdent) ast_expr).getVarName();
 
         SymbolTable tempST = ST;
         type = tempST.lookup(varName);
-        System.out.println(type);
 
         AST_Node tempNode = this.getParentNode();
 
         while (type == null) {
-          System.out.println("type is null");
           tempST = tempST.encSymTable;
           type = tempST.lookup(varName);
         }
@@ -170,19 +163,15 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
         }
       }
     } else if (typeName.equals("snd")) {
-      System.out.println("reach snd");
       if (ast_expr instanceof AST_ExprIdent) {
-        System.out.println("Hey, I'm instance of AST_ExprIdent");
         String varName = ((AST_ExprIdent) ast_expr).getVarName();
 
         SymbolTable tempST = ST;
         type = tempST.lookup(varName);
-        System.out.println(type);
 
         AST_Node tempNode = this.getParentNode();
 
         while (type == null) {
-          System.out.println("type is null");
           tempST = tempST.encSymTable;
           type = tempST.lookup(varName);
         }

@@ -158,9 +158,6 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
   public boolean CheckSemantics() {
 
     SymbolTable ST = this.symbolTable;
-    System.out.println(funcName);
-    System.out.println(ast_exprList);
-    System.out.println(ST.getScope());
 
     //Nested function call case
     if (ST.getScope().equals("param_list") && ST.lookup(funcName) == null) {
@@ -192,27 +189,17 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
     } else {
       //Non-nested function call case
       //Check parameters of paramList against expressions
-      System.out.println("I'm in the else statement");
 
       if (ast_exprList.size() > 0) {
 
-        System.out.println("ast_exprList has size > 0");
-        System.out.println(ast_exprList);
         AST_Node parent = this.getParentNode();
-        System.out.println("Parent node is");
-        System.out.println(parent);
-        System.out.println(ST.lookupAll(funcName));
 
         List<IDENTIFIER> parameters = new ArrayList<>();
 
         //if it is a baseType obj, we add it to a list instead of assigning it
         if (ST.lookupAll(funcName) instanceof BaseTypeObj) {
-          System.out.println("When funcName is instance of BaseTypeObj");
-          System.out.println(ST.lookupAll(funcName));
           parameters.add(ST.lookupAll(funcName));
         } else if (ST.lookupAll(funcName) instanceof FunctionObj) {
-          //TODO BaseTypeObj cannot cast to FunctionObj
-          System.out.println("When funcName is instance of FunctionObj");
           parameters = (((FunctionObj) (ST.lookupAll(funcName))).getparamListObj()).getParamObjList();
         }
 
@@ -223,52 +210,23 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
           return false;
         }
 
-        //Debug statement to see what is inside param
-        System.out.println("List params are: ");
-        for (IDENTIFIER param : parameters) {
-          System.out.println(param);
-        }
-        System.out.println("ast_exprList.size: " + ast_exprList.size());
-
         for (int i = 0; i < ast_exprList.size(); i++) {
 
-          //TODO check whether the type of param is the same as when it is declared
-
-          //TODO set the value for ast_exprList because right now it is null
           IDENTIFIER typeParam = (IDENTIFIER) parameters.get(i);
-
-          //Debug statement
-          for (AST_Expr ast : ast_exprList) {
-            System.out.println("AST_EXPR are");
-            System.out.println(ast);
-            System.out.println(ast.getIdentifier());
-          }
-          System.out.println("first elem: " + ast_exprList.get(i));
-          System.out.println(ast_exprList);
-          ast_exprList.get(i).printContents();
 
           //when size of the list i 1
           if (ast_exprList.size() == 1) {
             if (ast_exprList.get(0) instanceof AST_ExprIdent) {
-              System.out.println("Hey, I'm instance of AST_ExprIdent");
               String varName = ((AST_ExprIdent) ast_exprList.get(i)).getVarName();
               SymbolTable tempST = ST;
               IDENTIFIER typeExpr = tempST.lookup(varName);
-              System.out.println(typeExpr);
 
               while (typeExpr == null) {
-                System.out.println("typeExpr is null");
                 tempST = tempST.encSymTable;
                 typeExpr = tempST.lookup(varName);
               }
 
-              //TODO maybe there is a better method to check if it's a function call, then check both enc and current ST
               //check if it's null so can reassign again (hard coding)
-
-              System.out.println("varName is:" + varName);
-              System.out.println("typeExpr is: " + typeExpr);
-              //IDENTIFIER typeParam = parameters.get(i);
-              System.out.println("typeParam is: " + typeParam);
               if (!typeExpr.equals(typeParam)) {
                 new TypeError(new FilePosition(ctx)).printAll();
                 return false;
@@ -276,19 +234,15 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
                 return true;
               }
             } else if (ast_exprList.get(0) instanceof AST_ExprArrayElem) {
-              System.out.println("first elem is instance of AST_ExprArrayElem");
               String arrayName = ((AST_ExprArrayElem) ast_exprList.get(0)).getArrayName();
               SymbolTable tempST = this.symbolTable;
               IDENTIFIER typeExpr = tempST.lookup(arrayName);
 
               while (typeExpr == null) {
-                System.out.println("typeExpr is null");
                 tempST = tempST.encSymTable;
                 typeExpr = tempST.lookup(arrayName);
               }
 
-              System.out.println("typeExpr is: " + typeExpr);
-              System.out.println("typeParam is: " + typeParam);
               if (typeExpr.toString().contains(typeParam.toString())
                       || typeParam.toString().contains(typeExpr.toString())) {
                 return true;
@@ -298,10 +252,7 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
               }
 
             } else if (ast_exprList.get(0) instanceof AST_ExprLiter) {
-              System.out.println("first elem is instance of AST_ExprLiter");
               String literal = ((AST_ExprLiter) ast_exprList.get(0)).getLiteral();
-              System.out.println("typeParam is: " + typeParam);
-              System.out.println("literal is: " + literal);
 
               if (typeParam.toString().contains("char[]")
                       || typeParam.toString().contains("str")) {
@@ -320,7 +271,6 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
               }
 
             } else {
-              System.out.println("Hello I'm here");
               IDENTIFIER typeExpr = ast_exprList.get(0).getIdentifier();
               //IDENTIFIER typeParam = parameters.get(i);
               if (!typeExpr.equals(typeParam)) {
@@ -340,15 +290,9 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
             IDENTIFIER typeExpr = tempST.lookup(varName);
 
             while (typeExpr == null) {
-              System.out.println("typeExpr is null");
               tempST = tempST.encSymTable;
               typeExpr = tempST.lookup(varName);
             }
-
-            System.out.println("varName is:" + varName);
-            System.out.println("typeExpr is: " + typeExpr);
-            //IDENTIFIER typeParam = parameters.get(i);
-            System.out.println("typeParam is: " + typeParam);
 
             if (typeExpr.toString().contains(typeParam.toString()) || typeParam.toString().contains(typeExpr.toString())) {
               return true;
@@ -359,12 +303,6 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
           }
 
           IDENTIFIER typeExpr = ast_exprList.get(i).getIdentifier();
-          System.out.println(typeExpr);
-
-          System.out.println();
-
-          //IDENTIFIER typeParam = parameters.get(i);
-          System.out.println(typeParam);
 
           if (!(typeExpr.toString().contains(typeParam.toString()) || typeParam.toString().contains(typeExpr.toString()))) {
             new TypeError(new FilePosition(ctx)).printAll();
@@ -372,22 +310,16 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
           }
         }
       } else {
-        System.out.println("Hey, I'm an empty list");
+
       }
-      //Debug statement
-      System.out.println(funcName);
-      //TODO ST.lookup(funcname) returns null
-      System.out.println(ST.lookup(funcName));
 
       SymbolTable temporaryST = ST;
       IDENTIFIER type = temporaryST.lookup(funcName);
 
       while (type == null) {
-        System.out.println("type is null");
         temporaryST = temporaryST.encSymTable;
         type = temporaryST.lookup(funcName);
       }
-      //TODO this statement also has NullPointer exception
       setIdentifier(((FunctionObj) (type)).getReturnType());
     }
 
