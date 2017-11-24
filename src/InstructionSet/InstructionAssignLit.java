@@ -38,9 +38,9 @@ public class InstructionAssignLit extends Instruction{
       builder.append("\n");
       block1 = builder.toString();
     } else if (lit.equals("bool")) {
-      StringBuilder builder = new StringBuilder("\t\tLDR ");
+      StringBuilder builder = new StringBuilder("\t\tMOV ");
       builder.append(reg);
-      builder.append(", =");
+      builder.append(", #");
       if (constant.equals("true")) {
         builder.append("1");
       } else {

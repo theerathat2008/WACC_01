@@ -5,6 +5,7 @@ import ASTNodes.AST_Exprs.AST_ExprIdent;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionWhile;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
@@ -200,7 +201,15 @@ public class AST_StatWhile extends AST_Stat {
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+    registerAllocation.useRegister("expr");
     exprAST.acceptRegister(registerAllocation);
+
+    RegisterARM reg1 = registerAllocation.searchByValue("expr");
+    InstructionWhile instructionWhile = instr;
+    instructionWhile.allocateRegisters(reg1);
+    registerAllocation.freeRegister(reg1);
+
     statAST.acceptRegister(registerAllocation);
   }
 
@@ -215,6 +224,7 @@ public class AST_StatWhile extends AST_Stat {
 
     instructionWhile.setLabels(registerAllocation.generateLabel(), registerAllocation.generateLabel());
     instructionList.add(instructionWhile);
+    instr = instructionWhile;
 
   }
 }

@@ -10,6 +10,7 @@ import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionIf;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.*;
@@ -247,7 +248,15 @@ public class AST_StatIf extends AST_Stat {
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+    registerAllocation.useRegister("expr");
     expr.acceptRegister(registerAllocation);
+
+    RegisterARM reg1 = registerAllocation.searchByValue("expr");
+    InstructionIf instructionIf = instr;
+    instructionIf.allocateRegisters(reg1);
+    registerAllocation.freeRegister(reg1);
+
     thenStat.acceptRegister(registerAllocation);
     elseStat.acceptRegister(registerAllocation);
 
