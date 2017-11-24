@@ -15,6 +15,7 @@ import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatCallRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatPairElemRHS;
+import ErrorMessages.ErrorMessage;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionAssignLit;
@@ -28,6 +29,8 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.List;
+
+import static java.lang.System.exit;
 
 /**
  * Class representing node in AST tree for ASSIGNMENT STATEMENTS
@@ -375,6 +378,13 @@ public class AST_StatAssign extends AST_Stat {
     System.out.println(ast_statAssignLHS.getIdentifier());
     System.out.println("typeRHS is: " + typeRHS);
     System.out.println(ast_statAssignRHS.getIdentifier());
+    if (typeLHS.toString().contains("FUNCTION")) {
+      //cannot assign to a function
+      System.out.println("Errors detected during compilation! Exit code 200 returned.");
+      System.out.println("#semantic_error#");
+      System.out.println("ERROR: Attempt to assign to a function is invalid" + new FilePosition(ctx));
+      exit(200);
+    }
     if (typeLHS.toString().contains("PAIR(") && typeRHS.toString().contains("PAIR(")) {
       String stringLHS = typeLHS.toString();
       String pairLHS = stringLHS.substring(stringLHS.indexOf("P"), stringLHS.indexOf(")"));
