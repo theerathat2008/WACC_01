@@ -1282,8 +1282,45 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     returnStatNode.setParentNode(parentVisitorNode);
     parentVisitorNode = returnStatNode;
 
+    AST_Node tempNode = parentVisitorNode;
+    System.out.println(tempNode.getClass().getSimpleName());
+    /*boolean hasReturn = false;
+
+    //Only consider if is has a type to return in the func decl
+    while(!(tempNode instanceof AST_FuncDecl)){
+      tempNode = tempNode.getParentNode();
+      if(tempNode instanceof AST_Program){
+        hasReturn = true;
+        ((AST_FuncDecl) tempNode).setHasReturnTrue();
+        break;
+      }
+      System.out.println(tempNode.getClass().getSimpleName());
+    }
+    */
+    /*while (!(tempNode instanceof AST_Program)) {
+     if (tempNode instanceof AST_FuncDecl) {
+       hasReturn = true;
+       ((AST_FuncDecl) tempNode).setHasReturn(true);
+     }
+     tempNode = tempNode.getParentNode();
+      System.out.println(tempNode.getClass().getSimpleName());
+    }
+    System.out.println(hasReturn);*/
+
+    //
+
+
+
     //Debug statement
     System.out.println("returnStat");
+
+    //Syntatic check
+    if(!returnStatNode.getParentNode().isEmbeddedNodesFull()){
+      //throw syntatic error
+      System.out.println("Errors detected during compilation! Exit code 100 returned.");
+      System.out.println("#syntax_error#");
+      System.exit(100);
+    }
 
     //Iterate through rest of the tree
     visitChildren(ctx);

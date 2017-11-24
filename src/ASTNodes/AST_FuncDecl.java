@@ -1,6 +1,7 @@
 package ASTNodes;
 
 import ASTNodes.AST_Stats.AST_Stat;
+import ErrorMessages.TypeError;
 import IdentifierObjects.FunctionObj;
 import IdentifierObjects.IDENTIFIER;
 import IdentifierObjects.ParamListObj;
@@ -33,6 +34,12 @@ public class AST_FuncDecl extends AST_Node {
   public SymbolTable symbolTable;
   InstructionFunction instr;
 
+  boolean hasReturn;
+
+  public void setHasReturnTrue() {
+    this.hasReturn = true;
+  }
+
   //Semantic attribute
 
   /**
@@ -46,6 +53,7 @@ public class AST_FuncDecl extends AST_Node {
     this.paramList = null;
     this.statement = null;
     this.ctx = ctx;
+    this.hasReturn = false;
     symbolTable = new SymbolTable("function");
 
   }
@@ -172,6 +180,15 @@ public class AST_FuncDecl extends AST_Node {
     System.out.println(funcName);
     System.out.println(ast_type);
     //TODO needs to search for duplication
+    System.out.println(hasReturn);
+
+    /*if(!hasReturn){
+      System.out.println("Errors detected during compilation! Exit code 100 returned.");
+      System.out.println("#syntax_error#");
+      new TypeError(new FilePosition(ctx)).printAll();
+      System.exit(100);
+    }*/
+
     if (ST.lookup(funcName) == null) {
       return true;
 
