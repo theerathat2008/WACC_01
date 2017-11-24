@@ -1361,9 +1361,9 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Syntatic check
     if(!returnStatNode.getParentNode().isEmbeddedNodesFull()){
       //throw syntatic error
-      System.out.println("Errors detected during compilation! Exit code 100 returned.");
-      System.out.println("#syntax_error#");
-      System.exit(100);
+      System.out.println("Errors detected during compilation! Exit code 200 returned.");
+      System.out.println("#semantic_error#");
+      System.exit(200);
     }
 
     //Iterate through rest of the tree
