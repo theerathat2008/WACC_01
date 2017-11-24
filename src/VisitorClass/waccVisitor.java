@@ -1026,7 +1026,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitBINARY_OP_EXPR(WaccParser.BINARY_OP_EXPRContext ctx) {
 
     //Create the node for the current visitor function
-    AST_ExprBinary exprBinaryNode = new AST_ExprBinary();
+    AST_ExprBinary exprBinaryNode = new AST_ExprBinary(ctx, currentGlobalTree);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("expr", exprBinaryNode);

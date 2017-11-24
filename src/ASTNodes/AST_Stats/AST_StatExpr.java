@@ -220,6 +220,16 @@ public class AST_StatExpr extends AST_Stat {
           new TypeMismatchError(new FilePosition(ctx)).printAll();
           return false;
         }
+      } else if (expr instanceof AST_ExprLiter) {
+        String literals = ((AST_ExprLiter) expr).getLiteral();
+
+        //can only be of type int after exit
+        if (literals.contains("int")) {
+          return true;
+        } else {
+          new TypeError(new FilePosition(ctx)).printAll();
+          return false;
+        }
       } else {
         return true;
       }

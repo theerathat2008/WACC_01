@@ -378,6 +378,13 @@ public class AST_StatAssign extends AST_Stat {
     System.out.println(ast_statAssignLHS.getIdentifier());
     System.out.println("typeRHS is: " + typeRHS);
     System.out.println(ast_statAssignRHS.getIdentifier());
+    if (typeLHS == null) {
+      System.out.println("Errors detected during compilation! Exit code 200 returned.");
+      System.out.println("#semantic_error#");
+      System.out.println("ERROR: Variable is not declared" + new FilePosition(ctx));
+      exit(200);
+    }
+
     if (typeLHS.toString().contains("FUNCTION")) {
       //cannot assign to a function
       System.out.println("Errors detected during compilation! Exit code 200 returned.");

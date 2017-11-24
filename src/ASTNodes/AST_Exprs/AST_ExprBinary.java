@@ -1,7 +1,11 @@
 package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
+import ErrorMessages.TypeError;
+import ErrorMessages.TypeMismatchError;
+import src.FilePosition;
 import InstructionSet.Instruction;
+import org.antlr.v4.runtime.ParserRuleContext;
 import InstructionSet.InstructionArithmetic;
 import InstructionSet.InstructionComparison;
 import Registers.RegisterARM;
@@ -14,6 +18,8 @@ import java.util.List;
 import VisitorClass.AST_NodeVisitor;
 import IdentifierObjects.*;
 
+import static java.lang.System.exit;
+
 /**
  * Class representing node in AST tree for BINARY EXPRESSIONS
  */
@@ -25,14 +31,18 @@ public class AST_ExprBinary extends AST_Expr {
   AST_Expr exprRightAST;
   InstructionArithmetic instrA;
   InstructionComparison instrC;
+  SymbolTable symbolTable;
+  ParserRuleContext ctx;
 
   /**
    * Constructor for class - initialises class variables to NULL
    */
-  public AST_ExprBinary() {
+  public AST_ExprBinary(ParserRuleContext ctx, SymbolTable symbolTable) {
     this.exprLeftAST = null;
     this.exprRightAST = null;
     this.opName = null;
+    this.symbolTable = symbolTable;
+    this.ctx = ctx;
   }
 
   /**
@@ -140,7 +150,141 @@ public class AST_ExprBinary extends AST_Expr {
    */
   @Override
   public boolean CheckSemantics() {
+
+    SymbolTable ST = this.symbolTable;
+
+    if (exprLeftAST instanceof AST_ExprIdent) {
+      SymbolTable tempST = ST;
+      String varNameLHS = ((AST_ExprIdent) exprLeftAST).getVarName();
+      IDENTIFIER typeLHS = tempST.lookup(varNameLHS);
+
+      while (typeLHS == null) {
+        System.out.println("typeLHS is null");
+        tempST = tempST.encSymTable;
+        typeLHS = tempST.lookup(varNameLHS);
+      }
+      System.out.println("The type of LHS is: " + typeLHS);
+
+      if (typeLHS.toString().contains("[]")) {
+        new TypeError(new FilePosition(ctx)).printAll();
+        return false;
+      }
+    }
+
+    if (exprRightAST instanceof AST_ExprIdent) {
+
+    }
+
+    //TODO typeLHS and typeRHs for +,- not equal can't do
+
+    System.out.println("opName is: " + opName);
+
+    if (opName.equals("+") || opName.equals("-")) {
+
+      if (exprLeftAST instanceof AST_ExprIdent && exprRightAST instanceof AST_ExprIdent) {
+        String varNameLHS = ((AST_ExprIdent) exprLeftAST).getVarName();
+        SymbolTable tempLHSST = ST;
+        IDENTIFIER typeLHS = tempLHSST.lookup(varNameLHS);
+
+        while (typeLHS == null) {
+          System.out.println("typeLHS is null");
+          tempLHSST = tempLHSST.encSymTable;
+          typeLHS = tempLHSST.lookup(varNameLHS);
+        }
+
+        System.out.println("typeLHS is: " + typeLHS);
+
+        String varNameRHS = ((AST_ExprIdent) exprRightAST).getVarName();
+        SymbolTable tempRHSST = ST;
+        IDENTIFIER typeRHS = tempRHSST.lookup(varNameRHS);
+
+        while (typeRHS == null) {
+          System.out.println("typeRHS is null");
+          tempRHSST = tempRHSST.encSymTable;
+          try {
+            typeRHS = tempRHSST.lookup(varNameRHS);
+          } catch (NullPointerException e) {
+            System.out.println("Null Pointer Exception caught");
+            typeRHS = null;
+            break;
+          }
+        }
+
+        System.out.println("typeRHS is: " + typeRHS);
+
+        if (typeRHS == null) {
+          System.out.println("Errors detected during compilation! Exit code 200 returned.");
+          System.out.println("#semantic_error#");
+          System.out.println("Error: Undecalred variable access");
+          exit(200);
+          return false;
+        }
+
+        if (!typeLHS.toString().contains(typeRHS.toString())) {
+          new TypeMismatchError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      }
+
+      if (exprLeftAST.getIdentifier() != null && exprRightAST.getIdentifier() != null) {
+        IDENTIFIER typeLHS = exprLeftAST.getIdentifier();
+        IDENTIFIER typeRHS = exprRightAST.getIdentifier();
+        System.out.println("typeLHS is: " + typeLHS);
+        System.out.println("typeRHS is: " + typeRHS);
+
+        //can only be of type int
+        if (!typeLHS.toString().contains("int")) {
+          new TypeError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+
+        if (!typeLHS.toString().contains(typeRHS.toString())) {
+          new TypeMismatchError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+
+        if (typeLHS.toString().contains(typeRHS.toString())
+                || typeRHS.toString().contains(typeLHS.toString())) {
+          return true;
+        } else {
+          new TypeMismatchError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      }
+    } else if (opName.equals("<") || opName.equals(">")) {
+      if (exprLeftAST instanceof AST_ExprIdent) {
+        String varNameLHS = ((AST_ExprIdent) exprLeftAST).getVarName();
+        SymbolTable tempST = ST;
+        IDENTIFIER typeLHS = tempST.lookup(varNameLHS);
+
+        while (typeLHS == null) {
+          System.out.println("typeLHS is null");
+          tempST = tempST.encSymTable;
+          typeLHS = tempST.lookup(varNameLHS);
+        }
+
+        System.out.println("typeLHS is: " + typeLHS);
+        System.out.println(typeLHS.toString());
+
+        if (typeLHS.toString().contains("PAIR(")) {
+          new TypeError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+
+      }
+    } else if (opName.equals("||") || opName.equals("&&")) {
+      //expect type bool arguments
+      if (exprLeftAST.getIdentifier() != null) {
+        if (!exprLeftAST.getIdentifier().toString().contains("bool")) {
+          new TypeError(new FilePosition(ctx)).printAll();
+          return false;
+        }
+      }
+    }
+
     return true;
+
+
   }
 
   /**
@@ -265,5 +409,13 @@ public class AST_ExprBinary extends AST_Expr {
       instrC = instructionCompare;
 
     }
+  }
+
+  public AST_Expr getExprLeftAST() {
+    return exprLeftAST;
+  }
+
+  public AST_Expr getExprRightAST() {
+    return exprRightAST;
   }
 }

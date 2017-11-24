@@ -1,6 +1,7 @@
 package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Exprs.AST_Expr;
+import ASTNodes.AST_Exprs.AST_ExprBinary;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
@@ -8,6 +9,7 @@ import ASTNodes.AST_Program;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatArrayLitRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 
+import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatPairElemRHS;
 import ASTNodes.AST_TYPES.AST_PairType;
 import IdentifierObjects.IDENTIFIER;
@@ -180,6 +182,54 @@ public class AST_StatVarDecl extends AST_Stat {
     System.out.println(ast_assignRHS);
 
     System.out.println("Printing types out for both sides");
+
+    if (ast_assignRHS instanceof AST_StatExprRHS) {
+      System.out.println("Hey, I'm instance of AST_StatExprRHS");
+      AST_Expr ast_expr = ((AST_StatExprRHS) ast_assignRHS).getAst_expr();
+      System.out.println(ast_expr);
+
+      if (ast_expr instanceof AST_ExprBinary) {
+        AST_Expr exprLeft = ((AST_ExprBinary) ast_expr).getExprLeftAST();
+        AST_Expr exprRight = ((AST_ExprBinary) ast_expr).getExprRightAST();
+
+        IDENTIFIER leftType = null;
+        IDENTIFIER rightType = null;
+
+        if (exprLeft instanceof AST_ExprIdent) {
+          SymbolTable tempST = ST;
+          String varNameExprLeft = ((AST_ExprIdent) exprLeft).getVarName();
+
+          leftType = tempST.lookup(varNameExprLeft);
+
+          while (leftType == null) {
+            System.out.println("leftType is null");
+            tempST = tempST.encSymTable;
+            leftType = tempST.lookup(varNameExprLeft);
+          }
+
+          System.out.println("leftType is: " + leftType);
+        } else {
+
+        }
+
+        if (exprRight instanceof AST_ExprIdent) {
+
+        } else {
+          System.out.println("exprRight is" + exprRight);
+          rightType = exprRight.getIdentifier();
+        }
+
+        if (leftType != null && rightType != null) {
+          if (leftType.toString().contains(rightType.toString())) {
+            return true;
+          } else {
+            new TypeMismatchError(new FilePosition(ctx)).printAll();
+            return false;
+          }
+        }
+
+      }
+    }
 
     if (type != null) {
       System.out.println(type.toString());

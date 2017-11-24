@@ -189,12 +189,43 @@ public class AST_FuncDecl extends AST_Node {
       System.exit(100);
     }*/
 
-    if (ST.lookup(funcName) == null) {
+    System.out.println("Printing out types for each function");
+    System.out.println("ast_type: " + ast_type);
+    System.out.println("ast_type.getIdentifier is: " + ast_type.getIdentifier());
+    SymbolTable tempST = ST;
+
+    IDENTIFIER type = tempST.lookup(funcName);
+    System.out.println("type is: " + type);
+
+    //loop 4 times max
+    /*for (int i = 0; i < 4; i++) {
+      if (type == null) {
+        System.out.println("type is equal to null");
+        tempST = tempST.encSymTable;
+        type = tempST.lookup(funcName);
+      } else {
+        break;
+      }
+    }*/
+
+    //TODO maybe find duplicates for name instead
+
+    if (type == null) {
       return true;
 
     } else {
-      IDENTIFIER type = this.symbolTable.lookup(funcName);
-      if (ast_type.getIdentifier().equals(type)) {
+      System.out.println("Hey I'm in an else statement");
+      System.out.println("Printing out types for each function");
+      System.out.println("ast_type: " + ast_type);
+      System.out.println("ast_type.getIdentifier is: " + ast_type.getIdentifier());
+
+      /*if (type.toString().contains("FUNCTION")) {
+        System.out.println("Error on line " + ctx.getStart().getLine() + ". Function of same name already defined");
+        new FunctionRedeclarationError(new FilePosition(ctx)).printAll();
+        return false;
+      }*/
+
+      if (ast_type.getIdentifier().toString().contains(type.toString())) {
         return true;
       } else {
         System.out.println("Error on line " + ctx.getStart().getLine() + ". Function of same name already defined");

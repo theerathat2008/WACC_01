@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Exprs.AST_ExprEnclosed;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
+import ASTNodes.AST_Program;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionWhile;
@@ -17,6 +18,7 @@ import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 import java.util.List;
+import static java.lang.System.exit;
 
 public class AST_StatWhile extends AST_Stat {
 
@@ -123,11 +125,20 @@ public class AST_StatWhile extends AST_Stat {
 
     SymbolTable ST = this.symbolTable;
     //get type for the expression inside the while statement (while(....0) must be of type bool
+
     if (exprAST instanceof AST_ExprIdent) {
       System.out.println("I'm instance of AST_ExprLiter");
       String varName = ((AST_ExprIdent)exprAST).getVarName();
+      System.out.println(varName);
       SymbolTable tempST = this.symbolTable;
       IDENTIFIER type = tempST.lookup(varName);
+
+      if (varName.equals("fals") || varName.equals("tru")) {
+        System.out.println("Errors detected during compilation! Exit code 200 returned.");
+        System.out.println("#semantic_error#");
+        exit(200);
+        return false;
+      }
 
       while (type == null) {
         System.out.println("type is null");
@@ -150,7 +161,10 @@ public class AST_StatWhile extends AST_Stat {
     IDENTIFIER condition = exprAST.getIdentifier();
 
     if (!(condition.toString().equals("bool"))) {
-      new TypeError(new FilePosition(ctx)).printAll();
+      System.out.println("Errors detected during compilation! Exit code 200 returned.");
+      System.out.println("#semantic_error#");
+      System.out.println("Error: Type error");
+      exit(200);
       return false;
     }
     return true;

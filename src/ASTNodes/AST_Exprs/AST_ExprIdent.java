@@ -13,6 +13,8 @@ import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.List;
 
+import static java.lang.System.exit;
+
 /**
  * Class representing node in AST tree for IDENT EXPRESSIONS
  */
@@ -108,7 +110,16 @@ public class AST_ExprIdent extends AST_Expr {
   @Override
   public boolean CheckSemantics() {
     SymbolTable ST = this.symbolTable;
-    setType(ST.lookupAll(varName).toString());
+
+    if (ST.lookupAll(varName) != null) {
+      setType(ST.lookupAll(varName).toString());
+    } else {
+      System.out.println("Errors detected during compilation! Exit code 200 returned.");
+      System.out.println("#semantic_error#");
+      System.out.println("ERROR: Case should be sensitive" + new FilePosition(ctx));
+      exit(200);
+    }
+
 
     if (ST.lookupAll(varName) != null) {
       setType(ST.lookupAll(varName).toString());
