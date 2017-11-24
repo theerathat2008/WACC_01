@@ -2,7 +2,7 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
-public class InstructionVarDecl extends Instruction{
+public class InstructionVarDecl extends Instruction {
 
   String resultBlock;
   String srcReg;
@@ -27,13 +27,14 @@ public class InstructionVarDecl extends Instruction{
     this.srcReg = srcReg.name();
     this.dstReg = dstReg.name();
   }
-  public void setStackLocation(String location){
+
+  public void setStackLocation(String location) {
     this.stackLocation = location;
   }
 
 
   public String getSTRType() {
-    if(varType.equals("bool") || varType.equals("char")){
+    if (varType.equals("bool") || varType.equals("char")) {
       return "STRB";
     }
     return "STR";

@@ -84,7 +84,6 @@ public abstract class AST_Node {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   public abstract boolean CheckSemantics();
 

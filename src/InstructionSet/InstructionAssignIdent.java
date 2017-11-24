@@ -2,22 +2,23 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
-public class InstructionAssignIdent extends Instruction{
+public class InstructionAssignIdent extends Instruction {
 
 
   String location;
   String reg;
   public String block1;
 
-  public InstructionAssignIdent(){
+  public InstructionAssignIdent() {
     this.location = "SP";
     reg = "reg";
   }
 
-  public void registerAllocation(RegisterARM reg){
+  public void registerAllocation(RegisterARM reg) {
     this.reg = reg.name();
   }
-  public void allocateLocation(String location){
+
+  public void allocateLocation(String location) {
     this.location = location;
   }
 

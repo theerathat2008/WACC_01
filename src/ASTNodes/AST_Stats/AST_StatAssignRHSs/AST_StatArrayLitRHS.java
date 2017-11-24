@@ -2,17 +2,16 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import InstructionSet.Instruction;
 import InstructionSet.InstructionDeclOrAss.InstructionArrayDeclAss;
-import InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray.InstructionDeclAssArrayInt;
-import InstructionSet.InstructionPrintBlocks.InstructionPrintBlocksRef;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import ErrorMessages.TypeMismatchError;
-import src.FilePosition;
+import ErrorMessages.FilePosition;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +120,7 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
     }
   }
 
-  public String getTypeOfArray(){
+  public String getTypeOfArray() {
     if (ast_exprList.size() > 0) {
       return ast_exprList.get(0).getType();
     }
@@ -139,7 +138,6 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -194,7 +192,7 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
 
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
-    for(AST_Expr expr : ast_exprList){
+    for (AST_Expr expr : ast_exprList) {
       expr.accept(visitor);
     }
   }
@@ -203,10 +201,10 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
   public void acceptInstr(List<String> assemblyCode) {
     int count = 0;
     assemblyCode.add(instr.getResultBlock1());
-    for(AST_Expr expr : ast_exprList){
+    for (AST_Expr expr : ast_exprList) {
       count++;
       expr.acceptInstr(assemblyCode);
-      instr.setDisp(count*getElemSize());
+      instr.setDisp(count * getElemSize());
       instr.genInstruction();
       assemblyCode.add(instr.getResultBlock());
     }
@@ -216,7 +214,7 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    for(AST_Expr expr : ast_exprList){
+    for (AST_Expr expr : ast_exprList) {
       expr.acceptRegister(registerAllocation);
     }
 
@@ -225,15 +223,15 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
     instr.allocateRegisters(RegisterARM.r0.toString(), reg2.toString(), reg3.toString());
   }
 
-  public int getArraySize(){
+  public int getArraySize() {
     this.type = getTypeOfArray();
     if (type.equals("bool") || type.equals("char")) {
       return numOfExpr;
     }
-    return (numOfExpr)*4;
+    return (numOfExpr) * 4;
   }
 
-  public int getElemSize(){
+  public int getElemSize() {
     this.type = getTypeOfArray();
     currentPos++;
     if (type.equals("bool") || type.equals("char")) {
@@ -253,7 +251,7 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
     }
 
     InstructionArrayDeclAss instructionArrayDeclAss
-            = new InstructionArrayDeclAss(getArraySize(), numOfExpr, strType);
+        = new InstructionArrayDeclAss(getArraySize(), numOfExpr, strType);
     this.currentPos++;
     instructionList.add(instructionArrayDeclAss);
     instr = instructionArrayDeclAss;

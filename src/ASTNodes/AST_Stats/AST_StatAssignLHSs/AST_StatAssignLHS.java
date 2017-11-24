@@ -7,6 +7,7 @@ import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import IdentifierObjects.*;
 import VisitorClass.AST_NodeVisitor;
+
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -82,7 +83,6 @@ public class AST_StatAssignLHS extends AST_Stat {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -113,6 +113,7 @@ public class AST_StatAssignLHS extends AST_Stat {
   public String getType(SymbolTable ST) {
     return type;
   }
+
   public String getType() {
     return type;
   }

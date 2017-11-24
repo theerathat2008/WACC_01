@@ -1,6 +1,6 @@
 package InstructionSet;
 
-public class InstructionCall extends Instruction{
+public class InstructionCall extends Instruction {
   String resultBlock;
   String fName;
   String returnType;

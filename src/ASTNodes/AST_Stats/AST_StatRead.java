@@ -12,13 +12,12 @@ import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatPairElemLHS;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
 import ASTNodes.AST_Exprs.AST_Expr;
-import ASTNodes.AST_FuncDecl;
-import ASTNodes.AST_Program;
 import ErrorMessages.TypeError;
-import src.FilePosition;
+import ErrorMessages.FilePosition;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import IdentifierObjects.IDENTIFIER;
+
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -136,7 +135,7 @@ public class AST_StatRead extends AST_Stat {
         String typeString = typeName.toString();
 
         if (typeString.equals("char") || typeString.equals("int")
-                || typeString.contains("pair")) {
+            || typeString.contains("pair")) {
           return true;
         } else {
           new TypeError(new FilePosition(ctx)).printAll();

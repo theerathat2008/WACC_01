@@ -19,7 +19,7 @@ import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_ArrayTypePair;
 import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_BaseTypePair;
 import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairString;
 import ASTNodes.AST_TYPES.AST_PairType;
-import src.FilePosition;
+import ErrorMessages.FilePosition;
 
 import antlr.*;
 
@@ -756,7 +756,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Create the node for the current visitor function
     AST_StatIdentLHS statIdentLHSNode = new AST_StatIdentLHS();
-    
+
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("ast_statAssignLHS", statIdentLHSNode);
 
@@ -1333,7 +1333,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     System.out.println("returnStat");
 
     //Syntatic check
-    if(!returnStatNode.getParentNode().isEmbeddedNodesFull()){
+    if (!returnStatNode.getParentNode().isEmbeddedNodesFull()) {
       //throw syntatic error
       System.out.println("Errors detected during compilation! Exit code 200 returned.");
       System.out.println("#semantic_error#");
@@ -1587,7 +1587,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     return visitChildren(ctx);
   }
 }
-
 
 
 /**

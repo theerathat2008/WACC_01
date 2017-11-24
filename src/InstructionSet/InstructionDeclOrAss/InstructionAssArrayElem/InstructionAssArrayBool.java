@@ -7,7 +7,7 @@ public class InstructionAssArrayBool extends InstructionAssArrayElem {
     super(sp, posInArray, data);
   }
 
-  public int getBoolNum(String s){
+  public int getBoolNum(String s) {
     if (s.equals("true")) {
       return 1;
     }
@@ -17,7 +17,7 @@ public class InstructionAssArrayBool extends InstructionAssArrayElem {
 
   @Override
   public String getLoadData() {
-    return "\t\tMOV " +  reg3 + ", #" + getBoolNum(data) + "\n";
+    return "\t\tMOV " + reg3 + ", #" + getBoolNum(data) + "\n";
   }
 
   @Override

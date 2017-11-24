@@ -1,7 +1,5 @@
 package ErrorMessages;
 
-import src.FilePosition;
-
 public class VariableRedeclarationError extends ErrorMessage {
 
   /**

@@ -2,9 +2,7 @@ package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
-import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
-import ASTNodes.AST_Program;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
 import IdentifierObjects.IDENTIFIER;
@@ -14,8 +12,9 @@ import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.*;
-import src.FilePosition;
+import ErrorMessages.FilePosition;
 import VisitorClass.AST_NodeVisitor;
+
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -132,7 +131,6 @@ public class AST_StatIf extends AST_Stat {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {

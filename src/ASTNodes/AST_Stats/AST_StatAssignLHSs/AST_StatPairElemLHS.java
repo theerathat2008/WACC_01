@@ -1,8 +1,6 @@
 package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 
 import ASTNodes.AST_Exprs.AST_ExprIdent;
-import ASTNodes.AST_FuncDecl;
-import ASTNodes.AST_Program;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import Registers.RegisterAllocation;
@@ -10,7 +8,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import ErrorMessages.TypeError;
-import src.FilePosition;
+import ErrorMessages.FilePosition;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 
@@ -121,7 +119,6 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -146,7 +143,7 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
         String typeString = type.toString();
 
         if (typeString.contains("int") || typeString.contains("bool") || typeString.contains("char")
-                || typeString.contains("PAIR") || typeString.contains("str")) {
+            || typeString.contains("PAIR") || typeString.contains("str")) {
           return true;
         } else {
           new TypeError(new FilePosition(ctx)).printAll();
@@ -154,7 +151,7 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
         }
       } else {
         if (typeName.equals("int") || typeName.equals("bool") || typeName.equals("char") ||
-                typeName.contains("PAIR") || typeName.contains("str")) {
+            typeName.contains("PAIR") || typeName.contains("str")) {
           return true;
         } else {
           System.out.println("Invalid type for pair elem.");
@@ -179,7 +176,7 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
         String typeString = type.toString();
 
         if (typeString.contains("int") || typeString.contains("bool") || typeString.contains("char")
-                || typeString.contains("PAIR") || typeString.contains("str")) {
+            || typeString.contains("PAIR") || typeString.contains("str")) {
           return true;
         } else {
           new TypeError(new FilePosition(ctx)).printAll();
@@ -187,7 +184,7 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
         }
       } else {
         if (typeName.equals("int") || typeName.equals("bool") || typeName.equals("char") ||
-                typeName.contains("PAIR") || typeName.contains("str")) {
+            typeName.contains("PAIR") || typeName.contains("str")) {
           return true;
         } else {
           System.out.println("Invalid type for pair elem.");
@@ -199,7 +196,7 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
 
     } else {
       if (!(typeName.equals("int") || typeName.equals("bool") || typeName.equals("char") ||
-              typeName.contains("PAIR") || typeName.contains("str"))) {
+          typeName.contains("PAIR") || typeName.contains("str"))) {
         System.out.println("Invalid type for pair elem.");
         new TypeError(new FilePosition(ctx)).printAll();
         return false;

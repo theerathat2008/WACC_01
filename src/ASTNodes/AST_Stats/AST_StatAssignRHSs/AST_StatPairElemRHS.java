@@ -6,14 +6,13 @@ import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
-import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
-import ASTNodes.AST_Program;
 import ErrorMessages.TypeError;
-import src.FilePosition;
+import ErrorMessages.FilePosition;
 import IdentifierObjects.IDENTIFIER;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
+
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -124,7 +123,6 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -144,8 +142,8 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
       }
 
       if (typeExpr.toString().equals("int") || typeExpr.toString().equals("bool")
-              || typeExpr.toString().equals("char") || typeExpr.toString().contains("PAIR")
-              || typeExpr.toString().contains("str")) {
+          || typeExpr.toString().equals("char") || typeExpr.toString().contains("PAIR")
+          || typeExpr.toString().contains("str")) {
         return true;
       } else {
         new TypeError((new FilePosition(ctx))).printAll();
@@ -155,7 +153,7 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
     }
     //check for valid pair elem types
     if (!(typeName.equals("int") || typeName.equals("bool") || typeName.equals("char") ||
-            typeName.contains("PAIR") || typeName.contains("str"))) {
+        typeName.contains("PAIR") || typeName.contains("str"))) {
       System.out.println("Invalid type for pair elem.");
       new TypeError(new FilePosition(ctx)).printAll();
       return false;
@@ -188,6 +186,7 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
       System.out.println("ast_expr: has content");
     }
   }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_expr.accept(visitor);
@@ -206,7 +205,7 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     //TODO use InstructionDeclAssPairElem
     InstructionDeclAssPairElem instructionDeclAssPairElem
-            = new InstructionDeclAssPairElem(typeName);
+        = new InstructionDeclAssPairElem(typeName);
     instructionList.add(instructionDeclAssPairElem);
   }
 

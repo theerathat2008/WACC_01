@@ -1,4 +1,4 @@
-package src;
+package ErrorMessages;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 

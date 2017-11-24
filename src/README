@@ -1,6 +1,6 @@
-----------------------------
-OVERVIEW OF IMPLEMENTATION
-----------------------------
+---------------------------------------
+OVERVIEW OF IMPLEMENTATION - FRONTEND
+---------------------------------------
 
 The implementation of the project relies on antlr4.7 generating the Visitor classes from the Lexer and Parser grammar files.
 
@@ -94,5 +94,31 @@ AST_Node -> AST_FuncDecl
 The non-terminal classes (Base classes) in the inheritance structure are used as holders for their subclasses.
 
 
+---------------------------------------
+OVERVIEW OF IMPLEMENTATION - BACKEND
+---------------------------------------
+
+The structure of the backend was to first parse using the visitor pattern through the AST_Tree generated from the front end.
+
+Blocks of consecutive assembly code are then generated within the instruction class.
+
+On the first parse the Set of Instructions corresponding to the AST_Nodes will be generated.
+The instructions are allocated their registers in a pseudo visitor pattern.
+Then the final instruction list blocks are then ordered to have the correct output.
+
+The main handling of the process is done through the assembler class which manges the different passes of the code.
+
+> Registers <
+
+The register allocation is done through one main register class which is instantciated once through the singleton pattern.
+The register allocation class holds various data structures corresponding to the stack implementation and register in use stack.
+
+> InstructionSet <
+
+The instruction classes have the abstract function genInstructions which takes the embedded information corresponding to the
+specific instruction class and generates blocks of assembly code for that instruction class.
+The embedded information is mainly the registers which is allocated using registerAllocation.
+
+The Assembler class is also stored within the InstructionSet package and it handles the assembly of the code.
 
 

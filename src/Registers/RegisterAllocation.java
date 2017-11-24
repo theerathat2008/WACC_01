@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Class to keep track of free registers and allocate registers
  */
-public class RegisterAllocation{
+public class RegisterAllocation {
   /**
    * Stack holding all free registers
    */
@@ -35,7 +35,7 @@ public class RegisterAllocation{
     this.finalStackSize = finalStackSize;
   }
 
-  public void setStackSize(int stackSize){
+  public void setStackSize(int stackSize) {
     this.stackSize = stackSize;
   }
 
@@ -43,12 +43,12 @@ public class RegisterAllocation{
     this.currentScope = currentScope;
   }
 
-  public String getCurrentScope(){
+  public String getCurrentScope() {
     return currentScope;
   }
 
-  public int getMemSize(String type){
-    switch(type){
+  public int getMemSize(String type) {
+    switch (type) {
       case "char":
         return 1;
       case "int":
@@ -63,26 +63,24 @@ public class RegisterAllocation{
   //Maps ident name to stack location
   Map<String, StackLocation> stackInUse = new HashMap<>();
 
-  public void addToStack(String identName, StackLocation stackLocation){
+  public void addToStack(String identName, StackLocation stackLocation) {
     stackInUse.put(identName, stackLocation);
   }
 
-  public String getStackLocation(String identName){
-    if(stackInUse.containsKey(identName)){
+  public String getStackLocation(String identName) {
+    if (stackInUse.containsKey(identName)) {
       return stackInUse.get(identName).getLocation();
     }
     return "null";
   }
 
 
-  public String getStackScope(String identName){
-    if(stackInUse.containsKey(identName)){
+  public String getStackScope(String identName) {
+    if (stackInUse.containsKey(identName)) {
       return stackInUse.get(identName).getScope();
     }
     return "null";
   }
-
-
 
 
   /**
@@ -118,9 +116,9 @@ public class RegisterAllocation{
   }
 
 
-  public RegisterARM searchByValue(String value){
-    for(Map.Entry<RegisterARM, String> entry : registerInUse.entrySet()){
-      if(value.equals(entry.getValue())){
+  public RegisterARM searchByValue(String value) {
+    for (Map.Entry<RegisterARM, String> entry : registerInUse.entrySet()) {
+      if (value.equals(entry.getValue())) {
         return entry.getKey();
       }
     }
@@ -168,6 +166,7 @@ public class RegisterAllocation{
 
   /**
    * Add register from the parameter to the registerInUse list, meaning that this register is not free
+   *
    * @param register
    */
   public void addRegisterInUse(RegisterARM register, String usage) {
@@ -176,6 +175,7 @@ public class RegisterAllocation{
 
   /**
    * Remove register from the parameter from the registerInUse list, meaning that this register becomes free
+   *
    * @param register
    */
   public void removeRegisterInUse(RegisterARM register) {
@@ -193,7 +193,7 @@ public class RegisterAllocation{
    * @return - Returns a free register and removes it from the stack
    * Throws exception if no free registers remaining
    */
-  public RegisterARM useRegister(String usage) throws Exception{
+  public RegisterARM useRegister(String usage) throws Exception {
     if (registersFull()) {
       throw new NullPointerException();
     }
@@ -212,8 +212,8 @@ public class RegisterAllocation{
 //  }
 //
 
-  public String getRegisterMapValue(RegisterARM regToGet){
-    if(registerInUse.containsKey(regToGet)){
+  public String getRegisterMapValue(RegisterARM regToGet) {
+    if (registerInUse.containsKey(regToGet)) {
       return registerInUse.get(regToGet);
     }
     System.out.println("Key is not in regMap");
@@ -225,7 +225,7 @@ public class RegisterAllocation{
    * @param register frees a register and pushes onto freeReg stack
    */
   public void freeRegister(RegisterARM register) {
-    if (checkIfRegisterInUse(register)){
+    if (checkIfRegisterInUse(register)) {
       registerInUse.remove(register);
       freeRegisters.push(register);
     }

@@ -13,6 +13,7 @@ import InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray.InstructionDe
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
+
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -102,7 +103,6 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -155,7 +155,7 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
 
     String type = ast_expr.getType();
 
-    if(type != null){
+    if (type != null) {
       switch (type) {
         case ("int"):
           InstructionDeclAssInt instructionDeclAssInt = new InstructionDeclAssInt();
@@ -217,7 +217,6 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
 
 
     }
-
 
 
   }

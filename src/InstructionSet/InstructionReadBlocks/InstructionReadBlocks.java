@@ -6,7 +6,7 @@ import Registers.RegisterARM;
 /**
  * Base class of all print instructions.
  */
-public class InstructionReadBlocks extends Instruction{
+public class InstructionReadBlocks extends Instruction {
   String reg1;
   String reg2;
   public String resultBlock;
@@ -14,6 +14,7 @@ public class InstructionReadBlocks extends Instruction{
 
   /**
    * Class constructor - all subclasses use this
+   *
    * @param msgNum1 - Indicates the ID of the message to be output
    */
   public InstructionReadBlocks(int msgNum1) {

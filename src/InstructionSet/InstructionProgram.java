@@ -26,7 +26,7 @@ public class InstructionProgram extends Instruction {
     builder.append("\tmain:\n");
     builder.append("\t\tPUSH {lr}\n");
 
-    if(registerAllocation.getStackSize() > 0 ){
+    if (registerAllocation.getStackSize() > 0) {
       builder.append("\t\tSUB sp, sp, #");
       builder.append(registerAllocation.getStackSize());
       builder.append("\n");
@@ -35,7 +35,7 @@ public class InstructionProgram extends Instruction {
     block1 = builder.toString();
 
     StringBuilder builder2 = new StringBuilder();
-    if(registerAllocation.getStackSize() > 0 ){
+    if (registerAllocation.getStackSize() > 0) {
       builder2.append("\t\tADD sp, sp, #");
       builder2.append(registerAllocation.getStackSize());
       builder2.append("\n");

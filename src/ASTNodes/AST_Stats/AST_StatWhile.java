@@ -3,7 +3,6 @@ package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Exprs.AST_ExprEnclosed;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
-import ASTNodes.AST_Program;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionWhile;
@@ -13,12 +12,13 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import ErrorMessages.TypeError;
-import src.FilePosition;
+import ErrorMessages.FilePosition;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 import java.util.List;
+
 import static java.lang.System.exit;
 
 public class AST_StatWhile extends AST_Stat {
@@ -119,7 +119,6 @@ public class AST_StatWhile extends AST_Stat {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -128,7 +127,7 @@ public class AST_StatWhile extends AST_Stat {
     //get type for the expression inside the while statement (while(....0) must be of type bool
 
     if (exprAST instanceof AST_ExprIdent) {
-      String varName = ((AST_ExprIdent)exprAST).getVarName();
+      String varName = ((AST_ExprIdent) exprAST).getVarName();
       SymbolTable tempST = this.symbolTable;
       IDENTIFIER type = tempST.lookup(varName);
 

@@ -2,7 +2,7 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
-public class InstructionUnary extends Instruction{
+public class InstructionUnary extends Instruction {
 
   String dst;
   String reg2;
@@ -15,7 +15,7 @@ public class InstructionUnary extends Instruction{
     dst = "dst";
   }
 
-  public void allocateRegisters(RegisterARM dst, RegisterARM reg2){
+  public void allocateRegisters(RegisterARM dst, RegisterARM reg2) {
     this.dst = dst.name();
     this.reg2 = reg2.name();
   }
@@ -26,7 +26,7 @@ public class InstructionUnary extends Instruction{
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder("\t\t");
-    switch(op) {
+    switch (op) {
       case "!":
         builder.append("EOR ");
         builder.append(dst);
@@ -74,7 +74,7 @@ public class InstructionUnary extends Instruction{
 
   @Override
   public int requiresRegisters() {
-    switch(op) {
+    switch (op) {
       case "!":
         return 2;
       case "-":

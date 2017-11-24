@@ -13,7 +13,7 @@ public class InstructionStack extends Instruction {
     reg = "reg";
   }
 
-  public void allocateRegisters(RegisterARM reg){
+  public void allocateRegisters(RegisterARM reg) {
     this.reg = reg.name();
   }
 

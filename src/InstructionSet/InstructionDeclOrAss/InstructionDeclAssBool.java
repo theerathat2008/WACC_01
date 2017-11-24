@@ -14,19 +14,19 @@ public class InstructionDeclAssBool extends Instruction {
    */
 
   //public InstructionDeclAssBool(){//String boolData) {
-    //this.boolData = boolData;
-
-  public InstructionDeclAssBool(){//String boolData, String sp) {
+  //this.boolData = boolData;
+  public InstructionDeclAssBool() {//String boolData, String sp) {
     //this.boolData = boolData;
     //this.sp = sp;
     reg1 = "reg1";
 
   }
 
-  public int getBoolNum(String bool){
+  public int getBoolNum(String bool) {
     if (bool.equals("true")) {
       return 1;
-    } return 0;
+    }
+    return 0;
   }
 
   public void allocateSP(String sp) {
@@ -35,6 +35,7 @@ public class InstructionDeclAssBool extends Instruction {
 
   /**
    * Assigned string value indicating name of register
+   *
    * @param reg1 - first register
    */
   public void allocateRegisters(RegisterARM reg1) {
@@ -45,7 +46,7 @@ public class InstructionDeclAssBool extends Instruction {
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-   // resultBlock.concat("\t\tMOV " +  reg1 + ", #" + getBoolNum(boolData) + "\n");
+    // resultBlock.concat("\t\tMOV " +  reg1 + ", #" + getBoolNum(boolData) + "\n");
     StringBuilder builder = new StringBuilder();
     builder.append("\t\tSTRB ");
     builder.append(reg1);

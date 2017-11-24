@@ -95,7 +95,6 @@ public class AST_Keyword extends AST_Node {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {

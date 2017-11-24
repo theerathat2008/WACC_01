@@ -14,7 +14,7 @@ public class InstructionDeclAssArrayChar extends InstructionDeclAssArray {
   public String getArrayElems() {
     StringBuilder result = new StringBuilder();
 
-    for (int i = 0; i < arraySize; i ++) {
+    for (int i = 0; i < arraySize; i++) {
       result.append("\t\tMOV ");
       result.append(reg3);
       result.append(", #");
@@ -24,7 +24,7 @@ public class InstructionDeclAssArrayChar extends InstructionDeclAssArray {
       result.append(", [");
       result.append(reg2);
       result.append(", #");
-      result.append((4+i));
+      result.append((4 + i));
       result.append("]\n");
 
     }

@@ -8,6 +8,7 @@ public class InstructionDivByZero extends InstructionError {
   String reg2;
 
   String outputMessageNumber;
+
   /**
    * Class constructor
    */
@@ -22,6 +23,7 @@ public class InstructionDivByZero extends InstructionError {
 
   /**
    * Assigned string value indicating name of register
+   *
    * @param reg1 - first register
    */
   public void allocateRegisters(RegisterARM reg1, RegisterARM reg2) {

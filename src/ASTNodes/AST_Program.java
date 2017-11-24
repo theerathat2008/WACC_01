@@ -9,6 +9,7 @@ import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+
 import VisitorClass.AST_NodeVisitor;
 
 
@@ -117,7 +118,6 @@ public class AST_Program extends AST_Node {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -160,7 +160,7 @@ public class AST_Program extends AST_Node {
 
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
-    for(AST_FuncDecl func : funcDeclList){
+    for (AST_FuncDecl func : funcDeclList) {
       func.accept(visitor);
     }
     statement.accept(visitor);
@@ -179,7 +179,7 @@ public class AST_Program extends AST_Node {
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    for(AST_FuncDecl func : funcDeclList){
+    for (AST_FuncDecl func : funcDeclList) {
       func.acceptRegister(registerAllocation);
     }
     statement.acceptRegister(registerAllocation);

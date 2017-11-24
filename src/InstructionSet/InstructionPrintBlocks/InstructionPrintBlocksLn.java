@@ -9,6 +9,7 @@ public class InstructionPrintBlocksLn extends InstructionPrintBlocks {
 
   /**
    * Class constructor calls super constructor
+   *
    * @param msgNum1 - Indicates the ID of the message to be output
    */
   public InstructionPrintBlocksLn(int msgNum1) {
@@ -18,8 +19,9 @@ public class InstructionPrintBlocksLn extends InstructionPrintBlocks {
 
   /**
    * Assigned string value indicating name of register
+   *
    * @param reg1 - first register
-   * "\0" should be added and looked up in stringMap
+   *             "\0" should be added and looked up in stringMap
    */
   public void allocateRegisters(RegisterARM reg1) {
     this.reg1 = reg1.name();

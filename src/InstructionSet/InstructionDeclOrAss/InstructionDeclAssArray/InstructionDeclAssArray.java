@@ -34,7 +34,7 @@ public abstract class InstructionDeclAssArray extends Instruction {
     builder.append("\t\tLDR ");
     builder.append(reg1);
     builder.append(", =");
-    builder.append((4*(arraySize + 1)));
+    builder.append((4 * (arraySize + 1)));
     builder.append("\n\t\tBL malloc\n\t\tMOV ");
     builder.append(reg2);
     builder.append(", ");

@@ -21,7 +21,7 @@ public class InstructionIf extends Instruction {
   public String blockContinue;
 
 
-  public InstructionIf(){
+  public InstructionIf() {
     exprReg = "exprReg";
   }
 
@@ -30,12 +30,12 @@ public class InstructionIf extends Instruction {
     this.continueName = continueName;
   }
 
-  public void allocateRegisters(RegisterARM registerARM){
+  public void allocateRegisters(RegisterARM registerARM) {
     this.exprReg = registerARM.name();
   }
 
   @Override
-  public void genInstruction(){
+  public void genInstruction() {
     StringBuilder block1 = new StringBuilder();
     block1.append("\t\tCMP ");
     block1.append(exprReg);

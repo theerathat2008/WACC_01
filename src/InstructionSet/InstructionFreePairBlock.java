@@ -23,14 +23,14 @@ public class InstructionFreePairBlock extends Instruction {
   public void genInstruction() {
     resultBlock.concat("p_free_pair:\n");
     resultBlock.concat("\t\tPUSH {lr}\n");
-    resultBlock.concat("\t\tCMP " +  reg1 + ", #0\n");
-    resultBlock.concat("\t\tLDREQ " +  reg1 + ", =msg_" + msgNum + "\n");
+    resultBlock.concat("\t\tCMP " + reg1 + ", #0\n");
+    resultBlock.concat("\t\tLDREQ " + reg1 + ", =msg_" + msgNum + "\n");
     resultBlock.concat("\t\tBEQ p_throw_runtime_error\n");
     resultBlock.concat("\t\tPUSH {" + reg1 + "}\n");
-    resultBlock.concat("\t\tLDR " +  reg1 + ", [" + reg1 + "]\n");
+    resultBlock.concat("\t\tLDR " + reg1 + ", [" + reg1 + "]\n");
     resultBlock.concat("\t\tBL free\n");
-    resultBlock.concat("\t\tLDR " +  reg1 + ", " + sp + "\n");
-    resultBlock.concat("\t\tLDR " +  reg1 + ", [" + reg1 + ", #4]\n");
+    resultBlock.concat("\t\tLDR " + reg1 + ", " + sp + "\n");
+    resultBlock.concat("\t\tLDR " + reg1 + ", [" + reg1 + ", #4]\n");
     resultBlock.concat("\t\tBL free\n");
     resultBlock.concat("\t\tPOP {" + reg1 + "}\n");
     resultBlock.concat("\t\tBL free\n");

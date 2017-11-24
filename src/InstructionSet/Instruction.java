@@ -22,7 +22,7 @@ public abstract class Instruction {
    */
   public abstract boolean crossOverRegister();
 
-  public String getID(){
+  public String getID() {
     return this.getClass().getSimpleName();
   }
 

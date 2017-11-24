@@ -2,7 +2,7 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
-public class InstructionRead extends Instruction{
+public class InstructionRead extends Instruction {
 
   public String resultBlock = "";
   String reg1;
@@ -16,7 +16,7 @@ public class InstructionRead extends Instruction{
     reg2 = "reg2";
   }
 
-  public void allocateSP(String sp){
+  public void allocateSP(String sp) {
     this.sp = sp;
   }
 
@@ -27,10 +27,10 @@ public class InstructionRead extends Instruction{
 
 
   public String getPrintType() {
-    switch (type){
-      case("char"):
+    switch (type) {
+      case ("char"):
         return "p_read_char";
-      case("int"):
+      case ("int"):
         return "p_read_int";
       default:
         System.out.println("Unrecognised type on InstructionReadBlocks");
@@ -39,7 +39,6 @@ public class InstructionRead extends Instruction{
     return "";
 
   }
-
 
 
   @Override

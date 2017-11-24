@@ -12,7 +12,7 @@ public class InstructionDeclAssChar extends Instruction {
   /**
    * Class constructor calls super constructor
    */
-  public InstructionDeclAssChar(){//String charData) {
+  public InstructionDeclAssChar() {//String charData) {
     //this.charData = charData;
   }
 
@@ -23,6 +23,7 @@ public class InstructionDeclAssChar extends Instruction {
 
   /**
    * Assigned string value indicating name of register
+   *
    * @param reg - first register
    */
   public void allocateRegisters(RegisterARM reg) {

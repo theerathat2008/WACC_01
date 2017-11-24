@@ -8,6 +8,7 @@ import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+
 import VisitorClass.AST_NodeVisitor;
 
 import IdentifierObjects.*;
@@ -118,7 +119,6 @@ public class AST_ExprArrayElem extends AST_Expr {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -156,7 +156,7 @@ public class AST_ExprArrayElem extends AST_Expr {
   @Override
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
-    for(AST_Expr expr : ast_exprList){
+    for (AST_Expr expr : ast_exprList) {
       expr.accept(visitor);
     }
   }
@@ -168,7 +168,7 @@ public class AST_ExprArrayElem extends AST_Expr {
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    for(AST_Expr expr : ast_exprList){
+    for (AST_Expr expr : ast_exprList) {
       expr.acceptRegister(registerAllocation);
     }
   }

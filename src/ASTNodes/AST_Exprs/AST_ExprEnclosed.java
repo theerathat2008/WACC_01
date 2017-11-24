@@ -112,7 +112,6 @@ public class AST_ExprEnclosed extends AST_Expr {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -166,7 +165,6 @@ public class AST_ExprEnclosed extends AST_Expr {
   public void acceptInstr(List<String> assemblyCode) {
     exprAST.acceptInstr(assemblyCode);
   }
-
 
 
   @Override

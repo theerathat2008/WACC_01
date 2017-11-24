@@ -3,7 +3,7 @@ package InstructionSet.InstructionError;
 import InstructionSet.Instruction;
 
 
-public class InstructionError extends Instruction{
+public class InstructionError extends Instruction {
 
   public String resultBlock;
 

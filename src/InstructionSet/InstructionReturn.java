@@ -2,7 +2,7 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
-public class InstructionReturn extends Instruction{
+public class InstructionReturn extends Instruction {
   String reg1;
   String reg2;
   String resultBlock;

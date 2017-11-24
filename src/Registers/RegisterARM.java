@@ -28,6 +28,6 @@ public enum RegisterARM {
  * R14 / LR - the Link Register which holds the caller's return address
  * R15/ PC - which holds the Program Counter
  * CPSR - which is the Current Program Status Register. This holds flags which are results of arithmetic
- *        and logical operations.
+ * and logical operations.
  * SPSR - which is Saved Program Status Register. This holds code flags.
  */

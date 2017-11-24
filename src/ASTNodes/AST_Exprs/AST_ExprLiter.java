@@ -7,8 +7,6 @@ import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
-import ErrorMessages.OutOfBoundsError;
-import src.FilePosition;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -28,6 +26,7 @@ public class AST_ExprLiter extends AST_Expr {
   String literal;
   ParserRuleContext ctx;
   InstructionAssignLit instr;   //TODO put correct instruction type here.
+
   /**
    * Constructor for class - initialises class variables to NULL
    */
@@ -113,7 +112,6 @@ public class AST_ExprLiter extends AST_Expr {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -159,7 +157,7 @@ public class AST_ExprLiter extends AST_Expr {
     //TODO implement errors
     if (literal.equals("string")) {
       //check if the string literals are between two '"' symbols
-      if (!(constant.charAt(0) =='"') && (constant.charAt(constant.length() - 1) == '"')) {
+      if (!(constant.charAt(0) == '"') && (constant.charAt(constant.length() - 1) == '"')) {
         System.out.println("String literals must be between two symbols");
         return false;
       }
@@ -227,11 +225,11 @@ public class AST_ExprLiter extends AST_Expr {
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     RegisterARM resultReg = registerAllocation.searchByValue("expr");
 
-    if(registerAllocation.searchByValue("result") != null && resultReg == null){
+    if (registerAllocation.searchByValue("result") != null && resultReg == null) {
       resultReg = registerAllocation.searchByValue("result");
     }
 
-    System.out.println("RESULT REG IS: at " + constant +  ": " + resultReg);
+    System.out.println("RESULT REG IS: at " + constant + ": " + resultReg);
     instr.registerAllocation(resultReg);
 
   }
@@ -249,7 +247,7 @@ public class AST_ExprLiter extends AST_Expr {
 
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    if(literal.equals("str")){
+    if (literal.equals("str")) {
       registerAllocation.addString(constant.replace("\"", ""));
       InstructionAssignLit instructionAssignLit = new InstructionAssignLit(constant, literal);
       instructionAssignLit.setStringMsgNum(Integer.toString(registerAllocation.getStringID(constant.replace("\"", ""))));

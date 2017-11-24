@@ -5,6 +5,7 @@ import InstructionSet.Instruction;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
+
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -91,7 +92,6 @@ public class AST_PairString extends AST_PairElemType {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -129,7 +129,7 @@ public class AST_PairString extends AST_PairElemType {
   /**
    * @return returns the identifier of the attribute
    */
-  public IDENTIFIER getIdentifier(){
+  public IDENTIFIER getIdentifier() {
     return new BaseTypeObj("pair");
   }
 

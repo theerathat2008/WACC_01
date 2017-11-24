@@ -25,17 +25,21 @@ public class Assembler {
   RegisterAllocation registerAlloc;
 
   AST_Node rootNode;
-  String Output ;
+  String Output;
 
   List<String> assemblyCode = new LinkedList<>();
 
+  /**
+   * Sets the root node which is AST_Program
+   * @param rootNode
+   */
   public void setRootNode(AST_Node rootNode) {
     this.rootNode = rootNode;
   }
 
   private static Assembler instance = null;
 
-  private Assembler(){
+  private Assembler() {
 
   }
 
@@ -43,41 +47,53 @@ public class Assembler {
     this.instructions = instructions;
   }
 
-  public void setRegisterAlloc(RegisterAllocation registerAlloc){
+  public void setRegisterAlloc(RegisterAllocation registerAlloc) {
     this.registerAlloc = registerAlloc;
   }
 
-  public void printInstructions(){
+  /**
+   * Prints instructions for debug purposes
+   */
+  public void printInstructions() {
     System.out.println();
     System.out.println("---------------INSTRUCTIONS LIST --------------------");
-    for(Instruction currInstr : instructions){
+    for (Instruction currInstr : instructions) {
       System.out.println(currInstr.getClass().getSimpleName());
     }
     System.out.println("---------------INSTRUCTIONS LIST --------------------");
   }
 
-  public void parseInstructions() throws Exception{
+  /**
+   * Allocates the registers for the created instruction list first then generate the actual assembly blocks
+   */
+  public void parseInstructions() throws Exception {
     System.out.println("--------------- REGISTER ALLOCATION --------------------");
     rootNode.acceptRegister(registerAlloc);
     System.out.println("--------------- REGISTER ALLOCATION --------------------");
     printInstructions();
 
-    for(Instruction currInstr : instructions){
+    for (Instruction currInstr : instructions) {
       currInstr.genInstruction();
     }
   }
 
-
+  /**
+   * Assemble the instructions into the right order
+   */
   public void assembleInstructions() {
     rootNode.acceptInstr(assemblyCode);
     String Output = String.join("", assemblyCode);
-    Output = generatePreCode() +"\n\t.text\n\n" +  Output + generatePostCode();
+    Output = generatePreCode() + "\n\t.text\n\n" + Output + generatePostCode();
 
 
     System.out.println(Output);
     this.Output = Output;
   }
 
+
+  /**
+   * generate any special code for the assmebly file such as the messages
+   */
   public String generatePreCode() {
     List<String> stringList = registerAlloc.getStringList();
     StringBuilder result = new StringBuilder("");
@@ -88,7 +104,7 @@ public class Assembler {
         result.append("\tmsg_");
         result.append(Integer.toString(i));
         result.append("\n\t\t.word ");
-        if(stringList.get(i).contains("\\")){
+        if (stringList.get(i).contains("\\")) {
           result.append(Integer.toString(stringList.get(i).length() - 1));
         } else {
           result.append(Integer.toString(stringList.get(i).length()));
@@ -101,14 +117,18 @@ public class Assembler {
     return result.toString();
   }
 
+  /**
+   * Generates the post code at the end of the assembly file such as the print functions
+   * @return
+   */
   public String generatePostCode() {
     StringBuilder result = new StringBuilder();
-    for(Instruction currInstr : instructions){
+    for (Instruction currInstr : instructions) {
       String superName = currInstr.getClass().getSuperclass().getSimpleName();
       if (superName.equals("InstructionReadBlocks")) {
         System.out.println("Type ReadBlocks");
         result.append(((InstructionReadBlocks) currInstr).resultBlock);
-      } else if(superName.equals("InstructionPrintBlocks")) {
+      } else if (superName.equals("InstructionPrintBlocks")) {
         System.out.println("Type PrintBlocks");
         result.append(((InstructionPrintBlocks) currInstr).getResultBlock());
       } else if (superName.equals("InstructionError")) {
@@ -120,17 +140,21 @@ public class Assembler {
   }
 
 
-  
-  public static Assembler getInstance(){
-    if(instance == null){
+  public static Assembler getInstance() {
+    if (instance == null) {
       instance = new Assembler();
     }
     return instance;
   }
 
+
+  /**
+   * Generates the final output file
+   * @param name
+   */
   public void generateOutputFile(String name) {
     try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-            new FileOutputStream(name+".s"), "utf-8"))) {
+        new FileOutputStream(name + ".s"), "utf-8"))) {
       writer.write(Output);
     } catch (Exception e) {
       e.getMessage();

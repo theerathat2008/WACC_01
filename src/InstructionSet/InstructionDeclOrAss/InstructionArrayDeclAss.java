@@ -2,7 +2,7 @@ package InstructionSet.InstructionDeclOrAss;
 
 import InstructionSet.Instruction;
 
-public class InstructionArrayDeclAss extends Instruction{
+public class InstructionArrayDeclAss extends Instruction {
   String resultBlock = "";
   String resultBlock1 = "";
   String resultBlock2 = "";
@@ -15,14 +15,13 @@ public class InstructionArrayDeclAss extends Instruction{
   String strType;
 
 
-
-  public InstructionArrayDeclAss(int arraySize, int arrayLength, String strType){
+  public InstructionArrayDeclAss(int arraySize, int arrayLength, String strType) {
     this.arraySize = arraySize + 4;
     this.arrayLength = arrayLength;
     this.strType = strType;
   }
 
-  public void allocateRegisters(String reg1, String reg2, String reg3){
+  public void allocateRegisters(String reg1, String reg2, String reg3) {
     this.reg1 = reg1;
     this.reg2 = reg2;
     this.reg3 = reg3;
@@ -36,13 +35,15 @@ public class InstructionArrayDeclAss extends Instruction{
     return arraySize;
   }
 
-  public String getResultBlock(){
+  public String getResultBlock() {
     return resultBlock;
   }
-  public String getResultBlock1(){
+
+  public String getResultBlock1() {
     return resultBlock1;
   }
-  public String getResultBlock2(){
+
+  public String getResultBlock2() {
     return resultBlock2;
   }
 

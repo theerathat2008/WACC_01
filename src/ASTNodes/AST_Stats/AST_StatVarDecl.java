@@ -3,26 +3,14 @@ package ASTNodes.AST_Stats;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Exprs.AST_ExprBinary;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
-import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
-import ASTNodes.AST_Program;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatArrayLitRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 
-import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatCallRHS;
-
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatPairElemRHS;
-import ASTNodes.AST_TYPES.AST_PairType;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
-import InstructionSet.InstructionCall;
-import InstructionSet.InstructionDeclOrAss.*;
-import InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray.*;
-import InstructionSet.InstructionPrintBlocks.InstructionPrintBlocksBool;
-import InstructionSet.InstructionPrintBlocks.InstructionPrintBlocksRef;
-import InstructionSet.InstructionPrintBlocks.InstructionPrintBlocksString;
-import InstructionSet.InstructionReturn;
 import InstructionSet.InstructionVarDecl;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
@@ -32,7 +20,7 @@ import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 import ErrorMessages.TypeMismatchError;
 import ErrorMessages.VariableRedeclarationError;
-import src.FilePosition;
+import ErrorMessages.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
 
@@ -210,7 +198,7 @@ public class AST_StatVarDecl extends AST_Stat {
     if (ast_assignRHS.getIdentifier() != null && type != null) {
       if (type.toString().contains("pair") || type.toString().contains("PAIR")) {
         if (ast_assignRHS.getIdentifier().toString().contains("pair")
-                || ast_assignRHS.getIdentifier().toString().contains("PAIR")) {
+            || ast_assignRHS.getIdentifier().toString().contains("PAIR")) {
           return true;
         }
       }
@@ -252,8 +240,7 @@ public class AST_StatVarDecl extends AST_Stat {
 
         }
 
-      }
-      else if (typeName.equals("snd")) {
+      } else if (typeName.equals("snd")) {
         if (ast_expr instanceof AST_ExprIdent) {
           SymbolTable tempST = ST;
           String varName = ((AST_ExprIdent) ast_expr).getVarName();
@@ -290,7 +277,7 @@ public class AST_StatVarDecl extends AST_Stat {
     if (ast_type.getIdentifier() != null && ast_assignRHS.getIdentifier() != null) {
       //ast_type.getIdentifier() returns "str" so it's the problem
       if (!(ast_type.getIdentifier().toString().contains(ast_assignRHS.getIdentifier().toString())
-              || ast_assignRHS.getIdentifier().toString().contains(ast_type.getIdentifier().toString()))) {
+          || ast_assignRHS.getIdentifier().toString().contains(ast_type.getIdentifier().toString()))) {
         new TypeMismatchError(new FilePosition(ctx)).printAll();
         return false;
       }
@@ -298,7 +285,7 @@ public class AST_StatVarDecl extends AST_Stat {
     }
 
     if (type.toString().contains(ast_type.getIdentifier().toString())
-            || ast_type.getIdentifier().toString().contains(type.toString())) {
+        || ast_type.getIdentifier().toString().contains(type.toString())) {
       return true;
     } else {
       new VariableRedeclarationError(new FilePosition(ctx)).printAll();
@@ -378,15 +365,15 @@ public class AST_StatVarDecl extends AST_Stat {
         - registerAllocation.getMemSize(ast_type.getIdentifier().toString());
 
     System.out.println("Final stack size is: " + registerAllocation.getFinalStackSize());
-    if(displacement == 0){
+    if (displacement == 0) {
       stackLocation.append("[sp]");
-    } else{
+    } else {
       stackLocation.append("[sp, #");
       stackLocation.append(displacement);
       stackLocation.append("]");
     }
 
-    if(ast_assignRHS instanceof AST_StatArrayLitRHS){
+    if (ast_assignRHS instanceof AST_StatArrayLitRHS) {
       AST_StatArrayLitRHS tempNode = (AST_StatArrayLitRHS) ast_assignRHS;
       registerAllocation.setStackSize(registerAllocation.getStackSize() + tempNode.getArraySize());
     } else {

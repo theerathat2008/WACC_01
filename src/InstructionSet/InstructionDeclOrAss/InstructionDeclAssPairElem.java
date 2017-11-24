@@ -3,7 +3,7 @@ package InstructionSet.InstructionDeclOrAss;
 import InstructionSet.Instruction;
 import Registers.RegisterARM;
 
-public class InstructionDeclAssPairElem extends Instruction{
+public class InstructionDeclAssPairElem extends Instruction {
   String resultBlock = "";
   String pos;
   String sp;
@@ -15,14 +15,14 @@ public class InstructionDeclAssPairElem extends Instruction{
 
   }
 
-  public void allocateSP(){
+  public void allocateSP() {
     this.sp = sp;
   }
+
   public void allocateRegisters(RegisterARM reg1, RegisterARM reg2) {
     this.reg1 = reg1.name();
     this.reg2 = reg2.name();
   }
-
 
 
   @Override
@@ -62,7 +62,7 @@ public class InstructionDeclAssPairElem extends Instruction{
   }
 
   private String getDisp() {
-    if (this.pos.equals("fst")){
+    if (this.pos.equals("fst")) {
       return "0";
     } else if (this.pos.equals("snd")) {
       return "4";

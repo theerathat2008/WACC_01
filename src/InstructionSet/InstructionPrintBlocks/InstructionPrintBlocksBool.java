@@ -9,12 +9,12 @@ public class InstructionPrintBlocksBool extends InstructionPrintBlocks {
   int msgNum2;
 
 
-
   /**
    * Class constructor calls super constructor
+   *
    * @param msgNum1 - Indicates the ID of the message to be output
    * @param msgNum2 - Indicates the ID of the message to be output
-   * "true\0" AND "false\0" should be added and looked up in stringMap
+   *                "true\0" AND "false\0" should be added and looked up in stringMap
    * @param msgNum1 = trueID
    * @param msgNum2 = falseID
    */
@@ -27,6 +27,7 @@ public class InstructionPrintBlocksBool extends InstructionPrintBlocks {
 
   /**
    * Assigned string value indicating name of register
+   *
    * @param reg1 - first register
    */
   public void allocateRegisters(RegisterARM reg1) {

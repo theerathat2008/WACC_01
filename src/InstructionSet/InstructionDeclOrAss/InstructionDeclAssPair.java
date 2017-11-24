@@ -31,27 +31,27 @@ public class InstructionDeclAssPair extends Instruction {
     this.reg3 = reg3.name();
   }
 
-  public void allocateSP(String sp1, String sp2){
+  public void allocateSP(String sp1, String sp2) {
     this.sp1 = sp1;
     this.sp2 = sp2;
   }
 
-  public int getMsgNum(){
+  public int getMsgNum() {
     return 12345; //TODO
   }
 
   public String getElemBlock(String type, String elem) {
 
     if (type.equals("bool")) {
-      return "\t\tMOV " + reg3 + ", #"  + getBool() + "\n";
-    } else if (type.equals("char")){
-      return "\t\tMOV " + reg3 + ", #'"  + elem + "'\n";
-    } else if (type.equals("string")){
-      return "\t\tLDR " + reg3 + ", =msg_"  + getMsgNum() + "\n";
-    } else if (type.equals("int")){
-      return "\t\tLDR " + reg3 + ", ="  + elem + "\n";
-    } else if (type.equals("array")){
-      return "\t\tLDR " + reg3 + ", [sp, #"  + sp1 + "]\n";
+      return "\t\tMOV " + reg3 + ", #" + getBool() + "\n";
+    } else if (type.equals("char")) {
+      return "\t\tMOV " + reg3 + ", #'" + elem + "'\n";
+    } else if (type.equals("string")) {
+      return "\t\tLDR " + reg3 + ", =msg_" + getMsgNum() + "\n";
+    } else if (type.equals("int")) {
+      return "\t\tLDR " + reg3 + ", =" + elem + "\n";
+    } else if (type.equals("array")) {
+      return "\t\tLDR " + reg3 + ", [sp, #" + sp1 + "]\n";
     }
     return "FAILED getElemBlock in Instruction New Pair\n";
   }
@@ -133,7 +133,7 @@ public class InstructionDeclAssPair extends Instruction {
     return 4;
   }
 
-  public int getBool(){
+  public int getBool() {
     if (this.firstElem.equals("true")) {
       return 1;
     }

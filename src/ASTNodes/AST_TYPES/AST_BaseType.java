@@ -5,6 +5,7 @@ import InstructionSet.Instruction;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
+
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -95,13 +96,12 @@ public class AST_BaseType extends AST_Type {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
 
     if (!(baseTypeName.equals("int") || baseTypeName.equals("bool") || baseTypeName.equals("char")
-            || baseTypeName.equals("string"))) {
+        || baseTypeName.equals("string"))) {
       System.out.println("int, bool, char, string are the only valid base types.");
       return false;
     }

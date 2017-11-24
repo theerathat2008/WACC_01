@@ -7,6 +7,7 @@ import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import IdentifierObjects.*;
 import VisitorClass.AST_NodeVisitor;
+
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -106,7 +107,6 @@ public class AST_PairType extends AST_Type {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {

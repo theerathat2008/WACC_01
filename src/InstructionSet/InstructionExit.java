@@ -21,6 +21,7 @@ public class InstructionExit extends Instruction {
 
   /**
    * Assigned string value indicating name of register
+   *
    * @param reg1 - first register
    * @param reg2 - second register
    */

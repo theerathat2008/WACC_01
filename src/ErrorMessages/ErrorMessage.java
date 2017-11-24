@@ -1,7 +1,5 @@
 package ErrorMessages;
 
-import src.FilePosition;
-
 import static java.lang.System.exit;
 
 public abstract class ErrorMessage {

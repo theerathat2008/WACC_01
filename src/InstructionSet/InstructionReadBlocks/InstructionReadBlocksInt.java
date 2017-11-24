@@ -7,8 +7,9 @@ public class InstructionReadBlocksInt extends InstructionReadBlocks {
 
   /**
    * Class constructor calls super constructor
+   *
    * @param msgNum1 - Indicates the ID of the message to be output
-   * "%d\0" should be added and looked up in stringMap - result = msgNum1
+   *                "%d\0" should be added and looked up in stringMap - result = msgNum1
    */
   public InstructionReadBlocksInt(int msgNum1) {
     super(msgNum1);

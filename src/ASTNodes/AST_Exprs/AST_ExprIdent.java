@@ -3,12 +3,11 @@ package ASTNodes.AST_Exprs;
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionAssignIdent;
-import InstructionSet.InstructionAssignLit;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.UndefinedIdentError;
-import src.FilePosition;
+import ErrorMessages.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
 
@@ -170,7 +169,7 @@ public class AST_ExprIdent extends AST_Expr {
 
   /**
    * allocate one register which is the results register
-   *          another register which takes the stack address of the variables
+   * another register which takes the stack address of the variables
    */
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {

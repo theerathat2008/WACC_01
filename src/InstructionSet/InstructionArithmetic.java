@@ -1,4 +1,5 @@
 package InstructionSet;
+
 import Registers.RegisterARM;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class InstructionArithmetic extends Instruction {
     reg2 = "reg2";
   }
 
-  public void allocateRegisters(RegisterARM dst, RegisterARM reg1, RegisterARM reg2){
+  public void allocateRegisters(RegisterARM dst, RegisterARM reg1, RegisterARM reg2) {
     this.dst = dst.name();
     this.reg1 = reg1.name();
     this.reg2 = reg2.name();
@@ -59,12 +60,12 @@ public class InstructionArithmetic extends Instruction {
       builder.append(reg2);
       builder.append("\n\t\tBLVS p_throw_overflow_error\n");
       block1 = builder.toString();
-      }
     }
+  }
 
 
-  public String getOperand(String operand){
-    switch(operand){
+  public String getOperand(String operand) {
+    switch (operand) {
       case "+":
         return "ADD";
       case "-":

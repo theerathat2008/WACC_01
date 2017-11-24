@@ -35,6 +35,7 @@ public abstract class InstructionAssArrayElem extends Instruction {
   }
 
   public abstract String getLoadData();
+
   public abstract String getSTRLast();
 //  r0   r1   r4   r5   r6
   //reg1 reg2 reg3 reg4 reg5

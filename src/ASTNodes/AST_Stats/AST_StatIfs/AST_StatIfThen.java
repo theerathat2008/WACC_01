@@ -5,12 +5,13 @@ import ASTNodes.AST_Stats.AST_Stat;
 import InstructionSet.Instruction;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
+
 import java.util.ArrayDeque;
 import java.util.List;
 
 import VisitorClass.AST_NodeVisitor;
 
-public class AST_StatIfThen extends AST_StatSubIf{
+public class AST_StatIfThen extends AST_StatSubIf {
 
 
   //Syntactic attributes
@@ -98,7 +99,6 @@ public class AST_StatIfThen extends AST_StatSubIf{
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {

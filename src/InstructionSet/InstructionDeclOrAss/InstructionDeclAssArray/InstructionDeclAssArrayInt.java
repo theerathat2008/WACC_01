@@ -14,7 +14,7 @@ public class InstructionDeclAssArrayInt extends InstructionDeclAssArray {
   public String getArrayElems() {
     StringBuilder result = new StringBuilder();
 
-    for (int i = 0; i < arraySize; i ++) {
+    for (int i = 0; i < arraySize; i++) {
       result.append("\t\tLDR ");
       result.append(reg3);
       result.append(", ");

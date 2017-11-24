@@ -13,7 +13,7 @@ public class InstructionWhile extends Instruction {
   public String afterLoop;
 
 
-  public InstructionWhile(){
+  public InstructionWhile() {
     exprReg = "exprReg";
   }
 

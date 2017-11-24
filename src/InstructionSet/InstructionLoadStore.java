@@ -2,7 +2,7 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
-public class InstructionLoadStore extends Instruction{
+public class InstructionLoadStore extends Instruction {
 
   String op;
   String reg;
@@ -14,7 +14,7 @@ public class InstructionLoadStore extends Instruction{
     reg = "reg";
   }
 
-  public void allocateRegisters(RegisterARM reg, RegisterARM mem){
+  public void allocateRegisters(RegisterARM reg, RegisterARM mem) {
     this.reg = reg.name();
     this.mem = mem.name();
   }

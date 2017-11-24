@@ -20,7 +20,7 @@ public class InstructionPrint extends Instruction {
     return resultBlock;
   }
 
-  public void allocateSP(String sp){
+  public void allocateSP(String sp) {
     this.sp = sp;
   }
 
@@ -37,18 +37,18 @@ public class InstructionPrint extends Instruction {
   }
 
   public String getPrintType() {
-    switch (type){
-      case("str"):
+    switch (type) {
+      case ("str"):
         return "p_print_string";
-      case("bool"):
+      case ("bool"):
         return "p_print_bool";
-      case("array"):
+      case ("array"):
         return "p_print_reference";
-      case("char"):
+      case ("char"):
         return "putchar";
-      case("pair"):
+      case ("pair"):
         return "p_print_reference";
-      case("int"):
+      case ("int"):
         return "p_print_int";
       default:
         System.out.println("Unrecognised type on InstructionPrintBlocks");

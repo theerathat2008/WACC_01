@@ -19,7 +19,7 @@ public class InstructionFreePair extends Instruction {
 
   @Override
   public void genInstruction() {
-    resultBlock.concat("\t\tMOV " +  reg1 + ", " + reg2 +"\n");
+    resultBlock.concat("\t\tMOV " + reg1 + ", " + reg2 + "\n");
     resultBlock.concat("\t\tBL p_free_pair\n");
   }
 

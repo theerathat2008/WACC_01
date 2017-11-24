@@ -8,6 +8,7 @@ import InstructionSet.InstructionDeclOrAss.InstructionDeclAssPair;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
+
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -117,7 +118,6 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -175,8 +175,8 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     //TODO check if arguments are correct
     InstructionDeclAssPair instructionDeclAssPair
-            = new InstructionDeclAssPair(ast_expr_first.getType(), ast_expr_second.getType()
-            , ast_expr_first.getIdentifier().toString(), ast_expr_second.getIdentifier().toString());
+        = new InstructionDeclAssPair(ast_expr_first.getType(), ast_expr_second.getType()
+        , ast_expr_first.getIdentifier().toString(), ast_expr_second.getIdentifier().toString());
     instructionList.add(instructionDeclAssPair);
   }
 }

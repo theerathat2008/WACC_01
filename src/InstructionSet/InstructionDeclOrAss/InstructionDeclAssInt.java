@@ -3,7 +3,7 @@ package InstructionSet.InstructionDeclOrAss;
 import InstructionSet.Instruction;
 import Registers.RegisterARM;
 
-public class InstructionDeclAssInt extends Instruction{
+public class InstructionDeclAssInt extends Instruction {
   String resultBlock;
   String reg;
   String sp;
@@ -12,7 +12,7 @@ public class InstructionDeclAssInt extends Instruction{
   /**
    * Class constructor calls super constructor
    */
-  public InstructionDeclAssInt(){//String intData) {
+  public InstructionDeclAssInt() {//String intData) {
     //this.intData = intData;
   }
 
@@ -25,6 +25,7 @@ public class InstructionDeclAssInt extends Instruction{
 
   /**
    * Assigned string value indicating name of register
+   *
    * @param reg - first register
    */
   public void allocateRegisters(RegisterARM reg) {

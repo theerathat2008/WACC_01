@@ -3,7 +3,7 @@ package ASTNodes.AST_Exprs;
 import ASTNodes.AST_Node;
 import ErrorMessages.TypeError;
 import ErrorMessages.TypeMismatchError;
-import src.FilePosition;
+import ErrorMessages.FilePosition;
 import InstructionSet.Instruction;
 import org.antlr.v4.runtime.ParserRuleContext;
 import InstructionSet.InstructionArithmetic;
@@ -146,7 +146,6 @@ public class AST_ExprBinary extends AST_Expr {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -229,7 +228,7 @@ public class AST_ExprBinary extends AST_Expr {
         }
 
         if (typeLHS.toString().contains(typeRHS.toString())
-                || typeRHS.toString().contains(typeLHS.toString())) {
+            || typeRHS.toString().contains(typeLHS.toString())) {
           return true;
         } else {
           new TypeMismatchError(new FilePosition(ctx)).printAll();
@@ -321,7 +320,7 @@ public class AST_ExprBinary extends AST_Expr {
   public void acceptInstr(List<String> assemblyCode) {
     exprLeftAST.acceptInstr(assemblyCode);
     exprRightAST.acceptInstr(assemblyCode);
-    if(opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")) {
+    if (opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")) {
       assemblyCode.add(instrA.block1);
     } else {
       assemblyCode.add(instrC.block1);
@@ -338,8 +337,7 @@ public class AST_ExprBinary extends AST_Expr {
     exprRightAST.acceptRegister(registerAllocation);
 
 
-
-    if(opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")){
+    if (opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")) {
       RegisterARM dst = registerAllocation.searchByValue("result");
       instrA.allocateRegisters(dst, reg1, reg2);
       //registerAllocation.freeRegister(dst);
@@ -354,25 +352,25 @@ public class AST_ExprBinary extends AST_Expr {
   /**
    * Generates assembly code in InstructionComparison and InstructionArithmetic depending on the
    * opName:  MULT   *  Needs registers to be allocated  InstructionArithmetic
-   *          DIV    /  Needs registers to be allocated  InstructionArithmetic
-   *          MOD    %  Needs registers to be allocated  InstructionArithmetic
-   *          PLUS   +  Needs registers to be allocated  InstructionArithmetic
-   *          MINUS  -  Needs registers to be allocated  InstructionArithmetic
-   *
-   *          GRTHAN >  Needs registers to be allocated  InstructionComparison
-   *          GREQTO >= Needs registers to be allocated  InstructionComparison
-   *          LSTHAN <  Needs registers to be allocated  InstructionComparison
-   *          LSEQTO <= Needs registers to be allocated  InstructionComparison
-   *          EQTO   == Needs registers to be allocated  InstructionComparison
-   *          NEQTO  != Needs registers to be allocated  InstructionComparison
-   *          AND    && Needs registers to be allocated  InstructionComparison
-   *          OR     || Needs registers to be allocated  InstructionComparison
-   *          TODO ALLOCATE REGISTER HERE
+   * DIV    /  Needs registers to be allocated  InstructionArithmetic
+   * MOD    %  Needs registers to be allocated  InstructionArithmetic
+   * PLUS   +  Needs registers to be allocated  InstructionArithmetic
+   * MINUS  -  Needs registers to be allocated  InstructionArithmetic
+   * <p>
+   * GRTHAN >  Needs registers to be allocated  InstructionComparison
+   * GREQTO >= Needs registers to be allocated  InstructionComparison
+   * LSTHAN <  Needs registers to be allocated  InstructionComparison
+   * LSEQTO <= Needs registers to be allocated  InstructionComparison
+   * EQTO   == Needs registers to be allocated  InstructionComparison
+   * NEQTO  != Needs registers to be allocated  InstructionComparison
+   * AND    && Needs registers to be allocated  InstructionComparison
+   * OR     || Needs registers to be allocated  InstructionComparison
+   * TODO ALLOCATE REGISTER HERE
    */
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
-    if(opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")){
+    if (opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")) {
       InstructionArithmetic instructionArithmetic = new InstructionArithmetic(opName);
 
       instructionList.add(instructionArithmetic);

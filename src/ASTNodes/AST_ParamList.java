@@ -10,6 +10,7 @@ import IdentifierObjects.IDENTIFIER;
 import IdentifierObjects.ParamListObj;
 import IdentifierObjects.BaseTypeObj;
 import VisitorClass.AST_NodeVisitor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,7 +114,6 @@ public class AST_ParamList extends AST_Node {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -166,7 +166,7 @@ public class AST_ParamList extends AST_Node {
 
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
-    for(AST_Param param : listParam){
+    for (AST_Param param : listParam) {
       param.accept(visitor);
     }
   }
@@ -182,7 +182,7 @@ public class AST_ParamList extends AST_Node {
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    for(AST_Param param : listParam){
+    for (AST_Param param : listParam) {
       param.acceptRegister(registerAllocation);
     }
   }

@@ -1,7 +1,5 @@
 package ErrorMessages;
 
-import src.FilePosition;
-
 public class TypeMismatchError extends ErrorMessage {
 
   /**

@@ -10,10 +10,11 @@ public class InstructionDeclAssArrayBool extends InstructionDeclAssArray {
     this.arraySize = arrayElems.size();
   }
 
-  public int getBoolNum(Boolean bool){
+  public int getBoolNum(Boolean bool) {
     if (bool) {
       return 1;
-    } return 0;
+    }
+    return 0;
   }
 
   @Override

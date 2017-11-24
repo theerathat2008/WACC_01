@@ -15,6 +15,7 @@ public class InstructionErrorOverflow extends InstructionError {
 
   /**
    * Assigned string value indicating name of register
+   *
    * @param reg1 - first register
    */
   public void allocateRegisters(RegisterARM reg1) {

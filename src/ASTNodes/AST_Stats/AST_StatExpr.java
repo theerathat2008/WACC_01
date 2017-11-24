@@ -16,7 +16,7 @@ import SymbolTable.SymbolTable;
 import ErrorMessages.TypeError;
 import ErrorMessages.TypeMismatchError;
 
-import src.FilePosition;
+import ErrorMessages.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
 
@@ -167,7 +167,7 @@ public class AST_StatExpr extends AST_Stat {
 
 
       if (expr instanceof AST_ExprEnclosed || expr instanceof AST_ExprBinary
-              || expr instanceof AST_ExprUnary) {
+          || expr instanceof AST_ExprUnary) {
         return true;
       } else if ((temp.ast_type.getIdentifier().equals(expr.getIdentifier()))) {
         return true;
@@ -334,7 +334,7 @@ public class AST_StatExpr extends AST_Stat {
         String type = expr.getType();
         System.out.println("Type is at print: " + type);
 
-        if(type != null){
+        if (type != null) {
 
           switch (type) {
             case ("int"):
@@ -382,15 +382,11 @@ public class AST_StatExpr extends AST_Stat {
         }
 
 
-
-
-
         break;
       default:
         System.out.println("Unrecognised statement type in AST_StatExpr");
     }
   }
-
 
 
   /**
@@ -407,7 +403,7 @@ public class AST_StatExpr extends AST_Stat {
 
     //REGISTER ALLOCATION TODO
     //SP ALLOCATION TODO
-    System.out.println("Statement type is: "+statName);
+    System.out.println("Statement type is: " + statName);
 
     switch (statName) {
       case ("free"):
@@ -417,11 +413,11 @@ public class AST_StatExpr extends AST_Stat {
 
         InstructionFreePairBlock instructionFreePairBlock = new InstructionFreePairBlock(registerAllocation.getStringID("NullReferenceError: dereference a null reference\\n\\0"));
         InstructionErrorRuntime instructionErrorRuntime = new InstructionErrorRuntime();
-        if (!instructionList.contains(instructionFreePairBlock)){
+        if (!instructionList.contains(instructionFreePairBlock)) {
           instructionList.add(instructionFreePairBlock);
           //TODO put this at special position of list dedicated to end of file instructions.
         }
-        if (!instructionList.contains(instructionErrorRuntime)){
+        if (!instructionList.contains(instructionErrorRuntime)) {
           instructionList.add(instructionErrorRuntime);
         }
 
@@ -450,7 +446,7 @@ public class AST_StatExpr extends AST_Stat {
         instrPrintLn = instructionPrintLn;
       case ("print"):
         String type = expr.getType();
-        if(type != null){
+        if (type != null) {
           switch (type) {
             case ("int"):
               registerAllocation.addString("%d\\0");
@@ -499,7 +495,6 @@ public class AST_StatExpr extends AST_Stat {
           instrPrintLine = instructionPrintlnLine;
 
 
-
           InstructionPrint instructionPrint = new InstructionPrint(type);
           instructionList.add(instructionPrint);
           instr = instructionPrint;
@@ -511,12 +506,12 @@ public class AST_StatExpr extends AST_Stat {
           instrPrintLine = instructionPrintlnLine;
           String emebededType = "null";
 
-          if(expr instanceof AST_ExprBinary){
+          if (expr instanceof AST_ExprBinary) {
             AST_ExprBinary tempNode = (AST_ExprBinary) expr;
             emebededType = getEmebeddedType(tempNode);
             System.out.println("BINAAAAAAAAAAAAAAAAAAAAA");
 
-          } else if (expr instanceof AST_ExprUnary){
+          } else if (expr instanceof AST_ExprUnary) {
             AST_ExprUnary tempNode = (AST_ExprUnary) expr;
             emebededType = getEmebeddedType(tempNode);
           }
@@ -530,7 +525,6 @@ public class AST_StatExpr extends AST_Stat {
         }
 
 
-
         break;
       default:
         System.out.println("Unrecognised statement type in AST_StatExpr");
@@ -540,17 +534,17 @@ public class AST_StatExpr extends AST_Stat {
 
   public String getEmebeddedType(AST_Node root) {
     if (root.getNodes() != null) {
-    for (AST_Node node : root.getNodes()) {
-      if(node instanceof AST_ExprIdent){
-        AST_ExprIdent tempNode = (AST_ExprIdent) node;
-        return tempNode.getType();
-      } else if (node instanceof AST_ExprLiter){
-        AST_ExprLiter tempNode = (AST_ExprLiter) node;
-        return tempNode.getLiteral();
+      for (AST_Node node : root.getNodes()) {
+        if (node instanceof AST_ExprIdent) {
+          AST_ExprIdent tempNode = (AST_ExprIdent) node;
+          return tempNode.getType();
+        } else if (node instanceof AST_ExprLiter) {
+          AST_ExprLiter tempNode = (AST_ExprLiter) node;
+          return tempNode.getLiteral();
+        }
+        getEmebeddedType(node);
       }
-      getEmebeddedType(node);
     }
-  }
     return null;
   }
 

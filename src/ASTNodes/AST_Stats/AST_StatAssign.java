@@ -4,9 +4,7 @@ import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Exprs.AST_ExprEnclosed;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
 import ASTNodes.AST_Exprs.AST_ExprLiter;
-import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
-import ASTNodes.AST_Program;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatArrayElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
@@ -15,18 +13,17 @@ import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatCallRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatPairElemRHS;
-import ErrorMessages.ErrorMessage;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
-import InstructionSet.InstructionAssignLit;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import Registers.StackLocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.TypeMismatchError;
-import src.FilePosition;
+import ErrorMessages.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
+
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -128,7 +125,6 @@ public class AST_StatAssign extends AST_Stat {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -166,7 +162,8 @@ public class AST_StatAssign extends AST_Stat {
             tempST = tempST.encSymTable;
             typeLHS = tempST.lookup(varName);
           }
-        } if (firstElem instanceof AST_ExprLiter) {
+        }
+        if (firstElem instanceof AST_ExprLiter) {
           String literal = ((AST_ExprLiter) firstElem).getLiteral();
           String constant = ((AST_ExprLiter) firstElem).getConstant();
 
@@ -178,8 +175,7 @@ public class AST_StatAssign extends AST_Stat {
 
             }
           }
-        }
-        else {
+        } else {
           typeLHS = ast_statAssignLHS.getIdentifier();
         }
       } else {
@@ -212,7 +208,7 @@ public class AST_StatAssign extends AST_Stat {
 
         AST_Node tempNodeRHS = this.getParentNode();
 
-        while(typeRHS == null) {
+        while (typeRHS == null) {
           tempST = tempST.encSymTable;
           typeRHS = tempST.lookup(varName);
         }
@@ -311,7 +307,7 @@ public class AST_StatAssign extends AST_Stat {
       String stringLHS = typeLHS.toString();
       String pairLHS = stringLHS.substring(stringLHS.indexOf("P"), stringLHS.indexOf(")"));
       String stringRHS = typeRHS.toString();
-      String pairRHS  =stringRHS.substring(stringRHS.indexOf("P"), stringRHS.indexOf(")"));
+      String pairRHS = stringRHS.substring(stringRHS.indexOf("P"), stringRHS.indexOf(")"));
       if (pairLHS.contains(pairRHS) || pairRHS.contains(pairLHS)) {
         return true;
       } else {
@@ -377,9 +373,9 @@ public class AST_StatAssign extends AST_Stat {
 
     ast_statAssignLHS.acceptRegister(registerAllocation);
 
-    if(ast_statAssignLHS instanceof AST_StatIdentLHS){
+    if (ast_statAssignLHS instanceof AST_StatIdentLHS) {
       String result;
-      if(registerAllocation.getStackSize() > 0){
+      if (registerAllocation.getStackSize() > 0) {
 
         StringBuilder builder = new StringBuilder();
 
@@ -392,7 +388,7 @@ public class AST_StatAssign extends AST_Stat {
         String identName = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
         String scope = registerAllocation.getCurrentScope();
         String location = result;
-        registerAllocation.addToStack(identName, new StackLocation(location ,scope));
+        registerAllocation.addToStack(identName, new StackLocation(location, scope));
       }
 
     }
@@ -408,18 +404,17 @@ public class AST_StatAssign extends AST_Stat {
   /**
    * Needs two register corresponding to the destination and source in two lines
    * and an intermediate register to hold the value
-   *   MOV r4, #'Z'    ->CHAR
-   *	 STRB r4, [sp]
-   *	 or
-   *	 LDR r4, =20     ->INT
-   *	 STR r4, [sp]
-   *	 or
-   *	 LDR r4, =msg_1   ->STRING
-   *   STR r4, [sp]
-   *
-   *   STRB r4, [sp]    ->BOOL
-   *   LDRSB r4, [sp]
-   *
+   * MOV r4, #'Z'    ->CHAR
+   * STRB r4, [sp]
+   * or
+   * LDR r4, =20     ->INT
+   * STR r4, [sp]
+   * or
+   * LDR r4, =msg_1   ->STRING
+   * STR r4, [sp]
+   * <p>
+   * STRB r4, [sp]    ->BOOL
+   * LDRSB r4, [sp]
    */
 
 

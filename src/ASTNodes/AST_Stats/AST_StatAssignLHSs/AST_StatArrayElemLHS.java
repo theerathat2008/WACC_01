@@ -6,6 +6,7 @@ import InstructionSet.Instruction;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +117,6 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -156,21 +156,21 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
 
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
-    for(AST_Expr expr : ast_exprList){
+    for (AST_Expr expr : ast_exprList) {
       expr.accept(visitor);
     }
   }
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-    for(AST_Expr expr : ast_exprList){
+    for (AST_Expr expr : ast_exprList) {
       expr.acceptInstr(assemblyCode);
     }
   }
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    for(AST_Expr expr : ast_exprList){
+    for (AST_Expr expr : ast_exprList) {
       expr.acceptRegister(registerAllocation);
     }
   }

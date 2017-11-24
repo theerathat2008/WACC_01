@@ -5,14 +5,13 @@ import InstructionSet.InstructionUnary;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
-import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
-import ASTNodes.AST_Program;
 import ErrorMessages.TypeError;
 import ErrorMessages.TypeMismatchError;
-import src.FilePosition;
+import ErrorMessages.FilePosition;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
+
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -132,7 +131,6 @@ public class AST_ExprUnary extends AST_Expr {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -221,11 +219,11 @@ public class AST_ExprUnary extends AST_Expr {
         //Debug statement
         System.out.println(type);
         if (type.toString().equals("char") || type.toString().equals("bool") || type.toString().equals("string")
-                || type.toString().contains("[]") || type.toString().contains("pair")) {
+            || type.toString().contains("[]") || type.toString().contains("pair")) {
           return true;
         } else {
           System.out.println("Unary operator 'len' can only be used with statement of type 'char' 'bool'" +
-                  "'string' 'array' 'pair'.");
+              "'string' 'array' 'pair'.");
           new TypeError(new FilePosition(ctx)).printAll();
           return false;
         }
@@ -360,7 +358,7 @@ public class AST_ExprUnary extends AST_Expr {
     registerAllocation.freeRegister(reg1);
 
 
-    if(opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")){
+    if (opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")) {
       RegisterARM dst = registerAllocation.useRegister("expr");
       //instructionArithmetic.allocateRegisters(dst, reg1);
     } else {
@@ -375,11 +373,11 @@ public class AST_ExprUnary extends AST_Expr {
   /**
    * Generates assembly code
    * opName:  CHR   *   Needs registers to be allocated  InstructionUnary
-   *          ORD    /  Needs registers to be allocated  InstructionUnary
-   *          LEN    %  Needs registers to be allocated  InstructionUnary
-   *          EXCL   +  Needs registers to be allocated  InstructionUnary
-   *          MINUS  -  Needs registers to be allocated  InstructionUnary
-   *          TODO ALLOCATE REGISTER HERE
+   * ORD    /  Needs registers to be allocated  InstructionUnary
+   * LEN    %  Needs registers to be allocated  InstructionUnary
+   * EXCL   +  Needs registers to be allocated  InstructionUnary
+   * MINUS  -  Needs registers to be allocated  InstructionUnary
+   * TODO ALLOCATE REGISTER HERE
    */
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

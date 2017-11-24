@@ -11,8 +11,9 @@ public class InstructionPrintBlocksRef extends InstructionPrintBlocks {
 
   /**
    * Class constructor calls super constructor
+   *
    * @param msgNum1 - Indicates the ID of the message to be output
-   * "%p\0" should be added and looked up in stringMap
+   *                "%p\0" should be added and looked up in stringMap
    */
   public InstructionPrintBlocksRef(int msgNum1) {
     super(msgNum1);
@@ -22,6 +23,7 @@ public class InstructionPrintBlocksRef extends InstructionPrintBlocks {
 
   /**
    * Assigned string value indicating name of register
+   *
    * @param reg1 - first register
    * @param reg2 - second register
    */

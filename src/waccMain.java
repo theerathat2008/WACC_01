@@ -36,8 +36,6 @@ public class waccMain {
       System.exit(100);
     }
 
-    //System.out.println("Printing out the tree: ");
-    //System.out.println(tree.toStringTree(parser));
 
     System.out.println("===");
     waccVisitor visitor = new waccVisitor();
@@ -62,6 +60,7 @@ public class waccMain {
     root.accept(codeGen);
 
     System.out.println("------------------CODE GENERATION--------------------");
+
     System.out.println();
     System.out.println("------------------GENERATING CODE--------------------");
     codeGen.generateAssembly();

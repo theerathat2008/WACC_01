@@ -1,6 +1,7 @@
 package SymbolTable;
 
 import IdentifierObjects.*;
+
 import java.util.*;
 
 public class SymbolTable {
@@ -139,6 +140,7 @@ public class SymbolTable {
   public List<SymbolTable> getChildren() {
     return childTables;
   }
+
   public IDENTIFIER stringToIdent(String name, String type) {
     if (type.equals("int")) {
       return new BaseTypeObj(name, "int");

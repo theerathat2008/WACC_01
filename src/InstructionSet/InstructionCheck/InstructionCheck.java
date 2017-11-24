@@ -2,7 +2,7 @@ package InstructionSet.InstructionCheck;
 
 import InstructionSet.Instruction;
 
-public class InstructionCheck extends Instruction{
+public class InstructionCheck extends Instruction {
   String reg1;
   int msgNum;
   String resultBlock;

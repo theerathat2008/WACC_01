@@ -6,7 +6,6 @@ import ASTNodes.AST_Exprs.AST_ExprIdent;
 import ASTNodes.AST_Exprs.AST_ExprLiter;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_FuncDecl;
-import ASTNodes.AST_Program;
 import ASTNodes.AST_ParamList;
 import ASTNodes.AST_Param;
 import ErrorMessages.TypeMismatchError;
@@ -21,7 +20,7 @@ import SymbolTable.SymbolTable;
 import ErrorMessages.MissingParameterError;
 import ErrorMessages.TypeError;
 import ErrorMessages.UndefinedFunctionError;
-import src.FilePosition;
+import ErrorMessages.FilePosition;
 import VisitorClass.AST_NodeVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
 
@@ -32,7 +31,7 @@ import java.util.List;
 /**
  * Class representing node in AST tree for CALL ASSIGNMENT
  */
-public class  AST_StatCallRHS extends AST_StatAssignRHS {
+public class AST_StatCallRHS extends AST_StatAssignRHS {
 
   //Syntactic attributes
   String funcName;
@@ -152,7 +151,6 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -244,7 +242,7 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
               }
 
               if (typeExpr.toString().contains(typeParam.toString())
-                      || typeParam.toString().contains(typeExpr.toString())) {
+                  || typeParam.toString().contains(typeExpr.toString())) {
                 return true;
               } else {
                 new TypeError(new FilePosition(ctx)).printAll();
@@ -255,7 +253,7 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
               String literal = ((AST_ExprLiter) ast_exprList.get(0)).getLiteral();
 
               if (typeParam.toString().contains("char[]")
-                      || typeParam.toString().contains("str")) {
+                  || typeParam.toString().contains("str")) {
                 if (literal.contains("char[]") || literal.contains("str")) {
                   return true;
                 } else {
@@ -263,7 +261,7 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
                   return false;
                 }
               } else if (typeParam.toString().contains(literal)
-                      || literal.contains(typeParam.toString())) {
+                  || literal.contains(typeParam.toString())) {
                 return true;
               } else {
                 new TypeMismatchError(new FilePosition(ctx)).printAll();
@@ -373,14 +371,14 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
 
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
-    for(AST_Expr expr : ast_exprList){
+    for (AST_Expr expr : ast_exprList) {
       expr.accept(visitor);
     }
   }
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-    for(AST_Expr expr : ast_exprList){
+    for (AST_Expr expr : ast_exprList) {
       expr.acceptInstr(assemblyCode);
     }
     assemblyCode.add(instrCall.getResultBlock());
@@ -388,7 +386,7 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    for(AST_Expr expr : ast_exprList){
+    for (AST_Expr expr : ast_exprList) {
       expr.acceptRegister(registerAllocation);
     }
     registerAllocation.freeRegister(registerAllocation.searchByValue("result"));

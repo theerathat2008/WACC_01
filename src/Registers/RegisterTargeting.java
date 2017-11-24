@@ -6,19 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
- *
  * THIS CLASS ACTUALLY HOLDS INFO OF REGISTERS - NOT FULLY IMPLEMENTED
- *
+ * <p>
  * DELETE THIS CLASS IF NOT NEEDED
- *
+ * <p>
  * USE REGISTERALLOCATION.JAVA IF NOT NEEDED
- *
- *
- *
- *
  */
-public class RegisterTargeting<T>{
+public class RegisterTargeting<T> {
 
   Map<RegisterARM, T> registerMap = new HashMap<>();
   List<RegisterARM> registerNotInUse = new ArrayList<>();

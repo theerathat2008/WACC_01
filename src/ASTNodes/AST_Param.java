@@ -113,7 +113,6 @@ public class AST_Param extends AST_Node {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    */
   @Override
   public boolean CheckSemantics() {
@@ -168,7 +167,6 @@ public class AST_Param extends AST_Node {
   }
 
   /**
-   *
    * @param registerAllocation
    */
 

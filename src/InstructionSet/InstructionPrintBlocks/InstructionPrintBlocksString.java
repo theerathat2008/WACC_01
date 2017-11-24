@@ -13,8 +13,9 @@ public class InstructionPrintBlocksString extends InstructionPrintBlocks {
 
   /**
    * Class constructor calls super constructor
+   *
    * @param msgNum1 - Indicates the ID of the message to be output
-   * "%.*s\0" should be added and looked up in stringMap
+   *                "%.*s\0" should be added and looked up in stringMap
    */
   public InstructionPrintBlocksString(int msgNum1) {
     super(msgNum1);
@@ -23,6 +24,7 @@ public class InstructionPrintBlocksString extends InstructionPrintBlocks {
 
   /**
    * Assigned string value indicating name of register
+   *
    * @param reg1 - first register
    * @param reg2 - second register
    * @param reg3 - third register

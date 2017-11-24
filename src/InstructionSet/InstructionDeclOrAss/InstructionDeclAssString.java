@@ -14,7 +14,7 @@ public class InstructionDeclAssString extends Instruction {
    *
    * @param msgNum - Indicates the ID of the message to be stored
    */
-  public InstructionDeclAssString(){//int msgNum) {
+  public InstructionDeclAssString() {//int msgNum) {
     //this.msgNum = msgNum;
   }
 

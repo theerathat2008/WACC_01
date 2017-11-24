@@ -11,7 +11,6 @@ public class InstructionMessage extends Instruction {
   }
 
 
-
   @Override
   public void genInstruction() {
     resultBlock.concat(".data\n");
