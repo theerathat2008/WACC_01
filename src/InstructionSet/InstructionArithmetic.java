@@ -16,7 +16,7 @@ public class InstructionArithmetic extends Instruction {
     reg2 = "reg2";
   }
 
-  public void allocateRegisters(RegisterARM reg1, RegisterARM reg2, RegisterARM dst){
+  public void allocateRegisters(RegisterARM dst, RegisterARM reg1, RegisterARM reg2){
     this.dst = dst.name();
     this.reg1 = reg1.name();
     this.reg2 = reg2.name();
@@ -50,7 +50,7 @@ public class InstructionArithmetic extends Instruction {
       builder.append(reg1);
       builder.append(" ASR #31\n\t\tBLNE p_throw_overflow_error\n");
     } else {
-      StringBuilder builder = new StringBuilder("\t\t" + operand + "S");
+      StringBuilder builder = new StringBuilder("\t\t" + getOperand(operand) + "S");
       builder.append(", ");
       builder.append(dst);
       builder.append(", ");
@@ -61,6 +61,19 @@ public class InstructionArithmetic extends Instruction {
       block1 = builder.toString();
       }
     }
+
+
+  public String getOperand(String operand){
+    switch(operand){
+      case "+":
+        return "ADD";
+      case "-":
+        return "SUB";
+      default:
+        return "null";
+    }
+  }
+
   @Override
   public int requiresRegisters() {
     return 3;

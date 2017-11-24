@@ -368,14 +368,14 @@ public class AST_StatExpr extends AST_Stat {
             break;
         }
 
-        registerAllocation.useRegister("expr");
+        RegisterARM reg3 = registerAllocation.useRegister("expr");
+
         expr.acceptRegister(registerAllocation);
 
-        RegisterARM reg3 = registerAllocation.searchByValue("expr");
         InstructionPrint instructionPrint = (InstructionPrint) instr;
+        System.out.println("Allocating registers for print: " + reg3);
         instructionPrint.allocateRegisters(RegisterARM.r0, reg3);
-        System.out.println("Allocating registers for print: " + reg3.name());
-        registerAllocation.freeRegister(reg3);
+
 
         break;
       default:

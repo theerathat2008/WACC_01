@@ -1,6 +1,7 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
+import ASTNodes.AST_Exprs.AST_ExprBinary;
 import ASTNodes.AST_Node;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
@@ -154,32 +155,33 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
 
     String type = ast_expr.getType();
 
-    switch (type) {
-      case ("int"):
-        InstructionDeclAssInt instructionDeclAssInt = new InstructionDeclAssInt();
-        instructionList.add(instructionDeclAssInt);
-        break;
-      case ("string"):
-        InstructionDeclAssString instructionDeclAssString = new InstructionDeclAssString();//registerAllocation.getStringID(GETTHEDATA));
-        instructionList.add(instructionDeclAssString);
-        break;
-      case ("char"):
-        InstructionDeclAssChar instructionDeclAssChar = new InstructionDeclAssChar();
-        instructionList.add(instructionDeclAssChar);
-        break;
-      case ("pair"):
-        //TODO find arguments for below line
-        //InstructionDeclAssPair instructionDeclAssPair = new InstructionDeclAssPair();//GETTHEDATA.TYPE, GETTHEDATA.TYPE, GETTHEDATA, GETTHEDATA);
-        //instructionList.add(instructionDeclAssPair);
-        break;
-      case ("bool"):
-        InstructionDeclAssBool instructionDeclAssBool = new InstructionDeclAssBool();
-        instructionList.add(instructionDeclAssBool);
-        break;
+    if(type != null){
+      switch (type) {
+        case ("int"):
+          InstructionDeclAssInt instructionDeclAssInt = new InstructionDeclAssInt();
+          instructionList.add(instructionDeclAssInt);
+          break;
+        case ("string"):
+          InstructionDeclAssString instructionDeclAssString = new InstructionDeclAssString();//registerAllocation.getStringID(GETTHEDATA));
+          instructionList.add(instructionDeclAssString);
+          break;
+        case ("char"):
+          InstructionDeclAssChar instructionDeclAssChar = new InstructionDeclAssChar();
+          instructionList.add(instructionDeclAssChar);
+          break;
+        case ("pair"):
+          //TODO find arguments for below line
+          //InstructionDeclAssPair instructionDeclAssPair = new InstructionDeclAssPair();//GETTHEDATA.TYPE, GETTHEDATA.TYPE, GETTHEDATA, GETTHEDATA);
+          //instructionList.add(instructionDeclAssPair);
+          break;
+        case ("bool"):
+          InstructionDeclAssBool instructionDeclAssBool = new InstructionDeclAssBool();
+          instructionList.add(instructionDeclAssBool);
+          break;
 
-      case ("array"):
-        System.out.println("TODO implement array statexprrhs");
-       // type = ((AST_StatArrayLitRHS) ast_assignRHS).getTypeOfArray();
+        case ("array"):
+          System.out.println("TODO implement array statexprrhs");
+          // type = ((AST_StatArrayLitRHS) ast_assignRHS).getTypeOfArray();
 /*
         switch (type) {
           case ("int"):
@@ -211,7 +213,11 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
             break;
         }*/
 
+      }
+
+
     }
+
 
 
   }

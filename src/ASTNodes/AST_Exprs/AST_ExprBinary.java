@@ -206,27 +206,21 @@ public class AST_ExprBinary extends AST_Expr {
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
+    RegisterARM reg1 = registerAllocation.useRegister("expr");
+    RegisterARM reg2 = registerAllocation.useRegister("expr");
 
-    registerAllocation.useRegister("expr");
     exprLeftAST.acceptRegister(registerAllocation);
-    RegisterARM reg1 = registerAllocation.searchByValue("expr");
-    registerAllocation.freeRegister(reg1);
-
-    registerAllocation.useRegister("expr");
     exprRightAST.acceptRegister(registerAllocation);
-    RegisterARM reg2 = registerAllocation.searchByValue("expr");
-    registerAllocation.freeRegister(reg2);
 
 
 
     if(opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")){
-      RegisterARM dst = registerAllocation.useRegister("expr");
-      instrA.allocateRegisters(reg1, reg2, dst);
+      RegisterARM dst = registerAllocation.searchByValue("result");
+      instrA.allocateRegisters(dst, reg1, reg2);
     } else {
       RegisterARM dst = registerAllocation.useRegister("expr");
       instrC.allocateRegisters(reg1, reg2, dst);
     }
-
 
   }
 
