@@ -4,6 +4,7 @@ import InstructionSet.Instruction;
 import InstructionSet.InstructionRead;
 import InstructionSet.InstructionReadBlocks.InstructionReadBlocksChar;
 import InstructionSet.InstructionReadBlocks.InstructionReadBlocksInt;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
@@ -204,6 +205,7 @@ public class AST_StatRead extends AST_Stat {
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     ast_statAssignLHS.acceptRegister(registerAllocation);
+    instr.allocateRegisters(RegisterARM.r0, RegisterARM.r1);
   }
 
   /**
@@ -225,12 +227,13 @@ public class AST_StatRead extends AST_Stat {
     int message = 0;
     switch (type) {
       case ("int"):
-
-        InstructionReadBlocksInt instructionPrintReadInt = new InstructionReadBlocksInt(message);
+        registerAllocation.addString(" %d\0");
+        InstructionReadBlocksInt instructionPrintReadInt = new InstructionReadBlocksInt(registerAllocation.getStringID(" %d\0"));
         instructionList.add(instructionPrintReadInt);
         break;
       case ("char"):
-        InstructionReadBlocksChar instructionPrintReadChar = new InstructionReadBlocksChar(message);
+        registerAllocation.addString(" %c\0");
+        InstructionReadBlocksChar instructionPrintReadChar = new InstructionReadBlocksChar(registerAllocation.getStringID(" %c\0"));
         instructionList.add(instructionPrintReadChar);
         break;
       default:
