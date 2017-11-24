@@ -17,12 +17,21 @@ public class InstructionDeclAssArrayString extends InstructionDeclAssArray {
 
   @Override
   public String getArrayElems() {
-    String result = "";
+    StringBuilder result = new StringBuilder();
     for (int i = 1; i < arraySize + 1; i++) {
-      result.concat("\t\tLDR " + reg3 + ", =msg_" + getMsgNum() + "\n");
-      result.concat("\t\tSTR " + reg3 + ", [" + reg2 + ", #" + ((i*4) + "]\n"));
+      result.append("\t\tLDR ");
+      result.append(reg3);
+      result.append(", =msg_");
+      result.append(getMsgNum());
+      result.append("\n\t\tSTR ");
+      result.append(reg3);
+      result.append(", [");
+      result.append(reg2);
+      result.append(", #");
+      result.append((4 * (i + 1)));
+      result.append("]\n");
     }
-    return result;
+    return result.toString();
   }
 
   @Override

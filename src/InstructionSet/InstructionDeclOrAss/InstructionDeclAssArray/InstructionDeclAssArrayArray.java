@@ -18,13 +18,23 @@ public class InstructionDeclAssArrayArray<T> extends InstructionDeclAssArray {
 
   @Override
   public String getArrayElems() {
-    String result = "";
+    StringBuilder result = new StringBuilder();
 
     for (int i = 0; i < arraySize; i++) {
-      result.concat("\t\tLDR " + reg3 + ", " + "[sp, #" + getArrayFromSP() + "]" + "\n");
-      result.concat("\t\tSTR " + reg3 + ", " + "[" + reg2 + ", " + "#" + (4 * (i + 1)) + "]\n");
+      result.append("\t\tLDR ");
+      result.append(reg3);
+      result.append(", [sp, #");
+      result.append(getArrayFromSP());
+      result.append("]\n\t\tSTR ");
+      result.append(reg3);
+      result.append(", [");
+      result.append(reg2);
+      result.append(", #");
+      result.append((4 * (i + 1)));
+      result.append("]\n");
+
     }
-    return result;
+    return result.toString();
   }
 
   @Override

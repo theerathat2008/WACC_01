@@ -13,10 +13,22 @@ public class InstructionAssArrayString extends InstructionAssArrayElem {
 
   @Override
   public String getSTRLast() {
-    String result = "";
-    result.concat("\t\tADD " + reg4 + ", " + reg4 + ", " + reg5 + ", LSL #2" + "\n");
-    result.concat("\t\tSTR " + reg3 + ", " + "[" + reg4 + "]" + "\n");
-    return result;
+    StringBuilder result = new StringBuilder();
+    result.append("\t\tADD ");
+    result.append(reg4);
+    result.append(", ");
+    result.append(reg4);
+    result.append(", ");
+    result.append(reg5);
+    result.append(", LSL #2");
+    result.append("\n\t\tSTR ");
+    result.append(reg3);
+    result.append(", [");
+    result.append(reg4);
+    result.append("]\n");
+
+    return result.toString();
+
   }
 
 }

@@ -1,9 +1,10 @@
 package InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray;
 
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 
 public abstract class InstructionDeclAssArray extends Instruction {
-  String resultBlock = "";
+  String resultBlock;
   String reg1;
   String reg2;
   String reg3;
@@ -17,10 +18,10 @@ public abstract class InstructionDeclAssArray extends Instruction {
    * Assigned string value indicating name of register
    * PARAM? TODO
    */
-  public void allocateRegisters(String reg1, String reg2, String reg3) {
-    this.reg1 = reg1;
-    this.reg2 = reg2;
-    this.reg3 = reg3;
+  public void allocateRegisters(RegisterARM reg1, RegisterARM reg2, RegisterARM reg3) {
+    this.reg1 = reg1.name();
+    this.reg2 = reg2.name();
+    this.reg3 = reg3.name();
   }
 
   public abstract String getArrayElems();
@@ -29,13 +30,29 @@ public abstract class InstructionDeclAssArray extends Instruction {
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    resultBlock.concat("\t\tLDR " +  reg1 + ", =" + (4*(arraySize + 1)) + "\n");
-    resultBlock.concat("\t\tBL malloc\n");
-    resultBlock.concat("\t\tMOV " +  reg2 + ", " + reg1 + "\n");
-    resultBlock.concat(getArrayElems());
-    resultBlock.concat("\t\tLDR " +  reg3 + ", =" + arraySize + "\n");
-    resultBlock.concat("\t\tSTR " +  reg3 + ", " + "[" + reg2 + "]" + "\n");
-    resultBlock.concat("\t\tSTR " +  reg3 + ", " + "[sp]" + "\n");
+    StringBuilder builder = new StringBuilder();
+    builder.append("\t\tLDR ");
+    builder.append(reg1);
+    builder.append(", =");
+    builder.append((4*(arraySize + 1)));
+    builder.append("\n\t\tBL malloc\n\t\tMOV ");
+    builder.append(reg2);
+    builder.append(", ");
+    builder.append(reg1);
+    builder.append("\n");
+    builder.append(getArrayElems());
+    builder.append("\t\tLDR ");
+    builder.append(reg3);
+    builder.append(", =");
+    builder.append(arraySize);
+    builder.append("\n\t\tSTR ");
+    builder.append(reg3);
+    builder.append(", [");
+    builder.append(reg2);
+    builder.append("]\n\t\tSTR ");
+    builder.append(reg3);
+    builder.append(", [sp]\n");
+    resultBlock = builder.toString();
   }
 
 }

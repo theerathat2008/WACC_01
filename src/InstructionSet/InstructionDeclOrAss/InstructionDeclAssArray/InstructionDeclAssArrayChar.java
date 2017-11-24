@@ -12,13 +12,23 @@ public class InstructionDeclAssArrayChar extends InstructionDeclAssArray {
 
   @Override
   public String getArrayElems() {
-    String result = "";
+    StringBuilder result = new StringBuilder();
 
     for (int i = 0; i < arraySize; i ++) {
-      result.concat("\t\tMOV " +  reg3 + ", #'" + arrayElems.get(i) + "'\n");
-      result.concat("\t\tSTRB " +  reg3 + ", [" + reg2 + ", #" + (4+i) + "]\n");
+      result.append("\t\tMOV ");
+      result.append(reg3);
+      result.append(", #");
+      result.append(arrayElems.get(i));
+      result.append("\n\t\tSTRB ");
+      result.append(reg3);
+      result.append(", [");
+      result.append(reg2);
+      result.append(", #");
+      result.append((4+i));
+      result.append("]\n");
+
     }
-    return result;
+    return result.toString();
   }
 
   @Override

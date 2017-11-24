@@ -1,6 +1,7 @@
 package InstructionSet.InstructionDeclOrAss;
 
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 
 public class InstructionDeclAssPairElem extends Instruction{
   String resultBlock = "";
@@ -17,21 +18,47 @@ public class InstructionDeclAssPairElem extends Instruction{
   public void allocateSP(){
     this.sp = sp;
   }
-  public void allocateRegisters() {
-    this.reg1 = reg1;
-    this.reg2 = reg2;
+  public void allocateRegisters(RegisterARM reg1, RegisterARM reg2) {
+    this.reg1 = reg1.name();
+    this.reg2 = reg2.name();
   }
 
 
 
   @Override
   public void genInstruction() {
-    resultBlock.concat("\t\tLDR " +  reg2 + ", [sp, #" + sp + "]\n");
-    resultBlock.concat("\t\tMOV " +  reg1 + ", " + reg2 + "\n");
-    resultBlock.concat("\t\tBL p_check_null_pointer\n");
-    resultBlock.concat("\t\tLDR " +  reg2 + ", [" + reg2 + ", #" + getDisp() + "]\n");
-    resultBlock.concat("\t\tLDR " +  reg2 + ", [" +  reg1 + "]\n");
-    resultBlock.concat("\t\tSTR " +  reg2 + ", [" +  reg1 + "]\n");
+    StringBuilder builder = new StringBuilder();
+    builder.append("\t\tLDR ");
+    builder.append(reg2);
+    builder.append(", [sp, #");
+    builder.append(sp);
+    builder.append("]\n\t\tMOV ");
+    builder.append(reg1);
+    builder.append(", ");
+    builder.append(reg2);
+    builder.append("\n\t\tBL p_check_null_pointer\n\t\tLDR ");
+    builder.append(reg2);
+    builder.append(", [");
+    builder.append(reg2);
+    builder.append(", #");
+    builder.append(getDisp());
+    builder.append("]\n\t\tLDR ");
+    builder.append(reg2);
+    builder.append(", [");
+    builder.append(reg1);
+    builder.append("]\n\t\tSTR ");
+    builder.append(reg2);
+    builder.append(", [");
+    builder.append(reg1);
+    builder.append("]\n");
+
+//    resultBlock.concat("\t\tLDR " +  reg2 + ", [sp, #" + sp + "]\n");
+//    resultBlock.concat("\t\tMOV " +  reg1 + ", " + reg2 + "\n");
+//    resultBlock.concat("\t\tBL p_check_null_pointer\n");
+//    resultBlock.concat("\t\tLDR " +  reg2 + ", [" + reg2 + ", #" + getDisp() + "]\n");
+//    resultBlock.concat("\t\tLDR " +  reg2 + ", [" +  reg1 + "]\n");
+//    resultBlock.concat("\t\tSTR " +  reg2 + ", [" +  reg1 + "]\n");
+    resultBlock = builder.toString();
   }
 
   private String getDisp() {
