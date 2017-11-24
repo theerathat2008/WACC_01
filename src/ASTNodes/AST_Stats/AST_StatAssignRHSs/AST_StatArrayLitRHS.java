@@ -38,7 +38,6 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
    * @param numberOfChildren - Shows the number of parameters in the parameter list of function
    */
   public AST_StatArrayLitRHS(int numberOfChildren, ParserRuleContext ctx) {
-    System.out.println("WTFFFFFFFFFFFFF");
     ast_exprList = new ArrayList<>();
     if (numberOfChildren == 2) {
       this.numOfExpr = 0;
