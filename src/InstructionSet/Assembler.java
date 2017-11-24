@@ -88,7 +88,11 @@ public class Assembler {
         result.append("\tmsg_");
         result.append(Integer.toString(i));
         result.append("\n\t\t.word ");
-        result.append(Integer.toString(stringList.get(i).length()));
+        if(stringList.get(i).contains("\\")){
+          result.append(Integer.toString(stringList.get(i).length() - 1));
+        } else {
+          result.append(Integer.toString(stringList.get(i).length()));
+        }
         result.append("\n\t\t.ascii \"");
         result.append(stringList.get(i));
         result.append("\"\n\n");

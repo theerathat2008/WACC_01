@@ -177,7 +177,7 @@ public class AST_StatExpr extends AST_Stat {
       //debug message
       System.out.println(temp.ast_type.getIdentifier().toString());
       if (expr.getIdentifier() == null) {
-        System.out.println("null");
+        //System.out.println("null here");
         System.out.println(expr.getType());
       }
 

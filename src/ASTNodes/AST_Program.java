@@ -193,7 +193,7 @@ public class AST_Program extends AST_Node {
 
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    InstructionProgram instruction = new InstructionProgram();
+    InstructionProgram instruction = new InstructionProgram(registerAllocation);
     instructionList.add(instruction);
     instr = instruction;
   }

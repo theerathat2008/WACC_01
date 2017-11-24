@@ -451,7 +451,6 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
     for(AST_Expr expr : ast_exprList){
       expr.acceptInstr(assemblyCode);
     }
-    System.out.println(instrCall.getResultBlock());
     assemblyCode.add(instrCall.getResultBlock());
   }
 

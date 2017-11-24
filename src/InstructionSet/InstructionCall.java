@@ -21,6 +21,7 @@ public class InstructionCall extends Instruction{
     block.append("\t\tBL f_");
     block.append(fName);
     block.append("\n");
+    resultBlock = block.toString();
   }
 
   @Override
