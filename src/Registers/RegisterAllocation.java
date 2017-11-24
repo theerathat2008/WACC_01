@@ -23,6 +23,10 @@ public class RegisterAllocation{
     return stackSize;
   }
 
+  public void setStackSize(int stackSize){
+    this.stackSize = stackSize;
+  }
+
   public void setCurrentScope(String currentScope) {
     this.currentScope = currentScope;
   }
