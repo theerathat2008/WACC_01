@@ -1,6 +1,10 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import InstructionSet.Instruction;
+import InstructionSet.InstructionDeclOrAss.InstructionArrayDeclAss;
+import InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray.InstructionDeclAssArrayInt;
+import InstructionSet.InstructionPrintBlocks.InstructionPrintBlocksRef;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
@@ -25,6 +29,8 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
   int numOfExpr;
   String type;
   ParserRuleContext ctx;
+  InstructionArrayDeclAss instr;
+  int currentPos = 0;
 
   /**
    * Constructor for class - initialises class variables
@@ -32,6 +38,7 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
    * @param numberOfChildren - Shows the number of parameters in the parameter list of function
    */
   public AST_StatArrayLitRHS(int numberOfChildren, ParserRuleContext ctx) {
+    System.out.println("WTFFFFFFFFFFFFF");
     ast_exprList = new ArrayList<>();
     if (numberOfChildren == 2) {
       this.numOfExpr = 0;
@@ -213,9 +220,17 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
+    int count = 0;
+    assemblyCode.add(instr.getResultBlock1());
     for(AST_Expr expr : ast_exprList){
+      count++;
       expr.acceptInstr(assemblyCode);
+      instr.setDisp(count*getElemSize());
+      instr.genInstruction();
+      assemblyCode.add(instr.getResultBlock());
     }
+    assemblyCode.add(instr.getResultBlock2());
+
   }
 
   @Override
@@ -223,9 +238,44 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
     for(AST_Expr expr : ast_exprList){
       expr.acceptRegister(registerAllocation);
     }
+
+    RegisterARM reg2 = registerAllocation.useRegister("temp");
+    RegisterARM reg3 = registerAllocation.useRegister("temp2");
+    instr.allocateRegisters(RegisterARM.r0.toString(), reg2.toString(), reg3.toString());
+  }
+
+  public int getArraySize(){
+    this.type = getTypeOfArray();
+    if (type.equals("bool") || type.equals("char")) {
+      return numOfExpr+4;
+    }
+    return (numOfExpr+1)*4;
+  }
+
+  public int getElemSize(){
+    this.type = getTypeOfArray();
+    currentPos++;
+    if (type.equals("bool") || type.equals("char")) {
+      return 1;
+    }
+    return 4;
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    this.type = getTypeOfArray();
+    String strType = "";
+
+    if (type.equals("bool") || type.equals("char")) {
+      strType = "STRB";
+    } else {
+      strType = "STR";
+    }
+
+    InstructionArrayDeclAss instructionArrayDeclAss
+            = new InstructionArrayDeclAss(getArraySize(), numOfExpr, strType);
+    this.currentPos++;
+    instructionList.add(instructionArrayDeclAss);
+    instr = instructionArrayDeclAss;
 
   }
 
