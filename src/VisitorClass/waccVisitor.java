@@ -9,6 +9,9 @@ import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatPairElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.*;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
+import ErrorMessages.FunctionRedeclarationError;
+import ErrorMessages.VariableRedeclarationError;
+import IdentifierObjects.IDENTIFIER;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_ArrayType;
 import ASTNodes.AST_TYPES.AST_BaseType;
@@ -16,6 +19,7 @@ import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_ArrayTypePair;
 import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_BaseTypePair;
 import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairString;
 import ASTNodes.AST_TYPES.AST_PairType;
+import src.FilePosition;
 
 import antlr.*;
 
@@ -132,7 +136,26 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode = funcNode;
     currentGlobalTree = funcNode.symbolTable;
 
+    SymbolTable tempST = currentGlobalTree;
+    String funcName = funcNode.getFuncName();
+    IDENTIFIER type = tempST.lookup(funcName);
 
+    while (type == null) {
+      tempST = tempST.encSymTable;
+      try {
+        type = tempST.lookup(funcName);
+      } catch (NullPointerException e) {
+        System.out.println("NullPointerException caught");
+        type = null;
+        break;
+      }
+    }
+
+    System.out.println("Type is: " + type);
+
+    if (type != null) {
+      new FunctionRedeclarationError(new FilePosition(ctx)).printAll();
+    }
 
     //Debug statement
     System.out.println("Func");
@@ -826,6 +849,27 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Set parentNode of AST class and global visitor class
     statVarDeclNode.setParentNode(parentVisitorNode);
     parentVisitorNode = statVarDeclNode;
+
+    SymbolTable tempST = currentGlobalTree;
+    String identName = statVarDeclNode.getIdentName();
+    IDENTIFIER type = tempST.lookup(identName);
+
+    while (type == null) {
+      tempST = tempST.encSymTable;
+      try {
+        type = tempST.lookup(identName);
+      } catch (NullPointerException e) {
+        System.out.println("NullPointerException caught");
+        type = null;
+        break;
+      }
+    }
+
+    System.out.println("Type is: " + type);
+
+    if (type != null) {
+      new VariableRedeclarationError(new FilePosition(ctx)).printAll();
+    }
 
     //Debug statement
     System.out.println("statVarDecl");

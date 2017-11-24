@@ -436,5 +436,7 @@ public class AST_StatVarDecl extends AST_Stat {
 
   }
 
-
+  public String getIdentName() {
+    return identName;
+  }
 }

@@ -208,7 +208,20 @@ public class AST_FuncDecl extends AST_Node {
       }
     }*/
 
+    /*while (type == null) {
+      System.out.println("Type is null");
+      tempST = tempST.encSymTable;
+      try{
+        type = tempST.lookup(funcName);
+      } catch (NullPointerException e) {
+        System.out.println("Null pointer exception caught;");
+        type = null;
+        break;
+      }
+    }*/
+
     //TODO maybe find duplicates for name instead
+    //TODO is there anyway to check if function declare 2 times
 
     if (type == null) {
       return true;
