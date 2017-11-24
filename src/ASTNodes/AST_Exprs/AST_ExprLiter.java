@@ -233,8 +233,9 @@ public class AST_ExprLiter extends AST_Expr {
       resultReg = registerAllocation.searchByValue("result");
     }
 
-    System.out.println("RESULT REG IS : " + resultReg);
+    System.out.println("RESULT REG IS: at " + constant +  ": " + resultReg);
     instr.registerAllocation(resultReg);
+
   }
 
 
