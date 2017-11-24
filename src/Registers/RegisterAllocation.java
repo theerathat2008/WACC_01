@@ -19,6 +19,8 @@ public class RegisterAllocation{
 
   int stackSize;
 
+  int currentLabel = 0;
+
   public int getStackSize() {
     return stackSize;
   }
@@ -242,6 +244,10 @@ public class RegisterAllocation{
     allRegs.remove(RegisterARM.SP);
     allRegs.remove(RegisterARM.SPSR);
     return allRegs;
+  }
+
+  public String generateLabel() {
+    return "L" + currentLabel++;
   }
 
   /**

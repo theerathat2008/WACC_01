@@ -54,8 +54,8 @@ public class InstructionIf extends Instruction {
     blockElse = block2.toString();
 
     StringBuilder block3 = new StringBuilder("\t");
-    block3.append(blockContinue);
-    block3.append(":");
+    block3.append(continueName);
+    block3.append(":\n");
     blockContinue = block3.toString();
 
   }

@@ -211,6 +211,8 @@ public class AST_StatWhile extends AST_Stat {
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     InstructionWhile instructionWhile = new InstructionWhile();
     //Allocate registers for exprReg
+
+    instructionWhile.setLabels(registerAllocation.generateLabel(), registerAllocation.generateLabel());
     instructionList.add(instructionWhile);
 
   }

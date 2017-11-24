@@ -261,6 +261,9 @@ public class AST_StatIf extends AST_Stat {
 
     //Allocate registers for exprReg
 
+    instructionIf.setLabels(registerAllocation.generateLabel(), registerAllocation.generateLabel());
+
     instructionList.add(instructionIf);
+    instr = instructionIf;
   }
 }

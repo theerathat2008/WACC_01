@@ -257,7 +257,7 @@ public class AST_ExprLiter extends AST_Expr {
       registerAllocation.addString(constant);
 
 
-    } else  {
+    } else {
       InstructionAssignLit instructionAssignLit = new InstructionAssignLit(constant, literal);
       instr = instructionAssignLit;
       instructionList.add(instr);

@@ -38,7 +38,16 @@ public class InstructionAssignLit extends Instruction{
       builder.append("\n");
       block1 = builder.toString();
     } else if (lit.equals("bool")) {
-
+      StringBuilder builder = new StringBuilder("\t\tLDR ");
+      builder.append(reg);
+      builder.append(", =");
+      if (constant.equals("true")) {
+        builder.append("1");
+      } else {
+        builder.append("0");
+      }
+      builder.append("\n");
+      block1 = builder.toString();
     } else if (lit.equals("pair")){
 
     }

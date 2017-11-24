@@ -31,7 +31,7 @@ public class InstructionPrint extends Instruction {
 
   public String getPrintType() {
     switch (type){
-      case("string"):
+      case("str"):
         return "p_print_string";
       case("bool"):
         return "p_print_bool";
@@ -44,7 +44,8 @@ public class InstructionPrint extends Instruction {
       case("int"):
         return "p_print_int";
       default:
-        System.out.println("Unrecognised type on InstructionReadBlocks");
+        System.out.println("Unrecognised type on InstructionPrintBlocks");
+        System.out.println("Was type:" + type);
         break;
     }
     return "";

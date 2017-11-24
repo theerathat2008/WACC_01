@@ -450,7 +450,7 @@ public class AST_StatExpr extends AST_Stat {
               instructionList.add(instructionPrintInt);
             }
             break;
-          case ("string"):
+          case ("str"):
             registerAllocation.addString("%.*s\\0");
             InstructionPrintBlocksString instructionPrintString = new InstructionPrintBlocksString(registerAllocation.getStringID("%.*s\\0"));
             if (!instructionList.contains(instructionPrintString)) {
