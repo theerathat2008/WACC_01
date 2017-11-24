@@ -34,13 +34,14 @@ public class InstructionProgram extends Instruction {
 
     block1 = builder.toString();
 
-    StringBuilder builder2 = new StringBuilder("\t\tLDR r0, =0\n");
-
+    StringBuilder builder2 = new StringBuilder();
     if(registerAllocation.getStackSize() > 0 ){
       builder2.append("\t\tADD sp, sp, #");
       builder2.append(registerAllocation.getStackSize());
       builder2.append("\n");
     }
+
+    builder2.append("\t\tLDR r0, =0\n");
     builder2.append("\t\tPOP {pc}\n");
     builder2.append("\t\t.ltorg\n");
 

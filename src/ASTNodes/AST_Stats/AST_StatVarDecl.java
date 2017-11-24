@@ -400,7 +400,6 @@ public class AST_StatVarDecl extends AST_Stat {
     }
     registerAllocation.setStackSize(displacement + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
 
-    System.out.println("STACK SIZE IN STAT VAR DECl IS: " + registerAllocation.getStackSize());
     registerAllocation.addToStack(identName, new StackLocation(stackLocation.toString(), registerAllocation.getCurrentScope()));
 
     instrVar.setStackLocation(stackLocation.toString());
