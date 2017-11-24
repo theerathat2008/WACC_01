@@ -12,7 +12,7 @@ public class InstructionFunction extends Instruction {
   public void genInstruction() {
     StringBuilder builder = new StringBuilder("\t");
     builder.append("f_" + name);
-    builder.append("\n");
+    builder.append(":\n");
     builder.append("\t\tPUSH {lr}\n");
     block1 = builder.toString();
 

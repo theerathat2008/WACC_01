@@ -113,6 +113,9 @@ public class AST_StatAssignLHS extends AST_Stat {
   public String getType(SymbolTable ST) {
     return type;
   }
+  public String getType() {
+    return type;
+  }
 
   /**
    * Used for testing - Prints out contents of current AST node
