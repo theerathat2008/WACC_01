@@ -42,7 +42,6 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
     filename = f.getName();
     filename = filename.substring(0, filename.lastIndexOf('.'));
     this.filename = filename;
-    System.out.println(filename);
   }
 
   public void setRootNode(AST_Node rootNode) {

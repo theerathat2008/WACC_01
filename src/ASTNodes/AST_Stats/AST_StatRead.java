@@ -218,7 +218,6 @@ public class AST_StatRead extends AST_Stat {
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     String type = ast_statAssignLHS.getIdentifier().toString();
-    //TODO ASSIGN MESSAGE SIMILAR TO PRASHAN'S PRINT CODE
     InstructionRead instructionRead = new InstructionRead(ast_statAssignLHS.getType());
     //register allocation
     instructionList.add(instructionRead);
