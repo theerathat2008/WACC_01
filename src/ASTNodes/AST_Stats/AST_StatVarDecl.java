@@ -390,7 +390,10 @@ public class AST_StatVarDecl extends AST_Stat {
     //set stack location
 
     StringBuilder stackLocation = new StringBuilder();
-    int displacement = registerAllocation.getStackSize();
+    int displacement = registerAllocation.getFinalStackSize() - registerAllocation.getStackSize()
+        - registerAllocation.getMemSize(ast_type.getIdentifier().toString());
+
+    System.out.println("Final stack size is: " + registerAllocation.getFinalStackSize());
     if(displacement == 0){
       stackLocation.append("[sp]");
     } else{
@@ -398,7 +401,8 @@ public class AST_StatVarDecl extends AST_Stat {
       stackLocation.append(displacement);
       stackLocation.append("]");
     }
-    registerAllocation.setStackSize(displacement + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
+
+    registerAllocation.setStackSize(registerAllocation.getStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
 
     registerAllocation.addToStack(identName, new StackLocation(stackLocation.toString(), registerAllocation.getCurrentScope()));
 
@@ -423,5 +427,7 @@ public class AST_StatVarDecl extends AST_Stat {
     InstructionVarDecl instructionVarDecl = new InstructionVarDecl(ast_type.getIdentifier().toString());
     instructionList.add(instructionVarDecl);
     instrVar = instructionVarDecl;
+
+    registerAllocation.setFinalStackSize(registerAllocation.getFinalStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
   }
 }

@@ -217,6 +217,7 @@ public class AST_ExprBinary extends AST_Expr {
     if(opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")){
       RegisterARM dst = registerAllocation.searchByValue("result");
       instrA.allocateRegisters(dst, reg1, reg2);
+      //registerAllocation.freeRegister(dst);
     } else {
       RegisterARM dst = registerAllocation.useRegister("expr");
       instrC.allocateRegisters(reg1, reg2, dst);
