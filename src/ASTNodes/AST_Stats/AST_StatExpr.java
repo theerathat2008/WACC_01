@@ -292,8 +292,10 @@ public class AST_StatExpr extends AST_Stat {
       case ("print"):
         InstructionPrint instructionPrint = (InstructionPrint) instr;
         assemblyCode.add(instructionPrint.getResultBlock());
-        InstructionPrintln instructionPrintln = (InstructionPrintln) instrPrintLine;
-        assemblyCode.add(instructionPrintln.getResultBlock());
+        if (statName.equals("println")) {
+          InstructionPrintln instructionPrintln = (InstructionPrintln) instrPrintLine;
+          assemblyCode.add(instructionPrintln.getResultBlock());
+        }
         break;
       default:
         System.out.println("Unrecognised statement type in AST_StatExpr");
