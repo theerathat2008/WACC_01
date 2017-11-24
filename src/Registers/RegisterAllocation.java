@@ -19,10 +19,20 @@ public class RegisterAllocation{
 
   int stackSize;
 
+  int finalStackSize = 0;
+
   int currentLabel = 0;
 
   public int getStackSize() {
     return stackSize;
+  }
+
+  public int getFinalStackSize() {
+    return finalStackSize;
+  }
+
+  public void setFinalStackSize(int finalStackSize) {
+    this.finalStackSize = finalStackSize;
   }
 
   public void setStackSize(int stackSize){
