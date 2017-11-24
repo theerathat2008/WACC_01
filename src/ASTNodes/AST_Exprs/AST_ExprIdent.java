@@ -180,8 +180,8 @@ public class AST_ExprIdent extends AST_Expr {
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
-
     InstructionAssignIdent instructionAssignIdent = new InstructionAssignIdent();
+    instructionList.add(instructionAssignIdent);
     instr = instructionAssignIdent;
 
   }
