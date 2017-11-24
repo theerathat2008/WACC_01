@@ -1,6 +1,7 @@
 package InstructionSet.InstructionDeclOrAss;
 
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 
 public class InstructionDeclAssChar extends Instruction {
   String resultBlock;
@@ -24,8 +25,8 @@ public class InstructionDeclAssChar extends Instruction {
    * Assigned string value indicating name of register
    * @param reg - first register
    */
-  public void allocateRegisters(String reg) {
-    this.reg = reg;
+  public void allocateRegisters(RegisterARM reg) {
+    this.reg = reg.name();
   }
 
   /**
@@ -33,7 +34,13 @@ public class InstructionDeclAssChar extends Instruction {
    */
   public void genInstruction() {
     //resultBlock.concat("\t\tMOV " + reg + ", #'" + charData + "'\n");
-    resultBlock.concat("\t\tSTRB " + reg + ", [" + sp + "]\n");
+    StringBuilder builder = new StringBuilder();
+    builder.append("\t\tSTRB ");
+    builder.append(reg);
+    builder.append(", [");
+    builder.append(sp);
+    builder.append("]\n");
+    resultBlock = builder.toString();
   }
 
   @Override

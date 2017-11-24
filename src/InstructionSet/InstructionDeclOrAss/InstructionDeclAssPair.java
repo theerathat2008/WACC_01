@@ -1,6 +1,7 @@
 package InstructionSet.InstructionDeclOrAss;
 
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 
 public class InstructionDeclAssPair extends Instruction {
   String reg1;
@@ -24,10 +25,10 @@ public class InstructionDeclAssPair extends Instruction {
     reg3 = "reg3";
   }
 
-  public void allocateRegisters(String reg1, String reg2, String reg3) {
-    this.reg1 = reg1;
-    this.reg2 = reg2;
-    this.reg3 = reg3;
+  public void allocateRegisters(RegisterARM reg1, RegisterARM reg2, RegisterARM reg3) {
+    this.reg1 = reg1.name();
+    this.reg2 = reg2.name();
+    this.reg3 = reg3.name();
   }
 
   public void allocateSP(String sp1, String sp2){
@@ -57,20 +58,62 @@ public class InstructionDeclAssPair extends Instruction {
 
   //TODO 3 blocks for below?
   public void genInstruction() {
-    resultBlock.concat("\t\tLDR " +  reg1 + ", =8" + "\n");
-    resultBlock.concat("\t\tBL malloc\n");
-    resultBlock.concat("\t\tMOV " +  reg2 + ", " + reg1 + "\n");
-    getElemBlock(firstType, firstElem);
-    resultBlock.concat("\t\tLDR " +  reg1 + ", =" + getTypeInt() + "\n");
-    resultBlock.concat("\t\tBL malloc\n");
-    resultBlock.concat("\t\tSTR " +  reg3 + ", [" +  reg1 + "]\n");
-    resultBlock.concat("\t\tSTR " +  reg1 + ", [" +  reg2 + "]\n");
-    getElemBlock(secondType, secondElem);
-    resultBlock.concat("\t\tLDR " +  reg1 + ", =" + getTypeInt() + "\n");
-    resultBlock.concat("\t\tBL malloc\n");
-    resultBlock.concat("\t\tSTR " +  reg3 + ", [" +  reg1 + "]\n");
-    resultBlock.concat("\t\tSTR " +  reg1 + ", [" +  reg2 + ", #4]\n");
-    resultBlock.concat("\t\tSTR " +  reg2 + ", [sp, #" + sp2 + "]\n");
+    StringBuilder builder = new StringBuilder();
+    builder.append("\t\tLDR ");
+    builder.append(reg1);
+    builder.append(", =8\n\t\tBL malloc\n\t\tMOV ");
+    builder.append(reg2);
+    builder.append(", ");
+    builder.append(reg1);
+    builder.append("\n");
+    builder.append(getElemBlock(firstType, firstElem));  //maybe, not sure if this is intended use of this function
+    builder.append("\t\tLDR ");
+    builder.append(reg1);
+    builder.append(", =");
+    builder.append(getTypeInt());
+    builder.append("\n\t\tBL malloc\n\t\tSTR ");
+    builder.append(reg3);
+    builder.append(", [");
+    builder.append(reg1);
+    builder.append("]\n\t\tSTR ");
+    builder.append(reg1);
+    builder.append(", [");
+    builder.append(reg2);
+    builder.append("]\n");
+    builder.append(getElemBlock(secondType, secondElem)); //maybe, not sure if this is intended use of this function
+    builder.append("\t\tLDR ");
+    builder.append(reg1);
+    builder.append(", =");
+    builder.append(getTypeInt());
+    builder.append("\n\t\tBL malloc\n\t\tSTR ");
+    builder.append(reg3);
+    builder.append(", [");
+    builder.append(reg1);
+    builder.append("]\n\t\tSTR ");
+    builder.append(reg1);
+    builder.append(", [");
+    builder.append(reg2);
+    builder.append(", #4]\n\t\tSTR ");
+    builder.append(reg2);
+    builder.append(", [sp, #");
+    builder.append(sp2);
+    builder.append("]\n");
+
+//    resultBlock.concat("\t\tLDR " +  reg1 + ", =8" + "\n");
+//    resultBlock.concat("\t\tBL malloc\n");
+//    resultBlock.concat("\t\tMOV " +  reg2 + ", " + reg1 + "\n");
+//    getElemBlock(firstType, firstElem);
+//    resultBlock.concat("\t\tLDR " +  reg1 + ", =" + getTypeInt() + "\n");
+//    resultBlock.concat("\t\tBL malloc\n");
+//    resultBlock.concat("\t\tSTR " +  reg3 + ", [" +  reg1 + "]\n");
+//    resultBlock.concat("\t\tSTR " +  reg1 + ", [" +  reg2 + "]\n");
+//    getElemBlock(secondType, secondElem);
+//    resultBlock.concat("\t\tLDR " +  reg1 + ", =" + getTypeInt() + "\n");
+//    resultBlock.concat("\t\tBL malloc\n");
+//    resultBlock.concat("\t\tSTR " +  reg3 + ", [" +  reg1 + "]\n");
+//    resultBlock.concat("\t\tSTR " +  reg1 + ", [" +  reg2 + ", #4]\n");
+//    resultBlock.concat("\t\tSTR " +  reg2 + ", [sp, #" + sp2 + "]\n");
+    resultBlock = builder.toString();
   }
 
   @Override

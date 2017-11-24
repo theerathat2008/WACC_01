@@ -1,6 +1,7 @@
 package ASTNodes.AST_Stats;
 
 import InstructionSet.Instruction;
+import InstructionSet.InstructionRead;
 import InstructionSet.InstructionReadBlocks.InstructionReadBlocksChar;
 import InstructionSet.InstructionReadBlocks.InstructionReadBlocksInt;
 import Registers.RegisterAllocation;
@@ -27,6 +28,7 @@ public class AST_StatRead extends AST_Stat {
   //Semantic attribute
   ParserRuleContext ctx;
   SymbolTable symbolTable;
+  InstructionRead instr;
 
   /**
    * Assign the class variables when called
@@ -195,7 +197,8 @@ public class AST_StatRead extends AST_Stat {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    ast_statAssignLHS.acceptInstr(assemblyCode);
+    assemblyCode.add(instr.resultBlock);
   }
 
   @Override
@@ -214,6 +217,11 @@ public class AST_StatRead extends AST_Stat {
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     String type = ast_statAssignLHS.getIdentifier().toString();
     //TODO ASSIGN MESSAGE SIMILAR TO PRASHAN'S PRINT CODE
+    InstructionRead instructionRead = new InstructionRead(ast_statAssignLHS.getType());
+    //register allocation
+    instructionList.add(instructionRead);
+    instr = instructionRead;
+
     int message = 0;
     switch (type) {
       case ("int"):

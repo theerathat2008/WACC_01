@@ -18,13 +18,22 @@ public class InstructionDeclAssArrayBool extends InstructionDeclAssArray {
 
   @Override
   public String getArrayElems() {
-    String result = "";
+    StringBuilder result = new StringBuilder();
 
     for (int i = 0; i < arraySize; i++) {
-      result.concat("\t\tMOV " + reg3 + ", #" + getBoolNum(arrayElems.get(i)) + "]" + "\n");
-      result.concat("\t\tSTRB " + reg3 + ", [" + reg2 + ", " + "#" + (4+i) + "]\n");
+      result.append("\t\tMOV ");
+      result.append(reg3);
+      result.append(", #");
+      result.append(getBoolNum(arrayElems.get(i)));
+      result.append("\n\t\tSTRB "); //may need a ] here, not sure, was in original code but doesnt make sense
+      result.append(reg3);
+      result.append(", [");
+      result.append(reg2);
+      result.append(", #");
+      result.append((4 + i));
+      result.append("]\n");
     }
-    return result;
+    return result.toString();
   }
 
   @Override

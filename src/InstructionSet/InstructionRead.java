@@ -1,8 +1,10 @@
 package InstructionSet;
 
+import Registers.RegisterARM;
+
 public class InstructionRead extends Instruction{
 
-  String resultBlock = "";
+  public String resultBlock = "";
   String reg1;
   String reg2;
   String sp;
@@ -18,9 +20,9 @@ public class InstructionRead extends Instruction{
     this.sp = sp;
   }
 
-  public void allocateRegisters(String reg1, String reg2) {
-    this.reg1 = reg1;
-    this.reg2 = reg2;
+  public void allocateRegisters(RegisterARM reg1, RegisterARM reg2) {
+    this.reg1 = reg1.name();
+    this.reg2 = reg2.name();
   }
 
 
@@ -42,9 +44,20 @@ public class InstructionRead extends Instruction{
 
   @Override
   public void genInstruction() {
-    resultBlock.concat("\t\tLDRSB " + reg2 + sp + "\n");
-    resultBlock.concat("\t\tMOV " +  reg1 + ", " + reg2 + "\n");
-    resultBlock.concat("\t\tBL " + getPrintType() + "\n");
+    StringBuilder builder = new StringBuilder();
+    builder.append("\t\tLDRSB ");
+    builder.append(reg2);
+    builder.append(", "); //not in original, not sure if correct
+    builder.append(sp);
+    builder.append("\n\t\tMOV ");
+    builder.append(reg1);
+    builder.append(", ");
+    builder.append(reg2);
+    builder.append("\n\t\tBL ");
+    builder.append(getPrintType());
+    builder.append("\n");
+
+    resultBlock = builder.toString();
   }
 
   @Override
