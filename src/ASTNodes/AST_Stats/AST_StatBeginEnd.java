@@ -134,7 +134,7 @@ public class AST_StatBeginEnd extends AST_Stat {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    statAST.acceptInstr(assemblyCode);
   }
 
   @Override
@@ -143,7 +143,6 @@ public class AST_StatBeginEnd extends AST_Stat {
     registerAllocation.setCurrentScope("BeginEnd");
     statAST.acceptRegister(registerAllocation);
     registerAllocation.setCurrentScope(oldScope);
-
   }
 
   /**

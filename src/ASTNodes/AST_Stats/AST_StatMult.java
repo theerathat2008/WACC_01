@@ -156,7 +156,8 @@ public class AST_StatMult extends AST_Stat {
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+    stat1.acceptRegister(registerAllocation);
+    stat2.acceptRegister(registerAllocation);
   }
 
   /**

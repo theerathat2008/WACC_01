@@ -1,15 +1,20 @@
 package InstructionSet;
 
 public class InstructionPrintln extends Instruction {
-  String resultBlock = "";
+  String resultBlock;
 
   public InstructionPrintln() {
+    this.resultBlock = "";
+  }
 
+  public String getResultBlock() {
+    return resultBlock;
   }
 
   @Override
   public void genInstruction() {
-    resultBlock.concat("\t\tBL p_print_ln\n");
+
+    resultBlock = "\t\tBL p_print_ln\n";
   }
 
   @Override

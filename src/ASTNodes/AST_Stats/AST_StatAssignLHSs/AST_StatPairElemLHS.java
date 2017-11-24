@@ -253,12 +253,12 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    ast_expr.acceptInstr(assemblyCode);
   }
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+    ast_expr.acceptRegister(registerAllocation);
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

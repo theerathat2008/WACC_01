@@ -247,6 +247,9 @@ public class AST_StatIf extends AST_Stat {
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    expr.acceptRegister(registerAllocation);
+    thenStat.acceptRegister(registerAllocation);
+    elseStat.acceptRegister(registerAllocation);
 
   }
 

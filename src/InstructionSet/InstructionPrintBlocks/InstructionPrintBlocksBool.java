@@ -1,10 +1,14 @@
 package InstructionSet.InstructionPrintBlocks;
 
+import Registers.RegisterARM;
+
 /**
  * Instruction class for printing boolean expressions
  */
 public class InstructionPrintBlocksBool extends InstructionPrintBlocks {
   int msgNum2;
+
+
 
   /**
    * Class constructor calls super constructor
@@ -20,28 +24,47 @@ public class InstructionPrintBlocksBool extends InstructionPrintBlocks {
     reg1 = "reg1";
   }
 
+
   /**
    * Assigned string value indicating name of register
    * @param reg1 - first register
    */
-  public void allocateRegisters(String reg1) {
-    this.reg1 = reg1;
+  public void allocateRegisters(RegisterARM reg1) {
+    this.reg1 = reg1.name();
   }
 
   /**
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    resultBlock.concat("p_print_bool:\n");
-    resultBlock.concat("\t\tPUSH {lr}\n");
-    resultBlock.concat("\t\tCMP " +  reg1 + ", #0\n");
-    resultBlock.concat("\t\tLDRNE " +  reg1 + ", =msg_" + msgNum1 + "\n");
-    resultBlock.concat("\t\tLDREQ " +  reg1 + ", =msg_" + msgNum2 + "\n");
-    resultBlock.concat("\t\tADD " +  reg1 + ", " +  reg1 + ", #4\n");
-    resultBlock.concat("\t\tBL printf\n");
-    resultBlock.concat("\t\tMOV " +  reg1 + ", #0\n");
-    resultBlock.concat("\t\tBL fflush\n");
-    resultBlock.concat("\t\tPOP {pc}\n");
+    StringBuilder block = new StringBuilder();
+    block.append("\tp_print_bool:\n");
+    block.append("\t\tPUSH {lr}\n");
+    block.append("\t\tCMP ");
+    block.append(reg1);
+    block.append(", #0\n");
+    block.append("\t\tLDRNE ");
+    block.append(reg1);
+    block.append(", =msg_");
+    block.append(msgNum1);
+    block.append("\n");
+    block.append("\t\tLDREQ ");
+    block.append(reg1);
+    block.append(", =msg_");
+    block.append(msgNum2);
+    block.append("\n");
+    block.append("\t\tADD ");
+    block.append(reg1);
+    block.append(", ");
+    block.append(reg1);
+    block.append(", #4\n");
+    block.append("\t\tBL printf\n");
+    block.append("\t\tMOV ");
+    block.append(reg1);
+    block.append(", #0\n");
+    block.append("\t\tBL fflush\n");
+    block.append("\t\tPOP {pc}\n");
+    super.resultBlock = block.toString();
   }
 
 }

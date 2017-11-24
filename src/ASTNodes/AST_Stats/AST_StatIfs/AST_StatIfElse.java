@@ -136,12 +136,12 @@ public class AST_StatIfElse extends AST_StatSubIf{
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    elseStat.acceptInstr(assemblyCode);
   }
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+    elseStat.acceptRegister(registerAllocation);
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

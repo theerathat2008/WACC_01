@@ -1,5 +1,7 @@
 package InstructionSet.InstructionPrintBlocks;
 
+import Registers.RegisterARM;
+
 /**
  * Instruction class for printing whole lines
  */
@@ -19,22 +21,36 @@ public class InstructionPrintBlocksLn extends InstructionPrintBlocks {
    * @param reg1 - first register
    * "\0" should be added and looked up in stringMap
    */
-  public void allocateRegisters(String reg1) {
-    this.reg1 = reg1;
+  public void allocateRegisters(RegisterARM reg1) {
+    this.reg1 = reg1.name();
   }
 
   /**
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    resultBlock.concat("p_print_ln:\n");
-    resultBlock.concat("\t\tPUSH {lr}\n");
-    resultBlock.concat("\t\tLDR " +  reg1 + ", =msg_" + msgNum1 + "\n");
-    resultBlock.concat("\t\tADD " +  reg1 + ", " +  reg1 + ", #4\n");
-    resultBlock.concat("\t\tBL puts\n");
-    resultBlock.concat("\t\tMOV " +  reg1 + ", #0\n");
-    resultBlock.concat("\t\tBL fflush\n");
-    resultBlock.concat("\t\tPOP {pc}\n");
+
+    StringBuilder block1 = new StringBuilder();
+    block1.append("\tp_print_ln:\n");
+    block1.append("\t\tPUSH {lr}\n");
+    block1.append("\t\tLDR ");
+    block1.append(reg1);
+    block1.append(", =msg_");
+    block1.append(msgNum1);
+    block1.append("\n");
+    block1.append("\t\tADD ");
+    block1.append(reg1);
+    block1.append(", ");
+    block1.append(reg1);
+    block1.append(", #4\n");
+    block1.append("\t\tBL puts\n");
+    block1.append("\t\tMOV ");
+    block1.append(reg1);
+    block1.append(", #0\n");
+    block1.append("\t\tBL fflush\n");
+    block1.append("\t\tPOP {pc}\n");
+    super.resultBlock = block1.toString();
+
   }
 
 }

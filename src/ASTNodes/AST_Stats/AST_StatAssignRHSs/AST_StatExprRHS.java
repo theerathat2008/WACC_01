@@ -142,12 +142,12 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    ast_expr.acceptInstr(assemblyCode);
   }
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+    ast_expr.acceptRegister(registerAllocation);
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

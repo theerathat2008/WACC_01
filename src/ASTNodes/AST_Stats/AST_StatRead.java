@@ -200,7 +200,7 @@ public class AST_StatRead extends AST_Stat {
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+    ast_statAssignLHS.acceptRegister(registerAllocation);
   }
 
   /**

@@ -445,12 +445,16 @@ public class  AST_StatCallRHS extends AST_StatAssignRHS {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    for(AST_Expr expr : ast_exprList){
+      expr.acceptInstr(assemblyCode);
+    }
   }
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+    for(AST_Expr expr : ast_exprList){
+      expr.acceptRegister(registerAllocation);
+    }
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
