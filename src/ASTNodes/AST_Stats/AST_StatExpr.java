@@ -347,7 +347,7 @@ public class AST_StatExpr extends AST_Stat {
             InstructionPrintBlocksInt instructionPrintBlocksInt = (InstructionPrintBlocksInt) instrPrintType;
             instructionPrintBlocksInt.allocateRegisters(RegisterARM.r0, RegisterARM.r1);
             break;
-          case ("string"):
+          case ("str"):
             InstructionPrintBlocksString instructionPrintString = (InstructionPrintBlocksString) instrPrintType;
             instructionPrintString.allocateRegisters(RegisterARM.r0, RegisterARM.r1, RegisterARM.r2);
             break;
