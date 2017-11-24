@@ -233,8 +233,9 @@ public class AST_ExprLiter extends AST_Expr {
       resultReg = registerAllocation.searchByValue("result");
     }
 
-    System.out.println("RESULT REG IS : " + resultReg);
+    System.out.println("RESULT REG IS: at " + constant +  ": " + resultReg);
     instr.registerAllocation(resultReg);
+
   }
 
 
@@ -252,8 +253,6 @@ public class AST_ExprLiter extends AST_Expr {
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     if(literal.equals("str")){
       registerAllocation.addString(constant);
-
-
     } else {
       InstructionAssignLit instructionAssignLit = new InstructionAssignLit(constant, literal);
       instr = instructionAssignLit;
