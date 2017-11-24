@@ -228,6 +228,12 @@ public class AST_ExprLiter extends AST_Expr {
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     RegisterARM resultReg = registerAllocation.searchByValue("expr");
+
+    if(registerAllocation.searchByValue("result") != null && resultReg == null){
+      resultReg = registerAllocation.searchByValue("result");
+    }
+
+    System.out.println("RESULT REG IS : " + resultReg);
     instr.registerAllocation(resultReg);
   }
 
