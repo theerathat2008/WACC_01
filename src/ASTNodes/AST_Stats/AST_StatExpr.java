@@ -292,8 +292,10 @@ public class AST_StatExpr extends AST_Stat {
       case ("print"):
         InstructionPrint instructionPrint = (InstructionPrint) instr;
         assemblyCode.add(instructionPrint.getResultBlock());
-        InstructionPrintln instructionPrintln = (InstructionPrintln) instrPrintLine;
-        assemblyCode.add(instructionPrintln.getResultBlock());
+        if (statName.equals("println")) {
+          InstructionPrintln instructionPrintln = (InstructionPrintln) instrPrintLine;
+          assemblyCode.add(instructionPrintln.getResultBlock());
+        }
         break;
       default:
         System.out.println("Unrecognised statement type in AST_StatExpr");
@@ -347,7 +349,7 @@ public class AST_StatExpr extends AST_Stat {
             InstructionPrintBlocksInt instructionPrintBlocksInt = (InstructionPrintBlocksInt) instrPrintType;
             instructionPrintBlocksInt.allocateRegisters(RegisterARM.r0, RegisterARM.r1);
             break;
-          case ("string"):
+          case ("str"):
             InstructionPrintBlocksString instructionPrintString = (InstructionPrintBlocksString) instrPrintType;
             instructionPrintString.allocateRegisters(RegisterARM.r0, RegisterARM.r1, RegisterARM.r2);
             break;
@@ -368,14 +370,14 @@ public class AST_StatExpr extends AST_Stat {
             break;
         }
 
-        registerAllocation.useRegister("expr");
+        RegisterARM reg3 = registerAllocation.useRegister("expr");
+
         expr.acceptRegister(registerAllocation);
 
-        RegisterARM reg3 = registerAllocation.searchByValue("expr");
         InstructionPrint instructionPrint = (InstructionPrint) instr;
+        System.out.println("Allocating registers for print: " + reg3);
         instructionPrint.allocateRegisters(RegisterARM.r0, reg3);
-        System.out.println("Allocating registers for print: " + reg3.name());
-        registerAllocation.freeRegister(reg3);
+
 
         break;
       default:

@@ -291,7 +291,7 @@ public class AST_FuncDecl extends AST_Node {
    */
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    InstructionFunction instructionFunction = new InstructionFunction(funcName);
+    InstructionFunction instructionFunction = new InstructionFunction(funcName, registerAllocation);
     instructionList.add(instructionFunction);
     instr = instructionFunction;
   }

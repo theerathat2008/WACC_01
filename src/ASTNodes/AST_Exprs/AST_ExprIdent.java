@@ -170,6 +170,8 @@ public class AST_ExprIdent extends AST_Expr {
     instr.registerAllocation(resultReg);
     instr.allocateLocation(stackLocation);
 
+    registerAllocation.freeRegister(resultReg);
+
   }
 
 
