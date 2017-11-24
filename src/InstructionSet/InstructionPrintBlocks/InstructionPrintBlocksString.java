@@ -1,9 +1,13 @@
 package InstructionSet.InstructionPrintBlocks;
 
+import Registers.RegisterARM;
+
 /**
  * Instruction class for printing string expressions
  */
 public class InstructionPrintBlocksString extends InstructionPrintBlocks {
+
+
   String reg2;
   String reg3;
 
@@ -23,27 +27,45 @@ public class InstructionPrintBlocksString extends InstructionPrintBlocks {
    * @param reg2 - second register
    * @param reg3 - third register
    */
-  public void allocateRegisters(String reg1, String reg2, String reg3) {
-    this.reg1 = reg1;
-    this.reg2 = reg2;
-    this.reg3 = reg3;
+  public void allocateRegisters(RegisterARM reg1, RegisterARM reg2, RegisterARM reg3) {
+    this.reg1 = reg1.name();
+    this.reg2 = reg2.name();
+    this.reg3 = reg3.name();
   }
 
   /**
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    resultBlock.concat("p_print_string:\n");
-    resultBlock.concat("\t\tPUSH {lr}\n");
-    resultBlock.concat("\t\tLDR " +  reg2 + ", [" +  reg1 + "]\n");
-    resultBlock.concat("\t\tADD " +  reg3 + ", " +  reg1 + ", #4\n");
-    resultBlock.concat("\t\tLDR " +  reg1 + ", =msg_" + msgNum1 + "\n");
-    resultBlock.concat("\t\tADD " +  reg1 + ", " +  reg1 + ", #4\n");
-    resultBlock.concat("\t\tBL printf\n");
-    resultBlock.concat("\t\tMOV " +  reg1 + ", #0\n");
-    resultBlock.concat("\t\tBL fflush\n");
-    resultBlock.concat("\t\tPOP {pc}\n");
+    StringBuilder block = new StringBuilder();
+    block.append("\tp_print_string:\n");
+    block.append("\t\tPUSH {lr}\n");
+    block.append("\t\tLDR ");
+    block.append(reg2);
+    block.append(", [");
+    block.append(reg1);
+    block.append("]\n");
+    block.append("\t\tADD ");
+    block.append(reg3);
+    block.append(", ");
+    block.append(reg1);
+    block.append(", #4\n");
+    block.append("\t\tLDR ");
+    block.append(reg1);
+    block.append(", =msg_");
+    block.append(msgNum1);
+    block.append("\n");
+    block.append("\t\tADD ");
+    block.append(reg1);
+    block.append(", ");
+    block.append(reg1);
+    block.append(", #4\n");
+    block.append("\t\tBL printf\n");
+    block.append("\t\tMOV ");
+    block.append(reg1);
+    block.append(", #0\n");
+    block.append("\t\tBL fflush\n");
+    block.append("\t\tPOP {pc}\n");
+    super.resultBlock = block.toString();
   }
-
-
 }

@@ -1,7 +1,9 @@
 package InstructionSet;
 
+import Registers.RegisterARM;
+
 public class InstructionPrint extends Instruction {
-  String resultBlock = "";
+  String resultBlock;
   String reg1;
   String reg2;
   String sp;
@@ -11,15 +13,20 @@ public class InstructionPrint extends Instruction {
     this.type = type;
     reg1 = "reg1";
     reg2 = "reg2";
+    this.resultBlock = " ";
+  }
+
+  public String getResultBlock() {
+    return resultBlock;
   }
 
   public void allocateSP(String sp){
     this.sp = sp;
   }
 
-  public void allocateRegisters(String reg1, String reg2) {
-    this.reg1 = reg1;
-    this.reg2 = reg2;
+  public void allocateRegisters(RegisterARM reg1, RegisterARM reg2) {
+    this.reg1 = reg1.name();
+    this.reg2 = reg2.name();
   }
 
   public String getLDType() {
@@ -54,9 +61,18 @@ public class InstructionPrint extends Instruction {
 
   @Override
   public void genInstruction() {
-    resultBlock.concat("\t\t" + getLDType() + " " + reg2 + sp + "\n");
-    resultBlock.concat("\t\tMOV " +  reg1 + ", " + reg2 + "\n");
-    resultBlock.concat("\t\tBL " + getPrintType() + "\n");
+    StringBuilder block = new StringBuilder();
+    block.append("\t\tMOV ");
+    block.append(reg1);
+    block.append(", ");
+    block.append(reg2);
+    block.append("\n");
+    block.append("\t\tBL ");
+    block.append(getPrintType());
+    block.append("\n");
+    resultBlock = block.toString();
+
+    //resultBlock.concat("\t\t" + getLDType() + " " + reg2 + sp + "\n");
   }
 
   @Override

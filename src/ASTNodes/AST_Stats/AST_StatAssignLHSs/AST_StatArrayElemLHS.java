@@ -163,12 +163,16 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    for(AST_Expr expr : ast_exprList){
+      expr.acceptInstr(assemblyCode);
+    }
   }
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+    for(AST_Expr expr : ast_exprList){
+      expr.acceptRegister(registerAllocation);
+    }
   }
 
   public List<AST_Expr> getAst_exprList() {

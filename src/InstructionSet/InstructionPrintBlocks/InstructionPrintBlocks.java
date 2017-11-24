@@ -7,7 +7,7 @@ import InstructionSet.Instruction;
  */
 public class InstructionPrintBlocks extends Instruction{
   String reg1;
-  public String resultBlock = "\t";
+  protected String resultBlock;
   int msgNum1;
 
   /**
@@ -16,9 +16,13 @@ public class InstructionPrintBlocks extends Instruction{
    */
   public InstructionPrintBlocks(int msgNum1) {
     this.msgNum1 = msgNum1;
+    this.resultBlock = "";
     reg1 = "reg1";
   }
 
+  public String getResultBlock() {
+    return resultBlock;
+  }
 
   @Override
   public void genInstruction() {

@@ -57,8 +57,9 @@ public class Assembler {
   }
 
   public void parseInstructions() throws Exception{
-
+    System.out.println("--------------- REGISTER ALLOCATION --------------------");
     rootNode.acceptRegister(registerAlloc);
+    System.out.println("--------------- REGISTER ALLOCATION --------------------");
     printInstructions();
 
     for(Instruction currInstr : instructions){
@@ -105,7 +106,7 @@ public class Assembler {
         result.append(((InstructionReadBlocks) currInstr).resultBlock);
       } else if(superName.equals("InstructionPrintBlocks")) {
         System.out.println("Type PrintBlocks");
-        result.append(((InstructionPrintBlocks) currInstr).resultBlock);
+        result.append(((InstructionPrintBlocks) currInstr).getResultBlock());
       } else if (superName.equals("InstructionError")) {
         System.out.println("Type Error");
         result.append(((InstructionError) currInstr).resultBlock);

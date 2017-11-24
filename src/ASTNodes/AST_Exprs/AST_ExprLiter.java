@@ -227,15 +227,8 @@ public class AST_ExprLiter extends AST_Expr {
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
-
     RegisterARM resultReg = registerAllocation.searchByValue("expr");
     instr.registerAllocation(resultReg);
-
-    //instructionAssignLit.allocateRegisters(resultReg);
-
-
-
   }
 
 
@@ -248,8 +241,6 @@ public class AST_ExprLiter extends AST_Expr {
    * STR_LITER:  generate InstructionMessage
    * PAIR_LITER: Corresponds to =0 in the LDR instruction
    */
-
-  //TODO PRASHAN IMPLEMENTATION OF ADDING TO STRING LIST in registerAlloctation
 
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

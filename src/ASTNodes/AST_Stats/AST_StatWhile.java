@@ -200,7 +200,8 @@ public class AST_StatWhile extends AST_Stat {
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+    exprAST.acceptRegister(registerAllocation);
+    statAST.acceptRegister(registerAllocation);
   }
 
 
