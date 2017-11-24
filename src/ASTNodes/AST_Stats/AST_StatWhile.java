@@ -1,6 +1,7 @@
 package ASTNodes.AST_Stats;
 
 
+import ASTNodes.AST_Exprs.AST_ExprEnclosed;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
@@ -141,11 +142,14 @@ public class AST_StatWhile extends AST_Stat {
         return false;
       }
 
+    } else if (exprAST instanceof AST_ExprEnclosed) {
+      return true;
     }
+    System.out.println(exprAST);
 
-    String condition = exprAST.getIdentifier().toString();
+    IDENTIFIER condition = exprAST.getIdentifier();
 
-    if (!(condition.equals("bool"))) {
+    if (!(condition.toString().equals("bool"))) {
       new TypeError(new FilePosition(ctx)).printAll();
       return false;
     }

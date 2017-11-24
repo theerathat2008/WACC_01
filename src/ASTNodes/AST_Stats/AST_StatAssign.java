@@ -190,6 +190,12 @@ public class AST_StatAssign extends AST_Stat {
               //make typeLHs = char || check the type of the first elem
               System.out.println("reaches here where converting array of string to char");
               //TODO check the type of the first elem easier
+              //want to use if RHS has type char to return true
+
+              System.out.println("stat exprList is: ");
+              System.out.println(((AST_StatArrayElemLHS) ast_statAssignLHS).getAst_exprList());
+              return true;
+
             }
           }
         }
