@@ -2,6 +2,7 @@ package InstructionSet;
 
 public class InstructionProgram extends Instruction {
 
+  public String block0;
   public String block1;
   public String block2;
 
@@ -14,7 +15,9 @@ public class InstructionProgram extends Instruction {
 
   @Override
   public void genInstruction() {
-    StringBuilder builder = new StringBuilder("\t.global main\n");
+    block0 = "\t.global main\n";
+
+    StringBuilder builder = new StringBuilder("");
     builder.append("\tmain:\n");
     builder.append("\t\tPUSH {lr}\n");
     block1 = builder.toString();

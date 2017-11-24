@@ -168,6 +168,7 @@ public class AST_Program extends AST_Node {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
+    assemblyCode.add(instr.block0);
     for (AST_FuncDecl func : funcDeclList) {
       func.acceptInstr(assemblyCode);
     }

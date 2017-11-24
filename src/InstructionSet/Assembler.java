@@ -70,7 +70,7 @@ public class Assembler {
   public void assembleInstructions() {
     rootNode.acceptInstr(assemblyCode);
     String Output = String.join("", assemblyCode);
-    Output = generatePreCode() +"\n\n\t.text\n\n" +  Output + generatePostCode();
+    Output = generatePreCode() +"\n\t.text\n\n" +  Output + generatePostCode();
 
 
     System.out.println(Output);
@@ -79,36 +79,39 @@ public class Assembler {
 
   public String generatePreCode() {
     List<String> stringList = registerAlloc.getStringList();
-    String result = "\t.data\n\n";
-   // System.out.println(stringList.size());
-    for (int i = 0; i < stringList.size(); i++) {
-      result.concat("\tmsg_");
-      result.concat(Integer.toString(i));
-      result.concat("\n\t\t.word ");
-      result.concat(Integer.toString(stringList.get(i).length()));
-      result.concat("\n\t\t.ascii \"");
-      result.concat(stringList.get(i));
-      result.concat("\"\n");
+    StringBuilder result = new StringBuilder("");
+    if (stringList.size() > 0) {
+      result.append("\t.data\n\n");
+      // System.out.println(stringList.size());
+      for (int i = 0; i < stringList.size(); i++) {
+        result.append("\tmsg_");
+        result.append(Integer.toString(i));
+        result.append("\n\t\t.word ");
+        result.append(Integer.toString(stringList.get(i).length()));
+        result.append("\n\t\t.ascii \"");
+        result.append(stringList.get(i));
+        result.append("\"\n\n");
+      }
     }
-    return result;
+    return result.toString();
   }
 
   public String generatePostCode() {
-    String result = "";
+    StringBuilder result = new StringBuilder();
     for(Instruction currInstr : instructions){
       String superName = currInstr.getClass().getSuperclass().getSimpleName();
       if (superName.equals("InstructionReadBlocks")) {
         System.out.println("Type ReadBlocks");
-        result.concat(((InstructionReadBlocks) currInstr).resultBlock);
+        result.append(((InstructionReadBlocks) currInstr).resultBlock);
       } else if(superName.equals("InstructionPrintBlocks")) {
         System.out.println("Type PrintBlocks");
-        result.concat(((InstructionPrintBlocks) currInstr).resultBlock);
+        result.append(((InstructionPrintBlocks) currInstr).resultBlock);
       } else if (superName.equals("InstructionError")) {
         System.out.println("Type Error");
-        result.concat(((InstructionError) currInstr).resultBlock);
+        result.append(((InstructionError) currInstr).resultBlock);
       }
     }
-    return result;
+    return result.toString();
   }
 
 
