@@ -137,28 +137,13 @@ public class AST_ExprUnary extends AST_Expr {
   @Override
   public boolean CheckSemantics() {
 
-    //TODO
-    // if unaryOp ='!', conditional expression must be of type bool
-
     SymbolTable ST = this.symbolTable;
 
-    /*if (opName.equals("!")) {
-      //TODO astExpr has null value --> fix
-      if (!astExpr.getIdentifier().toString().equals("bool")) {
-        System.out.println("Unary operator '!' can only be used when the statement is of type 'bool'.");
-        new TypeError(new FilePosition(ctx)).printAll();
-        return false;
-      } else {
-        return true;
-      }
-    }*/
     if (opName.equals("!")) {
       if (astExpr instanceof AST_ExprEnclosed) {
         return true;
       } else if (astExpr instanceof AST_ExprIdent) {
-        //SymbolTable ST = this.symbolTable;
-        System.out.println(astExpr);
-        astExpr.printContents();
+
         String varName = ((AST_ExprIdent) astExpr).getVarName();
         SymbolTable tempST = this.symbolTable;
         IDENTIFIER type = tempST.lookup(varName);
@@ -166,13 +151,10 @@ public class AST_ExprUnary extends AST_Expr {
         AST_Node parent = getParentNode();
         //if parent is instance of AST_FuncDecl, search in encSymTable instead
         while (type == null) {
-          System.out.println("type is null");
           tempST = tempST.encSymTable;
           type = tempST.lookup(varName);
         }
 
-        //Debug statement
-        System.out.println(type);
         if (type.toString().equals("bool")) {
           return true;
         } else {
@@ -191,9 +173,7 @@ public class AST_ExprUnary extends AST_Expr {
       if (astExpr instanceof AST_ExprEnclosed) {
         return true;
       } else if (astExpr instanceof AST_ExprIdent) {
-        //SymbolTable ST = this.symbolTable;
-        System.out.println(astExpr);
-        astExpr.printContents();
+
         String varName = ((AST_ExprIdent) astExpr).getVarName();
 
         SymbolTable tempST = this.symbolTable;
@@ -202,7 +182,6 @@ public class AST_ExprUnary extends AST_Expr {
         AST_Node parent = getParentNode();
         //if parent is instance of AST_FuncDecl, search in encSymTable instead
         while (type == null) {
-          System.out.println("type is null");
           tempST = tempST.encSymTable;
           type = tempST.lookup(varName);
         }
@@ -219,14 +198,12 @@ public class AST_ExprUnary extends AST_Expr {
       }
     }
 
-    //TODO
     //if unaryOp = 'len', array must be of valid type
     if (opName.equals("len")) {
 
       if (astExpr instanceof AST_ExprEnclosed) {
         return true;
       } else if (astExpr instanceof AST_ExprIdent) {
-        //SymbolTable ST = this.symbolTable;
         System.out.println(astExpr);
         astExpr.printContents();
         String varName = ((AST_ExprIdent) astExpr).getVarName();
@@ -237,7 +214,6 @@ public class AST_ExprUnary extends AST_Expr {
         AST_Node parent = getParentNode();
         //if parent is instance of AST_FuncDecl, search in encSymTable instead
         while (type == null) {
-          System.out.println("type is null");
           tempST = tempST.encSymTable;
           type = tempST.lookup(varName);
         }
@@ -262,18 +238,10 @@ public class AST_ExprUnary extends AST_Expr {
     //if unaryOp = 'ord', statement must be of type char
     if (opName.equals("ord")) {
 
-      //Debug statement
-      System.out.println("hi");
-      System.out.println(astExpr.getIdentifier());
-
       if (astExpr instanceof AST_ExprEnclosed) {
         return true;
       } else if (astExpr instanceof AST_ExprIdent) {
-        //SymbolTable ST = this.symbolTable;
-        System.out.println(astExpr);
-        astExpr.printContents();
 
-        System.out.println(astExpr.getIdentifier());
         String varName = ((AST_ExprIdent) astExpr).getVarName();
 
         SymbolTable tempST = this.symbolTable;
@@ -282,16 +250,10 @@ public class AST_ExprUnary extends AST_Expr {
         AST_Node parent = getParentNode();
         //if parent is instance of AST_FuncDecl, search in encSymTable instead
         while (type == null) {
-          System.out.println("type is null");
           tempST = tempST.encSymTable;
           type = tempST.lookup(varName);
         }
 
-        System.out.println(varName);
-        System.out.println(type);
-
-        //Debug statement
-        System.out.println(type);
         if (type.toString().equals("char")) {
           return true;
         } else {
@@ -312,26 +274,7 @@ public class AST_ExprUnary extends AST_Expr {
       if (astExpr instanceof AST_ExprEnclosed) {
         return true;
       } else if (astExpr instanceof AST_ExprIdent) {
-
-        System.out.println(astExpr.getIdentifier());
-        astExpr.printContents();
         String varName = ((AST_ExprIdent) astExpr).getVarName();
-        System.out.println(varName);
-
-        /*AST_Node parent = getParentNode();
-        System.out.println(parent);
-        IDENTIFIER type;
-        if (parent instanceof AST_Program) {
-          type = ST.encSymTable.lookup(varName);
-        } else {
-          type = ST.lookup(varName);
-        }*/
-
-        //TODO check if enclose
-        //encSymTable because it is enclosed for asciiTable.wacc
-        System.out.println(astExpr);
-        System.out.println(ST.encSymTable.lookup(varName));
-        System.out.println(ST.lookup(varName));
 
         SymbolTable tempST = this.symbolTable;
         IDENTIFIER type = tempST.lookup(varName);
@@ -341,13 +284,10 @@ public class AST_ExprUnary extends AST_Expr {
 
 
         while (type == null) {
-          System.out.println("type is null");
           tempST = tempST.encSymTable;
           type = tempST.lookup(varName);
         }
 
-        //Debug statement
-        System.out.println(type);
         if (type.toString().equals("int")) {
           return true;
         } else {

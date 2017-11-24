@@ -177,66 +177,15 @@ public class AST_FuncDecl extends AST_Node {
   @Override
   public boolean CheckSemantics() {
     SymbolTable ST = this.symbolTable;
-    System.out.println(funcName);
-    System.out.println(ast_type);
-    //TODO needs to search for duplication
-    System.out.println(hasReturn);
 
-    /*if(!hasReturn){
-      System.out.println("Errors detected during compilation! Exit code 100 returned.");
-      System.out.println("#syntax_error#");
-      new TypeError(new FilePosition(ctx)).printAll();
-      System.exit(100);
-    }*/
-
-    System.out.println("Printing out types for each function");
-    System.out.println("ast_type: " + ast_type);
-    System.out.println("ast_type.getIdentifier is: " + ast_type.getIdentifier());
     SymbolTable tempST = ST;
 
     IDENTIFIER type = tempST.lookup(funcName);
-    System.out.println("type is: " + type);
-
-    //loop 4 times max
-    /*for (int i = 0; i < 4; i++) {
-      if (type == null) {
-        System.out.println("type is equal to null");
-        tempST = tempST.encSymTable;
-        type = tempST.lookup(funcName);
-      } else {
-        break;
-      }
-    }*/
-
-    /*while (type == null) {
-      System.out.println("Type is null");
-      tempST = tempST.encSymTable;
-      try{
-        type = tempST.lookup(funcName);
-      } catch (NullPointerException e) {
-        System.out.println("Null pointer exception caught;");
-        type = null;
-        break;
-      }
-    }*/
-
-    //TODO maybe find duplicates for name instead
-    //TODO is there anyway to check if function declare 2 times
 
     if (type == null) {
       return true;
 
     } else {
-      System.out.println("Hey I'm in an else statement");
-      System.out.println("Printing out types for each function");
-      System.out.println("ast_type: " + ast_type);
-      System.out.println("ast_type.getIdentifier is: " + ast_type.getIdentifier());
-
-      /*if (type.toString().contains("FUNCTION")) {
-        System.out.println("Error on line " + ctx.getStart().getLine() + ". Function of same name already defined");
-        new FunctionRedeclarationError(new FilePosition(ctx)).printAll();
-        return false;
-      }*/
 
       if (ast_type.getIdentifier().toString().contains(type.toString())) {
         return true;

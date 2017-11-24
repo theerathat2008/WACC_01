@@ -127,9 +127,7 @@ public class AST_StatWhile extends AST_Stat {
     //get type for the expression inside the while statement (while(....0) must be of type bool
 
     if (exprAST instanceof AST_ExprIdent) {
-      System.out.println("I'm instance of AST_ExprLiter");
       String varName = ((AST_ExprIdent)exprAST).getVarName();
-      System.out.println(varName);
       SymbolTable tempST = this.symbolTable;
       IDENTIFIER type = tempST.lookup(varName);
 
@@ -141,7 +139,6 @@ public class AST_StatWhile extends AST_Stat {
       }
 
       while (type == null) {
-        System.out.println("type is null");
         tempST = tempST.encSymTable;
         type = tempST.lookup(varName);
       }
@@ -156,7 +153,6 @@ public class AST_StatWhile extends AST_Stat {
     } else if (exprAST instanceof AST_ExprEnclosed) {
       return true;
     }
-    System.out.println(exprAST);
 
     IDENTIFIER condition = exprAST.getIdentifier();
 

@@ -1328,32 +1328,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     AST_Node tempNode = parentVisitorNode;
     System.out.println(tempNode.getClass().getSimpleName());
-    /*boolean hasReturn = false;
-
-    //Only consider if is has a type to return in the func decl
-    while(!(tempNode instanceof AST_FuncDecl)){
-      tempNode = tempNode.getParentNode();
-      if(tempNode instanceof AST_Program){
-        hasReturn = true;
-        ((AST_FuncDecl) tempNode).setHasReturnTrue();
-        break;
-      }
-      System.out.println(tempNode.getClass().getSimpleName());
-    }
-    */
-    /*while (!(tempNode instanceof AST_Program)) {
-     if (tempNode instanceof AST_FuncDecl) {
-       hasReturn = true;
-       ((AST_FuncDecl) tempNode).setHasReturn(true);
-     }
-     tempNode = tempNode.getParentNode();
-      System.out.println(tempNode.getClass().getSimpleName());
-    }
-    System.out.println(hasReturn);*/
-
-    //
-
-
 
     //Debug statement
     System.out.println("returnStat");

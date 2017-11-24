@@ -159,11 +159,9 @@ public class AST_ExprBinary extends AST_Expr {
       IDENTIFIER typeLHS = tempST.lookup(varNameLHS);
 
       while (typeLHS == null) {
-        System.out.println("typeLHS is null");
         tempST = tempST.encSymTable;
         typeLHS = tempST.lookup(varNameLHS);
       }
-      System.out.println("The type of LHS is: " + typeLHS);
 
       if (typeLHS.toString().contains("[]")) {
         new TypeError(new FilePosition(ctx)).printAll();
@@ -175,10 +173,6 @@ public class AST_ExprBinary extends AST_Expr {
 
     }
 
-    //TODO typeLHS and typeRHs for +,- not equal can't do
-
-    System.out.println("opName is: " + opName);
-
     if (opName.equals("+") || opName.equals("-")) {
 
       if (exprLeftAST instanceof AST_ExprIdent && exprRightAST instanceof AST_ExprIdent) {
@@ -187,30 +181,23 @@ public class AST_ExprBinary extends AST_Expr {
         IDENTIFIER typeLHS = tempLHSST.lookup(varNameLHS);
 
         while (typeLHS == null) {
-          System.out.println("typeLHS is null");
           tempLHSST = tempLHSST.encSymTable;
           typeLHS = tempLHSST.lookup(varNameLHS);
         }
-
-        System.out.println("typeLHS is: " + typeLHS);
 
         String varNameRHS = ((AST_ExprIdent) exprRightAST).getVarName();
         SymbolTable tempRHSST = ST;
         IDENTIFIER typeRHS = tempRHSST.lookup(varNameRHS);
 
         while (typeRHS == null) {
-          System.out.println("typeRHS is null");
           tempRHSST = tempRHSST.encSymTable;
           try {
             typeRHS = tempRHSST.lookup(varNameRHS);
           } catch (NullPointerException e) {
-            System.out.println("Null Pointer Exception caught");
             typeRHS = null;
             break;
           }
         }
-
-        System.out.println("typeRHS is: " + typeRHS);
 
         if (typeRHS == null) {
           System.out.println("Errors detected during compilation! Exit code 200 returned.");
@@ -229,8 +216,6 @@ public class AST_ExprBinary extends AST_Expr {
       if (exprLeftAST.getIdentifier() != null && exprRightAST.getIdentifier() != null) {
         IDENTIFIER typeLHS = exprLeftAST.getIdentifier();
         IDENTIFIER typeRHS = exprRightAST.getIdentifier();
-        System.out.println("typeLHS is: " + typeLHS);
-        System.out.println("typeRHS is: " + typeRHS);
 
         //can only be of type int
         if (!typeLHS.toString().contains("int")) {
@@ -258,13 +243,9 @@ public class AST_ExprBinary extends AST_Expr {
         IDENTIFIER typeLHS = tempST.lookup(varNameLHS);
 
         while (typeLHS == null) {
-          System.out.println("typeLHS is null");
           tempST = tempST.encSymTable;
           typeLHS = tempST.lookup(varNameLHS);
         }
-
-        System.out.println("typeLHS is: " + typeLHS);
-        System.out.println(typeLHS.toString());
 
         if (typeLHS.toString().contains("PAIR(")) {
           new TypeError(new FilePosition(ctx)).printAll();

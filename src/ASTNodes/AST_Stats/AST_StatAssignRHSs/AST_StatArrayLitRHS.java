@@ -138,11 +138,6 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
   @Override
   public boolean CheckSemantics() {
 
-    //Debug statement
-    System.out.println(ast_exprList);
-    System.out.println(numOfExpr);
-    System.out.println(type);
-
     //empty array is always true
     if (ast_exprList == null) {
       return true;
@@ -151,21 +146,8 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
     } else {
       //get type of the first index in the array
       AST_Expr firstElem = ast_exprList.get(0);
-      System.out.println(firstElem);
 
-      //check if every elements in the array has the same type
-      /*for (AST_Expr exprList : ast_exprList) {
-        System.out.println(exprList);
-        System.out.println(firstElem);
-        if (!exprList.equals(firstElem)) {
-          new TypeMismatchError(new FilePosition(ctx)).printAll();
-          return false;
-        }
-      }*/
-      System.out.println(ast_exprList.get(1));
       for (int i = 1; i < numOfExpr; i++) {
-        System.out.println("I'm inside the for loop");
-        System.out.println(ast_exprList.get(i));
         if ((ast_exprList.get(i).toString()).contains(firstElem.toString()) || firstElem.toString().contains(ast_exprList.get(i).toString())) {
           System.out.println("Same type");
         } else {

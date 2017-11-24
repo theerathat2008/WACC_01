@@ -108,13 +108,10 @@ public class AST_StatExpr extends AST_Stat {
         IDENTIFIER typeExpr = tempST.lookup(varName);
 
         while (typeExpr == null) {
-          System.out.println("typeExpr is null");
           tempST = tempST.encSymTable;
           typeExpr = tempST.lookup(varName);
         }
 
-        System.out.println("The typeExpr is: ");
-        System.out.println(typeExpr);
         if (typeExpr.toString().contains("PAIR") || typeExpr.toString().contains("[]")) {
           return true;
         } else {
@@ -142,26 +139,21 @@ public class AST_StatExpr extends AST_Stat {
 
         parent = parent.getParentNode();
 
-        System.out.println("Going to AST parent, looking for function");
       }
 
       //check if the return type is the same type as function type
       AST_FuncDecl temp = (AST_FuncDecl) parent;
 
       if (expr instanceof AST_ExprIdent) {
-        System.out.println("Hey I'm instance of AST_ExprIdent");
         String varName = ((AST_ExprIdent) expr).getVarName();
         AST_Node tempNode = this.getParentNode();
         SymbolTable tempST = this.symbolTable;
         IDENTIFIER typeExpr = tempST.lookup(varName);
 
         while (typeExpr == null) {
-          System.out.println("typeExpr is null");
           tempST = tempST.encSymTable;
           typeExpr = tempST.lookup(varName);
         }
-        System.out.println("type expr is: ");
-        System.out.println(typeExpr);
         if (temp.ast_type.getIdentifier().equals(typeExpr)) {
           return true;
         } else {
@@ -170,14 +162,6 @@ public class AST_StatExpr extends AST_Stat {
         }
       }
 
-      //debug message
-      System.out.println(temp.ast_type.getIdentifier().toString());
-      if (expr.getIdentifier() == null) {
-        System.out.println("null");
-        System.out.println(expr.getType());
-      }
-
-      /* TODO expr has null value */
       if (expr instanceof AST_ExprEnclosed || expr instanceof AST_ExprBinary
               || expr instanceof AST_ExprUnary) {
         return true;
@@ -188,8 +172,6 @@ public class AST_StatExpr extends AST_Stat {
         return false;
       }
     } else if (statName.equals("exit")) {
-      //Debug statement
-      System.out.println(expr);
       if (expr instanceof AST_ExprUnary || expr instanceof AST_ExprEnclosed) {
         if (expr.getIdentifier().toString().equals("int")) {
           return true;
@@ -212,8 +194,6 @@ public class AST_StatExpr extends AST_Stat {
           tempST = tempST.encSymTable;
           type = tempST.lookup(varName);
         }
-        //Debug statement
-        System.out.println(type);
         if (type.toString().equals("int")) {
           return true;
         } else {
