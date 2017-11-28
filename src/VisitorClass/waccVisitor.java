@@ -865,10 +865,16 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
       }
     }
 
+    //find its type
+
     System.out.println("Type is: " + type);
+    System.out.println("hi");
 
     if (type != null) {
-      new VariableRedeclarationError(new FilePosition(ctx)).printAll();
+      if (!type.toString().contains("FUNCTION")) {
+        new VariableRedeclarationError(new FilePosition(ctx)).printAll();
+      }
+
     }
 
     //Debug statement
