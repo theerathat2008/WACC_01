@@ -26,7 +26,7 @@ public class InstructionPrintBlocks extends Instruction {
   }
 
   @Override
-  public void genInstruction() {
+  public void genInstruction(){
 
   }
 

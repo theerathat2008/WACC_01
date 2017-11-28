@@ -2,6 +2,7 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionCheck.InstructionCheckArrayBounds;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 
@@ -181,7 +182,18 @@ public class AST_ExprArrayElem extends AST_Expr {
    */
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    System.out.println("No assembly code generated in AST_ExprArrayElem");
+    String neg = "ArrayIndexOutOfBoundsError: negative index\\n\\0";
+    String large = "ArrayIndexOutOfBoundsError: index too large\\n\\0";
+    registerAllocation.addString(large);
+    registerAllocation.addString(neg);
+    int negIndex = registerAllocation.getStringID(neg);
+    int largeIndex = registerAllocation.getStringID(large);
+    InstructionCheckArrayBounds instructionCheckArrayBounds
+            = new InstructionCheckArrayBounds(negIndex, largeIndex);
+
+    if (!instructionList.contains(instructionCheckArrayBounds)) {
+      instructionList.add(instructionCheckArrayBounds);
+    }
   }
 
   public String getArrayName() {

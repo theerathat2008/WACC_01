@@ -134,6 +134,20 @@ public class AST_ExprUnary extends AST_Expr {
    */
   @Override
   public boolean CheckSemantics() {
+    if (opName.equals("!")) {
+      setType("bool");
+    } else if (opName.equals("-")) {
+      setType("int");
+    } else if (opName.equals("len")) {
+      setType("int");
+    } else if (opName.equals("ord")) {
+      setType("int");
+    } else if (opName.equals("chr")) {
+      setType("char");
+    } else {
+      setType("null");
+    }
+
 
     SymbolTable ST = this.symbolTable;
 
@@ -298,29 +312,6 @@ public class AST_ExprUnary extends AST_Expr {
     return true;
   }
 
-  /**
-   * Called from visitor
-   *
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      if (opName.equals("!")) {
-        setType("bool");
-      } else if (opName.equals("-")) {
-        setType("int");
-      } else if (opName.equals("len")) {
-        setType("int");
-      } else if (opName.equals("ord")) {
-        setType("int");
-      } else if (opName.equals("chr")) {
-        setType("char");
-      } else {
-        setType("null");
-      }
-    }
-  }
 
   /**
    * Used for testing - Prints out contents of current AST node
