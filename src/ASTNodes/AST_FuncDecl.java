@@ -259,8 +259,6 @@ public class AST_FuncDecl extends AST_Node {
       System.out.println("ast_type: null");
     } else {
       System.out.println("ast_type: has content");
-
-
     }
     symbolTable.printKeysTable(symbolTable);
   }
@@ -282,15 +280,17 @@ public class AST_FuncDecl extends AST_Node {
   }
 
   /**
-   * Doesn't require any registers
+   * Doesn't require any registers but does set the scope to be functionScope on entry and global scope on exit
    */
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    registerAllocation.setCurrentScope("funcScope");
     ast_type.acceptRegister(registerAllocation);
-    if (checkForParamList()) {
+    if (checkForParamList()){
       paramList.acceptRegister(registerAllocation);
     }
     statement.acceptRegister(registerAllocation);
+    registerAllocation.setCurrentScope("globalScope");
   }
 
 

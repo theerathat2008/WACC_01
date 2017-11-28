@@ -177,12 +177,17 @@ public class AST_Program extends AST_Node {
     assemblyCode.add(instr.block2);
   }
 
+  /**
+   * Doesn't have any registers but does set the scope on entry to be "globalScope" and TODO probably be redudant on exit to be "globalScope"
+   */
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    registerAllocation.setCurrentScope("globalScope");
     for (AST_FuncDecl func : funcDeclList) {
       func.acceptRegister(registerAllocation);
     }
     statement.acceptRegister(registerAllocation);
+    registerAllocation.setCurrentScope("globalScope");
   }
 
   /**

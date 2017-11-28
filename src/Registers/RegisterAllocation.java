@@ -6,39 +6,72 @@ import java.util.*;
  * Class to keep track of free registers and allocate registers
  */
 public class RegisterAllocation {
+
+
   /**
    * Stack holding all free registers
    */
   Stack<RegisterARM> freeRegisters = new Stack<>();
 
-  Map<RegisterARM, String> registerInUse = new HashMap<>();
+  /**
+   * Map that Maps a register to a usage described in the String
+   */
+  Map<RegisterARM, RegisterUsage> registerInUse = new HashMap<>();
 
+  /**
+   * List that holds the string messages that are generated in Assembly
+   */
   List<String> stringList = new ArrayList<>();
 
+  /**
+   * The current scope of the Program
+   */
   String currentScope;
 
+  /**
+   * The current stack size
+   */
   int stackSize;
 
+  /**
+   * The final stack size based on the number of variables allocated on the stack
+   */
   int finalStackSize = 0;
 
   int currentLabel = 0;
 
+  /**
+   * returns the current stack size
+   */
   public int getStackSize() {
     return stackSize;
   }
 
+  /**
+   * returns the final stack size
+   */
   public int getFinalStackSize() {
     return finalStackSize;
   }
 
+  /**
+   * function to set the final stack size
+   */
   public void setFinalStackSize(int finalStackSize) {
     this.finalStackSize = finalStackSize;
   }
 
+  /**
+   * function to set the current stack size
+   */
   public void setStackSize(int stackSize) {
     this.stackSize = stackSize;
   }
 
+  /**
+   * function to set the current scope using an input string variable
+   * Options of Scope are: "funcScope" "globalScope"
+   */
   public void setCurrentScope(String currentScope) {
     this.currentScope = currentScope;
   }
@@ -60,13 +93,22 @@ public class RegisterAllocation {
     }
   }
 
-  //Maps ident name to stack location
+  /**
+   * Map that takes a variable name and maps it to a StackLocation
+   */
   Map<String, StackLocation> stackInUse = new HashMap<>();
 
+
+  /**
+   * Adds given identName and created stackLocation to the stackInUse map
+   */
   public void addToStack(String identName, StackLocation stackLocation) {
     stackInUse.put(identName, stackLocation);
   }
 
+  /**
+   * Returns a stackLocation based on the variable name
+   */
   public String getStackLocation(String identName) {
     if (stackInUse.containsKey(identName)) {
       return stackInUse.get(identName).getLocation();
@@ -74,7 +116,9 @@ public class RegisterAllocation {
     return "null";
   }
 
-
+  /**
+   * Returns the stack scope based on the variable name
+   */
   public String getStackScope(String identName) {
     if (stackInUse.containsKey(identName)) {
       return stackInUse.get(identName).getScope();
@@ -115,14 +159,26 @@ public class RegisterAllocation {
     return stringList.indexOf(string);
   }
 
-
+  /**
+   * Searches the Register in use Map by the usage value
+   * Returns the register if it used
+   */
   public RegisterARM searchByValue(String value) {
-    for (Map.Entry<RegisterARM, String> entry : registerInUse.entrySet()) {
-      if (value.equals(entry.getValue())) {
+    for (Map.Entry<RegisterARM, RegisterUsage> entry : registerInUse.entrySet()) {
+      if (value.equals(entry.getValue().getUsageType())) {
         return entry.getKey();
       }
     }
+    System.out.println("Cannot find the register value");
     return null;
+  }
+
+  public void freeAllFuncReg(String funcName){
+    for (Map.Entry<RegisterARM, RegisterUsage> entry : registerInUse.entrySet()) {
+      if (funcName.equals(entry.getValue().getFuncName())) {
+        freeRegister(entry.getKey());
+      }
+    }
   }
 
   /**
@@ -169,8 +225,8 @@ public class RegisterAllocation {
    *
    * @param register
    */
-  public void addRegisterInUse(RegisterARM register, String usage) {
-    registerInUse.put(register, usage);
+  public void addRegisterInUse(RegisterARM register, RegisterUsage newReg) {
+    registerInUse.put(register, newReg);
   }
 
   /**
@@ -193,7 +249,7 @@ public class RegisterAllocation {
    * @return - Returns a free register and removes it from the stack
    * Throws exception if no free registers remaining
    */
-  public RegisterARM useRegister(String usage) throws Exception {
+  public RegisterARM useRegister(RegisterUsage usage) throws Exception {
     if (registersFull()) {
       throw new NullPointerException();
     }
@@ -212,12 +268,12 @@ public class RegisterAllocation {
 //  }
 //
 
-  public String getRegisterMapValue(RegisterARM regToGet) {
+  public RegisterUsage getRegisterMapValue(RegisterARM regToGet) {
     if (registerInUse.containsKey(regToGet)) {
       return registerInUse.get(regToGet);
     }
     System.out.println("Key is not in regMap");
-    return "null";
+    return null;
   }
 
 

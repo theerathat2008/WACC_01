@@ -1,7 +1,9 @@
 package ASTNodes;
 
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
+import Registers.RegisterUsage;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -177,14 +179,24 @@ public class AST_ParamList extends AST_Node {
   }
 
   /**
-   * Doesn't require registers
+   * TODO Register optimisation:
+   * Allocate registers for the parameters to be stored in here for usage in the function up to the register limit
+   * Registers are initially allocated here
+   * Registers have to matched in the register allocation in AST_StatCallRHS when the function is called
    */
-
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    AST_FuncDecl tempNode = (AST_FuncDecl) parentNode;
+
     for (AST_Param param : listParam) {
+      RegisterUsage usage = new RegisterUsage("funcReg", registerAllocation.getCurrentScope());
+      usage.setFuncName(tempNode.funcName);
+      registerAllocation.useRegister(usage);
+
       param.acceptRegister(registerAllocation);
     }
+
+    registerAllocation.freeAllFuncReg(tempNode.funcName);
   }
 
   /**
