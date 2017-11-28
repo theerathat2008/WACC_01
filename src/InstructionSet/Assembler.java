@@ -2,7 +2,7 @@ package InstructionSet;
 
 import ASTNodes.AST_Node;
 import InstructionSet.InstructionError.InstructionError;
-import InstructionSet.InstructionPrintBlocks.InstructionPrintBlocks;
+import InstructionSet.InstructionPrintBlocks.*;
 import InstructionSet.InstructionReadBlocks.InstructionReadBlocks;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
@@ -103,7 +103,7 @@ public class Assembler {
       for (int i = 0; i < stringList.size(); i++) {
         result.append("\tmsg_");
         result.append(Integer.toString(i));
-        result.append("\n\t\t.word ");
+        result.append(":\n\t\t.word ");
         if (stringList.get(i).contains("\\")) {
           result.append(Integer.toString(stringList.get(i).length() - 1));
         } else {
@@ -122,6 +122,11 @@ public class Assembler {
    * @return
    */
   public String generatePostCode() {
+    boolean containsPrintLn = false;
+    boolean containsBool = false;
+    boolean containsInt = false;
+    boolean containsString = false;
+    boolean containsRef = false;
     StringBuilder result = new StringBuilder();
     for (Instruction currInstr : instructions) {
       String superName = currInstr.getClass().getSuperclass().getSimpleName();
@@ -129,15 +134,43 @@ public class Assembler {
         System.out.println("Type ReadBlocks");
         result.append(((InstructionReadBlocks) currInstr).resultBlock);
       } else if (superName.equals("InstructionPrintBlocks")) {
-        System.out.println("Type PrintBlocks");
-        result.append(((InstructionPrintBlocks) currInstr).getResultBlock());
-      } else if (superName.equals("InstructionError")) {
-        System.out.println("Type Error");
-        result.append(((InstructionError) currInstr).resultBlock);
+        if (currInstr instanceof InstructionPrintBlocksLn) {
+          if (!containsPrintLn) {
+            containsPrintLn = true;
+            result.append(((InstructionPrintBlocks) currInstr).getResultBlock());
+          }
+        } else if (currInstr instanceof InstructionPrintBlocksBool) {
+          if (!containsBool) {
+            containsBool = true;
+            result.append(((InstructionPrintBlocks) currInstr).getResultBlock());
+          }
+        } else if (currInstr instanceof InstructionPrintBlocksInt) {
+          if (!containsInt) {
+            containsInt = true;
+            result.append(((InstructionPrintBlocks) currInstr).getResultBlock());
+          }
+        } else if (currInstr instanceof InstructionPrintBlocksString) {
+          if (!containsString) {
+            containsString = true;
+            result.append(((InstructionPrintBlocks) currInstr).getResultBlock());
+          }
+          } else if (currInstr instanceof InstructionPrintBlocksRef) {
+            if (!containsRef) {
+              containsRef = true;
+              result.append(((InstructionPrintBlocks) currInstr).getResultBlock());
+            }
+
+            System.out.println("Type PrintBlocks");
+            result.append(((InstructionPrintBlocks) currInstr).getResultBlock());
+          }
+        } else if (superName.equals("InstructionError")) {
+          System.out.println("Type Error");
+          result.append(((InstructionError) currInstr).resultBlock);
+        }
       }
+      return result.toString();
     }
-    return result.toString();
-  }
+  
 
 
   public static Assembler getInstance() {
@@ -160,4 +193,6 @@ public class Assembler {
       e.getMessage();
     }
   }
+
+
 }

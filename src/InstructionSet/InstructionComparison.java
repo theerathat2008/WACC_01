@@ -9,8 +9,6 @@ public class InstructionComparison extends Instruction {
   String reg2;
   String dst;
   public String block1;
-  final String tr = " " + dst + " #1";
-  final String fal = " " + dst + " #0";
 
   public InstructionComparison(String op) {
     this.op = op;
@@ -40,10 +38,12 @@ public class InstructionComparison extends Instruction {
 
   @Override
   public void genInstruction() {
+    String tr = " " + dst + ", #1";
+    String fal = " " + dst + ", #0";
+
     StringBuilder builder = new StringBuilder("\t\t");
     if (!(op.equals("&&") || op.equals("||"))) {
-      builder.append("CMP");
-      builder.append(", ");
+      builder.append("CMP ");
       builder.append(reg1);
       builder.append(", ");
       builder.append(reg2);
