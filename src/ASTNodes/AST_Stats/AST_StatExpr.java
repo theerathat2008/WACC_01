@@ -341,6 +341,7 @@ public class AST_StatExpr extends AST_Stat {
               InstructionPrintBlocksInt instructionPrintBlocksInt = (InstructionPrintBlocksInt) instrPrintType;
               instructionPrintBlocksInt.allocateRegisters(RegisterARM.r0, RegisterARM.r1);
               break;
+            case ("string"):  //falls through to "str" case.
             case ("str"):
               InstructionPrintBlocksString instructionPrintString = (InstructionPrintBlocksString) instrPrintType;
               instructionPrintString.allocateRegisters(RegisterARM.r0, RegisterARM.r1, RegisterARM.r2);
@@ -456,6 +457,7 @@ public class AST_StatExpr extends AST_Stat {
               }
               instrPrintType = instructionPrintInt;
               break;
+            case ("string"):    //"string" case falls through to "str" case to prevent issues.
             case ("str"):
               registerAllocation.addString("%.*s\\0");
               InstructionPrintBlocksString instructionPrintString = new InstructionPrintBlocksString(registerAllocation.getStringID("%.*s\\0"));
