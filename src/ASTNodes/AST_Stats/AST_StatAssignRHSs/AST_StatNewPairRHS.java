@@ -20,6 +20,7 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
   //Syntactic attributes
   AST_Expr ast_expr_first;
   AST_Expr ast_expr_second;
+  InstructionDeclAssPair instructionDeclAssPair;
 
   /**
    * Constructor for class - initialises class variables to NULL
@@ -162,8 +163,11 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
+    assemblyCode.add(instructionDeclAssPair.getBlock1());
     ast_expr_first.acceptInstr(assemblyCode);
+    assemblyCode.add(instructionDeclAssPair.getBlock2());
     ast_expr_second.acceptInstr(assemblyCode);
+    assemblyCode.add(instructionDeclAssPair.getBlock3());
   }
 
   @Override
@@ -174,7 +178,7 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     //TODO check if arguments are correct
-    InstructionDeclAssPair instructionDeclAssPair
+    instructionDeclAssPair
         = new InstructionDeclAssPair(ast_expr_first.getType(), ast_expr_second.getType()
         , ast_expr_first.getIdentifier().toString(), ast_expr_second.getIdentifier().toString());
     instructionList.add(instructionDeclAssPair);

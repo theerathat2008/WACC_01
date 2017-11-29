@@ -7,7 +7,9 @@ public class InstructionDeclAssPair extends Instruction {
   String reg1;
   String reg2;
   String reg3;
-  String resultBlock = "";
+  String block1 = "";
+  String block2 = "";
+  String block3 = "";
   String firstType;
   String secondType;
   String firstElem;
@@ -23,6 +25,18 @@ public class InstructionDeclAssPair extends Instruction {
     reg1 = "reg1";
     reg2 = "reg2";
     reg3 = "reg3";
+  }
+
+  public String getBlock1() {
+    return block1;
+  }
+
+  public String getBlock2() {
+    return block2;
+  }
+
+  public String getBlock3() {
+    return block3;
   }
 
   public void allocateRegisters(RegisterARM reg1, RegisterARM reg2, RegisterARM reg3) {
@@ -66,7 +80,10 @@ public class InstructionDeclAssPair extends Instruction {
     builder.append(", ");
     builder.append(reg1);
     builder.append("\n");
-    builder.append(getElemBlock(firstType, firstElem));  //maybe, not sure if this is intended use of this function
+    block1 = builder.toString();
+
+    builder = new StringBuilder();
+//    builder.append(getElemBlock(firstType, firstElem));  //maybe, not sure if this is intended use of this function
     builder.append("\t\tLDR ");
     builder.append(reg1);
     builder.append(", =");
@@ -80,7 +97,10 @@ public class InstructionDeclAssPair extends Instruction {
     builder.append(", [");
     builder.append(reg2);
     builder.append("]\n");
-    builder.append(getElemBlock(secondType, secondElem)); //maybe, not sure if this is intended use of this function
+    block2 = builder.toString();
+
+    builder = new StringBuilder();
+//    builder.append(getElemBlock(secondType, secondElem)); //maybe, not sure if this is intended use of this function
     builder.append("\t\tLDR ");
     builder.append(reg1);
     builder.append(", =");
@@ -98,6 +118,7 @@ public class InstructionDeclAssPair extends Instruction {
     builder.append(", [sp, #");
     builder.append(sp2);
     builder.append("]\n");
+    block3 = builder.toString();
 
 //    resultBlock.concat("\t\tLDR " +  reg1 + ", =8" + "\n");
 //    resultBlock.concat("\t\tBL malloc\n");
@@ -113,7 +134,6 @@ public class InstructionDeclAssPair extends Instruction {
 //    resultBlock.concat("\t\tSTR " +  reg3 + ", [" +  reg1 + "]\n");
 //    resultBlock.concat("\t\tSTR " +  reg1 + ", [" +  reg2 + ", #4]\n");
 //    resultBlock.concat("\t\tSTR " +  reg2 + ", [sp, #" + sp2 + "]\n");
-    resultBlock = builder.toString();
   }
 
   @Override
