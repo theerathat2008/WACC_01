@@ -295,7 +295,7 @@ public class AST_StatExpr extends AST_Stat {
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+    String type;
     System.out.println("StatName is: " + statName);
 
 
@@ -326,12 +326,14 @@ public class AST_StatExpr extends AST_Stat {
         break;
 
       case ("println"):
+
+
         InstructionPrintBlocksLn instructionPrintLn = (InstructionPrintBlocksLn) instrPrintLn;
         instructionPrintLn.allocateRegisters(RegisterARM.r0);
 
 
       case ("print"):
-        String type = expr.getType();
+        type = expr.getType();
         System.out.println("Type is at print: " + type);
 
         if (type != null) {
@@ -444,6 +446,8 @@ public class AST_StatExpr extends AST_Stat {
           instructionList.add(instructionPrintLn);
         }
         instrPrintLn = instructionPrintLn;
+
+        break;
       case ("print"):
         String type = expr.getType();
         if (type != null) {

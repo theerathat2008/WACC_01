@@ -2,9 +2,11 @@ package InstructionSet.InstructionCheck;
 
 public class InstructionCheckArrayBounds extends InstructionCheck {
   String reg2;
+  int msgNum2;
 
-  public InstructionCheckArrayBounds(int msgNum) {
-    super(msgNum);
+  public InstructionCheckArrayBounds(int msgNum1, int msgNum2) {
+    super(msgNum1);
+    this.msgNum2 = msgNum2;
     reg1 = "reg1";
     reg2 = "reg2";
   }
@@ -24,15 +26,18 @@ public class InstructionCheckArrayBounds extends InstructionCheck {
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    resultBlock.concat("p_check_array_bounds:\n");
-    resultBlock.concat("\t\tPUSH {lr}\n");
-    resultBlock.concat("\t\tCMP " + reg1 + ", #0\n");
-    resultBlock.concat("\t\tLDRLT " + reg1 + ", =msg_" + msgNum + "\n");
-    resultBlock.concat("\t\tBLLT p_throw_runtime_error\n");
-    resultBlock.concat("\t\tLDR " + reg2 + ", [" + reg2 + "]\n");
-    resultBlock.concat("\t\tCMP " + reg1 + ", " + reg2 + "\n");
-    resultBlock.concat("\t\tBLCS p_throw_runtime_error\n");
-    resultBlock.concat("\t\tPOP {pc}\n");
+    StringBuilder builder = new StringBuilder("");
+    builder.append("p_check_array_bounds:\n");
+    builder.append("\t\tPUSH {lr}\n");
+    builder.append("\t\tCMP " + reg1 + ", #0\n");
+    builder.append("\t\tLDRLT " + reg1 + ", =msg_" + msgNum1 + "\n");
+    builder.append("\t\tBLLT p_throw_runtime_error\n");
+    builder.append("\t\tLDR " + reg2 + ", [" + reg2 + "]\n");
+    builder.append("\t\tCMP " + reg1 + ", " + reg2 + "\n");
+    builder.append("\t\tLDRCS " + reg1 + ", =msg_" + msgNum2 + "\n");
+    builder.append("\t\tBLCS p_throw_runtime_error\n");
+    builder.append("\t\tPOP {pc}\n");
+    resultBlock = builder.toString();
   }
 
 }

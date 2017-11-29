@@ -37,6 +37,7 @@ public class InstructionPrint extends Instruction {
   }
 
   public String getPrintType() {
+    System.out.println("GETPRINT TYPE type is:" + type);
     switch (type) {
       case ("str"):
         return "p_print_string";
@@ -51,6 +52,9 @@ public class InstructionPrint extends Instruction {
       case ("int"):
         return "p_print_int";
       default:
+        if (type.contains("[]")) {
+          //type = type.
+        }
         System.out.println("Unrecognised type on InstructionPrintBlocks");
         System.out.println("Was type:" + type);
         break;
