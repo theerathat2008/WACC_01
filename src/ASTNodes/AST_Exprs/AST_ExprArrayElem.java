@@ -182,6 +182,7 @@ public class AST_ExprArrayElem extends AST_Expr {
    */
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    //Puts out of bounds code in
     String neg = "ArrayIndexOutOfBoundsError: negative index\\n\\0";
     String large = "ArrayIndexOutOfBoundsError: index too large\\n\\0";
     registerAllocation.addString(large);

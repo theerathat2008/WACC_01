@@ -56,7 +56,7 @@ public class RegisterAllocation {
       case "bool":
         return 1;
       default:
-        return 1;
+        return 4;
     }
   }
 
