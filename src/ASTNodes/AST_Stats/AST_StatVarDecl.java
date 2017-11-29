@@ -375,7 +375,7 @@ public class AST_StatVarDecl extends AST_Stat {
 
     if (ast_assignRHS instanceof AST_StatArrayLitRHS) {
       AST_StatArrayLitRHS tempNode = (AST_StatArrayLitRHS) ast_assignRHS;
-      registerAllocation.setStackSize(registerAllocation.getStackSize() + tempNode.getArraySize());
+      registerAllocation.setStackSize(registerAllocation.getStackSize() + tempNode.getArraySize() + 4);
       System.out.println("HIIIIIIIIIIIIIIT 1");
 
     } else {
