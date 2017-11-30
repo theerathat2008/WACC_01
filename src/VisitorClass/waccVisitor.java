@@ -865,17 +865,24 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
       }
     }
 
-    //find its type
+    //find its type, if type differ from that it's fine
 
     System.out.println("Type is: " + type);
     System.out.println("hi");
 
-    if (type != null) {
+    System.out.println(identName);
+    IDENTIFIER value = currentGlobalTree.encSymTable.getSymMap().get(identName);
+
+    System.out.println(value);
+
+    /*if (type != null) {
       if (!type.toString().contains("FUNCTION")) {
         new VariableRedeclarationError(new FilePosition(ctx)).printAll();
       }
 
-    }
+
+
+    }*/
 
     //Debug statement
     System.out.println("statVarDecl");

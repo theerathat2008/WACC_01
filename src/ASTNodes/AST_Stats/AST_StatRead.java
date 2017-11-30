@@ -133,9 +133,10 @@ public class AST_StatRead extends AST_Stat {
         }
 
         String typeString = typeName.toString();
+        System.out.println(typeString);
 
         if (typeString.equals("char") || typeString.equals("int")
-            || typeString.contains("pair")) {
+            || typeString.contains("pair") || typeString.contains("PAIR(")) {
           return true;
         } else {
           new TypeError(new FilePosition(ctx)).printAll();
@@ -144,6 +145,7 @@ public class AST_StatRead extends AST_Stat {
       }
     }
 
+    System.out.println("reach here");
     String type = ast_statAssignLHS.getIdentifier().toString();
 
     //only valid if it is of type char and int
