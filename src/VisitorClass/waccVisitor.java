@@ -643,6 +643,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     parentVisitorNode.setEmbeddedAST("expr", exprArrayElemNode);
 
     //Set syntactic member variable in AST
+
     exprArrayElemNode.setSyntacticAttributes(ctx.IDENT().getText());
 
     //Set parentNode of AST class and global visitor class
@@ -802,7 +803,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Set Embedded Syntactic value in AST Node class
     //Have to assign Constant first then literal
-
+    System.out.println("HEREEEEEEEEEEE1: "+ ctx.INT_LITER().getText());
     exprLiterNode.setSyntacticAttributes(ctx.INT_LITER().getText());
     exprLiterNode.setSyntacticAttributes("int");
 
