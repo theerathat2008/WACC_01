@@ -465,23 +465,102 @@ public class AST_ExprBinary extends AST_Expr {
         } else if (opName.equals(">") || opName.equals(">=") || opName.equals("<") || opName.equals("<=")
                 || opName.equals("==") || opName.equals("!=")){
           System.out.println("compare");
+          //return 1 for true, return 0 for false
+          int exprLeftInt = Integer.parseInt(exprLeft);
+          int exprRightInt= Integer.parseInt(exprRight);
+          if (opName.equals(">")) {
+            if (exprLeftInt > exprRightInt) {
+              result = 1;
+            }
+          } else if (opName.equals(">=")) {
+            if (exprLeftInt >= exprRightInt) {
+              result = 1;
+            }
+          } else if (opName.equals("<")) {
+            if (exprLeftInt < exprRightInt) {
+              result = 1;
+            }
+          } else if (opName.equals("<=")) {
+            if (exprLeftInt <= exprRightInt) {
+              result = 1;
+            }
+          } else if (opName.equals("==")) {
+            if (exprLeftInt == exprRightInt) {
+              result = 1;
+            }
+          } else if (opName.equals("!=")) {
+            if (exprLeftInt != exprRightInt) {
+              result = 1;
+            }
+          }
         } else if (opName.equals("&&") || opName.equals("||")) {
-
+          System.out.println("&& ||");
+          //check true or false
+          if (opName.equals("&&")) {
+            //only case that is true must be when both sides are true
+            if (exprLeft.equals("true") && exprRight.equals("true")) {
+              result = 1;
+            }
+          } else if (opName.equals("||")) {
+            //only false case is when both are false
+            if (!(exprLeft.equals("false") && exprRight.equals("false"))) {
+              result = 1;
+            }
+          }
         }
       } else {
         //this is the case when everything terminates and we are ready to calculate
         //or maybe it's the case that the two are the most left
         //needs to consider the precedence
+        //add LHS to the list when RHS is exprEnclosed
+        //TODO maybe needs to separate if add from right or left first
+        //how to differentiate
         int immediateResult = 0;
-        if (opName.equals("*")) {
-          immediateResult = Integer.parseInt(exprLeft) * Integer.parseInt(exprRight);
-          String immString = String.valueOf(immediateResult);
-          program.addListInt(immString);
-        } else if (opName.equals("/")) {
-          immediateResult = Integer.parseInt(exprLeft) / Integer.parseInt(exprRight);
-          String immString = String.valueOf(immediateResult);
-          program.addListInt(immString);
+
+        System.out.println("Both are");
+
+        String lastElem = program.getListInt().get(program.getListInt().size() - 1);
+        String firstElem = program.getListInt().get(0);
+
+        if (lastElem.equals("+") || lastElem.equals("-") || lastElem.equals("*") || lastElem.equals("/")) {
+          if (opName.equals("*")) {
+            immediateResult = Integer.parseInt(exprLeft) * Integer.parseInt(exprRight);
+            String immString = String.valueOf(immediateResult);
+            program.addLastListInt(immString);
+          } else if (opName.equals("/")) {
+            immediateResult = Integer.parseInt(exprLeft) / Integer.parseInt(exprRight);
+            String immString = String.valueOf(immediateResult);
+            program.addLastListInt(immString);
+          } else if (opName.equals("+")) {
+            immediateResult = Integer.parseInt(exprLeft) + Integer.parseInt(exprRight);
+            String immString = String.valueOf(immediateResult);
+            program.addLastListInt(immString);
+          } else if (opName.equals("-")) {
+            immediateResult = Integer.parseInt(exprLeft) - Integer.parseInt(exprRight);
+            String immString = String.valueOf(immediateResult);
+            program.addLastListInt(immString);
+          }
+        } else if (firstElem.equals("+") || firstElem.equals("-") || firstElem.equals("*") || firstElem.equals("/")) {
+          System.out.println("first elem");
+          if (opName.equals("*")) {
+            immediateResult = Integer.parseInt(exprLeft) * Integer.parseInt(exprRight);
+            String immString = String.valueOf(immediateResult);
+            program.addListInt(immString);
+          } else if (opName.equals("/")) {
+            immediateResult = Integer.parseInt(exprLeft) / Integer.parseInt(exprRight);
+            String immString = String.valueOf(immediateResult);
+            program.addListInt(immString);
+          } else if (opName.equals("+")) {
+            immediateResult = Integer.parseInt(exprLeft) + Integer.parseInt(exprRight);
+            String immString = String.valueOf(immediateResult);
+            program.addListInt(immString);
+          } else if (opName.equals("-")) {
+            immediateResult = Integer.parseInt(exprLeft) - Integer.parseInt(exprRight);
+            String immString = String.valueOf(immediateResult);
+            program.addListInt(immString);
+          }
         }
+
 
         System.out.println("current list is: " + program.getListInt());
         //the general case
@@ -544,25 +623,44 @@ public class AST_ExprBinary extends AST_Expr {
         }
 
         //when the list is equal to 1
+        //clear all list
         if (program.getListInt().size() == 1) {
           result = Integer.parseInt(program.getListInt().get(0));
+          program.clearAllList();
         }
 
       }
 
-    } else {
+    } else if (exprLeftAST instanceof AST_ExprLiter || exprRightAST instanceof AST_ExprLiter){
       //only add to list if it's +, -, *, /
       System.out.println("Reach the else statement where not both types are of type AST_ExprIdnet");
+
       if (exprRightAST instanceof AST_ExprLiter) {
 
         if (opName.equals("+") || opName.equals("-") || opName.equals("*") || opName.equals("/")) {
           System.out.println("exprRight is: " + exprRight);
           program.addListInt(exprRight);
-          program.addListInt(opName);
+          if (opName != null) {
+            program.addListInt(opName);
+          }
 
           System.out.println("current list is: ");
           System.out.println(program.getListInt());
           System.out.println(program.getListOp());
+        }
+      }
+
+      //TODO is the only cast when LestAST is instance of AST_ExprLiter only when RHS is Enclosed?
+      if (exprLeftAST instanceof AST_ExprLiter && exprRightAST instanceof AST_ExprEnclosed) {
+
+        if (opName.equals("+") || opName.equals("-") || opName.equals("*") || opName.equals("/")) {
+          program.addLastListInt(exprLeft);
+          if (opName != null) {
+            program.addLastListInt(opName);
+          }
+
+          System.out.println("current list is: ");
+          System.out.println(program.getListInt());
         }
       }
     }

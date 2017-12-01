@@ -229,4 +229,8 @@ public class AST_Program extends AST_Node {
   public void changeListElem(int i, String string) {
     listInt.set(i, string);
   }
+
+  public void addLastListInt(String constantToAdd) {
+    listInt.add(constantToAdd);
+  }
 }
