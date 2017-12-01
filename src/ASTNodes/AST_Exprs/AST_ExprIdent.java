@@ -5,11 +5,14 @@ import InstructionSet.Instruction;
 import InstructionSet.InstructionAssignIdent;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
+import Registers.RegisterUsage;
 import SymbolTable.SymbolTable;
 import ErrorMessages.UndefinedIdentError;
 import ErrorMessages.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
+
+import static Registers.RegisterUsageBuilder.*;
 
 import java.util.ArrayDeque;
 import java.util.List;
@@ -106,8 +109,6 @@ public class AST_ExprIdent extends AST_Expr {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
-   * @param ST
    */
   @Override
   public boolean CheckSemantics() {
@@ -172,16 +173,30 @@ public class AST_ExprIdent extends AST_Expr {
    * another register which takes the stack address of the variables
    */
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
-    RegisterARM resultReg = registerAllocation.searchByValue("expr");
+    RegisterUsage usage = aRegisterUsageBuilder()
+        .withScope(registerAllocation.getCurrentScope())
+        .withUsageType("exprType")
+        .withSubType("resultType")
+        .withVarName(varName)
+        .build();
+
+    RegisterARM resultReg = registerAllocation.useRegister(usage);
+
+    //Check if varName is allocated on the stack or in a register
     String stackLocation = registerAllocation.getStackLocation(varName);
+    if(stackLocation.equals("null")){
+      stackLocation = registerAllocation.searchByVarValue(varName).name();
+      if(stackLocation.equals("NULL_REG")) {
+        System.out.println("Error variable: " + varName + " never assigned in AST_ExprIdent");
+      }
+    }
 
     instr.registerAllocation(resultReg);
     instr.allocateLocation(stackLocation);
 
-    registerAllocation.freeRegister(resultReg);
-
+    return resultReg;
   }
 
 

@@ -2,6 +2,7 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 
@@ -174,10 +175,12 @@ public class AST_ExprArrayElem extends AST_Expr {
    */
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    //TODO SEE IF need result of these expressions
     for (AST_Expr expr : ast_exprList) {
       expr.acceptRegister(registerAllocation);
     }
+    return RegisterARM.NULL_REG;
   }
 
 

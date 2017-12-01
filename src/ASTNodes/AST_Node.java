@@ -2,6 +2,7 @@ package ASTNodes;
 
 
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import Registers.RegisterAllocation;
@@ -104,7 +105,7 @@ public abstract class AST_Node {
 
   public abstract void acceptInstr(List<String> assemblyCode);
 
-  public abstract void acceptRegister(RegisterAllocation registerAllocation) throws Exception;
+  public abstract RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception;
 
   public abstract void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception;
 

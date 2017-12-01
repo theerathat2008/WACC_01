@@ -190,10 +190,16 @@ public class AST_StatRead extends AST_Stat {
     assemblyCode.add(instr.resultBlock);
   }
 
+  /**
+   * No expr evaluated
+   */
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
     ast_statAssignLHS.acceptRegister(registerAllocation);
     instr.allocateRegisters(RegisterARM.r0, RegisterARM.r1);
+    //TODO need to allocate the sp register 
+    return RegisterARM.NULL_REG;
   }
 
   /**

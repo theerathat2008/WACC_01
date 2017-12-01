@@ -1,15 +1,11 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
-import ASTNodes.AST_Exprs.AST_ExprBinary;
 import ASTNodes.AST_Node;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionDeclOrAss.*;
-import InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray.InstructionDeclAssArrayBool;
-import InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray.InstructionDeclAssArrayChar;
-import InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray.InstructionDeclAssArrayInt;
-import InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray.InstructionDeclAssArrayString;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
@@ -147,7 +143,7 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
   }
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     ast_expr.acceptRegister(registerAllocation);
   }
 

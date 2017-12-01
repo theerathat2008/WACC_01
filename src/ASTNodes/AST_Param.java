@@ -2,6 +2,7 @@ package ASTNodes;
 
 
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
@@ -167,13 +168,14 @@ public class AST_Param extends AST_Node {
   }
 
   /**
-   * @param registerAllocation
+   * Returns a NULL_REG as there is no register allocation in AST_PARAM
    */
 
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     ast_type.acceptRegister(registerAllocation);
+    return RegisterARM.NULL_REG;
   }
 
 

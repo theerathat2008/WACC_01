@@ -14,8 +14,11 @@ import InstructionSet.Instruction;
 import InstructionSet.InstructionVarDecl;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
+import Registers.RegisterUsage;
 import Registers.StackLocation;
 import SymbolTable.SymbolTable;
+
+import static Registers.RegisterUsageBuilder.*;
 
 import ASTNodes.AST_TYPES.AST_Type;
 import ErrorMessages.TypeMismatchError;
@@ -346,46 +349,73 @@ public class AST_StatVarDecl extends AST_Stat {
     assemblyCode.add(instrVar.getResultBlock());
   }
 
+
+  /**
+   * Has the format mov dst src
+   *                str dst [SP]
+   * For efficient register allocation, use up to 4 registers then use the stack
+   * Doesn't need to return a  specific register as the result is held onto the stack
+   * if allocated on the regMap then return that register
+   */
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
-    registerAllocation.useRegister("result");
-    ast_assignRHS.acceptRegister(registerAllocation);
 
-    RegisterARM src = registerAllocation.searchByValue("result");
-    RegisterARM dst = registerAllocation.useRegister("dst");
-    instrVar.allocateRegisters(dst, src);
+    RegisterARM src = ast_assignRHS.acceptRegister(registerAllocation);
     registerAllocation.freeRegister(src);
-    registerAllocation.freeRegister(dst);
 
-    //set stack location
+    RegisterUsage interUsage = aRegisterUsageBuilder()
+        .withUsageType("statType")
+        .withSubType("interType")
+        .withScope(registerAllocation.getCurrentScope())
+        .build();
 
-    StringBuilder stackLocation = new StringBuilder();
-    int displacement = registerAllocation.getFinalStackSize() - registerAllocation.getStackSize()
-        - registerAllocation.getMemSize(ast_type.getIdentifier().toString());
+    RegisterARM interReg = registerAllocation.useRegister(interUsage);
+    registerAllocation.freeRegister(interReg);
 
-    System.out.println("Final stack size is: " + registerAllocation.getFinalStackSize());
-    if (displacement == 0) {
-      stackLocation.append("[sp]");
+    instrVar.allocateRegisters(interReg, src);
+
+
+    if(registerAllocation.getVarRegSize() > 4){
+
+      //set stack location
+      StringBuilder stackLocation = new StringBuilder();
+
+      int displacement = registerAllocation.getFinalStackSize() - registerAllocation.getStackSize()
+          - registerAllocation.getMemSize(ast_type.getIdentifier().toString());
+
+      if (displacement == 0) {
+        stackLocation.append("[sp]");
+      } else {
+        stackLocation.append("[sp, #");
+        stackLocation.append(displacement);
+        stackLocation.append("]");
+      }
+
+      if (ast_assignRHS instanceof AST_StatArrayLitRHS) {
+        AST_StatArrayLitRHS tempNode = (AST_StatArrayLitRHS) ast_assignRHS;
+        registerAllocation.setStackSize(registerAllocation.getStackSize() + tempNode.getArraySize());
+      } else {
+        registerAllocation.setStackSize(registerAllocation.getStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
+      }
+
+
+      registerAllocation.addToStack(identName, new StackLocation(stackLocation.toString(), registerAllocation.getCurrentScope()));
+
+      instrVar.setStackLocation(stackLocation.toString());
+
     } else {
-      stackLocation.append("[sp, #");
-      stackLocation.append(displacement);
-      stackLocation.append("]");
+      RegisterUsage varUsage = aRegisterUsageBuilder()
+          .withScope(registerAllocation.getCurrentScope())
+          .withUsageType("varDecType")
+          .withVarName(identName)
+          .build();
+      RegisterARM varStore = registerAllocation.useRegister(varUsage);
+      instrVar.setStackLocation(varStore.name());
+      return varStore;
+      //TODO might need to free if out of scope
     }
-
-    if (ast_assignRHS instanceof AST_StatArrayLitRHS) {
-      AST_StatArrayLitRHS tempNode = (AST_StatArrayLitRHS) ast_assignRHS;
-      registerAllocation.setStackSize(registerAllocation.getStackSize() + tempNode.getArraySize());
-    } else {
-      registerAllocation.setStackSize(registerAllocation.getStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
-    }
-
-
-    registerAllocation.addToStack(identName, new StackLocation(stackLocation.toString(), registerAllocation.getCurrentScope()));
-
-    instrVar.setStackLocation(stackLocation.toString());
-
-
+    return RegisterARM.NULL_REG;
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
@@ -393,7 +423,7 @@ public class AST_StatVarDecl extends AST_Stat {
     /**
      * Content of the RHS:-  AST_StatArrayLit:-  [0,0,0]                          ---
      *                       AST_StatCall:- return value of the function          --- Create InstructionCall
-     *                       AST_StatExpr:- evalutaion of the expression 5, 5+5
+     *                       AST_StatExpr:- evaluation of the expression 5, 5+5
      *                       AST_NewPair:- newpair()
      *                       AST_StatPairElem:- fst, snd
      */

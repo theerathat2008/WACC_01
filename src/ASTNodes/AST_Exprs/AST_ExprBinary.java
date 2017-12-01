@@ -6,6 +6,7 @@ import ErrorMessages.TypeMismatchError;
 import ErrorMessages.FilePosition;
 import InstructionSet.Instruction;
 import Registers.RegisterUsage;
+import com.sun.org.apache.regexp.internal.RE;
 import org.antlr.v4.runtime.ParserRuleContext;
 import InstructionSet.InstructionArithmetic;
 import InstructionSet.InstructionComparison;
@@ -15,6 +16,8 @@ import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
 import java.util.List;
+
+import static Registers.RegisterUsageBuilder.*;
 
 import VisitorClass.AST_NodeVisitor;
 import IdentifierObjects.*;
@@ -331,37 +334,35 @@ public class AST_ExprBinary extends AST_Expr {
   /**
    * Want to store the evaluation of the two registers result of the binary expression
    * Format is expr BinOp expr
-   * Store the result of the two expr into a result reg
+   * Store the returned result of the two expr into a result reg
+   * Free the two registers after having got the evaluation of the two stores in the regs
    */
 
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
-    RegisterUsage usageLeft = new RegisterUsage("exprType", registerAllocation.getCurrentScope());
-    usageLeft.setOperationType(opName);
 
-    RegisterARM regLeft = registerAllocation.useRegister(usageLeft);
+    RegisterARM regLeft = exprLeftAST.acceptRegister(registerAllocation);
+    RegisterARM regRight = exprRightAST.acceptRegister(registerAllocation);
 
-    RegisterUsage usageRight = new RegisterUsage("exprType", registerAllocation.getCurrentScope());
-    usageRight.setOperationType(opName);
+    registerAllocation.freeRegister(regLeft);
+    registerAllocation.freeRegister(regRight);
 
-    RegisterARM regRight = registerAllocation.useRegister(usageRight);
-
-    exprLeftAST.acceptRegister(registerAllocation);
-    exprRightAST.acceptRegister(registerAllocation);
-
+    RegisterUsage resultUsage = aRegisterUsageBuilder()
+        .withUsageType("exprType")
+        .withSubType("resultType")
+        .withScope(registerAllocation.getCurrentScope())
+        .withOperationType(opName)
+        .build();
+    RegisterARM dst = registerAllocation.useRegister(resultUsage);
 
     if (opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")) {
-      RegisterARM dst = registerAllocation.useRegister();
       instrA.allocateRegisters(dst, regLeft, regRight);
-      registerAllocation.freeRegister(dst);
     } else {
-      RegisterARM dst = registerAllocation.useRegister("expr");
-      instrC.allocateRegisters(reg1, reg2, dst);
+      instrC.allocateRegisters(regLeft, regRight, dst);
     }
     return dst;
-
   }
 
 

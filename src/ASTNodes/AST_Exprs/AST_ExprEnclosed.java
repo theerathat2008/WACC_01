@@ -3,6 +3,7 @@ package ASTNodes.AST_Exprs;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Separator;
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 
@@ -166,17 +167,13 @@ public class AST_ExprEnclosed extends AST_Expr {
     exprAST.acceptInstr(assemblyCode);
   }
 
-
+  /**
+   * Return the evaluation of the expr register
+   * No explicit register allocation here
+   */
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    leftSepAST.acceptRegister(registerAllocation);
-
-    //allocate result register here
-    Register dst = exprAST.acceptRegister(registerAllocation);
-
-
-    rightSepAST.acceptRegister(registerAllocation);
-
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    return exprAST.acceptRegister(registerAllocation);
   }
 
   /**

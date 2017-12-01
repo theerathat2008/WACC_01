@@ -213,7 +213,7 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
   }
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     for (AST_Expr expr : ast_exprList) {
       expr.acceptRegister(registerAllocation);
     }

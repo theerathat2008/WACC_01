@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats.AST_StatIfs;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_Stat;
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 
@@ -142,7 +143,7 @@ public class AST_StatIfThen extends AST_StatSubIf {
   }
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     thenStat.acceptRegister(registerAllocation);
   }
 

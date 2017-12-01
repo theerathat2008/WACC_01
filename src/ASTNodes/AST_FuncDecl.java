@@ -6,6 +6,7 @@ import IdentifierObjects.IDENTIFIER;
 import IdentifierObjects.ParamListObj;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionFunction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
@@ -281,16 +282,23 @@ public class AST_FuncDecl extends AST_Node {
 
   /**
    * Doesn't require any registers but does set the scope to be functionScope on entry and global scope on exit
+   * Returns the result register which in this case is null
+   * Frees the function registers allocated in AST_ParamList after their usage in the statements
    */
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     registerAllocation.setCurrentScope("funcScope");
     ast_type.acceptRegister(registerAllocation);
     if (checkForParamList()){
       paramList.acceptRegister(registerAllocation);
     }
     statement.acceptRegister(registerAllocation);
+
+    registerAllocation.freeAllFuncReg(funcName);
+
     registerAllocation.setCurrentScope("globalScope");
+
+    return RegisterARM.NULL_REG;
   }
 
 

@@ -3,6 +3,7 @@ package ASTNodes.AST_TYPES.AST_PairElemTypes;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_TYPES.AST_Type;
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import IdentifierObjects.*;
@@ -119,7 +120,7 @@ public class AST_PairElemType extends AST_Type {
   }
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
   }
 

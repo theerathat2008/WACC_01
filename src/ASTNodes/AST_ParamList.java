@@ -6,6 +6,8 @@ import Registers.RegisterAllocation;
 import Registers.RegisterUsage;
 import SymbolTable.SymbolTable;
 
+import static Registers.RegisterUsageBuilder.*;
+
 import java.util.ArrayDeque;
 
 import IdentifierObjects.IDENTIFIER;
@@ -183,26 +185,48 @@ public class AST_ParamList extends AST_Node {
    * Allocate registers for the parameters to be stored in here for usage in the function up to the register limit
    * Registers are initially allocated here
    * Registers have to matched in the register allocation in AST_StatCallRHS when the function is called
+   * Returns NULL_REG as there is no results reg
    */
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     AST_FuncDecl tempNode = (AST_FuncDecl) parentNode;
 
+    RegisterUsage resultRegUsage = aRegisterUsageBuilder()
+        .withUsageType("funcType")
+        .withSubType("resultType")
+        .withScope(registerAllocation.getCurrentScope())
+        .withFuncName(tempNode.funcName)
+        .build();
+    registerAllocation.useRegister(resultRegUsage);
+
     for (AST_Param param : listParam) {
+
       if(registerAllocation.registersFull()){
-        //allocate on the stack
-      } else {
-        RegisterUsage usage = new RegisterUsage("funcReg", registerAllocation.getCurrentScope());
-        usage.setFuncName(tempNode.funcName);
+
+        System.out.println("Registers full");
+
+      } else if(numOfParam <= 4){
+
+        RegisterUsage usage = aRegisterUsageBuilder()
+            .withUsageType("funcType")
+            .withVarName(param.paramName)
+            .withScope(registerAllocation.getCurrentScope())
+            .withFuncName(tempNode.funcName)
+            .build();
         registerAllocation.useRegister(usage);
+
         param.acceptRegister(registerAllocation);
+
+      } else {
+        System.out.println("More than 4 parameters used in AST_ParamList");
       }
     }
-    registerAllocation.freeAllFuncReg(tempNode.funcName);
+
+    return RegisterARM.NULL_REG;
   }
 
   /**
-   * Could generate variable to show total stack displacement size by working out the
+   * TODO Could generate variable to show total stack displacement size by working out the
    * number and type of inbuilt parameters
    */
 

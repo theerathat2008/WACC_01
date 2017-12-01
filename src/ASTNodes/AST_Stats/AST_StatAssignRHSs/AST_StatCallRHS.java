@@ -385,11 +385,11 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
   }
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     for (AST_Expr expr : ast_exprList) {
       expr.acceptRegister(registerAllocation);
     }
-    registerAllocation.freeRegister(registerAllocation.searchByValue("result"));
+    registerAllocation.freeRegister(registerAllocation.searchByTypeValue("result"));
     registerAllocation.addRegisterInUse(RegisterARM.r0, "result");
   }
 

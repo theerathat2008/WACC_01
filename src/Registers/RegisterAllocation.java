@@ -19,6 +19,17 @@ public class RegisterAllocation {
   Map<RegisterARM, RegisterUsage> registerInUse = new HashMap<>();
 
   /**
+   * Map that stores variables declared
+   */
+  Map<RegisterARM, RegisterUsage> varRegisters = new HashMap<>();
+
+
+  /**
+   * Map that stores a funcRegisters with the key being the funcName
+   */
+  Map<String, Map<RegisterARM, RegisterUsage>> funcRegisters = new HashMap<>();
+
+  /**
    * List that holds the string messages that are generated in Assembly
    */
   List<String> stringList = new ArrayList<>();
@@ -155,22 +166,36 @@ public class RegisterAllocation {
     }
   }
 
-  public int getStringID(String string) {
-    return stringList.indexOf(string);
-  }
-
   /**
-   * Searches the Register in use Map by the usage value
+   * Searches the Register in use Map by the usage usageType
    * Returns the register if it used
    */
-  public RegisterARM searchByValue(String value) {
+  public RegisterARM searchByTypeValue(String usageType) {
     for (Map.Entry<RegisterARM, RegisterUsage> entry : registerInUse.entrySet()) {
-      if (value.equals(entry.getValue().getUsageType())) {
+      if (usageType.equals(entry.getValue().getUsageType())) {
         return entry.getKey();
       }
     }
-    System.out.println("Cannot find the register value");
-    return null;
+    System.out.println("Cannot find the register usageType");
+    return RegisterARM.NULL_REG;
+  }
+
+  /**
+   * Searches the Register in use Map by the usage varName
+   * Returns the register if it used
+   */
+  public RegisterARM searchByVarValue(String varName) {
+    for (Map.Entry<RegisterARM, RegisterUsage> entry : varRegisters.entrySet()) {
+      if (varName.equals(entry.getValue().getVarName())) {
+        return entry.getKey();
+      }
+    }
+    System.out.println("Cannot find the register varName in VarRegisters");
+    return RegisterARM.NULL_REG;
+  }
+
+  public int getStringID(String string) {
+    return stringList.indexOf(string);
   }
 
   public void freeAllFuncReg(String funcName){
@@ -255,8 +280,23 @@ public class RegisterAllocation {
     }
     RegisterARM poppedReg = freeRegisters.pop();
     addRegisterInUse(poppedReg, usage);
+
+    if(usage.getUsageType().equals("funcType")){
+      Map<RegisterARM, RegisterUsage> tempMap = new HashMap<>();
+      tempMap.put(poppedReg, usage);
+      funcRegisters.put(usage.getFuncName(), tempMap);
+    }
+
+    if(usage.getUsageType().equals("varDecType")){
+      varRegisters.put(poppedReg, usage);
+    }
     return poppedReg;
   }
+
+  public int getVarRegSize(){
+    return varRegisters.size();
+  }
+
 
 
 //  public void addRegisterMap(String key, RegisterARM registerARM){
@@ -303,36 +343,36 @@ public class RegisterAllocation {
     return !freeRegisters.contains(register);
   }
 
-  /**
-   * @return - Returns a list of all normal registers that can be put in the free reg stack
-   */
-  public List<RegisterARM> getNormalRegisters() {
-    List<RegisterARM> allRegs = new ArrayList<RegisterARM>(Arrays.asList(RegisterARM.values()));
-    allRegs.remove(RegisterARM.CPSR);
-    allRegs.remove(RegisterARM.LR);
-    allRegs.remove(RegisterARM.PC);
-    allRegs.remove(RegisterARM.SP);
-    allRegs.remove(RegisterARM.SPSR);
-    return allRegs;
-  }
+//  /**
+//   * @return - Returns a list of all normal registers that can be put in the free reg stack
+//   */
+//  public List<RegisterARM> getNormalRegisters() {
+//    List<RegisterARM> allRegs = new ArrayList<RegisterARM>(Arrays.asList(RegisterARM.values()));
+//    allRegs.remove(RegisterARM.CPSR);
+//    allRegs.remove(RegisterARM.LR);
+//    allRegs.remove(RegisterARM.PC);
+//    allRegs.remove(RegisterARM.SP);
+//    allRegs.remove(RegisterARM.SPSR);
+//    return allRegs;
+//  }
 
   public String generateLabel() {
     return "L" + currentLabel++;
   }
 
-  /**
-   * @param register
-   * @return - Returns register name
-   */
-  public static String getRegName(RegisterARM register) {
-    return register.name();
-  }
-
-  /**
-   * Remove all elements from the freeRegister stack
-   */
-  public void clearFreeRegisters() {
-    freeRegisters.clear();
-  }
+//  /**
+//   * @param register
+//   * @return - Returns register name
+//   */
+//  public static String getRegName(RegisterARM register) {
+//    return register.name();
+//  }
+//
+//  /**
+//   * Remove all elements from the freeRegister stack
+//   */
+//  public void clearFreeRegisters() {
+//    freeRegisters.clear();
+//  }
 }
 

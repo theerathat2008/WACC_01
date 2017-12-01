@@ -15,14 +15,18 @@ import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatPairElemRHS;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionAssignIdentLHS;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
+import Registers.RegisterUsage;
 import Registers.StackLocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.TypeMismatchError;
 import ErrorMessages.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
+
+import static Registers.RegisterUsageBuilder.*;
 
 import java.util.ArrayDeque;
 import java.util.List;
@@ -38,7 +42,7 @@ public class AST_StatAssign extends AST_Stat {
   AST_StatAssignRHS ast_statAssignRHS;
   ParserRuleContext ctx;
   SymbolTable symbolTable;
-  Instruction instr;  //TODO put correct instruction type here
+  InstructionAssignIdentLHS instrIdentLHS;
 
   /**
    * Constructor for class - initialises class variables to NULL
@@ -360,45 +364,80 @@ public class AST_StatAssign extends AST_Stat {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-    assemblyCode.add(instr.toString());
+    ast_statAssignRHS.acceptInstr(assemblyCode);
+    //TODO maybe need this: ast_statAssignLHS.acceptInstr(assemblyCode);
+    assemblyCode.add(instrIdentLHS.getBlock1());
   }
+
+  /**
+   * Evaluate both sides of the stat assign and store their results in the registers
+   * Format is
+   */
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
-    registerAllocation.useRegister("expr");
-    ast_statAssignRHS.acceptRegister(registerAllocation);
-    RegisterARM reg1 = registerAllocation.searchByValue("expr");
-    registerAllocation.freeRegister(reg1);
 
-    ast_statAssignLHS.acceptRegister(registerAllocation);
+    RegisterARM regRight = ast_statAssignRHS.acceptRegister(registerAllocation);
+
+    //Don't care about the result of the left reg
+    RegisterARM regLeft = ast_statAssignLHS.acceptRegister(registerAllocation);
+    registerAllocation.freeRegister(regRight);
+    registerAllocation.freeRegister(regLeft);
+
 
     if (ast_statAssignLHS instanceof AST_StatIdentLHS) {
-      String result;
-      if (registerAllocation.getStackSize() > 0) {
 
-        StringBuilder builder = new StringBuilder();
+      //Check if varName is allocated on the stack or in a register
+      AST_StatIdentLHS ast_statIdentLHS = (AST_StatIdentLHS)ast_statAssignLHS;
 
-        builder.append("[sp, #");
-        int displacement = registerAllocation.getStackSize();
-        int memSize = registerAllocation.getMemSize(ast_statAssignLHS.getIdentifier().toString());
-        builder.append(displacement + memSize);
-        result = builder.toString();
+      String stackLocation = registerAllocation.getStackLocation(ast_statIdentLHS.getIdentName());
+      if(stackLocation.equals("null")){
+        //Not allocated on the stack
 
-        String identName = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
-        String scope = registerAllocation.getCurrentScope();
-        String location = result;
-        registerAllocation.addToStack(identName, new StackLocation(location, scope));
+        stackLocation = registerAllocation.searchByVarValue(ast_statIdentLHS.getIdentName()).name();
+        if(stackLocation.equals("NULL_REG")) {
+          System.out.println("Error variable: " + ast_statIdentLHS.getIdentName() + " never assigned in AST_StatAssign");
+          return RegisterARM.NULL_REG;
+        }
+
+        instrIdentLHS.registerAllocation(regRight);
+        instrIdentLHS.setUsingStack(false);
+        instrIdentLHS.allocateLocation(stackLocation);
+        //Return the final store register
+        return registerAllocation.searchByVarValue(ast_statIdentLHS.getIdentName());
+
+      } else {
+        //Allocated on the stack
+
+        String result;
+        if (registerAllocation.getStackSize() > 0) {
+
+          StringBuilder builder = new StringBuilder();
+
+          builder.append("[sp, #");
+          int displacement = registerAllocation.getStackSize();
+          int memSize = registerAllocation.getMemSize(ast_statAssignLHS.getIdentifier().toString());
+          builder.append(displacement + memSize);
+          result = builder.toString();
+
+          String identName = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
+          String scope = registerAllocation.getCurrentScope();
+          String location = result;
+          registerAllocation.addToStack(identName, new StackLocation(location, scope));
+
+          instrIdentLHS.registerAllocation(regRight);
+          instrIdentLHS.setUsingStack(true);
+          instrIdentLHS.allocateLocation(location);
+          //Return the null reg as the var is allocated to the stack
+          return RegisterARM.NULL_REG;
+        }
       }
-
     }
-
-
-    RegisterARM interReg = registerAllocation.useRegister("intermediate");
-    //instructionAssign.allocateRegisters(interReg, result);
-    registerAllocation.freeRegister(interReg);
-
+    System.out.println("Nothing done in AST_StatAssign as lhs class was:  " + ast_statAssignLHS.getClass().getSimpleName());
+    return RegisterARM.NULL_REG;
   }
+
 
 
   /**
@@ -412,7 +451,7 @@ public class AST_StatAssign extends AST_Stat {
    * or
    * LDR r4, =msg_1   ->STRING
    * STR r4, [sp]
-   * <p>
+   * or
    * STRB r4, [sp]    ->BOOL
    * LDRSB r4, [sp]
    */
@@ -421,9 +460,11 @@ public class AST_StatAssign extends AST_Stat {
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
     String type = ast_statAssignRHS.getIdentifier().toString();
-    //InstructionNewVar instructionAssign = new InstructionNewVar(type);
-
-
-    //instructionList.add(instructionAssign);
+    if (ast_statAssignLHS instanceof AST_StatIdentLHS){
+      InstructionAssignIdentLHS instructionAssignIdentLHS = new InstructionAssignIdentLHS(type);
+      instructionList.add(instructionAssignIdentLHS);
+      instrIdentLHS = instructionAssignIdentLHS;
+    }
+    //TODO other options for left hand size for ARRAY and PAIR
   }
 }

@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_Stat;
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
@@ -139,7 +140,7 @@ public class AST_StatAssignRHS extends AST_Stat {
   }
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
   }
 

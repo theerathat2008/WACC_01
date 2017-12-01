@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
@@ -243,7 +244,7 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
   }
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     ast_expr.acceptRegister(registerAllocation);
   }
 

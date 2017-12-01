@@ -6,7 +6,7 @@ import java.util.List;
 
 public enum RegisterARM {
   r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12,
-  SP, LR, PC, CPSR, SPSR;
+  SP, LR, PC, CPSR, SPSR, NULL_REG;
 
   public static List<RegisterARM> allRegisters() {
     List<RegisterARM> allRegs = new ArrayList<>();

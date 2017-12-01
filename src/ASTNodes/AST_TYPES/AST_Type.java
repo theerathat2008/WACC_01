@@ -3,6 +3,7 @@ package ASTNodes.AST_TYPES;
 import ASTNodes.AST_Node;
 import IdentifierObjects.BaseTypeObj;
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
@@ -130,7 +131,7 @@ public class AST_Type extends AST_Node {
   }
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
   }
 
