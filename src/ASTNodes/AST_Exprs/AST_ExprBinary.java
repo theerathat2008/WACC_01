@@ -626,7 +626,7 @@ public class AST_ExprBinary extends AST_Expr {
         //clear all list
         if (program.getListInt().size() == 1) {
           result = Integer.parseInt(program.getListInt().get(0));
-          program.clearAllList();
+          //program.clearAllList();
         }
 
       }
