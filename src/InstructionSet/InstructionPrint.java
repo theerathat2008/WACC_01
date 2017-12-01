@@ -3,7 +3,7 @@ package InstructionSet;
 import Registers.RegisterARM;
 
 public class InstructionPrint extends Instruction {
-  String resultBlock;
+  String resultBlock = "";
   String reg1;
   String reg2;
   String sp;
@@ -29,15 +29,7 @@ public class InstructionPrint extends Instruction {
     this.reg2 = reg2.name();
   }
 
-  public String getLDType() {
-    if (type.equals("bool") || type.equals("char")) {
-      return "LDRSB";
-    }
-    return "LDR";
-  }
-
   public String getPrintType() {
-    System.out.println("GETPRINT TYPE type is:" + type);
     switch (type) {
       case ("str"):
         return "p_print_string";
@@ -75,8 +67,6 @@ public class InstructionPrint extends Instruction {
     block.append(getPrintType());
     block.append("\n");
     resultBlock = block.toString();
-
-    //resultBlock.concat("\t\t" + getLDType() + " " + reg2 + sp + "\n");
   }
 
   @Override

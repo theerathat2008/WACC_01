@@ -353,10 +353,8 @@ public class AST_StatVarDecl extends AST_Stat {
     ast_assignRHS.acceptRegister(registerAllocation);
 
     RegisterARM src = registerAllocation.searchByValue("result");
-    RegisterARM dst = registerAllocation.useRegister("dst");
-    instrVar.allocateRegisters(dst, src);
+    instrVar.allocateRegisters(src);
     registerAllocation.freeRegister(src);
-    registerAllocation.freeRegister(dst);
 
     //set stack location
 
@@ -375,7 +373,7 @@ public class AST_StatVarDecl extends AST_Stat {
 
     if (ast_assignRHS instanceof AST_StatArrayLitRHS) {
       AST_StatArrayLitRHS tempNode = (AST_StatArrayLitRHS) ast_assignRHS;
-      registerAllocation.setStackSize(registerAllocation.getStackSize() + tempNode.getArraySize() + 4);
+      registerAllocation.setStackSize(registerAllocation.getStackSize() + 4);
       System.out.println("HIIIIIIIIIIIIIIT 1");
 
     } else {

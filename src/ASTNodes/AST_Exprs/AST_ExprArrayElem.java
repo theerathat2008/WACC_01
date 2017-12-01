@@ -2,7 +2,10 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
-import InstructionSet.InstructionCheck.InstructionCheckArrayBounds;
+import InstructionSet.InstructionBlocks.InstructionCheck.InstructionCheckArrayBounds;
+import InstructionSet.InstructionDeclOrAss.InstructionAssArrayElem.InstructionAssArrayElem;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
+import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 
@@ -23,6 +26,9 @@ public class AST_ExprArrayElem extends AST_Expr {
   String arrayName;
   int numOfExpr;
   List<AST_Expr> ast_exprList;
+  InstructionAssArrayElem arrayElemInstr;
+  SymbolTable st;
+
   //Semantic attribute
 
   /**
@@ -30,10 +36,11 @@ public class AST_ExprArrayElem extends AST_Expr {
    *
    * @param numberOfChildren - Shows the number of expressions
    */
-  public AST_ExprArrayElem(int numberOfChildren) {
+  public AST_ExprArrayElem(int numberOfChildren, SymbolTable st) {
     this.ast_exprList = new ArrayList<>();
     this.numOfExpr = (numberOfChildren - 1) / 3;
     this.arrayName = null;
+    this.st = st;
   }
 
   /**
@@ -116,6 +123,7 @@ public class AST_ExprArrayElem extends AST_Expr {
     } else {
       System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
+    setType(ast_exprList.get(0).type + "[]");
   }
 
   /**
@@ -123,21 +131,10 @@ public class AST_ExprArrayElem extends AST_Expr {
    */
   @Override
   public boolean CheckSemantics() {
+    setType(ast_exprList.get(0).type + "[]");
     return true;
   }
 
-  /**
-   * Called from visitor
-   *
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      setType(ast_exprList.get(0).type + "[]");
-    }
-
-  }
 
   /**
    * Used for testing - Prints out contents of current AST node
@@ -164,7 +161,7 @@ public class AST_ExprArrayElem extends AST_Expr {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    assemblyCode.add(arrayElemInstr.getResultBlock1());
   }
 
   @Override
@@ -174,6 +171,9 @@ public class AST_ExprArrayElem extends AST_Expr {
     }
   }
 
+  public void setExprType() {
+    type = ast_exprList.get(0).type;
+  }
 
   /**
    * TODO Produces Assembly code?
@@ -182,6 +182,12 @@ public class AST_ExprArrayElem extends AST_Expr {
    */
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    InstructionAssArrayElem instructionAssArrayElem
+            = new InstructionAssArrayElem(((AST_ExprLiter) ast_exprList.get(0)).constant, getType());
+    System.out.println("TODOOOOOOOOOO GET TYPE OF ARRAYELEM -> getType() above is incorrect");
+    arrayElemInstr = instructionAssArrayElem;
+    instructionList.add(arrayElemInstr);
+
     //Puts out of bounds code in
     String neg = "ArrayIndexOutOfBoundsError: negative index\\n\\0";
     String large = "ArrayIndexOutOfBoundsError: index too large\\n\\0";
@@ -191,10 +197,22 @@ public class AST_ExprArrayElem extends AST_Expr {
     int largeIndex = registerAllocation.getStringID(large);
     InstructionCheckArrayBounds instructionCheckArrayBounds
             = new InstructionCheckArrayBounds(negIndex, largeIndex);
-
     if (!instructionList.contains(instructionCheckArrayBounds)) {
       instructionList.add(instructionCheckArrayBounds);
     }
+
+    InstructionErrorRuntime instructionErrorRuntime
+            = new InstructionErrorRuntime();
+    if (!instructionList.contains(instructionErrorRuntime)) {
+      instructionList.add(instructionErrorRuntime);
+    }
+
+    registerAllocation.addString("%.*s\\0");
+    InstructionPrintBlocksString instructionPrintString = new InstructionPrintBlocksString(registerAllocation.getStringID("%.*s\\0"));
+    if (!instructionList.contains(instructionPrintString)) {
+      instructionList.add(instructionPrintString);
+    }
+
   }
 
   public String getArrayName() {

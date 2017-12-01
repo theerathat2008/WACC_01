@@ -2,8 +2,8 @@ package ASTNodes.AST_Stats;
 
 import InstructionSet.Instruction;
 import InstructionSet.InstructionRead;
-import InstructionSet.InstructionReadBlocks.InstructionReadBlocksChar;
-import InstructionSet.InstructionReadBlocks.InstructionReadBlocksInt;
+import InstructionSet.InstructionBlocks.InstructionReadBlocks.InstructionReadBlocksChar;
+import InstructionSet.InstructionBlocks.InstructionReadBlocks.InstructionReadBlocksInt;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;

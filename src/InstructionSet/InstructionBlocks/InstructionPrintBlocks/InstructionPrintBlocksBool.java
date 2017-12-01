@@ -1,4 +1,4 @@
-package InstructionSet.InstructionPrintBlocks;
+package InstructionSet.InstructionBlocks.InstructionPrintBlocks;
 
 import Registers.RegisterARM;
 
@@ -22,6 +22,7 @@ public class InstructionPrintBlocksBool extends InstructionPrintBlocks {
     super(msgNum1);
     this.msgNum2 = msgNum2;
     reg1 = "reg1";
+    this.blockType = "print_bool";
   }
 
 
@@ -65,7 +66,7 @@ public class InstructionPrintBlocksBool extends InstructionPrintBlocks {
     block.append(", #0\n");
     block.append("\t\tBL fflush\n");
     block.append("\t\tPOP {pc}\n");
-    super.resultBlock = block.toString();
+    this.resultBlock = block.toString();
   }
 
 }

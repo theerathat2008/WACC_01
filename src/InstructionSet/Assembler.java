@@ -1,17 +1,16 @@
 package InstructionSet;
 
 import ASTNodes.AST_Node;
-import InstructionSet.InstructionError.InstructionError;
-import InstructionSet.InstructionPrintBlocks.InstructionPrintBlocks;
-import InstructionSet.InstructionReadBlocks.InstructionReadBlocks;
-import Registers.RegisterARM;
+import InstructionSet.InstructionBlocks.InstructionBlocks;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionError;
+import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocks;
+import InstructionSet.InstructionBlocks.InstructionReadBlocks.InstructionReadBlocks;
 import Registers.RegisterAllocation;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -122,7 +121,18 @@ public class Assembler {
    * @return
    */
   public String generatePostCode() {
-    StringBuilder result = new StringBuilder();
+    StringBuilder result = new StringBuilder("");
+
+    for (Instruction currInstr : instructions) {
+      if (currInstr instanceof InstructionBlocks) {
+        String type = ((InstructionBlocks) currInstr).getBlockType();
+        System.out.println("TYPEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE:" +type);
+        if (!(result.toString().contains(type))) {
+          result.append(((InstructionBlocks) currInstr).getResultBlock());
+        }
+      }
+    }
+/*
     for (Instruction currInstr : instructions) {
       String superName = currInstr.getClass().getSuperclass().getSimpleName();
       if (superName.equals("InstructionReadBlocks")) {
@@ -134,8 +144,12 @@ public class Assembler {
       } else if (superName.equals("InstructionError")) {
         System.out.println("Type Error");
         result.append(((InstructionError) currInstr).resultBlock);
+      } else if (currInstr.getClass().getSimpleName().equals("InstructionFreePairBlock")) {
+        System.out.println("Type FreePair");
+        result.append(((InstructionFreePairBlock) currInstr).resultBlock);
       }
-    }
+    }*/
+
     return result.toString();
   }
 

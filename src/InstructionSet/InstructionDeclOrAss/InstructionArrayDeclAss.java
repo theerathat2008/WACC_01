@@ -51,7 +51,7 @@ public class InstructionArrayDeclAss extends Instruction {
   @Override
   public void genInstruction() {
     StringBuilder block = new StringBuilder();
-    block.append("\t\t" + strType + " " + reg3 + ", [" + reg2 + ", #" + disp + "]\n"); // TODO find num #INT
+    block.append("\t\t" + strType + " " + reg3 + ", [" + reg2 + ", #" + disp + "]\n");
     resultBlock = block.toString();
 
     StringBuilder block1 = new StringBuilder();

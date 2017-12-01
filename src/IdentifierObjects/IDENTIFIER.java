@@ -7,6 +7,10 @@ package IdentifierObjects;
 public abstract class IDENTIFIER {
   String name;
 
+  public String getName() {
+    return name;
+  }
+
   public abstract boolean equals(IDENTIFIER other);
 
   public abstract String toString();

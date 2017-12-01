@@ -116,8 +116,8 @@ public class AST_ExprLiter extends AST_Expr {
    */
   @Override
   public boolean CheckSemantics() {
+    System.out.println("LITERAAAAAAAAAL:" + literal);
     setType(literal);
-
     setType(literal);
 
     //if it is int liter, check whether the number is inside the integer bounds
