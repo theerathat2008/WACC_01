@@ -6,7 +6,6 @@ public class InstructionVarDecl extends Instruction {
 
   String resultBlock;
   String srcReg;
-  String dstReg;
   String stackLocation;
   String varType;
 
@@ -14,7 +13,6 @@ public class InstructionVarDecl extends Instruction {
   public InstructionVarDecl(String varType) {
     this.varType = varType;
     this.srcReg = "srcReg";
-    this.dstReg = "dstReg";
     this.stackLocation = "SP";
     this.resultBlock = "";
   }
@@ -23,9 +21,8 @@ public class InstructionVarDecl extends Instruction {
     return resultBlock;
   }
 
-  public void allocateRegisters(RegisterARM dstReg, RegisterARM srcReg) {
+  public void allocateRegisters(RegisterARM srcReg) {
     this.srcReg = srcReg.name();
-    this.dstReg = dstReg.name();
   }
 
   public void setStackLocation(String location) {
@@ -44,15 +41,10 @@ public class InstructionVarDecl extends Instruction {
   @Override
   public void genInstruction() {
     StringBuilder block = new StringBuilder();
-    block.append("\t\tMOV ");
-    block.append(dstReg);
-    block.append(", ");
-    block.append(srcReg);
-    block.append("\n");
     block.append("\t\t");
     block.append(getSTRType());
     block.append(" ");
-    block.append(dstReg);
+    block.append(srcReg);
     block.append(", ");
     block.append(stackLocation);
     block.append("\n");

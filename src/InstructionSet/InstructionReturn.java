@@ -31,13 +31,7 @@ public class InstructionReturn extends Instruction {
     this.sp = sp;
   }
 
-  public String getLDType() {
-    if (type.equals("bool") || type.equals("char")) {
-      return "LDRSB";
-    }
-    System.out.println("TYPE in Instruction return = " + type);
-    return "LDR";
-  }
+
 
   @Override
   public void genInstruction() {
@@ -47,13 +41,7 @@ public class InstructionReturn extends Instruction {
     block.append(", ");
     block.append(reg2);
     block.append("\n");
-    //block.append("\t\tPOP {pc}\n");
     resultBlock = block.toString();
-
-
-    //resultBlock.concat("\t\t" + getLDType() + " " + reg2 + ", " + sp + "\n");
-    //resultBlock.concat("\t\tADD " +  sp + ", " +  sp + ", #4\n");
-
   }
 
   @Override

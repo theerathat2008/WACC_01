@@ -1,4 +1,4 @@
-package InstructionSet.InstructionReadBlocks;
+package InstructionSet.InstructionBlocks.InstructionReadBlocks;
 
 /**
  * Instruction class for printing int expressions
@@ -15,6 +15,7 @@ public class InstructionReadBlocksInt extends InstructionReadBlocks {
     super(msgNum1);
     reg2 = "reg2";
     reg1 = "reg1";
+    this.blockType = "read_int";
   }
 
   /**

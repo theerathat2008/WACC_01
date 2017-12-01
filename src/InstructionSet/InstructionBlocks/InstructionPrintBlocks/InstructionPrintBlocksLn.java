@@ -1,4 +1,4 @@
-package InstructionSet.InstructionPrintBlocks;
+package InstructionSet.InstructionBlocks.InstructionPrintBlocks;
 
 import Registers.RegisterARM;
 
@@ -15,6 +15,7 @@ public class InstructionPrintBlocksLn extends InstructionPrintBlocks {
   public InstructionPrintBlocksLn(int msgNum1) {
     super(msgNum1);
     reg1 = "reg1";
+    this.blockType = "print_ln";
   }
 
   /**
@@ -51,7 +52,7 @@ public class InstructionPrintBlocksLn extends InstructionPrintBlocks {
     block1.append(", #0\n");
     block1.append("\t\tBL fflush\n");
     block1.append("\t\tPOP {pc}\n");
-    super.resultBlock = block1.toString();
+    this.resultBlock = block1.toString();
 
   }
 

@@ -1,4 +1,4 @@
-package InstructionSet.InstructionCheck;
+package InstructionSet.InstructionBlocks.InstructionCheck;
 
 public class InstructionCheckDivideByZero extends InstructionCheck {
   String reg2;
@@ -7,6 +7,7 @@ public class InstructionCheckDivideByZero extends InstructionCheck {
     super(msgNum);
     reg1 = "reg1";
     reg2 = "reg2";
+    this.blockType = "check_divide_by_zero";
   }
 
 
@@ -24,12 +25,15 @@ public class InstructionCheckDivideByZero extends InstructionCheck {
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    resultBlock.concat("p_check_divide_by_zero:\n");
-    resultBlock.concat("\t\tPUSH {lr}\n");
-    resultBlock.concat("\t\tCMP " + reg2 + ", #0\n");
-    resultBlock.concat("\t\tLDREQ " + reg1 + ", =msg_" + msgNum1 + "\n");
-    resultBlock.concat("\t\tBLEQ p_throw_runtime_error\n");
-    resultBlock.concat("\t\tPOP {pc}\n");
+    StringBuilder builder = new StringBuilder("");
+    builder.append("p_check_divide_by_zero:\n\t\tPUSH {lr}\n\t\tCMP ");
+    builder.append(reg2);
+    builder.append(", #0\n\t\tLDREQ ");
+    builder.append(reg1);
+    builder.append(", =msg_");
+    builder.append(msgNum1);
+    builder.append("\n\t\tBLEQ p_throw_runtime_error\n\t\tPOP {pc}\n");
+    this.resultBlock = builder.toString();
   }
 
 }

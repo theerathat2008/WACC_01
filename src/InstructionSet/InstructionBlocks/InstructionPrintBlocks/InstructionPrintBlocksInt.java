@@ -1,25 +1,23 @@
-package InstructionSet.InstructionPrintBlocks;
+package InstructionSet.InstructionBlocks.InstructionPrintBlocks;
 
 import Registers.RegisterARM;
 
 /**
- * Instruction class for printing string expressions
+ * Instruction class for printing int expressions
  */
-public class InstructionPrintBlocksString extends InstructionPrintBlocks {
-
-
+public class InstructionPrintBlocksInt extends InstructionPrintBlocks {
   String reg2;
-  String reg3;
 
   /**
    * Class constructor calls super constructor
    *
    * @param msgNum1 - Indicates the ID of the message to be output
-   *                "%.*s\0" should be added and looked up in stringMap
+   *                "%d\0" should be added and looked up in stringMap - result = msgNum1
    */
-  public InstructionPrintBlocksString(int msgNum1) {
+  public InstructionPrintBlocksInt(int msgNum1) {
     super(msgNum1);
     reg1 = "reg1";
+    this.blockType = "print_int";
   }
 
   /**
@@ -27,12 +25,10 @@ public class InstructionPrintBlocksString extends InstructionPrintBlocks {
    *
    * @param reg1 - first register
    * @param reg2 - second register
-   * @param reg3 - third register
    */
-  public void allocateRegisters(RegisterARM reg1, RegisterARM reg2, RegisterARM reg3) {
+  public void allocateRegisters(RegisterARM reg1, RegisterARM reg2) {
     this.reg1 = reg1.name();
     this.reg2 = reg2.name();
-    this.reg3 = reg3.name();
   }
 
   /**
@@ -40,18 +36,13 @@ public class InstructionPrintBlocksString extends InstructionPrintBlocks {
    */
   public void genInstruction() {
     StringBuilder block = new StringBuilder();
-    block.append("\tp_print_string:\n");
+    block.append("\tp_print_int:\n");
     block.append("\t\tPUSH {lr}\n");
-    block.append("\t\tLDR ");
+    block.append("\t\tMOV ");
     block.append(reg2);
-    block.append(", [");
-    block.append(reg1);
-    block.append("]\n");
-    block.append("\t\tADD ");
-    block.append(reg3);
     block.append(", ");
     block.append(reg1);
-    block.append(", #4\n");
+    block.append("\n");
     block.append("\t\tLDR ");
     block.append(reg1);
     block.append(", =msg_");
@@ -68,6 +59,8 @@ public class InstructionPrintBlocksString extends InstructionPrintBlocks {
     block.append(", #0\n");
     block.append("\t\tBL fflush\n");
     block.append("\t\tPOP {pc}\n");
-    super.resultBlock = block.toString();
+    this.resultBlock = block.toString();
   }
+
+
 }

@@ -6,10 +6,7 @@ import ASTNodes.AST_Node;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionDeclOrAss.*;
-import InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray.InstructionDeclAssArrayBool;
-import InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray.InstructionDeclAssArrayChar;
-import InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray.InstructionDeclAssArrayInt;
-import InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray.InstructionDeclAssArrayString;
+
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
@@ -182,36 +179,7 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
         case ("array"):
           System.out.println("TODO implement array statexprrhs");
           // type = ((AST_StatArrayLitRHS) ast_assignRHS).getTypeOfArray();
-/*
-        switch (type) {
-          case ("int"):
-            InstructionDeclAssArrayInt instructionDeclAssArrayInt
-                    = new InstructionDeclAssArrayInt();
-            instructionList.add(instructionDeclAssArrayInt);
-            break;
 
-          case ("string"):
-            InstructionDeclAssArrayString instructionDeclAssArrayString
-                    = new InstructionDeclAssArrayString(GETDATA, MSGSLIST);
-            instructionList.add(instructionDeclAssArrayString);
-            //TODO MESSAGES!
-
-
-          case ("char"):
-            InstructionDeclAssArrayChar instructionDeclAssArrayChar
-                    = new InstructionDeclAssArrayChar(GETDATA);
-            instructionList.add(instructionDeclAssArrayChar);
-            break;
-
-          case ("bool"):
-            InstructionDeclAssArrayBool instructionDeclAssArrayBool
-                    = new InstructionDeclAssArrayBool(GETDATA);
-            instructionList.add(instructionDeclAssArrayBool);
-            break;
-
-          default:
-            break;
-        }*/
 
       }
 

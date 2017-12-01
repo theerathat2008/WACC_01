@@ -1,13 +1,12 @@
-package InstructionSet.InstructionPrintBlocks;
+package InstructionSet.InstructionBlocks.InstructionPrintBlocks;
 
-import InstructionSet.Instruction;
+import InstructionSet.InstructionBlocks.InstructionBlocks;
 
 /**
  * Base class of all print instructions.
  */
-public class InstructionPrintBlocks extends Instruction {
+public class InstructionPrintBlocks extends InstructionBlocks {
   String reg1;
-  protected String resultBlock;
   int msgNum1;
 
   /**
@@ -17,12 +16,7 @@ public class InstructionPrintBlocks extends Instruction {
    */
   public InstructionPrintBlocks(int msgNum1) {
     this.msgNum1 = msgNum1;
-    this.resultBlock = "";
     reg1 = "reg1";
-  }
-
-  public String getResultBlock() {
-    return resultBlock;
   }
 
   @Override

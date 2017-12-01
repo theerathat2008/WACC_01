@@ -1,23 +1,26 @@
-package InstructionSet.InstructionPrintBlocks;
+package InstructionSet.InstructionBlocks.InstructionPrintBlocks;
 
 import Registers.RegisterARM;
 
 /**
- * Instruction class for printing int expressions
+ * Instruction class for printing references
  */
-public class InstructionPrintBlocksInt extends InstructionPrintBlocks {
+public class InstructionPrintBlocksRef extends InstructionPrintBlocks {
   String reg2;
+
 
   /**
    * Class constructor calls super constructor
    *
    * @param msgNum1 - Indicates the ID of the message to be output
-   *                "%d\0" should be added and looked up in stringMap - result = msgNum1
+   *                "%p\0" should be added and looked up in stringMap
    */
-  public InstructionPrintBlocksInt(int msgNum1) {
+  public InstructionPrintBlocksRef(int msgNum1) {
     super(msgNum1);
     reg1 = "reg1";
+    this.blockType = "print_reference";
   }
+
 
   /**
    * Assigned string value indicating name of register
@@ -35,7 +38,7 @@ public class InstructionPrintBlocksInt extends InstructionPrintBlocks {
    */
   public void genInstruction() {
     StringBuilder block = new StringBuilder();
-    block.append("\tp_print_int:\n");
+    block.append("\tp_print_reference:\n");
     block.append("\t\tPUSH {lr}\n");
     block.append("\t\tMOV ");
     block.append(reg2);
@@ -58,8 +61,7 @@ public class InstructionPrintBlocksInt extends InstructionPrintBlocks {
     block.append(", #0\n");
     block.append("\t\tBL fflush\n");
     block.append("\t\tPOP {pc}\n");
-    super.resultBlock = block.toString();
+    this.resultBlock = block.toString();
   }
-
 
 }

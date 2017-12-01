@@ -108,6 +108,11 @@ public class AST_Expr extends AST_Node {
     return type;
   }
 
+  public String getExprType() {
+    //if (this instanceof ASTEXPR)
+    return "";
+  }
+
   /**
    * @param type - sets the type of the current expression
    */
