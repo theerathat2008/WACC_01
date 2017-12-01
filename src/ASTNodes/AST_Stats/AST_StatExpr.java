@@ -295,100 +295,100 @@ public class AST_StatExpr extends AST_Stat {
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    String type;
-    System.out.println("StatName is: " + statName);
-
-
-    switch (statName) {
-      case ("free"):
-
-        break;
-
-      case ("return"):
-        registerAllocation.useRegister("expr");
-        expr.acceptRegister(registerAllocation);
-
-        RegisterARM reg2 = registerAllocation.searchByValue("expr");
-        InstructionReturn instructionReturn = (InstructionReturn) instr;
-        instructionReturn.allocateRegisters(RegisterARM.r0, reg2);
-        registerAllocation.freeRegister(reg2);
-        break;
-
-      case ("exit"):
-        registerAllocation.useRegister("expr");
-        expr.acceptRegister(registerAllocation);
-
-        RegisterARM reg1 = registerAllocation.searchByValue("expr");
-        InstructionExit instructionExit = (InstructionExit) instr;
-        instructionExit.allocateRegisters(RegisterARM.r0, reg1);
-        registerAllocation.freeRegister(reg1);
-
-        break;
-
-      case ("println"):
-
-
-        InstructionPrintBlocksLn instructionPrintLn = (InstructionPrintBlocksLn) instrPrintLn;
-        instructionPrintLn.allocateRegisters(RegisterARM.r0);
-
-
-      case ("print"):
-        type = expr.getType();
-        System.out.println("Type is at print: " + type);
-
-        if (type != null) {
-
-          switch (type) {
-            case ("int"):
-              InstructionPrintBlocksInt instructionPrintBlocksInt = (InstructionPrintBlocksInt) instrPrintType;
-              instructionPrintBlocksInt.allocateRegisters(RegisterARM.r0, RegisterARM.r1);
-              break;
-            case ("string"):  //falls through to "str" case.
-            case ("str"):
-              InstructionPrintBlocksString instructionPrintString = (InstructionPrintBlocksString) instrPrintType;
-              instructionPrintString.allocateRegisters(RegisterARM.r0, RegisterARM.r1, RegisterARM.r2);
-              break;
-            case ("char"):
-              //CHECK IS CHAR IS NEEDED
-              break;
-            case ("pair"):
-              //No break since pair and array are the same
-            case ("array"):
-              InstructionPrintBlocksRef instructionPrintBlocksRef = (InstructionPrintBlocksRef) instrPrintType;
-              instructionPrintBlocksRef.allocateRegisters(RegisterARM.r0, RegisterARM.r1);
-              break;
-
-            case ("bool"):
-              InstructionPrintBlocksBool instructionPrintBool = (InstructionPrintBlocksBool) instrPrintType;
-              instructionPrintBool.allocateRegisters(RegisterARM.r0);
-            default:
-              break;
-          }
-
-          RegisterARM reg3 = registerAllocation.useRegister("expr");
-
-          expr.acceptRegister(registerAllocation);
-
-          InstructionPrint instructionPrint = (InstructionPrint) instr;
-          System.out.println("Allocating registers for print: " + reg3);
-          instructionPrint.allocateRegisters(RegisterARM.r0, reg3);
-
-        } else {
-          RegisterARM reg3 = registerAllocation.useRegister("result");
-
-          expr.acceptRegister(registerAllocation);
-
-
-          InstructionPrint instructionPrint = (InstructionPrint) instr;
-          //System.out.println("Allocating registers for print: " + reg3);
-          instructionPrint.allocateRegisters(RegisterARM.r0, reg3);
-        }
-
-
-        break;
-      default:
-        System.out.println("Unrecognised statement type in AST_StatExpr");
-    }
+//    String type;
+//    System.out.println("StatName is: " + statName);
+//
+//
+//    switch (statName) {
+//      case ("free"):
+//
+//        break;
+//
+//      case ("return"):
+//        registerAllocation.useRegister("expr");
+//        expr.acceptRegister(registerAllocation);
+//
+//        RegisterARM reg2 = registerAllocation.searchByValue("expr");
+//        InstructionReturn instructionReturn = (InstructionReturn) instr;
+//        instructionReturn.allocateRegisters(RegisterARM.r0, reg2);
+//        registerAllocation.freeRegister(reg2);
+//        break;
+//
+//      case ("exit"):
+//        registerAllocation.useRegister("expr");
+//        expr.acceptRegister(registerAllocation);
+//
+//        RegisterARM reg1 = registerAllocation.searchByValue("expr");
+//        InstructionExit instructionExit = (InstructionExit) instr;
+//        instructionExit.allocateRegisters(RegisterARM.r0, reg1);
+//        registerAllocation.freeRegister(reg1);
+//
+//        break;
+//
+//      case ("println"):
+//
+//
+//        InstructionPrintBlocksLn instructionPrintLn = (InstructionPrintBlocksLn) instrPrintLn;
+//        instructionPrintLn.allocateRegisters(RegisterARM.r0);
+//
+//
+//      case ("print"):
+//        type = expr.getType();
+//        System.out.println("Type is at print: " + type);
+//
+//        if (type != null) {
+//
+//          switch (type) {
+//            case ("int"):
+//              InstructionPrintBlocksInt instructionPrintBlocksInt = (InstructionPrintBlocksInt) instrPrintType;
+//              instructionPrintBlocksInt.allocateRegisters(RegisterARM.r0, RegisterARM.r1);
+//              break;
+//            case ("string"):  //falls through to "str" case.
+//            case ("str"):
+//              InstructionPrintBlocksString instructionPrintString = (InstructionPrintBlocksString) instrPrintType;
+//              instructionPrintString.allocateRegisters(RegisterARM.r0, RegisterARM.r1, RegisterARM.r2);
+//              break;
+//            case ("char"):
+//              //CHECK IS CHAR IS NEEDED
+//              break;
+//            case ("pair"):
+//              //No break since pair and array are the same
+//            case ("array"):
+//              InstructionPrintBlocksRef instructionPrintBlocksRef = (InstructionPrintBlocksRef) instrPrintType;
+//              instructionPrintBlocksRef.allocateRegisters(RegisterARM.r0, RegisterARM.r1);
+//              break;
+//
+//            case ("bool"):
+//              InstructionPrintBlocksBool instructionPrintBool = (InstructionPrintBlocksBool) instrPrintType;
+//              instructionPrintBool.allocateRegisters(RegisterARM.r0);
+//            default:
+//              break;
+//          }
+//
+//          RegisterARM reg3 = registerAllocation.useRegister("expr");
+//
+//          expr.acceptRegister(registerAllocation);
+//
+//          InstructionPrint instructionPrint = (InstructionPrint) instr;
+//          System.out.println("Allocating registers for print: " + reg3);
+//          instructionPrint.allocateRegisters(RegisterARM.r0, reg3);
+//
+//        } else {
+//          RegisterARM reg3 = registerAllocation.useRegister("result");
+//
+//          expr.acceptRegister(registerAllocation);
+//
+//
+//          InstructionPrint instructionPrint = (InstructionPrint) instr;
+//          //System.out.println("Allocating registers for print: " + reg3);
+//          instructionPrint.allocateRegisters(RegisterARM.r0, reg3);
+//        }
+//
+//
+//        break;
+//      default:
+//        System.out.println("Unrecognised statement type in AST_StatExpr");
+//    }
   }
 
 

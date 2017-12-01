@@ -14,6 +14,7 @@ import IdentifierObjects.BaseTypeObj;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionCall;
+import InstructionSet.InstructionLibraryFunction;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
@@ -24,9 +25,7 @@ import ErrorMessages.FilePosition;
 import VisitorClass.AST_NodeVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Class representing node in AST tree for CALL ASSIGNMENT
@@ -39,6 +38,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
   List<AST_Expr> ast_exprList;
   ParserRuleContext ctx;
   SymbolTable symbolTable;
+  List<String> standardLibrary;
 
   InstructionCall instrCall;
 
@@ -54,6 +54,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
     } else {
       this.numOfExpr = (numberOfChildren - 3) / 2;
     }
+    this.standardLibrary = Arrays.asList("max", "min", "factorial", "avg", "pow") ;
     this.funcName = null;
     this.ctx = ctx;
     this.symbolTable = symbolTable;
@@ -386,11 +387,11 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
 
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    for (AST_Expr expr : ast_exprList) {
-      expr.acceptRegister(registerAllocation);
-    }
-    registerAllocation.freeRegister(registerAllocation.searchByValue("result"));
-    registerAllocation.addRegisterInUse(RegisterARM.r0, "result");
+//    for (AST_Expr expr : ast_exprList) {
+//      expr.acceptRegister(registerAllocation);
+//    }
+//    registerAllocation.freeRegister(registerAllocation.searchByValue("result"));
+//    registerAllocation.addRegisterInUse(RegisterARM.r0, "result");
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
@@ -401,6 +402,11 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
     InstructionCall instructionCall = new InstructionCall(funcName, returnType);
     instructionList.add(instructionCall);
     instrCall = instructionCall;
+
+    if (standardLibrary.contains(funcName)) {
+      instructionList.add(new InstructionLibraryFunction(funcName));
+    }
+
   }
 
   public List<AST_Expr> getAst_exprList() {
