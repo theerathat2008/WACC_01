@@ -39,6 +39,7 @@ public class InstructionPrint extends Instruction {
   public String getPrintType() {
     System.out.println("GETPRINT TYPE type is:" + type);
     switch (type) {
+      case ("string"):  //falls through to "str" case.
       case ("str"):
         return "p_print_string";
       case ("bool"):
