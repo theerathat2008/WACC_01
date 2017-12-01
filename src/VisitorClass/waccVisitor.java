@@ -23,6 +23,9 @@ import ErrorMessages.FilePosition;
 
 import antlr.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Go through all the nodes in parse tree
  * Generate AST tree
@@ -42,6 +45,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   //private field for storing current symbol table
   //and initialises it with Top level symbol table
   private SymbolTable currentGlobalTree = TOP_ST;
+
 
   /**
    * Get the root node of the tree
@@ -1070,7 +1074,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitBINARY_OP_EXPR(WaccParser.BINARY_OP_EXPRContext ctx) {
 
     //Create the node for the current visitor function
-    AST_ExprBinary exprBinaryNode = new AST_ExprBinary(ctx, currentGlobalTree);
+    AST_ExprBinary exprBinaryNode = new AST_ExprBinary(ctx, currentGlobalTree, progBase);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("expr", exprBinaryNode);

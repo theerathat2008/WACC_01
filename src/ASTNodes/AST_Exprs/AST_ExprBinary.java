@@ -13,12 +13,15 @@ import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.List;
 
 import VisitorClass.AST_NodeVisitor;
 import IdentifierObjects.*;
 
 import static java.lang.System.exit;
+
+import ASTNodes.AST_Program;
 
 /**
  * Class representing node in AST tree for BINARY EXPRESSIONS
@@ -33,16 +36,18 @@ public class AST_ExprBinary extends AST_Expr {
   InstructionComparison instrC;
   SymbolTable symbolTable;
   ParserRuleContext ctx;
+  AST_Program program;
 
   /**
    * Constructor for class - initialises class variables to NULL
    */
-  public AST_ExprBinary(ParserRuleContext ctx, SymbolTable symbolTable) {
+  public AST_ExprBinary(ParserRuleContext ctx, SymbolTable symbolTable, AST_Program program) {
     this.exprLeftAST = null;
     this.exprRightAST = null;
     this.opName = null;
     this.symbolTable = symbolTable;
     this.ctx = ctx;
+    this.program = program;
   }
 
   /**
@@ -151,6 +156,8 @@ public class AST_ExprBinary extends AST_Expr {
   public boolean CheckSemantics() {
 
     SymbolTable ST = this.symbolTable;
+
+    constantEvaluation();
 
     if (exprLeftAST instanceof AST_ExprIdent) {
       SymbolTable tempST = ST;
@@ -391,5 +398,180 @@ public class AST_ExprBinary extends AST_Expr {
 
   public AST_Expr getExprRightAST() {
     return exprRightAST;
+  }
+
+  public int constantEvaluation() {
+
+    System.out.println("+++++++++++++++++++++++++++++++++");
+    System.out.println("Start evaluating constant");
+    SymbolTable ST = this.symbolTable;
+    int result = 0;
+    String exprLeft = "0";
+    String exprRight = "0";
+
+    System.out.println(exprLeftAST.getClass().getSimpleName());
+    System.out.println(exprRightAST.getClass().getSimpleName());
+
+    if (exprLeftAST instanceof AST_ExprLiter) {
+      System.out.println("exprLeftAST is instance of AST_ExprLiter");
+      exprLeft = ((AST_ExprLiter) exprLeftAST).getConstant();
+      System.out.println("exprLeft is: " + exprLeft);
+    }
+
+    if (exprRightAST instanceof AST_ExprLiter) {
+      System.out.println("exprRightAST is instance of AST_ExprLiter");
+      exprRight = ((AST_ExprLiter) exprRightAST).getConstant();
+      System.out.println("exprRight is: " + exprRight);
+    }
+
+    if (exprLeftAST instanceof AST_ExprIdent) {
+      System.out.println("exprLeftAST is instance of AST_ExprIdent");
+      System.out.println("Not evaluating");
+    }
+
+    if (exprRightAST instanceof AST_ExprIdent) {
+      System.out.println("exprRightAST is instance of AST_ExprIdent");
+      System.out.println("Not evaluating");
+    }
+
+    //TODO maybe needs to check the type first
+    //what to do if it's nested?
+    //it is iterating from right ot left and left is instance of AST_ExprBinary
+    //loop until instance of ExprLiter
+    //don't forget to clear when both sides are AST_ExprIdent
+    //needs to think of precedences as well
+
+
+    //if both are instance of exprLiter, we can calculate the result immediately
+    if (exprLeftAST instanceof AST_ExprLiter && exprRightAST instanceof AST_ExprLiter) {
+      System.out.println("Both exprLeftAST and exprRightAST are instance of AST_ExprLiter");
+      //if listInt and listOp are empty, we can immediately calculate the value
+      if (program.getListInt().isEmpty() && program.getListOp().isEmpty()) {
+        if (opName.equals("*")) {
+          System.out.println("doing multiplication");
+          result = Integer.parseInt(exprLeft) * Integer.parseInt(exprRight);
+        } else if (opName.equals("/")) {
+          System.out.println("doing division");
+          result = Integer.parseInt(exprLeft) / Integer.parseInt(exprRight);
+        } else if (opName.equals("%")) {
+          System.out.println("doing mod");
+          result = Integer.parseInt(exprLeft) % Integer.parseInt(exprRight);
+        } else if (opName.equals("+")) {
+          System.out.println("doing addition");
+          result = Integer.parseInt(exprLeft) + Integer.parseInt(exprRight);
+        } else if (opName.equals("-")) {
+          System.out.println("doing subtraction");
+          result = Integer.parseInt(exprLeft) - Integer.parseInt(exprRight);
+        } else if (opName.equals(">") || opName.equals(">=") || opName.equals("<") || opName.equals("<=")
+                || opName.equals("==") || opName.equals("!=")){
+          System.out.println("compare");
+        } else if (opName.equals("&&") || opName.equals("||")) {
+
+        }
+      } else {
+        //this is the case when everything terminates and we are ready to calculate
+        //or maybe it's the case that the two are the most left
+        //needs to consider the precedence
+        int immediateResult = 0;
+        if (opName.equals("*")) {
+          immediateResult = Integer.parseInt(exprLeft) * Integer.parseInt(exprRight);
+          String immString = String.valueOf(immediateResult);
+          program.addListInt(immString);
+        } else if (opName.equals("/")) {
+          immediateResult = Integer.parseInt(exprLeft) / Integer.parseInt(exprRight);
+          String immString = String.valueOf(immediateResult);
+          program.addListInt(immString);
+        }
+
+        System.out.println("current list is: " + program.getListInt());
+        //the general case
+        //search for *, / first
+        //this loop should start when everything else is in the loop already
+        int listSize = program.getListInt().size();
+
+        while (program.getListInt().contains("*")) {
+          for (int i = 0; i < listSize - 1; i++) {
+            System.out.println("evaluate 1 time");
+            if (program.getListInt().get(i).equals("*") || program.getListInt().get(i).equals("/")) {
+              String intLeft = program.getListInt().get(i - 1);
+              String intRight = program.getListInt().get(i + 1);
+              System.out.println("intLeft is: " + intLeft);
+              System.out.println("intRight is; " + intRight);
+
+              //evaluate
+              int immEval = 0;
+              if (program.getListInt().get(i).equals("*")) {
+                immEval = Integer.parseInt(intLeft) * Integer.parseInt(intRight);
+              } else if (program.getListInt().get(i).equals("/")) {
+                immEval = Integer.parseInt(intLeft) / Integer.parseInt(intRight);
+              }
+
+              System.out.println("immEval is: " + immEval);
+              //delete the integer and replace it with the calculated one
+              program.changeListElem(i - 1, String.valueOf(immEval));
+              System.out.println("pass changeListElem");
+              program.delListElem(i);
+              System.out.println("pass remove first elem");
+              program.delListElem(i);
+              System.out.println("current list is: " + program.getListInt());
+
+            }
+          }
+        }
+
+
+        //loop until 1 elem left
+
+        while (program.getListInt().size() != 1) {
+          for (int i = 0; i < program.getListInt().size(); i++) {
+            if (program.getListInt().get(i).equals("+") || program.getListInt().get(i).equals("-")) {
+              String intLeft = program.getListInt().get(i - 1);
+              String intRight = program.getListInt().get(i + 1);
+
+              int immEval = 0;
+              if (program.getListInt().get(i).equals("+")) {
+                immEval = Integer.parseInt(intLeft) + Integer.parseInt(intRight);
+              } else if (program.getListInt().get(i).equals("-")) {
+                immEval = Integer.parseInt(intLeft) - Integer.parseInt(intRight);
+              }
+
+              program.changeListElem(i - 1, String.valueOf(immEval));
+              program.delListElem(i);
+              program.delListElem(i);
+              System.out.println("current list is: " + program.getListInt());
+            }
+          }
+        }
+
+        //when the list is equal to 1
+        if (program.getListInt().size() == 1) {
+          result = Integer.parseInt(program.getListInt().get(0));
+        }
+
+      }
+
+    } else {
+      //only add to list if it's +, -, *, /
+      System.out.println("Reach the else statement where not both types are of type AST_ExprIdnet");
+      if (exprRightAST instanceof AST_ExprLiter) {
+
+        if (opName.equals("+") || opName.equals("-") || opName.equals("*") || opName.equals("/")) {
+          System.out.println("exprRight is: " + exprRight);
+          program.addListInt(exprRight);
+          program.addListInt(opName);
+
+          System.out.println("current list is: ");
+          System.out.println(program.getListInt());
+          System.out.println(program.getListOp());
+        }
+      }
+    }
+
+
+    System.out.println("current list is: " + program.getListInt());
+    System.out.println("result is: " + result);
+
+    System.out.println("+++++++++++++++++++++++++++++++++");
+    return result;
   }
 }

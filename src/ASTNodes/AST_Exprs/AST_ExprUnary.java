@@ -380,4 +380,25 @@ public class AST_ExprUnary extends AST_Expr {
     instr = instructionUnary;
 
   }
+
+  public int constantEvaluation() {
+    int result = 0;
+
+    if (opName.equals("chr")) {
+
+    } else if (opName.equals("ord")) {
+
+    } else if (opName.equals("len")) {
+
+    } else if (opName.equals("!")) {
+
+    } else if (opName.equals("-")) {
+
+    } else {
+
+    }
+
+    return result;
+
+  }
 }
