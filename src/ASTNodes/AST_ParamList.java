@@ -189,13 +189,15 @@ public class AST_ParamList extends AST_Node {
     AST_FuncDecl tempNode = (AST_FuncDecl) parentNode;
 
     for (AST_Param param : listParam) {
-      RegisterUsage usage = new RegisterUsage("funcReg", registerAllocation.getCurrentScope());
-      usage.setFuncName(tempNode.funcName);
-      registerAllocation.useRegister(usage);
-
-      param.acceptRegister(registerAllocation);
+      if(registerAllocation.registersFull()){
+        //allocate on the stack
+      } else {
+        RegisterUsage usage = new RegisterUsage("funcReg", registerAllocation.getCurrentScope());
+        usage.setFuncName(tempNode.funcName);
+        registerAllocation.useRegister(usage);
+        param.acceptRegister(registerAllocation);
+      }
     }
-
     registerAllocation.freeAllFuncReg(tempNode.funcName);
   }
 

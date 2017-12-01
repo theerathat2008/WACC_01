@@ -5,6 +5,7 @@ import ErrorMessages.TypeError;
 import ErrorMessages.TypeMismatchError;
 import ErrorMessages.FilePosition;
 import InstructionSet.Instruction;
+import Registers.RegisterUsage;
 import org.antlr.v4.runtime.ParserRuleContext;
 import InstructionSet.InstructionArithmetic;
 import InstructionSet.InstructionComparison;
@@ -327,24 +328,39 @@ public class AST_ExprBinary extends AST_Expr {
     }
   }
 
-  @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  /**
+   * Want to store the evaluation of the two registers result of the binary expression
+   * Format is expr BinOp expr
+   * Store the result of the two expr into a result reg
+   */
 
-    RegisterARM reg1 = registerAllocation.useRegister("expr");
-    RegisterARM reg2 = registerAllocation.useRegister("expr");
+
+  @Override
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+    RegisterUsage usageLeft = new RegisterUsage("exprType", registerAllocation.getCurrentScope());
+    usageLeft.setOperationType(opName);
+
+    RegisterARM regLeft = registerAllocation.useRegister(usageLeft);
+
+    RegisterUsage usageRight = new RegisterUsage("exprType", registerAllocation.getCurrentScope());
+    usageRight.setOperationType(opName);
+
+    RegisterARM regRight = registerAllocation.useRegister(usageRight);
 
     exprLeftAST.acceptRegister(registerAllocation);
     exprRightAST.acceptRegister(registerAllocation);
 
 
     if (opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")) {
-      RegisterARM dst = registerAllocation.searchByValue("result");
-      instrA.allocateRegisters(dst, reg1, reg2);
-      //registerAllocation.freeRegister(dst);
+      RegisterARM dst = registerAllocation.useRegister();
+      instrA.allocateRegisters(dst, regLeft, regRight);
+      registerAllocation.freeRegister(dst);
     } else {
       RegisterARM dst = registerAllocation.useRegister("expr");
       instrC.allocateRegisters(reg1, reg2, dst);
     }
+    return dst;
 
   }
 

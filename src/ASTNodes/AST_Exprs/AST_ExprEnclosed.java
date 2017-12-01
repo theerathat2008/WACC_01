@@ -170,8 +170,13 @@ public class AST_ExprEnclosed extends AST_Expr {
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     leftSepAST.acceptRegister(registerAllocation);
-    exprAST.acceptRegister(registerAllocation);
+
+    //allocate result register here
+    Register dst = exprAST.acceptRegister(registerAllocation);
+
+
     rightSepAST.acceptRegister(registerAllocation);
+
   }
 
   /**

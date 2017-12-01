@@ -166,6 +166,13 @@ public class AST_ExprArrayElem extends AST_Expr {
 
   }
 
+
+  /**
+   * Format is varName [ expr ]
+   * Doesn't require any registers allocated
+   * Could be used as an access point for arrays stores on the heap
+   */
+
   @Override
   public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     for (AST_Expr expr : ast_exprList) {
