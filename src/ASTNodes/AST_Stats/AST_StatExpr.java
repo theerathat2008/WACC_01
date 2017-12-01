@@ -277,11 +277,9 @@ public class AST_StatExpr extends AST_Stat {
         break;
 
       case ("println"):
-
-
       case ("print"):
         InstructionPrint instructionPrint = (InstructionPrint) instr;
-        instructionPrint.getResultBlock();
+        //instructionPrint.getResultBlock();
         assemblyCode.add(instructionPrint.getResultBlock());
         if (statName.equals("println")) {
           InstructionPrintln instructionPrintln = (InstructionPrintln) instrPrintLine;
@@ -325,10 +323,8 @@ public class AST_StatExpr extends AST_Stat {
         break;
 
       case ("println"):
-
-
         InstructionPrintBlocksLn instructionPrintLn = (InstructionPrintBlocksLn) instrPrintLn;
-        instructionPrintLn.allocateRegisters(RegisterARM.r0);
+        //instructionPrintLn.allocateRegisters(RegisterARM.r0);
 
 
       case ("print"):
@@ -346,7 +342,7 @@ public class AST_StatExpr extends AST_Stat {
             case ("string"):  //falls through to "str" case.
             case ("str"):
               InstructionPrintBlocksString instructionPrintString = (InstructionPrintBlocksString) instrPrintType;
-              instructionPrintString.allocateRegisters(RegisterARM.r0, RegisterARM.r1, RegisterARM.r2);
+              //instructionPrintString.allocateRegisters(RegisterARM.r0, RegisterARM.r1, RegisterARM.r2);
               break;
             case ("char"):
               //CHECK IS CHAR IS NEEDED
@@ -412,7 +408,6 @@ public class AST_StatExpr extends AST_Stat {
     //REGISTER ALLOCATION TODO
     //SP ALLOCATION TODO
     System.out.println("Statement type is: " + statName);
-    System.out.println("EXPRRRRRIdent TYPE: " + expr.getIdentifier().toString());
     System.out.println("EXPRRRRR TYPE: " + expr.getType());
 
     switch (statName) {
@@ -445,12 +440,8 @@ public class AST_StatExpr extends AST_Stat {
         //No break so it executes print too
         registerAllocation.addString("\\0");
         InstructionPrintBlocksLn instructionPrintLn = new InstructionPrintBlocksLn(registerAllocation.getStringID("\\0"));
-
         instructionList.add(instructionPrintLn);
-
         instrPrintLn = instructionPrintLn;
-
-        //break;
       case ("print"):
         if (expr instanceof AST_ExprArrayElem) {
           AST_ExprArrayElem tempNode = (AST_ExprArrayElem) expr;
@@ -524,7 +515,6 @@ public class AST_StatExpr extends AST_Stat {
           if (expr instanceof AST_ExprBinary) {
             AST_ExprBinary tempNode = (AST_ExprBinary) expr;
             emebededType = getEmebeddedType(tempNode);
-            System.out.println("BINAAAAAAAAAAAAAAAAAAAAA");
 
           } else if (expr instanceof AST_ExprUnary) {
             AST_ExprUnary tempNode = (AST_ExprUnary) expr;
@@ -538,9 +528,9 @@ public class AST_StatExpr extends AST_Stat {
           instr = instructionPrint;
 
         }
-
-
         break;
+
+
       default:
         System.out.println("Unrecognised statement type in AST_StatExpr");
     }
