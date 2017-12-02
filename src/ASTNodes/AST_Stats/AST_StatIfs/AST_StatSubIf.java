@@ -138,9 +138,14 @@ public class AST_StatSubIf extends AST_Stat {
 
   }
 
+  /**
+   * Base class returns null reg
+   */
+
+
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+    return RegisterARM.NULL_REG;
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

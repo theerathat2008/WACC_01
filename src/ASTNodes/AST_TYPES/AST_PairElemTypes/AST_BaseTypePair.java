@@ -138,7 +138,7 @@ public class AST_BaseTypePair extends AST_PairElemType {
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+    return RegisterARM.NULL_REG;
   }
 
   /**

@@ -142,7 +142,7 @@ public class AST_ArrayType extends AST_Type {
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+    return RegisterARM.NULL_REG;
   }
 
   /**

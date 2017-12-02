@@ -1,9 +1,11 @@
 package ASTNodes;
 
+import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatArrayLitRHS;
 import InstructionSet.Instruction;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import Registers.RegisterUsage;
+import Registers.StackLocation;
 import SymbolTable.SymbolTable;
 
 import static Registers.RegisterUsageBuilder.*;
@@ -189,23 +191,25 @@ public class AST_ParamList extends AST_Node {
    */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    AST_FuncDecl tempNode = (AST_FuncDecl) parentNode;
 
-    RegisterUsage resultRegUsage = aRegisterUsageBuilder()
-        .withUsageType("funcType")
-        .withSubType("resultType")
-        .withScope(registerAllocation.getCurrentScope())
-        .withFuncName(tempNode.funcName)
-        .build();
-    registerAllocation.useRegister(resultRegUsage);
+    AST_FuncDecl tempNode = (AST_FuncDecl) parentNode;
+    int counter = 0;
+
+//    RegisterUsage resultRegUsage = aRegisterUsageBuilder()
+//        .withUsageType("funcType")
+//        .withSubType("resultType")
+//        .withScope(registerAllocation.getCurrentScope())
+//        .withFuncName(tempNode.funcName)
+//        .build();
+//    registerAllocation.useRegister(resultRegUsage);
 
     for (AST_Param param : listParam) {
 
       if(registerAllocation.registersFull()){
-
+        System.out.println("Should never be called in ParamList.");
         System.out.println("Registers full");
 
-      } else if(numOfParam <= 4){
+      } else if(counter < numOfParam){
 
         RegisterUsage usage = aRegisterUsageBuilder()
             .withUsageType("funcType")
@@ -214,11 +218,39 @@ public class AST_ParamList extends AST_Node {
             .withFuncName(tempNode.funcName)
             .build();
         registerAllocation.useRegister(usage);
+        counter++;
 
         param.acceptRegister(registerAllocation);
 
       } else {
         System.out.println("More than 4 parameters used in AST_ParamList");
+        //Allocate reg space on the stack
+        //set stack location
+        StringBuilder stackLocation = new StringBuilder();
+
+        int displacement = registerAllocation.getFinalStackSize() - registerAllocation.getStackSize()
+            - registerAllocation.getMemSize(param.ast_type.getIdentifier().toString());
+
+        if (displacement == 0) {
+          stackLocation.append("[sp]");
+        } else {
+          stackLocation.append("[sp, #");
+          stackLocation.append(displacement);
+          stackLocation.append("]");
+        }
+//        TODO stack allocation for pairs and arrays
+//        if (ast_assignRHS instanceof AST_StatArrayLitRHS) {
+//          AST_StatArrayLitRHS tempNode = (AST_StatArrayLitRHS) ast_assignRHS;
+//          registerAllocation.setStackSize(registerAllocation.getStackSize() + tempNode.getArraySize());
+//        } else {
+//          registerAllocation.setStackSize(registerAllocation.getStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
+//        }
+
+
+        registerAllocation.addToStack(param.getParamName(), new StackLocation(stackLocation.toString()
+            , registerAllocation.getCurrentScope()));
+        registerAllocation.addToFuncStack(((AST_FuncDecl) parentNode).funcName, param.getParamName()
+            , new StackLocation(stackLocation.toString(), registerAllocation.getCurrentScope()));
       }
     }
 

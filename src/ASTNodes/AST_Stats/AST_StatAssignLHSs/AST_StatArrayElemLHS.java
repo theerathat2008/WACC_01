@@ -174,6 +174,7 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
     for (AST_Expr expr : ast_exprList) {
       expr.acceptRegister(registerAllocation);
     }
+    return RegisterARM.NULL_REG;
   }
 
   public List<AST_Expr> getAst_exprList() {

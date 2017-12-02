@@ -30,6 +30,16 @@ public class RegisterAllocation {
   Map<String, Map<RegisterARM, RegisterUsage>> funcRegisters = new HashMap<>();
 
   /**
+   * Map that takes a variable name and maps it to a StackLocation
+   */
+  Map<String, StackLocation> stackInUse = new HashMap<>();
+
+  /**
+   * Map that stores the stack locations for functions with the key being the funcName
+   */
+  Map<String, Map<String, StackLocation>> funcStackVar = new HashMap<>();
+
+  /**
    * List that holds the string messages that are generated in Assembly
    */
   List<String> stringList = new ArrayList<>();
@@ -50,6 +60,7 @@ public class RegisterAllocation {
   int finalStackSize = 0;
 
   int currentLabel = 0;
+
 
   /**
    * returns the current stack size
@@ -104,17 +115,23 @@ public class RegisterAllocation {
     }
   }
 
-  /**
-   * Map that takes a variable name and maps it to a StackLocation
-   */
-  Map<String, StackLocation> stackInUse = new HashMap<>();
-
 
   /**
    * Adds given identName and created stackLocation to the stackInUse map
    */
   public void addToStack(String identName, StackLocation stackLocation) {
     stackInUse.put(identName, stackLocation);
+  }
+
+  public void addToFuncStack(String funcName, String identName, StackLocation stackLocation){
+
+    if(funcStackVar.containsKey(funcName)){
+      funcStackVar.get(funcName).put(identName, stackLocation);
+    } else {
+      Map<String, StackLocation> newMap = new HashMap<>();
+      newMap.put(identName, stackLocation);
+      funcStackVar.put(funcName, newMap);
+    }
   }
 
   /**
@@ -276,15 +293,23 @@ public class RegisterAllocation {
    */
   public RegisterARM useRegister(RegisterUsage usage) throws Exception {
     if (registersFull()) {
-      throw new NullPointerException();
+      //allocate on the stack at this point
+      System.out.println("Regiters are full at this point");
+      return RegisterARM.NULL_REG;
+      //throw new NullPointerException();
     }
     RegisterARM poppedReg = freeRegisters.pop();
     addRegisterInUse(poppedReg, usage);
 
     if(usage.getUsageType().equals("funcType")){
-      Map<RegisterARM, RegisterUsage> tempMap = new HashMap<>();
-      tempMap.put(poppedReg, usage);
-      funcRegisters.put(usage.getFuncName(), tempMap);
+
+      if(funcRegisters.containsKey(usage.getFuncName())){
+        funcRegisters.get(usage.getFuncName()).put(poppedReg, usage);
+      } else {
+        Map<RegisterARM, RegisterUsage> newMap = new HashMap<>();
+        newMap.put(poppedReg, usage);
+        funcRegisters.put(usage.getFuncName(), newMap);
+      }
     }
 
     if(usage.getUsageType().equals("varDecType")){

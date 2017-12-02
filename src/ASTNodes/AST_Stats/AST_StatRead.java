@@ -1,11 +1,14 @@
 package ASTNodes.AST_Stats;
 
+import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionRead;
 import InstructionSet.InstructionReadBlocks.InstructionReadBlocksChar;
 import InstructionSet.InstructionReadBlocks.InstructionReadBlocksInt;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
+import Registers.RegisterUsage;
+import Registers.StackLocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
@@ -20,6 +23,8 @@ import IdentifierObjects.IDENTIFIER;
 
 import java.util.ArrayDeque;
 import java.util.List;
+
+import static Registers.RegisterUsageBuilder.aRegisterUsageBuilder;
 
 public class AST_StatRead extends AST_Stat {
 
@@ -191,14 +196,72 @@ public class AST_StatRead extends AST_Stat {
   }
 
   /**
-   * No expr evaluated
+   * No expr evaluated therefore the reg returned is null
    */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
-    ast_statAssignLHS.acceptRegister(registerAllocation);
-    instr.allocateRegisters(RegisterARM.r0, RegisterARM.r1);
-    //TODO need to allocate the sp register 
+
+    RegisterARM dstReg = ast_statAssignLHS.acceptRegister(registerAllocation);
+    registerAllocation.freeRegister(dstReg);
+
+    RegisterUsage resultUsage = aRegisterUsageBuilder()
+        .withUsageType("interType")
+        .withScope(registerAllocation.getCurrentScope())
+        .build();
+    RegisterARM interReg = registerAllocation.useRegister(resultUsage);
+    registerAllocation.freeRegister(interReg);
+
+    instr.allocateRegisters(RegisterARM.r0, interReg);
+
+    if (ast_statAssignLHS instanceof AST_StatIdentLHS) {
+
+      //Check if varName is allocated on the stack or in a register
+      AST_StatIdentLHS ast_statIdentLHS = (AST_StatIdentLHS)ast_statAssignLHS;
+
+      String stackLocation = registerAllocation.getStackLocation(ast_statIdentLHS.getIdentName());
+      if(stackLocation.equals("null")){
+        //Not allocated on the stack
+
+        stackLocation = registerAllocation.searchByVarValue(ast_statIdentLHS.getIdentName()).name();
+
+        if(stackLocation.equals("NULL_REG")) {
+          System.out.println("Error variable: " + ast_statIdentLHS.getIdentName() + " never assigned in AST_StatRead!");
+          return RegisterARM.NULL_REG;
+        }
+
+        instr.setUsingStack(false);
+        instr.allocateSP(stackLocation);
+        //Return the final store register
+        return registerAllocation.searchByVarValue(ast_statIdentLHS.getIdentName());
+
+      } else {
+        //Allocated on the stack
+
+        String result;
+        if (registerAllocation.getStackSize() > 0) {
+
+          StringBuilder builder = new StringBuilder();
+
+          builder.append("[sp, #");
+          int displacement = registerAllocation.getStackSize();
+          int memSize = registerAllocation.getMemSize(ast_statAssignLHS.getIdentifier().toString());
+          builder.append(displacement + memSize);
+          result = builder.toString();
+
+          String identName = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
+          String scope = registerAllocation.getCurrentScope();
+          String location = result;
+          registerAllocation.addToStack(identName, new StackLocation(location, scope));
+
+          instr.setUsingStack(true);
+          instr.allocateSP(location);
+          //Return the null reg as the var is allocated to the stack
+          return RegisterARM.NULL_REG;
+        }
+      }
+    }
+
     return RegisterARM.NULL_REG;
   }
 

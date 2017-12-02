@@ -139,9 +139,13 @@ public class AST_StatAssignRHS extends AST_Stat {
 
   }
 
+  /**
+   * Base class returns null
+   */
+
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+    return RegisterARM.NULL_REG;
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

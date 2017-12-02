@@ -1,6 +1,7 @@
 package InstructionSet.InstructionDeclOrAss;
 
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 
 public class InstructionArrayDeclAss extends Instruction {
   String resultBlock = "";
@@ -21,10 +22,10 @@ public class InstructionArrayDeclAss extends Instruction {
     this.strType = strType;
   }
 
-  public void allocateRegisters(String reg1, String reg2, String reg3) {
-    this.reg1 = reg1;
-    this.reg2 = reg2;
-    this.reg3 = reg3;
+  public void allocateRegisters(RegisterARM dst, RegisterARM inter, RegisterARM result) {
+    this.reg1 = dst.name();
+    this.reg2 = inter.name();
+    this.reg3 = result.name();
   }
 
   public void setDisp(int disp) {
@@ -47,6 +48,25 @@ public class InstructionArrayDeclAss extends Instruction {
     return resultBlock2;
   }
 
+
+  /**
+   * ResultBlock1
+   * LDR r0, =8  where r0 is reg1 a dstReg
+   * BL malloc
+   * MOV r4, r0  where r4 is reg2 an intermediateReg
+   *
+   * Expr evaluation
+   * LDR r5, =0 is from the evaluation of the expression
+   *              where r5 is reg3 a resultReg
+   *
+   * ResultBlock
+   * STR r5, [r4, #4]
+   *
+   * ResultBlock2
+   * LDR r5, =1     where r5 is the resultReg
+   * STR r5, [r4]   where r4 is the intermediateReg
+   *
+   */
 
   @Override
   public void genInstruction() {

@@ -132,7 +132,7 @@ public class AST_Type extends AST_Node {
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+    return RegisterARM.NULL_REG;
   }
 
   @Override

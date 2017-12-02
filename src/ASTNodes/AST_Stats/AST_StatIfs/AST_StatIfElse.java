@@ -135,6 +135,11 @@ public class AST_StatIfElse extends AST_StatSubIf {
     elseStat.accept(visitor);
   }
 
+  /**
+   * Nothing done in statIfElse as it acts as an intermediate for the else statement evaluation
+   * @param assemblyCode
+   */
+
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     elseStat.acceptInstr(assemblyCode);
@@ -142,7 +147,7 @@ public class AST_StatIfElse extends AST_StatSubIf {
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    elseStat.acceptRegister(registerAllocation);
+    return elseStat.acceptRegister(registerAllocation);
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

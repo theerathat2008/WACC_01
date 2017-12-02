@@ -153,6 +153,7 @@ public class AST_StatAssignLHS extends AST_Stat {
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    return RegisterARM.NULL_REG;
 
   }
 

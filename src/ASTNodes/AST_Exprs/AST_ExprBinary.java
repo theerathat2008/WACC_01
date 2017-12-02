@@ -6,7 +6,6 @@ import ErrorMessages.TypeMismatchError;
 import ErrorMessages.FilePosition;
 import InstructionSet.Instruction;
 import Registers.RegisterUsage;
-import com.sun.org.apache.regexp.internal.RE;
 import org.antlr.v4.runtime.ParserRuleContext;
 import InstructionSet.InstructionArithmetic;
 import InstructionSet.InstructionComparison;

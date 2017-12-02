@@ -144,7 +144,7 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    ast_expr.acceptRegister(registerAllocation);
+    return ast_expr.acceptRegister(registerAllocation);
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

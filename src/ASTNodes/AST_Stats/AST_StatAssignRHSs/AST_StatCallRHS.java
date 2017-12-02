@@ -8,6 +8,7 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_ParamList;
 import ASTNodes.AST_Param;
+import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
 import ErrorMessages.TypeMismatchError;
 import IdentifierObjects.FunctionObj;
 import IdentifierObjects.BaseTypeObj;
@@ -384,13 +385,23 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
     assemblyCode.add(instrCall.getResultBlock());
   }
 
+  /**
+   * Load all the function arguments into the right registers which is done in AST_ParamList
+   * Evaluate the expression, Don't care about the evaluation of the expressions
+   * Return r0 as the evaluation of the actual function call is stored in there
+   */
+
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
     for (AST_Expr expr : ast_exprList) {
+      if(expr instanceof AST_ExprIdent){
+        AST_ExprIdent tempNode = (AST_ExprIdent)expr;
+        String varName = tempNode.getVarName();
+      }
       expr.acceptRegister(registerAllocation);
     }
-    registerAllocation.freeRegister(registerAllocation.searchByTypeValue("result"));
-    registerAllocation.addRegisterInUse(RegisterARM.r0, "result");
+    return RegisterARM.r0;
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

@@ -200,7 +200,7 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    ast_expr.acceptRegister(registerAllocation);
+    return ast_expr.acceptRegister(registerAllocation);
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

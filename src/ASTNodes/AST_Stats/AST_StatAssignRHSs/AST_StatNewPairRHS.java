@@ -170,6 +170,7 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     ast_expr_first.acceptRegister(registerAllocation);
     ast_expr_second.acceptRegister(registerAllocation);
+    return RegisterARM.NULL_REG;
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

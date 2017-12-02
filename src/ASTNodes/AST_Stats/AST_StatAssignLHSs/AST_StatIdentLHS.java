@@ -25,8 +25,6 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS {
 
   /**
    * Constructor for class - initialises class variables
-   *
-   * @param numberOfChildren - Shows the number of parameters in the parameter list of function
    */
   public AST_StatIdentLHS() {
     this.identName = null;
@@ -141,7 +139,7 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS {
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+    return RegisterARM.NULL_REG;
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

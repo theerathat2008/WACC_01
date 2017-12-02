@@ -142,9 +142,13 @@ public class AST_StatIfThen extends AST_StatSubIf {
     thenStat.acceptInstr(assemblyCode);
   }
 
+  /**
+   * Nothing done for the thenStat node as it acts as an intermediate for the then stat evaluation
+   */
+
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    thenStat.acceptRegister(registerAllocation);
+    return thenStat.acceptRegister(registerAllocation);
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
