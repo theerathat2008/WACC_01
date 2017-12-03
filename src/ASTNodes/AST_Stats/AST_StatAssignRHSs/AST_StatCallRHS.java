@@ -404,7 +404,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
     instrCall = instructionCall;
 
     if (standardLibrary.contains(funcName)) {
-      instructionList.add(new InstructionLibraryFunction(funcName));
+      instructionList.add(new InstructionLibraryFunction(funcName, instructionList, registerAllocation));
     }
 
   }
