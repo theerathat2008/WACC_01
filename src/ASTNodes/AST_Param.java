@@ -186,6 +186,6 @@ public class AST_Param extends AST_Node {
 
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    System.out.println("AST_Param shouldn't generate any assembly");
+    //AST_Param shouldn't generate any assembly
   }
 }

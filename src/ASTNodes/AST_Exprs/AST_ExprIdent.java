@@ -176,6 +176,7 @@ public class AST_ExprIdent extends AST_Expr {
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
+
     RegisterUsage usage = aRegisterUsageBuilder()
         .withScope(registerAllocation.getCurrentScope())
         .withUsageType("exprType")

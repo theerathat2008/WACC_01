@@ -195,14 +195,6 @@ public class AST_ParamList extends AST_Node {
     AST_FuncDecl tempNode = (AST_FuncDecl) parentNode;
     int counter = 0;
 
-//    RegisterUsage resultRegUsage = aRegisterUsageBuilder()
-//        .withUsageType("funcType")
-//        .withSubType("resultType")
-//        .withScope(registerAllocation.getCurrentScope())
-//        .withFuncName(tempNode.funcName)
-//        .build();
-//    registerAllocation.useRegister(resultRegUsage);
-
     for (AST_Param param : listParam) {
 
       if(registerAllocation.registersFull()){
@@ -211,19 +203,20 @@ public class AST_ParamList extends AST_Node {
 
       } else if(counter < numOfParam){
 
+        //Reserve Registers for the functions
         RegisterUsage usage = aRegisterUsageBuilder()
             .withUsageType("funcType")
             .withVarName(param.paramName)
             .withScope(registerAllocation.getCurrentScope())
             .withFuncName(tempNode.funcName)
             .build();
-        registerAllocation.useRegister(usage);
+        RegisterARM funcReg = registerAllocation.useRegister(usage);
         counter++;
 
         param.acceptRegister(registerAllocation);
 
       } else {
-        System.out.println("More than 4 parameters used in AST_ParamList");
+        //More than 4 parameters used in AST_ParamList
         //Allocate reg space on the stack
         //set stack location
         StringBuilder stackLocation = new StringBuilder();
@@ -264,7 +257,6 @@ public class AST_ParamList extends AST_Node {
 
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    System.out.println("Shouldn't generate any assembly code");
-
+    //Shouldn't generate any assembly code
   }
 }

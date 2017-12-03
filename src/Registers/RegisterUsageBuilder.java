@@ -23,11 +23,13 @@ public class RegisterUsageBuilder {
 
   public RegisterUsage build(){
     RegisterUsage registerUsage = new RegisterUsage();
-    registerUsage.setContent(content);
-    registerUsage.setFuncName(funcName);
-    registerUsage.setOperationType(operationType);
     registerUsage.setScope(scope);
     registerUsage.setUsageType(usageType);
+    registerUsage.setSubType(subType);
+    registerUsage.setContent(content);
+    registerUsage.setFuncName(funcName);
+    registerUsage.setVarName(varName);
+    registerUsage.setOperationType(operationType);
     return registerUsage;
   }
 

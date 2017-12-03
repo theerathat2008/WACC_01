@@ -389,6 +389,12 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
    * Load all the function arguments into the right registers which is done in AST_ParamList
    * Evaluate the expression, Don't care about the evaluation of the expressions
    * Return r0 as the evaluation of the actual function call is stored in there
+   *
+   * The possible vars that could be loaded are ExprIdent, Arrays and Pairs
+   * In the case of ExprIdent: Find the varName
+   *                           Find the current storage location of that var in (reg/Stack)
+   *                           Find the destination storage location of that var is in (funcReg/funcStack)
+   *                           Print out an assembly line to match the (reg/Stack) to (funcReg/funcStack)
    */
 
   @Override

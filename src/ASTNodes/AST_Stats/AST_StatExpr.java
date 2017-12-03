@@ -298,10 +298,7 @@ public class AST_StatExpr extends AST_Stat {
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
-    System.out.println("StatName is: " + statName);
-
     RegisterARM evalResult = expr.acceptRegister(registerAllocation);
-    System.out.println("Evaluation reg of AST stat Expr is: " + evalResult.name());
 
     switch (statName) {
       case ("free"):
@@ -328,7 +325,6 @@ public class AST_StatExpr extends AST_Stat {
 
       case ("print"):
         String type = expr.getType();
-        System.out.println("Type is at print: " + type);
 
         if (type != null) {
 
@@ -392,7 +388,6 @@ public class AST_StatExpr extends AST_Stat {
 
     //REGISTER ALLOCATION TODO
     //SP ALLOCATION TODO
-    System.out.println("Statement type is: " + statName);
 
     switch (statName) {
       case ("free"):

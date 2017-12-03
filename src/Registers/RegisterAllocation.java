@@ -1,6 +1,7 @@
 package Registers;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Class to keep track of free registers and allocate registers
@@ -16,12 +17,19 @@ public class RegisterAllocation {
   /**
    * Map that Maps a register to a usage described in the String
    */
-  Map<RegisterARM, RegisterUsage> registerInUse = new HashMap<>();
+  Map<RegisterARM, RegisterUsage> registerInUse = new ConcurrentHashMap<>();
+
+  public void printRegInUse(){
+    for (Map.Entry<RegisterARM, RegisterUsage> entry : registerInUse.entrySet()) {
+      System.out.println(entry.getKey() + " with type " + entry.getValue().usageType);
+    }
+
+  }
 
   /**
    * Map that stores variables declared
    */
-  Map<RegisterARM, RegisterUsage> varRegisters = new HashMap<>();
+  Map<RegisterARM, RegisterUsage> varRegisters = new ConcurrentHashMap<>();
 
 
   /**
@@ -215,14 +223,6 @@ public class RegisterAllocation {
     return stringList.indexOf(string);
   }
 
-  public void freeAllFuncReg(String funcName){
-    for (Map.Entry<RegisterARM, RegisterUsage> entry : registerInUse.entrySet()) {
-      if (funcName.equals(entry.getValue().getFuncName())) {
-        freeRegister(entry.getKey());
-      }
-    }
-  }
-
   /**
    * @param register
    * @return - Returns next register of the register given in the parameter
@@ -294,7 +294,7 @@ public class RegisterAllocation {
   public RegisterARM useRegister(RegisterUsage usage) throws Exception {
     if (registersFull()) {
       //allocate on the stack at this point
-      System.out.println("Regiters are full at this point");
+      System.out.println("Registers are full at this point");
       return RegisterARM.NULL_REG;
       //throw new NullPointerException();
     }
@@ -324,15 +324,8 @@ public class RegisterAllocation {
 
 
 
-//  public void addRegisterMap(String key, RegisterARM registerARM){
-//    registerInUseMap.put(key, registerARM);
-//  }
-//
-//  public void removeRegisterMap(String key){
-//    registerInUseMap.remove(key);
-//  }
-//
 
+//  public void addRegisterMap(String key, RegisterARM registerARM){
   public RegisterUsage getRegisterMapValue(RegisterARM regToGet) {
     if (registerInUse.containsKey(regToGet)) {
       return registerInUse.get(regToGet);
@@ -341,6 +334,20 @@ public class RegisterAllocation {
     return null;
   }
 
+  //
+
+  //  }
+  public void freeAllFuncReg(String funcName){
+    List<RegisterARM> regToFree = new ArrayList<>();
+    for (Map.Entry<RegisterARM, RegisterUsage> entry : registerInUse.entrySet()) {
+      if (funcName.equals(entry.getValue().getFuncName())) {
+        regToFree.add(entry.getKey());
+      }
+    }
+    for(int j = regToFree.size() - 1; j >= 0; j--){
+      freeRegister(regToFree.get(j));
+    }
+  }
 
   /**
    * @param register frees a register and pushes onto freeReg stack
@@ -351,6 +358,7 @@ public class RegisterAllocation {
       freeRegisters.push(register);
     }
   }
+  //    registerInUseMap.remove(key);
 
   /**
    * @return Returns true if there are free registers remaining
@@ -358,6 +366,7 @@ public class RegisterAllocation {
   public boolean registersFull() {
     return freeRegisters.isEmpty();
   }
+  //  public void removeRegisterMap(String key){
 
   /**
    * @param register - Register to be searched in stack
@@ -368,15 +377,18 @@ public class RegisterAllocation {
     return !freeRegisters.contains(register);
   }
 
-//  /**
-//   * @return - Returns a list of all normal registers that can be put in the free reg stack
-//   */
-//  public List<RegisterARM> getNormalRegisters() {
-//    List<RegisterARM> allRegs = new ArrayList<RegisterARM>(Arrays.asList(RegisterARM.values()));
-//    allRegs.remove(RegisterARM.CPSR);
-//    allRegs.remove(RegisterARM.LR);
-//    allRegs.remove(RegisterARM.PC);
-//    allRegs.remove(RegisterARM.SP);
+  //
+  //    registerInUseMap.put(key, registerARM);
+  //  /**
+  //   * @return - Returns a list of all normal registers that can be put in the free reg stack
+  //   */
+  //  public List<RegisterARM> getNormalRegisters() {
+  //    List<RegisterARM> allRegs = new ArrayList<RegisterARM>(Arrays.asList(RegisterARM.values()));
+  //    allRegs.remove(RegisterARM.CPSR);
+  //    allRegs.remove(RegisterARM.LR);
+  //    allRegs.remove(RegisterARM.PC);
+  //    allRegs.remove(RegisterARM.SP);
+  //  }
 //    allRegs.remove(RegisterARM.SPSR);
 //    return allRegs;
 //  }
