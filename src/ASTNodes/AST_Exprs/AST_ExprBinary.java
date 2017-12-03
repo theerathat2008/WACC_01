@@ -157,7 +157,7 @@ public class AST_ExprBinary extends AST_Expr {
 
     SymbolTable ST = this.symbolTable;
 
-    constantEvaluation();
+    //constantEvaluation();
 
     if (exprLeftAST instanceof AST_ExprIdent) {
       SymbolTable tempST = ST;
@@ -323,6 +323,69 @@ public class AST_ExprBinary extends AST_Expr {
     exprRightAST.accept(visitor);
   }
 
+  public int acceptNode(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+
+    int result = 0;
+
+    if (exprLeftAST instanceof AST_ExprLiter && exprRightAST instanceof AST_ExprLiter) {
+      int result1 = ((AST_ExprLiter) exprLeftAST).acceptNode(visitor);
+      int result2 = ((AST_ExprLiter) exprRightAST).acceptNode(visitor);
+
+      //add precedences
+      if (opName.equals("+")) {
+        result = result1 + result2;
+      } else if (opName.equals("-")) {
+        result = result1 - result2;
+      } else if (opName.equals("*")) {
+        result = result1 * result2;
+      } else if (opName.equals("/")) {
+        result = result1 / result2;
+      }
+    } else if (exprLeftAST instanceof AST_ExprLiter) {
+
+      if (exprRightAST instanceof AST_ExprBinary) {
+        int result1 = ((AST_ExprLiter) exprLeftAST).acceptNode(visitor);
+
+        //needs to get the result of previous binary oper first inorder to do arithmetic
+        int result2 = ((AST_ExprBinary) exprRightAST).acceptNode(visitor);
+
+        if (opName.equals("+")) {
+          result = result1 + result2;
+        } else if (opName.equals("-")) {
+          result = result1 - result2;
+        } else if (opName.equals("*")) {
+          result = result1 * result2;
+        } else if (opName.equals("/")) {
+          result = result1 / result2;
+        }
+      }
+
+
+
+    } else if (exprRightAST instanceof AST_ExprLiter) {
+      int result2 = ((AST_ExprLiter) exprRightAST).acceptNode(visitor);
+
+      if (exprLeftAST instanceof AST_ExprBinary) {
+        int result1 = ((AST_ExprBinary) exprLeftAST).acceptNode(visitor);
+
+        if (opName.equals("+")) {
+          result = result1 + result2;
+        } else if (opName.equals("-")) {
+          result = result1 - result2;
+        } else if (opName.equals("*")) {
+          result = result1 * result2;
+        } else if (opName.equals("/")) {
+          result = result1 / result2;
+        }
+      }
+    }
+
+
+
+    return result;
+  }
+
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     exprLeftAST.acceptInstr(assemblyCode);
@@ -401,6 +464,8 @@ public class AST_ExprBinary extends AST_Expr {
   }
 
   public int constantEvaluation() {
+
+    //left to right
 
     System.out.println("+++++++++++++++++++++++++++++++++");
     System.out.println("Start evaluating constant");
@@ -568,7 +633,7 @@ public class AST_ExprBinary extends AST_Expr {
         //this loop should start when everything else is in the loop already
         int listSize = program.getListInt().size();
 
-        while (program.getListInt().contains("*")) {
+        while (program.getListInt().contains("*") || program.getListInt().contains("/")) {
           for (int i = 0; i < listSize - 1; i++) {
             System.out.println("evaluate 1 time");
             if (program.getListInt().get(i).equals("*") || program.getListInt().get(i).equals("/")) {
@@ -664,6 +729,70 @@ public class AST_ExprBinary extends AST_Expr {
         }
       }
     }
+
+
+    //TODO have to create new list for each exprEnclosed
+    //ignore all expr ident cases
+
+    if (exprLeftAST instanceof AST_ExprLiter) {
+      System.out.println("exprLeftAST is instance of AST_ExprLiter");
+      exprLeft = ((AST_ExprLiter) exprLeftAST).getConstant();
+      System.out.println("exprLeft is: " + exprLeft);
+    }
+
+    if (exprRightAST instanceof AST_ExprLiter) {
+      System.out.println("exprRightAST is instance of AST_ExprLiter");
+      exprRight = ((AST_ExprLiter) exprRightAST).getConstant();
+      System.out.println("exprRight is: " + exprRight);
+    }
+
+    if (exprLeftAST instanceof AST_ExprIdent) {
+      System.out.println("exprLeftAST is instance of AST_ExprIdent");
+      System.out.println("Not evaluating");
+    }
+
+    if (exprRightAST instanceof AST_ExprIdent) {
+      System.out.println("exprRightAST is instance of AST_ExprIdent");
+      System.out.println("Not evaluating");
+    }
+
+    //TODO search for * and / first
+
+    //assume these in the bracket already
+
+    /*while (program.getListInt().contains())
+
+
+      while (program.getListInt().contains("*") || program.getListInt().contains("/")) {
+        for (int i = 0; i < listSize - 1; i++) {
+          System.out.println("evaluate 1 time");
+          if (program.getListInt().get(i).equals("*") || program.getListInt().get(i).equals("/")) {
+            String intLeft = program.getListInt().get(i - 1);
+            String intRight = program.getListInt().get(i + 1);
+            System.out.println("intLeft is: " + intLeft);
+            System.out.println("intRight is; " + intRight);
+
+            //evaluate
+            int immEval = 0;
+            if (program.getListInt().get(i).equals("*")) {
+              immEval = Integer.parseInt(intLeft) * Integer.parseInt(intRight);
+            } else if (program.getListInt().get(i).equals("/")) {
+              immEval = Integer.parseInt(intLeft) / Integer.parseInt(intRight);
+            }
+
+            System.out.println("immEval is: " + immEval);
+            //delete the integer and replace it with the calculated one
+            program.changeListElem(i - 1, String.valueOf(immEval));
+            System.out.println("pass changeListElem");
+            program.delListElem(i);
+            System.out.println("pass remove first elem");
+            program.delListElem(i);
+            System.out.println("current list is: " + program.getListInt());
+
+          }
+        }
+      }*/
+
 
 
     System.out.println("current list is: " + program.getListInt());

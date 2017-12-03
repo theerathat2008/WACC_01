@@ -334,6 +334,12 @@ public class AST_ExprUnary extends AST_Expr {
     astExpr.accept(visitor);
   }
 
+  public int acceptNode(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    //TODO
+    return 0;
+  }
+
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     astExpr.acceptInstr(assemblyCode);

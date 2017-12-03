@@ -211,6 +211,11 @@ public class AST_ExprLiter extends AST_Expr {
     visitor.visit(this);
   }
 
+  public int acceptNode(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+    return Integer.parseInt(constant);
+  }
+
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     assemblyCode.add(instr.block1);
