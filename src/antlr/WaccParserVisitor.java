@@ -70,6 +70,13 @@ public interface WaccParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitWHILE_STAT(WaccParser.WHILE_STATContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code SIDE_EFFECT}
+	 * labeled alternative in {@link WaccParser#stat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSIDE_EFFECT(WaccParser.SIDE_EFFECTContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code MULT_STAT}
 	 * labeled alternative in {@link WaccParser#stat}.
 	 * @param ctx the parse tree
@@ -292,6 +299,13 @@ public interface WaccParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIDENT_EXPR(WaccParser.IDENT_EXPRContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code SIDE_EFFECT_EXPR}
+	 * labeled alternative in {@link WaccParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSIDE_EFFECT_EXPR(WaccParser.SIDE_EFFECT_EXPRContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code INT_LITER_EXPR}
 	 * labeled alternative in {@link WaccParser#expr}.
 	 * @param ctx the parse tree
@@ -319,6 +333,34 @@ public interface WaccParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitARRAY_ELEM_EXPR(WaccParser.ARRAY_ELEM_EXPRContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IDENT_PLUS_PLUS}
+	 * labeled alternative in {@link WaccParser#side_effecting_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIDENT_PLUS_PLUS(WaccParser.IDENT_PLUS_PLUSContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PLUS_PLUS_IDENT}
+	 * labeled alternative in {@link WaccParser#side_effecting_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPLUS_PLUS_IDENT(WaccParser.PLUS_PLUS_IDENTContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IDENT_PLUS_EQUALS}
+	 * labeled alternative in {@link WaccParser#side_effecting_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIDENT_PLUS_EQUALS(WaccParser.IDENT_PLUS_EQUALSContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IDENT_MINUS_EQUALS}
+	 * labeled alternative in {@link WaccParser#side_effecting_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIDENT_MINUS_EQUALS(WaccParser.IDENT_MINUS_EQUALSContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link WaccParser#unaryOp}.
 	 * @param ctx the parse tree
