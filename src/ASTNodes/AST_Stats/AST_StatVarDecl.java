@@ -362,9 +362,6 @@ public class AST_StatVarDecl extends AST_Stat {
 
 
     RegisterARM src = ast_assignRHS.acceptRegister(registerAllocation);
-    System.out.println("Assigm " + identName);
-    registerAllocation.printRegInUse();
-    System.out.println();
     registerAllocation.freeRegister(src);
 
     RegisterUsage interUsage = aRegisterUsageBuilder()

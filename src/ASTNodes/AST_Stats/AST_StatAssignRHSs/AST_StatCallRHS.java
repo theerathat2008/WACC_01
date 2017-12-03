@@ -379,8 +379,11 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-    for (AST_Expr expr : ast_exprList) {
-      expr.acceptInstr(assemblyCode);
+    List<String> callList = instrCall.getVarCallBlocks();
+
+    for (String callBlock : callList) {
+      //expr.acceptInstr(assemblyCode);
+      assemblyCode.add(callBlock);
     }
     assemblyCode.add(instrCall.getResultBlock());
   }
@@ -404,8 +407,20 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
       if(expr instanceof AST_ExprIdent){
         AST_ExprIdent tempNode = (AST_ExprIdent)expr;
         String varName = tempNode.getVarName();
+        String type = "reg";
+
+        String src = registerAllocation.searchByVarValue(varName).name();
+        if(src.equals("NULL_REG")){
+          src = registerAllocation.getStackLocation(varName);
+          type = "stackLDR";
+        }
+
+        String dst = registerAllocation.searchByFuncVarValue(varName, funcName).name();
+        if(dst.equals("NULL_REG")){
+          dst = registerAllocation.getStackLocation(varName);
+        }
+        instrCall.genCallInstruction(src, dst, type);
       }
-      expr.acceptRegister(registerAllocation);
     }
     return RegisterARM.r0;
   }

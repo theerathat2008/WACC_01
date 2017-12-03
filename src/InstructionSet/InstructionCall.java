@@ -7,13 +7,14 @@ public class InstructionCall extends Instruction {
   String resultBlock;
   String fName;
   String returnType;
-  List<String> varCallBlocks = new ArrayList<>();
+  List<String> varCallBlocks;
+
 
   public InstructionCall(String fName, String returnType) {
     this.fName = fName;
     this.returnType = returnType;
     this.resultBlock = "";
-    this.varCallBlocks = null;
+    this.varCallBlocks = new ArrayList<>();
   }
 
   public List<String> getVarCallBlocks() {
@@ -28,9 +29,11 @@ public class InstructionCall extends Instruction {
     StringBuilder callBlock = new StringBuilder();
     callBlock.append("\t\t");
     callBlock.append(getType(type));
+    callBlock.append(" ");
     callBlock.append(src);
     callBlock.append(", ");
     callBlock.append(dst);
+    callBlock.append("\n");
     varCallBlocks.add(callBlock.toString());
   }
 

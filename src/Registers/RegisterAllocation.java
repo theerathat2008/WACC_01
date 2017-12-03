@@ -152,6 +152,8 @@ public class RegisterAllocation {
     return "null";
   }
 
+
+
   /**
    * Returns the stack scope based on the variable name
    */
@@ -190,20 +192,20 @@ public class RegisterAllocation {
       stringList.add(string);
     }
   }
-
-  /**
-   * Searches the Register in use Map by the usage usageType
-   * Returns the register if it used
-   */
-  public RegisterARM searchByTypeValue(String usageType) {
-    for (Map.Entry<RegisterARM, RegisterUsage> entry : registerInUse.entrySet()) {
-      if (usageType.equals(entry.getValue().getUsageType())) {
-        return entry.getKey();
-      }
-    }
-    System.out.println("Cannot find the register usageType");
-    return RegisterARM.NULL_REG;
-  }
+//
+//  /**
+//   * Searches the Register in use Map by the usage usageType
+//   * Returns the register if it used
+//   */
+//  public RegisterARM searchByTypeValue(String usageType) {
+//    for (Map.Entry<RegisterARM, RegisterUsage> entry : registerInUse.entrySet()) {
+//      if (usageType.equals(entry.getValue().getUsageType())) {
+//        return entry.getKey();
+//      }
+//    }
+//    System.out.println("Cannot find the register usageType");
+//    return RegisterARM.NULL_REG;
+//  }
 
   /**
    * Searches the Register in use Map by the usage varName
@@ -215,9 +217,29 @@ public class RegisterAllocation {
         return entry.getKey();
       }
     }
-    System.out.println("Cannot find the register varName in VarRegisters");
+    System.out.println("Cannot find the register with varName: " + varName + " in VarRegisters");
     return RegisterARM.NULL_REG;
   }
+
+  /**
+   * Searches the Register in use func Map by the usage varName
+   * Returns the register if it used
+   */
+  public RegisterARM searchByFuncVarValue(String varName, String funcName) {
+    for (Map.Entry<String, Map<RegisterARM, RegisterUsage>> entry : funcRegisters.entrySet()) {
+      if (funcName.equals(entry.getKey())) {
+        for(Map.Entry<RegisterARM, RegisterUsage> entryEmbedded : entry.getValue().entrySet()){
+          if(varName.equals(entryEmbedded.getValue().getVarName())){
+            return entryEmbedded.getKey();
+          }
+        }
+      }
+    }
+    System.out.println("Cannot find the register" +varName +" in VarFuncRegisters with funcName: " + funcName);
+    return RegisterARM.NULL_REG;
+  }
+
+
 
   public int getStringID(String string) {
     return stringList.indexOf(string);
@@ -344,7 +366,10 @@ public class RegisterAllocation {
         regToFree.add(entry.getKey());
       }
     }
-    for(int j = regToFree.size() - 1; j >= 0; j--){
+//    for(int j = regToFree.size() - 1; j >= 0; j--){
+//      freeRegister(regToFree.get(j));
+//    }
+    for(int j = 0; j < regToFree.size(); j++){
       freeRegister(regToFree.get(j));
     }
   }

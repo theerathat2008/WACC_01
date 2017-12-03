@@ -1,5 +1,6 @@
 package ASTNodes.AST_Exprs;
 
+import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionAssignIdent;
@@ -191,7 +192,16 @@ public class AST_ExprIdent extends AST_Expr {
     if(stackLocation.equals("null")){
       stackLocation = registerAllocation.searchByVarValue(varName).name();
       if(stackLocation.equals("NULL_REG")) {
-        System.out.println("Error variable: " + varName + " never assigned in AST_ExprIdent");
+
+        AST_Node tempNode = this;
+        while(!(tempNode instanceof AST_FuncDecl)){
+          tempNode = tempNode.getParentNode();
+        }
+        String funcName = ((AST_FuncDecl) tempNode).getFuncName();
+        stackLocation = registerAllocation.searchByFuncVarValue(varName, funcName).name();
+        if(stackLocation.equals("NULL_REG")){
+          System.out.println("Error variable: " + varName + " never assigned in AST_ExprIdent");
+        }
       }
     }
 
