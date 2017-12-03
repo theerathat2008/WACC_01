@@ -163,4 +163,8 @@ public class SymbolTable {
     }
     return null;
   }
+
+  public Map<String, IDENTIFIER> getSymMap() {
+    return symMap;
+  }
 }

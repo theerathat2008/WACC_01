@@ -274,6 +274,8 @@ public class AST_StatVarDecl extends AST_Stat {
       }
     }
 
+    System.out.println("reach here");
+
     if (ast_type.getIdentifier() != null && ast_assignRHS.getIdentifier() != null) {
       //ast_type.getIdentifier() returns "str" so it's the problem
       if (!(ast_type.getIdentifier().toString().contains(ast_assignRHS.getIdentifier().toString())
@@ -284,13 +286,17 @@ public class AST_StatVarDecl extends AST_Stat {
       return true;
     }
 
-    if (type.toString().contains(ast_type.getIdentifier().toString())
-        || ast_type.getIdentifier().toString().contains(type.toString())) {
+    System.out.println("ast_type is: " + ast_type);
+    System.out.println("type is: " + type);
+
+    if ((type.toString().contains(ast_type.getIdentifier().toString())
+        || ast_type.getIdentifier().toString().contains(type.toString()))) {
       return true;
     } else {
       new VariableRedeclarationError(new FilePosition(ctx)).printAll();
       return false;
     }
+
 
 
   }
