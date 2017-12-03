@@ -78,6 +78,9 @@ side_effecting_expr: IDENT PLUS PLUS                  # IDENT_PLUS_PLUS
                    | PLUS PLUS IDENT                  # PLUS_PLUS_IDENT
                    | IDENT PLUS EQUAL expr            # IDENT_PLUS_EQUALS
                    | IDENT MINUS EQUAL expr           # IDENT_MINUS_EQUALS
+                   | IDENT EQUAL expr                 # IDENT_EQUAL
+                   | IDENT MULT EQUAL expr            # IDENT_MULT_EQUALS
+                   | IDENT DIV EQUAL expr             # IDENT_DIV_EQUALS
                    ;
 
 unaryOp : CHR | ORD | LEN | EXCL | MINUS ;

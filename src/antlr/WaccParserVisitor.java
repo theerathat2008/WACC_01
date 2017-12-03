@@ -362,6 +362,27 @@ public interface WaccParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIDENT_MINUS_EQUALS(WaccParser.IDENT_MINUS_EQUALSContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code IDENT_EQUAL}
+	 * labeled alternative in {@link WaccParser#side_effecting_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIDENT_EQUAL(WaccParser.IDENT_EQUALContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IDENT_MULT_EQUALS}
+	 * labeled alternative in {@link WaccParser#side_effecting_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIDENT_MULT_EQUALS(WaccParser.IDENT_MULT_EQUALSContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IDENT_DIV_EQUALS}
+	 * labeled alternative in {@link WaccParser#side_effecting_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIDENT_DIV_EQUALS(WaccParser.IDENT_DIV_EQUALSContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link WaccParser#unaryOp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
