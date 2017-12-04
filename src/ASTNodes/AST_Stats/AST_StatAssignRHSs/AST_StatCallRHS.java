@@ -407,7 +407,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
       if(expr instanceof AST_ExprIdent){
         AST_ExprIdent tempNode = (AST_ExprIdent)expr;
         String varName = tempNode.getVarName();
-        String type = "reg";
+        String type = "regMOV";
 
         String src = registerAllocation.searchByVarValue(varName).name();
         if(src.equals("NULL_REG")){

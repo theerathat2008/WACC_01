@@ -9,6 +9,7 @@ public class InstructionVarDecl extends Instruction {
   String dstReg;
   String stackLocation;
   String varType;
+  boolean isStack;
 
 
   public InstructionVarDecl(String varType) {
@@ -16,6 +17,7 @@ public class InstructionVarDecl extends Instruction {
     this.srcReg = "srcReg";
     this.dstReg = "dstReg";
     this.stackLocation = "SP";
+    this.isStack = true;
     this.resultBlock = "";
   }
 
@@ -28,8 +30,9 @@ public class InstructionVarDecl extends Instruction {
     this.dstReg = dstReg.name();
   }
 
-  public void setStackLocation(String location) {
+  public void setStackLocation(String location, boolean isStack) {
     this.stackLocation = location;
+    this.isStack = isStack;
   }
 
 
@@ -44,18 +47,31 @@ public class InstructionVarDecl extends Instruction {
   @Override
   public void genInstruction() {
     StringBuilder block = new StringBuilder();
-    block.append("\t\tMOV ");
-    block.append(dstReg);
-    block.append(", ");
-    block.append(srcReg);
-    block.append("\n");
-    block.append("\t\t");
-    block.append(getSTRType());
-    block.append(" ");
-    block.append(dstReg);
-    block.append(", ");
-    block.append(stackLocation);
-    block.append("\n");
+    if(!compareDstSrc(srcReg, dstReg)){
+      block.append("\t\tMOV ");
+      block.append(dstReg);
+      block.append(", ");
+      block.append(srcReg);
+      block.append("\n");
+    }
+    if(isStack){
+      block.append("\t\t");
+      block.append(getSTRType());
+      block.append(" ");
+      block.append(dstReg);
+      block.append(", ");
+      block.append(stackLocation);
+      block.append("\n");
+    } else{
+      if(!compareDstSrc(stackLocation,dstReg)){
+        block.append("\t\t");
+        block.append("MOV ");
+        block.append(stackLocation);
+        block.append(", ");
+        block.append(dstReg);
+        block.append("\n");
+      }
+    }
     resultBlock = block.toString();
 
     //MOV r4, r0

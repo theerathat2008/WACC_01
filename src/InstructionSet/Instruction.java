@@ -10,6 +10,13 @@ public abstract class Instruction {
 
   }
 
+  /**
+   * Returns true if src is equal to dst
+   */
+  public boolean compareDstSrc(String src, String dst){
+    return src.equals(dst);
+  }
+
   public abstract void genInstruction();
 
   /**

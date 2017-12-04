@@ -401,7 +401,7 @@ public class AST_StatVarDecl extends AST_Stat {
 
       registerAllocation.addToStack(identName, new StackLocation(stackLocation.toString(), registerAllocation.getCurrentScope()));
 
-      instrVar.setStackLocation(stackLocation.toString());
+      instrVar.setStackLocation(stackLocation.toString(), true);
 
     } else {
       RegisterUsage varUsage = aRegisterUsageBuilder()
@@ -410,7 +410,7 @@ public class AST_StatVarDecl extends AST_Stat {
           .withVarName(identName)
           .build();
       RegisterARM varStore = registerAllocation.useRegister(varUsage);
-      instrVar.setStackLocation(varStore.name());
+      instrVar.setStackLocation(varStore.name(), false);
       return varStore;
       //TODO might need to free if out of scope
     }

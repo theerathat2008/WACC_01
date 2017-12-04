@@ -189,6 +189,7 @@ public class AST_ExprIdent extends AST_Expr {
 
     //Check if varName is allocated on the stack or in a register
     String stackLocation = registerAllocation.getStackLocation(varName);
+    instr.allocateLocation(stackLocation, true);
     if(stackLocation.equals("null")){
       stackLocation = registerAllocation.searchByVarValue(varName).name();
       if(stackLocation.equals("NULL_REG")) {
@@ -203,10 +204,10 @@ public class AST_ExprIdent extends AST_Expr {
           System.out.println("Error variable: " + varName + " never assigned in AST_ExprIdent");
         }
       }
+      instr.allocateLocation(stackLocation, false);
     }
 
     instr.registerAllocation(resultReg);
-    instr.allocateLocation(stackLocation);
 
     return resultReg;
   }

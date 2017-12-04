@@ -27,19 +27,22 @@ public class InstructionCall extends Instruction {
 
   public void genCallInstruction(String src, String dst, String type){
     StringBuilder callBlock = new StringBuilder();
-    callBlock.append("\t\t");
-    callBlock.append(getType(type));
-    callBlock.append(" ");
-    callBlock.append(src);
-    callBlock.append(", ");
-    callBlock.append(dst);
-    callBlock.append("\n");
-    varCallBlocks.add(callBlock.toString());
+    if(!compareDstSrc(src, dst)){
+      callBlock.append("\t\t");
+      if(type.equals("regMOV")){
+        callBlock.append("MOV");
+      } else {
+        callBlock.append("STR");
+      }
+      callBlock.append(" ");
+      callBlock.append(src);
+      callBlock.append(", ");
+      callBlock.append(dst);
+      callBlock.append("\n");
+      varCallBlocks.add(callBlock.toString());
+    }
   }
 
-  private String getType(String type){
-    return "MOV";
-  }
 
   @Override
   public void genInstruction() {
