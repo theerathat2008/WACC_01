@@ -411,7 +411,7 @@ public class AST_ExprBinary extends AST_Expr {
     }
 
     if (opName.equals("/") || opName.equals("%")) {
-      registerAllocation.addString("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n");
+      registerAllocation.addString("DivideByZeroError: divide or modulo by zero\\n\\0");
       InstructionDivByZero divByZero = new InstructionDivByZero();
       divByZero.setOutputMessageNumber(registerAllocation.
               getStringID("DivideByZeroError: divide or modulo by zero\\n\\0"));

@@ -1,5 +1,6 @@
 package InstructionSet;
 
+import InstructionSet.InstructionBlocks.InstructionError.InstructionDivByZero;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorOverflow;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
 import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
@@ -137,7 +138,7 @@ public class InstructionLibraryFunction extends Instruction {
       builder.append("\t\tLDR r5, =2\n");
       builder.append("\t\tMOV r0, r4\n");
       builder.append("\t\tMOV r1, r5\n");
-      builder.append("\t\tBL p_check_divide_by_zero\n");  //wont need this since will probably never be useful
+//      builder.append("\t\tBL p_check_divide_by_zero\n");  //wont need this since will probably never be useful
       builder.append("\t\tBL __aeabi_idiv\n");
       builder.append("\t\tMOV r4, r0\n");
       builder.append("\t\tMOV r0, r4\n");
@@ -146,6 +147,7 @@ public class InstructionLibraryFunction extends Instruction {
       builder.append("\t\t.ltorg");
 
       addOverflow(instructionList, registerAllocation);
+   //   addDivByZero(instructionList, registerAllocation);
 
 
     } else if (name.equals("pow")) {
@@ -227,4 +229,20 @@ public class InstructionLibraryFunction extends Instruction {
 
     instructionList.add(new InstructionErrorRuntime());
   }
+
+  private void addDivByZero(List<Instruction> instructionList, RegisterAllocation registerAllocation) {
+    registerAllocation.addString("DivideByZeroError: divide or modulo by zero\\n\\0");
+    InstructionDivByZero divByZero = new InstructionDivByZero();
+    divByZero.setOutputMessageNumber(registerAllocation.
+            getStringID("DivideByZeroError: divide or modulo by zero\\n\\0"));
+    instructionList.add(divByZero);
+
+    registerAllocation.addString("%.*s\\0");
+    InstructionPrintBlocksString instructionPrintString = new InstructionPrintBlocksString(registerAllocation.getStringID("%.*s\\0"));
+    instructionList.add(instructionPrintString);
+
+    instructionList.add(new InstructionErrorRuntime());
+  }
+
+
 }
