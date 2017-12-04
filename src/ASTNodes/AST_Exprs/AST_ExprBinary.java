@@ -428,6 +428,11 @@ public class AST_ExprBinary extends AST_Expr {
       InstructionErrorOverflow errorOverflow = new InstructionErrorOverflow(registerAllocation.
               getStringID("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n"));
       instructionList.add(errorOverflow);
+      registerAllocation.addString("%.*s\\0");
+      InstructionPrintBlocksString instructionPrintString = new InstructionPrintBlocksString(registerAllocation.getStringID("%.*s\\0"));
+      instructionList.add(instructionPrintString);
+
+      instructionList.add(new InstructionErrorRuntime());
     }
 
     if (opName.equals("/") || opName.equals("%")) {
@@ -436,12 +441,12 @@ public class AST_ExprBinary extends AST_Expr {
       divByZero.setOutputMessageNumber(registerAllocation.
               getStringID("DivideByZeroError: divide or modulo by zero\\n\\0"));
       instructionList.add(divByZero);
-    }
-    registerAllocation.addString("%.*s\\0");
-    InstructionPrintBlocksString instructionPrintString = new InstructionPrintBlocksString(registerAllocation.getStringID("%.*s\\0"));
-    instructionList.add(instructionPrintString);
+      registerAllocation.addString("%.*s\\0");
+      InstructionPrintBlocksString instructionPrintString = new InstructionPrintBlocksString(registerAllocation.getStringID("%.*s\\0"));
+      instructionList.add(instructionPrintString);
 
-    instructionList.add(new InstructionErrorRuntime());
+      instructionList.add(new InstructionErrorRuntime());
+    }
   }
 
   public AST_Expr getExprLeftAST() {

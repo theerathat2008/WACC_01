@@ -10,7 +10,7 @@ public class InstructionErrorOverflow extends InstructionError {
    * Class constructor
    */
   public InstructionErrorOverflow(int msgNum) {
-    reg1 = "reg1";
+    this.reg1 = "r0";
     this.blockType = "throw_overflow_error";
   }
 

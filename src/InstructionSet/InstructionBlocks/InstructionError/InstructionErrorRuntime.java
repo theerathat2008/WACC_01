@@ -9,7 +9,7 @@ public class InstructionErrorRuntime extends InstructionError {
    * Class constructor
    */
   public InstructionErrorRuntime() {
-    reg1 = "reg1";
+    this.reg1 = "r0";
     this.blockType = "throw_runtime_error";
   }
 

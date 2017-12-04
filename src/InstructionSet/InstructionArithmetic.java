@@ -51,8 +51,7 @@ public class InstructionArithmetic extends Instruction {
       builder.append(reg1);
       builder.append(" ASR #31\n\t\tBLNE p_throw_overflow_error\n");
     } else {
-      StringBuilder builder = new StringBuilder("\t\t" + getOperand(operand) + "S");
-      builder.append(", ");
+      StringBuilder builder = new StringBuilder("\t\t" + getOperand(operand) + "S ");
       builder.append(dst);
       builder.append(", ");
       builder.append(reg1);

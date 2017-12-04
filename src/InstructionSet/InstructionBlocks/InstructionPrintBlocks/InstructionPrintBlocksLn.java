@@ -14,7 +14,7 @@ public class InstructionPrintBlocksLn extends InstructionPrintBlocks {
    */
   public InstructionPrintBlocksLn(int msgNum1) {
     super(msgNum1);
-    reg1 = "reg1";
+    this.reg1 = "r0";
     this.blockType = "print_ln";
   }
 

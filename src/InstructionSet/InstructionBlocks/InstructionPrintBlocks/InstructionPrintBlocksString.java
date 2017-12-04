@@ -19,7 +19,9 @@ public class InstructionPrintBlocksString extends InstructionPrintBlocks {
    */
   public InstructionPrintBlocksString(int msgNum1) {
     super(msgNum1);
-    reg1 = "reg1";
+    this.reg1 = "r0";
+    this.reg2 = "r1";
+    this.reg3 = "r2";
     this.blockType = "print_string";
   }
 

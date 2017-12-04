@@ -152,7 +152,6 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
     String type = ast_expr.getType();
-    System.out.println("TYPEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE%%%%%%%%%%%%%%%%55:       " + type);
 
     if (type != null) {
       switch (type) {

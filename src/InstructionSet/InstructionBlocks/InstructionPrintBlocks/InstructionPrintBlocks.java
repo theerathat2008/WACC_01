@@ -16,7 +16,7 @@ public class InstructionPrintBlocks extends InstructionBlocks {
    */
   public InstructionPrintBlocks(int msgNum1) {
     this.msgNum1 = msgNum1;
-    reg1 = "reg1";
+    reg1 = "r0";
   }
 
   @Override
