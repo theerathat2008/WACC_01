@@ -17,7 +17,7 @@ public class InstructionAssignLit extends Instruction {
   }
 
   public void registerAllocation(RegisterARM reg) {
-    //this.reg = reg.name();
+    this.reg = reg.name();
   }
 
   public void setStringMsgNum(String num) {
