@@ -382,6 +382,14 @@ public class AST_ExprBinary extends AST_Expr {
         //needs to get the result of previous binary oper first inorder to do arithmetic
         int result2 = ((AST_ExprBinary) exprRightAST).acceptNode(visitor);
 
+        String exprLeft = ((AST_ExprLiter) exprLeftAST).getConstant();
+        String exprRight = String.valueOf(result2);
+        if (result2 == 1) {
+          exprRight = "true";
+        } else if (result2 == 0) {
+          exprRight = "false";
+        }
+
         if (opName.equals("+")) {
           result = result1 + result2;
         } else if (opName.equals("-")) {
@@ -392,6 +400,18 @@ public class AST_ExprBinary extends AST_Expr {
           result = result1 / result2;
         } else if (opName.equals("%")) {
           result = result1 % result2;
+        } else if (opName.equals("&&") || opName.equals("||")) {
+          if (opName.equals("&&")) {
+            //only case that is true must be when both sides are true
+            if (exprLeft.equals("true") && exprRight.equals("true")) {
+              result = 1;
+            }
+          } else if (opName.equals("||")) {
+            //only false case is when both are false
+            if (!(exprLeft.equals("false") && exprRight.equals("false"))) {
+              result = 1;
+            }
+          }
         }
       }
 
@@ -401,6 +421,15 @@ public class AST_ExprBinary extends AST_Expr {
       if (exprLeftAST instanceof AST_ExprBinary) {
         int result1 = ((AST_ExprBinary) exprLeftAST).acceptNode(visitor);
 
+        String exprLeft = String.valueOf(result1);
+        if (result1 == 1) {
+          exprLeft  = "true";
+        } else if (result1 == 0) {
+          exprLeft = " false";
+        }
+
+        String exprRight = ((AST_ExprLiter) exprRightAST).getConstant();
+
         if (opName.equals("+")) {
           result = result1 + result2;
         } else if (opName.equals("-")) {
@@ -411,6 +440,60 @@ public class AST_ExprBinary extends AST_Expr {
           result = result1 / result2;
         } else if (opName.equals("%")) {
           result = result1 % result2;
+        } else if (opName.equals("&&") || opName.equals("||")) {
+          if (opName.equals("&&")) {
+            //only case that is true must be when both sides are true
+            if (exprLeft.equals("true") && exprRight.equals("true")) {
+              result = 1;
+            }
+          } else if (opName.equals("||")) {
+            //only false case is when both are false
+            if (!(exprLeft.equals("false") && exprRight.equals("false"))) {
+              result = 1;
+            }
+          }
+        }
+      }
+    } else if (exprLeftAST instanceof AST_ExprBinary && exprRightAST instanceof AST_ExprBinary) {
+      //when the two cases are instance of AST_ExprBinary
+      int result1 = ((AST_ExprBinary) exprLeftAST).acceptNode(visitor);
+      int result2 = ((AST_ExprBinary) exprRightAST).acceptNode(visitor);
+
+      String exprLeft = String.valueOf(result1);
+      if (result1 == 1) {
+        exprLeft = "true";
+      } else if (result1 == 0) {
+        exprLeft = "false";
+      }
+
+      String exprRight = String.valueOf(result2);
+      if (result2 == 1) {
+        exprRight = "true";
+      } else if (result2 == 0) {
+        exprRight = "false";
+      }
+
+      if (opName.equals("+")) {
+        result = result1 + result2;
+      } else if (opName.equals("-")) {
+        result = result1 - result2;
+      } else if (opName.equals("*")) {
+        result = result1 * result2;
+      } else if (opName.equals("/")) {
+        result = result1 / result2;
+      } else if (opName.equals("%")) {
+        result = result1 % result2;
+      } else if (opName.equals("&&") || opName.equals("||")) {
+        if (opName.equals("&&")) {
+          //only case that is true must be when both sides are true
+          if (exprLeft.equals("true") && exprRight.equals("true")) {
+            result = 1;
+          }
+        } else if (opName.equals("||")) {
+          //only false case is when both are false
+          if (!(exprLeft.equals("false") && exprRight.equals("false"))) {
+            result = 1;
+          }
         }
       }
     }
