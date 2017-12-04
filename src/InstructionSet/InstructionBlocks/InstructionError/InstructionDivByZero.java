@@ -5,7 +5,7 @@ import Registers.RegisterARM;
 public class InstructionDivByZero extends InstructionError {
   String reg1;
   String reg2;
-  String outputMessageNumber;
+  int outputMessageNumber;
 
   /**
    * Class constructor
@@ -16,7 +16,7 @@ public class InstructionDivByZero extends InstructionError {
     this.blockType = "check_divide_by_zero";
   }
 
-  public void setOutputMessageNumber(String number) {
+  public void setOutputMessageNumber(int number) {
     outputMessageNumber = number;
   }
 

@@ -5,7 +5,15 @@ import ErrorMessages.TypeError;
 import ErrorMessages.TypeMismatchError;
 import ErrorMessages.FilePosition;
 import InstructionSet.Instruction;
+
 import Registers.RegisterUsage;
+
+import InstructionSet.InstructionBlocks.InstructionError.InstructionDivByZero;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorOverflow;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
+import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksInt;
+import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
+
 import org.antlr.v4.runtime.ParserRuleContext;
 import InstructionSet.InstructionArithmetic;
 import InstructionSet.InstructionComparison;
@@ -152,6 +160,20 @@ public class AST_ExprBinary extends AST_Expr {
    */
   @Override
   public boolean CheckSemantics() {
+
+    if (opName.equals("*")) {
+      setType("int");
+    } else if (opName.equals("/")) {
+      setType("int");
+    } else if (opName.equals("%")) {
+      setType("int");
+    } else if (opName.equals("+")) {
+      setType("int");
+    } else if (opName.equals("-")) {
+      setType("int");
+    } else {
+      setType("bool");
+    }
 
     SymbolTable ST = this.symbolTable;
 
@@ -400,6 +422,26 @@ public class AST_ExprBinary extends AST_Expr {
       instrC = instructionCompare;
 
     }
+
+    if (opName.equals("+") || opName.equals("-") || opName.equals("*")) {
+      registerAllocation.addString("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n");
+      InstructionErrorOverflow errorOverflow = new InstructionErrorOverflow(registerAllocation.
+              getStringID("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n"));
+      instructionList.add(errorOverflow);
+    }
+
+    if (opName.equals("/") || opName.equals("%")) {
+      registerAllocation.addString("DivideByZeroError: divide or modulo by zero\\n\\0");
+      InstructionDivByZero divByZero = new InstructionDivByZero();
+      divByZero.setOutputMessageNumber(registerAllocation.
+              getStringID("DivideByZeroError: divide or modulo by zero\\n\\0"));
+      instructionList.add(divByZero);
+    }
+    registerAllocation.addString("%.*s\\0");
+    InstructionPrintBlocksString instructionPrintString = new InstructionPrintBlocksString(registerAllocation.getStringID("%.*s\\0"));
+    instructionList.add(instructionPrintString);
+
+    instructionList.add(new InstructionErrorRuntime());
   }
 
   public AST_Expr getExprLeftAST() {

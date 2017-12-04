@@ -236,6 +236,8 @@ public class AST_ExprLiter extends AST_Expr {
 
     RegisterARM resultReg = registerAllocation.useRegister(usage);
 
+    System.out.println("Register is: " + resultReg.name());
+
     instr.registerAllocation(resultReg);
 
     return resultReg;

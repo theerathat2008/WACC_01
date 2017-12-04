@@ -1,6 +1,9 @@
 package InstructionSet;
 
+import InstructionSet.InstructionBlocks.InstructionError.InstructionDivByZero;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorOverflow;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
+import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
 import Registers.RegisterAllocation;
 
 import java.util.List;
@@ -124,6 +127,8 @@ public class InstructionLibraryFunction extends Instruction {
       builder.append("\t\tPOP {pc}\n");
       builder.append("\t\t.ltorg");
 
+      addOverflow(instructionList, registerAllocation);
+
     } else if (name.equals("avg")) {   //needs to add overflow error and divide by zero error maybe (wont ever be called though)
       builder.append("PUSH {lr}\n");
       builder.append("\t\tLDR r4, [sp, #4]\n");
@@ -133,14 +138,17 @@ public class InstructionLibraryFunction extends Instruction {
       builder.append("\t\tLDR r5, =2\n");
       builder.append("\t\tMOV r0, r4\n");
       builder.append("\t\tMOV r1, r5\n");
-      builder.append("\t\tBL p_check_divide_by_zero\n");  //wont need this since will probably never be useful
+//      builder.append("\t\tBL p_check_divide_by_zero\n");  //wont need this since will probably never be useful
       builder.append("\t\tBL __aeabi_idiv\n");
       builder.append("\t\tMOV r4, r0\n");
       builder.append("\t\tMOV r0, r4\n");
       builder.append("\t\tPOP {pc}\n");
       builder.append("\t\tPOP {pc}\n");
       builder.append("\t\t.ltorg");
-      instructionList.add(new InstructionErrorOverflow());
+
+      addOverflow(instructionList, registerAllocation);
+   //   addDivByZero(instructionList, registerAllocation);
+
 
     } else if (name.equals("pow")) {
       builder.append("PUSH {lr}\n");
@@ -191,6 +199,9 @@ public class InstructionLibraryFunction extends Instruction {
       builder.append("\t\tPOP {pc}\n");
       builder.append("\t\t.ltorg");
 
+      addOverflow(instructionList, registerAllocation);
+
+
     }
 
     block1 = builder.toString();
@@ -205,4 +216,33 @@ public class InstructionLibraryFunction extends Instruction {
   public boolean crossOverRegister() {
     return false;
   }
+
+  private void addOverflow(List<Instruction> instructionList, RegisterAllocation registerAllocation) {
+    registerAllocation.addString("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n");
+    InstructionErrorOverflow errorOverflow = new InstructionErrorOverflow(registerAllocation.
+            getStringID("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n"));
+    instructionList.add(errorOverflow);
+
+    registerAllocation.addString("%.*s\\0");
+    InstructionPrintBlocksString instructionPrintString = new InstructionPrintBlocksString(registerAllocation.getStringID("%.*s\\0"));
+    instructionList.add(instructionPrintString);
+
+    instructionList.add(new InstructionErrorRuntime());
+  }
+
+  private void addDivByZero(List<Instruction> instructionList, RegisterAllocation registerAllocation) {
+    registerAllocation.addString("DivideByZeroError: divide or modulo by zero\\n\\0");
+    InstructionDivByZero divByZero = new InstructionDivByZero();
+    divByZero.setOutputMessageNumber(registerAllocation.
+            getStringID("DivideByZeroError: divide or modulo by zero\\n\\0"));
+    instructionList.add(divByZero);
+
+    registerAllocation.addString("%.*s\\0");
+    InstructionPrintBlocksString instructionPrintString = new InstructionPrintBlocksString(registerAllocation.getStringID("%.*s\\0"));
+    instructionList.add(instructionPrintString);
+
+    instructionList.add(new InstructionErrorRuntime());
+  }
+
+
 }
