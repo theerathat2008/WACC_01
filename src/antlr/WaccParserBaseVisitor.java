@@ -360,6 +360,20 @@ public class WaccParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitMINUS_MINUS_IDENT(WaccParser.MINUS_MINUS_IDENTContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitIDENT_MINUS_MINUS(WaccParser.IDENT_MINUS_MINUSContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitIDENT_PLUS_EQUALS(WaccParser.IDENT_PLUS_EQUALSContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

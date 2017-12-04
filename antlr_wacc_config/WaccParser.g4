@@ -76,6 +76,8 @@ expr : INT_LITER                                      # INT_LITER_EXPR
 
 side_effecting_expr : IDENT PLUS PLUS                  # IDENT_PLUS_PLUS
                     | PLUS PLUS IDENT                  # PLUS_PLUS_IDENT
+                    | MINUS MINUS IDENT                # MINUS_MINUS_IDENT
+                    | IDENT MINUS MINUS                # IDENT_MINUS_MINUS
                     | IDENT PLUS EQUAL expr            # IDENT_PLUS_EQUALS
                     | IDENT MINUS EQUAL expr           # IDENT_MINUS_EQUALS
                     | IDENT EQUAL expr                 # IDENT_EQUAL

@@ -399,11 +399,15 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
    *                           Find the current storage location of that var in (reg/Stack)
    *                           Find the destination storage location of that var is in (funcReg/funcStack)
    *                           Print out an assembly line to match the (reg/Stack) to (funcReg/funcStack)
+   *
+   * For standard library pass r4 and r5 to all functions apart from factorial which only requires r4.
    */
 
   @Override
 
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+
 
     for (AST_Expr expr : ast_exprList) {
       if(expr instanceof AST_ExprIdent){
