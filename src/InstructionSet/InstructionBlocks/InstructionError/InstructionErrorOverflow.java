@@ -4,11 +4,12 @@ import Registers.RegisterARM;
 
 public class InstructionErrorOverflow extends InstructionError {
   String reg1;
+  int msgNum;
 
   /**
    * Class constructor
    */
-  public InstructionErrorOverflow() {
+  public InstructionErrorOverflow(int msgNum) {
     reg1 = "reg1";
     this.blockType = "throw_overflow_error";
   }
@@ -29,7 +30,9 @@ public class InstructionErrorOverflow extends InstructionError {
     StringBuilder builder = new StringBuilder();
     builder.append("\tp_throw_overflow_error:\n\t\tLDR ");
     builder.append(reg1);
-    builder.append(", =msg_2\n\t\tBL p_throw_runtime_error\n");
+    builder.append(", =msg_");
+    builder.append(msgNum);
+    builder.append("\n\t\tBL p_throw_runtime_error\n");
 
     this.resultBlock = builder.toString();
   }
