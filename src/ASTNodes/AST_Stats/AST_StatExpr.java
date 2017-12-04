@@ -319,7 +319,7 @@ public class AST_StatExpr extends AST_Stat {
 
       case ("println"):
         InstructionPrintBlocksLn instructionPrintLn = (InstructionPrintBlocksLn) instrPrintLn;
-        //instructionPrintLn.allocateRegisters(RegisterARM.r0);
+        instructionPrintLn.allocateRegisters(RegisterARM.r0);
 
       case ("print"):
 
@@ -332,12 +332,12 @@ public class AST_StatExpr extends AST_Stat {
             case ("int"):
               InstructionPrintBlocksInt instructionPrintBlocksInt = (InstructionPrintBlocksInt) instrPrintType;
               //TODO reallocate reg
-              //instructionPrintBlocksInt.allocateRegisters(RegisterARM.r0, RegisterARM.r1);
+              instructionPrintBlocksInt.allocateRegisters(RegisterARM.r0, RegisterARM.r1);
               break;
             case ("string"):  //falls through to "str" case.
             case ("str"):
               InstructionPrintBlocksString instructionPrintString = (InstructionPrintBlocksString) instrPrintType;
-              //instructionPrintString.allocateRegisters(RegisterARM.r0, RegisterARM.r1, RegisterARM.r2);
+              instructionPrintString.allocateRegisters(RegisterARM.r0, RegisterARM.r1, RegisterARM.r2);
               break;
             case ("char"):
               //CHECK IS CHAR IS NEEDED

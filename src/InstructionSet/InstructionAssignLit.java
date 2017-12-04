@@ -26,7 +26,7 @@ public class InstructionAssignLit extends Instruction {
 
   @Override
   public void genInstruction() {
-    System.out.println("LIT ISSSSSSSSSS: " + lit);
+    //System.out.println("LIT ISSSSSSSSSS: " + lit);
 
     if (lit.equals("char")) {
       lit = "'" + lit + "'";
