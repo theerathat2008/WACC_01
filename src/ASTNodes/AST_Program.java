@@ -1,6 +1,10 @@
 package ASTNodes;
 
 import ASTNodes.AST_Stats.AST_Stat;
+import IdentifierObjects.BaseTypeObj;
+import IdentifierObjects.FunctionObj;
+import IdentifierObjects.IDENTIFIER;
+import IdentifierObjects.ParamListObj;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionProgram;
 import Registers.RegisterAllocation;
@@ -8,6 +12,7 @@ import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import VisitorClass.AST_NodeVisitor;
@@ -108,11 +113,27 @@ public class AST_Program extends AST_Node {
       funcDeclList.add(((AST_FuncDecl) nodeToSet));
       ((AST_FuncDecl) nodeToSet).symbolTable.encSymTable = symbolTable;
       symbolTable.addChild(((AST_FuncDecl) nodeToSet).symbolTable);
+      addStandardLibrary();
     } else if (astToSet.equals("statement")) {
       statement = (AST_Stat) nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
     }
+
+  }
+
+  private void addStandardLibrary() {
+
+    symbolTable.add("min", new FunctionObj("min", new BaseTypeObj("int"),
+            new ParamListObj(Arrays.asList(new BaseTypeObj("int"), new BaseTypeObj("int")))));
+    symbolTable.add("max", new FunctionObj("max", new BaseTypeObj("int"),
+            new ParamListObj(Arrays.asList(new BaseTypeObj("int"), new BaseTypeObj("int")))));
+    symbolTable.add("avg", new FunctionObj("avg", new BaseTypeObj("int"),
+            new ParamListObj(Arrays.asList(new BaseTypeObj("int"), new BaseTypeObj("int")))));
+    symbolTable.add("pow", new FunctionObj("pow", new BaseTypeObj("int"),
+            new ParamListObj(Arrays.asList(new BaseTypeObj("int"), new BaseTypeObj("int")))));
+    symbolTable.add("factorial", new FunctionObj("factorial", new BaseTypeObj("int"),
+            new ParamListObj(Arrays.asList(new BaseTypeObj("int")))));
 
   }
 

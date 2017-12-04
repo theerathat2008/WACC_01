@@ -15,6 +15,8 @@ public class RegisterAllocation {
 
   List<String> stringList = new ArrayList<>();
 
+  Set<String> standardLibraryFunctions = new HashSet<>();
+
   String currentScope;
 
   int stackSize;
@@ -283,5 +285,14 @@ public class RegisterAllocation {
   public void clearFreeRegisters() {
     freeRegisters.clear();
   }
+
+  public void addLibraryFunction(String name) {
+    standardLibraryFunctions.add(name);
+  }
+
+  public Set<String> getLibraryFunctions() {
+    return standardLibraryFunctions;
+  }
+
 }
 
