@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
@@ -169,10 +170,11 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
   }
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     for (AST_Expr expr : ast_exprList) {
       expr.acceptRegister(registerAllocation);
     }
+    return RegisterARM.NULL_REG;
   }
 
   public List<AST_Expr> getAst_exprList() {

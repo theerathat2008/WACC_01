@@ -4,6 +4,7 @@ import InstructionSet.Instruction;
 import InstructionSet.InstructionUnary;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
+import Registers.RegisterUsage;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
 import ErrorMessages.TypeError;
@@ -16,6 +17,7 @@ import java.util.ArrayDeque;
 import java.util.List;
 
 import IdentifierObjects.*;
+import static Registers.RegisterUsageBuilder.*;
 
 /**
  * Class representing node in AST tree for UNARY EXPRESSIONS
@@ -341,23 +343,23 @@ public class AST_ExprUnary extends AST_Expr {
   }
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
-    registerAllocation.useRegister("expr");
-    astExpr.acceptRegister(registerAllocation);
-    RegisterARM reg1 = registerAllocation.searchByValue("expr");
-    registerAllocation.freeRegister(reg1);
+    RegisterARM regUnary = astExpr.acceptRegister(registerAllocation);
+    registerAllocation.freeRegister(regUnary);
 
+    RegisterUsage usage = aRegisterUsageBuilder()
+        .withScope(registerAllocation.getCurrentScope())
+        .withUsageType("exprType")
+        .withSubType("resultType")
+        .withOperationType(opName)
+        .build();
 
-    if (opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")) {
-      RegisterARM dst = registerAllocation.useRegister("expr");
-      //instructionArithmetic.allocateRegisters(dst, reg1);
-    } else {
-      RegisterARM dst = registerAllocation.useRegister("expr");
-      //instructionCompare.allocateRegisters(dst, reg1);
-    }
+    RegisterARM dst = registerAllocation.useRegister(usage);
 
+    instr.allocateRegisters(dst, regUnary);
 
+    return dst;
   }
 
 
@@ -373,8 +375,6 @@ public class AST_ExprUnary extends AST_Expr {
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     InstructionUnary instructionUnary = new InstructionUnary(opName);
-
-    //Allocate registers depending on which instruction is to be passed
 
     instructionList.add(instructionUnary);
     instr = instructionUnary;

@@ -1,15 +1,19 @@
 package ASTNodes.AST_Exprs;
 
+import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionAssignIdent;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
+import Registers.RegisterUsage;
 import SymbolTable.SymbolTable;
 import ErrorMessages.UndefinedIdentError;
 import ErrorMessages.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
+
+import static Registers.RegisterUsageBuilder.*;
 
 import java.util.ArrayDeque;
 import java.util.List;
@@ -35,6 +39,7 @@ public class AST_ExprIdent extends AST_Expr {
     this.varName = null;
     this.ctx = ctx;
   }
+
 
   /**
    * Gets all children nodes of current node
@@ -106,8 +111,6 @@ public class AST_ExprIdent extends AST_Expr {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
-   * @param ST
    */
   @Override
   public boolean CheckSemantics() {
@@ -172,16 +175,41 @@ public class AST_ExprIdent extends AST_Expr {
    * another register which takes the stack address of the variables
    */
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
-    RegisterARM resultReg = registerAllocation.searchByValue("expr");
+
+    RegisterUsage usage = aRegisterUsageBuilder()
+        .withScope(registerAllocation.getCurrentScope())
+        .withUsageType("exprType")
+        .withSubType("resultType")
+        .withVarName(varName)
+        .build();
+
+    RegisterARM resultReg = registerAllocation.useRegister(usage);
+
+    //Check if varName is allocated on the stack or in a register
     String stackLocation = registerAllocation.getStackLocation(varName);
+    instr.allocateLocation(stackLocation, true);
+    if(stackLocation.equals("null")){
+      stackLocation = registerAllocation.searchByVarValue(varName).name();
+      if(stackLocation.equals("NULL_REG")) {
+
+        AST_Node tempNode = this;
+        while(!(tempNode instanceof AST_FuncDecl)){
+          tempNode = tempNode.getParentNode();
+        }
+        String funcName = ((AST_FuncDecl) tempNode).getFuncName();
+        stackLocation = registerAllocation.searchByFuncVarValue(varName, funcName).name();
+        if(stackLocation.equals("NULL_REG")){
+          System.out.println("Error variable: " + varName + " never assigned in AST_ExprIdent");
+        }
+      }
+      instr.allocateLocation(stackLocation, false);
+    }
 
     instr.registerAllocation(resultReg);
-    instr.allocateLocation(stackLocation);
 
-    registerAllocation.freeRegister(resultReg);
-
+    return resultReg;
   }
 
 

@@ -1,16 +1,17 @@
-package InstructionSet.InstructionCheck;
+package InstructionSet.InstructionBlocks.InstructionCheck;
 
-import InstructionSet.Instruction;
+import InstructionSet.InstructionBlocks.InstructionBlocks;
 
-public class InstructionCheck extends Instruction {
+public class InstructionCheck extends InstructionBlocks {
   String reg1;
   int msgNum1;
-  String resultBlock;
+
 
   public InstructionCheck(int msgNum1) {
     this.msgNum1 = msgNum1;
     reg1 = "reg1";
   }
+
 
 
   @Override

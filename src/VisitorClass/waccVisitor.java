@@ -637,12 +637,13 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   public Void visitARRAY_ELEM_EXPR(WaccParser.ARRAY_ELEM_EXPRContext ctx) {
 
     //Create the node for the current visitor function
-    AST_ExprArrayElem exprArrayElemNode = new AST_ExprArrayElem(ctx.getChildCount());
+    AST_ExprArrayElem exprArrayElemNode = new AST_ExprArrayElem(ctx.getChildCount(), currentGlobalTree);
 
     //Set currNode to corresponding embedded AST in parent node
     parentVisitorNode.setEmbeddedAST("expr", exprArrayElemNode);
 
     //Set syntactic member variable in AST
+
     exprArrayElemNode.setSyntacticAttributes(ctx.IDENT().getText());
 
     //Set parentNode of AST class and global visitor class
@@ -802,7 +803,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Set Embedded Syntactic value in AST Node class
     //Have to assign Constant first then literal
-
     exprLiterNode.setSyntacticAttributes(ctx.INT_LITER().getText());
     exprLiterNode.setSyntacticAttributes("int");
 
@@ -865,11 +865,24 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
       }
     }
 
-    System.out.println("Type is: " + type);
+    //find its type, if type differ from that it's fine
 
-    if (type != null) {
-      new VariableRedeclarationError(new FilePosition(ctx)).printAll();
-    }
+    System.out.println("Type is: " + type);
+    System.out.println("hi");
+
+    System.out.println(identName);
+    IDENTIFIER value = currentGlobalTree.encSymTable.getSymMap().get(identName);
+
+    System.out.println(value);
+
+    /*if (type != null) {
+      if (!type.toString().contains("FUNCTION")) {
+        new VariableRedeclarationError(new FilePosition(ctx)).printAll();
+      }
+
+
+
+    }*/
 
     //Debug statement
     System.out.println("statVarDecl");

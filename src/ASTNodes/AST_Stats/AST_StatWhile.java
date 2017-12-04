@@ -212,18 +212,27 @@ public class AST_StatWhile extends AST_Stat {
     assemblyCode.add(instr.afterLoop);
   }
 
+  /**
+   * Has a new scope within the while loop
+   * Returns a null reg as while ast doesn't evaluate to a result
+   */
+
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
-    registerAllocation.useRegister("expr");
-    exprAST.acceptRegister(registerAllocation);
 
-    RegisterARM reg1 = registerAllocation.searchByValue("expr");
-    InstructionWhile instructionWhile = instr;
-    instructionWhile.allocateRegisters(reg1);
-    registerAllocation.freeRegister(reg1);
+    RegisterARM evalResultReg = exprAST.acceptRegister(registerAllocation);
+    instr.allocateRegisters(evalResultReg);
+    registerAllocation.freeRegister(evalResultReg);
 
+    String oldScope = registerAllocation.getCurrentScope();
+
+    registerAllocation.setCurrentScope("WhileScope");
     statAST.acceptRegister(registerAllocation);
+
+    registerAllocation.setCurrentScope(oldScope);
+
+    return RegisterARM.NULL_REG;
   }
 
 

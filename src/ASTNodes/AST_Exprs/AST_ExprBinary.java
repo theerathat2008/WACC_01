@@ -5,6 +5,15 @@ import ErrorMessages.TypeError;
 import ErrorMessages.TypeMismatchError;
 import ErrorMessages.FilePosition;
 import InstructionSet.Instruction;
+
+import Registers.RegisterUsage;
+
+import InstructionSet.InstructionBlocks.InstructionError.InstructionDivByZero;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorOverflow;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
+import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksInt;
+import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
+
 import org.antlr.v4.runtime.ParserRuleContext;
 import InstructionSet.InstructionArithmetic;
 import InstructionSet.InstructionComparison;
@@ -14,6 +23,8 @@ import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
 import java.util.List;
+
+import static Registers.RegisterUsageBuilder.*;
 
 import VisitorClass.AST_NodeVisitor;
 import IdentifierObjects.*;
@@ -149,6 +160,20 @@ public class AST_ExprBinary extends AST_Expr {
    */
   @Override
   public boolean CheckSemantics() {
+
+    if (opName.equals("*")) {
+      setType("int");
+    } else if (opName.equals("/")) {
+      setType("int");
+    } else if (opName.equals("%")) {
+      setType("int");
+    } else if (opName.equals("+")) {
+      setType("int");
+    } else if (opName.equals("-")) {
+      setType("int");
+    } else {
+      setType("bool");
+    }
 
     SymbolTable ST = this.symbolTable;
 
@@ -327,25 +352,39 @@ public class AST_ExprBinary extends AST_Expr {
     }
   }
 
-  @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-//
-//    RegisterARM reg1 = registerAllocation.useRegister("expr");
-//    RegisterARM reg2 = registerAllocation.useRegister("expr");
-//
-//    exprLeftAST.acceptRegister(registerAllocation);
-//    exprRightAST.acceptRegister(registerAllocation);
-//
-//
-//    if (opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")) {
-//      RegisterARM dst = registerAllocation.searchByValue("result");
-//      //instrA.allocateRegisters(dst, reg1, reg2);
-//      //registerAllocation.freeRegister(dst);
-//    } else {
-//      RegisterARM dst = registerAllocation.useRegister("expr");
-//      instrC.allocateRegisters(reg1, reg2, dst);
-//    }
+  /**
+   * Want to store the evaluation of the two registers result of the binary expression
+   * Format is expr BinOp expr
+   * Store the returned result of the two expr into a result reg
+   * Free the two registers after having got the evaluation of the two stores in the regs
+   */
 
+
+  @Override
+
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+
+    RegisterARM regLeft = exprLeftAST.acceptRegister(registerAllocation);
+    RegisterARM regRight = exprRightAST.acceptRegister(registerAllocation);
+
+    registerAllocation.freeRegister(regLeft);
+    registerAllocation.freeRegister(regRight);
+
+    RegisterUsage resultUsage = aRegisterUsageBuilder()
+        .withUsageType("exprType")
+        .withSubType("resultType")
+        .withScope(registerAllocation.getCurrentScope())
+        .withOperationType(opName)
+        .build();
+    RegisterARM dst = registerAllocation.useRegister(resultUsage);
+
+    if (opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")) {
+      instrA.allocateRegisters(dst, regLeft, regRight);
+    } else {
+      instrC.allocateRegisters(regLeft, regRight, dst);
+    }
+    return dst;
   }
 
 
@@ -383,6 +422,26 @@ public class AST_ExprBinary extends AST_Expr {
       instrC = instructionCompare;
 
     }
+
+    if (opName.equals("+") || opName.equals("-") || opName.equals("*")) {
+      registerAllocation.addString("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n");
+      InstructionErrorOverflow errorOverflow = new InstructionErrorOverflow(registerAllocation.
+              getStringID("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n"));
+      instructionList.add(errorOverflow);
+    }
+
+    if (opName.equals("/") || opName.equals("%")) {
+      registerAllocation.addString("DivideByZeroError: divide or modulo by zero\\n\\0");
+      InstructionDivByZero divByZero = new InstructionDivByZero();
+      divByZero.setOutputMessageNumber(registerAllocation.
+              getStringID("DivideByZeroError: divide or modulo by zero\\n\\0"));
+      instructionList.add(divByZero);
+    }
+    registerAllocation.addString("%.*s\\0");
+    InstructionPrintBlocksString instructionPrintString = new InstructionPrintBlocksString(registerAllocation.getStringID("%.*s\\0"));
+    instructionList.add(instructionPrintString);
+
+    instructionList.add(new InstructionErrorRuntime());
   }
 
   public AST_Expr getExprLeftAST() {

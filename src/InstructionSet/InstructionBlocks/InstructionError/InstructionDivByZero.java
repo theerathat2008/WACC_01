@@ -1,13 +1,11 @@
-package InstructionSet.InstructionError;
+package InstructionSet.InstructionBlocks.InstructionError;
 
-import InstructionSet.Instruction;
 import Registers.RegisterARM;
 
 public class InstructionDivByZero extends InstructionError {
   String reg1;
   String reg2;
-
-  String outputMessageNumber;
+  int outputMessageNumber;
 
   /**
    * Class constructor
@@ -15,9 +13,10 @@ public class InstructionDivByZero extends InstructionError {
   public InstructionDivByZero() {
     reg1 = "reg1";
     reg2 = "reg2";
+    this.blockType = "check_divide_by_zero";
   }
 
-  public void setOutputMessageNumber(String number) {
+  public void setOutputMessageNumber(int number) {
     outputMessageNumber = number;
   }
 
@@ -41,8 +40,7 @@ public class InstructionDivByZero extends InstructionError {
     builder.append(", #0\n\t\tLDREQ r0, =msg_");
     builder.append(outputMessageNumber);
     builder.append("\n\t\tBLEQ p_throw_runtime_error\n");
-
-    resultBlock = builder.toString();
+    this.resultBlock = builder.toString();
   }
 
   @Override

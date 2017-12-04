@@ -3,6 +3,7 @@ package ASTNodes.AST_Stats.AST_StatIfs;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_Stat;
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
@@ -134,14 +135,19 @@ public class AST_StatIfElse extends AST_StatSubIf {
     elseStat.accept(visitor);
   }
 
+  /**
+   * Nothing done in statIfElse as it acts as an intermediate for the else statement evaluation
+   * @param assemblyCode
+   */
+
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     elseStat.acceptInstr(assemblyCode);
   }
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    elseStat.acceptRegister(registerAllocation);
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    return elseStat.acceptRegister(registerAllocation);
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

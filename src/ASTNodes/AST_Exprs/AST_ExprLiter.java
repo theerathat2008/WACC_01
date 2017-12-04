@@ -5,6 +5,7 @@ import InstructionSet.InstructionAssignLit;
 import Registers.RegisterARM;
 
 import Registers.RegisterAllocation;
+import Registers.RegisterUsage;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
@@ -15,6 +16,7 @@ import java.util.List;
 import VisitorClass.AST_NodeVisitor;
 
 import IdentifierObjects.*;
+import static Registers.RegisterUsageBuilder.*;
 
 /**
  * Class representing node in AST tree for LITERAL EXPRESSIONS
@@ -55,6 +57,7 @@ public class AST_ExprLiter extends AST_Expr {
    */
   @Override
   public void setSyntacticAttributes(String value) {
+    System.out.println("VALUE IS: " + value);
     if (constant == null) {
       this.constant = value;
     } else if (literal == null) {
@@ -115,14 +118,13 @@ public class AST_ExprLiter extends AST_Expr {
    */
   @Override
   public boolean CheckSemantics() {
+    System.out.println("LITERAAAAAAAAAL:" + literal);
     setType(literal);
-
     setType(literal);
 
     //if it is int liter, check whether the number is inside the integer bounds
     //TODO reuntimeErr cases check
     if (literal.equals("int")) {
-
       if (Long.parseLong(constant) > Math.pow(2, 31) || Long.parseLong(constant) < -Math.pow(2, 31)) {
         System.out.println("Errors detected during compilation! Exit code 100 returned.");
         System.out.println("#syntax_error#");
@@ -131,7 +133,6 @@ public class AST_ExprLiter extends AST_Expr {
         return true;
       }
     }
-
     //TODO implements error
     //check for only 'true' or 'false'
     if (literal.equals("bool")) {
@@ -192,6 +193,7 @@ public class AST_ExprLiter extends AST_Expr {
    */
   @Override
   public void Check(SymbolTable ST) {
+
     if (CheckSemantics()) {
       setType(literal);
     }
@@ -222,16 +224,23 @@ public class AST_ExprLiter extends AST_Expr {
    */
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    RegisterARM resultReg = registerAllocation.searchByValue("expr");
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
-    if (registerAllocation.searchByValue("result") != null && resultReg == null) {
-      resultReg = registerAllocation.searchByValue("result");
-    }
 
-    System.out.println("RESULT REG IS: at " + constant + ": " + resultReg);
+    RegisterUsage usage = aRegisterUsageBuilder()
+        .withUsageType("exprType")
+        .withSubType("resultType")
+        .withScope(registerAllocation.getCurrentScope())
+        .withContent(constant)
+        .build();
+
+    RegisterARM resultReg = registerAllocation.useRegister(usage);
+
+    System.out.println("Register is: " + resultReg.name());
+
     instr.registerAllocation(resultReg);
 
+    return resultReg;
   }
 
 
@@ -247,13 +256,15 @@ public class AST_ExprLiter extends AST_Expr {
 
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    System.out.println("CONSTANT IS: " + constant);
+    System.out.println("LITERAL IS: " + literal);
+
     if (literal.equals("str")) {
       registerAllocation.addString(constant.replace("\"", ""));
       InstructionAssignLit instructionAssignLit = new InstructionAssignLit(constant, literal);
       instructionAssignLit.setStringMsgNum(Integer.toString(registerAllocation.getStringID(constant.replace("\"", ""))));
       instr = instructionAssignLit;
       instructionList.add(instr);
-
     } else {
       InstructionAssignLit instructionAssignLit = new InstructionAssignLit(constant, literal);
       instr = instructionAssignLit;

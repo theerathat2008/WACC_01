@@ -1,15 +1,14 @@
-package InstructionSet.InstructionReadBlocks;
+package InstructionSet.InstructionBlocks.InstructionReadBlocks;
 
-import InstructionSet.Instruction;
+import InstructionSet.InstructionBlocks.InstructionBlocks;
 import Registers.RegisterARM;
 
 /**
  * Base class of all print instructions.
  */
-public class InstructionReadBlocks extends Instruction {
+public class InstructionReadBlocks extends InstructionBlocks {
   String reg1;
   String reg2;
-  public String resultBlock;
   int msgNum1;
 
   /**

@@ -4,6 +4,7 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_Stat;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 
@@ -137,9 +138,14 @@ public class AST_StatSubIf extends AST_Stat {
 
   }
 
-  @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  /**
+   * Base class returns null reg
+   */
 
+
+  @Override
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    return RegisterARM.NULL_REG;
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

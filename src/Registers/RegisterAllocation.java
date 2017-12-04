@@ -1,46 +1,109 @@
 package Registers;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Class to keep track of free registers and allocate registers
  */
 public class RegisterAllocation {
+
+
   /**
    * Stack holding all free registers
    */
   Stack<RegisterARM> freeRegisters = new Stack<>();
 
-  Map<RegisterARM, String> registerInUse = new HashMap<>();
+  /**
+   * Map that Maps a register to a usage described in the String
+   */
+  Map<RegisterARM, RegisterUsage> registerInUse = new ConcurrentHashMap<>();
 
+  public void printRegInUse(){
+    for (Map.Entry<RegisterARM, RegisterUsage> entry : registerInUse.entrySet()) {
+      System.out.println(entry.getKey() + " with type " + entry.getValue().usageType);
+    }
+
+  }
+
+  /**
+   * Map that stores variables declared
+   */
+  Map<RegisterARM, RegisterUsage> varRegisters = new ConcurrentHashMap<>();
+
+
+  /**
+   * Map that stores a funcRegisters with the key being the funcName
+   */
+  Map<String, Map<RegisterARM, RegisterUsage>> funcRegisters = new HashMap<>();
+
+  /**
+   * Map that takes a variable name and maps it to a StackLocation
+   */
+  Map<String, StackLocation> stackInUse = new HashMap<>();
+
+  /**
+   * Map that stores the stack locations for functions with the key being the funcName
+   */
+  Map<String, Map<String, StackLocation>> funcStackVar = new HashMap<>();
+
+  /**
+   * List that holds the string messages that are generated in Assembly
+   */
   List<String> stringList = new ArrayList<>();
 
   Set<String> standardLibraryFunctions = new HashSet<>();
 
+  /**
+   * The current scope of the Program
+   */
   String currentScope;
 
+  /**
+   * The current stack size
+   */
   int stackSize;
 
+  /**
+   * The final stack size based on the number of variables allocated on the stack
+   */
   int finalStackSize = 0;
 
   int currentLabel = 0;
 
+
+  /**
+   * returns the current stack size
+   */
   public int getStackSize() {
     return stackSize;
   }
 
+  /**
+   * returns the final stack size
+   */
   public int getFinalStackSize() {
     return finalStackSize;
   }
 
+  /**
+   * function to set the final stack size
+   */
   public void setFinalStackSize(int finalStackSize) {
     this.finalStackSize = finalStackSize;
   }
 
+  /**
+   * function to set the current stack size
+   */
   public void setStackSize(int stackSize) {
     this.stackSize = stackSize;
   }
 
+  /**
+   * function to set the current scope using an input string variable
+   * Options of Scope are: "funcScope" "globalScope"
+   */
   public void setCurrentScope(String currentScope) {
     this.currentScope = currentScope;
   }
@@ -67,13 +130,28 @@ public class RegisterAllocation {
     }
   }
 
-  //Maps ident name to stack location
-  Map<String, StackLocation> stackInUse = new HashMap<>();
 
+  /**
+   * Adds given identName and created stackLocation to the stackInUse map
+   */
   public void addToStack(String identName, StackLocation stackLocation) {
     stackInUse.put(identName, stackLocation);
   }
 
+  public void addToFuncStack(String funcName, String identName, StackLocation stackLocation){
+
+    if(funcStackVar.containsKey(funcName)){
+      funcStackVar.get(funcName).put(identName, stackLocation);
+    } else {
+      Map<String, StackLocation> newMap = new HashMap<>();
+      newMap.put(identName, stackLocation);
+      funcStackVar.put(funcName, newMap);
+    }
+  }
+
+  /**
+   * Returns a stackLocation based on the variable name
+   */
   public String getStackLocation(String identName) {
     if (stackInUse.containsKey(identName)) {
       return stackInUse.get(identName).getLocation();
@@ -82,6 +160,10 @@ public class RegisterAllocation {
   }
 
 
+
+  /**
+   * Returns the stack scope based on the variable name
+   */
   public String getStackScope(String identName) {
     if (stackInUse.containsKey(identName)) {
       return stackInUse.get(identName).getScope();
@@ -117,19 +199,57 @@ public class RegisterAllocation {
       stringList.add(string);
     }
   }
+//
+//  /**
+//   * Searches the Register in use Map by the usage usageType
+//   * Returns the register if it used
+//   */
+//  public RegisterARM searchByTypeValue(String usageType) {
+//    for (Map.Entry<RegisterARM, RegisterUsage> entry : registerInUse.entrySet()) {
+//      if (usageType.equals(entry.getValue().getUsageType())) {
+//        return entry.getKey();
+//      }
+//    }
+//    System.out.println("Cannot find the register usageType");
+//    return RegisterARM.NULL_REG;
+//  }
 
-  public int getStringID(String string) {
-    return stringList.indexOf(string);
-  }
-
-
-  public RegisterARM searchByValue(String value) {
-    for (Map.Entry<RegisterARM, String> entry : registerInUse.entrySet()) {
-      if (value.equals(entry.getValue())) {
+  /**
+   * Searches the Register in use Map by the usage varName
+   * Returns the register if it used
+   */
+  public RegisterARM searchByVarValue(String varName) {
+    for (Map.Entry<RegisterARM, RegisterUsage> entry : varRegisters.entrySet()) {
+      if (varName.equals(entry.getValue().getVarName())) {
         return entry.getKey();
       }
     }
-    return null;
+    System.out.println("Cannot find the register with varName: " + varName + " in VarRegisters");
+    return RegisterARM.NULL_REG;
+  }
+
+  /**
+   * Searches the Register in use func Map by the usage varName
+   * Returns the register if it used
+   */
+  public RegisterARM searchByFuncVarValue(String varName, String funcName) {
+    for (Map.Entry<String, Map<RegisterARM, RegisterUsage>> entry : funcRegisters.entrySet()) {
+      if (funcName.equals(entry.getKey())) {
+        for(Map.Entry<RegisterARM, RegisterUsage> entryEmbedded : entry.getValue().entrySet()){
+          if(varName.equals(entryEmbedded.getValue().getVarName())){
+            return entryEmbedded.getKey();
+          }
+        }
+      }
+    }
+    System.out.println("Cannot find the register" +varName +" in VarFuncRegisters with funcName: " + funcName);
+    return RegisterARM.NULL_REG;
+  }
+
+
+
+  public int getStringID(String string) {
+    return stringList.indexOf(string);
   }
 
   /**
@@ -176,8 +296,8 @@ public class RegisterAllocation {
    *
    * @param register
    */
-  public void addRegisterInUse(RegisterARM register, String usage) {
-    registerInUse.put(register, usage);
+  public void addRegisterInUse(RegisterARM register, RegisterUsage newReg) {
+    registerInUse.put(register, newReg);
   }
 
   /**
@@ -200,33 +320,66 @@ public class RegisterAllocation {
    * @return - Returns a free register and removes it from the stack
    * Throws exception if no free registers remaining
    */
-  public RegisterARM useRegister(String usage) throws Exception {
+  public RegisterARM useRegister(RegisterUsage usage) throws Exception {
     if (registersFull()) {
-      throw new NullPointerException();
+      //allocate on the stack at this point
+      System.out.println("Registers are full at this point");
+      return RegisterARM.NULL_REG;
+      //throw new NullPointerException();
     }
     RegisterARM poppedReg = freeRegisters.pop();
     addRegisterInUse(poppedReg, usage);
+
+    if(usage.getUsageType().equals("funcType")){
+
+      if(funcRegisters.containsKey(usage.getFuncName())){
+        funcRegisters.get(usage.getFuncName()).put(poppedReg, usage);
+      } else {
+        Map<RegisterARM, RegisterUsage> newMap = new HashMap<>();
+        newMap.put(poppedReg, usage);
+        funcRegisters.put(usage.getFuncName(), newMap);
+      }
+    }
+
+    if(usage.getUsageType().equals("varDecType")){
+      varRegisters.put(poppedReg, usage);
+    }
     return poppedReg;
   }
 
+  public int getVarRegSize(){
+    return varRegisters.size();
+  }
+
+
+
 
 //  public void addRegisterMap(String key, RegisterARM registerARM){
-//    registerInUseMap.put(key, registerARM);
-//  }
-//
-//  public void removeRegisterMap(String key){
-//    registerInUseMap.remove(key);
-//  }
-//
-
-  public String getRegisterMapValue(RegisterARM regToGet) {
+  public RegisterUsage getRegisterMapValue(RegisterARM regToGet) {
     if (registerInUse.containsKey(regToGet)) {
       return registerInUse.get(regToGet);
     }
     System.out.println("Key is not in regMap");
-    return "null";
+    return null;
   }
 
+  //
+
+  //  }
+  public void freeAllFuncReg(String funcName){
+    List<RegisterARM> regToFree = new ArrayList<>();
+    for (Map.Entry<RegisterARM, RegisterUsage> entry : registerInUse.entrySet()) {
+      if (funcName.equals(entry.getValue().getFuncName())) {
+        regToFree.add(entry.getKey());
+      }
+    }
+//    for(int j = regToFree.size() - 1; j >= 0; j--){
+//      freeRegister(regToFree.get(j));
+//    }
+    for(int j = 0; j < regToFree.size(); j++){
+      freeRegister(regToFree.get(j));
+    }
+  }
 
   /**
    * @param register frees a register and pushes onto freeReg stack
@@ -237,6 +390,7 @@ public class RegisterAllocation {
       freeRegisters.push(register);
     }
   }
+  //    registerInUseMap.remove(key);
 
   /**
    * @return Returns true if there are free registers remaining
@@ -244,6 +398,7 @@ public class RegisterAllocation {
   public boolean registersFull() {
     return freeRegisters.isEmpty();
   }
+  //  public void removeRegisterMap(String key){
 
   /**
    * @param register - Register to be searched in stack
@@ -254,18 +409,21 @@ public class RegisterAllocation {
     return !freeRegisters.contains(register);
   }
 
-  /**
-   * @return - Returns a list of all normal registers that can be put in the free reg stack
-   */
-  public List<RegisterARM> getNormalRegisters() {
-    List<RegisterARM> allRegs = new ArrayList<RegisterARM>(Arrays.asList(RegisterARM.values()));
-    allRegs.remove(RegisterARM.CPSR);
-    allRegs.remove(RegisterARM.LR);
-    allRegs.remove(RegisterARM.PC);
-    allRegs.remove(RegisterARM.SP);
-    allRegs.remove(RegisterARM.SPSR);
-    return allRegs;
-  }
+  //
+  //    registerInUseMap.put(key, registerARM);
+  //  /**
+  //   * @return - Returns a list of all normal registers that can be put in the free reg stack
+  //   */
+  //  public List<RegisterARM> getNormalRegisters() {
+  //    List<RegisterARM> allRegs = new ArrayList<RegisterARM>(Arrays.asList(RegisterARM.values()));
+  //    allRegs.remove(RegisterARM.CPSR);
+  //    allRegs.remove(RegisterARM.LR);
+  //    allRegs.remove(RegisterARM.PC);
+  //    allRegs.remove(RegisterARM.SP);
+  //  }
+//    allRegs.remove(RegisterARM.SPSR);
+//    return allRegs;
+//  }
 
   public String generateLabel() {
     return "L" + currentLabel++;
@@ -293,6 +451,22 @@ public class RegisterAllocation {
   public Set<String> getLibraryFunctions() {
     return standardLibraryFunctions;
   }
+
+
+//  /**
+//   * @param register
+//   * @return - Returns register name
+//   */
+//  public static String getRegName(RegisterARM register) {
+//    return register.name();
+//  }
+//
+//  /**
+//   * Remove all elements from the freeRegister stack
+//   */
+//  public void clearFreeRegisters() {
+//    freeRegisters.clear();
+//  }
 
 }
 

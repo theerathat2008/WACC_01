@@ -1,17 +1,14 @@
 package InstructionSet;
 
 import ASTNodes.AST_Node;
-import InstructionSet.InstructionError.InstructionError;
-import InstructionSet.InstructionPrintBlocks.*;
-import InstructionSet.InstructionReadBlocks.InstructionReadBlocks;
-import Registers.RegisterARM;
+import InstructionSet.InstructionBlocks.InstructionBlocks;
+
 import Registers.RegisterAllocation;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -123,55 +120,19 @@ public class Assembler {
    * @return
    */
   public String generatePostCode() {
-    boolean containsPrintLn = false;
-    boolean containsBool = false;
-    boolean containsInt = false;
-    boolean containsString = false;
-    boolean containsRef = false;
-    StringBuilder result = new StringBuilder();
-    for (Instruction currInstr : instructions) {
-      String superName = currInstr.getClass().getSuperclass().getSimpleName();
-      if (superName.equals("InstructionReadBlocks")) {
-        System.out.println("Type ReadBlocks");
-        result.append(((InstructionReadBlocks) currInstr).resultBlock);
-      } else if (superName.equals("InstructionPrintBlocks")) {
-        if (currInstr instanceof InstructionPrintBlocksLn) {
-          if (!containsPrintLn) {
-            containsPrintLn = true;
-            result.append(((InstructionPrintBlocks) currInstr).getResultBlock());
-          }
-        } else if (currInstr instanceof InstructionPrintBlocksBool) {
-          if (!containsBool) {
-            containsBool = true;
-            result.append(((InstructionPrintBlocks) currInstr).getResultBlock());
-          }
-        } else if (currInstr instanceof InstructionPrintBlocksInt) {
-          if (!containsInt) {
-            containsInt = true;
-            result.append(((InstructionPrintBlocks) currInstr).getResultBlock());
-          }
-        } else if (currInstr instanceof InstructionPrintBlocksString) {
-          if (!containsString) {
-            containsString = true;
-            result.append(((InstructionPrintBlocks) currInstr).getResultBlock());
-          }
-          } else if (currInstr instanceof InstructionPrintBlocksRef) {
-            if (!containsRef) {
-              containsRef = true;
-              result.append(((InstructionPrintBlocks) currInstr).getResultBlock());
-            }
+    StringBuilder result = new StringBuilder("");
 
-            System.out.println("Type PrintBlocks");
-            result.append(((InstructionPrintBlocks) currInstr).getResultBlock());
-          }
-        } else if (superName.equals("InstructionError")) {
-          System.out.println("Type Error");
-          result.append(((InstructionError) currInstr).resultBlock);
+    for (Instruction currInstr : instructions) {
+      if (currInstr instanceof InstructionBlocks) {
+        String type = ((InstructionBlocks) currInstr).getBlockType();
+        System.out.println("Block has type: "+type);
+        if (!(result.toString().contains(type + ":"))) {
+          result.append(((InstructionBlocks) currInstr).getResultBlock());
         }
       }
-      return result.toString();
     }
-  
+    return result.toString();
+  }
 
 
   public static Assembler getInstance() {

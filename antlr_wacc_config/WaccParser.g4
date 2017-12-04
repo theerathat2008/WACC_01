@@ -61,7 +61,7 @@ pair_elem_type : BASE_TYPE                            # BASE_TYPE_PAIR
 
 //CHANGED ORDERING OF UNARYOP AND +/- INT_LITER
 
-expr : (PLUS | MINUS)? INT_LITER                      # INT_LITER_EXPR
+expr : INT_LITER                                      # INT_LITER_EXPR
      | unaryOp expr                                   # UNARY_OP_EXPR
      | expr binaryOp expr                             # BINARY_OP_EXPR
      | BOOL_LITER                                     # BOOL_LITER_EXPR
@@ -74,14 +74,14 @@ expr : (PLUS | MINUS)? INT_LITER                      # INT_LITER_EXPR
      | side_effecting_expr                            # SIDE_EFFECT_EXPR
      ;
 
-side_effecting_expr: IDENT PLUS PLUS                  # IDENT_PLUS_PLUS
-                   | PLUS PLUS IDENT                  # PLUS_PLUS_IDENT
-                   | IDENT PLUS EQUAL expr            # IDENT_PLUS_EQUALS
-                   | IDENT MINUS EQUAL expr           # IDENT_MINUS_EQUALS
-                   | IDENT EQUAL expr                 # IDENT_EQUAL
-                   | IDENT MULT EQUAL expr            # IDENT_MULT_EQUALS
-                   | IDENT DIV EQUAL expr             # IDENT_DIV_EQUALS
-                   ;
+side_effecting_expr : IDENT PLUS PLUS                  # IDENT_PLUS_PLUS
+                    | PLUS PLUS IDENT                  # PLUS_PLUS_IDENT
+                    | IDENT PLUS EQUAL expr            # IDENT_PLUS_EQUALS
+                    | IDENT MINUS EQUAL expr           # IDENT_MINUS_EQUALS
+                    | IDENT EQUAL expr                 # IDENT_EQUAL
+                    | IDENT MULT EQUAL expr            # IDENT_MULT_EQUALS
+                    | IDENT DIV EQUAL expr             # IDENT_DIV_EQUALS
+                    ;
 
 unaryOp : CHR | ORD | LEN | EXCL | MINUS ;
 

@@ -3,7 +3,7 @@ package InstructionSet;
 import Registers.RegisterARM;
 
 public class InstructionPrint extends Instruction {
-  String resultBlock;
+  String resultBlock = "";
   String reg1;
   String reg2;
   String sp;
@@ -13,7 +13,6 @@ public class InstructionPrint extends Instruction {
     this.type = type;
     reg1 = "reg1";
     reg2 = "reg2";
-    this.resultBlock = " ";
   }
 
   public String getResultBlock() {
@@ -29,15 +28,7 @@ public class InstructionPrint extends Instruction {
     this.reg2 = reg2.name();
   }
 
-  public String getLDType() {
-    if (type.equals("bool") || type.equals("char")) {
-      return "LDRSB";
-    }
-    return "LDR";
-  }
-
   public String getPrintType() {
-    System.out.println("GETPRINT TYPE type is:" + type);
     switch (type) {
       case ("string"):  //falls through to "str" case.
       case ("str"):
@@ -53,12 +44,8 @@ public class InstructionPrint extends Instruction {
       case ("int"):
         return "p_print_int";
       default:
-        if (type.contains("[]")) {
-          //type = type.
-        }
         System.out.println("Unrecognised type on InstructionPrintBlocks");
         System.out.println("Was type:" + type);
-        break;
     }
     return "";
 
@@ -71,13 +58,10 @@ public class InstructionPrint extends Instruction {
     block.append(reg1);
     block.append(", ");
     block.append(reg2);
-    block.append("\n");
-    block.append("\t\tBL ");
+    block.append("\n\t\tBL ");
     block.append(getPrintType());
     block.append("\n");
     resultBlock = block.toString();
-
-    //resultBlock.concat("\t\t" + getLDType() + " " + reg2 + sp + "\n");
   }
 
   @Override

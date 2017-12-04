@@ -1,11 +1,9 @@
-package InstructionSet.InstructionError;
+package InstructionSet.InstructionBlocks.InstructionError;
 
-import InstructionSet.Instruction;
+import InstructionSet.InstructionBlocks.InstructionBlocks;
 
 
-public class InstructionError extends Instruction {
-
-  public String resultBlock;
+public class InstructionError extends InstructionBlocks {
 
   @Override
   public void genInstruction() {

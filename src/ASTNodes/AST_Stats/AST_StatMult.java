@@ -2,6 +2,7 @@ package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
@@ -154,10 +155,15 @@ public class AST_StatMult extends AST_Stat {
     stat2.acceptInstr(assemblyCode);
   }
 
+  /**
+   * No explicit register allocation
+   * Return a null Reg as no result evaluation
+   */
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     stat1.acceptRegister(registerAllocation);
     stat2.acceptRegister(registerAllocation);
+    return RegisterARM.NULL_REG;
   }
 
   /**
@@ -167,7 +173,7 @@ public class AST_StatMult extends AST_Stat {
 
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    System.out.println("Stat mult doesn't produce any assembly code ");
+    //Stat mult doesn't produce any assembly code
   }
 
 }

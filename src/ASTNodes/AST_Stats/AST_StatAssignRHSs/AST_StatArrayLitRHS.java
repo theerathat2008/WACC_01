@@ -4,6 +4,7 @@ import InstructionSet.Instruction;
 import InstructionSet.InstructionDeclOrAss.InstructionArrayDeclAss;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
+import Registers.RegisterUsage;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
@@ -16,6 +17,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Registers.RegisterUsageBuilder.*;
 import IdentifierObjects.*;
 
 /**
@@ -212,15 +214,29 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
 
   }
 
+  /**
+   * Format is: [ (expr (COMMA expr)*)? ]
+   * Returns null reg as statement evaluation isn't used
+   */
+
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    RegisterARM result = RegisterARM.NULL_REG;
     for (AST_Expr expr : ast_exprList) {
-      expr.acceptRegister(registerAllocation);
+      result = expr.acceptRegister(registerAllocation);
+      registerAllocation.freeRegister(result);
     }
 
-    RegisterARM reg2 = registerAllocation.useRegister("temp");
-    RegisterARM reg3 = registerAllocation.useRegister("temp2");
-    instr.allocateRegisters(RegisterARM.r0.toString(), reg2.toString(), reg3.toString());
+    RegisterUsage usage = aRegisterUsageBuilder()
+        .withScope(registerAllocation.getCurrentScope())
+        .withUsageType("interType")
+        .build();
+
+    RegisterARM interReg = registerAllocation.useRegister(usage);
+
+    instr.allocateRegisters(RegisterARM.r0, interReg, result);
+
+    return interReg;
   }
 
   public int getArraySize() {

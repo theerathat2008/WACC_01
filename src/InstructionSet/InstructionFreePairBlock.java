@@ -19,22 +19,40 @@ public class InstructionFreePairBlock extends Instruction {
     this.reg1 = reg1;
   }
 
+  public String getResultBlock() {
+    return resultBlock;
+  }
+
   @Override
   public void genInstruction() {
-    resultBlock.concat("p_free_pair:\n");
-    resultBlock.concat("\t\tPUSH {lr}\n");
-    resultBlock.concat("\t\tCMP " + reg1 + ", #0\n");
-    resultBlock.concat("\t\tLDREQ " + reg1 + ", =msg_" + msgNum + "\n");
-    resultBlock.concat("\t\tBEQ p_throw_runtime_error\n");
-    resultBlock.concat("\t\tPUSH {" + reg1 + "}\n");
-    resultBlock.concat("\t\tLDR " + reg1 + ", [" + reg1 + "]\n");
-    resultBlock.concat("\t\tBL free\n");
-    resultBlock.concat("\t\tLDR " + reg1 + ", " + sp + "\n");
-    resultBlock.concat("\t\tLDR " + reg1 + ", [" + reg1 + ", #4]\n");
-    resultBlock.concat("\t\tBL free\n");
-    resultBlock.concat("\t\tPOP {" + reg1 + "}\n");
-    resultBlock.concat("\t\tBL free\n");
-    resultBlock.concat("\t\tPOP {pc}\n");
+    StringBuilder builder = new StringBuilder();
+    builder.append("p_free_pair:\n");
+    builder.append("\t\tPUSH {lr}\n");
+    builder.append("\t\tCMP ");
+    builder.append(reg1);
+    builder.append(", #0\n");
+    builder.append("\t\tLDREQ ");
+    builder.append(reg1);
+    builder.append(", =msg_");
+    builder.append(msgNum);
+    builder.append("\n\t\tBEQ p_throw_runtime_error\n\t\tPUSH {");
+    builder.append(reg1);
+    builder.append("}\n\t\tLDR ");
+    builder.append(reg1);
+    builder.append(", [");
+    builder.append(reg1);
+    builder.append("]\n\t\tBL free\n\t\tLDR ");
+    builder.append(reg1);
+    builder.append(", ");
+    builder.append(sp);
+    builder.append("\n\t\tLDR ");
+    builder.append(reg1);
+    builder.append(", [");
+    builder.append(reg1);
+    builder.append(", #4]\n\t\tBL free\n\t\tPOP {");
+    builder.append(reg1);
+    builder.append("}\n\t\tBL free\n\t\tPOP {pc}\n");
+    resultBlock = builder.toString();
   }
 
   @Override

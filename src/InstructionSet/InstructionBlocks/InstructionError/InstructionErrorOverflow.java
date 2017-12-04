@@ -1,16 +1,17 @@
-package InstructionSet.InstructionError;
+package InstructionSet.InstructionBlocks.InstructionError;
 
-import InstructionSet.Instruction;
 import Registers.RegisterARM;
 
-public class InstructionErrorRuntime extends InstructionError {
+public class InstructionErrorOverflow extends InstructionError {
   String reg1;
+  int msgNum;
 
   /**
    * Class constructor
    */
-  public InstructionErrorRuntime() {
+  public InstructionErrorOverflow(int msgNum) {
     reg1 = "reg1";
+    this.blockType = "throw_overflow_error";
   }
 
   /**
@@ -27,11 +28,13 @@ public class InstructionErrorRuntime extends InstructionError {
    */
   public void genInstruction() {
     StringBuilder builder = new StringBuilder();
-    builder.append("\tp_throw_runtime_error:\n\t\tBL p_print_string\n\t\tMOV ");
+    builder.append("\tp_throw_overflow_error:\n\t\tLDR ");
     builder.append(reg1);
-    builder.append(", #-1\n\t\tBL exit\n");
+    builder.append(", =msg_");
+    builder.append(msgNum);
+    builder.append("\n\t\tBL p_throw_runtime_error\n");
 
-    resultBlock = builder.toString();
+    this.resultBlock = builder.toString();
   }
 
   @Override

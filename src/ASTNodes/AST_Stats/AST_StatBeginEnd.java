@@ -2,6 +2,7 @@ package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
@@ -137,12 +138,17 @@ public class AST_StatBeginEnd extends AST_Stat {
     statAST.acceptInstr(assemblyCode);
   }
 
+
+  /**
+   * Returns a null reg as there is no result evaluation
+   */
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     String oldScope = registerAllocation.getCurrentScope();
     registerAllocation.setCurrentScope("BeginEnd");
     statAST.acceptRegister(registerAllocation);
     registerAllocation.setCurrentScope(oldScope);
+    return RegisterARM.NULL_REG;
   }
 
   /**

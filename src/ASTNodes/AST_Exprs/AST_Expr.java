@@ -2,6 +2,7 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
@@ -108,6 +109,11 @@ public class AST_Expr extends AST_Node {
     return type;
   }
 
+  public String getExprType() {
+    //if (this instanceof ASTEXPR)
+    return "";
+  }
+
   /**
    * @param type - sets the type of the current expression
    */
@@ -133,9 +139,13 @@ public class AST_Expr extends AST_Node {
 
   }
 
-  @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  /**
+   * Base class that is overriden, returns default NULL_REG
+   */
 
+  @Override
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    return RegisterARM.NULL_REG;
   }
 
   /**
