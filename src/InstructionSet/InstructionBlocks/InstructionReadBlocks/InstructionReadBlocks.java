@@ -18,7 +18,8 @@ public class InstructionReadBlocks extends InstructionBlocks {
    */
   public InstructionReadBlocks(int msgNum1) {
     this.msgNum1 = msgNum1;
-    reg1 = "reg1";
+    this.reg1 = "r0";
+    this.reg2 = "r1";
   }
 
   public void allocateRegisters(RegisterARM reg1, RegisterARM reg2) {

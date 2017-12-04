@@ -4,7 +4,7 @@ public class InstructionCheckNullPointer extends InstructionCheck {
 
   public InstructionCheckNullPointer(int msgNum) {
     super(msgNum);
-    reg1 = "reg1";
+    reg1 = "r0";
     this.blockType = "check_null_pointer";
   }
 

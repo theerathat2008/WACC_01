@@ -77,7 +77,7 @@ public class InstructionRead extends Instruction {
       builder.append(", ");
       builder.append(interReg);
     } else {
-      builder.append("\n\t\tMOV ");
+      builder.append("\t\tMOV ");
       builder.append(dstReg);
       builder.append(", ");
       builder.append(sp);

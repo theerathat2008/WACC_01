@@ -7,8 +7,8 @@ public class InstructionCheckArrayBounds extends InstructionCheck {
   public InstructionCheckArrayBounds(int msgNum1, int msgNum2) {
     super(msgNum1);
     this.msgNum2 = msgNum2;
-    reg1 = "reg1";
-    reg2 = "reg2";
+    reg1 = "r0";
+    reg2 = "r1";
     this.blockType = "check_array_bounds";
   }
 

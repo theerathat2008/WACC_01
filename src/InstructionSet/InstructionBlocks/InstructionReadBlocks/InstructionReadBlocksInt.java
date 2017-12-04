@@ -13,8 +13,8 @@ public class InstructionReadBlocksInt extends InstructionReadBlocks {
    */
   public InstructionReadBlocksInt(int msgNum1) {
     super(msgNum1);
-    reg2 = "reg2";
-    reg1 = "reg1";
+    this.reg2 = "r1";
+    this.reg1 = "r0";
     this.blockType = "read_int";
   }
 
