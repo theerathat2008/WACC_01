@@ -5,6 +5,7 @@ import ErrorMessages.TypeError;
 import ErrorMessages.TypeMismatchError;
 import ErrorMessages.FilePosition;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorOverflow;
 import org.antlr.v4.runtime.ParserRuleContext;
 import InstructionSet.InstructionArithmetic;
 import InstructionSet.InstructionComparison;
@@ -149,6 +150,20 @@ public class AST_ExprBinary extends AST_Expr {
    */
   @Override
   public boolean CheckSemantics() {
+
+    if (opName.equals("*")) {
+      setType("int");
+    } else if (opName.equals("/")) {
+      setType("int");
+    } else if (opName.equals("%")) {
+      setType("int");
+    } else if (opName.equals("+")) {
+      setType("int");
+    } else if (opName.equals("-")) {
+      setType("int");
+    } else {
+      setType("bool");
+    }
 
     SymbolTable ST = this.symbolTable;
 
@@ -382,6 +397,11 @@ public class AST_ExprBinary extends AST_Expr {
       instructionList.add(instructionCompare);
       instrC = instructionCompare;
 
+    }
+
+    if (opName.equals("*")) {
+      InstructionErrorOverflow errorOverflow = new InstructionErrorOverflow();
+      //errorOverflow.
     }
   }
 

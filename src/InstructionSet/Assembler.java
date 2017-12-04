@@ -125,6 +125,7 @@ public class Assembler {
     for (Instruction currInstr : instructions) {
       if (currInstr instanceof InstructionBlocks) {
         String type = ((InstructionBlocks) currInstr).getBlockType();
+        System.out.println("Block has type: "+type);
         if (!(result.toString().contains(type))) {
           result.append(((InstructionBlocks) currInstr).getResultBlock());
         }
