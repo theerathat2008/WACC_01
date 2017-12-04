@@ -201,7 +201,7 @@ public class AST_ParamList extends AST_Node {
         System.out.println("Should never be called in ParamList.");
         System.out.println("Registers full");
 
-      } else if(counter < numOfParam){
+      } else if(counter < 3){
 
         //Reserve Registers for the functions
         RegisterUsage usage = aRegisterUsageBuilder()
@@ -212,7 +212,6 @@ public class AST_ParamList extends AST_Node {
             .build();
         RegisterARM funcReg = registerAllocation.useRegister(usage);
         counter++;
-
         param.acceptRegister(registerAllocation);
 
       } else {
@@ -238,6 +237,7 @@ public class AST_ParamList extends AST_Node {
 //        } else {
 //          registerAllocation.setStackSize(registerAllocation.getStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
 //        }
+        registerAllocation.setStackSize(registerAllocation.getStackSize() + registerAllocation.getMemSize(param.ast_type.getIdentifier().toString()));
 
 
         registerAllocation.addToStack(param.getParamName(), new StackLocation(stackLocation.toString()
@@ -258,5 +258,10 @@ public class AST_ParamList extends AST_Node {
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     //Shouldn't generate any assembly code
+    if(numOfParam > 3) {
+      for(int i = 3; i < listParam.size(); i++){
+        registerAllocation.setFinalStackSize(registerAllocation.getFinalStackSize() + registerAllocation.getMemSize(listParam.get(i).ast_type.getIdentifier().toString()));
+      }
+    }
   }
 }

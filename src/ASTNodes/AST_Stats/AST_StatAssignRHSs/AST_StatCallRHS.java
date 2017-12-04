@@ -18,6 +18,7 @@ import InstructionSet.InstructionCall;
 import InstructionSet.InstructionLibraryFunction;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
+import Registers.RegisterUsage;
 import SymbolTable.SymbolTable;
 import ErrorMessages.MissingParameterError;
 import ErrorMessages.TypeError;
@@ -27,6 +28,8 @@ import VisitorClass.AST_NodeVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.*;
+
+import static Registers.RegisterUsageBuilder.aRegisterUsageBuilder;
 
 /**
  * Class representing node in AST tree for CALL ASSIGNMENT
@@ -399,29 +402,66 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
    *                           Find the current storage location of that var in (reg/Stack)
    *                           Find the destination storage location of that var is in (funcReg/funcStack)
    *                           Print out an assembly line to match the (reg/Stack) to (funcReg/funcStack)
+   *
+   *
+   * Need to match stack allocated space for param vars with the stack allocated space for the loaded vars
    */
 
   @Override
 
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
+
+
     for (AST_Expr expr : ast_exprList) {
       if(expr instanceof AST_ExprIdent){
         AST_ExprIdent tempNode = (AST_ExprIdent)expr;
         String varName = tempNode.getVarName();
-        String type = "regMOV";
+        String type = "null";
+
 
         String src = registerAllocation.searchByVarValue(varName).name();
-        if(src.equals("NULL_REG")){
-          src = registerAllocation.getStackLocation(varName);
-          type = "stackLDR";
-        }
-
         String dst = registerAllocation.searchByFuncVarValue(varName, funcName).name();
-        if(dst.equals("NULL_REG")){
-          dst = registerAllocation.getStackLocation(varName);
+
+
+        if(src.equals("NULL_REG") && dst.equals("NULL_REG")){
+          src = registerAllocation.getStackLocation(varName);
+          dst = registerAllocation.getFuncStackLocation(funcName, varName);
+
+
+          RegisterUsage resultUsage = aRegisterUsageBuilder()
+              .withUsageType("interType")
+              .withScope(registerAllocation.getCurrentScope())
+              .build();
+          RegisterARM interReg = registerAllocation.useRegister(resultUsage);
+          registerAllocation.freeRegister(interReg);
+          // LDR inter, Src
+          // STR inter, Dst
+          type = "stack, stack";
+          instrCall.genCallInstruction(src, dst, type, interReg);
+        } else if(src.equals("NULL_REG")){
+          src = registerAllocation.getStackLocation(varName);
+
+          RegisterUsage resultUsage = aRegisterUsageBuilder()
+              .withUsageType("interType")
+              .withScope(registerAllocation.getCurrentScope())
+              .build();
+          RegisterARM interReg = registerAllocation.useRegister(resultUsage);
+          registerAllocation.freeRegister(interReg);
+
+          type = "reg, stack";
+          // LDR inter, src
+          // MOV dst, inter
+          instrCall.genCallInstruction(src, dst, type, interReg);
+        } else if (dst.equals("NULL_REG")){
+          dst = registerAllocation.getFuncStackLocation(funcName, varName);
+          type = "stack, reg";
+          // LDR src, dst
+          instrCall.genCallInstruction(src, dst, type, RegisterARM.NULL_REG);
+        } else {
+          type = "reg, reg";
+          instrCall.genCallInstruction(src, dst, type, RegisterARM.NULL_REG);
         }
-        instrCall.genCallInstruction(src, dst, type);
       }
     }
     return RegisterARM.r0;

@@ -2,6 +2,7 @@ package ASTNodes.AST_Exprs;
 
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
+import ASTNodes.AST_Program;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionAssignIdent;
 import Registers.RegisterARM;
@@ -187,25 +188,64 @@ public class AST_ExprIdent extends AST_Expr {
 
     RegisterARM resultReg = registerAllocation.useRegister(usage);
 
-    //Check if varName is allocated on the stack or in a register
-    String stackLocation = registerAllocation.getStackLocation(varName);
-    instr.allocateLocation(stackLocation, true);
-    if(stackLocation.equals("null")){
-      stackLocation = registerAllocation.searchByVarValue(varName).name();
-      if(stackLocation.equals("NULL_REG")) {
+    //Expression is called from within function:- allocated on funcReg
+    //                                            allocated on funcStack
+    //Expression is called from main body      :- allocated on normalStack
+    //                                         :- allocated on normalReg
 
-        AST_Node tempNode = this;
-        while(!(tempNode instanceof AST_FuncDecl)){
-          tempNode = tempNode.getParentNode();
-        }
-        String funcName = ((AST_FuncDecl) tempNode).getFuncName();
-        stackLocation = registerAllocation.searchByFuncVarValue(varName, funcName).name();
-        if(stackLocation.equals("NULL_REG")){
-          System.out.println("Error variable: " + varName + " never assigned in AST_ExprIdent");
-        }
+    boolean isFuncStat = true;
+    AST_Node tempNode = this;
+    while(!(tempNode instanceof AST_FuncDecl)){
+      tempNode = tempNode.getParentNode();
+      if(tempNode instanceof AST_Program){
+        //System.out.println(varName + " not in func stat");
+        isFuncStat = false;
+        break;
       }
-      instr.allocateLocation(stackLocation, false);
     }
+
+    String stackLocation = "SP_NULL";
+    instr.allocateLocation(stackLocation, true);
+
+    if(isFuncStat){
+      String funcName = ((AST_FuncDecl) tempNode).getFuncName();
+      stackLocation = registerAllocation.searchByFuncVarValue(varName, funcName).name();
+      if(stackLocation.equals("NULL_REG")){
+        stackLocation = registerAllocation.getFuncStackLocation(funcName,varName);
+        instr.allocateLocation(stackLocation, true);
+      } else {
+        instr.allocateLocation(stackLocation, false);
+      }
+    } else {
+      stackLocation = registerAllocation.getStackLocation(varName);
+      if(stackLocation.equals("null")){
+        stackLocation = registerAllocation.searchByVarValue(varName).name();
+        instr.allocateLocation(stackLocation, false);
+      } else {
+        instr.allocateLocation(stackLocation, true);
+      }
+    }
+
+
+
+//    //Check if varName is allocated on the stack or in a register
+//    String stackLocation = registerAllocation.getStackLocation(varName);
+//    instr.allocateLocation(stackLocation, true);
+//    if(stackLocation.equals("null")){
+//      stackLocation = registerAllocation.searchByVarValue(varName).name();
+//      if(stackLocation.equals("NULL_REG")) {
+//        AST_Node tempNode = this;
+//        while(!(tempNode instanceof AST_FuncDecl)){
+//          tempNode = tempNode.getParentNode();
+//        }
+//        String funcName = ((AST_FuncDecl) tempNode).getFuncName();
+//        stackLocation = registerAllocation.searchByFuncVarValue(varName, funcName).name();
+//        if(stackLocation.equals("NULL_REG")){
+//          System.out.println("Error variable: " + varName + " never assigned in AST_ExprIdent");
+//        }
+//      }
+//      instr.allocateLocation(stackLocation, false);
+//    }
 
     instr.registerAllocation(resultReg);
 

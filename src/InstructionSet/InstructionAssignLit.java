@@ -24,6 +24,10 @@ public class InstructionAssignLit extends Instruction {
     this.stringMsgNum = num;
   }
 
+  public String stripZeros(String constant){
+    return new Integer(constant).toString();
+  }
+
   @Override
   public void genInstruction() {
 
@@ -40,7 +44,7 @@ public class InstructionAssignLit extends Instruction {
       StringBuilder builder = new StringBuilder("\t\tLDR ");
       builder.append(reg);
       builder.append(", =");
-      builder.append(constant);
+      builder.append(stripZeros(constant));
       builder.append("\n");
       block1 = builder.toString();
     } else if (lit.equals("bool")) {

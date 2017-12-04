@@ -23,7 +23,10 @@ public class RegisterAllocation {
     for (Map.Entry<RegisterARM, RegisterUsage> entry : registerInUse.entrySet()) {
       System.out.println(entry.getKey() + " with type " + entry.getValue().usageType);
     }
+  }
 
+  public void printfreeReg(){
+    System.out.println(Arrays.toString(freeRegisters.toArray()));
   }
 
   /**
@@ -63,6 +66,17 @@ public class RegisterAllocation {
    * The current stack size
    */
   int stackSize;
+
+  int varDeclCount = 0;
+
+
+  public int getVarDeclCount() {
+    return varDeclCount;
+  }
+
+  public void incVarDeclCount() {
+    this.varDeclCount++;
+  }
 
   /**
    * The final stack size based on the number of variables allocated on the stack
@@ -159,6 +173,18 @@ public class RegisterAllocation {
     return "null";
   }
 
+  public String getFuncStackLocation(String funcName, String varName){
+    if(funcStackVar.containsKey((funcName))){
+      Map<String, StackLocation> tempMap = funcStackVar.get(funcName);
+      if(tempMap.containsKey(varName)){
+        return tempMap.get(varName).getLocation();
+      }
+      System.out.println("Can't find " + varName + " in " + funcName + " map");
+    }
+    System.out.println("Can't find " + funcName + " map");
+    return "null";
+  }
+
 
 
   /**
@@ -224,7 +250,7 @@ public class RegisterAllocation {
         return entry.getKey();
       }
     }
-    System.out.println("Cannot find the register with varName: " + varName + " in VarRegisters");
+    //System.out.println("Cannot find the register with varName: " + varName + " in VarRegisters");
     return RegisterARM.NULL_REG;
   }
 
@@ -242,7 +268,7 @@ public class RegisterAllocation {
         }
       }
     }
-    System.out.println("Cannot find the register" +varName +" in VarFuncRegisters with funcName: " + funcName);
+    //System.out.println("Cannot find the register " + varName +" in VarFuncRegisters with funcName: " + funcName);
     return RegisterARM.NULL_REG;
   }
 
@@ -380,6 +406,8 @@ public class RegisterAllocation {
       freeRegister(regToFree.get(j));
     }
   }
+
+
 
   /**
    * @param register frees a register and pushes onto freeReg stack

@@ -236,8 +236,6 @@ public class AST_ExprLiter extends AST_Expr {
 
     RegisterARM resultReg = registerAllocation.useRegister(usage);
 
-    System.out.println("Register is: " + resultReg.name());
-
     instr.registerAllocation(resultReg);
 
     return resultReg;
@@ -256,8 +254,6 @@ public class AST_ExprLiter extends AST_Expr {
 
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    System.out.println("CONSTANT IS: " + constant);
-    System.out.println("LITERAL IS: " + literal);
 
     if (literal.equals("str")) {
       registerAllocation.addString(constant.replace("\"", ""));

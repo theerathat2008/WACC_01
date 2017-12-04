@@ -367,7 +367,12 @@ public class AST_StatAssign extends AST_Stat {
 
     ast_statAssignRHS.acceptInstr(assemblyCode);
     //TODO maybe need this: ast_statAssignLHS.acceptInstr(assemblyCode);
-    assemblyCode.add(instrIdentLHS.getBlock1());
+    if(ast_statAssignLHS instanceof AST_StatIdentLHS){
+      assemblyCode.add(instrIdentLHS.getBlock1());
+    } else {
+      System.out.println("need to implement array elem LHS and pair LHS");
+    }
+
   }
 
   /**
@@ -394,6 +399,7 @@ public class AST_StatAssign extends AST_Stat {
 
 
       String stackLocation = registerAllocation.getStackLocation(ast_statIdentLHS.getIdentName());
+
       if(stackLocation.equals("null")){
         //Not allocated on the stack
 
@@ -402,6 +408,8 @@ public class AST_StatAssign extends AST_Stat {
           System.out.println("Error variable: " + ast_statIdentLHS.getIdentName() + " never assigned in AST_StatAssign");
           return RegisterARM.NULL_REG;
         }
+        System.out.println("Register not allocated on the stack");
+        System.out.println("Reg to get is: " + stackLocation);
 
         instrIdentLHS.registerAllocation(regRight);
         instrIdentLHS.setUsingStack(false);

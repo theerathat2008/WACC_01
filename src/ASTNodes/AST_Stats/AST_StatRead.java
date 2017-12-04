@@ -277,7 +277,7 @@ public class AST_StatRead extends AST_Stat {
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     String type = ast_statAssignLHS.getIdentifier().toString();
-    InstructionRead instructionRead = new InstructionRead(ast_statAssignLHS.getType());
+    InstructionRead instructionRead = new InstructionRead(type);
     //register allocation
     instructionList.add(instructionRead);
     instr = instructionRead;

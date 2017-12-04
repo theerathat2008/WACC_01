@@ -76,14 +76,19 @@ public class InstructionAssignIdentLHS extends Instruction {
     builder.append("\t\t");
     if(usingStack){
       builder.append(getLDRType());
+      builder.append(" ");
+      builder.append(src);
+      builder.append(", ");
+      builder.append(location);
+      builder.append("\n");
     } else {
       builder.append("MOV");
+      builder.append(" ");
+      builder.append(location);
+      builder.append(", ");
+      builder.append(src);
+      builder.append("\n");
     }
-    builder.append(" ");
-    builder.append(src);
-    builder.append(", ");
-    builder.append(location);
-    builder.append("\n");
     block1 = builder.toString();
 
 

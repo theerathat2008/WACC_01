@@ -24,6 +24,8 @@ public class InstructionArithmetic extends Instruction {
   }
 
   public void genInstruction() {
+
+
     if (operand.equals("%")) {
       StringBuilder builder = new StringBuilder("\t\tMOV r0, ");
       builder.append(reg1);

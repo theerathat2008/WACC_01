@@ -26,18 +26,18 @@ public class InstructionProgram extends Instruction {
     builder.append("\tmain:\n");
     builder.append("\t\tPUSH {lr}\n");
 
-    if (registerAllocation.getStackSize() > 0) {
+    if (registerAllocation.getFinalStackSize() > 0) {
       builder.append("\t\tSUB sp, sp, #");
-      builder.append(registerAllocation.getStackSize());
+      builder.append(registerAllocation.getFinalStackSize());
       builder.append("\n");
     }
 
     block1 = builder.toString();
 
     StringBuilder builder2 = new StringBuilder();
-    if (registerAllocation.getStackSize() > 0) {
+    if (registerAllocation.getFinalStackSize() > 0) {
       builder2.append("\t\tADD sp, sp, #");
-      builder2.append(registerAllocation.getStackSize());
+      builder2.append(registerAllocation.getFinalStackSize());
       builder2.append("\n");
     }
 
