@@ -1,6 +1,7 @@
 package ASTNodes;
 
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 
@@ -131,8 +132,12 @@ public class AST_Keyword extends AST_Node {
 
   }
 
+  /**
+   * Class not used in AST parsing, returns null_reg
+   */
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    return RegisterARM.NULL_REG;
 
   }
 

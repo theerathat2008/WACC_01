@@ -5,24 +5,30 @@ import Registers.RegisterARM;
 public class InstructionRead extends Instruction {
 
   public String resultBlock = "";
-  String reg1;
-  String reg2;
+  String dstReg;
+  String interReg;
   String sp;
   String type;
+  boolean usingStack;
 
   public InstructionRead(String type) {
     this.type = type;
-    reg1 = "reg1";
-    reg2 = "reg2";
+    this.dstReg = "dst";
+    this.interReg = "inter";
+    this.usingStack = true;
+  }
+
+  public void setUsingStack(boolean usingStack) {
+    this.usingStack = usingStack;
   }
 
   public void allocateSP(String sp) {
     this.sp = sp;
   }
 
-  public void allocateRegisters(RegisterARM reg1, RegisterARM reg2) {
-    this.reg1 = reg1.name();
-    this.reg2 = reg2.name();
+  public void allocateRegisters(RegisterARM dstReg, RegisterARM interReg) {
+    this.dstReg = dstReg.name();
+    this.interReg = interReg.name();
   }
 
 
@@ -40,18 +46,42 @@ public class InstructionRead extends Instruction {
 
   }
 
+  /**
+   * Possible implementations for Read
+   * Int : ADD r4, sp, #0
+           MOV r0, r4
+           BL p_read_int
+   * Char :ADD r4, sp, #0
+           MOV r0, r4
+       		 BL p_read_char
+   */
+
+  /**
+   * Use ADD interReg, sp, displacement if allocated on the stack
+   * Use MOV interReg, sp if using registers
+   */
+
 
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder();
-    builder.append("\t\tLDRSB ");
-    builder.append(reg2);
-    builder.append(", "); //not in original, not sure if correct
-    builder.append(sp);
-    builder.append("\n\t\tMOV ");
-    builder.append(reg1);
-    builder.append(", ");
-    builder.append(reg2);
+    if(usingStack){
+      builder.append("\t\tADD ");
+      builder.append(interReg);
+      builder.append(", ");
+      builder.append(sp);
+      builder.append(", ");
+      builder.append("#0");
+      builder.append("\n\t\tMOV ");
+      builder.append(dstReg);
+      builder.append(", ");
+      builder.append(interReg);
+    } else {
+      builder.append("\n\t\tMOV ");
+      builder.append(dstReg);
+      builder.append(", ");
+      builder.append(sp);
+    }
     builder.append("\n\t\tBL ");
     builder.append(getPrintType());
     builder.append("\n");

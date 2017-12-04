@@ -2,6 +2,7 @@ package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
@@ -129,9 +130,12 @@ public class AST_Stat extends AST_Node {
 
   }
 
+  /**
+   * Base class returns default NULL_REG
+   */
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    return RegisterARM.NULL_REG;
   }
 
   /**

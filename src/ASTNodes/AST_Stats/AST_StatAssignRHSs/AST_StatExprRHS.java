@@ -1,11 +1,12 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
-import ASTNodes.AST_Exprs.AST_ExprBinary;
 import ASTNodes.AST_Node;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionDeclOrAss.*;
+
+import Registers.RegisterARM;
 
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
@@ -144,8 +145,8 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
   }
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    ast_expr.acceptRegister(registerAllocation);
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    return ast_expr.acceptRegister(registerAllocation);
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

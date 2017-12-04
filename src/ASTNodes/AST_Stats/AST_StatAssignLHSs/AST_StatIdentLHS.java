@@ -2,6 +2,7 @@ package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
@@ -24,8 +25,6 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS {
 
   /**
    * Constructor for class - initialises class variables
-   *
-   * @param numberOfChildren - Shows the number of parameters in the parameter list of function
    */
   public AST_StatIdentLHS() {
     this.identName = null;
@@ -139,8 +138,8 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS {
   }
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    return RegisterARM.NULL_REG;
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

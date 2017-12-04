@@ -223,20 +223,29 @@ public class AST_StatIf extends AST_Stat {
     assemblyList.add(instr.blockContinue);
   }
 
+  /**
+   * Stat if needs result of the expr reg for instruction block
+   * returns null Reg as if doesn't evaluate to anything
+   * Set the scopes here for then stat and else stat
+   */
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
-    registerAllocation.useRegister("expr");
-    expr.acceptRegister(registerAllocation);
+    RegisterARM exprEvalReg = expr.acceptRegister(registerAllocation);
+    instr.allocateRegisters(exprEvalReg);
+    registerAllocation.freeRegister(exprEvalReg);
 
-    RegisterARM reg1 = registerAllocation.searchByValue("expr");
-    InstructionIf instructionIf = instr;
-    instructionIf.allocateRegisters(reg1);
-    registerAllocation.freeRegister(reg1);
+    String oldScope = registerAllocation.getCurrentScope();
 
+    registerAllocation.setCurrentScope("IfThen");
     thenStat.acceptRegister(registerAllocation);
+
+    registerAllocation.setCurrentScope("IfElse");
     elseStat.acceptRegister(registerAllocation);
 
+    registerAllocation.setCurrentScope(oldScope);
+
+    return RegisterARM.NULL_REG;
   }
 
   /**

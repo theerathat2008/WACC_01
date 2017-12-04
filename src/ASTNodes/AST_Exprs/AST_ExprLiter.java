@@ -5,6 +5,7 @@ import InstructionSet.InstructionAssignLit;
 import Registers.RegisterARM;
 
 import Registers.RegisterAllocation;
+import Registers.RegisterUsage;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
@@ -15,6 +16,7 @@ import java.util.List;
 import VisitorClass.AST_NodeVisitor;
 
 import IdentifierObjects.*;
+import static Registers.RegisterUsageBuilder.*;
 
 /**
  * Class representing node in AST tree for LITERAL EXPRESSIONS
@@ -222,16 +224,21 @@ public class AST_ExprLiter extends AST_Expr {
    */
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    RegisterARM resultReg = registerAllocation.searchByValue("expr");
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
-    if (registerAllocation.searchByValue("result") != null && resultReg == null) {
-      resultReg = registerAllocation.searchByValue("result");
-    }
 
-    System.out.println("RESULT REG IS: at " + constant + ": " + resultReg);
+    RegisterUsage usage = aRegisterUsageBuilder()
+        .withUsageType("exprType")
+        .withSubType("resultType")
+        .withScope(registerAllocation.getCurrentScope())
+        .withContent(constant)
+        .build();
+
+    RegisterARM resultReg = registerAllocation.useRegister(usage);
+
     instr.registerAllocation(resultReg);
 
+    return resultReg;
   }
 
 

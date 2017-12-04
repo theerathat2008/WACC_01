@@ -6,6 +6,9 @@ import InstructionSet.InstructionBlocks.InstructionCheck.InstructionCheckArrayBo
 import InstructionSet.InstructionDeclOrAss.InstructionAssArrayElem.InstructionAssArrayElem;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
 import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
+
+import Registers.RegisterARM;
+
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 
@@ -164,11 +167,20 @@ public class AST_ExprArrayElem extends AST_Expr {
     assemblyCode.add(arrayElemInstr.getResultBlock1());
   }
 
+
+  /**
+   * Format is varName [ expr ]
+   * Doesn't require any registers allocated
+   * Could be used as an access point for arrays stores on the heap
+   */
+
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    //TODO SEE IF need result of these expressions
     for (AST_Expr expr : ast_exprList) {
       expr.acceptRegister(registerAllocation);
     }
+    return RegisterARM.NULL_REG;
   }
 
   public void setExprType() {

@@ -5,6 +5,7 @@ import ErrorMessages.TypeError;
 import ErrorMessages.TypeMismatchError;
 import ErrorMessages.FilePosition;
 import InstructionSet.Instruction;
+import Registers.RegisterUsage;
 import org.antlr.v4.runtime.ParserRuleContext;
 import InstructionSet.InstructionArithmetic;
 import InstructionSet.InstructionComparison;
@@ -14,6 +15,8 @@ import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
 import java.util.List;
+
+import static Registers.RegisterUsageBuilder.*;
 
 import VisitorClass.AST_NodeVisitor;
 import IdentifierObjects.*;
@@ -327,25 +330,39 @@ public class AST_ExprBinary extends AST_Expr {
     }
   }
 
-  @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-//
-//    RegisterARM reg1 = registerAllocation.useRegister("expr");
-//    RegisterARM reg2 = registerAllocation.useRegister("expr");
-//
-//    exprLeftAST.acceptRegister(registerAllocation);
-//    exprRightAST.acceptRegister(registerAllocation);
-//
-//
-//    if (opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")) {
-//      RegisterARM dst = registerAllocation.searchByValue("result");
-//      //instrA.allocateRegisters(dst, reg1, reg2);
-//      //registerAllocation.freeRegister(dst);
-//    } else {
-//      RegisterARM dst = registerAllocation.useRegister("expr");
-//      instrC.allocateRegisters(reg1, reg2, dst);
-//    }
+  /**
+   * Want to store the evaluation of the two registers result of the binary expression
+   * Format is expr BinOp expr
+   * Store the returned result of the two expr into a result reg
+   * Free the two registers after having got the evaluation of the two stores in the regs
+   */
 
+
+  @Override
+
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+
+    RegisterARM regLeft = exprLeftAST.acceptRegister(registerAllocation);
+    RegisterARM regRight = exprRightAST.acceptRegister(registerAllocation);
+
+    registerAllocation.freeRegister(regLeft);
+    registerAllocation.freeRegister(regRight);
+
+    RegisterUsage resultUsage = aRegisterUsageBuilder()
+        .withUsageType("exprType")
+        .withSubType("resultType")
+        .withScope(registerAllocation.getCurrentScope())
+        .withOperationType(opName)
+        .build();
+    RegisterARM dst = registerAllocation.useRegister(resultUsage);
+
+    if (opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")) {
+      instrA.allocateRegisters(dst, regLeft, regRight);
+    } else {
+      instrC.allocateRegisters(regLeft, regRight, dst);
+    }
+    return dst;
   }
 
 

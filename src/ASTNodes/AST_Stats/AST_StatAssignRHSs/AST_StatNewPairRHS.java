@@ -4,6 +4,7 @@ import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionDeclOrAss.InstructionDeclAssPair;
+import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
@@ -170,9 +171,10 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
   }
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     ast_expr_first.acceptRegister(registerAllocation);
     ast_expr_second.acceptRegister(registerAllocation);
+    return RegisterARM.NULL_REG;
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

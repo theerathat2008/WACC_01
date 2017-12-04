@@ -8,6 +8,7 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_ParamList;
 import ASTNodes.AST_Param;
+import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
 import ErrorMessages.TypeMismatchError;
 import IdentifierObjects.FunctionObj;
 import IdentifierObjects.BaseTypeObj;
@@ -379,19 +380,51 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-    for (AST_Expr expr : ast_exprList) {
-      expr.acceptInstr(assemblyCode);
+    List<String> callList = instrCall.getVarCallBlocks();
+
+    for (String callBlock : callList) {
+      //expr.acceptInstr(assemblyCode);
+      assemblyCode.add(callBlock);
     }
     assemblyCode.add(instrCall.getResultBlock());
   }
 
+  /**
+   * Load all the function arguments into the right registers which is done in AST_ParamList
+   * Evaluate the expression, Don't care about the evaluation of the expressions
+   * Return r0 as the evaluation of the actual function call is stored in there
+   *
+   * The possible vars that could be loaded are ExprIdent, Arrays and Pairs
+   * In the case of ExprIdent: Find the varName
+   *                           Find the current storage location of that var in (reg/Stack)
+   *                           Find the destination storage location of that var is in (funcReg/funcStack)
+   *                           Print out an assembly line to match the (reg/Stack) to (funcReg/funcStack)
+   */
+
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-//    for (AST_Expr expr : ast_exprList) {
-//      expr.acceptRegister(registerAllocation);
-//    }
-//    registerAllocation.freeRegister(registerAllocation.searchByValue("result"));
-//    registerAllocation.addRegisterInUse(RegisterARM.r0, "result");
+
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+    for (AST_Expr expr : ast_exprList) {
+      if(expr instanceof AST_ExprIdent){
+        AST_ExprIdent tempNode = (AST_ExprIdent)expr;
+        String varName = tempNode.getVarName();
+        String type = "regMOV";
+
+        String src = registerAllocation.searchByVarValue(varName).name();
+        if(src.equals("NULL_REG")){
+          src = registerAllocation.getStackLocation(varName);
+          type = "stackLDR";
+        }
+
+        String dst = registerAllocation.searchByFuncVarValue(varName, funcName).name();
+        if(dst.equals("NULL_REG")){
+          dst = registerAllocation.getStackLocation(varName);
+        }
+        instrCall.genCallInstruction(src, dst, type);
+      }
+    }
+    return RegisterARM.r0;
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {

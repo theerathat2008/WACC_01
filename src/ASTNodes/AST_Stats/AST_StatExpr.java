@@ -16,6 +16,8 @@ import SymbolTable.SymbolTable;
 import ErrorMessages.TypeError;
 import ErrorMessages.TypeMismatchError;
 
+import static Registers.RegisterUsageBuilder.*;
+
 import ErrorMessages.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
@@ -293,32 +295,25 @@ public class AST_StatExpr extends AST_Stat {
   }
 
   @Override
-  public void acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+  public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+    RegisterARM evalResult = expr.acceptRegister(registerAllocation);
     String type;
-    System.out.println("StatName is: " + statName);
 
     switch (statName) {
       case ("free"):
         break;
 
       case ("return"):
-        registerAllocation.useRegister("expr");
-        expr.acceptRegister(registerAllocation);
-
-        RegisterARM reg2 = registerAllocation.searchByValue("expr");
         InstructionReturn instructionReturn = (InstructionReturn) instr;
-        instructionReturn.allocateRegisters(RegisterARM.r0, reg2);
-        registerAllocation.freeRegister(reg2);
+        instructionReturn.allocateRegisters(RegisterARM.r0, evalResult);
+        registerAllocation.freeRegister(evalResult);
         break;
 
       case ("exit"):
-        registerAllocation.useRegister("expr");
-        expr.acceptRegister(registerAllocation);
-
-        RegisterARM reg1 = registerAllocation.searchByValue("expr");
         InstructionExit instructionExit = (InstructionExit) instr;
-        instructionExit.allocateRegisters(RegisterARM.r0, reg1);
-        registerAllocation.freeRegister(reg1);
+        instructionExit.allocateRegisters(RegisterARM.r0, evalResult);
+        registerAllocation.freeRegister(evalResult);
 
         break;
 
@@ -326,10 +321,10 @@ public class AST_StatExpr extends AST_Stat {
         InstructionPrintBlocksLn instructionPrintLn = (InstructionPrintBlocksLn) instrPrintLn;
         //instructionPrintLn.allocateRegisters(RegisterARM.r0);
 
-
       case ("print"):
+
         type = expr.getType();
-        System.out.println("Type is at print: " + type);
+
 
         if (type != null) {
 
@@ -361,23 +356,19 @@ public class AST_StatExpr extends AST_Stat {
               break;
           }
 
-          RegisterARM reg3 = registerAllocation.useRegister("expr");
 
-          expr.acceptRegister(registerAllocation);
 
           InstructionPrint instructionPrint = (InstructionPrint) instr;
-          System.out.println("Allocating registers for print: " + reg3);
-          //TODO reallocate reg
-          //instructionPrint.allocateRegisters(RegisterARM.r0, reg3);
+          //System.out.println("Allocating registers for print: " + evalResult);
+          instructionPrint.allocateRegisters(RegisterARM.r0, evalResult);
 
         } else {
-          RegisterARM reg3 = registerAllocation.useRegister("result");
 
-          expr.acceptRegister(registerAllocation);
           InstructionPrint instructionPrint = (InstructionPrint) instr;
           //System.out.println("Allocating registers for print: " + reg3);
-          instructionPrint.allocateRegisters(RegisterARM.r0, reg3);
+          instructionPrint.allocateRegisters(RegisterARM.r0, evalResult);
         }
+
 
 
 
@@ -387,7 +378,9 @@ public class AST_StatExpr extends AST_Stat {
         System.out.println("Unrecognised statement type in AST_StatExpr");
     }
 
+    return RegisterARM.NULL_REG;
   }
+
   /**
    * FREE expr
    * RETURN expr
@@ -408,8 +401,7 @@ public class AST_StatExpr extends AST_Stat {
 
     //REGISTER ALLOCATION TODO
     //SP ALLOCATION TODO
-    System.out.println("Statement type is: " + statName);
-    System.out.println("EXPRRRRR TYPE: " + expr.getType());
+
 
     switch (statName) {
       case ("free"):
@@ -512,7 +504,7 @@ public class AST_StatExpr extends AST_Stat {
           instructionList.add(instructionPrintlnLine);
           instrPrintLine = instructionPrintlnLine;
           String emebededType = "null";
-
+          //TODO CHECK HERE HACKY CODE
           if (expr instanceof AST_ExprBinary) {
             AST_ExprBinary tempNode = (AST_ExprBinary) expr;
             emebededType = getEmebeddedType(tempNode);
