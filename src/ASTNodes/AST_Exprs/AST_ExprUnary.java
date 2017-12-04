@@ -336,8 +336,43 @@ public class AST_ExprUnary extends AST_Expr {
 
   public int acceptNode(AST_NodeVisitor visitor) {
     visitor.visit(this);
-    //TODO
-    return 0;
+
+    System.out.println("+++++++++++++++++++++++++++++++++");
+    System.out.println("Start evaluating constant");
+
+    if (astExpr instanceof AST_ExprIdent) {
+      System.out.println("exprLeftAST is instance of AST_ExprIdent");
+      System.out.println("Not evaluating");
+    }
+
+    int result = 0;
+
+    if (astExpr instanceof AST_ExprLiter) {
+      int result1 = ((AST_ExprLiter) astExpr).acceptNode(visitor);
+
+      if (opName.equals("chr")) {
+        //return the integer input
+        String constant = ((AST_ExprLiter) astExpr).getConstant();
+        result = Integer.parseInt(constant);
+      } else if (opName.equals("ord")) {
+        //return the integer output
+
+      } else if (opName.equals("len")) {
+        //it's gonna be of type string/array
+        //just return the result of len
+
+      } else if (opName.equals("-")) {
+        result = -result1;
+      } else if (opName.equals("!")) {
+        if (((AST_ExprLiter) astExpr).getConstant().equals("true")) {
+          result = 0;
+        } else if (((AST_ExprLiter) astExpr).getConstant().equals("false")) {
+          result = 1;
+        }
+      }
+    }
+
+    return result;
   }
 
   @Override

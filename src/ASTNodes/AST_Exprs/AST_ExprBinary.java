@@ -326,11 +326,29 @@ public class AST_ExprBinary extends AST_Expr {
   public int acceptNode(AST_NodeVisitor visitor) {
     visitor.visit(this);
 
+    System.out.println("+++++++++++++++++++++++++++++++++");
+    System.out.println("Start evaluating constant");
+
+    if (exprLeftAST instanceof AST_ExprIdent) {
+      System.out.println("exprLeftAST is instance of AST_ExprIdent");
+      System.out.println("Not evaluating");
+    }
+
+    if (exprRightAST instanceof AST_ExprIdent) {
+      System.out.println("exprRightAST is instance of AST_ExprIdent");
+      System.out.println("Not evaluating");
+    }
+
+    //The parser already did the precedence work
+    //call from class in that use expr
     int result = 0;
 
     if (exprLeftAST instanceof AST_ExprLiter && exprRightAST instanceof AST_ExprLiter) {
       int result1 = ((AST_ExprLiter) exprLeftAST).acceptNode(visitor);
       int result2 = ((AST_ExprLiter) exprRightAST).acceptNode(visitor);
+
+      String exprLeft = ((AST_ExprLiter) exprLeftAST).getConstant();
+      String exprRight = ((AST_ExprLiter) exprRightAST).getConstant();
 
       //add precedences
       if (opName.equals("+")) {
@@ -341,6 +359,20 @@ public class AST_ExprBinary extends AST_Expr {
         result = result1 * result2;
       } else if (opName.equals("/")) {
         result = result1 / result2;
+      } else if (opName.equals("%")) {
+        result = result1 % result2;
+      } else if (opName.equals("&&") || opName.equals("||")) {
+        if (opName.equals("&&")) {
+          //only case that is true must be when both sides are true
+          if (exprLeft.equals("true") && exprRight.equals("true")) {
+            result = 1;
+          }
+        } else if (opName.equals("||")) {
+          //only false case is when both are false
+          if (!(exprLeft.equals("false") && exprRight.equals("false"))) {
+            result = 1;
+          }
+        }
       }
     } else if (exprLeftAST instanceof AST_ExprLiter) {
 
@@ -358,10 +390,10 @@ public class AST_ExprBinary extends AST_Expr {
           result = result1 * result2;
         } else if (opName.equals("/")) {
           result = result1 / result2;
+        } else if (opName.equals("%")) {
+          result = result1 % result2;
         }
       }
-
-
 
     } else if (exprRightAST instanceof AST_ExprLiter) {
       int result2 = ((AST_ExprLiter) exprRightAST).acceptNode(visitor);
@@ -377,12 +409,13 @@ public class AST_ExprBinary extends AST_Expr {
           result = result1 * result2;
         } else if (opName.equals("/")) {
           result = result1 / result2;
+        } else if (opName.equals("%")) {
+          result = result1 % result2;
         }
       }
     }
 
-
-
+    System.out.println(result);
     return result;
   }
 
