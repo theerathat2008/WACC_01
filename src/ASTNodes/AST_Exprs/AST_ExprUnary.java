@@ -1,5 +1,6 @@
 package ASTNodes.AST_Exprs;
 
+import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatArrayLitRHS;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionUnary;
 import Registers.RegisterARM;
@@ -356,11 +357,18 @@ public class AST_ExprUnary extends AST_Expr {
         result = Integer.parseInt(constant);
       } else if (opName.equals("ord")) {
         //return the integer output
-
+        String charConstant = ((AST_ExprLiter) astExpr).getConstant();
+        if (charConstant != null) {
+          result = (int) charConstant.charAt(0);
+        }
       } else if (opName.equals("len")) {
         //it's gonna be of type string/array
         //just return the result of len
-
+        //if it is an instance of array
+        if (astExpr instanceof AST_ExprArrayElem) {
+          int numOfExpr = ((AST_ExprArrayElem) astExpr).numOfExpr;
+          result = numOfExpr;
+        }
       } else if (opName.equals("-")) {
         result = -result1;
       } else if (opName.equals("!")) {
@@ -419,27 +427,6 @@ public class AST_ExprUnary extends AST_Expr {
 
     instructionList.add(instructionUnary);
     instr = instructionUnary;
-
-  }
-
-  public int constantEvaluation() {
-    int result = 0;
-
-    if (opName.equals("chr")) {
-
-    } else if (opName.equals("ord")) {
-
-    } else if (opName.equals("len")) {
-
-    } else if (opName.equals("!")) {
-
-    } else if (opName.equals("-")) {
-
-    } else {
-
-    }
-
-    return result;
 
   }
 }
