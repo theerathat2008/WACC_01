@@ -467,9 +467,9 @@ public class AST_StatExpr extends AST_Stat {
               //No break since pair and array are the same
 
             case ("bool"):
-              registerAllocation.addString("true");
-              registerAllocation.addString("false");
-              InstructionPrintBlocksBool instructionPrintBool = new InstructionPrintBlocksBool(registerAllocation.getStringID("true"), registerAllocation.getStringID("false"));
+              registerAllocation.addString("true\\0");
+              registerAllocation.addString("false\\0");
+              InstructionPrintBlocksBool instructionPrintBool = new InstructionPrintBlocksBool(registerAllocation.getStringID("true\\0"), registerAllocation.getStringID("false\\0"));
 
               instructionList.add(instructionPrintBool);
               instrPrintType = instructionPrintBool;
