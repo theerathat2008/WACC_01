@@ -11,7 +11,7 @@ public class InstructionDivByZero extends InstructionError {
    * Class constructor
    */
   public InstructionDivByZero() {
-    this.reg1 = "r0";
+    this.reg1 = "r1";
     this.reg2 = "r1";
     this.blockType = "check_divide_by_zero";
   }
@@ -39,7 +39,7 @@ public class InstructionDivByZero extends InstructionError {
     builder.append(reg1);
     builder.append(", #0\n\t\tLDREQ r0, =msg_");
     builder.append(outputMessageNumber);
-    builder.append("\n\t\tBLEQ p_throw_runtime_error\n");
+    builder.append("\n\t\tBLEQ p_throw_runtime_error\n\t\tPOP {pc}\n");
     this.resultBlock = builder.toString();
   }
 

@@ -379,8 +379,14 @@ public class AST_ExprBinary extends AST_Expr {
         .build();
     RegisterARM dst = registerAllocation.useRegister(resultUsage);
 
-    if (opName.equals("*") || opName.equals("/") || opName.equals("%") || opName.equals("+") || opName.equals("-")) {
+    if ( opName.equals("+") || opName.equals("-")) {
       instrA.allocateRegisters(dst, regLeft, regRight);
+    } else if(opName.equals("*")){
+      dst = regLeft;
+      instrA.allocateRegisters(RegisterARM.NULL_REG, regLeft, regRight);
+    } else if(opName.equals("/") || opName.equals("%")){
+      dst = RegisterARM.r0;
+      instrA.allocateRegisters(RegisterARM.NULL_REG, regLeft, regRight);
     } else {
       instrC.allocateRegisters(regLeft, regRight, dst);
     }

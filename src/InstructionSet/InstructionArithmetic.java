@@ -26,18 +26,21 @@ public class InstructionArithmetic extends Instruction {
   public void genInstruction() {
 
 
+
     if (operand.equals("%")) {
       StringBuilder builder = new StringBuilder("\t\tMOV r0, ");
       builder.append(reg1);
       builder.append("\n\t\tMOV r1, ");
       builder.append(reg2);
-      builder.append("\n\t\tBL p_check_divide_by_zero\nBl __aeabi_idivmod\n");
+      builder.append("\n\t\tBL p_check_divide_by_zero\n\t\tBl __aeabi_idivmod\n");
+      block1 = builder.toString();
     } else if (operand.equals("/")) {
-      StringBuilder builder = new StringBuilder("\t\tMOV r0 ");
+      StringBuilder builder = new StringBuilder("\t\tMOV r0, ");
       builder.append(reg1);
-      builder.append("\n\t\tMOV r1 ");
+      builder.append("\n\t\tMOV r1, ");
       builder.append(reg2);
-      builder.append("\n\t\tBL p_check_divide_by_zero\nBl __aeabi_idiv\n");
+      builder.append("\n\t\tBL p_check_divide_by_zero\n\t\tBl __aeabi_idiv\n");
+      block1 = builder.toString();
     } else if (operand.equals("*")) {
       StringBuilder builder = new StringBuilder("\t\tSMULL ");
       builder.append(reg1);
@@ -47,11 +50,12 @@ public class InstructionArithmetic extends Instruction {
       builder.append(reg1);
       builder.append(", ");
       builder.append(reg2);
-      builder.append("\n CMP ");
+      builder.append("\n\t\tCMP ");
       builder.append(reg2);
       builder.append(", ");
       builder.append(reg1);
-      builder.append(" ASR #31\n\t\tBLNE p_throw_overflow_error\n");
+      builder.append(", ASR #31\n\t\tBLNE p_throw_overflow_error\n");
+      block1 = builder.toString();
     } else {
       StringBuilder builder = new StringBuilder("\t\t" + getOperand(operand) + "S ");
       builder.append(dst);
