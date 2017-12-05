@@ -405,6 +405,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
    *
    *
    * Need to match stack allocated space for param vars with the stack allocated space for the loaded vars
+   * For standard library pass r4 and r5 to all functions apart from factorial which only requires r4.
    */
 
   @Override

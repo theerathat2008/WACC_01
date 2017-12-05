@@ -91,7 +91,7 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
    */
   @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet) {
-    if (astToSet.equals("expr")) {
+    if (astToSet.equals("expr") || astToSet.equals("sideEffect")) {
       ast_expr = (AST_Expr) nodeToSet;
 
     } else {

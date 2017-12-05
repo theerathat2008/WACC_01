@@ -2,6 +2,9 @@ package VisitorClass;
 
 import ASTNodes.*;
 import ASTNodes.AST_Exprs.*;
+import ASTNodes.AST_SideEffect.AST_SideEffectBinary;
+import ASTNodes.AST_SideEffect.AST_SideEffectPostInc;
+import ASTNodes.AST_SideEffect.AST_SideEffectPreInc;
 import ASTNodes.AST_Stats.*;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatArrayElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
@@ -455,6 +458,33 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
   public void visit(AST_StatSubIf ast_statSubIf) {
     try {
       ast_statSubIf.genInstruction(instructions, registerAllocation);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void visit(AST_SideEffectBinary ast_sideEffectBinary) {
+    try {
+      ast_sideEffectBinary.genInstruction(instructions, registerAllocation);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void visit(AST_SideEffectPreInc ast_sideEffectPreInc) {
+    try {
+      ast_sideEffectPreInc.genInstruction(instructions, registerAllocation);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void visit(AST_SideEffectPostInc ast_sideEffectPostInc) {
+    try {
+      ast_sideEffectPostInc.genInstruction(instructions, registerAllocation);
     } catch (Exception e) {
       e.printStackTrace();
     }

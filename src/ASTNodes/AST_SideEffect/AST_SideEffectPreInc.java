@@ -1,7 +1,14 @@
-package ASTNodes.AST_Exprs;
+package ASTNodes.AST_SideEffect;
 
+import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
+import IdentifierObjects.BaseTypeObj;
+import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorOverflow;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
+import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
+import InstructionSet.InstructionSideEffect;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
@@ -10,17 +17,14 @@ import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.List;
 
-import IdentifierObjects.IDENTIFIER;
-
-/**
- * Class representing node in AST tree for EXPRESSIONS
- * USED AS BASE CLASS FOR OTHER EXPRESSIONS
- */
-public class AST_Expr extends AST_Node {
+public class AST_SideEffectPreInc extends AST_SideEffect {
 
   //Syntactic attributes
-  String type;
-  IDENTIFIER identifier;
+  // String type;
+  // IDENTIFIER identifier;
+  InstructionSideEffect instr;
+  String op;
+  String identName;
 
   /**
    * Gets all children nodes of current node
@@ -48,7 +52,15 @@ public class AST_Expr extends AST_Node {
    */
   @Override
   public void setSyntacticAttributes(String value) {
-    System.out.println("Base AST Node");
+    if (op == null) {
+      this.op = value;
+      System.out.println("Attempting to set identifier to int");
+      setIdentifier(new BaseTypeObj(null, "int"));
+    } else if (identName == null) {
+      this.identName = value;
+    } else {
+      System.out.println("Error, no more attributes to assign");
+    }
   }
 
   /**
@@ -59,7 +71,7 @@ public class AST_Expr extends AST_Node {
   @Override
   public String getSyntacticAttributes(String strToGet) {
     System.out.println("Base AST Node");
-    return null;
+    return op;
   }
 
   /**
@@ -87,6 +99,7 @@ public class AST_Expr extends AST_Node {
    */
   @Override
   public boolean CheckSemantics() {
+    //Check identifier is an int
     return true;
   }
 
@@ -102,24 +115,13 @@ public class AST_Expr extends AST_Node {
     }
   }
 
-  /**
-   * @return returns the type of the expression
-   */
-  public String getType() {
-    return type;
-  }
+
 
   public String getExprType() {
     //if (this instanceof ASTEXPR)
     return "";
   }
 
-  /**
-   * @param type - sets the type of the current expression
-   */
-  public void setType(String type) {
-    this.type = type;
-  }
 
   /**
    * Used for testing - Prints out contents of current AST node
@@ -136,7 +138,7 @@ public class AST_Expr extends AST_Node {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    assemblyCode.add(instr.block1);
   }
 
   /**
@@ -145,20 +147,16 @@ public class AST_Expr extends AST_Node {
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    return RegisterARM.NULL_REG;
+    //TODO
+
+    instr.registerAllocation(registerAllocation.searchByVarValue(identName));
+
+    return registerAllocation.searchByVarValue(identName);
+    //Uses register for IDENT that is used in expression
+
   }
 
-  /**
-   * @return returns the identifier of the attribute
-   */
-  public IDENTIFIER getIdentifier() {
-    return identifier;
-  }
 
-  public void setIdentifier(IDENTIFIER ident) {
-    this.identifier = ident;
-    System.out.println("Identifier is: " + identifier.getName());
-  }
 
   /**
    * Doesn't produce any assembly code
@@ -168,7 +166,20 @@ public class AST_Expr extends AST_Node {
 
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    System.out.println("Base class AST_Expr");
+    InstructionSideEffect instructionSideEffect = new InstructionSideEffect(op);
+    instr = instructionSideEffect;
+    instructionList.add(instructionSideEffect);
+
+    registerAllocation.addString("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n");
+    InstructionErrorOverflow errorOverflow = new InstructionErrorOverflow(registerAllocation.
+            getStringID("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n"));
+    instructionList.add(errorOverflow);
+
+    registerAllocation.addString("%.*s\\0");
+    InstructionPrintBlocksString instructionPrintString = new InstructionPrintBlocksString(registerAllocation.getStringID("%.*s\\0"));
+    instructionList.add(instructionPrintString);
+
+    instructionList.add(new InstructionErrorRuntime());
   }
 
 }

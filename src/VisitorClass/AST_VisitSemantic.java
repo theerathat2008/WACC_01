@@ -2,6 +2,9 @@ package VisitorClass;
 
 import ASTNodes.*;
 import ASTNodes.AST_Exprs.*;
+import ASTNodes.AST_SideEffect.AST_SideEffectBinary;
+import ASTNodes.AST_SideEffect.AST_SideEffectPostInc;
+import ASTNodes.AST_SideEffect.AST_SideEffectPreInc;
 import ASTNodes.AST_Stats.*;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatArrayElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
@@ -246,5 +249,23 @@ public class AST_VisitSemantic implements AST_NodeVisitor {
   public void visit(AST_StatSubIf ast_statSubIf) {
     System.out.println("Visiting: " + ast_statSubIf.getClass().getSimpleName());
     ast_statSubIf.CheckSemantics();
+  }
+
+  @Override
+  public void visit(AST_SideEffectBinary ast_sideEffectBinary) {
+    System.out.println("Visiting: " + ast_sideEffectBinary.getClass().getSimpleName());
+    ast_sideEffectBinary.CheckSemantics();
+  }
+
+  @Override
+  public void visit(AST_SideEffectPreInc ast_sideEffectPreInc) {
+    System.out.println("Visiting: " + ast_sideEffectPreInc.getClass().getSimpleName());
+    ast_sideEffectPreInc.CheckSemantics();
+  }
+
+  @Override
+  public void visit(AST_SideEffectPostInc ast_sideEffectPostInc) {
+    System.out.println("Visiting: " + ast_sideEffectPostInc.getClass().getSimpleName());
+    ast_sideEffectPostInc.CheckSemantics();
   }
 }

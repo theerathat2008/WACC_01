@@ -2,6 +2,9 @@ package VisitorClass;
 
 import ASTNodes.*;
 import ASTNodes.AST_Exprs.*;
+import ASTNodes.AST_SideEffect.AST_SideEffectBinary;
+import ASTNodes.AST_SideEffect.AST_SideEffectPostInc;
+import ASTNodes.AST_SideEffect.AST_SideEffectPreInc;
 import ASTNodes.AST_Stats.*;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatArrayElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
@@ -109,5 +112,11 @@ public interface AST_NodeVisitor {
   void visit(AST_PairElemType ast_pairElemType);
 
   void visit(AST_StatSubIf ast_statSubIf);
+
+  void visit(AST_SideEffectBinary ast_sideEffectBinary) ;
+
+  void visit(AST_SideEffectPreInc ast_sideEffectPreInc) ;
+
+  void visit(AST_SideEffectPostInc ast_sideEffectPostInc) ;
 
 }

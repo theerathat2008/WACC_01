@@ -1,7 +1,9 @@
-package ASTNodes.AST_Exprs;
+package ASTNodes.AST_SideEffect;
 
+import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionSideEffect;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
@@ -10,17 +12,12 @@ import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.List;
 
-import IdentifierObjects.IDENTIFIER;
+public class AST_SideEffectPostInc extends AST_SideEffect {
 
-/**
- * Class representing node in AST tree for EXPRESSIONS
- * USED AS BASE CLASS FOR OTHER EXPRESSIONS
- */
-public class AST_Expr extends AST_Node {
-
-  //Syntactic attributes
-  String type;
-  IDENTIFIER identifier;
+  // Syntactic attributes
+  // String type;
+  // IDENTIFIER identifier;
+  InstructionSideEffect instr;
 
   /**
    * Gets all children nodes of current node
@@ -102,27 +99,16 @@ public class AST_Expr extends AST_Node {
     }
   }
 
-  /**
-   * @return returns the type of the expression
-   */
-  public String getType() {
-    return type;
-  }
+
 
   public String getExprType() {
     //if (this instanceof ASTEXPR)
     return "";
   }
 
-  /**
-   * @param type - sets the type of the current expression
-   */
-  public void setType(String type) {
-    this.type = type;
-  }
 
   /**
-   * Used for testing - Prints out contents of current AST node
+   *
    */
   @Override
   public void printContents() {
@@ -140,7 +126,7 @@ public class AST_Expr extends AST_Node {
   }
 
   /**
-   * Base class that is overriden, returns default NULL_REG
+   *
    */
 
   @Override
@@ -148,21 +134,10 @@ public class AST_Expr extends AST_Node {
     return RegisterARM.NULL_REG;
   }
 
-  /**
-   * @return returns the identifier of the attribute
-   */
-  public IDENTIFIER getIdentifier() {
-    return identifier;
-  }
 
-  public void setIdentifier(IDENTIFIER ident) {
-    this.identifier = ident;
-    System.out.println("Identifier is: " + identifier.getName());
-  }
 
   /**
-   * Doesn't produce any assembly code
-   * Doesn't use any registers
+   *
    */
 
 

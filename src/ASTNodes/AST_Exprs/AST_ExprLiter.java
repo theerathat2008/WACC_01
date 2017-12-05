@@ -118,7 +118,7 @@ public class AST_ExprLiter extends AST_Expr {
    */
   @Override
   public boolean CheckSemantics() {
-    System.out.println("LITERAAAAAAAAAL:" + literal);
+    System.out.println("LITERAL: " + literal);
     setType(literal);
     setType(literal);
 

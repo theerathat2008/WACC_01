@@ -90,7 +90,7 @@ public class AST_StatMult extends AST_Stat {
    */
   @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet) {
-    if (astToSet.equals("statement")) {
+    if (astToSet.equals("statement") || astToSet.equals("sideEffect")) {
       if (stat1 == null) {
         stat1 = (AST_Stat) nodeToSet;
       } else if (stat2 == null) {

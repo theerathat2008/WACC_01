@@ -25,6 +25,7 @@ stat : SKIPTOK                                         # SKIP_STAT
      | WHILE expr DO stat DONE                         # WHILE_STAT
      | BEGIN stat END                                  # BEGIN_END_STAT
      | stat SEMI_COLON stat                            # MULT_STAT
+     | side_effecting_expr                             # SIDE_EFFECT
      ;
 
 thenstat : stat ;
@@ -70,7 +71,19 @@ expr : INT_LITER                                      # INT_LITER_EXPR
      | IDENT                                          # IDENT_EXPR
      | IDENT (SQUARE_OPEN expr SQUARE_CLOSED )+       # ARRAY_ELEM_EXPR
      | OPEN_PAREN expr CLOSE_PAREN                    # ENCLOSED_EXPR
+     | side_effecting_expr                            # SIDE_EFFECT_EXPR
      ;
+
+side_effecting_expr : IDENT PLUS PLUS                  # IDENT_PLUS_PLUS
+                    | PLUS PLUS IDENT                  # PLUS_PLUS_IDENT
+                    | MINUS MINUS IDENT                # MINUS_MINUS_IDENT
+                    | IDENT MINUS MINUS                # IDENT_MINUS_MINUS
+                    | IDENT PLUS EQUAL expr            # IDENT_PLUS_EQUALS
+                    | IDENT MINUS EQUAL expr           # IDENT_MINUS_EQUALS
+                    | IDENT EQUAL expr                 # IDENT_EQUAL
+                    | IDENT MULT EQUAL expr            # IDENT_MULT_EQUALS
+                    | IDENT DIV EQUAL expr             # IDENT_DIV_EQUALS
+                    ;
 
 unaryOp : CHR | ORD | LEN | EXCL | MINUS ;
 
