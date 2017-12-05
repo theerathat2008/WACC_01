@@ -176,11 +176,26 @@ public class AST_ExprArrayElem extends AST_Expr {
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    //TODO SEE IF need result of these expressions
+    /*//TODO SEE IF need result of these expressions
     for (AST_Expr expr : ast_exprList) {
       expr.acceptRegister(registerAllocation);
-    }
-    return RegisterARM.NULL_REG;
+    }*/
+
+    //ARRAYLOCATIONREG: position of array - EITHER sp or reg in which array is stored
+    //FREEREGX: just any temporary register
+
+    //TODO: ATHI fix allocateRegisters below
+    //arrayElemInstr.allocateRegisters(RegisterARM.r0, RegisterARM.r1, FREEREG1, FREEREG2, FREEREG3, ARRAYLOCATIONREG);
+
+    //TODO: ATHI delete the below temporary code which was used to make code compile
+    arrayElemInstr.allocateRegisters(RegisterARM.r0, RegisterARM.r1, RegisterARM.r5, RegisterARM.r6, RegisterARM.r7, RegisterARM.r4);
+
+    //free the free regs
+
+    //TODO: ATHI return the arraylocationreg instead of r4
+    return RegisterARM.r4;
+
+
   }
 
   public void setExprType() {
