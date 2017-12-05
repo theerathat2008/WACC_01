@@ -1,6 +1,8 @@
 package ASTNodes.AST_Exprs;
 
+import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
+import ASTNodes.AST_Program;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionBlocks.InstructionCheck.InstructionCheckArrayBounds;
 import InstructionSet.InstructionDeclOrAss.InstructionAssArrayElem.InstructionAssArrayElem;
@@ -10,6 +12,7 @@ import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintB
 import Registers.RegisterARM;
 
 import Registers.RegisterAllocation;
+import Registers.RegisterUsage;
 import SymbolTable.SymbolTable;
 
 import java.util.ArrayDeque;
@@ -20,6 +23,8 @@ import VisitorClass.AST_NodeVisitor;
 
 import IdentifierObjects.*;
 
+import static Registers.RegisterUsageBuilder.aRegisterUsageBuilder;
+
 /**
  * Class representing node in AST tree for EXPRESSIONS that are Array Elements
  */
@@ -28,7 +33,7 @@ public class AST_ExprArrayElem extends AST_Expr {
   //Syntactic attributes
   String arrayName;
   int numOfExpr;
-  List<AST_Expr> ast_exprList;
+  List<AST_Expr> ast_exprList; //format was a[expr][expr]
   InstructionAssArrayElem arrayElemInstr;
   SymbolTable st;
 
@@ -59,7 +64,6 @@ public class AST_ExprArrayElem extends AST_Expr {
     }
     return returnList;
   }
-
   /**
    * Sets syntactic attributes of class variables by assigning it a value
    *
@@ -172,30 +176,67 @@ public class AST_ExprArrayElem extends AST_Expr {
    * Format is varName [ expr ]
    * Doesn't require any registers allocated
    * Could be used as an access point for arrays stores on the heap
+   * allocateRegisters(RegisterARM resultReg, RegisterARM posReg, RegisterARM arrayLocation)
+   *
+   * ArrayLocationReg is the memory address of the array variable
+   * posReg is just a temp reg
+   * resultReg is just temp reg and holds the final result i.e. the value at the array index
    */
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    /*//TODO SEE IF need result of these expressions
-    for (AST_Expr expr : ast_exprList) {
-      expr.acceptRegister(registerAllocation);
-    }*/
-
-    //ARRAYLOCATIONREG: position of array - EITHER sp or reg in which array is stored
-    //FREEREGX: just any temporary register
-
-    //TODO: ATHI fix allocateRegisters below
-    //arrayElemInstr.allocateRegisters(RegisterARM.r0, RegisterARM.r1, FREEREG1, FREEREG2, FREEREG3, ARRAYLOCATIONREG);
-
-    //TODO: ATHI delete the below temporary code which was used to make code compile
-    arrayElemInstr.allocateRegisters(RegisterARM.r0, RegisterARM.r1, RegisterARM.r5, RegisterARM.r6, RegisterARM.r7, RegisterARM.r4);
-
-    //free the free regs
-
-    //TODO: ATHI return the arraylocationreg instead of r4
-    return RegisterARM.r4;
 
 
+    RegisterUsage resultUsage = aRegisterUsageBuilder()
+        .withUsageType("resultType")
+        .withScope(registerAllocation.getCurrentScope())
+        .build();
+    RegisterARM result = registerAllocation.useRegister(resultUsage);
+
+    RegisterUsage tempReg = aRegisterUsageBuilder()
+        .withUsageType("tempType")
+        .withScope(registerAllocation.getCurrentScope())
+        .build();
+    RegisterARM tempPos = registerAllocation.useRegister(resultUsage);
+    registerAllocation.freeRegister(tempPos);
+
+    arrayElemInstr.allocateRegisters(result, tempPos);
+
+    //WORK OUT ARRAY LOCATION
+    boolean isFuncStat = true;
+    AST_Node tempNode = this;
+    while(!(tempNode instanceof AST_FuncDecl)){
+      tempNode = tempNode.getParentNode();
+      if(tempNode instanceof AST_Program){
+        //System.out.println(varName + " not in func stat");
+        isFuncStat = false;
+        break;
+      }
+    }
+
+    String stackLocation = "SP_NULL";
+    arrayElemInstr.allocateLocation(stackLocation, true);
+
+    if(isFuncStat){
+      String funcName = ((AST_FuncDecl) tempNode).getFuncName();
+      stackLocation = registerAllocation.searchByFuncVarValue(arrayName, funcName).name();
+      if(stackLocation.equals("NULL_REG")){
+        stackLocation = registerAllocation.getFuncStackLocation(funcName,arrayName);
+        arrayElemInstr.allocateLocation(stackLocation, true);
+      } else {
+        arrayElemInstr.allocateLocation(stackLocation, false);
+      }
+    } else {
+      stackLocation = registerAllocation.getStackLocation(arrayName);
+      if(stackLocation.equals("null")){
+        stackLocation = registerAllocation.searchByVarValue(arrayName).name();
+        arrayElemInstr.allocateLocation(stackLocation, false);
+      } else {
+        arrayElemInstr.allocateLocation(stackLocation, true);
+      }
+    }
+
+    return result;
   }
 
   public void setExprType() {
@@ -211,7 +252,7 @@ public class AST_ExprArrayElem extends AST_Expr {
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     InstructionAssArrayElem instructionAssArrayElem
             = new InstructionAssArrayElem(((AST_ExprLiter) ast_exprList.get(0)).constant, getType());
-    System.out.println("TODOOOOOOOOOO GET TYPE OF ARRAYELEM -> getType() above is incorrect");
+    //System.out.println("TODOOOOOOOOOO GET TYPE OF ARRAYELEM -> getType() above is incorrect");
     arrayElemInstr = instructionAssArrayElem;
     instructionList.add(arrayElemInstr);
 

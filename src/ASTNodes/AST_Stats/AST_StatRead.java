@@ -1,5 +1,6 @@
 package ASTNodes.AST_Stats;
 
+import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatArrayElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionRead;
@@ -262,6 +263,10 @@ public class AST_StatRead extends AST_Stat {
           return RegisterARM.NULL_REG;
         }
       }
+    } else if(ast_statAssignLHS instanceof AST_StatArrayElemLHS){
+
+    } else if(ast_statAssignLHS instanceof AST_StatPairElemLHS){
+
     }
 
     return RegisterARM.NULL_REG;
@@ -275,27 +280,41 @@ public class AST_StatRead extends AST_Stat {
    * Allocates one register
    */
 
-  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    String type = ast_statAssignLHS.getIdentifier().toString();
-    InstructionRead instructionRead = new InstructionRead(type);
-    //register allocation
-    instructionList.add(instructionRead);
-    instr = instructionRead;
 
-    int message = 0;
-    switch (type) {
-      case ("int"):
-        registerAllocation.addString(" %d\0");
-        InstructionReadBlocksInt instructionPrintReadInt = new InstructionReadBlocksInt(registerAllocation.getStringID(" %d\0"));
-        instructionList.add(instructionPrintReadInt);
-        break;
-      case ("char"):
-        registerAllocation.addString(" %c\0");
-        InstructionReadBlocksChar instructionPrintReadChar = new InstructionReadBlocksChar(registerAllocation.getStringID(" %c\0"));
-        instructionList.add(instructionPrintReadChar);
-        break;
-      default:
-        break;
+  public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    if(ast_statAssignLHS instanceof  AST_StatIdentLHS){
+
+      String type = ast_statAssignLHS.getIdentifier().toString();
+      InstructionRead instructionRead = new InstructionRead(type);
+      //register allocation
+      instructionList.add(instructionRead);
+      instr = instructionRead;
+
+      int message = 0;
+      switch (type) {
+        case ("int"):
+          registerAllocation.addString(" %d\0");
+          InstructionReadBlocksInt instructionPrintReadInt = new InstructionReadBlocksInt(registerAllocation.getStringID(" %d\0"));
+          instructionList.add(instructionPrintReadInt);
+          break;
+        case ("char"):
+          registerAllocation.addString(" %c\0");
+          InstructionReadBlocksChar instructionPrintReadChar = new InstructionReadBlocksChar(registerAllocation.getStringID(" %c\0"));
+          instructionList.add(instructionPrintReadChar);
+          break;
+        default:
+          break;
+      }
+
+    } else if(ast_statAssignLHS instanceof AST_StatArrayElemLHS){
+
+    } else if(ast_statAssignLHS instanceof AST_StatPairElemLHS){
+
     }
+
+
+
   }
+
+
 }

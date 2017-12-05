@@ -443,6 +443,11 @@ public class AST_StatAssign extends AST_Stat {
           return RegisterARM.NULL_REG;
         }
       }
+    } else if(ast_statAssignLHS instanceof AST_StatArrayElemLHS){
+
+
+    } else if(ast_statAssignLHS instanceof AST_StatPairElemLHS){
+
     }
     System.out.println("Nothing done in AST_StatAssign as lhs class was:  " + ast_statAssignLHS.getClass().getSimpleName());
     return RegisterARM.NULL_REG;
@@ -474,7 +479,13 @@ public class AST_StatAssign extends AST_Stat {
       InstructionAssignIdentLHS instructionAssignIdentLHS = new InstructionAssignIdentLHS(type);
       instructionList.add(instructionAssignIdentLHS);
       instrIdentLHS = instructionAssignIdentLHS;
+    } else if(ast_statAssignLHS instanceof AST_StatArrayElemLHS){
+
+
+
+
+    } else if(ast_statAssignLHS instanceof AST_StatPairElemLHS){
+
     }
-    //TODO other options for left hand size for ARRAY and PAIR
   }
 }
