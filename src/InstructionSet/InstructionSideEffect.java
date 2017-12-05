@@ -52,7 +52,7 @@ public class InstructionSideEffect extends Instruction{
       builder.append(reg2);
       builder.append("\n\t\tBLVS p_throw_overflow_error\n");
     } else if (op.equals("-=")) {
-      builder.append("ADDS ");
+      builder.append("SUBS ");
       builder.append(reg1);
       builder.append(", ");
       builder.append(reg1);

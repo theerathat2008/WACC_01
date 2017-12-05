@@ -3,6 +3,10 @@ package ASTNodes.AST_SideEffect;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionDivByZero;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorOverflow;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
+import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
 import InstructionSet.InstructionSideEffect;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
@@ -19,6 +23,7 @@ public class AST_SideEffectBinary extends AST_Expr{
   // IDENTIFIER identifier;
   AST_Expr expr;
   InstructionSideEffect instr;
+  String op;
 
   /**
    * Gets all children nodes of current node
@@ -46,7 +51,8 @@ public class AST_SideEffectBinary extends AST_Expr{
    */
   @Override
   public void setSyntacticAttributes(String value) {
-    System.out.println("Base AST Node");
+    //System.out.println("Base AST Node");
+    this.op = value;
   }
 
   /**
@@ -123,7 +129,8 @@ public class AST_SideEffectBinary extends AST_Expr{
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
+    expr.acceptInstr(assemblyCode);
+    assemblyCode.add(instr.block1);
   }
 
   /**
@@ -132,6 +139,8 @@ public class AST_SideEffectBinary extends AST_Expr{
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    //need registers for expr and identifier.
+    instr.allocateRegisters(RegisterARM.NULL_REG, RegisterARM.NULL_REG);
     return RegisterARM.NULL_REG;
   }
 
@@ -145,7 +154,28 @@ public class AST_SideEffectBinary extends AST_Expr{
 
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    System.out.println("Base class AST_Expr");
+    InstructionSideEffect instructionSideEffect = new InstructionSideEffect(op);
+    instr = instructionSideEffect;
+    instructionList.add(instructionSideEffect);
+
+    if (op.equals("/")) {
+      registerAllocation.addString("DivideByZeroError: divide or modulo by zero\\n\\0");
+      InstructionDivByZero divByZero = new InstructionDivByZero();
+      divByZero.setOutputMessageNumber(registerAllocation.
+              getStringID("DivideByZeroError: divide or modulo by zero\\n\\0"));
+      instructionList.add(divByZero);
+    } else {
+      registerAllocation.addString("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n");
+      InstructionErrorOverflow errorOverflow = new InstructionErrorOverflow(registerAllocation.
+              getStringID("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n"));
+      instructionList.add(errorOverflow);
+    }
+
+    registerAllocation.addString("%.*s\\0");
+    InstructionPrintBlocksString instructionPrintString = new InstructionPrintBlocksString(registerAllocation.getStringID("%.*s\\0"));
+    instructionList.add(instructionPrintString);
+
+    instructionList.add(new InstructionErrorRuntime());
   }
 
 }

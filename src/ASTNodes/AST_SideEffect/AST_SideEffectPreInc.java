@@ -90,6 +90,7 @@ public class AST_SideEffectPreInc extends AST_Expr {
    */
   @Override
   public boolean CheckSemantics() {
+    //Check identifier is an int
     return true;
   }
 
@@ -138,7 +139,10 @@ public class AST_SideEffectPreInc extends AST_Expr {
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     //TODO
+    instr.registerAllocation(RegisterARM.NULL_REG);
     return RegisterARM.NULL_REG;
+    //Uses register for IDENT that is used in expression
+
   }
 
 

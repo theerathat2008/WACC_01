@@ -2,6 +2,8 @@ package VisitorClass;
 
 import ASTNodes.*;
 import ASTNodes.AST_Exprs.*;
+import ASTNodes.AST_SideEffect.AST_SideEffectBinary;
+import ASTNodes.AST_SideEffect.AST_SideEffectPreInc;
 import ASTNodes.AST_Stats.*;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatArrayElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
@@ -1599,6 +1601,173 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Iterate through rest of the tree
     return visitChildren(ctx);
   }
+
+  @Override
+  public Void visitIDENT_PLUS_PLUS(WaccParser.IDENT_PLUS_PLUSContext ctx) {
+    return visitChildren(ctx);
+  }
+
+  @Override
+  public Void visitPLUS_PLUS_IDENT(WaccParser.PLUS_PLUS_IDENTContext ctx) {
+
+    AST_SideEffectPreInc sideEffectPreInc = new AST_SideEffectPreInc();
+
+    //Set currNode to corresponding embedded AST in parent node
+    parentVisitorNode.setEmbeddedAST("sideEffect", sideEffectPreInc);
+
+    //Set syntactic member variable in AST
+    sideEffectPreInc.setSyntacticAttributes("++X");
+
+    //Set parentNode of AST class and global visitor class
+    sideEffectPreInc.setParentNode(parentVisitorNode);
+    parentVisitorNode = sideEffectPreInc;
+
+    //Debug statement
+    System.out.println("plusPlusExpr");
+
+    //Iterate through rest of the tree
+    visitChildren(ctx);
+    return null;
+
+  }
+
+  @Override
+  public Void visitMINUS_MINUS_IDENT(WaccParser.MINUS_MINUS_IDENTContext ctx) {
+    AST_SideEffectPreInc sideEffectPreInc = new AST_SideEffectPreInc();
+
+    //Set currNode to corresponding embedded AST in parent node
+    parentVisitorNode.setEmbeddedAST("sideEffect", sideEffectPreInc);
+
+    //Set syntactic member variable in AST
+    sideEffectPreInc.setSyntacticAttributes("--X");
+
+    //Set parentNode of AST class and global visitor class
+    sideEffectPreInc.setParentNode(parentVisitorNode);
+    parentVisitorNode = sideEffectPreInc;
+
+    //Debug statement
+    System.out.println("minusMinusExpr");
+
+    //Iterate through rest of the tree
+    visitChildren(ctx);
+    return null;
+  }
+
+  @Override
+  public Void visitIDENT_MINUS_MINUS(WaccParser.IDENT_MINUS_MINUSContext ctx) {
+    return visitChildren(ctx);
+  }
+
+  @Override
+  public Void visitIDENT_PLUS_EQUALS(WaccParser.IDENT_PLUS_EQUALSContext ctx) {
+    AST_SideEffectBinary sideEffectBinary = new AST_SideEffectBinary();
+
+    //Set currNode to corresponding embedded AST in parent node
+    parentVisitorNode.setEmbeddedAST("sideEffect", sideEffectBinary);
+
+    //Set syntactic member variable in AST
+    sideEffectBinary.setSyntacticAttributes("+=");
+
+    //Set parentNode of AST class and global visitor class
+    sideEffectBinary.setParentNode(parentVisitorNode);
+    parentVisitorNode = sideEffectBinary;
+
+    //Debug statement
+    System.out.println("exprPlusEqual");
+
+    //Iterate through rest of the tree
+    visitChildren(ctx);
+    return null;
+  }
+
+  @Override
+  public Void visitIDENT_MINUS_EQUALS(WaccParser.IDENT_MINUS_EQUALSContext ctx) {
+    AST_SideEffectBinary sideEffectBinary = new AST_SideEffectBinary();
+
+    //Set currNode to corresponding embedded AST in parent node
+    parentVisitorNode.setEmbeddedAST("sideEffect", sideEffectBinary);
+
+    //Set syntactic member variable in AST
+    sideEffectBinary.setSyntacticAttributes("-=");
+
+    //Set parentNode of AST class and global visitor class
+    sideEffectBinary.setParentNode(parentVisitorNode);
+    parentVisitorNode = sideEffectBinary;
+
+    //Debug statement
+    System.out.println("exprMinusEqual");
+
+    //Iterate through rest of the tree
+    visitChildren(ctx);
+    return null;
+  }
+
+  @Override
+  public Void visitIDENT_EQUAL(WaccParser.IDENT_EQUALContext ctx) {
+    AST_SideEffectBinary sideEffectBinary = new AST_SideEffectBinary();
+
+    //Set currNode to corresponding embedded AST in parent node
+    parentVisitorNode.setEmbeddedAST("sideEffect", sideEffectBinary);
+
+    //Set syntactic member variable in AST
+    sideEffectBinary.setSyntacticAttributes("=");
+
+    //Set parentNode of AST class and global visitor class
+    sideEffectBinary.setParentNode(parentVisitorNode);
+    parentVisitorNode = sideEffectBinary;
+
+    //Debug statement
+    System.out.println("exprEqual");
+
+    //Iterate through rest of the tree
+    visitChildren(ctx);
+    return null;
+  }
+
+  @Override
+  public Void visitIDENT_MULT_EQUALS(WaccParser.IDENT_MULT_EQUALSContext ctx) {
+    AST_SideEffectBinary sideEffectBinary = new AST_SideEffectBinary();
+
+    //Set currNode to corresponding embedded AST in parent node
+    parentVisitorNode.setEmbeddedAST("sideEffect", sideEffectBinary);
+
+    //Set syntactic member variable in AST
+    sideEffectBinary.setSyntacticAttributes("*=");
+
+    //Set parentNode of AST class and global visitor class
+    sideEffectBinary.setParentNode(parentVisitorNode);
+    parentVisitorNode = sideEffectBinary;
+
+    //Debug statement
+    System.out.println("exprMultEqual");
+
+    //Iterate through rest of the tree
+    visitChildren(ctx);
+    return null;
+  }
+
+  @Override
+  public Void visitIDENT_DIV_EQUALS(WaccParser.IDENT_DIV_EQUALSContext ctx) {
+    AST_SideEffectBinary sideEffectBinary = new AST_SideEffectBinary();
+
+    //Set currNode to corresponding embedded AST in parent node
+    parentVisitorNode.setEmbeddedAST("sideEffect", sideEffectBinary);
+
+    //Set syntactic member variable in AST
+    sideEffectBinary.setSyntacticAttributes("/=");
+
+    //Set parentNode of AST class and global visitor class
+    sideEffectBinary.setParentNode(parentVisitorNode);
+    parentVisitorNode = sideEffectBinary;
+
+    //Debug statement
+    System.out.println("exprDivEqual");
+
+    //Iterate through rest of the tree
+    visitChildren(ctx);
+    return null;
+  }
+
 }
 
 
