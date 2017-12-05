@@ -35,15 +35,17 @@ public class InstructionPrint extends Instruction {
         return "p_print_string";
       case ("bool"):
         return "p_print_bool";
-      case ("array"):
-        return "p_print_reference";
       case ("char"):
         return "putchar";
+      case ("array"):
       case ("pair"):
         return "p_print_reference";
       case ("int"):
         return "p_print_int";
       default:
+        if (type.contains("[")) {
+          return "p_print_reference";
+        }
         System.out.println("Unrecognised type on InstructionPrintBlocks");
         System.out.println("Was type:" + type);
     }
