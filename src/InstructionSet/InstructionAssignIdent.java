@@ -9,11 +9,13 @@ public class InstructionAssignIdent extends Instruction {
   String reg;
   public String block1;
   boolean isStack;
+  String type;
 
-  public InstructionAssignIdent() {
+  public InstructionAssignIdent(String type) {
     this.location = "SP";
     this.reg = "reg";
     this.isStack = true;
+    this.type = type;
   }
 
   public void registerAllocation(RegisterARM reg) {
@@ -25,6 +27,14 @@ public class InstructionAssignIdent extends Instruction {
     this.isStack = isStack;
   }
 
+  public String getLDRType() {
+    switch (type) {
+      case ("bool"):
+        return "LDRSB ";
+      default:
+        return "LDR ";
+    }
+  }
   @Override
   public void genInstruction() {
 
@@ -32,7 +42,8 @@ public class InstructionAssignIdent extends Instruction {
 
     StringBuilder builder = new StringBuilder();
     if(isStack){
-      builder.append("\t\tLDR ");
+      builder.append("\t\t");
+      builder.append(getLDRType());
       builder.append(reg);
       builder.append(", ");
       builder.append(location);

@@ -259,8 +259,8 @@ public class AST_ExprIdent extends AST_Expr {
    */
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-
-    InstructionAssignIdent instructionAssignIdent = new InstructionAssignIdent();
+    String type = symbolTable.lookupAll(varName).toString();
+    InstructionAssignIdent instructionAssignIdent = new InstructionAssignIdent(type);
     instructionList.add(instructionAssignIdent);
     instr = instructionAssignIdent;
 
