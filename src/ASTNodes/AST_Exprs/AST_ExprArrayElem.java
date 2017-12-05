@@ -162,6 +162,31 @@ public class AST_ExprArrayElem extends AST_Expr {
     }
   }
 
+  /**
+   * General case to call acceptNode
+   * have to return as a list for arrays
+   * @param visitor
+   */
+  public List<Integer> acceptRootNode(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+
+    List<Integer> listResult = new ArrayList<>();
+
+    for (AST_Expr expr : ast_exprList) {
+      int result = 0;
+      if (expr instanceof AST_ExprLiter) {
+        result = ((AST_ExprLiter) expr).acceptNode(visitor);
+      } else if (expr instanceof AST_ExprBinary) {
+        result = ((AST_ExprBinary) expr).acceptNode(visitor);
+      } else if (expr instanceof AST_ExprUnary) {
+        result = ((AST_ExprUnary) expr).acceptNode(visitor);
+      }
+      listResult.add(result);
+    }
+
+    return listResult;
+  }
+
   @Override
   public void acceptInstr(List<String> assemblyCode) {
 

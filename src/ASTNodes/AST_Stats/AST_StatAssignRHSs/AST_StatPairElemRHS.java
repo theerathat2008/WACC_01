@@ -1,11 +1,10 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
+import ASTNodes.AST_Exprs.*;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionDeclOrAss.InstructionDeclAssPairElem;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
-import ASTNodes.AST_Exprs.AST_Expr;
-import ASTNodes.AST_Exprs.AST_ExprIdent;
 import ASTNodes.AST_Node;
 import ErrorMessages.TypeError;
 import ErrorMessages.FilePosition;
@@ -190,6 +189,26 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_expr.accept(visitor);
+  }
+
+  /**
+   * General case to call acceptNode
+   * @param visitor
+   */
+  public int acceptRootNode(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+
+    int result = 0;
+
+    if (ast_expr instanceof AST_ExprLiter) {
+      result = ((AST_ExprLiter) ast_expr).acceptNode(visitor);
+    } else if (ast_expr instanceof AST_ExprBinary) {
+      result = ((AST_ExprBinary) ast_expr).acceptNode(visitor);
+    } else if (ast_expr instanceof AST_ExprUnary) {
+      result = ((AST_ExprUnary) ast_expr).acceptNode(visitor);
+    }
+
+    return result;
   }
 
   @Override

@@ -1,15 +1,13 @@
 package ASTNodes.AST_Stats;
 
 
-import ASTNodes.AST_Exprs.AST_ExprEnclosed;
-import ASTNodes.AST_Exprs.AST_ExprIdent;
+import ASTNodes.AST_Exprs.*;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionWhile;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
-import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
 import ErrorMessages.TypeError;
 import ErrorMessages.FilePosition;
@@ -210,6 +208,26 @@ public class AST_StatWhile extends AST_Stat {
     assemblyCode.add(instr.loopEval);
     statAST.acceptInstr(assemblyCode);
     assemblyCode.add(instr.afterLoop);
+  }
+
+  /**
+   * General case to call acceptNode
+   * @param visitor
+   */
+  public int acceptRootNode(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+
+    int result = 0;
+
+    if (exprAST instanceof AST_ExprLiter) {
+      result = ((AST_ExprLiter) exprAST).acceptNode(visitor);
+    } else if (exprAST instanceof AST_ExprBinary) {
+      result = ((AST_ExprBinary) exprAST).acceptNode(visitor);
+    } else if (exprAST instanceof AST_ExprUnary) {
+      result = ((AST_ExprUnary) exprAST).acceptNode(visitor);
+    }
+
+    return result;
   }
 
   @Override

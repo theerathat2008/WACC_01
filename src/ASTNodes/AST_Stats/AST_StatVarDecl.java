@@ -1,8 +1,6 @@
 package ASTNodes.AST_Stats;
 
-import ASTNodes.AST_Exprs.AST_Expr;
-import ASTNodes.AST_Exprs.AST_ExprBinary;
-import ASTNodes.AST_Exprs.AST_ExprIdent;
+import ASTNodes.AST_Exprs.*;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatArrayLitRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;

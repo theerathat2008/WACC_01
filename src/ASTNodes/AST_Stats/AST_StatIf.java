@@ -1,7 +1,6 @@
 package ASTNodes.AST_Stats;
 
-import ASTNodes.AST_Exprs.AST_Expr;
-import ASTNodes.AST_Exprs.AST_ExprIdent;
+import ASTNodes.AST_Exprs.*;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
@@ -212,6 +211,26 @@ public class AST_StatIf extends AST_Stat {
     expr.accept(visitor);
     thenStat.accept(visitor);
     elseStat.accept(visitor);
+  }
+
+  /**
+   * General case to call acceptNode
+   * @param visitor
+   */
+  public int acceptRootNode(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+
+    int result = 0;
+
+    if (expr instanceof AST_ExprLiter) {
+      result = ((AST_ExprLiter) expr).acceptNode(visitor);
+    } else if (expr instanceof AST_ExprBinary) {
+      result = ((AST_ExprBinary) expr).acceptNode(visitor);
+    } else if (expr instanceof AST_ExprUnary) {
+      result = ((AST_ExprUnary) expr).acceptNode(visitor);
+    }
+
+    return result;
   }
 
   public void acceptInstr(List<String> assemblyList) {

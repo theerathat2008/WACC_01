@@ -27,6 +27,8 @@ stat : SKIPTOK                                         # SKIP_STAT
      | stat SEMI_COLON stat                            # MULT_STAT
      ;
 
+
+
 thenstat : stat ;
 
 elsestat : stat ;

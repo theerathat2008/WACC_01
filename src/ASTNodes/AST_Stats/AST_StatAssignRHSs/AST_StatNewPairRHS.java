@@ -1,6 +1,9 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
+import ASTNodes.AST_Exprs.AST_ExprBinary;
+import ASTNodes.AST_Exprs.AST_ExprLiter;
+import ASTNodes.AST_Exprs.AST_ExprUnary;
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionDeclOrAss.InstructionDeclAssArray.InstructionDeclAssArrayInt;
@@ -159,6 +162,41 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
     visitor.visit(this);
     ast_expr_first.accept(visitor);
     ast_expr_second.accept(visitor);
+  }
+
+  /**
+   * General case to call acceptNode
+   *
+   * @param visitor
+   */
+  public Pair acceptRootNode(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+
+    //TODO for returning, should we return as a pair or as an array or a list
+    //maybe return the pairType
+
+    int result1 = 0;
+
+    if (ast_expr_first instanceof AST_ExprLiter) {
+      result1 = ((AST_ExprLiter) ast_expr_first).acceptNode(visitor);
+    } else if (ast_expr_first instanceof AST_ExprBinary) {
+      result1 = ((AST_ExprBinary) ast_expr_first).acceptNode(visitor);
+    } else if (ast_expr_first instanceof AST_ExprUnary) {
+      result1 = ((AST_ExprUnary) ast_expr_first).acceptNode(visitor);
+    }
+
+    int result2 = 0;
+    if (ast_expr_second instanceof AST_ExprLiter) {
+      result2 = ((AST_ExprLiter) ast_expr_second).acceptNode(visitor);
+    } else if (ast_expr_second instanceof AST_ExprBinary) {
+      result2 = ((AST_ExprBinary) ast_expr_second).acceptNode(visitor);
+    } else if (ast_expr_second instanceof AST_ExprUnary) {
+      result2 = ((AST_ExprUnary) ast_expr_second).acceptNode(visitor);
+    }
+
+    Pair newPair = new Pair(result1, result2);
+
+    return newPair;
   }
 
   @Override
