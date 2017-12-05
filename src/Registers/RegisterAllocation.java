@@ -38,7 +38,7 @@ public class RegisterAllocation {
   /**
    * Map that stores a funcRegisters with the key being the funcName
    */
-  Map<String, Map<RegisterARM, RegisterUsage>> funcRegisters = new HashMap<>();
+  Map<String, Map<RegisterARM, RegisterUsage>> funcRegisters = new ConcurrentHashMap<>();
 
   /**
    * Map that takes a variable name and maps it to a StackLocation
@@ -411,6 +411,8 @@ public class RegisterAllocation {
       freeRegister(regToFree.get(j));
     }
   }
+
+
 
 
 

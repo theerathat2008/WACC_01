@@ -22,7 +22,7 @@ public class InstructionRead extends Instruction {
     this.usingStack = usingStack;
   }
 
-  public void allocateSP(String sp) {
+  public void allocateLocation(String sp) {
     this.sp = sp;
   }
 
@@ -65,18 +65,23 @@ public class InstructionRead extends Instruction {
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder();
+
+
     if(usingStack){
       builder.append("\t\tADD ");
       builder.append(interReg);
       builder.append(", ");
-      builder.append(sp);
+      int displacement = Integer.parseInt(sp.replaceAll("[\\D]", ""));
+      builder.append("sp");
       builder.append(", ");
-      builder.append("#0");
+      builder.append("#");
+      builder.append(displacement);
       builder.append("\n\t\tMOV ");
       builder.append(dstReg);
       builder.append(", ");
       builder.append(interReg);
     } else {
+      System.out.println();
       builder.append("\t\tMOV ");
       builder.append(dstReg);
       builder.append(", ");

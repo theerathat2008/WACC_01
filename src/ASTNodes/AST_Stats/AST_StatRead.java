@@ -1,5 +1,7 @@
 package ASTNodes.AST_Stats;
 
+import ASTNodes.AST_FuncDecl;
+import ASTNodes.AST_Program;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatArrayElemLHS;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
 import InstructionSet.Instruction;
@@ -223,6 +225,8 @@ public class AST_StatRead extends AST_Stat {
       AST_StatIdentLHS ast_statIdentLHS = (AST_StatIdentLHS)ast_statAssignLHS;
 
       String stackLocation = registerAllocation.getStackLocation(ast_statIdentLHS.getIdentName());
+
+
       if(stackLocation.equals("null")){
         //Not allocated on the stack
 
@@ -234,7 +238,7 @@ public class AST_StatRead extends AST_Stat {
         }
 
         instr.setUsingStack(false);
-        instr.allocateSP(stackLocation);
+        instr.allocateLocation(stackLocation);
         //Return the final store register
         return registerAllocation.searchByVarValue(ast_statIdentLHS.getIdentName());
 
@@ -258,7 +262,7 @@ public class AST_StatRead extends AST_Stat {
           registerAllocation.addToStack(identName, new StackLocation(location, scope));
 
           instr.setUsingStack(true);
-          instr.allocateSP(location);
+          instr.allocateLocation(location);
           //Return the null reg as the var is allocated to the stack
           return RegisterARM.NULL_REG;
         }
