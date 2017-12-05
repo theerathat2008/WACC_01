@@ -14,7 +14,7 @@ public class InstructionArithmetic extends Instruction {
   public InstructionArithmetic(String operand) {
     this.operand = operand;
     reg1 = "reg1";
-    reg2 = "reg2";
+    reg2 = "src";
   }
 
   public void allocateRegisters(RegisterARM dst, RegisterARM reg1, RegisterARM reg2) {

@@ -5,19 +5,19 @@ import Registers.RegisterARM;
 public class InstructionUnary extends Instruction {
 
   String dst;
-  String reg2;
+  String src;
   String op;
   public String block1;
 
   public InstructionUnary(String op) {
     this.op = op;
-    reg2 = "reg2";
-    dst = "dst";
+    this.src = "src";
+    this.dst = "dst";
   }
 
-  public void allocateRegisters(RegisterARM dst, RegisterARM reg2) {
+  public void allocateRegisters(RegisterARM dst, RegisterARM src) {
     this.dst = dst.name();
-    this.reg2 = reg2.name();
+    this.src = src.name();
   }
 
 
@@ -31,26 +31,26 @@ public class InstructionUnary extends Instruction {
         builder.append("EOR ");
         builder.append(dst);
         builder.append(", ");
-        builder.append(reg2);
+        builder.append(src);
         builder.append(", #1\n");
         break;
       case "-":
         builder.append("SUB ");
         builder.append(dst);
         builder.append(", =0 ");
-        builder.append(reg2);
+        builder.append(src);
         builder.append("\n");
         break;
       case "len":
         builder.append("LDR ");
         builder.append(dst);
         builder.append(", ");
-        builder.append(reg2);
+        builder.append("[" + src + "]");
         builder.append("\n");
         break;
       case "ord":
         builder.append("MOV R0, ");
-        builder.append(reg2);
+        builder.append(src);
         builder.append("\n");
         builder.append("\t\tBL PUTCHAR\n");
         builder.append("\t\tMOV ");
@@ -59,7 +59,7 @@ public class InstructionUnary extends Instruction {
         break;
       case "chr":
         builder.append("MOV R0, ");
-        builder.append(reg2);
+        builder.append(src);
         builder.append("\n");
         builder.append("\t\tBL PUTCHAR\n");
         builder.append("\t\tMOV ");

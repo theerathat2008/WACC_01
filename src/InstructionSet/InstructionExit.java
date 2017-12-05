@@ -16,7 +16,7 @@ public class InstructionExit extends Instruction {
     //this.exitCode = exitCode;
     this.resultBlock = "";
     reg1 = "reg1";
-    reg2 = "reg2";
+    reg2 = "src";
   }
 
   /**
@@ -32,7 +32,7 @@ public class InstructionExit extends Instruction {
 
   @Override
   public void genInstruction() {
-    //resultBlock.concat("\t\tLDR " +  reg2 + ", =" + exitCode + "\n");
+    //resultBlock.concat("\t\tLDR " +  src + ", =" + exitCode + "\n");
 
     StringBuilder block1 = new StringBuilder();
     block1.append("\t\tMOV ");

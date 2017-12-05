@@ -18,7 +18,7 @@ public class InstructionReturn extends Instruction {
     this.type = type;
     this.resultBlock = "";
     reg1 = "reg1";
-    reg2 = "reg2";
+    reg2 = "src";
   }
 
 

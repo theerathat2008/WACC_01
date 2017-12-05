@@ -12,7 +12,7 @@ public class InstructionPrint extends Instruction {
   public InstructionPrint(String type) {
     this.type = type;
     reg1 = "reg1";
-    reg2 = "reg2";
+    reg2 = "src";
   }
 
   public String getResultBlock() {
