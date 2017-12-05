@@ -397,10 +397,7 @@ public class AST_StatExpr extends AST_Stat {
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    //TODO Delete Unimplememnted Intstructionstatexpr class
 
-    //REGISTER ALLOCATION TODO
-    //SP ALLOCATION TODO
 
 
     switch (statName) {
@@ -468,14 +465,6 @@ public class AST_StatExpr extends AST_Stat {
               break;
             case ("pair"):
               //No break since pair and array are the same
-            case ("array"):
-              registerAllocation.addString("%p\\0");
-              InstructionPrintBlocksRef instructionPrintBlocksRef = new InstructionPrintBlocksRef(registerAllocation.getStringID("%p\\0"));
-
-              instructionList.add(instructionPrintBlocksRef);
-
-              instrPrintType = instructionPrintBlocksRef;
-              break;
 
             case ("bool"):
               registerAllocation.addString("true");
@@ -485,6 +474,15 @@ public class AST_StatExpr extends AST_Stat {
               instructionList.add(instructionPrintBool);
               instrPrintType = instructionPrintBool;
             default:
+              if(type.contains("[")){
+                registerAllocation.addString("%p\\0");
+                InstructionPrintBlocksRef instructionPrintBlocksRef = new InstructionPrintBlocksRef(registerAllocation.getStringID("%p\\0"));
+
+                instructionList.add(instructionPrintBlocksRef);
+
+                instrPrintType = instructionPrintBlocksRef;
+                
+              }
               break;
           }
 
