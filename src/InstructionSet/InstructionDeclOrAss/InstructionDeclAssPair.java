@@ -21,10 +21,10 @@ public class InstructionDeclAssPair extends Instruction {
     this.secondType = secondType;
     this.firstElem = firstElem;
     this.secondElem = secondElem;
-    regR0 = "regR0";
-    tempReg = "interReg";
-    tempPairAddressReg = "tempMemoryAddressReg";
-    finalPairAddressReg = "memoryLocationOfPair";
+    this.regR0 = "regR0";
+    this.tempReg = "interReg";
+    this.tempPairAddressReg = "tempMemoryAddressReg";
+    this.finalPairAddressReg = "memoryLocationOfPair";
   }
 
   public String getBlock1() {
@@ -39,11 +39,11 @@ public class InstructionDeclAssPair extends Instruction {
     return block3;
   }
 
-  public void allocateRegisters(RegisterARM regR0, RegisterARM tempReg, RegisterARM tempPairAddressReg, String finalPairAddressReg) {
+  public void allocateRegisters(RegisterARM regR0, RegisterARM tempReg, RegisterARM tempPairAddressReg) {
     this.regR0 = regR0.name();                                // Always R0
     this.tempReg = tempReg.name();                            // Any FREE REG
     this.tempPairAddressReg = tempPairAddressReg.name();      // Memory address for pair reg to be stored temporarily -> Any FREE REG
-    this.finalPairAddressReg = finalPairAddressReg;           // Either SP with displacement of where pair variable is stored
+    //this.finalPairAddressReg = finalPairAddressReg;           // Either SP with displacement of where pair variable is stored
                                                               // OR the register name holding the pair variable in the case of (totalvars <= 2)
   }
 //
@@ -89,6 +89,9 @@ public class InstructionDeclAssPair extends Instruction {
     builder.append("\n");
     block1 = builder.toString();
 
+    //LDR r5, =10 result of the evaluation of the fst pair
+    //r5 is the tempPairAddressReg
+
     builder = new StringBuilder();
 //    builder.append(getElemBlock(firstType, firstElem));  //maybe, not sure if this is intended use of this function
     builder.append("\t\tLDR ");
@@ -107,6 +110,9 @@ public class InstructionDeclAssPair extends Instruction {
     builder.append("]\n");
     block2 = builder.toString();
 
+    //LDR r5, =3 result of the evaluation of the snd pair
+    //reusing r5 as the tempPairAddessReg
+
     builder = new StringBuilder();
 //    builder.append(getElemBlock(secondType, secondElem)); //maybe, not sure if this is intended use of this function
     builder.append("\t\tLDR ");
@@ -122,11 +128,14 @@ public class InstructionDeclAssPair extends Instruction {
     builder.append(regR0);
     builder.append(", [");
     builder.append(tempReg);
-    builder.append(", #4]\n\t\tSTR ");
-    builder.append(tempReg);
-    builder.append(", [");
-    builder.append(finalPairAddressReg);
-    builder.append("]\n");
+    //TODO SIZE of displacement might be different in char cases
+    builder.append(", #4]\n");
+//    builder.append("\t\tSTR ");
+//    builder.append(tempReg);
+//    builder.append(", [");
+//    //finalPairAddressReg is either stored on the stack or register
+//    builder.append(finalPairAddressReg);
+//    builder.append("]\n");
     block3 = builder.toString();
   }
 

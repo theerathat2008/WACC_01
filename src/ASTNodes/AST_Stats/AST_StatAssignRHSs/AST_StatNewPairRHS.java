@@ -6,11 +6,14 @@ import InstructionSet.Instruction;
 import InstructionSet.InstructionDeclOrAss.InstructionDeclAssPair;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
+import Registers.RegisterUsage;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 import java.util.List;
+
+import static Registers.RegisterUsageBuilder.aRegisterUsageBuilder;
 
 /**
  * Class representing node in AST tree for NEW PAIR ASSIGNMENT
@@ -170,17 +173,29 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
     assemblyCode.add(instructionDeclAssPair.getBlock3());
   }
 
+  /**
+   * allocateRegisters(RegisterARM regR0, RegisterARM tempReg, RegisterARM tempPairAddressReg, String finalPairAddressReg)
+   */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
-    //TODO: Athi see allocateRegisters() in InstructionDeclAssPair for comments on what each register actually is
-    instructionDeclAssPair.allocateRegisters(RegisterARM.r0, RegisterARM.NULL_REG, RegisterARM.NULL_REG, "ADDRESSOFPAIR");
+    RegisterUsage usage = aRegisterUsageBuilder()
+        .withScope(registerAllocation.getCurrentScope())
+        .withUsageType("tempType")
+        .build();
 
-    ast_expr_first.acceptRegister(registerAllocation);
-    ast_expr_second.acceptRegister(registerAllocation);
+    RegisterARM tempReg = registerAllocation.useRegister(usage);
 
-    //TODO: return something useful
-    return RegisterARM.NULL_REG;
+
+    RegisterARM tempPairAddressReg = ast_expr_first.acceptRegister(registerAllocation);
+    registerAllocation.freeRegister(tempPairAddressReg);
+    tempPairAddressReg = ast_expr_second.acceptRegister(registerAllocation);
+    registerAllocation.freeRegister(tempPairAddressReg);
+
+
+    instructionDeclAssPair.allocateRegisters(RegisterARM.r0, tempReg, tempPairAddressReg);
+    
+    return tempReg;
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
