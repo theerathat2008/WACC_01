@@ -25,6 +25,7 @@ public class AST_SideEffectBinary extends AST_SideEffect{
   AST_Expr expr;
   InstructionSideEffect instr;
   String op;
+  String identName;
 
   /**
    * Gets all children nodes of current node
@@ -53,9 +54,18 @@ public class AST_SideEffectBinary extends AST_SideEffect{
   @Override
   public void setSyntacticAttributes(String value) {
     //System.out.println("Base AST Node");
-    this.op = value;
-    System.out.println("Attempting to set identifier to int");
-    setIdentifier(new BaseTypeObj(null, "int"));
+    if (op == null) {
+      this.op = value;
+      System.out.println("Attempting to set identifier to int");
+      setIdentifier(new BaseTypeObj(null, "int"));
+    } else if (identName == null) {
+      this.identName = value;
+    } else {
+      System.out.println("Error, no more attributes to assign");
+    }
+
+
+
   }
 
   /**
@@ -129,6 +139,7 @@ public class AST_SideEffectBinary extends AST_SideEffect{
   }
 
   public void accept(AST_NodeVisitor visitor) {
+    expr.accept(visitor);
     visitor.visit(this);
   }
 
@@ -139,12 +150,22 @@ public class AST_SideEffectBinary extends AST_SideEffect{
   }
 
   /**
-   * Base class that is overriden, returns default NULL_REG
+   * x+=5
+   * 5 is the result of the evaluation of the embedded expr
+   * x should be embedded in this ast class as identName
    */
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     //need registers for expr and identifier.
+    RegisterARM src = expr.acceptRegister(registerAllocation);
+    registerAllocation.freeRegister(src);
+    /*
+
+     */
+
+
+
     instr.allocateRegisters(RegisterARM.NULL_REG, RegisterARM.NULL_REG);
     return RegisterARM.NULL_REG;
   }

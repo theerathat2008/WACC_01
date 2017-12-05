@@ -1617,6 +1617,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Set syntactic member variable in AST
     sideEffectPreInc.setSyntacticAttributes("++X");
+    sideEffectPreInc.setSyntacticAttributes(ctx.IDENT().getText());
 
     //Set parentNode of AST class and global visitor class
     sideEffectPreInc.setParentNode(parentVisitorNode);
@@ -1650,6 +1651,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Set syntactic member variable in AST
     sideEffectPreInc.setSyntacticAttributes("--X");
+    sideEffectPreInc.setSyntacticAttributes(ctx.IDENT().getText());
 
     //Set parentNode of AST class and global visitor class
     sideEffectPreInc.setParentNode(parentVisitorNode);
@@ -1687,6 +1689,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Set syntactic member variable in AST
     sideEffectBinary.setSyntacticAttributes("+=");
+    sideEffectBinary.setSyntacticAttributes(ctx.IDENT().getText());
 
     //Set parentNode of AST class and global visitor class
     sideEffectBinary.setParentNode(parentVisitorNode);
@@ -1709,6 +1712,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Set syntactic member variable in AST
     sideEffectBinary.setSyntacticAttributes("-=");
+    sideEffectBinary.setSyntacticAttributes(ctx.IDENT().getText());
 
     //Set parentNode of AST class and global visitor class
     sideEffectBinary.setParentNode(parentVisitorNode);
@@ -1731,6 +1735,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Set syntactic member variable in AST
     sideEffectBinary.setSyntacticAttributes("=");
+    sideEffectBinary.setSyntacticAttributes(ctx.IDENT().getText());
 
     //Set parentNode of AST class and global visitor class
     sideEffectBinary.setParentNode(parentVisitorNode);
@@ -1753,6 +1758,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Set syntactic member variable in AST
     sideEffectBinary.setSyntacticAttributes("*=");
+    sideEffectBinary.setSyntacticAttributes(ctx.IDENT().getText());
 
     //Set parentNode of AST class and global visitor class
     sideEffectBinary.setParentNode(parentVisitorNode);
@@ -1775,6 +1781,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Set syntactic member variable in AST
     sideEffectBinary.setSyntacticAttributes("/=");
+    sideEffectBinary.setSyntacticAttributes(ctx.IDENT().getText());
 
     //Set parentNode of AST class and global visitor class
     sideEffectBinary.setParentNode(parentVisitorNode);

@@ -24,6 +24,7 @@ public class AST_SideEffectPreInc extends AST_SideEffect {
   // IDENTIFIER identifier;
   InstructionSideEffect instr;
   String op;
+  String identName;
 
   /**
    * Gets all children nodes of current node
@@ -51,9 +52,15 @@ public class AST_SideEffectPreInc extends AST_SideEffect {
    */
   @Override
   public void setSyntacticAttributes(String value) {
-    //System.out.println("Base AST Node");
-    this.op = value;
-    setIdentifier(new BaseTypeObj(null, "int"));
+    if (op == null) {
+      this.op = value;
+      System.out.println("Attempting to set identifier to int");
+      setIdentifier(new BaseTypeObj(null, "int"));
+    } else if (identName == null) {
+      this.identName = value;
+    } else {
+      System.out.println("Error, no more attributes to assign");
+    }
   }
 
   /**
