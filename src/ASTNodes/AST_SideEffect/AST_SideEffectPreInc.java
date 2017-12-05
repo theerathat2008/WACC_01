@@ -148,8 +148,10 @@ public class AST_SideEffectPreInc extends AST_SideEffect {
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     //TODO
-    instr.registerAllocation(RegisterARM.NULL_REG);
-    return RegisterARM.NULL_REG;
+
+    instr.registerAllocation(registerAllocation.searchByVarValue(identName));
+
+    return registerAllocation.searchByVarValue(identName);
     //Uses register for IDENT that is used in expression
 
   }

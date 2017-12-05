@@ -160,14 +160,10 @@ public class AST_SideEffectBinary extends AST_SideEffect{
     //need registers for expr and identifier.
     RegisterARM src = expr.acceptRegister(registerAllocation);
     registerAllocation.freeRegister(src);
-    /*
 
-     */
+    instr.allocateRegisters(registerAllocation.searchByVarValue(identName), src);
 
-
-
-    instr.allocateRegisters(RegisterARM.NULL_REG, RegisterARM.NULL_REG);
-    return RegisterARM.NULL_REG;
+    return registerAllocation.searchByVarValue(identName);
   }
 
 
