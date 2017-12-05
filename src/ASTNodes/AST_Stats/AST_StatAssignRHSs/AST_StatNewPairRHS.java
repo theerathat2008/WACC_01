@@ -172,13 +172,18 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+
+    //TODO: Athi see allocateRegisters() in InstructionDeclAssPair for comments on what each register actually is
+    instructionDeclAssPair.allocateRegisters(RegisterARM.r0, RegisterARM.NULL_REG, RegisterARM.NULL_REG, "ADDRESSOFPAIR");
+
     ast_expr_first.acceptRegister(registerAllocation);
     ast_expr_second.acceptRegister(registerAllocation);
+
+    //TODO: return something useful
     return RegisterARM.NULL_REG;
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    //TODO check if arguments are correct
     instructionDeclAssPair
         = new InstructionDeclAssPair(ast_expr_first.getType(), ast_expr_second.getType()
         , ast_expr_first.getIdentifier().toString(), ast_expr_second.getIdentifier().toString());

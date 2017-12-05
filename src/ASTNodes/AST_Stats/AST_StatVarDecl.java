@@ -365,9 +365,6 @@ public class AST_StatVarDecl extends AST_Stat {
    */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
-
-
     RegisterARM src = ast_assignRHS.acceptRegister(registerAllocation);
     registerAllocation.freeRegister(src);
     registerAllocation.printfreeReg();
