@@ -43,7 +43,7 @@ public class InstructionProgram extends Instruction {
 
     builder2.append("\t\tLDR r0, =0\n");
     builder2.append("\t\tPOP {pc}\n");
-    builder2.append("\t\t.ltorg\n");
+    builder2.append("\t\t.ltorg\n\n");
 
     block2 = builder2.toString();
   }
