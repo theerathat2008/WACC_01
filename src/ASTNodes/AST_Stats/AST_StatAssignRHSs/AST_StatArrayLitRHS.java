@@ -222,10 +222,18 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     RegisterARM result = RegisterARM.NULL_REG;
+    RegisterARM tempReg = null;
+
     for (AST_Expr expr : ast_exprList) {
       result = expr.acceptRegister(registerAllocation);
       registerAllocation.freeRegister(result);
+      tempReg = result;
     }
+
+    if (tempReg != null) {
+      registerAllocation.removeFreeRegister(tempReg);
+    }
+
 
     RegisterUsage usage = aRegisterUsageBuilder()
         .withScope(registerAllocation.getCurrentScope())
@@ -235,6 +243,8 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
     RegisterARM interReg = registerAllocation.useRegister(usage);
 
     instr.allocateRegisters(RegisterARM.r0, interReg, result);
+    registerAllocation.freeRegister(tempReg);
+    //instr.genInstruction();
 
     return interReg;
   }
@@ -258,7 +268,7 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     this.type = getTypeOfArray();
-    String strType = "";
+    String strType;
 
     if (type.equals("bool") || type.equals("char")) {
       strType = "STRB";

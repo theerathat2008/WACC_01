@@ -137,9 +137,10 @@ public class RegisterAllocation {
       case "string":
       case "str":
         return 4;
-
-
       default:
+        if (type.contains("[]")) {
+          return 4; //for arrays -> elements of the array are stored on the heap so no need to account for those in sp size
+        }
         return 4;
     }
   }
@@ -333,6 +334,10 @@ public class RegisterAllocation {
    */
   public void removeRegisterInUse(RegisterARM register) {
     registerInUse.remove(register);
+  }
+
+  public void removeFreeRegister(RegisterARM register) {
+    freeRegisters.remove(register);
   }
 
   /**

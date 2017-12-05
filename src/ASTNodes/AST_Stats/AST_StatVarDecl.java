@@ -410,9 +410,11 @@ public class AST_StatVarDecl extends AST_Stat {
 
       if (ast_assignRHS instanceof AST_StatArrayLitRHS) {
         AST_StatArrayLitRHS tempNode = (AST_StatArrayLitRHS) ast_assignRHS;
-        registerAllocation.setStackSize(registerAllocation.getStackSize() + tempNode.getArraySize());
+        registerAllocation.setStackSize(registerAllocation.getStackSize() + 4); //tempNode.getArraySize());
+        //registerAllocation.setFinalStackSize(registerAllocation.getStackSize() + 4);
       } else {
-        registerAllocation.setStackSize(registerAllocation.getStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
+        registerAllocation.setStackSize(registerAllocation.getStackSize() + 4); //+ registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
+        //registerAllocation.setFinalStackSize(registerAllocation.getStackSize() + 4);
       }
 
 
@@ -452,8 +454,12 @@ public class AST_StatVarDecl extends AST_Stat {
     InstructionVarDecl instructionVarDecl = new InstructionVarDecl(ast_type.getIdentifier().toString());
     instructionList.add(instructionVarDecl);
     instrVar = instructionVarDecl;
+    System.out.println("HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEE*************************: " + registerAllocation.getVarDeclCount());
+    System.out.println(ast_type.getIdentifier().toString());
     if(registerAllocation.getVarDeclCount() > 2) {
       System.out.println("Final stack size at var: " +ast_type.getIdentifier().toString() + " is " + registerAllocation.getFinalStackSize());
+      registerAllocation.setFinalStackSize(registerAllocation.getFinalStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
+    } else {
       registerAllocation.setFinalStackSize(registerAllocation.getFinalStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
     }
     registerAllocation.incVarDeclCount();
