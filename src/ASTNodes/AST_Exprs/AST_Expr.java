@@ -155,6 +155,11 @@ public class AST_Expr extends AST_Node {
     return identifier;
   }
 
+  public void setIdentifier(IDENTIFIER ident) {
+    this.identifier = ident;
+    System.out.println("Identifier is: " + identifier.getName());
+  }
+
   /**
    * Doesn't produce any assembly code
    * Doesn't use any registers

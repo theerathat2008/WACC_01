@@ -1625,6 +1625,16 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     //Debug statement
     System.out.println("plusPlusExpr");
 
+    //Set the parent node for terminal node
+    while (parentVisitorNode.isEmbeddedNodesFull()) {
+      if (parentVisitorNode.getClass().getSimpleName().equals("AST_Program")) {
+        System.out.println("End of visitor function");
+        break;
+      }
+      parentVisitorNode = parentVisitorNode.getParentNode();
+    }
+
+
     //Iterate through rest of the tree
     visitChildren(ctx);
     return null;
@@ -1647,6 +1657,16 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Debug statement
     System.out.println("minusMinusExpr");
+
+    //Set the parent node for terminal node
+    while (parentVisitorNode.isEmbeddedNodesFull()) {
+      if (parentVisitorNode.getClass().getSimpleName().equals("AST_Program")) {
+        System.out.println("End of visitor function");
+        break;
+      }
+      parentVisitorNode = parentVisitorNode.getParentNode();
+    }
+
 
     //Iterate through rest of the tree
     visitChildren(ctx);

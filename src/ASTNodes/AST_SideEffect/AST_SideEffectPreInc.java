@@ -2,6 +2,7 @@ package ASTNodes.AST_SideEffect;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
+import IdentifierObjects.BaseTypeObj;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorOverflow;
@@ -16,7 +17,7 @@ import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.List;
 
-public class AST_SideEffectPreInc extends AST_Expr {
+public class AST_SideEffectPreInc extends AST_SideEffect {
 
   //Syntactic attributes
   // String type;
@@ -50,8 +51,9 @@ public class AST_SideEffectPreInc extends AST_Expr {
    */
   @Override
   public void setSyntacticAttributes(String value) {
-    System.out.println("Base AST Node");
+    //System.out.println("Base AST Node");
     this.op = value;
+    setIdentifier(new BaseTypeObj(null, "int"));
   }
 
   /**

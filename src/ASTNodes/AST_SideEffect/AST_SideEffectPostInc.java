@@ -12,7 +12,7 @@ import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.List;
 
-public class AST_SideEffectPostInc extends AST_Expr {
+public class AST_SideEffectPostInc extends AST_SideEffect {
 
   // Syntactic attributes
   // String type;

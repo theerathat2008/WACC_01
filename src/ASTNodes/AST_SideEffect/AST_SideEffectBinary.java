@@ -2,6 +2,7 @@ package ASTNodes.AST_SideEffect;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Node;
+import IdentifierObjects.BaseTypeObj;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionDivByZero;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorOverflow;
@@ -16,7 +17,7 @@ import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.List;
 
-public class AST_SideEffectBinary extends AST_Expr{
+public class AST_SideEffectBinary extends AST_SideEffect{
 
   //Syntactic attributes
   // String type;
@@ -53,6 +54,8 @@ public class AST_SideEffectBinary extends AST_Expr{
   public void setSyntacticAttributes(String value) {
     //System.out.println("Base AST Node");
     this.op = value;
+    System.out.println("Attempting to set identifier to int");
+    setIdentifier(new BaseTypeObj(null, "int"));
   }
 
   /**
@@ -83,7 +86,9 @@ public class AST_SideEffectBinary extends AST_Expr{
    */
   @Override
   public void setEmbeddedAST(String astToSet, AST_Node nodeToSet) {
+    System.out.println("Embedded node in sideEffectBinary is: " + nodeToSet.toString());
     this.expr = (AST_Expr) nodeToSet;
+    System.out.println("Embedded node in sideEffectBinary is: " + expr.toString());
   }
 
   /**
