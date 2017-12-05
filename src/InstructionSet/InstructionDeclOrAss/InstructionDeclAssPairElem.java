@@ -52,12 +52,12 @@ public class InstructionDeclAssPairElem extends Instruction {
     builder.append(reg1);
     builder.append("]\n");
 
-//    resultBlock.concat("\t\tLDR " +  reg2 + ", [sp, #" + sp + "]\n");
-//    resultBlock.concat("\t\tMOV " +  reg1 + ", " + reg2 + "\n");
+//    resultBlock.concat("\t\tLDR " +  memoryAddressReg + ", [sp, #" + sp + "]\n");
+//    resultBlock.concat("\t\tMOV " +  regR0 + ", " + memoryAddressReg + "\n");
 //    resultBlock.concat("\t\tBL p_check_null_pointer\n");
-//    resultBlock.concat("\t\tLDR " +  reg2 + ", [" + reg2 + ", #" + getDisp() + "]\n");
-//    resultBlock.concat("\t\tLDR " +  reg2 + ", [" +  reg1 + "]\n");
-//    resultBlock.concat("\t\tSTR " +  reg2 + ", [" +  reg1 + "]\n");
+//    resultBlock.concat("\t\tLDR " +  memoryAddressReg + ", [" + memoryAddressReg + ", #" + getDisp() + "]\n");
+//    resultBlock.concat("\t\tLDR " +  memoryAddressReg + ", [" +  regR0 + "]\n");
+//    resultBlock.concat("\t\tSTR " +  memoryAddressReg + ", [" +  regR0 + "]\n");
     resultBlock = builder.toString();
   }
 

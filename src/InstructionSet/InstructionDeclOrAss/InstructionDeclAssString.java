@@ -20,7 +20,7 @@ public class InstructionDeclAssString extends Instruction {
 
   public void allocateSP(String sp) {
     this.sp = sp;
-    reg1 = "reg1";
+    reg1 = "regR0";
   }
 
   /**
@@ -36,7 +36,7 @@ public class InstructionDeclAssString extends Instruction {
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    //resultBlock.concat("\t\tLDR " + reg1 + ", =msg_" + msgNum + "\n");
+    //resultBlock.concat("\t\tLDR " + regR0 + ", =msg_" + msgNum + "\n");
     StringBuilder builder = new StringBuilder();
     builder.append("\t\tSTR ");
     builder.append(reg1);

@@ -9,9 +9,9 @@ public class InstructionArrayDeclAss extends Instruction {
   String resultBlock2 = "";
   int arraySize;
   int arrayLength;
-  String reg1;
-  String reg2;
-  String reg3;
+  String regR0; //Always r0
+  String memoryAddressReg;
+  String interTempReg;
   int disp;
   String strType;
 
@@ -22,10 +22,10 @@ public class InstructionArrayDeclAss extends Instruction {
     this.strType = strType;
   }
 
-  public void allocateRegisters(RegisterARM dst, RegisterARM inter, RegisterARM result) {
-    this.reg1 = dst.name();
-    this.reg2 = inter.name();
-    this.reg3 = result.name();
+  public void allocateRegisters(RegisterARM dst, RegisterARM inter, RegisterARM memoryAddress) {
+    this.regR0 = dst.name();
+    this.memoryAddressReg = memoryAddress.name();
+    this.interTempReg = inter.name();
   }
 
   public void setDisp(int disp) {
@@ -51,38 +51,37 @@ public class InstructionArrayDeclAss extends Instruction {
 
   /**
    * ResultBlock1
-   * LDR r0, =8  where r0 is reg1 a dstReg
+   * LDR r0, =arraySize  where r0 is regR0 a dstReg
    * BL malloc
-   * MOV r4, r0  where r4 is reg2 an intermediateReg
+   * MOV memoryAddressReg, r0  where r4 is memoryAddressReg an intermediateReg
    *
    * Expr evaluation
-   * LDR r5, =0 is from the evaluation of the expression
-   *              where r5 is reg3 a resultReg
+   * LDR interTempReg, =expressionEvaluation
    *
    * ResultBlock
-   * STR r5, [r4, #4]
+   * STR interTempReg, [memoryAddressReg, #displacement]
    *
    * ResultBlock2
-   * LDR r5, =1     where r5 is the resultReg
-   * STR r5, [r4]   where r4 is the intermediateReg
+   * LDR interTempReg, =arrayLength
+   * STR interTempReg, [memoryAddressReg]
    *
    */
 
   @Override
   public void genInstruction() {
-    StringBuilder block = new StringBuilder();
-    block.append("\t\t" + strType + " " + reg3 + ", [" + reg2 + ", #" + disp + "]\n");
-    resultBlock = block.toString();
-
     StringBuilder block1 = new StringBuilder();
-    block1.append("\t\tLDR " + reg1 + ", =" + arraySize + "\n");
+    block1.append("\t\tLDR " + regR0 + ", =" + arraySize + "\n");
     block1.append("\t\tBL malloc\n");
-    block1.append("\t\tMOV " + reg2 + ", " + reg1 + "\n");
+    block1.append("\t\tMOV " + memoryAddressReg + ", " + regR0 + "\n");
     resultBlock1 = block1.toString();
 
+    StringBuilder block = new StringBuilder();
+    block.append("\t\t" + strType + " " + interTempReg + ", [" + memoryAddressReg + ", #" + disp + "]\n");
+    resultBlock = block.toString();
+
     StringBuilder block2 = new StringBuilder();
-    block2.append("\t\tLDR " + reg3 + ", =" + arrayLength + "\n");
-    block2.append("\t\tSTR " + reg3 + ", [" + reg2 + "]\n");
+    block2.append("\t\tLDR " + interTempReg + ", =" + arrayLength + "\n");
+    block2.append("\t\tSTR " + interTempReg + ", [" + memoryAddressReg + "]\n");
     resultBlock2 = block2.toString();
   }
 

@@ -18,7 +18,7 @@ public class InstructionDeclAssBool extends Instruction {
   public InstructionDeclAssBool() {//String boolData, String sp) {
     //this.boolData = boolData;
     //this.sp = sp;
-    reg1 = "reg1";
+    reg1 = "regR0";
 
   }
 
@@ -46,7 +46,7 @@ public class InstructionDeclAssBool extends Instruction {
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    // resultBlock.concat("\t\tMOV " +  reg1 + ", #" + getBoolNum(boolData) + "\n");
+    // resultBlock.concat("\t\tMOV " +  regR0 + ", #" + getBoolNum(boolData) + "\n");
     StringBuilder builder = new StringBuilder();
     builder.append("\t\tSTRB ");
     builder.append(reg1);

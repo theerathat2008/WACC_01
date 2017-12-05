@@ -22,9 +22,9 @@ public class InstructionDeclAssPair extends Instruction {
     this.secondType = secondType;
     this.firstElem = firstElem;
     this.secondElem = secondElem;
-    reg1 = "reg1";
-    reg2 = "reg2";
-    reg3 = "reg3";
+    reg1 = "regR0";
+    reg2 = "memoryAddressReg";
+    reg3 = "interTempReg";
   }
 
   public String getBlock1() {
@@ -120,20 +120,20 @@ public class InstructionDeclAssPair extends Instruction {
     builder.append("]\n");
     block3 = builder.toString();
 
-//    resultBlock.concat("\t\tLDR " +  reg1 + ", =8" + "\n");
+//    resultBlock.concat("\t\tLDR " +  regR0 + ", =8" + "\n");
 //    resultBlock.concat("\t\tBL malloc\n");
-//    resultBlock.concat("\t\tMOV " +  reg2 + ", " + reg1 + "\n");
+//    resultBlock.concat("\t\tMOV " +  memoryAddressReg + ", " + regR0 + "\n");
 //    getElemBlock(firstType, firstElem);
-//    resultBlock.concat("\t\tLDR " +  reg1 + ", =" + getTypeInt() + "\n");
+//    resultBlock.concat("\t\tLDR " +  regR0 + ", =" + getTypeInt() + "\n");
 //    resultBlock.concat("\t\tBL malloc\n");
-//    resultBlock.concat("\t\tSTR " +  reg3 + ", [" +  reg1 + "]\n");
-//    resultBlock.concat("\t\tSTR " +  reg1 + ", [" +  reg2 + "]\n");
+//    resultBlock.concat("\t\tSTR " +  interTempReg + ", [" +  regR0 + "]\n");
+//    resultBlock.concat("\t\tSTR " +  regR0 + ", [" +  memoryAddressReg + "]\n");
 //    getElemBlock(secondType, secondElem);
-//    resultBlock.concat("\t\tLDR " +  reg1 + ", =" + getTypeInt() + "\n");
+//    resultBlock.concat("\t\tLDR " +  regR0 + ", =" + getTypeInt() + "\n");
 //    resultBlock.concat("\t\tBL malloc\n");
-//    resultBlock.concat("\t\tSTR " +  reg3 + ", [" +  reg1 + "]\n");
-//    resultBlock.concat("\t\tSTR " +  reg1 + ", [" +  reg2 + ", #4]\n");
-//    resultBlock.concat("\t\tSTR " +  reg2 + ", [sp, #" + sp2 + "]\n");
+//    resultBlock.concat("\t\tSTR " +  interTempReg + ", [" +  regR0 + "]\n");
+//    resultBlock.concat("\t\tSTR " +  regR0 + ", [" +  memoryAddressReg + ", #4]\n");
+//    resultBlock.concat("\t\tSTR " +  memoryAddressReg + ", [sp, #" + sp2 + "]\n");
   }
 
   @Override

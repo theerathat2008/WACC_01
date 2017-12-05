@@ -217,36 +217,28 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
   /**
    * Format is: [ (expr (COMMA expr)*)? ]
    * Returns null reg as statement evaluation isn't used
+   * allocateRegisters(r0, RegisterARM inter, RegisterARM memoryAddress)
    */
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    RegisterARM result = RegisterARM.NULL_REG;
-    RegisterARM tempReg = null;
-
-    for (AST_Expr expr : ast_exprList) {
-      result = expr.acceptRegister(registerAllocation);
-      registerAllocation.freeRegister(result);
-      tempReg = result;
-    }
-
-    if (tempReg != null) {
-      registerAllocation.removeFreeRegister(tempReg);
-    }
-
 
     RegisterUsage usage = aRegisterUsageBuilder()
         .withScope(registerAllocation.getCurrentScope())
-        .withUsageType("interType")
+        .withUsageType("resultType")
         .build();
 
-    RegisterARM interReg = registerAllocation.useRegister(usage);
+    RegisterARM memoryAddress = registerAllocation.useRegister(usage);
 
-    instr.allocateRegisters(RegisterARM.r0, interReg, result);
-    registerAllocation.freeRegister(tempReg);
-    //instr.genInstruction();
+    RegisterARM intertempReg = RegisterARM.NULL_REG;
 
-    return interReg;
+    for (AST_Expr expr : ast_exprList) {
+      intertempReg = expr.acceptRegister(registerAllocation);
+      registerAllocation.freeRegister(intertempReg);
+    }
+
+    instr.allocateRegisters(RegisterARM.r0, intertempReg, memoryAddress);
+    return memoryAddress;
   }
 
   public int getArraySize() {

@@ -370,6 +370,7 @@ public class AST_StatVarDecl extends AST_Stat {
 
     RegisterARM src = ast_assignRHS.acceptRegister(registerAllocation);
     registerAllocation.freeRegister(src);
+    registerAllocation.printfreeReg();
 
     RegisterUsage interUsage = aRegisterUsageBuilder()
         .withUsageType("statType")
@@ -454,12 +455,9 @@ public class AST_StatVarDecl extends AST_Stat {
     InstructionVarDecl instructionVarDecl = new InstructionVarDecl(ast_type.getIdentifier().toString());
     instructionList.add(instructionVarDecl);
     instrVar = instructionVarDecl;
-    System.out.println("HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEE*************************: " + registerAllocation.getVarDeclCount());
     System.out.println(ast_type.getIdentifier().toString());
     if(registerAllocation.getVarDeclCount() > 2) {
-      System.out.println("Final stack size at var: " +ast_type.getIdentifier().toString() + " is " + registerAllocation.getFinalStackSize());
-      registerAllocation.setFinalStackSize(registerAllocation.getFinalStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
-    } else {
+      //System.out.println("Final stack size at var: " +ast_type.getIdentifier().toString() + " is " + registerAllocation.getFinalStackSize());
       registerAllocation.setFinalStackSize(registerAllocation.getFinalStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
     }
     registerAllocation.incVarDeclCount();
