@@ -41,7 +41,6 @@ public class AST_StatVarDecl extends AST_Stat {
   SymbolTable symbolTable;
   InstructionVarDecl instrVar;
 
-
   /**
    * Assign the class variables when called
    *
@@ -388,7 +387,9 @@ public class AST_StatVarDecl extends AST_Stat {
 //      System.out.println("HIIIIIIIIIIIIIIT 2");
 //    }
 
-    if(registerAllocation.getVarRegSize() > 2){
+
+    registerAllocation.printStackOnlyVar();
+    if(registerAllocation.getVarRegSize() > 2 || (registerAllocation.checkIfOnStackOnlyVar(identName))){
 
 
       //set stack location
@@ -436,7 +437,6 @@ public class AST_StatVarDecl extends AST_Stat {
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-
     /**
      * Content of the RHS:-  AST_StatArrayLit:-  [0,0,0]                          ---
      *                       AST_StatCall:- return value of the function          --- Create InstructionCall
@@ -452,7 +452,7 @@ public class AST_StatVarDecl extends AST_Stat {
     instructionList.add(instructionVarDecl);
     instrVar = instructionVarDecl;
     System.out.println(ast_type.getIdentifier().toString());
-    if(registerAllocation.getVarDeclCount() > 2) {
+    if(registerAllocation.getVarDeclCount() > 2 || (registerAllocation.checkIfOnStackOnlyVar(identName))) {
       //System.out.println("Final stack size at var: " +ast_type.getIdentifier().toString() + " is " + registerAllocation.getFinalStackSize());
       registerAllocation.setFinalStackSize(registerAllocation.getFinalStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
     }

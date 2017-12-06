@@ -1,5 +1,6 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
+import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionDeclOrAss.InstructionArrayDeclAss;
 import Registers.RegisterARM;
@@ -259,6 +260,7 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+  //form [1,1,2,3]
     this.type = getTypeOfArray();
     String strType;
 

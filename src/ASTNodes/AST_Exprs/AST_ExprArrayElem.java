@@ -250,6 +250,12 @@ public class AST_ExprArrayElem extends AST_Expr {
    */
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    //Set a flag for acceptRegister in statVarDecl using a list in registerallocation to declare the var on the stack
+    // since it is used in read and the statarraylitrhs assembly code works with stacks
+
+    registerAllocation.addToStackOnlyVar(arrayName);
+
+
     InstructionAssArrayElem instructionAssArrayElem
             = new InstructionAssArrayElem(((AST_ExprLiter) ast_exprList.get(0)).constant, getType());
     //System.out.println("TODOOOOOOOOOO GET TYPE OF ARRAYELEM -> getType() above is incorrect");

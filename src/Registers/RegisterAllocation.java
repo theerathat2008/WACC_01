@@ -1,5 +1,7 @@
 package Registers;
 
+import org.antlr.v4.runtime.misc.MultiMap;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -28,6 +30,22 @@ public class RegisterAllocation {
   public void printfreeReg(){
     System.out.println(Arrays.toString(freeRegisters.toArray()));
   }
+
+  /**
+   * List that stores variables that have to be created on the stack
+   */
+  List<String> stackOnlyVar = new ArrayList<>();
+
+  public void addToStackOnlyVar(String varName){
+    stackOnlyVar.add(varName);
+  }
+  public boolean checkIfOnStackOnlyVar(String varName){
+    return stackOnlyVar.contains(varName);
+  }
+  public void printStackOnlyVar(){
+    System.out.println(Arrays.toString(stackOnlyVar.toArray()));
+  }
+
 
   /**
    * Map that stores variables declared

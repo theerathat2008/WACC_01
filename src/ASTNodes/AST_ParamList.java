@@ -195,13 +195,14 @@ public class AST_ParamList extends AST_Node {
     AST_FuncDecl tempNode = (AST_FuncDecl) parentNode;
     int counter = 0;
 
+
     for (AST_Param param : listParam) {
 
       if(registerAllocation.registersFull()){
         System.out.println("Should never be called in ParamList.");
         System.out.println("Registers full");
 
-      } else if(counter < 3){
+      } else if(counter < 3 && (!registerAllocation.checkIfOnStackOnlyVar(param.paramName))){
 
         //Reserve Registers for the functions
         RegisterUsage usage = aRegisterUsageBuilder()
@@ -230,13 +231,7 @@ public class AST_ParamList extends AST_Node {
           stackLocation.append(displacement);
           stackLocation.append("]");
         }
-//        TODO stack allocation for pairs and arrays
-//        if (ast_assignRHS instanceof AST_StatArrayLitRHS) {
-//          AST_StatArrayLitRHS tempNode = (AST_StatArrayLitRHS) ast_assignRHS;
-//          registerAllocation.setStackSize(registerAllocation.getStackSize() + tempNode.getArraySize());
-//        } else {
-//          registerAllocation.setStackSize(registerAllocation.getStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
-//        }
+
         registerAllocation.setStackSize(registerAllocation.getStackSize() + registerAllocation.getMemSize(param.ast_type.getIdentifier().toString()));
 
 
@@ -258,10 +253,20 @@ public class AST_ParamList extends AST_Node {
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     //Shouldn't generate any assembly code
+
+
     if(numOfParam > 3) {
       for(int i = 3; i < listParam.size(); i++){
         registerAllocation.setFinalStackSize(registerAllocation.getFinalStackSize() + registerAllocation.getMemSize(listParam.get(i).ast_type.getIdentifier().toString()));
       }
+    } else {
+      for(int i = 0; i < listParam.size(); i++){
+        if(registerAllocation.checkIfOnStackOnlyVar(listParam.get(i).paramName)){
+          registerAllocation.setFinalStackSize(registerAllocation.getFinalStackSize() + registerAllocation.getMemSize(listParam.get(i).ast_type.getIdentifier().toString()));
+        }
+      }
     }
   }
+
+
 }
