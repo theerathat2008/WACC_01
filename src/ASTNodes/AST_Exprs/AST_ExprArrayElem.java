@@ -214,6 +214,7 @@ public class AST_ExprArrayElem extends AST_Expr {
 
     arrayElemInstr.allocateRegisters(result, tempPos);
 
+
     //WORK OUT ARRAY LOCATION
     boolean isFuncStat = true;
     AST_Node tempNode = this;

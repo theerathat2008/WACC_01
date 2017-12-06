@@ -99,11 +99,17 @@ public class InstructionAssArrayElem extends Instruction {
       System.out.println("ARRAY LOCATION IS :  " + arrayLocationReg);
       builder.append(arrayLocationReg);
       builder.append("\n");
+      //resultReg = arrayLocationReg;
     }
+
+    //resultReg = r5
+    //posreg = r6
+
     builder.append("\t\tLDR ");
     builder.append(posReg);
     builder.append(", =");
     builder.append(pos);
+
     builder.append("\n\t\tLDR ");
     builder.append(resultReg);
     builder.append(", [");
@@ -123,6 +129,7 @@ public class InstructionAssArrayElem extends Instruction {
     builder.append(resultReg);
     builder.append(", #4\n");
     builder.append(getSTRLast());
+    builder.append("\t\tMOV r5, r4\n");
     resultBlock1 = builder.toString();
   }
 
