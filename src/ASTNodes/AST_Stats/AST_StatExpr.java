@@ -482,7 +482,7 @@ public class AST_StatExpr extends AST_Stat {
               instructionList.add(instructionPrintBool);
               instrPrintType = instructionPrintBool;
             default:
-              if(type.contains("[")){
+              if(type.contains("[") || type.contains("PAIR")){
                 registerAllocation.addString("%p\\0");
                 InstructionPrintBlocksRef instructionPrintBlocksRef = new InstructionPrintBlocksRef(registerAllocation.getStringID("%p\\0"));
 
@@ -491,6 +491,7 @@ public class AST_StatExpr extends AST_Stat {
                 instrPrintType = instructionPrintBlocksRef;
 
               }
+              System.out.println("type is : " + type);
               break;
           }
 
