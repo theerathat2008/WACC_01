@@ -142,6 +142,12 @@ public class AST_StatMult extends AST_Stat {
     }
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+    stat1.acceptPreProcess(regAlloc);
+    stat2.acceptPreProcess(regAlloc);
+  }
+
 
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);

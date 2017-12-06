@@ -157,6 +157,11 @@ public class AST_Param extends AST_Node {
     System.out.println("paramName: " + paramName);
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_type.accept(visitor);

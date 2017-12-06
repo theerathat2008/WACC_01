@@ -86,7 +86,10 @@ public class InstructionAssArrayElem extends Instruction {
       builder.append("\t\tADD ");
       builder.append(resultReg);
       builder.append(", ");
-      int displacement = Integer.parseInt(arrayLocationReg.replaceAll("[\\D]", ""));
+      int displacement = 0;
+      if(!arrayLocationReg.equals("[sp]")){
+        displacement = Integer.parseInt(arrayLocationReg.replaceAll("[\\D]", ""));
+      }
       builder.append("sp");
       builder.append(", #"+ displacement + "\n");
     } else {

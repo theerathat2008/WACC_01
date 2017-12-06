@@ -36,6 +36,10 @@ public class AST_VisitCodeGen implements AST_NodeVisitor {
 
   RegisterAllocation registerAllocation = new RegisterAllocation();
 
+  public RegisterAllocation getRegisterAllocation() {
+    return registerAllocation;
+  }
+
   AST_Node rootNode;
   String filename;
 

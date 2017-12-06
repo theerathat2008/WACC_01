@@ -116,6 +116,11 @@ public class AST_StatAssignRHS extends AST_Stat {
     System.out.println("BASE CLASS");
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+  }
+
   /**
    * @return returns the identifier of the attribute
    */

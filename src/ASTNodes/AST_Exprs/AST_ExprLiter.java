@@ -209,6 +209,11 @@ public class AST_ExprLiter extends AST_Expr {
     System.out.println("literal: " + literal);
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }

@@ -335,6 +335,12 @@ public class AST_ExprBinary extends AST_Expr {
     }
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+    exprLeftAST.acceptPreProcess(regAlloc);
+    exprRightAST.acceptPreProcess(regAlloc);
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     exprLeftAST.accept(visitor);

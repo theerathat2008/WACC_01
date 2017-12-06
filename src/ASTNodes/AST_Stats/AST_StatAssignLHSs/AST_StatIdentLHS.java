@@ -128,6 +128,11 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS {
     System.out.println("identName: " + identName);
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }

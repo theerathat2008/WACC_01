@@ -341,6 +341,12 @@ public class AST_StatVarDecl extends AST_Stat {
     }
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+    ast_assignRHS.acceptPreProcess(regAlloc);
+
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_type.accept(visitor);

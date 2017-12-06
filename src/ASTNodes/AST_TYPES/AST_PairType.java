@@ -151,6 +151,11 @@ public class AST_PairType extends AST_Type {
     }
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     pairElemTypeFst.accept(visitor);

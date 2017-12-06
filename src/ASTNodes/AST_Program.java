@@ -180,6 +180,14 @@ public class AST_Program extends AST_Node {
     symbolTable.printKeysTable(symbolTable);
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+    for (AST_FuncDecl func : funcDeclList) {
+      func.acceptPreProcess(regAlloc);
+    }
+    statement.acceptPreProcess(regAlloc);
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     for (AST_FuncDecl func : funcDeclList) {

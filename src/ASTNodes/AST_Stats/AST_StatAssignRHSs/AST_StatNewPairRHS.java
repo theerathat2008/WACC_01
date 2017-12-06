@@ -158,6 +158,12 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
     }
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+    ast_expr_first.acceptPreProcess(regAlloc);
+    ast_expr_second.acceptPreProcess(regAlloc);
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_expr_first.accept(visitor);

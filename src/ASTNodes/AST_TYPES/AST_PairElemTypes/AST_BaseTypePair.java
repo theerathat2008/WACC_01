@@ -127,6 +127,11 @@ public class AST_BaseTypePair extends AST_PairElemType {
     System.out.println("baseTypeName: " + baseTypeName);
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }

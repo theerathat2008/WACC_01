@@ -110,6 +110,11 @@ public class AST_PairElemType extends AST_Type {
     System.out.println("Base AST Node.");
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }

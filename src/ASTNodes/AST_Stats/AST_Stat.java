@@ -121,6 +121,11 @@ public class AST_Stat extends AST_Node {
     System.out.println("statName: " + statName);
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }

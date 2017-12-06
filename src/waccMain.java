@@ -57,6 +57,7 @@ public class waccMain {
     System.out.println("------------------CODE GENERATION--------------------");
     AST_VisitCodeGen codeGen = new AST_VisitCodeGen(args[0]);
     codeGen.setRootNode(root);
+    root.acceptPreProcess(codeGen.getRegisterAllocation());
     root.accept(codeGen);
 
     System.out.println("------------------CODE GENERATION--------------------");

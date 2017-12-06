@@ -155,6 +155,11 @@ public class AST_ExprEnclosed extends AST_Expr {
     }
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+    exprAST.acceptPreProcess(regAlloc);
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     leftSepAST.accept(visitor);

@@ -100,7 +100,7 @@ public abstract class AST_Node {
    */
   public abstract void printContents();
 
-
+  public abstract void acceptPreProcess(RegisterAllocation regAlloc);
 
   public abstract void accept(AST_NodeVisitor visitor);
 

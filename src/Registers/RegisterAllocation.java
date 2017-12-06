@@ -10,6 +10,24 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class RegisterAllocation {
 
+  /**
+   * Class Constructor - Adds all normal registers to the stack
+   * constructor for freeRegisters
+   */
+  public RegisterAllocation() {
+    stackSize = 0;
+    currentScope = "Global";
+    freeRegisters.push(RegisterARM.r12);
+    freeRegisters.push(RegisterARM.r11);
+    freeRegisters.push(RegisterARM.r10);
+    freeRegisters.push(RegisterARM.r9);
+    freeRegisters.push(RegisterARM.r8);
+    freeRegisters.push(RegisterARM.r7);
+    freeRegisters.push(RegisterARM.r6);
+    freeRegisters.push(RegisterARM.r5);
+    freeRegisters.push(RegisterARM.r4);
+  }
+
 
   /**
    * Stack holding all free registers
@@ -35,13 +53,13 @@ public class RegisterAllocation {
    * List that stores variables that have to be created on the stack
    */
   List<String> stackOnlyVar = new ArrayList<>();
-
   public void addToStackOnlyVar(String varName){
     stackOnlyVar.add(varName);
   }
   public boolean checkIfOnStackOnlyVar(String varName){
     return stackOnlyVar.contains(varName);
   }
+
   public void printStackOnlyVar(){
     System.out.println(Arrays.toString(stackOnlyVar.toArray()));
   }
@@ -216,24 +234,6 @@ public class RegisterAllocation {
     return "null";
   }
 
-
-  /**
-   * Class Constructor - Adds all normal registers to the stack
-   * constructor for freeRegisters
-   */
-  public RegisterAllocation() {
-    stackSize = 0;
-    currentScope = "Global";
-    freeRegisters.push(RegisterARM.r12);
-    freeRegisters.push(RegisterARM.r11);
-    freeRegisters.push(RegisterARM.r10);
-    freeRegisters.push(RegisterARM.r9);
-    freeRegisters.push(RegisterARM.r8);
-    freeRegisters.push(RegisterARM.r7);
-    freeRegisters.push(RegisterARM.r6);
-    freeRegisters.push(RegisterARM.r5);
-    freeRegisters.push(RegisterARM.r4);
-  }
 
   public List<String> getStringList() {
     return stringList;

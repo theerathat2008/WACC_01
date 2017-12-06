@@ -130,6 +130,11 @@ public class AST_StatIfElse extends AST_StatSubIf {
     symbolTable.printKeysTable(symbolTable);
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+    elseStat.acceptPreProcess(regAlloc);
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     elseStat.accept(visitor);

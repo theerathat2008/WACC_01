@@ -123,6 +123,11 @@ public class AST_Keyword extends AST_Node {
     System.out.println("keyword_name: " + keyword_name);
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }

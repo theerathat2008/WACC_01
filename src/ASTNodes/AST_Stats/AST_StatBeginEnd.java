@@ -128,6 +128,11 @@ public class AST_StatBeginEnd extends AST_Stat {
     symbolTable.printKeysTable(symbolTable);
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+    statAST.acceptPreProcess(regAlloc);
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     statAST.accept(visitor);

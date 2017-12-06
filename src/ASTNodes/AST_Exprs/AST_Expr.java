@@ -130,6 +130,11 @@ public class AST_Expr extends AST_Node {
     System.out.println("BASE TYPE");
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }

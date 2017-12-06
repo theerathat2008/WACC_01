@@ -374,6 +374,13 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
     }
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+    for (AST_Expr expr : ast_exprList) {
+      expr.acceptPreProcess(regAlloc);
+    }
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     for (AST_Expr expr : ast_exprList) {

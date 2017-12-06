@@ -158,6 +158,11 @@ public class AST_ExprIdent extends AST_Expr {
     System.out.println("varName: " + varName);
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+  }
+
   public String getVarName() {
     return varName;
   }

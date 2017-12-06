@@ -264,6 +264,14 @@ public class AST_FuncDecl extends AST_Node {
     symbolTable.printKeysTable(symbolTable);
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+    if (checkForParamList()) {
+      paramList.acceptPreProcess(regAlloc);
+    }
+    statement.acceptPreProcess(regAlloc);
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_type.accept(visitor);

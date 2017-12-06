@@ -233,6 +233,11 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
     }
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+    ast_expr.acceptPreProcess(regAlloc);
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_expr.accept(visitor);

@@ -137,6 +137,11 @@ public class AST_BaseType extends AST_Type {
     System.out.println("baseTypeName: " + baseTypeName);
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }

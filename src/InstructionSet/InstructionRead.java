@@ -71,7 +71,11 @@ public class InstructionRead extends Instruction {
       builder.append("\t\tADD ");
       builder.append(interReg);
       builder.append(", ");
-      int displacement = Integer.parseInt(sp.replaceAll("[\\D]", ""));
+      System.out.println(sp);
+      int displacement = 0;
+      if(!sp.equals("[sp]")){
+        displacement = Integer.parseInt(sp.replaceAll("[\\D]", ""));
+      }
       builder.append("sp");
       builder.append(", ");
       builder.append("#");
@@ -81,6 +85,7 @@ public class InstructionRead extends Instruction {
       builder.append(", ");
       builder.append(interReg);
     } else {
+      System.out.println("sp shouldn't be allocated using registers");
       builder.append("\t\tMOV ");
       builder.append(dstReg);
       builder.append(", ");

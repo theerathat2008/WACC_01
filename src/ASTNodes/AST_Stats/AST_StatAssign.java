@@ -356,6 +356,12 @@ public class AST_StatAssign extends AST_Stat {
     }
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+    ast_statAssignLHS.acceptPreProcess(regAlloc);
+    ast_statAssignRHS.acceptPreProcess(regAlloc);
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_statAssignLHS.accept(visitor);

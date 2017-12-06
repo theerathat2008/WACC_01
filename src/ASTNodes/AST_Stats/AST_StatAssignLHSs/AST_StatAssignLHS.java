@@ -142,6 +142,11 @@ public class AST_StatAssignLHS extends AST_Stat {
     this.identifier = identifier;
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }

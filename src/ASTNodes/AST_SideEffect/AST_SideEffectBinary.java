@@ -138,6 +138,11 @@ public class AST_SideEffectBinary extends AST_SideEffect{
     System.out.println("BASE TYPE");
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+    expr.acceptPreProcess(regAlloc);
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     expr.accept(visitor);
     visitor.visit(this);

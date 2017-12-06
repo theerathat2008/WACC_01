@@ -116,6 +116,11 @@ public class AST_SideEffectPostInc extends AST_SideEffect {
     System.out.println("BASE TYPE");
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }

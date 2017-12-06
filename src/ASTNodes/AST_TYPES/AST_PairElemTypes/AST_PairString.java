@@ -127,6 +127,11 @@ public class AST_PairString extends AST_PairElemType {
     System.out.println("pairString: " + pairString);
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+  }
+
   /**
    * @return returns the identifier of the attribute
    */

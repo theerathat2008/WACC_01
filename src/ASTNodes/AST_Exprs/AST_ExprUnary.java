@@ -331,6 +331,11 @@ public class AST_ExprUnary extends AST_Expr {
     }
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+    astExpr.acceptPreProcess(regAlloc);
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     astExpr.accept(visitor);

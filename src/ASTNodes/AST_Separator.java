@@ -123,6 +123,11 @@ public class AST_Separator extends AST_Node {
     System.out.println("separatorType: " + separatorType);
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }

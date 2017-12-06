@@ -170,6 +170,11 @@ public class AST_ParamList extends AST_Node {
 
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     for (AST_Param param : listParam) {

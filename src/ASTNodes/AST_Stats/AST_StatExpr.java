@@ -253,6 +253,11 @@ public class AST_StatExpr extends AST_Stat {
     }
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+    expr.acceptPreProcess(regAlloc);
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     expr.accept(visitor);

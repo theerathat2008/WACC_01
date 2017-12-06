@@ -197,6 +197,12 @@ public class AST_StatWhile extends AST_Stat {
     symbolTable.printKeysTable(symbolTable);
   }
 
+  @Override
+  public void acceptPreProcess(RegisterAllocation regAlloc) {
+    exprAST.acceptPreProcess(regAlloc);
+    statAST.acceptPreProcess(regAlloc);
+  }
+
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     exprAST.accept(visitor);
