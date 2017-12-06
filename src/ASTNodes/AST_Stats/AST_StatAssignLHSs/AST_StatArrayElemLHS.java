@@ -2,7 +2,9 @@ package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Exprs.AST_ExprLiter;
+import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
+import ASTNodes.AST_Program;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionBlocks.InstructionCheck.InstructionCheckArrayBounds;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
@@ -10,6 +12,7 @@ import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintB
 import InstructionSet.InstructionDeclOrAss.InstructionAssArrayElem.InstructionAssArrayElem;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
+import Registers.RegisterUsage;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 
@@ -19,6 +22,8 @@ import java.util.List;
 
 import IdentifierObjects.*;
 
+import static Registers.RegisterUsageBuilder.aRegisterUsageBuilder;
+
 /**
  * Class representing node in AST tree for DECLARING ARRAY VARIABLE
  */
@@ -26,7 +31,7 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
 
   //Syntactic attributes
   String identName;
-  List<AST_Expr> ast_exprList;
+  public List<AST_Expr> ast_exprList;
   int numOfExpr;
   InstructionAssArrayElem arrayElemInstr;
 
@@ -163,6 +168,11 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
 
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+    //Set a flag for acceptRegister in statVarDecl using a list in registerallocation to declare the var on the stack
+    // since it is used in read and the statarraylitrhs assembly code works with stacks
+    regAlloc.addToStackOnlyVar(identName);
+
     for (AST_Expr expr : ast_exprList) {
       expr.acceptPreProcess(regAlloc);
     }
@@ -180,7 +190,6 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
     for (AST_Expr expr : ast_exprList) {
       expr.acceptInstr(assemblyCode);
     }
-    assemblyCode.add(arrayElemInstr.getResultBlock1());
   }
 
   @Override
@@ -188,6 +197,7 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
     for (AST_Expr expr : ast_exprList) {
       expr.acceptRegister(registerAllocation);
     }
+
     return RegisterARM.NULL_REG;
   }
 
@@ -199,23 +209,9 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
    *
    */
 
-  public String getPosInArray(){
 
-    if (ast_exprList.get(0) instanceof AST_ExprLiter) {
-      System.out.println("Pos in arrray: " + ((AST_ExprLiter) ast_exprList.get(0)).getConstant());
-      return ((AST_ExprLiter) ast_exprList.get(0)).getConstant();
-    } else if (ast_exprList.get(0) instanceof AST_ExprLiter) {
-      System.out.println("TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-    }
-
-    return "getPosInArray() to be implemented";
-  }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    InstructionAssArrayElem instructionAssArrayElem
-            = new InstructionAssArrayElem(getPosInArray(), getType());
-    arrayElemInstr = instructionAssArrayElem;
-    instructionList.add(arrayElemInstr);
 
     //Puts out of bounds code in
     String neg = "ArrayIndexOutOfBoundsError: negative index\\n\\0";
