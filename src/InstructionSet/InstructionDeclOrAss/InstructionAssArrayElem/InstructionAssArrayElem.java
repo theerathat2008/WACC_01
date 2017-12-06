@@ -15,6 +15,7 @@ public class InstructionAssArrayElem extends Instruction {
   //String data;
   String type;
   String arrayLocationReg;
+  String tempArrayReg;
 
   public InstructionAssArrayElem(String posInArray, String type) {
     this.type = type;
@@ -27,12 +28,16 @@ public class InstructionAssArrayElem extends Instruction {
     this.isStack = false;
   }
 
-  public void allocateRegisters(RegisterARM resultReg, RegisterARM posReg) {
+  public void allocateRegisters(RegisterARM resultReg, RegisterARM posReg){ //, RegisterARM tempArrayReg) {
     this.regR0 = "r0"; //always r0
     this.regR1 = "r1"; //always r1
     //this.reg3 = reg3.name(); //any free reg
     this.resultReg = resultReg.name(); //any free reg
     this.posReg = posReg.name(); //any free reg
+    this.tempArrayReg = tempArrayReg.name();
+    System.out.println("***********************************************************************");
+    System.out.println("resultReg:" + resultReg);
+    System.out.println("posReg:" + posReg);
   }
 
   public void allocateLocation(String arrayLocation, boolean isStack){
@@ -57,12 +62,12 @@ public class InstructionAssArrayElem extends Instruction {
     switch (type) {
       case ("int"):
       case ("string"):
-        return "\t\tADD " + resultReg + ", " + resultReg + ", " + posReg
-                + ", LSL #2" + "\n\t\tLDR " + resultReg + ", [" + resultReg + "]\n";
+        return "\t\tADD " + tempArrayReg + ", " + tempArrayReg + ", " + posReg
+                + ", LSL #2" + "\n\t\tLDR " + tempArrayReg + ", [" + tempArrayReg + "]\n";
       case ("bool"):
       case ("char"):
-        return "\t\tADD " + resultReg + ", " + resultReg + ", " + posReg
-                + "\n\t\tLDRSB " + resultReg + ", " + "[" + resultReg + "]\n";
+        return "\t\tADD " + tempArrayReg + ", " + tempArrayReg + ", " + posReg
+                + "\n\t\tLDRSB " + tempArrayReg + ", " + "[" + tempArrayReg + "]\n";
     }
 
     return "Unrecognised type, instrassarrayelem->getStrlast\n";
@@ -96,13 +101,19 @@ public class InstructionAssArrayElem extends Instruction {
       System.out.println("ARRAY LOCATION IS :  " + arrayLocationReg);
       builder.append(arrayLocationReg);
       builder.append("\n");
+      //resultReg = arrayLocationReg;
     }
+
+    //resultReg = r5
+    //posreg = r6
+
     builder.append("\t\tLDR ");
     builder.append(posReg);
     builder.append(", =");
     builder.append(pos);
+
     builder.append("\n\t\tLDR ");
-    builder.append(resultReg);
+    builder.append(tempArrayReg);
     builder.append(", [");
     builder.append(resultReg);
     builder.append("]\n\t\tMOV ");
@@ -112,14 +123,15 @@ public class InstructionAssArrayElem extends Instruction {
     builder.append("\n\t\tMOV ");
     builder.append(regR1);
     builder.append(", ");
-    builder.append(resultReg);
+    builder.append(tempArrayReg);
     builder.append("\n\t\tBL p_check_array_bounds\n");
     builder.append("\t\tADD ");
-    builder.append(resultReg);
+    builder.append(tempArrayReg);
     builder.append(", ");
-    builder.append(resultReg);
+    builder.append(tempArrayReg);
     builder.append(", #4\n");
     builder.append(getSTRLast());
+    builder.append("\t\tMOV r5, r4\n");
     resultBlock1 = builder.toString();
   }
 
