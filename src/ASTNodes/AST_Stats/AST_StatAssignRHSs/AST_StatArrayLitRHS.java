@@ -245,7 +245,18 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
       registerAllocation.freeRegister(intertempReg);
     }
 
+    if (intertempReg.equals(RegisterARM.NULL_REG)) {
+      System.out.println("***************************************************NULLLLLLLLLLLLLLPOINTER");
+      RegisterUsage tempReg = aRegisterUsageBuilder()
+              .withUsageType("tempType")
+              .withScope(registerAllocation.getCurrentScope())
+              .build();
+      RegisterARM tempPos = registerAllocation.useRegister(tempReg);
+      intertempReg = tempPos;
+    }
+    
     instr.allocateRegisters(RegisterARM.r0, intertempReg, memoryAddress);
+    registerAllocation.freeRegister(intertempReg);
     return memoryAddress;
   }
 
