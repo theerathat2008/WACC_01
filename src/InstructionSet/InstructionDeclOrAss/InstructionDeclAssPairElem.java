@@ -16,6 +16,8 @@ public class InstructionDeclAssPairElem extends Instruction {
 
   public InstructionDeclAssPairElem(String pos) {
     this.pos = pos;
+    this.reg1 = "r0";
+    this.reg2 = "tempReg";
 
   }
 
@@ -32,11 +34,15 @@ public class InstructionDeclAssPairElem extends Instruction {
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder();
-    builder.append("\t\tLDR ");
-    builder.append(reg2);
-    builder.append(", [TODO-SP, #"); //[sp...]
-    builder.append("TODO-SP"); //var sp
-    builder.append("]\n\t\tMOV ");
+//    builder.append("\t\tLDR ");
+//    builder.append(reg2);
+//    builder.append(", ");
+//    builder.append(reg2 + "\n");
+    //reg2 is always in the format of a stack location i.e. [sp]
+
+    System.out.println("Result reg is : " + reg2);
+
+    builder.append("\t\tMOV ");
     builder.append(reg1);
     builder.append(", ");
     builder.append(reg2);
@@ -50,12 +56,13 @@ public class InstructionDeclAssPairElem extends Instruction {
     builder.append("]\n\t\tLDR ");
     builder.append(reg2);
     builder.append(", [");
-    builder.append(reg1);
-    builder.append("]\n\t\tSTR ");
     builder.append(reg2);
-    builder.append(", [");
-    builder.append(reg1);
     builder.append("]\n");
+//    builder.append("\t\tSTR ");
+//    builder.append(reg2);
+//    builder.append(", [");
+//    builder.append(reg1);
+//    builder.append("]\n");
 
 //    resultBlock.concat("\t\tLDR " +  memoryAddressReg + ", [sp, #" + sp + "]\n");
 //    resultBlock.concat("\t\tMOV " +  regR0 + ", " + memoryAddressReg + "\n");

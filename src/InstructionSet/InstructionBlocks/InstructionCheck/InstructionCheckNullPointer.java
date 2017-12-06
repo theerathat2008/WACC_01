@@ -22,7 +22,7 @@ public class InstructionCheckNullPointer extends InstructionCheck {
    */
   public void genInstruction() {
     StringBuilder builder = new StringBuilder();
-    builder.append("p_check_null_pointer:\n\t\tPUSH {lr}\n\t\tCMP ");
+    builder.append("\tp_check_null_pointer:\n\t\tPUSH {lr}\n\t\tCMP ");
     builder.append(reg1);
     builder.append(", #0\n\t\tLDREQ ");
     builder.append(reg1);

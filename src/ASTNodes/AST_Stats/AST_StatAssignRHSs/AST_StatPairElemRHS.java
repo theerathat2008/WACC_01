@@ -1,9 +1,13 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import InstructionSet.Instruction;
+import InstructionSet.InstructionBlocks.InstructionCheck.InstructionCheckNullPointer;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
+import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
 import InstructionSet.InstructionDeclOrAss.InstructionDeclAssPairElem;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
+import Registers.RegisterUsage;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
@@ -16,6 +20,8 @@ import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
 import java.util.List;
+
+import static Registers.RegisterUsageBuilder.aRegisterUsageBuilder;
 
 /**
  * Class representing node in AST tree for PAIR ASSIGNMENT
@@ -191,6 +197,11 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
 
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
+    //Set a flag for acceptRegister in statVarDecl using a list in registerallocation to declare the var on the stack
+    // since it is used in read and the statpairlemerhs assembly code works with stacks
+    AST_ExprIdent tempNode = (AST_ExprIdent)ast_expr;
+    regAlloc.addToStackOnlyVar(tempNode.getVarName());
+
     ast_expr.acceptPreProcess(regAlloc);
   }
 
@@ -201,21 +212,37 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
+
     ast_expr.acceptInstr(assemblyCode);
     assemblyCode.add(instructionDeclAssPairElem.getResultBlock());
   }
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    //TODO allocate registers - NULLREG is a temporary register holding the position of the pair
-    instructionDeclAssPairElem.allocateRegisters(RegisterARM.r0, RegisterARM.NULL_REG);
-    return ast_expr.acceptRegister(registerAllocation);
+
+    RegisterARM resultReg = ast_expr.acceptRegister(registerAllocation);
+
+    instructionDeclAssPairElem.allocateRegisters(RegisterARM.r0, resultReg);
+    return resultReg;
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     instructionDeclAssPairElem
         = new InstructionDeclAssPairElem(typeName);
     instructionList.add(instructionDeclAssPairElem);
+
+    registerAllocation.addString("NullReferenceError: dereference a null reference\\n\\0");
+    registerAllocation.addString("%.*s\\0");
+
+    instructionList.add(new InstructionCheckNullPointer(
+        registerAllocation.getStringID("NullReferenceError: dereference a null reference\\n\\0")));
+
+    instructionList.add(new InstructionErrorRuntime());
+    instructionList.add(new InstructionPrintBlocksString(
+        registerAllocation.getStringID("%.*s\\0")
+    ));
+
+
   }
 
   public AST_Expr getAst_expr() {
