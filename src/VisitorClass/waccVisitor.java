@@ -13,7 +13,10 @@ import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
 import ErrorMessages.FunctionRedeclarationError;
 import ErrorMessages.VariableRedeclarationError;
+import IdentifierObjects.BaseTypeObj;
+import IdentifierObjects.FunctionObj;
 import IdentifierObjects.IDENTIFIER;
+import IdentifierObjects.ParamListObj;
 import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_ArrayType;
 import ASTNodes.AST_TYPES.AST_BaseType;
@@ -24,6 +27,8 @@ import ASTNodes.AST_TYPES.AST_PairType;
 import ErrorMessages.FilePosition;
 
 import antlr.*;
+
+import java.util.Arrays;
 
 /**
  * Go through all the nodes in parse tree
@@ -44,6 +49,8 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
   //private field for storing current symbol table
   //and initialises it with Top level symbol table
   private SymbolTable currentGlobalTree = TOP_ST;
+
+
 
   /**
    * Get the root node of the tree
@@ -72,6 +79,22 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     }
   }
 
+  private void addStandardLibrary() {
+
+    currentGlobalTree.add("min", new FunctionObj("min", new BaseTypeObj("int"),
+            new ParamListObj(Arrays.asList(new BaseTypeObj("int"), new BaseTypeObj("int")))));
+    currentGlobalTree.add("max", new FunctionObj("max", new BaseTypeObj("int"),
+            new ParamListObj(Arrays.asList(new BaseTypeObj("int"), new BaseTypeObj("int")))));
+    currentGlobalTree.add("avg", new FunctionObj("avg", new BaseTypeObj("int"),
+            new ParamListObj(Arrays.asList(new BaseTypeObj("int"), new BaseTypeObj("int")))));
+    currentGlobalTree.add("pow", new FunctionObj("pow", new BaseTypeObj("int"),
+            new ParamListObj(Arrays.asList(new BaseTypeObj("int"), new BaseTypeObj("int")))));
+    currentGlobalTree.add("factorial", new FunctionObj("factorial", new BaseTypeObj("int"),
+            new ParamListObj(Arrays.asList(new BaseTypeObj("int")))));
+
+  }
+
+
 
   /**
    * ----------------------------------------------------------------------------------------
@@ -96,7 +119,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
 
     //Create the node for the current visitor function
     progBase = new AST_Program(ctx.getChildCount());
-
+    addStandardLibrary();
     //Set parentNode of AST class and global visitor class
     progBase.setParentNode(null);
     parentVisitorNode = progBase;

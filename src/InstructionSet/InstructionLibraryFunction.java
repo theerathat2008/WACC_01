@@ -11,7 +11,7 @@ import java.util.List;
 public class InstructionLibraryFunction extends Instruction {
 
   private String name;
-  private String block1;
+  public String block1;
   List<Instruction> instructionList;
   RegisterAllocation registerAllocation;
 
@@ -29,12 +29,12 @@ public class InstructionLibraryFunction extends Instruction {
   public void genInstruction() {
     StringBuilder builder = new StringBuilder("\tf_");
     builder.append(name);
-    builder.append("\n\t\t");
+    builder.append(":\n\t\t");
 
     if (name.equals("max")) {
       builder.append("PUSH {lr}\n");
-      builder.append("\t\tLDR r4, [sp, #4]\n");
-      builder.append("\t\tLDR r5, [sp, #8]\n");
+     // builder.append("\t\tLDR r4, [sp, #4]\n");
+     // builder.append("\t\tLDR r5, [sp, #8]\n");
       builder.append("\t\tCMP r4, r5\n");
       builder.append("\t\tMOVGT r4, #1\n");
       builder.append("\t\tMOVLE r4, #0\n");
@@ -50,7 +50,7 @@ public class InstructionLibraryFunction extends Instruction {
       builder.append("\t\tPOP {pc}\n");
       builder.append("\tL1_max:\n");
       builder.append("\t\tPOP {pc}\n");
-      builder.append("\t\t.ltorg");
+      builder.append("\t\t.ltorg\n");
       
     } else if (name.equals("min")) {
       builder.append("PUSH {lr}\n");
@@ -71,7 +71,7 @@ public class InstructionLibraryFunction extends Instruction {
       builder.append("\t\tPOP {pc}\n");
       builder.append("\tL1_min:\n");
       builder.append("\t\tPOP {pc}\n");
-      builder.append("\t\t.ltorg");
+      builder.append("\t\t.ltorg\n");
 
     } else if (name.equals("factorial")) {
       builder.append("PUSH {lr}\n");
@@ -125,7 +125,7 @@ public class InstructionLibraryFunction extends Instruction {
       builder.append("\t\tPUSH {lr}\n");
       builder.append("\t\tLDR r0, =0\n");
       builder.append("\t\tPOP {pc}\n");
-      builder.append("\t\t.ltorg");
+      builder.append("\t\t.ltorg\n");
 
       addOverflow(instructionList, registerAllocation);
 
@@ -144,7 +144,7 @@ public class InstructionLibraryFunction extends Instruction {
       builder.append("\t\tMOV r0, r4\n");
       builder.append("\t\tPOP {pc}\n");
       builder.append("\t\tPOP {pc}\n");
-      builder.append("\t\t.ltorg");
+      builder.append("\t\t.ltorg\n");
 
       addOverflow(instructionList, registerAllocation);
    //   addDivByZero(instructionList, registerAllocation);
@@ -197,7 +197,7 @@ public class InstructionLibraryFunction extends Instruction {
       builder.append("\t\tPOP {pc}\n");
       builder.append("\tL1_pow:\n");
       builder.append("\t\tPOP {pc}\n");
-      builder.append("\t\t.ltorg");
+      builder.append("\t\t.ltorg\n");
 
       addOverflow(instructionList, registerAllocation);
 

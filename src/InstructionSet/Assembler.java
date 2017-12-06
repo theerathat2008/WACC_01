@@ -129,6 +129,8 @@ public class Assembler {
         if (!(result.toString().contains(type + ":"))) {
           result.append(((InstructionBlocks) currInstr).getResultBlock());
         }
+      } else if (currInstr instanceof InstructionLibraryFunction) {
+        result.append(((InstructionLibraryFunction) currInstr).block1);
       }
     }
     return result.toString();
