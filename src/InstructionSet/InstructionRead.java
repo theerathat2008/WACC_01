@@ -81,7 +81,6 @@ public class InstructionRead extends Instruction {
       builder.append(", ");
       builder.append(interReg);
     } else {
-      System.out.println();
       builder.append("\t\tMOV ");
       builder.append(dstReg);
       builder.append(", ");
