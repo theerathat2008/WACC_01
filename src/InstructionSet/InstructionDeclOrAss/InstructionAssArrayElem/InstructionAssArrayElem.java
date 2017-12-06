@@ -4,24 +4,21 @@ import InstructionSet.Instruction;
 import Registers.RegisterARM;
 
 public class InstructionAssArrayElem extends Instruction {
-  String resultBlock1;
-  String regR0;
-  String regR1;
-  String resultReg;
-  String reg3;
-  String posReg;
-  String pos;
-  boolean isStack;
-  //String data;
-  String type;
-  String arrayLocationReg;
+  private String resultBlock1;
+  private String regR0;
+  private String regR1;
+  private String resultReg;
+  private String posReg;
+  private String pos;
+  private boolean isStack;
+  private String type;
+  private String arrayLocationReg;
 
   public InstructionAssArrayElem(String posInArray, String type) {
     this.type = type;
     this.pos = posInArray;
     this.regR0 = "arrayBoundReg1";
     this.regR1 = "regR1";
-    this.reg3 = "reg3";
     this.resultReg = "resultReg";
     this.posReg = "posReg";
     this.isStack = false;
@@ -30,7 +27,6 @@ public class InstructionAssArrayElem extends Instruction {
   public void allocateRegisters(RegisterARM resultReg, RegisterARM posReg) {
     this.regR0 = "r0"; //always r0
     this.regR1 = "r1"; //always r1
-    //this.reg3 = reg3.name(); //any free reg
     this.resultReg = resultReg.name(); //any free reg
     this.posReg = posReg.name(); //any free reg
   }
@@ -96,14 +92,11 @@ public class InstructionAssArrayElem extends Instruction {
       builder.append("\t\tMOV ");
       builder.append(resultReg);
       builder.append(", ");
-      System.out.println("ARRAY LOCATION IS :  " + arrayLocationReg);
+      //System.out.println("ARRAY LOCATION IS :  " + arrayLocationReg);
       builder.append(arrayLocationReg);
       builder.append("\n");
-      //resultReg = arrayLocationReg;
     }
 
-    //resultReg = r5
-    //posreg = r6
 
     builder.append("\t\tLDR ");
     builder.append(posReg);
@@ -144,31 +137,3 @@ public class InstructionAssArrayElem extends Instruction {
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-/*
-  public String getLoadData(){
-    switch (type) {
-      case ("int"):
-        return "\t\tMOV " + reg3 + ", =" + data + "\n";
-      case ("string"):
-        return "\t\tMOV " + reg3 + ", =msg_" + data + "\n";
-      case ("bool"):
-        return "\t\tMOV " + reg3 + ", #" + getBoolNum(data) + "\n";
-      case ("char"):
-        return "\t\tMOV " + reg3 + ", #'" + data + "'\n";
-    }
-
-    return "Unrecognised type, instrassarrayelem->getLoaddata\n";
-  }
-*/
-

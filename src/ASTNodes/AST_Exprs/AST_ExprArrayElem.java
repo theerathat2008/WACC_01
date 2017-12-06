@@ -266,7 +266,6 @@ public class AST_ExprArrayElem extends AST_Expr {
 
     InstructionAssArrayElem instructionAssArrayElem
             = new InstructionAssArrayElem(((AST_ExprLiter) ast_exprList.get(0)).constant, getType());
-    //System.out.println("TODOOOOOOOOOO GET TYPE OF ARRAYELEM -> getType() above is incorrect");
     arrayElemInstr = instructionAssArrayElem;
     instructionList.add(arrayElemInstr);
 

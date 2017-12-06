@@ -1,8 +1,13 @@
 package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
+import ASTNodes.AST_Exprs.AST_ExprLiter;
 import ASTNodes.AST_Node;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionBlocks.InstructionCheck.InstructionCheckArrayBounds;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
+import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
+import InstructionSet.InstructionDeclOrAss.InstructionAssArrayElem.InstructionAssArrayElem;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
@@ -23,6 +28,7 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
   String identName;
   List<AST_Expr> ast_exprList;
   int numOfExpr;
+  InstructionAssArrayElem arrayElemInstr;
 
   /**
    * Constructor for class - initialises class variables
@@ -174,6 +180,7 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
     for (AST_Expr expr : ast_exprList) {
       expr.acceptInstr(assemblyCode);
     }
+    assemblyCode.add(arrayElemInstr.getResultBlock1());
   }
 
   @Override
@@ -192,7 +199,48 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
    *
    */
 
+  public String getPosInArray(){
+
+    if (ast_exprList.get(0) instanceof AST_ExprLiter) {
+      System.out.println("Pos in arrray: " + ((AST_ExprLiter) ast_exprList.get(0)).getConstant());
+      return ((AST_ExprLiter) ast_exprList.get(0)).getConstant();
+    } else if (ast_exprList.get(0) instanceof AST_ExprLiter) {
+      System.out.println("TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+    }
+
+    return "getPosInArray() to be implemented";
+  }
+
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    InstructionAssArrayElem instructionAssArrayElem
+            = new InstructionAssArrayElem(getPosInArray(), getType());
+    arrayElemInstr = instructionAssArrayElem;
+    instructionList.add(arrayElemInstr);
+
+    //Puts out of bounds code in
+    String neg = "ArrayIndexOutOfBoundsError: negative index\\n\\0";
+    String large = "ArrayIndexOutOfBoundsError: index too large\\n\\0";
+    registerAllocation.addString(large);
+    registerAllocation.addString(neg);
+    int negIndex = registerAllocation.getStringID(neg);
+    int largeIndex = registerAllocation.getStringID(large);
+    InstructionCheckArrayBounds instructionCheckArrayBounds
+            = new InstructionCheckArrayBounds(negIndex, largeIndex);
+    if (!instructionList.contains(instructionCheckArrayBounds)) {
+      instructionList.add(instructionCheckArrayBounds);
+    }
+
+    InstructionErrorRuntime instructionErrorRuntime
+            = new InstructionErrorRuntime();
+    if (!instructionList.contains(instructionErrorRuntime)) {
+      instructionList.add(instructionErrorRuntime);
+    }
+
+    registerAllocation.addString("%.*s\\0");
+    InstructionPrintBlocksString instructionPrintString = new InstructionPrintBlocksString(registerAllocation.getStringID("%.*s\\0"));
+    if (!instructionList.contains(instructionPrintString)) {
+      instructionList.add(instructionPrintString);
+    }
   }
 
   public String getIdentName() {
