@@ -48,6 +48,7 @@ public class InstructionAssignIdentLHS extends Instruction {
   public String getLDRType() {
     switch (type) {
       case ("str"):
+      case ("string"):
         return "STR";
       case ("bool"):
         return "LDRSB";
@@ -89,6 +90,7 @@ public class InstructionAssignIdentLHS extends Instruction {
       builder.append(src);
       builder.append("\n");
     }
+    System.out.println("LOCATION: " + location);
     block1 = builder.toString();
 
 

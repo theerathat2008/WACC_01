@@ -442,6 +442,7 @@ public class AST_StatAssign extends AST_Stat {
           int displacement = registerAllocation.getStackSize();
           int memSize = registerAllocation.getMemSize(ast_statAssignLHS.getIdentifier().toString());
           builder.append(displacement + memSize);
+          builder.append("]");
           result = builder.toString();
 
           String identName = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
