@@ -197,17 +197,11 @@ public class AST_ExprArrayElem extends AST_Expr {
         .withUsageType("tempType")
         .withScope(registerAllocation.getCurrentScope())
         .build();
-    RegisterARM tempPos = registerAllocation.useRegister(tempReg);
+    RegisterARM tempPos = registerAllocation.useRegister(resultUsage);
     registerAllocation.freeRegister(tempPos);
 
-    RegisterUsage tempReg2 = aRegisterUsageBuilder()
-            .withUsageType("tempType")
-            .withScope(registerAllocation.getCurrentScope())
-            .build();
-    RegisterARM tempPos2 = registerAllocation.useRegister(tempReg2);
-    registerAllocation.freeRegister(tempPos);
+    arrayElemInstr.allocateRegisters(result, tempPos);
 
-    arrayElemInstr.allocateRegisters(result, tempPos); //, tempPos2);
 
     //WORK OUT ARRAY LOCATION
     boolean isFuncStat = true;
