@@ -473,9 +473,8 @@ public class AST_StatAssign extends AST_Stat {
 
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-
-    String type = ast_statAssignRHS.getIdentifier().toString();
     if (ast_statAssignLHS instanceof AST_StatIdentLHS){
+      String type = ast_statAssignRHS.getIdentifier().toString();
       InstructionAssignIdentLHS instructionAssignIdentLHS = new InstructionAssignIdentLHS(type);
       instructionList.add(instructionAssignIdentLHS);
       instrIdentLHS = instructionAssignIdentLHS;

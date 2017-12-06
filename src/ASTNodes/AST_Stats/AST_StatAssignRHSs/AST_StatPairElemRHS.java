@@ -27,6 +27,7 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
   AST_Expr ast_expr;
   ParserRuleContext ctx;
   SymbolTable symbolTable;
+  InstructionDeclAssPairElem instructionDeclAssPairElem;
 
   /**
    * Constructor for class - initialises class variables to NULL
@@ -196,16 +197,18 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     ast_expr.acceptInstr(assemblyCode);
+    assemblyCode.add(instructionDeclAssPairElem.getResultBlock());
   }
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    //TODO allocate registers - NULLREG is a temporary register holding the position of the pair
+    instructionDeclAssPairElem.allocateRegisters(RegisterARM.r0, RegisterARM.NULL_REG);
     return ast_expr.acceptRegister(registerAllocation);
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    //TODO use InstructionDeclAssPairElem
-    InstructionDeclAssPairElem instructionDeclAssPairElem
+    instructionDeclAssPairElem
         = new InstructionDeclAssPairElem(typeName);
     instructionList.add(instructionDeclAssPairElem);
   }

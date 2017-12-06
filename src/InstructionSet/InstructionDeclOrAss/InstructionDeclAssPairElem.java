@@ -4,6 +4,10 @@ import InstructionSet.Instruction;
 import Registers.RegisterARM;
 
 public class InstructionDeclAssPairElem extends Instruction {
+  public String getResultBlock() {
+    return resultBlock;
+  }
+
   String resultBlock = "";
   String pos;
   String sp;
@@ -20,8 +24,8 @@ public class InstructionDeclAssPairElem extends Instruction {
   }
 
   public void allocateRegisters(RegisterARM reg1, RegisterARM reg2) {
-    this.reg1 = reg1.name();
-    this.reg2 = reg2.name();
+    this.reg1 = reg1.name();  //always r0
+    this.reg2 = reg2.name();  //
   }
 
 
@@ -30,13 +34,14 @@ public class InstructionDeclAssPairElem extends Instruction {
     StringBuilder builder = new StringBuilder();
     builder.append("\t\tLDR ");
     builder.append(reg2);
-    builder.append(", [sp, #");
-    builder.append(sp);
+    builder.append(", [TODO-SP, #"); //[sp...]
+    builder.append("TODO-SP"); //var sp
     builder.append("]\n\t\tMOV ");
     builder.append(reg1);
     builder.append(", ");
     builder.append(reg2);
-    builder.append("\n\t\tBL p_check_null_pointer\n\t\tLDR ");
+    builder.append("\n\t\tBL p_check_null_pointer\n");
+    builder.append("\t\tLDR ");
     builder.append(reg2);
     builder.append(", [");
     builder.append(reg2);

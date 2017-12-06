@@ -253,7 +253,6 @@ public class AST_ExprArrayElem extends AST_Expr {
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     InstructionAssArrayElem instructionAssArrayElem
             = new InstructionAssArrayElem(((AST_ExprLiter) ast_exprList.get(0)).constant, getType());
-    //System.out.println("TODOOOOOOOOOO GET TYPE OF ARRAYELEM -> getType() above is incorrect");
     arrayElemInstr = instructionAssArrayElem;
     instructionList.add(arrayElemInstr);
 
