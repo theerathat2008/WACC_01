@@ -1,9 +1,8 @@
-package InstructionSet.InstructionDeclOrAss.InstructionAssArrayElem;
+package InstructionSet;
 
-import InstructionSet.Instruction;
 import Registers.RegisterARM;
 
-public class InstructionAssArrayElem extends Instruction {
+public class InstructionAccessArrayElem extends Instruction {
   private String resultBlock;
   private String regR0;
   private String regR1;
@@ -13,10 +12,9 @@ public class InstructionAssArrayElem extends Instruction {
   private boolean isStack;
   private String type;
   private String arrayLocationReg;
-  private String itemReg;
   boolean str;
 
-  public InstructionAssArrayElem(String posInArray, String type, boolean str) {
+  public InstructionAccessArrayElem(String posInArray, String type, boolean str) {
     this.type = type;
     this.pos = posInArray;
     this.regR0 = "arrayBoundReg1";
@@ -25,15 +23,13 @@ public class InstructionAssArrayElem extends Instruction {
     this.posReg = "posReg";
     this.isStack = false;
     this.str = str;
-    this.itemReg = "itemReg";
   }
 
-  public void allocateRegisters(RegisterARM resultReg, RegisterARM posReg, RegisterARM itemReg) {
+  public void allocateRegisters(RegisterARM resultReg, RegisterARM posReg) {
     this.regR0 = "r0"; //always r0
     this.regR1 = "r1"; //always r1
     this.resultReg = resultReg.name(); //any free reg
     this.posReg = posReg.name(); //any free reg
-    this.itemReg = itemReg.name();
   }
 
   public void allocateLocation(String arrayLocation, boolean isStack){
@@ -81,7 +77,7 @@ public class InstructionAssArrayElem extends Instruction {
         return "Unrecognised type, instrassarrayelem->getStrlast\n";
     }
 
-    builder.append(itemReg + ", [" + resultReg + "]\n");
+    builder.append(resultReg + ", [" + resultReg + "]\n");
     return builder.toString();
 
 

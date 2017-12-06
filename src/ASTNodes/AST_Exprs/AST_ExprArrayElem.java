@@ -4,8 +4,8 @@ import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionAccessArrayElem;
 import InstructionSet.InstructionBlocks.InstructionCheck.InstructionCheckArrayBounds;
-import InstructionSet.InstructionDeclOrAss.InstructionAssArrayElem.InstructionAssArrayElem;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
 import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
 
@@ -34,7 +34,7 @@ public class AST_ExprArrayElem extends AST_Expr {
   String arrayName;
   int numOfExpr;
   List<AST_Expr> ast_exprList; //format was a[expr][expr]
-  InstructionAssArrayElem arrayElemInstr;
+  InstructionAccessArrayElem arrayElemInstr;
   SymbolTable st;
 
   //Semantic attribute
@@ -180,7 +180,7 @@ public class AST_ExprArrayElem extends AST_Expr {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-    assemblyCode.add(arrayElemInstr.getResultBlock1());
+    assemblyCode.add(arrayElemInstr.getResultBlock());
   }
 
 
@@ -209,7 +209,7 @@ public class AST_ExprArrayElem extends AST_Expr {
         .withUsageType("tempType")
         .withScope(registerAllocation.getCurrentScope())
         .build();
-    RegisterARM tempPos = registerAllocation.useRegister(resultUsage);
+    RegisterARM tempPos = registerAllocation.useRegister(tempReg);
     registerAllocation.freeRegister(tempPos);
 
     arrayElemInstr.allocateRegisters(result, tempPos);
@@ -264,9 +264,9 @@ public class AST_ExprArrayElem extends AST_Expr {
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
-    InstructionAssArrayElem instructionAssArrayElem
-            = new InstructionAssArrayElem(((AST_ExprLiter) ast_exprList.get(0)).constant, getType());
-    arrayElemInstr = instructionAssArrayElem;
+    InstructionAccessArrayElem InstructionAccessArrayElem
+            = new InstructionAccessArrayElem(((AST_ExprLiter) ast_exprList.get(0)).constant, getType(), false);
+    arrayElemInstr = InstructionAccessArrayElem;
     instructionList.add(arrayElemInstr);
 
     //Puts out of bounds code in
