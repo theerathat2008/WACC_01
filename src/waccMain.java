@@ -84,7 +84,7 @@ public class waccMain {
     System.out.println("-- Compiling...");
 
 
-    CharStream inputString = CharStreams.fromString(outputText);
+    CharStream inputString = CharStreams.fromString(inputText);
 
     WaccLexer lexer = new WaccLexer(inputString);
 
