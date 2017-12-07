@@ -458,9 +458,17 @@ public class AST_StatAssign extends AST_Stat {
 
 
       assemblyCode.add(instrArrayElemLHS.getResultBlock1());
+      //assemblyCode.add("\n\n\n");
+      AST_Expr tempNode = ((AST_StatArrayElemLHS) ast_statAssignLHS).ast_exprList.get(0);
+      tempNode.acceptInstr(assemblyCode);
 
-      //assemblyCode.add("\n\t\tSOME CODE HERE\n");
+//      if (tempNode instanceof  AST_ExprIdent) {
+//        ((AST_ExprIdent) tempNode).acceptInstr(assemblyCode);
+//      } else if (tempNode instanceof  AST_ExprLiter) {
+//
+//      }
 
+      //assemblyCode.add("\n\n\n");
       assemblyCode.add(instrArrayElemLHS.getResultBlock2());
 
 
