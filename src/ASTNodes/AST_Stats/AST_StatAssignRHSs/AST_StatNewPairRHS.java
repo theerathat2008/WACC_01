@@ -14,6 +14,7 @@ import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.List;
 
 import static Registers.RegisterUsageBuilder.aRegisterUsageBuilder;
@@ -178,7 +179,7 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
    *
    * @param visitor
    */
-  public Pair acceptRootNode(AST_NodeVisitor visitor) {
+  public List<Integer> acceptRootNode(AST_NodeVisitor visitor) {
     visitor.visit(this);
 
     //TODO for returning, should we return as a pair or as an array or a list
@@ -203,7 +204,9 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
       result2 = ((AST_ExprUnary) ast_expr_second).acceptNode(visitor);
     }
 
-    Pair newPair = new Pair(result1, result2);
+    List<Integer> newPair = new ArrayList<>();
+    newPair.add(result1);
+    newPair.add(result2);
 
     return newPair;
   }
@@ -234,10 +237,12 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
     RegisterARM tempPairAddressReg = ast_expr_first.acceptRegister(registerAllocation);
     registerAllocation.freeRegister(tempPairAddressReg);
     tempPairAddressReg = ast_expr_second.acceptRegister(registerAllocation);
-    registerAllocation.freeRegister(tempPairAddressReg);
 
 
     instructionDeclAssPair.allocateRegisters(RegisterARM.r0, tempReg, tempPairAddressReg);
+    registerAllocation.freeRegister(tempPairAddressReg);
+
+    //registerAllocation.freeRegister(tempReg);
     
     return tempReg;
   }

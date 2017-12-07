@@ -1,14 +1,16 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.*;
+import ASTNodes.AST_FuncDecl;
+import ASTNodes.AST_Program;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionAccessPairElem;
 import InstructionSet.InstructionBlocks.InstructionCheck.InstructionCheckNullPointer;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
 import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
-import InstructionSet.InstructionDeclOrAss.InstructionDeclAssPairElem;
+import InstructionSet.InstructionDeclOrAss.InstructionAssPairElem;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
-import Registers.RegisterUsage;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
 import ErrorMessages.TypeError;
@@ -20,8 +22,6 @@ import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.List;
 
-import static Registers.RegisterUsageBuilder.aRegisterUsageBuilder;
-
 /**
  * Class representing node in AST tree for PAIR ASSIGNMENT
  */
@@ -32,7 +32,7 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
   AST_Expr ast_expr;
   ParserRuleContext ctx;
   SymbolTable symbolTable;
-  InstructionDeclAssPairElem instructionDeclAssPairElem;
+  InstructionAccessPairElem instructionAccessPairElem;
 
   /**
    * Constructor for class - initialises class variables to NULL
@@ -233,7 +233,7 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
   public void acceptInstr(List<String> assemblyCode) {
 
     ast_expr.acceptInstr(assemblyCode);
-    assemblyCode.add(instructionDeclAssPairElem.getResultBlock());
+    assemblyCode.add(instructionAccessPairElem.getResultBlock());
   }
 
   @Override
@@ -241,14 +241,56 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
 
     RegisterARM resultReg = ast_expr.acceptRegister(registerAllocation);
 
-    instructionDeclAssPairElem.allocateRegisters(RegisterARM.r0, resultReg);
+
+//    AST_ExprIdent ast_exprIdent = (AST_ExprIdent) ast_expr;
+//    String pairName = ast_exprIdent.getVarName();
+//
+//    boolean isFuncStat = true;
+//    AST_Node tempNode = this;
+//    while(!(tempNode instanceof AST_FuncDecl)){
+//      tempNode = tempNode.getParentNode();
+//      if(tempNode instanceof AST_Program){
+//        //System.out.println(varName + " not in func stat");
+//        isFuncStat = false;
+//        break;
+//      }
+//    }
+//
+//    String stackLocation = "SP_NULL";
+//    instructionAccessPairElem.allocateLocation(stackLocation);
+//
+//    if(isFuncStat){
+//      String funcName = ((AST_FuncDecl) tempNode).getFuncName();
+//      //stackLocation = registerAllocation.searchByFuncVarValue(((AST_StatPairElemLHS)ast_statAssignLHS).identifier.getName(), funcName).name();
+//
+//      stackLocation = registerAllocation.getFuncStackLocation(funcName, pairName);
+//      if(stackLocation.equals("null")){
+//        //Pairs always allocated on the stack
+//        System.out.println("ERROR, never should reach this case");
+//      }
+//      instructionAccessPairElem.allocateLocation(stackLocation);
+//
+//    } else {
+//
+//      stackLocation = registerAllocation.getStackLocation(pairName);
+//      if(stackLocation.equals("null")){
+//        //Pairs always allocated on the stack
+//        System.out.println("ERROR, never should reach this case");
+//      }
+//      instructionAccessPairElem.allocateLocation(stackLocation);
+//    }
+//
+//
+//    instructionAccessPairElem.allocateLocation(stackLocation);
+
+    instructionAccessPairElem.allocateRegisters(RegisterARM.r0, resultReg);
     return resultReg;
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-    instructionDeclAssPairElem
-        = new InstructionDeclAssPairElem(typeName);
-    instructionList.add(instructionDeclAssPairElem);
+    instructionAccessPairElem
+        = new InstructionAccessPairElem(typeName);
+    instructionList.add(instructionAccessPairElem);
 
     registerAllocation.addString("NullReferenceError: dereference a null reference\\n\\0");
     registerAllocation.addString("%.*s\\0");

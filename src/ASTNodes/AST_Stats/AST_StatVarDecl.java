@@ -3,12 +3,14 @@ package ASTNodes.AST_Stats;
 import ASTNodes.AST_Exprs.*;
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
+<<<<<<< HEAD
 import ASTNodes.AST_Program;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatArrayLitRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
+=======
+import ASTNodes.AST_Stats.AST_StatAssignRHSs.*;
+>>>>>>> 7addff1f761d139d43e99a8c126a7151f1fb59f3
 
-import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
-import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatPairElemRHS;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionVarDecl;
@@ -343,6 +345,17 @@ public class AST_StatVarDecl extends AST_Stat {
 
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
+<<<<<<< HEAD
+=======
+
+    if(ast_assignRHS instanceof AST_StatNewPairRHS){
+      //Set a flag for acceptRegister in statVarDecl using a list in registerallocation to declare the var on the stack
+      // since it is used in read and the statarraylitrhs assembly code works with stacks
+      regAlloc.addToStackOnlyVar(identName);
+    }
+
+    ast_assignRHS.acceptPreProcess(regAlloc);
+>>>>>>> 7addff1f761d139d43e99a8c126a7151f1fb59f3
 
     //Set a flag for acceptRegister in statVarDecl using a list in registerallocation to declare the var on the stack
     // since it is used in read and the aststatvardecl assembly code works with stacks
