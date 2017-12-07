@@ -215,6 +215,7 @@ public class AST_ParamList extends AST_Node {
             .withVarName(param.paramName)
             .withScope(registerAllocation.getCurrentScope())
             .withFuncName(tempNode.funcName)
+            .withParamCallPos(counter)
             .build();
         RegisterARM funcReg = registerAllocation.useRegister(usage);
         counter++;
@@ -241,11 +242,12 @@ public class AST_ParamList extends AST_Node {
 
         registerAllocation.setStackSize(registerAllocation.getStackSize() + registerAllocation.getMemSize(param.ast_type.getIdentifier().toString()));
 
+        StackLocation stackLocationClass = new StackLocation(stackLocation.toString(), registerAllocation.getCurrentScope());
+        stackLocationClass.setPos(counter);
+        counter++;
 
-        registerAllocation.addToStack(param.getParamName(), new StackLocation(stackLocation.toString()
-            , registerAllocation.getCurrentScope()));
-        registerAllocation.addToFuncStack(((AST_FuncDecl) parentNode).funcName, param.getParamName()
-            , new StackLocation(stackLocation.toString(), registerAllocation.getCurrentScope()));
+        registerAllocation.addToStack(param.getParamName(), stackLocationClass);
+        registerAllocation.addToFuncStack(((AST_FuncDecl) parentNode).funcName, param.getParamName(), stackLocationClass);
       }
     }
 

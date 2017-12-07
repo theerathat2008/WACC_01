@@ -27,6 +27,15 @@ public class RegisterUsage {
   String funcName;
   String varName;
   String operationType;
+  int paramCallPos;
+
+  public int getParamCallPos() {
+    return paramCallPos;
+  }
+
+  public void setParamCallPos(int paramCallPos) {
+    this.paramCallPos = paramCallPos;
+  }
 
   public void setScope(String scope) {
     this.scope = scope;
