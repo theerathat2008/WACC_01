@@ -35,6 +35,7 @@ import java.util.ArrayDeque;
 import java.util.List;
 
 import static java.lang.System.exit;
+import static java.lang.System.setOut;
 
 /**
  * Class representing node in AST tree for ASSIGNMENT STATEMENTS
@@ -125,6 +126,7 @@ public class AST_StatAssign extends AST_Stat {
     if (astToSet.equals("ast_statAssignLHS")) {
       ast_statAssignLHS = (AST_StatAssignLHS) nodeToSet;
     } else if (astToSet.equals("statAssignRHS")) {
+      System.out.println("Set right hand node in statAssign");
       ast_statAssignRHS = (AST_StatAssignRHS) nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
@@ -488,7 +490,10 @@ public class AST_StatAssign extends AST_Stat {
           instrIdentLHS.registerAllocation(regRight);
           instrIdentLHS.setUsingStack(false);
           instrIdentLHS.allocateLocation(stackLocation);
+          System.out.println("Stack location is : "+ stackLocation);
         } else {
+          System.out.println("Reg right is : "+ regRight.name());
+          System.out.println(instrIdentLHS.toString());
           instrIdentLHS.registerAllocation(regRight);
           instrIdentLHS.setUsingStack(true);
           instrIdentLHS.allocateLocation(stackLocation);
@@ -596,6 +601,7 @@ public class AST_StatAssign extends AST_Stat {
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     if (ast_statAssignLHS instanceof AST_StatIdentLHS){
       String type = ast_statAssignRHS.getIdentifier().toString();
+      System.out.println("Type of ident is: " + type);
       InstructionAssignIdentLHS instructionAssignIdentLHS = new InstructionAssignIdentLHS(type);
       instructionList.add(instructionAssignIdentLHS);
       instrIdentLHS = instructionAssignIdentLHS;
