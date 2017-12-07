@@ -3,6 +3,9 @@ package InstructionSet;
 import ASTNodes.AST_Node;
 import InstructionSet.InstructionBlocks.InstructionBlocks;
 
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorOverflow;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
+import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
 import Registers.RegisterAllocation;
 
 import java.io.BufferedWriter;
@@ -69,10 +72,33 @@ public class Assembler {
     rootNode.acceptRegister(registerAlloc);
     System.out.println("--------------- REGISTER ALLOCATION --------------------");
     printInstructions();
-
+    boolean addOverflow = false;
     for (Instruction currInstr : instructions) {
+      if (currInstr instanceof InstructionLibraryFunction) {
+        if (((InstructionLibraryFunction) currInstr).name.equals("avg")) {
+          addOverflow = true;
+        }
+      }
       currInstr.genInstruction();
     }
+    if (addOverflow) {
+      registerAlloc.addString("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n");
+      InstructionErrorOverflow errorOverflow = new InstructionErrorOverflow(registerAlloc.
+              getStringID("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n"));
+      instructions.add(errorOverflow);
+      errorOverflow.genInstruction();
+
+      registerAlloc.addString("%.*s\\0");
+      InstructionPrintBlocksString instructionPrintString = new InstructionPrintBlocksString(registerAlloc.getStringID("%.*s\\0"));
+      instructions.add(instructionPrintString);
+      instructionPrintString.genInstruction();
+
+      InstructionErrorRuntime instructionErrorRuntime = new InstructionErrorRuntime();
+      instructionErrorRuntime.genInstruction();
+      instructions.add(instructionErrorRuntime);
+
+    }
+
   }
 
   /**

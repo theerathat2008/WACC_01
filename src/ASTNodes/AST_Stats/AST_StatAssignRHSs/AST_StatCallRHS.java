@@ -403,10 +403,9 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
     for(int i = 0; i < ast_exprList.size(); i++){
       AST_Expr expr = ast_exprList.get(i);
       String callBlock = callList.get(i);
-      if(expr instanceof AST_ExprLiter || expr instanceof AST_ExprBinary || expr instanceof AST_ExprUnary){
-
-        expr.acceptInstr(assemblyCode);
-      }
+//      if(expr instanceof AST_ExprLiter || expr instanceof AST_ExprBinary || expr instanceof AST_ExprUnary){
+//      }
+      expr.acceptInstr(assemblyCode);
       assemblyCode.add(callBlock);
     }
 //
@@ -443,6 +442,26 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
     int counter = 0;
+
+    if (standardLibrary.contains(funcName)) {
+
+      if (funcName.equals("factorial")) {
+
+      } else {
+        System.out.println(funcName);
+        AST_Expr first = ast_exprList.get(0);
+        AST_Expr second = ast_exprList.get(1);
+        RegisterARM fstReg = first.acceptRegister(registerAllocation);
+        RegisterARM sndReg = second.acceptRegister(registerAllocation);
+        System.out.println(fstReg.name());
+        registerAllocation.freeRegister(fstReg);
+        registerAllocation.freeRegister(sndReg);
+        System.out.println(sndReg.name());
+        instrCall.genCallInstruction(RegisterARM.r4.name(), fstReg.name(), "reg, reg", RegisterARM.NULL_REG);
+        instrCall.genCallInstruction(RegisterARM.r5.name(),sndReg.name(),  "reg, reg", RegisterARM.NULL_REG);
+        return RegisterARM.r0;
+      }
+    }
 
     for (AST_Expr expr : ast_exprList) {
       if (expr instanceof AST_ExprIdent) {
