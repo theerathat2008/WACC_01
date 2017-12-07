@@ -90,7 +90,7 @@ public class InstructionAssignIdentLHS extends Instruction {
       builder.append(src);
       builder.append("\n");
     }
-    System.out.println("LOCATION: " + location);
+
     block1 = builder.toString();
 
 

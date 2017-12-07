@@ -410,53 +410,56 @@ public class AST_StatAssign extends AST_Stat {
       //Check if varName is allocated on the stack or in a register
       AST_StatIdentLHS ast_statIdentLHS = (AST_StatIdentLHS) ast_statAssignLHS;
 
+      //StackLocation
+      //Register
 
-      String stackLocation = registerAllocation.getStackLocation(ast_statIdentLHS.getIdentName());
+      //FuncStackLocation
+      //FuncRegister
 
-      if(stackLocation.equals("null")){
-        //Not allocated on the stack
 
-        stackLocation = registerAllocation.searchByVarValue(ast_statIdentLHS.getIdentName()).name();
-        if(stackLocation.equals("NULL_REG")) {
-          System.out.println("Error variable: " + ast_statIdentLHS.getIdentName() + " never assigned in AST_StatAssign");
-          return RegisterARM.NULL_REG;
-        }
-        System.out.println("Register not allocated on the stack");
-        System.out.println("Reg to get is: " + stackLocation);
-
-        instrIdentLHS.registerAllocation(regRight);
-        instrIdentLHS.setUsingStack(false);
-        instrIdentLHS.allocateLocation(stackLocation);
-        //Return the final store register
-        return registerAllocation.searchByVarValue(ast_statIdentLHS.getIdentName());
-
-      } else {
-        //Allocated on the stack
-
-        String result;
-        if (registerAllocation.getStackSize() > 0) {
-
-          StringBuilder builder = new StringBuilder();
-
-          builder.append("[sp, #");
-          int displacement = registerAllocation.getStackSize();
-          int memSize = registerAllocation.getMemSize(ast_statAssignLHS.getIdentifier().toString());
-          builder.append(displacement + memSize);
-          builder.append("]");
-          result = builder.toString();
-
-          String identName = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
-          String scope = registerAllocation.getCurrentScope();
-          String location = result;
-          registerAllocation.addToStack(identName, new StackLocation(location, scope));
-
-          instrIdentLHS.registerAllocation(regRight);
-          instrIdentLHS.setUsingStack(true);
-          instrIdentLHS.allocateLocation(location);
-          //Return the null reg as the var is allocated to the stack
-          return RegisterARM.NULL_REG;
+      //WORK OUT ARRAY LOCATION
+      boolean isFuncStat = true;
+      AST_Node tempNode = this;
+      while(!(tempNode instanceof AST_FuncDecl)){
+        tempNode = tempNode.getParentNode();
+        if(tempNode instanceof AST_Program){
+          //System.out.println(varName + " not in func stat");
+          isFuncStat = false;
+          break;
         }
       }
+
+      String stackLocation = "SP_NULL";
+
+      if(isFuncStat){
+        String funcName = ((AST_FuncDecl) tempNode).getFuncName();
+        stackLocation = registerAllocation.searchByFuncVarValue(ast_statIdentLHS.getIdentName(), funcName).name();
+        if(stackLocation.equals("NULL_REG")){
+          stackLocation = registerAllocation.getFuncStackLocation(funcName, ast_statIdentLHS.getIdentName());
+          instrIdentLHS.registerAllocation(regRight);
+          instrIdentLHS.setUsingStack(true);
+          instrIdentLHS.allocateLocation(stackLocation);
+        } else {
+          instrIdentLHS.registerAllocation(regRight);
+          instrIdentLHS.setUsingStack(false);
+          instrIdentLHS.allocateLocation(stackLocation);
+        }
+      } else {
+        stackLocation = registerAllocation.getStackLocation(ast_statIdentLHS.getIdentName());
+        if(stackLocation.equals("null")){
+          stackLocation = registerAllocation.searchByVarValue(ast_statIdentLHS.getIdentName()).name();
+          instrIdentLHS.registerAllocation(regRight);
+          instrIdentLHS.setUsingStack(false);
+          instrIdentLHS.allocateLocation(stackLocation);
+        } else {
+          instrIdentLHS.registerAllocation(regRight);
+          instrIdentLHS.setUsingStack(true);
+          instrIdentLHS.allocateLocation(stackLocation);
+        }
+      }
+      //Don't care output result in stat assign
+      return RegisterARM.NULL_REG;
+
     } else if(ast_statAssignLHS instanceof AST_StatArrayElemLHS){
 
 

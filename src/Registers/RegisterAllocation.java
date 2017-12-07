@@ -280,11 +280,31 @@ public class RegisterAllocation {
   public RegisterARM searchByFuncVarValue(String varName, String funcName) {
     for (Map.Entry<String, Map<RegisterARM, RegisterUsage>> entry : funcRegisters.entrySet()) {
       if (funcName.equals(entry.getKey())) {
+
         for(Map.Entry<RegisterARM, RegisterUsage> entryEmbedded : entry.getValue().entrySet()){
           if(varName.equals(entryEmbedded.getValue().getVarName())){
             return entryEmbedded.getKey();
           }
         }
+
+      }
+    }
+    //System.out.println("Cannot find the register " + varName +" in VarFuncRegisters with funcName: " + funcName);
+    return RegisterARM.NULL_REG;
+  }
+
+  public RegisterARM searchByFuncVarPos(int pos, String funcName) {
+    for (Map.Entry<String, Map<RegisterARM, RegisterUsage>> entry : funcRegisters.entrySet()) {
+      if (funcName.equals(entry.getKey())) {
+        int counter = 0;
+
+        for(Map.Entry<RegisterARM, RegisterUsage> entryEmbedded : entry.getValue().entrySet()){
+          if(counter == pos){
+            return entryEmbedded.getKey();
+          }
+          counter++;
+        }
+
       }
     }
     //System.out.println("Cannot find the register " + varName +" in VarFuncRegisters with funcName: " + funcName);

@@ -419,7 +419,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
 
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
-
+    int counter = 0;
 
     for (AST_Expr expr : ast_exprList) {
       if(expr instanceof AST_ExprIdent){
@@ -429,7 +429,15 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
 
 
         String src = registerAllocation.searchByVarValue(varName).name();
-        String dst = registerAllocation.searchByFuncVarValue(varName, funcName).name();
+        System.out.println("varName is : " + varName + " funcname is: " + funcName);
+        String dst = registerAllocation.searchByFuncVarPos(counter, funcName).name();
+        counter++;
+
+        System.out.println("STAT CALL ");
+        System.out.println("src is : " + src);
+        System.out.println("dst is : " + dst);
+
+
 
 
         if(src.equals("NULL_REG") && dst.equals("NULL_REG")){
@@ -470,6 +478,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
           type = "reg, reg";
           instrCall.genCallInstruction(src, dst, type, RegisterARM.NULL_REG);
         }
+        System.out.println("type is: " + type);
       }
     }
     return RegisterARM.r0;
