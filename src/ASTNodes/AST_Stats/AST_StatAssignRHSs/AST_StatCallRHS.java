@@ -377,6 +377,14 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
     for (AST_Expr expr : ast_exprList) {
+
+
+
+      if(expr instanceof AST_ExprIdent){
+         AST_ExprIdent tempNode = (AST_ExprIdent)expr;
+         String varName = tempNode.getVarName();
+         //regAlloc.addToStackOnlyVar(varName);
+      }
       expr.acceptPreProcess(regAlloc);
     }
   }
@@ -431,11 +439,15 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
         String src = registerAllocation.searchByVarValue(varName).name();
 
         String dst = registerAllocation.searchByFuncVarCounter(counter, funcName).name();
-        counter++;
+
+
+        System.out.println("Stat Call Begin");
+        System.out.println("Src is " + src);
+        System.out.println("Dst is " + dst);
 
         if(src.equals("NULL_REG") && dst.equals("NULL_REG")){
           src = registerAllocation.getStackLocation(varName);
-          dst = registerAllocation.getFuncStackLocation(funcName, varName);
+          dst = registerAllocation.getFuncStackLocationCounter(funcName, counter);
 
 
           RegisterUsage resultUsage = aRegisterUsageBuilder()
@@ -463,7 +475,11 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
           // MOV dst, inter
           instrCall.genCallInstruction(src, dst, type, interReg);
         } else if (dst.equals("NULL_REG")){
-          dst = registerAllocation.getFuncStackLocation(funcName, varName);
+          dst = registerAllocation.getFuncStackLocationCounter(funcName, counter);
+
+          System.out.println("Stat Call Begin");
+          System.out.println("Src is " + src);
+          System.out.println("Dst is " + dst);
           type = "stack, reg";
           // LDR src, dst
           instrCall.genCallInstruction(src, dst, type, RegisterARM.NULL_REG);
@@ -472,6 +488,8 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
           instrCall.genCallInstruction(src, dst, type, RegisterARM.NULL_REG);
         }
       }
+
+      counter++;
     }
     return RegisterARM.r0;
   }

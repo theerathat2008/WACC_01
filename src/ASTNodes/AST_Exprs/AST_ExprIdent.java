@@ -119,6 +119,7 @@ public class AST_ExprIdent extends AST_Expr {
 
     if (ST.lookupAll(varName) != null) {
       setType(ST.lookupAll(varName).toString());
+      setIdentifier(ST.lookupAll(varName));
     } else {
       System.out.println("Errors detected during compilation! Exit code 200 returned.");
       System.out.println("#semantic_error#");

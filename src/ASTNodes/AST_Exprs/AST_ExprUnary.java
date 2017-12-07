@@ -1,6 +1,9 @@
 package ASTNodes.AST_Exprs;
 
 import InstructionSet.Instruction;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorOverflow;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
+import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
 import InstructionSet.InstructionUnary;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
@@ -363,6 +366,11 @@ public class AST_ExprUnary extends AST_Expr {
     RegisterARM dst = registerAllocation.useRegister(usage);
 
     instr.allocateRegisters(dst, regUnary);
+    if (opName.equals("-")) {
+      RegisterARM freeReg = registerAllocation.getNextFreeRegister();
+      instr.extraRegister(freeReg);
+      registerAllocation.freeRegister(freeReg);
+    }
 
     return dst;
   }
@@ -383,6 +391,18 @@ public class AST_ExprUnary extends AST_Expr {
 
     instructionList.add(instructionUnary);
     instr = instructionUnary;
+
+    if (opName.equals("-")) {
+      registerAllocation.addString("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n");
+      InstructionErrorOverflow errorOverflow = new InstructionErrorOverflow(registerAllocation.
+              getStringID("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n"));
+      instructionList.add(errorOverflow);
+      registerAllocation.addString("%.*s\\0");
+      InstructionPrintBlocksString instructionPrintString = new InstructionPrintBlocksString(registerAllocation.getStringID("%.*s\\0"));
+      instructionList.add(instructionPrintString);
+
+      instructionList.add(new InstructionErrorRuntime());
+    }
 
   }
 }

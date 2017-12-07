@@ -180,7 +180,10 @@ public class AST_ExprArrayElem extends AST_Expr {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-    assemblyCode.add(arrayElemInstr.getResultBlock());
+    assemblyCode.add(arrayElemInstr.getResultBlock1());
+    ast_exprList.get(0).acceptInstr(assemblyCode);
+    assemblyCode.add(arrayElemInstr.getResultBlock2());
+    assemblyCode.add("\n\n\n\n");
   }
 
 
@@ -197,6 +200,9 @@ public class AST_ExprArrayElem extends AST_Expr {
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
+    //TODO Register loading expression (lit or expr)
+
+    RegisterARM tempPos = ast_exprList.get(0).acceptRegister(registerAllocation);
 
 
     RegisterUsage resultUsage = aRegisterUsageBuilder()
@@ -205,11 +211,11 @@ public class AST_ExprArrayElem extends AST_Expr {
         .build();
     RegisterARM result = registerAllocation.useRegister(resultUsage);
 
-    RegisterUsage tempReg = aRegisterUsageBuilder()
-        .withUsageType("tempType")
-        .withScope(registerAllocation.getCurrentScope())
-        .build();
-    RegisterARM tempPos = registerAllocation.useRegister(tempReg);
+//    RegisterUsage tempReg = aRegisterUsageBuilder()
+//        .withUsageType("tempType")
+//        .withScope(registerAllocation.getCurrentScope())
+//        .build();
+//    RegisterARM tempPos = registerAllocation.useRegister(tempReg);
     registerAllocation.freeRegister(tempPos);
 
     arrayElemInstr.allocateRegisters(result, tempPos);
@@ -264,8 +270,9 @@ public class AST_ExprArrayElem extends AST_Expr {
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
+    //TODO GET ARRAY TYPE and pass as param below
     InstructionAccessArrayElem InstructionAccessArrayElem
-            = new InstructionAccessArrayElem(((AST_ExprLiter) ast_exprList.get(0)).constant, getType(), false);
+            = new InstructionAccessArrayElem("int", false);
     arrayElemInstr = InstructionAccessArrayElem;
     instructionList.add(arrayElemInstr);
 

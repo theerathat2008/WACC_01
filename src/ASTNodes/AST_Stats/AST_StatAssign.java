@@ -35,6 +35,7 @@ import java.util.ArrayDeque;
 import java.util.List;
 
 import static java.lang.System.exit;
+import static java.lang.System.setOut;
 
 /**
  * Class representing node in AST tree for ASSIGNMENT STATEMENTS
@@ -125,6 +126,7 @@ public class AST_StatAssign extends AST_Stat {
     if (astToSet.equals("ast_statAssignLHS")) {
       ast_statAssignLHS = (AST_StatAssignLHS) nodeToSet;
     } else if (astToSet.equals("statAssignRHS")) {
+      System.out.println("Set right hand node in statAssign");
       ast_statAssignRHS = (AST_StatAssignRHS) nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
@@ -362,6 +364,43 @@ public class AST_StatAssign extends AST_Stat {
 
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+
+    //Set a flag for acceptRegister in statVarDecl using a list in registerallocation to declare the var on the stack
+    // since it is used in read and the statarraylitrhs assembly code works with stacks
+
+
+    if (ast_statAssignLHS instanceof AST_StatIdentLHS) {
+
+      //Check if varName is allocated on the stack or in a register
+      AST_StatIdentLHS ast_statIdentLHS = (AST_StatIdentLHS) ast_statAssignLHS;
+
+      //StackLocation
+      //Register
+
+      //FuncStackLocation
+      //FuncRegister
+
+
+      //WORK OUT ARRAY LOCATION
+      boolean isFuncStat = true;
+      AST_Node tempNode = this;
+      while (!(tempNode instanceof AST_FuncDecl)) {
+        tempNode = tempNode.getParentNode();
+        if (tempNode instanceof AST_Program) {
+          //System.out.println(varName + " not in func stat");
+          isFuncStat = false;
+          break;
+        }
+      }
+      if(isFuncStat){
+        //regAlloc.addToStackOnlyVar(ast_statIdentLHS.getIdentName());
+      }
+    }
+
+
+
+
     ast_statAssignLHS.acceptPreProcess(regAlloc);
     ast_statAssignRHS.acceptPreProcess(regAlloc);
   }
@@ -451,7 +490,10 @@ public class AST_StatAssign extends AST_Stat {
           instrIdentLHS.registerAllocation(regRight);
           instrIdentLHS.setUsingStack(false);
           instrIdentLHS.allocateLocation(stackLocation);
+          System.out.println("Stack location is : "+ stackLocation);
         } else {
+          System.out.println("Reg right is : "+ regRight.name());
+          System.out.println(instrIdentLHS.toString());
           instrIdentLHS.registerAllocation(regRight);
           instrIdentLHS.setUsingStack(true);
           instrIdentLHS.allocateLocation(stackLocation);
@@ -559,6 +601,7 @@ public class AST_StatAssign extends AST_Stat {
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     if (ast_statAssignLHS instanceof AST_StatIdentLHS){
       String type = ast_statAssignRHS.getIdentifier().toString();
+      System.out.println("Type of ident is: " + type);
       InstructionAssignIdentLHS instructionAssignIdentLHS = new InstructionAssignIdentLHS(type);
       instructionList.add(instructionAssignIdentLHS);
       instrIdentLHS = instructionAssignIdentLHS;
