@@ -464,13 +464,15 @@ public class AST_StatAssign extends AST_Stat {
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
+    System.out.println("FREEDOM");
+    registerAllocation.printfreeReg();
 
     RegisterARM regRight = ast_statAssignRHS.acceptRegister(registerAllocation);
 
     //Don't care about the result of the left reg
     RegisterARM regLeft = ast_statAssignLHS.acceptRegister(registerAllocation);
-    //registerAllocation.freeRegister(regRight);
-    registerAllocation.freeRegister(regLeft);
+    registerAllocation.freeRegister(regRight);
+    //registerAllocation.freeRegister(regLeft);
 
 
     if (ast_statAssignLHS instanceof AST_StatIdentLHS) {
@@ -529,7 +531,7 @@ public class AST_StatAssign extends AST_Stat {
         }
       }
       //Don't care output result in stat assign
-      return RegisterARM.NULL_REG;
+      return regLeft;
 
     } else if(ast_statAssignLHS instanceof AST_StatArrayElemLHS){
 
@@ -593,7 +595,7 @@ public class AST_StatAssign extends AST_Stat {
 
     }
     System.out.println("Nothing done in AST_StatAssign as lhs class was:  " + ast_statAssignLHS.getClass().getSimpleName());
-    return RegisterARM.NULL_REG;
+    return regLeft;
   }
 
 
