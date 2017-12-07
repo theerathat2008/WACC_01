@@ -132,20 +132,11 @@ public class InstructionAssArrayElem extends Instruction {
 
     builder = new StringBuilder();
 
-    //builder.append("\n\n\n\n LDR instr: ");
-
+    // below breaks a[0] = 1;
 //    builder.append("\t\tLDR ");
 //    builder.append(posReg);
-//    builder.append(", =");
-//    builder.append(pos);
+//    builder.append(", [sp]");
 //    builder.append("\n");
-
-    //builder.append("\n\n\n\n LDR instr: ");
-
-    builder.append("\t\tLDR ");
-    builder.append(posReg);
-    builder.append(", [sp]");
-    builder.append("\n");
 
     builder.append("\t\tLDR ");
     builder.append(resultReg);
