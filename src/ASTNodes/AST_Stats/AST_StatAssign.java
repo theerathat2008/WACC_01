@@ -717,8 +717,15 @@ public class AST_StatAssign extends AST_Stat {
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     if (ast_statAssignLHS instanceof AST_StatIdentLHS){
-      //String type = ast_statAssignRHS.getIdentifier().toString();
-      String type = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
+      String type;
+
+      try {
+        type = ast_statAssignRHS.getIdentifier().toString();
+      } catch (NullPointerException n) {
+        type = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
+      }
+
+
       System.out.println("Type of ident is: " + type);
       InstructionAssignIdentLHS instructionAssignIdentLHS = new InstructionAssignIdentLHS(type);
       instructionList.add(instructionAssignIdentLHS);
