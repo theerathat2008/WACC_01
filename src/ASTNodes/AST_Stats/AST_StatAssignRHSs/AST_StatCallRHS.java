@@ -8,6 +8,7 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_ParamList;
 import ASTNodes.AST_Param;
+import ASTNodes.AST_Stats.AST_StatAssign;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
 import ErrorMessages.TypeMismatchError;
 import IdentifierObjects.FunctionObj;
@@ -510,8 +511,16 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
-    FunctionObj functionObj = (FunctionObj) symbolTable.lookupAll(funcName);
-    String returnType = functionObj.returnType.toString();
+    String returnType = "null";
+    IDENTIFIER obj = symbolTable.lookupAll(funcName);
+
+    if(obj instanceof FunctionObj){
+      FunctionObj functionObj = (FunctionObj)obj;
+      returnType = functionObj.returnType.toString();
+    } else {
+      BaseTypeObj baseTypeObj = (BaseTypeObj)obj;
+      returnType = baseTypeObj.toString();
+    }
 
     InstructionCall instructionCall = new InstructionCall(funcName, returnType);
     instructionList.add(instructionCall);

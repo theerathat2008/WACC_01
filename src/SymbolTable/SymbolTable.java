@@ -1,6 +1,7 @@
 package SymbolTable;
 
 import IdentifierObjects.*;
+import Registers.StackLocation;
 
 import java.util.*;
 
@@ -88,6 +89,18 @@ public class SymbolTable {
     }
     return null;
   }
+  public IDENTIFIER lookupAllFunc(String name) {
+    SymbolTable S = this;
+    while (S != null) {
+      IDENTIFIER obj = S.lookup(name);
+      if (obj != null && obj instanceof FunctionObj) {
+        return obj;
+      }
+      S = S.encSymTable;
+    }
+    return null;
+  }
+
 
   public int count(String name) {
     SymbolTable S = this;
