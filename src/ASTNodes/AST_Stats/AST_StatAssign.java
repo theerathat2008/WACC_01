@@ -362,6 +362,43 @@ public class AST_StatAssign extends AST_Stat {
 
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+
+    //Set a flag for acceptRegister in statVarDecl using a list in registerallocation to declare the var on the stack
+    // since it is used in read and the statarraylitrhs assembly code works with stacks
+
+
+    if (ast_statAssignLHS instanceof AST_StatIdentLHS) {
+
+      //Check if varName is allocated on the stack or in a register
+      AST_StatIdentLHS ast_statIdentLHS = (AST_StatIdentLHS) ast_statAssignLHS;
+
+      //StackLocation
+      //Register
+
+      //FuncStackLocation
+      //FuncRegister
+
+
+      //WORK OUT ARRAY LOCATION
+      boolean isFuncStat = true;
+      AST_Node tempNode = this;
+      while (!(tempNode instanceof AST_FuncDecl)) {
+        tempNode = tempNode.getParentNode();
+        if (tempNode instanceof AST_Program) {
+          //System.out.println(varName + " not in func stat");
+          isFuncStat = false;
+          break;
+        }
+      }
+      if(isFuncStat){
+        //regAlloc.addToStackOnlyVar(ast_statIdentLHS.getIdentName());
+      }
+    }
+
+
+
+
     ast_statAssignLHS.acceptPreProcess(regAlloc);
     ast_statAssignRHS.acceptPreProcess(regAlloc);
   }

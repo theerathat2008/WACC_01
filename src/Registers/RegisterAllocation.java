@@ -222,6 +222,20 @@ public class RegisterAllocation {
     return "null";
   }
 
+  public String getFuncStackLocationCounter(String funcName, int counter){
+    if(funcStackVar.containsKey((funcName))){
+      Map<String, StackLocation> tempMap = funcStackVar.get(funcName);
+      for (Map.Entry<String, StackLocation> entry : tempMap.entrySet()) {
+        if (entry.getValue().getPos() == counter) {
+          return entry.getValue().getLocation();
+        }
+      }
+      System.out.println("Can't find " + counter + " in " + funcName + " map");
+    }
+    System.out.println("Can't find " + funcName + " map");
+    return "null";
+  }
+
 
 
   /**

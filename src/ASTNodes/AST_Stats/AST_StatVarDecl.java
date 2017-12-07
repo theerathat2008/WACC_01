@@ -424,12 +424,19 @@ public class AST_StatVarDecl extends AST_Stat {
       instrVar.setStackLocation(stackLocation.toString(), true);
 
     } else {
+
+      System.out.println("Pre alloc");
+      registerAllocation.printfreeReg();
       RegisterUsage varUsage = aRegisterUsageBuilder()
           .withScope(registerAllocation.getCurrentScope())
           .withUsageType("varDecType")
           .withVarName(identName)
           .build();
       RegisterARM varStore = registerAllocation.useRegister(varUsage);
+      System.out.println("post alloc");
+      registerAllocation.printfreeReg();
+
+      System.out.println("using reg: " + varStore + " with name " + identName);
 
 
       instrVar.setStackLocation(varStore.name(), false);

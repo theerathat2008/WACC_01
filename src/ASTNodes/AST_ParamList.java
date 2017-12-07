@@ -218,6 +218,7 @@ public class AST_ParamList extends AST_Node {
             .withParamCallPos(counter)
             .build();
         RegisterARM funcReg = registerAllocation.useRegister(usage);
+        System.out.println("using reg: " + funcReg + " in func " + tempNode.funcName + " with name " + param.paramName);
         counter++;
         param.acceptRegister(registerAllocation);
 
@@ -246,6 +247,7 @@ public class AST_ParamList extends AST_Node {
 
         registerAllocation.addToStack(param.getParamName(), stackLocationClass);
         registerAllocation.addToFuncStack(((AST_FuncDecl) parentNode).funcName, param.getParamName(), stackLocationClass);
+        System.out.println("using location: " + stackLocation + " in func " + tempNode.funcName + " with name " + param.paramName);
       }
     }
 
