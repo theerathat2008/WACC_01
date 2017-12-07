@@ -33,8 +33,8 @@ public class waccMain {
     String outputText = textConverter(inputText);
     System.out.println("-- Compiling...");
 
-    //CharStream inputString = CharStreams.fromString(inputText);
-    CharStream inputString = CharStreams.fromString(outputText);
+    CharStream inputString = CharStreams.fromString(inputText);
+    //CharStream inputString = CharStreams.fromString(outputText);
 
     WaccLexer lexer = new WaccLexer(inputString);
 
