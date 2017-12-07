@@ -301,7 +301,7 @@ public class AST_StatExpr extends AST_Stat {
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    
+
     RegisterARM evalResult = expr.acceptRegister(registerAllocation);
     String type;
 
@@ -396,8 +396,6 @@ public class AST_StatExpr extends AST_Stat {
    */
 
   public boolean blockContains() {
-
-
 
     return false;
   }
