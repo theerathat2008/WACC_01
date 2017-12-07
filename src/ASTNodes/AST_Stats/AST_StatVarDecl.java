@@ -1,8 +1,6 @@
 package ASTNodes.AST_Stats;
 
-import ASTNodes.AST_Exprs.AST_Expr;
-import ASTNodes.AST_Exprs.AST_ExprBinary;
-import ASTNodes.AST_Exprs.AST_ExprIdent;
+import ASTNodes.AST_Exprs.*;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatArrayLitRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
@@ -28,6 +26,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -350,6 +349,32 @@ public class AST_StatVarDecl extends AST_Stat {
     visitor.visit(this);
     ast_type.accept(visitor);
     ast_assignRHS.accept(visitor);
+  }
+
+  /**
+   * General case to call acceptNode
+   * @param visitor
+   */
+  public int acceptRootNode(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+
+    int result = 0;
+
+    if (ast_assignRHS instanceof AST_StatExprRHS || ast_assignRHS instanceof AST_StatPairElemRHS) {
+      AST_Expr ast_expr = ((AST_StatExprRHS) ast_assignRHS).getAst_expr();
+
+      if (ast_expr instanceof AST_ExprLiter) {
+        result = ((AST_ExprLiter) ast_expr).acceptNode(visitor);
+      } else if (ast_expr instanceof AST_ExprBinary) {
+        result = ((AST_ExprBinary) ast_expr).acceptNode(visitor);
+      } else if (ast_expr instanceof AST_ExprUnary) {
+        result = ((AST_ExprUnary) ast_expr).acceptNode(visitor);
+      }
+
+    }
+
+    return result;
+
   }
 
 

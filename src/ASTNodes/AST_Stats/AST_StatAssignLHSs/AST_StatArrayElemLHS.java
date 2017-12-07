@@ -1,8 +1,11 @@
 package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
+
 import ASTNodes.AST_Exprs.AST_ExprLiter;
 import ASTNodes.AST_FuncDecl;
+import ASTNodes.AST_Exprs.AST_ExprBinary;
+import ASTNodes.AST_Exprs.AST_ExprUnary;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
 import InstructionSet.Instruction;
@@ -183,6 +186,31 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
     for (AST_Expr expr : ast_exprList) {
       expr.accept(visitor);
     }
+  }
+
+  /**
+   * General case to call acceptNode
+   * have to return as a list for arrays
+   * @param visitor
+   */
+  public List<Integer> acceptRootNode(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+
+    List<Integer> listResult = new ArrayList<>();
+
+    for (AST_Expr expr : ast_exprList) {
+      int result = 0;
+      if (expr instanceof AST_ExprLiter) {
+        result = ((AST_ExprLiter) expr).acceptNode(visitor);
+      } else if (expr instanceof AST_ExprBinary) {
+        result = ((AST_ExprBinary) expr).acceptNode(visitor);
+      } else if (expr instanceof AST_ExprUnary) {
+        result = ((AST_ExprUnary) expr).acceptNode(visitor);
+      }
+      listResult.add(result);
+    }
+
+    return listResult;
   }
 
   @Override

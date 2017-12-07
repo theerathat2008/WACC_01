@@ -172,6 +172,26 @@ public class AST_ExprEnclosed extends AST_Expr {
     rightSepAST.accept(visitor);
   }
 
+  /**
+   * General case to call acceptNode
+   * @param visitor
+   */
+  public int acceptRootNode(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+
+    int result = 0;
+
+    if (exprAST instanceof AST_ExprLiter) {
+      result = ((AST_ExprLiter) exprAST).acceptNode(visitor);
+    } else if (exprAST instanceof AST_ExprBinary) {
+      result = ((AST_ExprBinary) exprAST).acceptNode(visitor);
+    } else if (exprAST instanceof AST_ExprUnary) {
+      result = ((AST_ExprUnary) exprAST).acceptNode(visitor);
+    }
+
+    return result;
+  }
+
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     exprAST.acceptInstr(assemblyCode);

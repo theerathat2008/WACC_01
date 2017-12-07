@@ -31,6 +31,9 @@ public class AST_Program extends AST_Node {
   public SymbolTable symbolTable;
   InstructionProgram instr;
 
+  private List<String> listInt = new ArrayList<>();
+  private List<String> listOp = new ArrayList<>();
+
 
   /**
    * Assign the member variables when called and set the number of children
@@ -233,5 +236,38 @@ public class AST_Program extends AST_Node {
     InstructionProgram instruction = new InstructionProgram(registerAllocation);
     instructionList.add(instruction);
     instr = instruction;
+  }
+
+  public void addListInt(String constantToAdd) {
+    listInt.add(0, constantToAdd);
+  }
+
+  public void addListOp(String opToAdd) {
+    listOp.add(opToAdd);
+  }
+
+  public void clearAllList() {
+    listInt.clear();
+    listOp.clear();
+  }
+
+  public List<String> getListInt() {
+    return listInt;
+  }
+
+  public List<String> getListOp() {
+    return listOp;
+  }
+
+  public void delListElem(int i) {
+    listInt.remove(i);
+  }
+
+  public void changeListElem(int i, String string) {
+    listInt.set(i, string);
+  }
+
+  public void addLastListInt(String constantToAdd) {
+    listInt.add(constantToAdd);
   }
 }

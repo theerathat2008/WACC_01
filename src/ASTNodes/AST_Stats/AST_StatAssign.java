@@ -1,10 +1,12 @@
 package ASTNodes.AST_Stats;
 
+
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Exprs.AST_ExprEnclosed;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
 import ASTNodes.AST_Exprs.AST_ExprLiter;
 import ASTNodes.AST_FuncDecl;
+import ASTNodes.AST_Exprs.*;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatArrayElemLHS;
@@ -409,6 +411,33 @@ public class AST_StatAssign extends AST_Stat {
     visitor.visit(this);
     ast_statAssignLHS.accept(visitor);
     ast_statAssignRHS.accept(visitor);
+  }
+
+  /**
+   * General case to call acceptNode
+   * can onlt do on the leftLHS
+   * @param visitor
+   */
+  public int acceptRootNode(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+
+    int result = 0;
+
+    if (ast_statAssignRHS instanceof AST_StatExprRHS || ast_statAssignRHS instanceof AST_StatPairElemRHS) {
+      AST_Expr ast_exprRHS = ((AST_StatExprRHS) ast_statAssignRHS).getAst_expr();
+
+      if (ast_exprRHS instanceof AST_ExprLiter) {
+        result = ((AST_ExprLiter) ast_exprRHS).acceptNode(visitor);
+      } else if (ast_exprRHS instanceof AST_ExprBinary) {
+        result = ((AST_ExprBinary) ast_exprRHS).acceptNode(visitor);
+      } else if (ast_exprRHS instanceof AST_ExprUnary) {
+        result = ((AST_ExprUnary) ast_exprRHS).acceptNode(visitor);
+      }
+
+    }
+
+    return result;
+
   }
 
   @Override

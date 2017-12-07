@@ -264,6 +264,26 @@ public class AST_StatExpr extends AST_Stat {
     expr.accept(visitor);
   }
 
+  /**
+   * General case to call acceptNode
+   * @param visitor
+   */
+  public int acceptRootNode(AST_NodeVisitor visitor) {
+    visitor.visit(this);
+
+    int result = 0;
+
+    if (expr instanceof AST_ExprLiter) {
+      result = ((AST_ExprLiter) expr).acceptNode(visitor);
+    } else if (expr instanceof AST_ExprBinary) {
+      result = ((AST_ExprBinary) expr).acceptNode(visitor);
+    } else if (expr instanceof AST_ExprUnary) {
+      result = ((AST_ExprUnary) expr).acceptNode(visitor);
+    }
+
+    return result;
+  }
+
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     expr.acceptInstr(assemblyCode);
