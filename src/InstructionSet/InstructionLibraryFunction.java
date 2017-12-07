@@ -10,7 +10,7 @@ import java.util.List;
 
 public class InstructionLibraryFunction extends Instruction {
 
-  private String name;
+  public String name;
   public String block1;
   List<Instruction> instructionList;
   RegisterAllocation registerAllocation;
@@ -33,42 +33,30 @@ public class InstructionLibraryFunction extends Instruction {
 
     if (name.equals("max")) {
       builder.append("PUSH {lr}\n");
-     // builder.append("\t\tLDR r4, [sp, #4]\n");
-     // builder.append("\t\tLDR r5, [sp, #8]\n");
       builder.append("\t\tCMP r4, r5\n");
-      builder.append("\t\tMOVGT r4, #1\n");
-      builder.append("\t\tMOVLE r4, #0\n");
-      builder.append("\t\tCMP r4, #0\n");
+      builder.append("\t\tMOVGT r6, #1\n");
+      builder.append("\t\tMOVLE r6, #0\n");
+      builder.append("\t\tCMP r6, #0\n");
       builder.append("\t\tBEQ L0_max\n");
-      builder.append("\t\tLDR r4, [sp, #4]\n");
       builder.append("\t\tMOV r0, r4\n");
-      builder.append("\t\tPOP {pc}\n");
       builder.append("\t\tB L1_max\n");
       builder.append("\tL0_max:\n");
-      builder.append("\t\tLDR r4, [sp, #8]\n");
-      builder.append("\t\tMOV r0, r4\n");
-      builder.append("\t\tPOP {pc}\n");
+      builder.append("\t\tMOV r0, r5\n");
       builder.append("\tL1_max:\n");
       builder.append("\t\tPOP {pc}\n");
       builder.append("\t\t.ltorg\n");
       
     } else if (name.equals("min")) {
       builder.append("PUSH {lr}\n");
-      builder.append("\t\tLDR r4, [sp, #4]\n");
-      builder.append("\t\tLDR r5, [sp, #8]\n");
       builder.append("\t\tCMP r4, r5\n");
-      builder.append("\t\tMOVLT r4, #1\n");
-      builder.append("\t\tMOVGE r4, #0\n");
-      builder.append("\t\tCMP r4, #0\n");
+      builder.append("\t\tMOVLT r6, #1\n");
+      builder.append("\t\tMOVGE r6, #0\n");
+      builder.append("\t\tCMP r6, #0\n");
       builder.append("\t\tBEQ L0_min\n");
-      builder.append("\t\tLDR r4, [sp, #4]\n");
       builder.append("\t\tMOV r0, r4\n");
-      builder.append("\t\tPOP {pc}\n");
       builder.append("\t\tB L1_min\n");
       builder.append("\tL0_min:\n");
-      builder.append("\t\tLDR r4, [sp, #8]\n");
-      builder.append("\t\tMOV r0, r4\n");
-      builder.append("\t\tPOP {pc}\n");
+      builder.append("\t\tMOV r0, r5\n");
       builder.append("\tL1_min:\n");
       builder.append("\t\tPOP {pc}\n");
       builder.append("\t\t.ltorg\n");
@@ -131,8 +119,8 @@ public class InstructionLibraryFunction extends Instruction {
 
     } else if (name.equals("avg")) {   //needs to add overflow error and divide by zero error maybe (wont ever be called though)
       builder.append("PUSH {lr}\n");
-      builder.append("\t\tLDR r4, [sp, #4]\n");
-      builder.append("\t\tLDR r5, [sp, #8]\n");
+//      builder.append("\t\tLDR r4, [sp, #4]\n");
+//      builder.append("\t\tLDR r5, [sp, #8]\n");
       builder.append("\t\tADDS r4, r4, r5\n");
       builder.append("\t\tBLVS p_throw_overflow_error\n");
       builder.append("\t\tLDR r5, =2\n");
@@ -143,10 +131,9 @@ public class InstructionLibraryFunction extends Instruction {
       builder.append("\t\tMOV r4, r0\n");
       builder.append("\t\tMOV r0, r4\n");
       builder.append("\t\tPOP {pc}\n");
-      builder.append("\t\tPOP {pc}\n");
       builder.append("\t\t.ltorg\n");
 
-      addOverflow(instructionList, registerAllocation);
+      //addOverflow(instructionList, registerAllocation);
    //   addDivByZero(instructionList, registerAllocation);
 
 
