@@ -14,6 +14,7 @@ public class RegisterUsageBuilder {
   String funcName = "null";
   String varName = "null";
   String operationType = "null";
+  int paramCallPos = 0;
 
   private RegisterUsageBuilder(){}
 
@@ -30,7 +31,13 @@ public class RegisterUsageBuilder {
     registerUsage.setFuncName(funcName);
     registerUsage.setVarName(varName);
     registerUsage.setOperationType(operationType);
+    registerUsage.setParamCallPos(paramCallPos);
     return registerUsage;
+  }
+
+  public RegisterUsageBuilder withParamCallPos(int paramCallPos){
+    this.paramCallPos = paramCallPos;
+    return this;
   }
 
   public RegisterUsageBuilder withScope(String scope){

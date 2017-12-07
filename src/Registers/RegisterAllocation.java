@@ -291,6 +291,26 @@ public class RegisterAllocation {
     return RegisterARM.NULL_REG;
   }
 
+  /**
+   * Searches the Register in use func Map by the counter
+   * Returns the register if it used
+   */
+  public RegisterARM searchByFuncVarCounter(int pos, String funcName) {
+    for (Map.Entry<String, Map<RegisterARM, RegisterUsage>> entry : funcRegisters.entrySet()) {
+      if (funcName.equals(entry.getKey())) {
+
+        for(Map.Entry<RegisterARM, RegisterUsage> entryEmbedded : entry.getValue().entrySet()){
+          if(entryEmbedded.getValue().getParamCallPos() == pos){
+            return entryEmbedded.getKey();
+          }
+        }
+
+      }
+    }
+    //System.out.println("Cannot find the register " + varName +" in VarFuncRegisters with funcName: " + funcName);
+    return RegisterARM.NULL_REG;
+  }
+
 
 
   public int getStringID(String string) {
