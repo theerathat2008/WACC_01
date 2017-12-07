@@ -253,9 +253,16 @@ public class RegisterAllocation {
     return stringList;
   }
 
+  boolean exprIdentFlag = false;
+
+  public void setExprIdentFlag(boolean exprIdentFlag) {
+    this.exprIdentFlag = exprIdentFlag;
+  }
+
   public void addString(String string) {
-    if (!stringList.contains(string)) {
+    if (!stringList.contains(string) || exprIdentFlag) {
       stringList.add(string);
+      exprIdentFlag = false;
     }
   }
 //
@@ -328,9 +335,21 @@ public class RegisterAllocation {
   }
 
 
-
   public int getStringID(String string) {
-    return stringList.indexOf(string);
+    int frequency = Collections.frequency(stringList, string);
+    int counter = 1;
+    int index = stringList.indexOf(string);
+    while(frequency != counter){
+      for(int i = stringList.indexOf(string) + 1; i < stringList.size(); i++){
+        String curr = stringList.get(i);
+        if(curr.equals(string)){
+          index = i;
+          break;
+        }
+      }
+      counter++;
+    }
+    return index;
   }
 
   /**

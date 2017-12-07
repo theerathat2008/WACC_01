@@ -11,6 +11,7 @@ public class InstructionComparison extends Instruction {
   public String block1;
 
   public InstructionComparison(String op) {
+
     this.op = op;
     reg1 = "reg1";
     reg2 = "src";
@@ -19,6 +20,7 @@ public class InstructionComparison extends Instruction {
   public int requiresRegisters() {
     return 3;
   }
+
 
   /**
    * returns true as this claass uses registers that could be referencing the stack variables
