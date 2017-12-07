@@ -63,7 +63,7 @@ public class InstructionUnary extends Instruction {
         builder.append("MOV r0, ");
         builder.append(src);
         builder.append("\n");
-        builder.append("\t\tBL PUTCHAR\n");
+        builder.append("\t\tBL putchar\n");
         builder.append("\t\tMOV ");
         builder.append(dst);
         builder.append(", r0\n");
@@ -72,7 +72,7 @@ public class InstructionUnary extends Instruction {
         builder.append("MOV r0, ");
         builder.append(src);
         builder.append("\n");
-        builder.append("\t\tBL PUTCHAR\n");
+        builder.append("\t\tBL putchar\n");
         builder.append("\t\tMOV ");
         builder.append(dst);
         builder.append(", r0\n");

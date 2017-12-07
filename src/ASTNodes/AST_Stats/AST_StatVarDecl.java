@@ -1,7 +1,9 @@
 package ASTNodes.AST_Stats;
 
 import ASTNodes.AST_Exprs.*;
+import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
+import ASTNodes.AST_Program;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatArrayLitRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 
@@ -341,8 +343,24 @@ public class AST_StatVarDecl extends AST_Stat {
 
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
-    ast_assignRHS.acceptPreProcess(regAlloc);
 
+    //Set a flag for acceptRegister in statVarDecl using a list in registerallocation to declare the var on the stack
+    // since it is used in read and the aststatvardecl assembly code works with stacks
+    boolean isFuncStat = true;
+    AST_Node tempNode = this;
+    while(!(tempNode instanceof AST_FuncDecl)){
+      tempNode = tempNode.getParentNode();
+      if(tempNode instanceof AST_Program){
+        //System.out.println(varName + " not in func stat");
+        isFuncStat = false;
+        break;
+      }
+    }
+
+    if(isFuncStat){
+      regAlloc.addToStackOnlyVar(identName);
+    }
+    ast_assignRHS.acceptPreProcess(regAlloc);
   }
 
   public void accept(AST_NodeVisitor visitor) {
@@ -443,6 +461,24 @@ public class AST_StatVarDecl extends AST_Stat {
         //registerAllocation.setFinalStackSize(registerAllocation.getStackSize() + 4);
       }
 
+
+      boolean isFuncStat = true;
+      AST_Node tempNode = this;
+      while(!(tempNode instanceof AST_FuncDecl)){
+        tempNode = tempNode.getParentNode();
+        if(tempNode instanceof AST_Program){
+          //System.out.println(varName + " not in func stat");
+          isFuncStat = false;
+          break;
+        }
+      }
+
+      if(isFuncStat){
+        AST_FuncDecl funcDecl = (AST_FuncDecl)tempNode;
+        StackLocation stackLocationClass = new StackLocation(stackLocation.toString(), registerAllocation.getCurrentScope());
+        stackLocationClass.setPos(-1);
+        registerAllocation.addToFuncStack(funcDecl.getFuncName(), identName, stackLocationClass);
+      }
 
       registerAllocation.addToStack(identName, new StackLocation(stackLocation.toString(), registerAllocation.getCurrentScope()));
 
