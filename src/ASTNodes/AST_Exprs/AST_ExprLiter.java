@@ -261,9 +261,11 @@ public class AST_ExprLiter extends AST_Expr {
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
     if (literal.equals("str")) {
-      registerAllocation.addString(constant.replace("\"", ""));
+      String string = constant;
+      string = string.substring(1, constant.length() -1);
+      registerAllocation.addString(string);
       InstructionAssignLit instructionAssignLit = new InstructionAssignLit(constant, literal);
-      instructionAssignLit.setStringMsgNum(Integer.toString(registerAllocation.getStringID(constant.replace("\"", ""))));
+      instructionAssignLit.setStringMsgNum(Integer.toString(registerAllocation.getStringID(string)));
       instr = instructionAssignLit;
       instructionList.add(instr);
     } else {
