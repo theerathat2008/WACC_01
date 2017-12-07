@@ -33,6 +33,10 @@ public class AST_ExprEnclosed extends AST_Expr {
     this.rightSepAST.setSyntacticAttributes(")");
   }
 
+  public AST_Expr getExprAST() {
+    return exprAST;
+  }
+
   /**
    * Gets all children nodes of current node
    *
@@ -116,6 +120,7 @@ public class AST_ExprEnclosed extends AST_Expr {
    */
   @Override
   public boolean CheckSemantics() {
+    //setType(exprAST.type);
     return true;
   }
 
