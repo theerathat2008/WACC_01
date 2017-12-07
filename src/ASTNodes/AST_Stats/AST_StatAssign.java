@@ -401,6 +401,10 @@ public class AST_StatAssign extends AST_Stat {
       }
     }
 
+//    else if (ast_statAssignLHS instanceof AST_StatArrayElemLHS) {
+//      regAlloc.addToStackOnlyVar(((AST_StatArrayElemLHS) ast_statAssignLHS).getIdentName());
+//    }
+
 
 
 
@@ -447,21 +451,25 @@ public class AST_StatAssign extends AST_Stat {
     ast_statAssignRHS.acceptInstr(assemblyCode);
     //TODO maybe need this: ast_statAssignLHS.acceptInstr(assemblyCode);
 
-
-
     if (ast_statAssignLHS instanceof AST_StatIdentLHS) {
       assemblyCode.add(instrIdentLHS.getBlock1());
     } else if (ast_statAssignLHS instanceof AST_StatArrayElemLHS) {
-      assemblyCode.add(instrArrayElemLHS.getResultBlock());
-    } else if (ast_statAssignLHS instanceof AST_StatPairElemLHS){
 
-      //assemblyCode.add("\n\n\n\n ident:\n");
+
+
+      assemblyCode.add(instrArrayElemLHS.getResultBlock1());
+
+      //assemblyCode.add("\n\t\tSOME CODE HERE\n");
+
+      assemblyCode.add(instrArrayElemLHS.getResultBlock2());
+
+
+
+
+    } else if (ast_statAssignLHS instanceof AST_StatPairElemLHS){
       AST_ExprIdent ast_exprIdent = (AST_ExprIdent) ((AST_StatPairElemLHS) ast_statAssignLHS).getAst_expr();
       ast_exprIdent.acceptInstr(assemblyCode);
-      //assemblyCode.add("\n\n\n\n ident:\n");
-      //assemblyCode.add("\n\n\n\n PAIRSTART:\n");
       assemblyCode.add(instrPairElemLHS.getResultBlock());
-      //assemblyCode.add("\n\n\n\n PAIREND:\n");
     }
 
   }
@@ -688,7 +696,7 @@ public class AST_StatAssign extends AST_Stat {
     if (tempNode.ast_exprList.get(0) instanceof AST_ExprLiter) {
       System.out.println("Pos in arrray: " + ((AST_ExprLiter) tempNode.ast_exprList.get(0)).getConstant());
       return ((AST_ExprLiter) tempNode.ast_exprList.get(0)).getConstant();
-    } else if (tempNode.ast_exprList.get(0) instanceof AST_ExprLiter) {
+    } else if (tempNode.ast_exprList.get(0) instanceof AST_ExprIdent) {
       System.out.println("TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
     }
 
@@ -704,16 +712,10 @@ public class AST_StatAssign extends AST_Stat {
       instructionList.add(instructionAssignIdentLHS);
       instrIdentLHS = instructionAssignIdentLHS;
     } else if(ast_statAssignLHS instanceof AST_StatArrayElemLHS){
-      AST_StatArrayElemLHS tempNode = (AST_StatArrayElemLHS) ast_statAssignLHS;
 
-      String type = "";
-      if (tempNode.getType() == null) {
-        type = "strElem";
-      } else {
-        type = tempNode.getType();
-      }
+      String type = ((AST_StatExprRHS) ast_statAssignRHS).getAst_expr().getType();
 
-      InstructionAssArrayElem instructionAssArrayElem = new InstructionAssArrayElem(getPosInArray(tempNode), type, true);
+      InstructionAssArrayElem instructionAssArrayElem = new InstructionAssArrayElem(type, true);
       instructionList.add(instructionAssArrayElem);
       instrArrayElemLHS = instructionAssArrayElem;
 
