@@ -3,20 +3,21 @@ package InstructionSet;
 import Registers.RegisterARM;
 
 public class InstructionAccessArrayElem extends Instruction {
-  private String resultBlock;
+  private String resultBlock1;
+  private String resultBlock2;
   private String regR0;
   private String regR1;
   private String resultReg;
   private String posReg;
-  private String pos;
+  //private String pos;
   private boolean isStack;
   private String type;
   private String arrayLocationReg;
   boolean str;
 
-  public InstructionAccessArrayElem(String posInArray, String type, boolean str) {
+  public InstructionAccessArrayElem(String type, boolean str) {
     this.type = type;
-    this.pos = posInArray;
+    //this.pos = posInArray;
     this.regR0 = "arrayBoundReg1";
     this.regR1 = "regR1";
     this.resultReg = "resultReg";
@@ -37,8 +38,12 @@ public class InstructionAccessArrayElem extends Instruction {
     this.arrayLocationReg = arrayLocation;
   }
 
-  public String getResultBlock() {
-    return resultBlock;
+  public String getResultBlock1() {
+    return resultBlock1;
+  }
+
+  public String getResultBlock2() {
+    return resultBlock2;
   }
 
 
@@ -74,7 +79,7 @@ public class InstructionAccessArrayElem extends Instruction {
         }
         break;
       default:
-        return "Unrecognised type, instrassarrayelem->getStrlast\n";
+        return "Unrecognised type, instrassarrayelem->getStrlast + " + type + "\n";
     }
 
     builder.append(resultReg + ", [" + resultReg + "]\n");
@@ -115,11 +120,15 @@ public class InstructionAccessArrayElem extends Instruction {
       builder.append(arrayLocationReg);
       builder.append("\n");
     }
+
+    //builder.append("\n\n\n\n");
+    resultBlock1 = builder.toString();
+
+    //Loads position lit to posReg
+
+    builder = new StringBuilder();
+    //builder.append("\n\n\n\n");
     builder.append("\t\tLDR ");
-    builder.append(posReg);
-    builder.append(", =");
-    builder.append(pos);
-    builder.append("\n\t\tLDR ");
     builder.append(resultReg);
     builder.append(", [");
     builder.append(resultReg);
@@ -139,7 +148,7 @@ public class InstructionAccessArrayElem extends Instruction {
     builder.append(", #4\n");
     builder.append(getLastLine());
     builder.append("\t\tMOV r5, r4\n");
-    resultBlock = builder.toString();
+    resultBlock2 = builder.toString();
   }
 
   @Override

@@ -8,12 +8,13 @@ public class InstructionAssignLit extends Instruction {
   String lit;
   String reg;
   String stringMsgNum;
-  public String block1;
+  public String resultBlock;
 
   public InstructionAssignLit(String constant, String lit) {
     this.constant = constant;
     this.lit = lit;
     reg = "reg";
+    resultBlock = "undefined";
   }
 
   public void registerAllocation(RegisterARM reg) {
@@ -30,25 +31,23 @@ public class InstructionAssignLit extends Instruction {
 
   @Override
   public void genInstruction() {
-
+    StringBuilder builder = new StringBuilder();
 
     if (lit.equals("char")) {
       lit = "'" + lit + "'";
-      StringBuilder builder = new StringBuilder("\t\tMOV ");
+      builder.append("\t\tMOV ");
       builder.append(reg);
       builder.append(", #");
       builder.append(constant);
       builder.append("\n");
-      block1 = builder.toString();
     } else if (lit.equals("int")) {
-      StringBuilder builder = new StringBuilder("\t\tLDR ");
+      builder.append("\t\tLDR ");
       builder.append(reg);
       builder.append(", =");
       builder.append(stripZeros(constant));
       builder.append("\n");
-      block1 = builder.toString();
     } else if (lit.equals("bool")) {
-      StringBuilder builder = new StringBuilder("\t\tMOV ");
+      builder.append("\t\tMOV ");
       builder.append(reg);
       builder.append(", #");
       if (constant.equals("true")) {
@@ -57,17 +56,15 @@ public class InstructionAssignLit extends Instruction {
         builder.append("0");
       }
       builder.append("\n");
-      block1 = builder.toString();
     } else if (lit.equals("str")) {
-      StringBuilder builder = new StringBuilder("\t\tLDR ");
+      builder.append("\t\tLDR ");
       builder.append(reg);
       builder.append(", =msg_");
       builder.append(stringMsgNum);
       builder.append("\n");
-      block1 = builder.toString();
     }
 
-
+    resultBlock = builder.toString();
   }
 
   @Override
