@@ -30,6 +30,7 @@ public class InstructionPrint extends Instruction {
   }
 
   public String getPrintType() {
+
     switch (type) {
       case ("string"):  //falls through to "str" case.
       case ("str"):
@@ -40,6 +41,8 @@ public class InstructionPrint extends Instruction {
         return "putchar";
       case ("int"):
         return "p_print_int";
+      case ("pair"):
+        return "p_print_reference";
       default:
         if (type.contains("[") || type.contains("PAIR")) {
           return "p_print_reference";

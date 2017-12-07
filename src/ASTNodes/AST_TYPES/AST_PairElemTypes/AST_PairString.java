@@ -145,7 +145,6 @@ public class AST_PairString extends AST_PairElemType {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-
   }
 
   @Override

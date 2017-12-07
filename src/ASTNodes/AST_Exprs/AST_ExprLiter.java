@@ -235,18 +235,24 @@ public class AST_ExprLiter extends AST_Expr {
    */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    RegisterUsage usage = aRegisterUsageBuilder()
-        .withUsageType("exprType")
-        .withSubType("resultType")
-        .withScope(registerAllocation.getCurrentScope())
-        .withContent(constant)
-        .build();
 
-    RegisterARM resultReg = registerAllocation.useRegister(usage);
+    //if (literal.equals("pair") && constant.equals("null")){
 
-    instr.registerAllocation(resultReg);
+    //} else {
+      RegisterUsage usage = aRegisterUsageBuilder()
+              .withUsageType("exprType")
+              .withSubType("resultType")
+              .withScope(registerAllocation.getCurrentScope())
+              .withContent(constant)
+              .build();
 
-    return resultReg;
+      RegisterARM resultReg = registerAllocation.useRegister(usage);
+
+      instr.registerAllocation(resultReg);
+
+      return resultReg;
+    //}
+    //return RegisterARM.NULL_REG;
   }
 
 
@@ -275,15 +281,15 @@ public class AST_ExprLiter extends AST_Expr {
       registerAllocation.setExprIdentFlag(true);
       registerAllocation.addString(string);
       registerAllocation.setExprIdentFlag(false);
-
-
       InstructionAssignLit instructionAssignLit = new InstructionAssignLit(constant, literal);
       instructionAssignLit.setStringMsgNum(Integer.toString(registerAllocation.getStringID(string)));
       instr = instructionAssignLit;
       instructionList.add(instr);
+    } else if (literal.equals("pair") && constant.equals("null")){
+      instr = new InstructionAssignLit(constant, literal);
+      instructionList.add(instr);
     } else {
-      InstructionAssignLit instructionAssignLit = new InstructionAssignLit(constant, literal);
-      instr = instructionAssignLit;
+      instr = new InstructionAssignLit(constant, literal);;
       instructionList.add(instr);
     }
 

@@ -62,6 +62,11 @@ public class InstructionAssignLit extends Instruction {
       builder.append(", =msg_");
       builder.append(stringMsgNum);
       builder.append("\n");
+    } else if (lit.equals("pair") && constant.equals("null")) {
+      builder.append("\t\tLDR ");
+      builder.append(reg);
+      builder.append(", =0");
+      builder.append("\n");
     }
 
     resultBlock = builder.toString();

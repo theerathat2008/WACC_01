@@ -5,6 +5,7 @@ import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
 import ASTNodes.AST_Separator;
+import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.*;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
@@ -368,7 +369,14 @@ public class AST_StatExpr extends AST_Stat {
               //CHECK IS CHAR IS NEEDED
               break;
             case ("pair"):
-              //No break since pair and array are the same
+              if (expr instanceof AST_ExprLiter) {
+
+              } else {
+                InstructionPrintBlocksRef instrPrintBlocksRef = (InstructionPrintBlocksRef) instrPrintType;
+                instrPrintBlocksRef.allocateRegisters(RegisterARM.r0, RegisterARM.r1);
+              }
+
+              break;
             case ("array"):
               InstructionPrintBlocksRef instructionPrintBlocksRef = (InstructionPrintBlocksRef) instrPrintType;
               instructionPrintBlocksRef.allocateRegisters(RegisterARM.r0, RegisterARM.r1);
@@ -377,10 +385,10 @@ public class AST_StatExpr extends AST_Stat {
             case ("bool"):
               InstructionPrintBlocksBool instructionPrintBool = (InstructionPrintBlocksBool) instrPrintType;
               instructionPrintBool.allocateRegisters(RegisterARM.r0);
+              break;
             default:
               break;
           }
-
 
 
           InstructionPrint instructionPrint = (InstructionPrint) instr;
@@ -501,6 +509,10 @@ public class AST_StatExpr extends AST_Stat {
               break;
             case ("pair"):
               //No break since pair and array are the same
+              if (expr instanceof AST_ExprLiter) {
+
+              }
+              break;
 
             case ("bool"):
               registerAllocation.addString("true\\0");
@@ -513,6 +525,7 @@ public class AST_StatExpr extends AST_Stat {
               instructionList.add(instructionPrintBool);
               instrPrintType = instructionPrintBool;
             default:
+
               if(type.contains("[") || type.contains("PAIR")){
                 registerAllocation.addString("%p\\0");
                 InstructionPrintBlocksRef instructionPrintBlocksRef = new InstructionPrintBlocksRef(registerAllocation.getStringID("%p\\0"));

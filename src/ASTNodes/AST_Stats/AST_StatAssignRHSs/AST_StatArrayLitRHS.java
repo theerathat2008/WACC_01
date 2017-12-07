@@ -312,7 +312,6 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
     }
 
     if (intertempReg.equals(RegisterARM.NULL_REG)) {
-      System.out.println("***************************************************NULLLLLLLLLLLLLLPOINTER");
       RegisterUsage tempReg = aRegisterUsageBuilder()
               .withUsageType("tempType")
               .withScope(registerAllocation.getCurrentScope())
