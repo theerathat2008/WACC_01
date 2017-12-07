@@ -33,7 +33,6 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
   String identName;
   public List<AST_Expr> ast_exprList;
   int numOfExpr;
-  InstructionAssArrayElem arrayElemInstr;
 
   /**
    * Constructor for class - initialises class variables

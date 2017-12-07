@@ -121,13 +121,11 @@ public class InstructionAccessArrayElem extends Instruction {
       builder.append("\n");
     }
 
-    //builder.append("\n\n\n\n");
     resultBlock1 = builder.toString();
 
     //Loads position lit to posReg
 
     builder = new StringBuilder();
-    //builder.append("\n\n\n\n");
     builder.append("\t\tLDR ");
     builder.append(resultReg);
     builder.append(", [");

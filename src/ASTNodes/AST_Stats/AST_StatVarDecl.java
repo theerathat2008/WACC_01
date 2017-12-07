@@ -4,11 +4,8 @@ import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Exprs.AST_ExprBinary;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
 import ASTNodes.AST_Node;
-import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatArrayLitRHS;
-import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
+import ASTNodes.AST_Stats.AST_StatAssignRHSs.*;
 
-import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
-import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatPairElemRHS;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionVarDecl;
@@ -342,6 +339,13 @@ public class AST_StatVarDecl extends AST_Stat {
 
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
+
+    if(ast_assignRHS instanceof AST_StatNewPairRHS){
+      //Set a flag for acceptRegister in statVarDecl using a list in registerallocation to declare the var on the stack
+      // since it is used in read and the statarraylitrhs assembly code works with stacks
+      regAlloc.addToStackOnlyVar(identName);
+    }
+
     ast_assignRHS.acceptPreProcess(regAlloc);
 
   }
