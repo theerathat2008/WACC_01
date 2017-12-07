@@ -481,12 +481,13 @@ public class AST_StatAssign extends AST_Stat {
 
     //Don't care about the result of the left reg
     RegisterARM regLeft = ast_statAssignLHS.acceptRegister(registerAllocation);
-    registerAllocation.freeRegister(regRight);
+
 
     //registerAllocation.freeRegister(regLeft);
 
 
     if (ast_statAssignLHS instanceof AST_StatIdentLHS) {
+      registerAllocation.freeRegister(regRight);
 
       //Check if varName is allocated on the stack or in a register
       AST_StatIdentLHS ast_statIdentLHS = (AST_StatIdentLHS) ast_statAssignLHS;
