@@ -147,7 +147,6 @@ public class InstructionAccessArrayElem extends Instruction {
     builder.append(resultReg);
     builder.append(", #4\n");
     builder.append(getLastLine());
-    builder.append("\t\tMOV r5, r4\n");
     resultBlock2 = builder.toString();
   }
 
