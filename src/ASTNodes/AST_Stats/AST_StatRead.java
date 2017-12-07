@@ -153,7 +153,6 @@ public class AST_StatRead extends AST_Stat {
       }
     }
 
-    System.out.println("reach here");
     String type = ast_statAssignLHS.getIdentifier().toString();
 
     //only valid if it is of type char and int

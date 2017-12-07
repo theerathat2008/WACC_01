@@ -276,7 +276,6 @@ public class AST_StatVarDecl extends AST_Stat {
       }
     }
 
-    System.out.println("reach here");
 
     if (ast_type.getIdentifier() != null && ast_assignRHS.getIdentifier() != null) {
       //ast_type.getIdentifier() returns "str" so it's the problem
@@ -393,8 +392,6 @@ public class AST_StatVarDecl extends AST_Stat {
 //      System.out.println("HIIIIIIIIIIIIIIT 2");
 //    }
 
-
-    registerAllocation.printStackOnlyVar();
     if(registerAllocation.getVarRegSize() > 2 || (registerAllocation.checkIfOnStackOnlyVar(identName))){
 
 
@@ -457,7 +454,6 @@ public class AST_StatVarDecl extends AST_Stat {
     InstructionVarDecl instructionVarDecl = new InstructionVarDecl(ast_type.getIdentifier().toString());
     instructionList.add(instructionVarDecl);
     instrVar = instructionVarDecl;
-    System.out.println(ast_type.getIdentifier().toString());
     if(registerAllocation.getVarDeclCount() > 2 || (registerAllocation.checkIfOnStackOnlyVar(identName))) {
       //System.out.println("Final stack size at var: " +ast_type.getIdentifier().toString() + " is " + registerAllocation.getFinalStackSize());
       registerAllocation.setFinalStackSize(registerAllocation.getFinalStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));

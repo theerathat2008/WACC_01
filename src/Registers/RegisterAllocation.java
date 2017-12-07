@@ -528,20 +528,7 @@ public class RegisterAllocation {
   }
 
 
-//  /**
-//   * @param register
-//   * @return - Returns register name
-//   */
-//  public static String getRegName(RegisterARM register) {
-//    return register.name();
-//  }
-//
-//  /**
-//   * Remove all elements from the freeRegister stack
-//   */
-//  public void clearFreeRegisters() {
-//    freeRegisters.clear();
-//  }
+
 
 }
 

@@ -433,11 +433,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
         String dst = registerAllocation.searchByFuncVarCounter(counter, funcName).name();
         counter++;
 
-        System.out.println("STAT CALL ");
-        System.out.println("src is : " + src);
-        System.out.println("dst is : " + dst);
-
-
         if(src.equals("NULL_REG") && dst.equals("NULL_REG")){
           src = registerAllocation.getStackLocation(varName);
           dst = registerAllocation.getFuncStackLocation(funcName, varName);
@@ -476,7 +471,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
           type = "reg, reg";
           instrCall.genCallInstruction(src, dst, type, RegisterARM.NULL_REG);
         }
-        System.out.println("type is: " + type);
       }
     }
     return RegisterARM.r0;

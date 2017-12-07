@@ -57,7 +57,6 @@ public class AST_ExprLiter extends AST_Expr {
    */
   @Override
   public void setSyntacticAttributes(String value) {
-    System.out.println("VALUE IS: " + value);
     if (constant == null) {
       this.constant = value;
     } else if (literal == null) {
@@ -118,7 +117,6 @@ public class AST_ExprLiter extends AST_Expr {
    */
   @Override
   public boolean CheckSemantics() {
-    System.out.println("LITERAL: " + literal);
     setType(literal);
     setType(literal);
 

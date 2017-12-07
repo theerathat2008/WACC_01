@@ -221,8 +221,6 @@ public class AST_ParamList extends AST_Node {
         counter++;
         param.acceptRegister(registerAllocation);
 
-        System.out.println("Reserving register: " + funcReg + " with funcName: " + tempNode.funcName + " with varName " + param.paramName);
-
       } else {
         //More than 4 parameters used in AST_ParamList
         //Allocate reg space on the stack

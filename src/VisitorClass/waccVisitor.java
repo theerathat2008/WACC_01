@@ -176,7 +176,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
       }
     }
 
-    System.out.println("Type is: " + type);
 
     if (type != null) {
       new FunctionRedeclarationError(new FilePosition(ctx)).printAll();
@@ -891,9 +890,6 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     }
 
     //find its type, if type differ from that it's fine
-
-    System.out.println("Type is: " + type);
-    System.out.println("hi");
 
     System.out.println(identName);
     IDENTIFIER value = currentGlobalTree.encSymTable.getSymMap().get(identName);
