@@ -29,7 +29,7 @@ public class InstructionWhile extends Instruction {
 
   public void genInstruction() {
     block1 = "\t" + loopLabel + ":\n";
-    //TODO put expr between block1 and 2
+    //TODO put expr between resultBlock and 2
 
     StringBuilder block2 = new StringBuilder();
     block2.append("\t\tCMP ");

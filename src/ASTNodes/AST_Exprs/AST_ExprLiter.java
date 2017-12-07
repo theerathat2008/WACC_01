@@ -218,7 +218,7 @@ public class AST_ExprLiter extends AST_Expr {
 
   @Override
   public void acceptInstr(List<String> assemblyCode) {
-    assemblyCode.add(instr.block1);
+    assemblyCode.add(instr.resultBlock);
   }
 
 
@@ -228,8 +228,6 @@ public class AST_ExprLiter extends AST_Expr {
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
-
     RegisterUsage usage = aRegisterUsageBuilder()
         .withUsageType("exprType")
         .withSubType("resultType")
@@ -257,7 +255,6 @@ public class AST_ExprLiter extends AST_Expr {
 
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-
     if (literal.equals("str")) {
       String string = constant;
       string = string.substring(1, constant.length() -1);

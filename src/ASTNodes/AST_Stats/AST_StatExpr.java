@@ -4,6 +4,7 @@ import ASTNodes.AST_Exprs.*;
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
+import ASTNodes.AST_Separator;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.*;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
@@ -442,6 +443,13 @@ public class AST_StatExpr extends AST_Stat {
           tempNode.setExprType();
         }
         String type = expr.getType();
+
+
+        if (expr instanceof  AST_ExprEnclosed){
+          AST_ExprEnclosed tempNode = (AST_ExprEnclosed) expr;
+          type = getEmebeddedType(tempNode);
+        }
+
         if (type != null) {
           switch (type) {
             case ("int"):
@@ -514,13 +522,11 @@ public class AST_StatExpr extends AST_Stat {
           if (expr instanceof AST_ExprBinary) {
             AST_ExprBinary tempNode = (AST_ExprBinary) expr;
             emebededType = getEmebeddedType(tempNode);
-
           } else if (expr instanceof AST_ExprUnary) {
             AST_ExprUnary tempNode = (AST_ExprUnary) expr;
             emebededType = getEmebeddedType(tempNode);
           }
 
-          System.out.println("Embedded null type is: " + emebededType);
 
           InstructionPrint instructionPrint = new InstructionPrint(emebededType);
           instructionList.add(instructionPrint);
@@ -537,6 +543,8 @@ public class AST_StatExpr extends AST_Stat {
   }
 
   public String getEmebeddedType(AST_Node root) {
+
+    //Go from root to a terminal node either AST_ExprIdent or AST_ExprLit
     if (root.getNodes() != null) {
       for (AST_Node node : root.getNodes()) {
         if (node instanceof AST_ExprIdent) {
@@ -545,11 +553,17 @@ public class AST_StatExpr extends AST_Stat {
         } else if (node instanceof AST_ExprLiter) {
           AST_ExprLiter tempNode = (AST_ExprLiter) node;
           return tempNode.getLiteral();
+        } else if (node instanceof AST_Separator){
+          continue;
         }
-        getEmebeddedType(node);
+        System.out.println(node.getClass().getSimpleName());
+        return getEmebeddedType(node);
       }
+    } else {
+      System.out.println("Root node is a terminal node");
+      System.out.println("root is " + root.getClass().getSimpleName());
     }
-    return null;
+    return "null";
   }
 
 }
