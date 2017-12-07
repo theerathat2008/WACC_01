@@ -25,9 +25,7 @@ import ErrorMessages.UndefinedFunctionError;
 import ErrorMessages.FilePosition;
 import VisitorClass.AST_NodeVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
-
 import java.util.*;
-
 import static Registers.RegisterUsageBuilder.aRegisterUsageBuilder;
 
 /**
@@ -42,7 +40,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
   ParserRuleContext ctx;
   SymbolTable symbolTable;
   List<String> standardLibrary;
-
   InstructionCall instrCall;
 
   /**
@@ -65,7 +62,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
 
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -82,7 +78,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   public void setSyntacticAttributes(String value, SymbolTable ST) {
@@ -96,7 +91,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
 
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   public String getSyntacticAttributes(String strToGet) {
@@ -324,8 +318,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
       }
       setIdentifier(((FunctionObj) (type)).getReturnType());
     }
-
-
     return true;
   }
 
@@ -342,7 +334,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
 
   /**
    * Called from visitor
-   *
    * @param ST
    */
   @Override
@@ -350,12 +341,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
     if (CheckSemantics()) {
 
     }
-
-//    while(!ST.getScope().equals("TargetScope")){
-//      ST = ST.encSymTable;
-//    }
-
-    //Do symbol table stuff
   }
 
   /**
@@ -373,11 +358,13 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
     }
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
     for (AST_Expr expr : ast_exprList) {
-
-
 
       if(expr instanceof AST_ExprIdent){
          AST_ExprIdent tempNode = (AST_ExprIdent)expr;
@@ -388,6 +375,11 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
     }
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     for (AST_Expr expr : ast_exprList) {
@@ -395,6 +387,11 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
     }
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     List<String> callList = instrCall.getVarCallBlocks();
@@ -409,16 +406,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
       }
       assemblyCode.add(callBlock);
     }
-//
-//    for (AST_Expr expr : ast_exprList) {
-//       if(expr instanceof AST_ExprLiter || expr instanceof AST_ExprBinary || expr instanceof AST_ExprUnary){
-//        expr.acceptInstr(assemblyCode);
-//      }
-//    }
-//
-//    for (String callBlock : callList) {
-//      assemblyCode.add(callBlock);
-//    }
     assemblyCode.add(instrCall.getResultBlock());
   }
 
@@ -438,8 +425,13 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
    * For standard library pass r4 and r5 to all functions apart from factorial which only requires r4.
    */
 
+  /**
+   * Want to store the evaluation of the two registers result of the binary expression
+   * Format is expr BinOp expr
+   * Store the returned result of the two expr into a result reg
+   * Free the two registers after having got the evaluation of the two stores in the regs
+   */
   @Override
-
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
     int counter = 0;
@@ -533,6 +525,14 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
       return RegisterARM.r0;
     }
 
+  /**
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
+   */
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
     String returnType = "null";
@@ -556,10 +556,16 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
 
   }
 
+  /**
+   * @return Return the ast_exprList attribute
+   */
   public List<AST_Expr> getAst_exprList() {
     return ast_exprList;
   }
 
+  /**
+   * @return Return the funcName attribute
+   */
   public String getFuncName() {
     return funcName;
   }

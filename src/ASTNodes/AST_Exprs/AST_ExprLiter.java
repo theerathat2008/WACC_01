@@ -3,18 +3,14 @@ package ASTNodes.AST_Exprs;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionAssignLit;
 import Registers.RegisterARM;
-
 import Registers.RegisterAllocation;
 import Registers.RegisterUsage;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
 import SymbolTable.SymbolTable;
-
 import java.util.ArrayDeque;
 import java.util.List;
-
 import VisitorClass.AST_NodeVisitor;
-
 import IdentifierObjects.*;
 import static Registers.RegisterUsageBuilder.*;
 
@@ -24,10 +20,10 @@ import static Registers.RegisterUsageBuilder.*;
 public class AST_ExprLiter extends AST_Expr {
 
   //Syntactic attributes
-  String constant;    //TODO change to content
+  String constant;
   String literal;
   ParserRuleContext ctx;
-  InstructionAssignLit instr;   //TODO put correct instruction type here.
+  InstructionAssignLit instr;
 
   /**
    * Constructor for class - initialises class variables to NULL
@@ -41,7 +37,6 @@ public class AST_ExprLiter extends AST_Expr {
 
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -52,7 +47,6 @@ public class AST_ExprLiter extends AST_Expr {
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -69,7 +63,6 @@ public class AST_ExprLiter extends AST_Expr {
 
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
@@ -121,7 +114,6 @@ public class AST_ExprLiter extends AST_Expr {
     setType(literal);
 
     //if it is int liter, check whether the number is inside the integer bounds
-    //TODO reuntimeErr cases check
     if (literal.equals("int")) {
       if (Long.parseLong(constant) > Math.pow(2, 31) || Long.parseLong(constant) < -Math.pow(2, 31)) {
         System.out.println("Errors detected during compilation! Exit code 100 returned.");
@@ -131,7 +123,6 @@ public class AST_ExprLiter extends AST_Expr {
         return true;
       }
     }
-    //TODO implements error
     //check for only 'true' or 'false'
     if (literal.equals("bool")) {
       if (!(constant.equals("true") || constant.equals("false"))) {
@@ -144,7 +135,6 @@ public class AST_ExprLiter extends AST_Expr {
 
     //check if it does not point to any pair
     if (literal.contains("pair")) {
-      //TODO if it does not point to any pair
       if (constant != null) {
         System.out.println("The only pair literal is 'null.");
         return false;
@@ -153,7 +143,6 @@ public class AST_ExprLiter extends AST_Expr {
       }
     }
 
-    //TODO implement errors
     if (literal.equals("string")) {
       //check if the string literals are between two '"' symbols
       if (!(constant.charAt(0) == '"') && (constant.charAt(constant.length() - 1) == '"')) {
@@ -175,18 +164,12 @@ public class AST_ExprLiter extends AST_Expr {
         System.out.println("Character literals must be of length 1.");
         return false;
       }
-
-      /*if (!Character.isLetterOrDigit(constant.charAt(0))) {
-        System.out.println("Valid character literals must be ASCII character.");
-        return false;
-      }*/
     }
     return true;
   }
 
   /**
    * Called from visitor
-   *
    * @param ST
    */
   @Override
@@ -207,30 +190,49 @@ public class AST_ExprLiter extends AST_Expr {
     System.out.println("literal: " + literal);
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
 
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }
 
+  /**
+   * @param visitor
+   * @return Return the result of evaluating constant expressions at compile-time
+   */
   public int acceptNode(AST_NodeVisitor visitor) {
     visitor.visit(this);
     return Integer.parseInt(constant);
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     assemblyCode.add(instr.resultBlock);
   }
 
-
   /**
-   *
+   * Want to store the evaluation of the two registers result of the binary expression
+   * Format is expr BinOp expr
+   * Store the returned result of the two expr into a result reg
+   * Free the two registers after having got the evaluation of the two stores in the regs
    */
-
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     RegisterUsage usage = aRegisterUsageBuilder()
@@ -258,7 +260,14 @@ public class AST_ExprLiter extends AST_Expr {
    * PAIR_LITER: Corresponds to =0 in the LDR instruction
    */
 
-
+  /**
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
+   */
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     if (literal.equals("str")) {
       String string = constant;
@@ -280,10 +289,16 @@ public class AST_ExprLiter extends AST_Expr {
 
   }
 
+  /**
+   * @return Return the literal attribute
+   */
   public String getLiteral() {
     return literal;
   }
 
+  /**
+   * @return Return the constant attribute
+   */
   public String getConstant() {
     return constant;
   }

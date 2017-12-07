@@ -1,8 +1,6 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
-
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
-
 import ASTNodes.AST_Exprs.AST_ExprBinary;
 import ASTNodes.AST_Exprs.AST_ExprLiter;
 import ASTNodes.AST_Exprs.AST_ExprUnary;
@@ -18,11 +16,9 @@ import ErrorMessages.TypeMismatchError;
 import ErrorMessages.FilePosition;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
-
 import static Registers.RegisterUsageBuilder.*;
 import IdentifierObjects.*;
 
@@ -41,7 +37,6 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
 
   /**
    * Constructor for class - initialises class variables
-   *
    * @param numberOfChildren - Shows the number of parameters in the parameter list of function
    */
   public AST_StatArrayLitRHS(int numberOfChildren, ParserRuleContext ctx) {
@@ -56,7 +51,6 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
 
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -70,7 +64,6 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -80,7 +73,6 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
 
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
@@ -128,12 +120,38 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
     }
   }
 
+  /**
+   * @return Return type of array, otherwise return a message
+   */
   public String getTypeOfArray() {
     if (ast_exprList.size() > 0) {
       return ast_exprList.get(0).getType();
     }
     return "EMPTY ARRAY IN GETTYPEOFARRAY STATARRAYLITRHS";
 
+  }
+
+  /**
+   * @return Return size of array
+   */
+  public int getArraySize() {
+    this.type = getTypeOfArray();
+    if (type.equals("bool") || type.equals("char")) {
+      return numOfExpr;
+    }
+    return (numOfExpr) * 4;
+  }
+
+  /**
+   * @return Return size of elem
+   */
+  public int getElemSize() {
+    this.type = getTypeOfArray();
+    currentPos++;
+    if (type.equals("bool") || type.equals("char")) {
+      return 1;
+    }
+    return 4;
   }
 
   /**
@@ -173,7 +191,6 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
 
   /**
    * Called from visitor
-   *
    * @param ST
    */
   @Override
@@ -197,6 +214,10 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
     }
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
     for (AST_Expr expr : ast_exprList) {
@@ -204,7 +225,11 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
     }
   }
 
-
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     for (AST_Expr expr : ast_exprList) {
@@ -237,6 +262,11 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
     return listResult;
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     int count = 0;
@@ -258,6 +288,12 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
    * allocateRegisters(r0, RegisterARM inter, RegisterARM memoryAddress)
    */
 
+  /**
+   * Want to store the evaluation of the two registers result of the binary expression
+   * Format is expr BinOp expr
+   * Store the returned result of the two expr into a result reg
+   * Free the two registers after having got the evaluation of the two stores in the regs
+   */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
@@ -290,23 +326,14 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
     return memoryAddress;
   }
 
-  public int getArraySize() {
-    this.type = getTypeOfArray();
-    if (type.equals("bool") || type.equals("char")) {
-      return numOfExpr;
-    }
-    return (numOfExpr) * 4;
-  }
-
-  public int getElemSize() {
-    this.type = getTypeOfArray();
-    currentPos++;
-    if (type.equals("bool") || type.equals("char")) {
-      return 1;
-    }
-    return 4;
-  }
-
+  /**
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
+   */
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
   //form [1,1,2,3]
     this.type = getTypeOfArray();

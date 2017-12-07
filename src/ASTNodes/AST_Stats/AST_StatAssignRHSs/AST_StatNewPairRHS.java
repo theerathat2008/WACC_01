@@ -12,11 +12,9 @@ import Registers.RegisterAllocation;
 import Registers.RegisterUsage;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
-
 import static Registers.RegisterUsageBuilder.aRegisterUsageBuilder;
 
 /**
@@ -39,7 +37,6 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
 
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -52,7 +49,6 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -62,7 +58,6 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
 
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
@@ -134,7 +129,6 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
 
   /**
    * Called from visitor
-   *
    * @param ST
    */
   @Override
@@ -162,12 +156,21 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
     }
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
     ast_expr_first.acceptPreProcess(regAlloc);
     ast_expr_second.acceptPreProcess(regAlloc);
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_expr_first.accept(visitor);
@@ -176,14 +179,10 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
 
   /**
    * General case to call acceptNode
-   *
    * @param visitor
    */
   public List<Integer> acceptRootNode(AST_NodeVisitor visitor) {
     visitor.visit(this);
-
-    //TODO for returning, should we return as a pair or as an array or a list
-    //maybe return the pairType
 
     int result1 = 0;
 
@@ -211,6 +210,11 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
     return newPair;
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     assemblyCode.add(instructionDeclAssPair.getBlock1());
@@ -247,6 +251,14 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
     return tempReg;
   }
 
+  /**
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
+   */
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     instructionDeclAssPair
         = new InstructionDeclAssPair(ast_expr_first.getType(), ast_expr_second.getType()

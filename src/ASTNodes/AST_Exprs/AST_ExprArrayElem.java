@@ -8,21 +8,15 @@ import InstructionSet.InstructionAccessArrayElem;
 import InstructionSet.InstructionBlocks.InstructionCheck.InstructionCheckArrayBounds;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
 import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
-
 import Registers.RegisterARM;
-
 import Registers.RegisterAllocation;
 import Registers.RegisterUsage;
 import SymbolTable.SymbolTable;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
-
 import VisitorClass.AST_NodeVisitor;
-
 import IdentifierObjects.*;
-
 import static Registers.RegisterUsageBuilder.aRegisterUsageBuilder;
 
 /**
@@ -33,15 +27,12 @@ public class AST_ExprArrayElem extends AST_Expr {
   //Syntactic attributes
   String arrayName;
   int numOfExpr;
-  List<AST_Expr> ast_exprList; //format was a[expr][expr]
+  List<AST_Expr> ast_exprList;
   InstructionAccessArrayElem arrayElemInstr;
   SymbolTable st;
 
-  //Semantic attribute
-
   /**
    * Constructor for class - initialises class variables
-   *
    * @param numberOfChildren - Shows the number of expressions
    */
   public AST_ExprArrayElem(int numberOfChildren, SymbolTable st) {
@@ -53,7 +44,6 @@ public class AST_ExprArrayElem extends AST_Expr {
 
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -64,9 +54,9 @@ public class AST_ExprArrayElem extends AST_Expr {
     }
     return returnList;
   }
+
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -78,10 +68,8 @@ public class AST_ExprArrayElem extends AST_Expr {
     }
   }
 
-
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
@@ -142,7 +130,6 @@ public class AST_ExprArrayElem extends AST_Expr {
     return true;
   }
 
-
   /**
    * Used for testing - Prints out contents of current AST node
    */
@@ -158,11 +145,15 @@ public class AST_ExprArrayElem extends AST_Expr {
     }
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
 
-    //Set a flag for acceptRegister in statVarDecl using a list in registerallocation to declare the var on the stack
-    // since it is used in read and the statarraylitrhs assembly code works with stacks
+    //Set a flag for acceptRegister in statVarDecl using a list in registerAllocation to declare the var on the stack
+    //since it is used in read and the statArrayLitRHS assembly code works with stacks
     regAlloc.addToStackOnlyVar(arrayName);
 
     for (AST_Expr expr : ast_exprList) {
@@ -170,6 +161,11 @@ public class AST_ExprArrayElem extends AST_Expr {
     }
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   @Override
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
@@ -203,13 +199,17 @@ public class AST_ExprArrayElem extends AST_Expr {
     return listResult;
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     assemblyCode.add(arrayElemInstr.getResultBlock1());
     ast_exprList.get(0).acceptInstr(assemblyCode);
     assemblyCode.add(arrayElemInstr.getResultBlock2());
   }
-
 
   /**
    * Format is varName [ expr ]
@@ -221,10 +221,8 @@ public class AST_ExprArrayElem extends AST_Expr {
    * posReg is just a temp reg
    * resultReg is just temp reg and holds the final result i.e. the value at the array index
    */
-
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    //TODO Register loading expression (lit or expr)
 
     RegisterARM tempPos = ast_exprList.get(0).acceptRegister(registerAllocation);
 
@@ -235,11 +233,6 @@ public class AST_ExprArrayElem extends AST_Expr {
         .build();
     RegisterARM result = registerAllocation.useRegister(resultUsage);
 
-//    RegisterUsage tempReg = aRegisterUsageBuilder()
-//        .withUsageType("tempType")
-//        .withScope(registerAllocation.getCurrentScope())
-//        .build();
-//    RegisterARM tempPos = registerAllocation.useRegister(tempReg);
     registerAllocation.freeRegister(tempPos);
 
     arrayElemInstr.allocateRegisters(result, tempPos);
@@ -251,7 +244,6 @@ public class AST_ExprArrayElem extends AST_Expr {
     while(!(tempNode instanceof AST_FuncDecl)){
       tempNode = tempNode.getParentNode();
       if(tempNode instanceof AST_Program){
-        //System.out.println(varName + " not in func stat");
         isFuncStat = false;
         break;
       }
@@ -282,19 +274,23 @@ public class AST_ExprArrayElem extends AST_Expr {
     return result;
   }
 
+  /**
+   * set the type of the expression
+   */
   public void setExprType() {
     type = ast_exprList.get(0).type;
   }
 
   /**
-   * TODO Produces Assembly code?
-   * Needs to get heap location on array elem when allocating registers
-   * in pair elem lhs, newpairRhs, pairelemRhs, callAssign, return, print, println
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
    */
-
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
-    //TODO GET ARRAY TYPE and pass as param below
     InstructionAccessArrayElem InstructionAccessArrayElem
             = new InstructionAccessArrayElem("int", false);
     arrayElemInstr = InstructionAccessArrayElem;
@@ -327,6 +323,9 @@ public class AST_ExprArrayElem extends AST_Expr {
 
   }
 
+  /**
+   * @return Return the arrayName attributes
+   */
   public String getArrayName() {
     return arrayName;
   }
