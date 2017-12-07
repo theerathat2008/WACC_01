@@ -61,7 +61,7 @@ public class InstructionAssArrayElem extends Instruction {
   public String getLastLine(){
     StringBuilder builder = new StringBuilder();
 
-    System.out.println("££££££££££££££££££££££££££££££££££££TYPE: " + type);
+    System.out.println("TYPE: " + type);
 
     switch (type) {
       case ("int"):

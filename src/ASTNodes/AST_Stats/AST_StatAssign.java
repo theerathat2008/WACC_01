@@ -700,7 +700,7 @@ public class AST_StatAssign extends AST_Stat {
       System.out.println("Pos in arrray: " + ((AST_ExprLiter) tempNode.ast_exprList.get(0)).getConstant());
       return ((AST_ExprLiter) tempNode.ast_exprList.get(0)).getConstant();
     } else if (tempNode.ast_exprList.get(0) instanceof AST_ExprIdent) {
-      System.out.println("TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+      System.out.println("TODO");
     }
 
     return "getPosInArray() to be implemented";

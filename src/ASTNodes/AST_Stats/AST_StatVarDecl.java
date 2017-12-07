@@ -348,7 +348,6 @@ public class AST_StatVarDecl extends AST_Stat {
       // since it is used in read and the statarraylitrhs assembly code works with stacks
       regAlloc.addToStackOnlyVar(identName);
     } else if (ast_assignRHS instanceof AST_StatArrayLitRHS) {
-      System.out.println("***************************£££££££££££££££££££££££££");
       regAlloc.addToStackOnlyVar(identName);
     }
 
