@@ -4,21 +4,21 @@ import InstructionSet.Instruction;
 import Registers.RegisterARM;
 
 public class InstructionAssArrayElem extends Instruction {
-  private String resultBlock;
+  private String resultBlock1;
+  private String resultBlock2;
   private String regR0;
   private String regR1;
   private String resultReg;
   private String posReg;
-  private String pos;
+  //private String pos;
   private boolean isStack;
   private String type;
   private String arrayLocationReg;
   private String itemReg;
   boolean str;
 
-  public InstructionAssArrayElem(String posInArray, String type, boolean str) {
+  public InstructionAssArrayElem(String type, boolean str) {
     this.type = type;
-    this.pos = posInArray;
     this.regR0 = "arrayBoundReg1";
     this.regR1 = "regR1";
     this.resultReg = "resultReg";
@@ -41,8 +41,12 @@ public class InstructionAssArrayElem extends Instruction {
     this.arrayLocationReg = arrayLocation;
   }
 
-  public String getResultBlock() {
-    return resultBlock;
+  public String getResultBlock1() {
+    return resultBlock1;
+  }
+
+  public String getResultBlock2() {
+    return resultBlock2;
   }
 
 
@@ -56,6 +60,8 @@ public class InstructionAssArrayElem extends Instruction {
 
   public String getLastLine(){
     StringBuilder builder = new StringBuilder();
+
+    System.out.println("££££££££££££££££££££££££££££££££££££TYPE: " + type);
 
     switch (type) {
       case ("int"):
@@ -119,11 +125,29 @@ public class InstructionAssArrayElem extends Instruction {
       builder.append(arrayLocationReg);
       builder.append("\n");
     }
+
+    resultBlock1 = builder.toString();
+
+
+
+    builder = new StringBuilder();
+
+    //builder.append("\n\n\n\n LDR instr: ");
+
+//    builder.append("\t\tLDR ");
+//    builder.append(posReg);
+//    builder.append(", =");
+//    builder.append(pos);
+//    builder.append("\n");
+
+    //builder.append("\n\n\n\n LDR instr: ");
+
     builder.append("\t\tLDR ");
     builder.append(posReg);
-    builder.append(", =");
-    builder.append(pos);
-    builder.append("\n\t\tLDR ");
+    builder.append(", [sp]");
+    builder.append("\n");
+
+    builder.append("\t\tLDR ");
     builder.append(resultReg);
     builder.append(", [");
     builder.append(resultReg);
@@ -143,7 +167,7 @@ public class InstructionAssArrayElem extends Instruction {
     builder.append(", #4\n");
     builder.append(getLastLine());
     builder.append("\t\tMOV r5, r4\n");
-    resultBlock = builder.toString();
+    resultBlock2 = builder.toString();
   }
 
   @Override

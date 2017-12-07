@@ -208,7 +208,6 @@ public class AST_ExprArrayElem extends AST_Expr {
     assemblyCode.add(arrayElemInstr.getResultBlock1());
     ast_exprList.get(0).acceptInstr(assemblyCode);
     assemblyCode.add(arrayElemInstr.getResultBlock2());
-    assemblyCode.add("\n\n\n\n");
   }
 
 
