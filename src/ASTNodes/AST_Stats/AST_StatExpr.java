@@ -301,7 +301,7 @@ public class AST_StatExpr extends AST_Stat {
 
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
+    
     RegisterARM evalResult = expr.acceptRegister(registerAllocation);
     String type;
 
@@ -336,7 +336,6 @@ public class AST_StatExpr extends AST_Stat {
           switch (type) {
             case ("int"):
               InstructionPrintBlocksInt instructionPrintBlocksInt = (InstructionPrintBlocksInt) instrPrintType;
-              //TODO reallocate reg
               instructionPrintBlocksInt.allocateRegisters(RegisterARM.r0, RegisterARM.r1);
               break;
             case ("string"):  //falls through to "str" case.
@@ -366,12 +365,14 @@ public class AST_StatExpr extends AST_Stat {
           InstructionPrint instructionPrint = (InstructionPrint) instr;
           //System.out.println("Allocating registers for print: " + evalResult);
           instructionPrint.allocateRegisters(RegisterARM.r0, evalResult);
+          registerAllocation.freeRegister(evalResult);
 
         } else {
 
           InstructionPrint instructionPrint = (InstructionPrint) instr;
           //System.out.println("Allocating registers for print: " + reg3);
           instructionPrint.allocateRegisters(RegisterARM.r0, evalResult);
+          registerAllocation.freeRegister(evalResult);
         }
 
 
