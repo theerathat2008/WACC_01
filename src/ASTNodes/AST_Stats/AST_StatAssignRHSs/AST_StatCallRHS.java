@@ -399,9 +399,13 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     List<String> callList = instrCall.getVarCallBlocks();
+    for (AST_Expr expr : ast_exprList) {
+      if(expr instanceof AST_ExprLiter){
+        expr.acceptInstr(assemblyCode);
+      }
+    }
 
     for (String callBlock : callList) {
-      //expr.acceptInstr(assemblyCode);
       assemblyCode.add(callBlock);
     }
     assemblyCode.add(instrCall.getResultBlock());
@@ -441,9 +445,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
         String dst = registerAllocation.searchByFuncVarCounter(counter, funcName).name();
 
 
-        System.out.println("Stat Call Begin");
-        System.out.println("Src is " + src);
-        System.out.println("Dst is " + dst);
 
         if(src.equals("NULL_REG") && dst.equals("NULL_REG")){
           src = registerAllocation.getStackLocation(varName);
@@ -477,9 +478,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
         } else if (dst.equals("NULL_REG")){
           dst = registerAllocation.getFuncStackLocationCounter(funcName, counter);
 
-          System.out.println("Stat Call Begin");
-          System.out.println("Src is " + src);
-          System.out.println("Dst is " + dst);
           type = "stack, reg";
           // LDR src, dst
           instrCall.genCallInstruction(src, dst, type, RegisterARM.NULL_REG);
@@ -487,6 +485,22 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
           type = "reg, reg";
           instrCall.genCallInstruction(src, dst, type, RegisterARM.NULL_REG);
         }
+      } else if(expr instanceof AST_ExprLiter){
+        RegisterARM resultReg = expr.acceptRegister(registerAllocation);
+        registerAllocation.freeRegister(resultReg);
+
+        String src = resultReg.name();
+        String dst = registerAllocation.searchByFuncVarCounter(counter, funcName).name();
+        String type = "reg, reg";
+        if (dst.equals("NULL_REG")){
+          dst = registerAllocation.getFuncStackLocationCounter(funcName, counter);
+          type = "stack, reg";
+          // LDR src, dst
+          instrCall.genCallInstruction(src, dst, type, RegisterARM.NULL_REG);
+        }
+
+        registerAllocation.freeRegister(resultReg);
+        instrCall.genCallInstruction(src, dst, type, RegisterARM.NULL_REG);
       }
 
       counter++;
