@@ -403,21 +403,29 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
     for(int i = 0; i < ast_exprList.size(); i++){
       AST_Expr expr = ast_exprList.get(i);
       String callBlock = callList.get(i);
-//      if(expr instanceof AST_ExprLiter || expr instanceof AST_ExprBinary || expr instanceof AST_ExprUnary){
-//      }
-      expr.acceptInstr(assemblyCode);
+      if(expr instanceof AST_ExprLiter || expr instanceof AST_ExprBinary || expr instanceof AST_ExprUnary){
+        expr.acceptInstr(assemblyCode);
+      }
+      if (standardLibrary.contains(funcName)) {
+        expr.acceptInstr(assemblyCode);
+      }
+
+
       assemblyCode.add(callBlock);
     }
-//
+
 //    for (AST_Expr expr : ast_exprList) {
 //       if(expr instanceof AST_ExprLiter || expr instanceof AST_ExprBinary || expr instanceof AST_ExprUnary){
 //        expr.acceptInstr(assemblyCode);
+//
 //      }
 //    }
 //
 //    for (String callBlock : callList) {
 //      assemblyCode.add(callBlock);
 //    }
+
+
     assemblyCode.add(instrCall.getResultBlock());
   }
 
