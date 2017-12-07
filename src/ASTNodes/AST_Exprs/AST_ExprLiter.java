@@ -263,7 +263,11 @@ public class AST_ExprLiter extends AST_Expr {
     if (literal.equals("str")) {
       String string = constant;
       string = string.substring(1, constant.length() -1);
+      registerAllocation.setExprIdentFlag(true);
       registerAllocation.addString(string);
+      registerAllocation.setExprIdentFlag(false);
+
+
       InstructionAssignLit instructionAssignLit = new InstructionAssignLit(constant, literal);
       instructionAssignLit.setStringMsgNum(Integer.toString(registerAllocation.getStringID(string)));
       instr = instructionAssignLit;
