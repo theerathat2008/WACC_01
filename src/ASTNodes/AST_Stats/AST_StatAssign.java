@@ -17,14 +17,15 @@ import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatCallRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatPairElemRHS;
+import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairElemType;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionAssignIdentLHS;
 import InstructionSet.InstructionDeclOrAss.InstructionAssArrayElem.InstructionAssArrayElem;
+import InstructionSet.InstructionDeclOrAss.InstructionAssPairElem;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import Registers.RegisterUsage;
-import Registers.StackLocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.TypeMismatchError;
 import ErrorMessages.FilePosition;
@@ -37,7 +38,6 @@ import java.util.ArrayDeque;
 import java.util.List;
 
 import static java.lang.System.exit;
-import static java.lang.System.setOut;
 
 /**
  * Class representing node in AST tree for ASSIGNMENT STATEMENTS
@@ -50,6 +50,7 @@ public class AST_StatAssign extends AST_Stat {
   SymbolTable symbolTable;
   InstructionAssignIdentLHS instrIdentLHS;
   InstructionAssArrayElem instrArrayElemLHS;
+  InstructionAssPairElem instrPairElemLHS;
 
   /**
    * Constructor for class - initialises class variables to NULL
@@ -446,12 +447,21 @@ public class AST_StatAssign extends AST_Stat {
     ast_statAssignRHS.acceptInstr(assemblyCode);
     //TODO maybe need this: ast_statAssignLHS.acceptInstr(assemblyCode);
 
+
+
     if (ast_statAssignLHS instanceof AST_StatIdentLHS) {
       assemblyCode.add(instrIdentLHS.getBlock1());
-    } else if (ast_statAssignLHS instanceof AST_StatArrayElemLHS){
+    } else if (ast_statAssignLHS instanceof AST_StatArrayElemLHS) {
       assemblyCode.add(instrArrayElemLHS.getResultBlock());
-    } else {
-      System.out.println("need to implement pair LHS");
+    } else if (ast_statAssignLHS instanceof AST_StatPairElemLHS){
+
+      //assemblyCode.add("\n\n\n\n ident:\n");
+      AST_ExprIdent ast_exprIdent = (AST_ExprIdent) ((AST_StatPairElemLHS) ast_statAssignLHS).getAst_expr();
+      ast_exprIdent.acceptInstr(assemblyCode);
+      //assemblyCode.add("\n\n\n\n ident:\n");
+      //assemblyCode.add("\n\n\n\n PAIRSTART:\n");
+      assemblyCode.add(instrPairElemLHS.getResultBlock());
+      //assemblyCode.add("\n\n\n\n PAIREND:\n");
     }
 
   }
@@ -470,7 +480,7 @@ public class AST_StatAssign extends AST_Stat {
     //Don't care about the result of the left reg
     RegisterARM regLeft = ast_statAssignLHS.acceptRegister(registerAllocation);
     //registerAllocation.freeRegister(regRight);
-    registerAllocation.freeRegister(regLeft);
+    //registerAllocation.freeRegister(regLeft);
 
 
     if (ast_statAssignLHS instanceof AST_StatIdentLHS) {
@@ -528,10 +538,13 @@ public class AST_StatAssign extends AST_Stat {
           instrIdentLHS.allocateLocation(stackLocation);
         }
       }
-      //Don't care output result in stat assign
+
+      registerAllocation.freeRegister(regRight);
+      registerAllocation.freeRegister(regLeft);
       return RegisterARM.NULL_REG;
 
     } else if(ast_statAssignLHS instanceof AST_StatArrayElemLHS){
+
 
 
       RegisterUsage resultUsage = aRegisterUsageBuilder()
@@ -549,7 +562,6 @@ public class AST_StatAssign extends AST_Stat {
 
       instrArrayElemLHS.allocateRegisters(result, tempPos, regRight);
 
-      registerAllocation.freeRegister(regRight);
 
       //WORK OUT ARRAY LOCATION
       boolean isFuncStat = true;
@@ -587,10 +599,67 @@ public class AST_StatAssign extends AST_Stat {
 
       instrArrayElemLHS.allocateLocation(stackLocation, true);
 
+      registerAllocation.freeRegister(regRight);
+      registerAllocation.freeRegister(regLeft);
+
       return result;
 
     } else if(ast_statAssignLHS instanceof AST_StatPairElemLHS){
 
+      AST_StatPairElemLHS ast_statIdentLHS = (AST_StatPairElemLHS) ast_statAssignLHS;
+      AST_ExprIdent ast_exprIdent = (AST_ExprIdent) ast_statIdentLHS.getAst_expr();
+      String pairName = ast_exprIdent.getVarName();
+
+      boolean isFuncStat = true;
+      AST_Node tempNode = this;
+      while(!(tempNode instanceof AST_FuncDecl)){
+        tempNode = tempNode.getParentNode();
+        if(tempNode instanceof AST_Program){
+          //System.out.println(varName + " not in func stat");
+          isFuncStat = false;
+          break;
+        }
+      }
+
+      String stackLocation = "SP_NULL";
+      instrPairElemLHS.allocateLocation(stackLocation);
+
+      if(isFuncStat){
+        String funcName = ((AST_FuncDecl) tempNode).getFuncName();
+        //stackLocation = registerAllocation.searchByFuncVarValue(((AST_StatPairElemLHS)ast_statAssignLHS).identifier.getName(), funcName).name();
+
+        stackLocation = registerAllocation.getFuncStackLocation(funcName, pairName);
+        if(stackLocation.equals("null")){
+          //Pairs always allocated on the stack
+          System.out.println("ERROR, never should reach this case");
+        }
+        instrPairElemLHS.allocateLocation(stackLocation);
+
+      } else {
+
+        stackLocation = registerAllocation.getStackLocation(pairName);
+        if(stackLocation.equals("null")){
+          //Pairs always allocated on the stack
+          System.out.println("ERROR, never should reach this case");
+        }
+        instrPairElemLHS.allocateLocation(stackLocation);
+      }
+
+
+
+
+      AST_ExprIdent ident = (AST_ExprIdent) ((AST_StatPairElemLHS) ast_statAssignLHS).getAst_expr();
+      RegisterARM pairLocReg = ident.acceptRegister(registerAllocation);
+
+
+
+
+      instrPairElemLHS.allocateRegisters(RegisterARM.r0, pairLocReg, regRight);
+
+      registerAllocation.freeRegister(regRight);
+      registerAllocation.freeRegister(regLeft);
+
+      return pairLocReg;
     }
     System.out.println("Nothing done in AST_StatAssign as lhs class was:  " + ast_statAssignLHS.getClass().getSimpleName());
     return RegisterARM.NULL_REG;
@@ -649,6 +718,8 @@ public class AST_StatAssign extends AST_Stat {
       instrArrayElemLHS = instructionAssArrayElem;
 
     } else if(ast_statAssignLHS instanceof AST_StatPairElemLHS){
+      instrPairElemLHS = new InstructionAssPairElem(((AST_StatPairElemLHS) ast_statAssignLHS).getTypeName());
+      instructionList.add(instrPairElemLHS);
 
     }
   }

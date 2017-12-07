@@ -3,6 +3,10 @@ package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 import ASTNodes.AST_Exprs.AST_ExprIdent;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
+import InstructionSet.InstructionBlocks.InstructionCheck.InstructionCheckNullPointer;
+import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
+import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocks;
+import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -41,6 +45,8 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
   public String getTypeName() {
     return typeName;
   }
+
+
 
   /**
    * Gets all children nodes of current node
@@ -254,6 +260,18 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
   }
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
+    String nullMsg = "NullReferenceError: dereference a null reference\\n\\0";
+    registerAllocation.addString(nullMsg);
+    InstructionCheckNullPointer instructionCheckNullPointer = new InstructionCheckNullPointer(registerAllocation.getStringID(nullMsg));
+    instructionList.add(instructionCheckNullPointer);
+
+    InstructionErrorRuntime instructionErrorRuntime = new InstructionErrorRuntime();
+    instructionList.add(instructionErrorRuntime);
+
+    String strMsg = "%.*s\\0";
+    registerAllocation.addString(strMsg);
+    InstructionPrintBlocksString instructionPrintBlocksString = new InstructionPrintBlocksString(registerAllocation.getStringID(strMsg));
+    instructionList.add(instructionPrintBlocksString);
 
   }
 

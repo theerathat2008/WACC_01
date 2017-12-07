@@ -234,10 +234,12 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
     RegisterARM tempPairAddressReg = ast_expr_first.acceptRegister(registerAllocation);
     registerAllocation.freeRegister(tempPairAddressReg);
     tempPairAddressReg = ast_expr_second.acceptRegister(registerAllocation);
-    registerAllocation.freeRegister(tempPairAddressReg);
 
 
     instructionDeclAssPair.allocateRegisters(RegisterARM.r0, tempReg, tempPairAddressReg);
+    registerAllocation.freeRegister(tempPairAddressReg);
+
+    //registerAllocation.freeRegister(tempReg);
     
     return tempReg;
   }

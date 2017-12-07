@@ -1,29 +1,24 @@
-package InstructionSet.InstructionDeclOrAss;
+package InstructionSet;
 
-import InstructionSet.Instruction;
 import Registers.RegisterARM;
 
-public class InstructionDeclAssPairElem extends Instruction {
+public class InstructionAccessPairElem extends Instruction {
   public String getResultBlock() {
     return resultBlock;
   }
 
   String resultBlock = "";
   String pos;
-  String sp;
   String reg1;
   String reg2;
 
-  public InstructionDeclAssPairElem(String pos) {
+  public InstructionAccessPairElem(String pos) {
     this.pos = pos;
     this.reg1 = "r0";
     this.reg2 = "tempReg";
 
   }
 
-  public void allocateSP() {
-    this.sp = sp;
-  }
 
   public void allocateRegisters(RegisterARM reg1, RegisterARM reg2) {
     this.reg1 = reg1.name();  //always r0
@@ -34,14 +29,6 @@ public class InstructionDeclAssPairElem extends Instruction {
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder();
-//    builder.append("\t\tLDR ");
-//    builder.append(reg2);
-//    builder.append(", ");
-//    builder.append(reg2 + "\n");
-    //reg2 is always in the format of a stack location i.e. [sp]
-
-    System.out.println("Result reg is : " + reg2);
-
     builder.append("\t\tMOV ");
     builder.append(reg1);
     builder.append(", ");
@@ -58,18 +45,6 @@ public class InstructionDeclAssPairElem extends Instruction {
     builder.append(", [");
     builder.append(reg2);
     builder.append("]\n");
-//    builder.append("\t\tSTR ");
-//    builder.append(reg2);
-//    builder.append(", [");
-//    builder.append(reg1);
-//    builder.append("]\n");
-
-//    resultBlock.concat("\t\tLDR " +  memoryAddressReg + ", [sp, #" + sp + "]\n");
-//    resultBlock.concat("\t\tMOV " +  regR0 + ", " + memoryAddressReg + "\n");
-//    resultBlock.concat("\t\tBL p_check_null_pointer\n");
-//    resultBlock.concat("\t\tLDR " +  memoryAddressReg + ", [" + memoryAddressReg + ", #" + getDisp() + "]\n");
-//    resultBlock.concat("\t\tLDR " +  memoryAddressReg + ", [" +  regR0 + "]\n");
-//    resultBlock.concat("\t\tSTR " +  memoryAddressReg + ", [" +  regR0 + "]\n");
     resultBlock = builder.toString();
   }
 
