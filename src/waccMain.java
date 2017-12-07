@@ -122,6 +122,29 @@ public class waccMain {
           }
         }
         counter += 2;
+      } else if (currChar == '>' || currChar == '<' || currChar == '=' && inputText.charAt(i+1) == '=' || currChar == '!') {
+        System.out.println(currChar + " at " + i);
+        boolean hitBracket = false;
+        for(int j = i + counter; j > 0; j--){
+          if(isInt(tempArray.get(j)) && !hitBracket){
+            tempArray.add(j , '(');
+            break;
+          } else if(tempArray.get(j) == ')'){
+            hitBracket = true;
+          } else if(tempArray.get(j) == '('){
+            tempArray.add(j, '(');
+            hitBracket = false;
+            break;
+          }
+        }
+        for(int j = i + counter; j < inputText.length(); j++){
+          if(isInt(tempArray.get(j))){
+            tempArray.add(j + 1, ')');
+            break;
+          }
+        }
+        counter += 2;
+
       }
     }
 
