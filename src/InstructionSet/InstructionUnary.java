@@ -7,17 +7,23 @@ public class InstructionUnary extends Instruction {
   String dst;
   String src;
   String op;
+  String extraReg;
   public String block1;
 
   public InstructionUnary(String op) {
     this.op = op;
     this.src = "src";
     this.dst = "dst";
+    this.extraReg = null;
   }
 
   public void allocateRegisters(RegisterARM dst, RegisterARM src) {
     this.dst = dst.name();
     this.src = src.name();
+  }
+
+  public void extraRegister(RegisterARM reg) {
+    this.extraReg = reg.name();
   }
 
 
@@ -35,11 +41,16 @@ public class InstructionUnary extends Instruction {
         builder.append(", #1\n");
         break;
       case "-":
-        builder.append("SUB ");
+        builder.append("LDR ");
+        builder.append(extraReg);
+        builder.append(", =0\n\t\t");
+        builder.append("SUBS ");
         builder.append(dst);
-        builder.append(", =0 ");
+        builder.append(", ");
+        builder.append(extraReg);
+        builder.append(", ");
         builder.append(src);
-        builder.append("\n");
+        builder.append("\n\t\tBLVS p_throw_overflow_error\n");
         break;
       case "len":
         builder.append("LDR ");
@@ -49,7 +60,7 @@ public class InstructionUnary extends Instruction {
         builder.append("\n");
         break;
       case "ord":
-        builder.append("MOV R0, ");
+        builder.append("MOV r0, ");
         builder.append(src);
         builder.append("\n");
         builder.append("\t\tBL PUTCHAR\n");
@@ -58,7 +69,7 @@ public class InstructionUnary extends Instruction {
         builder.append(", r0\n");
         break;
       case "chr":
-        builder.append("MOV R0, ");
+        builder.append("MOV r0, ");
         builder.append(src);
         builder.append("\n");
         builder.append("\t\tBL PUTCHAR\n");
