@@ -433,6 +433,10 @@ public class AST_StatExpr extends AST_Stat {
 
         InstructionFreePairBlock instructionFreePairBlock = new InstructionFreePairBlock(registerAllocation.getStringID("NullReferenceError: dereference a null reference\\n\\0"));
         InstructionErrorRuntime instructionErrorRuntime = new InstructionErrorRuntime();
+        String strMsg = "%.*s\\0";
+        registerAllocation.addString(strMsg);
+        InstructionPrintBlocksString instructionPrintBlocksString = new InstructionPrintBlocksString(registerAllocation.getStringID(strMsg));
+        instructionList.add(instructionPrintBlocksString);
         instructionList.add(instructionFreePairBlock);
         instructionList.add(instructionErrorRuntime);
 
