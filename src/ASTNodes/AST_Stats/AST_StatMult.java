@@ -14,7 +14,6 @@ public class AST_StatMult extends AST_Stat {
   //Syntactic attributes
   AST_Stat stat1;
   AST_Stat stat2;
-  //Semantic attribute
 
   /**
    * Assign the class variables when called

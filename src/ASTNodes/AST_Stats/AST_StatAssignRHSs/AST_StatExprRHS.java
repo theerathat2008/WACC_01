@@ -193,7 +193,7 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
           instructionList.add(instructionDeclAssInt);
           break;
         case ("string"):
-          InstructionDeclAssString instructionDeclAssString = new InstructionDeclAssString();//registerAllocation.getStringID(GETTHEDATA));
+          InstructionDeclAssString instructionDeclAssString = new InstructionDeclAssString();
           instructionList.add(instructionDeclAssString);
           break;
         case ("char"):
@@ -201,8 +201,6 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
           instructionList.add(instructionDeclAssChar);
           break;
         case ("pair"):
-          //InstructionDeclAssPair instructionDeclAssPair = new InstructionDeclAssPair();//GETTHEDATA.TYPE, GETTHEDATA.TYPE, GETTHEDATA, GETTHEDATA);
-          //instructionList.add(instructionDeclAssPair);
           break;
         case ("bool"):
           InstructionDeclAssBool instructionDeclAssBool = new InstructionDeclAssBool();
@@ -210,7 +208,7 @@ public class AST_StatExprRHS extends AST_StatAssignRHS {
           break;
 
         case ("array"):
-          // type = ((AST_StatArrayLitRHS) ast_assignRHS).getTypeOfArray();
+
       }
     }
   }
