@@ -191,8 +191,27 @@ public class AST_StatRead extends AST_Stat {
   public void acceptPreProcess(RegisterAllocation regAlloc) {
     //Set a flag for acceptRegister in statVarDecl using a list in registerallocation to declare the var on the stack
     // since it is used in read and the statarraylitrhs assembly code works with stacks
-    AST_StatIdentLHS ast_statIdentLHS = (AST_StatIdentLHS)ast_statAssignLHS;
-    String identName = ast_statIdentLHS.getIdentName();
+    String identName = "UNDEFINED";
+
+    if (ast_statAssignLHS instanceof AST_StatIdentLHS) {
+      AST_StatIdentLHS ast_statIdentLHS = (AST_StatIdentLHS)ast_statAssignLHS;
+      identName = ast_statIdentLHS.getIdentName();
+    } else if (ast_statAssignLHS instanceof AST_StatPairElemLHS) {
+      AST_StatPairElemLHS ast_statIdentLHS = (AST_StatPairElemLHS) ast_statAssignLHS;
+   //   identName = ast_statIdentLHS.identifier.getName();
+      System.out.println("IDENTNAME1*********************:  " + identName);
+
+      identName = ast_statIdentLHS.getAst_expr().getIdentifier().toString();
+      System.out.println("IDENTNAME2*********************:  " + identName);
+
+      identName = ast_statIdentLHS.getAst_expr().getIdentifier().toString();
+      System.out.println("IDENTNAME3*********************:  " + identName);
+
+      identName = ast_statIdentLHS.getAst_expr().getIdentifier().getName();
+      System.out.println("IDENTNAME4*********************:  " + identName);
+    }
+
+
     regAlloc.addToStackOnlyVar(identName);
 
     ast_statAssignLHS.acceptPreProcess(regAlloc);

@@ -5,10 +5,10 @@ import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
 import ASTNodes.AST_Separator;
-import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.*;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
+import InstructionSet.InstructionBlocks.InstructionFreePairBlock;
 import InstructionSet.InstructionBlocks.InstructionPrintBlocks.*;
 import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksBool;
 import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
@@ -17,7 +17,6 @@ import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.TypeError;
 import ErrorMessages.TypeMismatchError;
-import static Registers.RegisterUsageBuilder.*;
 import ErrorMessages.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
@@ -341,6 +340,15 @@ public class AST_StatExpr extends AST_Stat {
 
     switch (statName) {
       case ("free"):
+
+        try {
+          InstructionFreePair instructionFreePair = (InstructionFreePair) instr;
+          instructionFreePair.allocateRegisters(RegisterARM.r0, evalResult);
+          registerAllocation.freeRegister(evalResult);
+
+        } catch (ClassCastException e) {
+
+        }
         break;
 
       case ("return"):

@@ -79,7 +79,7 @@ public class InstructionVarDecl extends Instruction {
     //STR r4, [sp]
 
 
-    //resultBlock.concat("\t\t" + getLDType() + " " + reg2 + sp + "\n");
+    //resultBlock.concat("\t\t" + getLDType() + " " + pairLocReg + sp + "\n");
   }
 
 }

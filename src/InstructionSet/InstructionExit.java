@@ -15,7 +15,7 @@ public class InstructionExit extends Instruction {
   public InstructionExit() {
     //this.exitCode = exitCode;
     this.resultBlock = "";
-    reg1 = "reg1";
+    reg1 = "r0";
     reg2 = "src";
   }
 

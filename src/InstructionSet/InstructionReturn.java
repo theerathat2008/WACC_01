@@ -17,7 +17,7 @@ public class InstructionReturn extends Instruction {
   public InstructionReturn(String type) {
     this.type = type;
     this.resultBlock = "";
-    reg1 = "reg1";
+    reg1 = "r0";
     reg2 = "src";
   }
 
