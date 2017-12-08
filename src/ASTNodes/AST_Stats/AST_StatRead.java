@@ -137,7 +137,6 @@ public class AST_StatRead extends AST_Stat {
         }
 
         String typeString = typeName.toString();
-        System.out.println(typeString);
 
         if (typeString.equals("char") || typeString.equals("int")
             || typeString.contains("pair") || typeString.contains("PAIR(")) {
@@ -251,7 +250,6 @@ public class AST_StatRead extends AST_Stat {
       while(!(tempNode instanceof AST_FuncDecl)){
         tempNode = tempNode.getParentNode();
         if(tempNode instanceof AST_Program){
-          //System.out.println(varName + " not in func stat");
           isFuncStat = false;
           break;
         }

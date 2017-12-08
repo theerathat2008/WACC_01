@@ -124,7 +124,6 @@ public class AST_StatAssign extends AST_Stat {
     if (astToSet.equals("ast_statAssignLHS")) {
       ast_statAssignLHS = (AST_StatAssignLHS) nodeToSet;
     } else if (astToSet.equals("statAssignRHS")) {
-      System.out.println("Set right hand node in statAssign");
       ast_statAssignRHS = (AST_StatAssignRHS) nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
@@ -161,7 +160,6 @@ public class AST_StatAssign extends AST_Stat {
           return true;
         } else if (firstElem instanceof AST_ExprIdent) {
           String varName = ((AST_ExprIdent) firstElem).getVarName();
-          System.out.println(varName);
 
           SymbolTable tempST = this.symbolTable;
           typeLHS = tempST.lookup(varName);
@@ -386,13 +384,11 @@ public class AST_StatAssign extends AST_Stat {
       while (!(tempNode instanceof AST_FuncDecl)) {
         tempNode = tempNode.getParentNode();
         if (tempNode instanceof AST_Program) {
-          //System.out.println(varName + " not in func stat");
           isFuncStat = false;
           break;
         }
       }
       if(isFuncStat){
-        //regAlloc.addToStackOnlyVar(ast_statIdentLHS.getIdentName());
       }
     }
 
@@ -472,8 +468,6 @@ public class AST_StatAssign extends AST_Stat {
    */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
-    System.out.println("FREEDOM");
     registerAllocation.printfreeReg();
 
     RegisterARM regRight = ast_statAssignRHS.acceptRegister(registerAllocation);
@@ -502,7 +496,6 @@ public class AST_StatAssign extends AST_Stat {
       while(!(tempNode instanceof AST_FuncDecl)){
         tempNode = tempNode.getParentNode();
         if(tempNode instanceof AST_Program){
-          //System.out.println(varName + " not in func stat");
           isFuncStat = false;
           break;
         }
@@ -530,10 +523,7 @@ public class AST_StatAssign extends AST_Stat {
           instrIdentLHS.registerAllocation(regRight);
           instrIdentLHS.setUsingStack(false);
           instrIdentLHS.allocateLocation(stackLocation);
-          System.out.println("Stack location is : "+ stackLocation);
         } else {
-          System.out.println("Reg right is : "+ regRight.name());
-          System.out.println(instrIdentLHS.toString());
           instrIdentLHS.registerAllocation(regRight);
           instrIdentLHS.setUsingStack(true);
           instrIdentLHS.allocateLocation(stackLocation);
@@ -569,7 +559,6 @@ public class AST_StatAssign extends AST_Stat {
       while(!(tempNode instanceof AST_FuncDecl)){
         tempNode = tempNode.getParentNode();
         if(tempNode instanceof AST_Program){
-          //System.out.println(varName + " not in func stat");
           isFuncStat = false;
           break;
         }
@@ -615,7 +604,6 @@ public class AST_StatAssign extends AST_Stat {
       while(!(tempNode instanceof AST_FuncDecl)){
         tempNode = tempNode.getParentNode();
         if(tempNode instanceof AST_Program){
-          //System.out.println(varName + " not in func stat");
           isFuncStat = false;
           break;
         }
@@ -681,7 +669,6 @@ public class AST_StatAssign extends AST_Stat {
    */
   public String getPosInArray(AST_StatArrayElemLHS tempNode){
     if (tempNode.ast_exprList.get(0) instanceof AST_ExprLiter) {
-      System.out.println("Pos in arrray: " + ((AST_ExprLiter) tempNode.ast_exprList.get(0)).getConstant());
       return ((AST_ExprLiter) tempNode.ast_exprList.get(0)).getConstant();
     } else if (tempNode.ast_exprList.get(0) instanceof AST_ExprIdent) {
 
@@ -704,20 +691,14 @@ public class AST_StatAssign extends AST_Stat {
 
       try {
         type = ast_statAssignRHS.getIdentifier().toString();
-        System.out.println("*****************HIT1" + type);
       } catch (NullPointerException n) {
         try {
           //type = ((AST_StatExprRHS) ast_statAssignRHS).getAst_expr().getIdentifier().getName();
           //type = ((AST_StatIdentLHS) ast_statAssignLHS).;
-          System.out.println("*****************HIT2 : " + type);
         } catch (Exception e) {
           type = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
-          System.out.println("*****************HIT3 : " + type);
         }
       }
-
-
-      //System.out.println("Type of ident is: " + type);
       InstructionAssignIdentLHS instructionAssignIdentLHS = new InstructionAssignIdentLHS(type);
       instructionList.add(instructionAssignIdentLHS);
       instrIdentLHS = instructionAssignIdentLHS;
