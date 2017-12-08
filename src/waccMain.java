@@ -34,7 +34,6 @@ public class waccMain {
     System.out.println("-- Compiling...");
 
     CharStream inputString = CharStreams.fromString(inputText);
-    //CharStream inputString = CharStreams.fromString(outputText);
 
     WaccLexer lexer = new WaccLexer(inputString);
 
@@ -61,8 +60,6 @@ public class waccMain {
 
     System.out.println("---------TESTING------------");
     AST_Program root = visitor.getRootNode();
-    //root.printContents();
-    //visitor.printNodes(root);
     System.out.println("------------------CHECK SEMANTICS------------------------");
     root.accept(new AST_VisitSemantic());
     System.out.println("---------TESTING------------");
@@ -150,13 +147,7 @@ public class waccMain {
 
     StringBuilder interString = new StringBuilder();
     for(int i = 0; i < tempArray.size(); i++){
-//      if(tempArray.get(i) == '(' && tempArray.get(i+2) == ')'){
-//        System.out.println(tempArray.get(i+1));
-//        interString.append(tempArray.get(i + 1));
-//        i = i + 2;
-//      } else {
       interString.append(tempArray.get(i));
-//      }
     }
 
     String outputText = interString.toString();
