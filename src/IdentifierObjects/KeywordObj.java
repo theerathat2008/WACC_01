@@ -6,7 +6,6 @@ public class KeywordObj extends IDENTIFIER {
 
   /**
    * Compares value for equality
-   *
    * @param other
    */
   @Override

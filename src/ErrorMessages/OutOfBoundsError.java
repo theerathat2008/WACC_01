@@ -4,7 +4,6 @@ public class OutOfBoundsError extends ErrorMessage {
 
   /**
    * WHEN ARRAY ELEM IS OUT OF BOUNDS OR EXIT CODE OUT OF BOUNDS
-   *
    * @param filePosition
    */
   public OutOfBoundsError(FilePosition filePosition) {

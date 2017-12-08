@@ -16,7 +16,6 @@ public class ArrayObj extends IDENTIFIER {
 
   /**
    * Compares value for equality
-   *
    * @param other
    */
   @Override

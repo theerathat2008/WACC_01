@@ -194,16 +194,6 @@ public class InstructionLibraryFunction extends Instruction {
     block1 = builder.toString();
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 0;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
   private void addOverflow(List<Instruction> instructionList, RegisterAllocation registerAllocation) {
     registerAllocation.addString("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n");
     InstructionErrorOverflow errorOverflow = new InstructionErrorOverflow(registerAllocation.

@@ -4,6 +4,9 @@ public class InstructionCheckArrayBounds extends InstructionCheck {
   String reg2;
   int msgNum2;
 
+  /**
+   * Class constructor
+   */
   public InstructionCheckArrayBounds(int msgNum1, int msgNum2) {
     super(msgNum1);
     this.msgNum2 = msgNum2;
@@ -14,7 +17,6 @@ public class InstructionCheckArrayBounds extends InstructionCheck {
 
   /**
    * Assigned string value indicating name of register
-   *
    * @param reg1 - first register
    */
   public void allocateRegisters(String reg1, String reg2) {

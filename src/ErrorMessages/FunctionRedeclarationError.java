@@ -4,7 +4,6 @@ public class FunctionRedeclarationError extends ErrorMessage {
 
   /**
    * WHEN FUNCTION HAS ALREADY BEEN DECLARED
-   *
    * @param filePosition
    */
   public FunctionRedeclarationError(FilePosition filePosition) {

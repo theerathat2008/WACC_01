@@ -12,10 +12,9 @@ public class FilePosition {
     // this.column = column;
   }
 
-  /* public int getColumn() {
-     return this.column;
-   }
- */
+  /**
+   * @return Return the line attribute
+   */
   public int getLine() {
     return this.line;
   }

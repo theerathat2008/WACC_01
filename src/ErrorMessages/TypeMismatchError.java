@@ -4,7 +4,6 @@ public class TypeMismatchError extends ErrorMessage {
 
   /**
    * WHEN DIFFERENT TYPES ARE USED IN COMPARISONS OR OPERATIONS
-   *
    * @param filePosition
    */
   public TypeMismatchError(FilePosition filePosition) {

@@ -3,8 +3,7 @@ package ErrorMessages;
 public class VariableRedeclarationError extends ErrorMessage {
 
   /**
-   * //WHEN VARIABLE HAS ALREADY BEEN DECLARED
-   *
+   * WHEN VARIABLE HAS ALREADY BEEN DECLARED
    * @param filePosition
    */
   public VariableRedeclarationError(FilePosition filePosition) {

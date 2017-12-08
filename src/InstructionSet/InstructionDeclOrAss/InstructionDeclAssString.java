@@ -11,13 +11,15 @@ public class InstructionDeclAssString extends Instruction {
 
   /**
    * Class constructor calls super constructor
-   *
-   * @param msgNum - Indicates the ID of the message to be stored
    */
-  public InstructionDeclAssString() {//int msgNum) {
+  public InstructionDeclAssString() {
     //this.msgNum = msgNum;
   }
 
+  /**
+   * Set and replace the value of sp
+   * @param sp
+   */
   public void allocateSP(String sp) {
     this.sp = sp;
     reg1 = "regR0";
@@ -25,7 +27,6 @@ public class InstructionDeclAssString extends Instruction {
 
   /**
    * Assigned string value indicating name of register
-   *
    * @param reg1 - first register
    */
   public void allocateRegisters(RegisterARM reg1) {
@@ -36,7 +37,6 @@ public class InstructionDeclAssString extends Instruction {
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    //resultBlock.concat("\t\tLDR " + regR0 + ", =msg_" + msgNum + "\n");
     StringBuilder builder = new StringBuilder();
     builder.append("\t\tSTR ");
     builder.append(reg1);
@@ -45,16 +45,5 @@ public class InstructionDeclAssString extends Instruction {
     builder.append("]\n");
     resultBlock = builder.toString();
   }
-
-  @Override
-  public int requiresRegisters() {
-    return 1;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
 }
 

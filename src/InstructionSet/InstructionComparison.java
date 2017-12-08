@@ -17,20 +17,6 @@ public class InstructionComparison extends Instruction {
     reg2 = "src";
   }
 
-  public int requiresRegisters() {
-    return 3;
-  }
-
-
-  /**
-   * returns true as this claass uses registers that could be referencing the stack variables
-   * or been assigned in a variable declaration
-   */
-
-  @Override
-  public boolean crossOverRegister() {
-    return true;
-  }
 
   public void allocateRegisters(RegisterARM reg1, RegisterARM reg2, RegisterARM dst) {
     this.reg1 = reg1.name();

@@ -30,14 +30,4 @@ public class InstructionLoadStore extends Instruction {
     block1 = builder.toString();
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 0;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
 }

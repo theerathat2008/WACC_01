@@ -57,13 +57,4 @@ public class InstructionAccessPairElem extends Instruction {
     return "UNDEFINED PAIRPOS IN GETDISP IN InstructionDeclAssPairElem";
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 2;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
 }

@@ -72,14 +72,4 @@ public class InstructionAssignLit extends Instruction {
     resultBlock = builder.toString();
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 1;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
 }

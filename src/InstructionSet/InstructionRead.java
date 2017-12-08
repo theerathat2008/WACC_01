@@ -98,14 +98,4 @@ public class InstructionRead extends Instruction {
     resultBlock = builder.toString();
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 0;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
 }

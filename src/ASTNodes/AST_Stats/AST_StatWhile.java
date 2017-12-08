@@ -1,6 +1,5 @@
 package ASTNodes.AST_Stats;
 
-
 import ASTNodes.AST_Exprs.*;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
@@ -13,10 +12,8 @@ import ErrorMessages.TypeError;
 import ErrorMessages.FilePosition;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
-
 import java.util.ArrayDeque;
 import java.util.List;
-
 import static java.lang.System.exit;
 
 public class AST_StatWhile extends AST_Stat {
@@ -32,7 +29,6 @@ public class AST_StatWhile extends AST_Stat {
   /**
    * Assign the class variables when called
    */
-
   public AST_StatWhile(SymbolTable ST) {
     this.exprAST = null;
     this.statAST = null;
@@ -44,7 +40,6 @@ public class AST_StatWhile extends AST_Stat {
 
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -65,7 +60,6 @@ public class AST_StatWhile extends AST_Stat {
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -75,7 +69,6 @@ public class AST_StatWhile extends AST_Stat {
 
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
@@ -166,7 +159,6 @@ public class AST_StatWhile extends AST_Stat {
 
   /**
    * Called from visitor
-   *
    * @param ST
    */
   @Override
@@ -195,18 +187,32 @@ public class AST_StatWhile extends AST_Stat {
     symbolTable.printKeysTable(symbolTable);
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
     exprAST.acceptPreProcess(regAlloc);
     statAST.acceptPreProcess(regAlloc);
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     exprAST.accept(visitor);
     statAST.accept(visitor);
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     assemblyCode.add(instr.block1);
@@ -217,11 +223,6 @@ public class AST_StatWhile extends AST_Stat {
   }
 
   /**
-
-   * Has a new scope within the while loop
-   * Returns a null reg as while ast doesn't evaluate to a result
-
-
    * General case to call acceptNode
    * @param visitor
    */
@@ -242,6 +243,10 @@ public class AST_StatWhile extends AST_Stat {
   }
 
 
+  /**
+   * Evaluate both sides of the stat assign and store their results in the registers
+   * Returns a null reg as there is no result evaluation
+   */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
@@ -265,6 +270,14 @@ public class AST_StatWhile extends AST_Stat {
    * Generates instruction while which requires one register which holds the result of the expression evalutation
    */
 
+  /**
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
+   */
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     InstructionWhile instructionWhile = new InstructionWhile();
     //Allocate registers for exprReg
@@ -272,6 +285,5 @@ public class AST_StatWhile extends AST_Stat {
     instructionWhile.setLabels(registerAllocation.generateLabel(), registerAllocation.generateLabel());
     instructionList.add(instructionWhile);
     instr = instructionWhile;
-
   }
 }

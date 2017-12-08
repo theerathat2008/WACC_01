@@ -17,14 +17,4 @@ public class InstructionPrintln extends Instruction {
     resultBlock = "\t\tBL p_print_ln\n";
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 0;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
 }

@@ -16,13 +16,16 @@ public class InstructionDivByZero extends InstructionError {
     this.blockType = "check_divide_by_zero";
   }
 
+  /**
+   * Set outputMessageNumber with an associated number
+   * @param number
+   */
   public void setOutputMessageNumber(int number) {
     outputMessageNumber = number;
   }
 
   /**
    * Assigned string value indicating name of register
-   *
    * @param reg1 - first register
    */
   public void allocateRegisters(RegisterARM reg1, RegisterARM reg2) {
@@ -42,16 +45,4 @@ public class InstructionDivByZero extends InstructionError {
     builder.append("\n\t\tBLEQ p_throw_runtime_error\n\t\tPOP {pc}\n");
     this.resultBlock = builder.toString();
   }
-
-  @Override
-  public int requiresRegisters() {
-    return 1;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
-
 }

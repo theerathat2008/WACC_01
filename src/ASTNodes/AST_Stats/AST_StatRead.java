@@ -49,7 +49,6 @@ public class AST_StatRead extends AST_Stat {
 
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -61,7 +60,6 @@ public class AST_StatRead extends AST_Stat {
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -71,7 +69,6 @@ public class AST_StatRead extends AST_Stat {
 
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
@@ -117,7 +114,6 @@ public class AST_StatRead extends AST_Stat {
 
   /**
    * Semantic Analysis and print error message if needed
-   *
    * @return
    */
   @Override
@@ -165,7 +161,6 @@ public class AST_StatRead extends AST_Stat {
 
   /**
    * Called from visitor
-   *
    * @param ST
    */
   @Override
@@ -188,6 +183,10 @@ public class AST_StatRead extends AST_Stat {
     }
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
     //Set a flag for acceptRegister in statVarDecl using a list in registerallocation to declare the var on the stack
@@ -199,11 +198,21 @@ public class AST_StatRead extends AST_Stat {
     ast_statAssignLHS.acceptPreProcess(regAlloc);
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_statAssignLHS.accept(visitor);
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     ast_statAssignLHS.acceptInstr(assemblyCode);
@@ -215,7 +224,6 @@ public class AST_StatRead extends AST_Stat {
    */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
 
     RegisterARM dstReg = ast_statAssignLHS.acceptRegister(registerAllocation);
     registerAllocation.freeRegister(dstReg);
@@ -282,7 +290,14 @@ public class AST_StatRead extends AST_Stat {
    * Allocates one register
    */
 
-
+  /**
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
+   */
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     if(ast_statAssignLHS instanceof  AST_StatIdentLHS){
 
@@ -313,8 +328,6 @@ public class AST_StatRead extends AST_Stat {
     } else if(ast_statAssignLHS instanceof AST_StatPairElemLHS){
 
     }
-
-
 
   }
 
