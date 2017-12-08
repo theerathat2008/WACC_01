@@ -228,7 +228,6 @@ public class AST_StatExpr extends AST_Stat {
    */
   @Override
   public void Check(SymbolTable ST) {
-    //CheckSemantics(ST))
     //Do symbol table stuff
   }
 
@@ -313,7 +312,6 @@ public class AST_StatExpr extends AST_Stat {
       case ("println"):
       case ("print"):
         InstructionPrint instructionPrint = (InstructionPrint) instr;
-        //instructionPrint.getResultBlock();
         assemblyCode.add(instructionPrint.getResultBlock());
         if (statName.equals("println")) {
           InstructionPrintln instructionPrintln = (InstructionPrintln) instrPrintLine;
@@ -384,7 +382,6 @@ public class AST_StatExpr extends AST_Stat {
               instructionPrintString.allocateRegisters(RegisterARM.r0, RegisterARM.r1, RegisterARM.r2);
               break;
             case ("char"):
-              //CHECK IS CHAR IS NEEDED
               break;
             case ("pair"):
               if (expr instanceof AST_ExprLiter) {
@@ -410,14 +407,12 @@ public class AST_StatExpr extends AST_Stat {
 
 
           InstructionPrint instructionPrint = (InstructionPrint) instr;
-          //System.out.println("Allocating registers for print: " + evalResult);
           instructionPrint.allocateRegisters(RegisterARM.r0, evalResult);
           registerAllocation.freeRegister(evalResult);
 
         } else {
 
           InstructionPrint instructionPrint = (InstructionPrint) instr;
-          //System.out.println("Allocating registers for print: " + reg3);
           instructionPrint.allocateRegisters(RegisterARM.r0, evalResult);
           registerAllocation.freeRegister(evalResult);
         }
@@ -533,8 +528,6 @@ public class AST_StatExpr extends AST_Stat {
             case ("pair"):
               //No break since pair and array are the same
               if (expr instanceof AST_ExprLiter) {
-//                System.out.println("*************************************%%%%%%%%%%%%%%%%%%%%");
-//                System.out.println(((AST_ExprLiter) expr).getConstant());
                 registerAllocation.addString("%p\\0");
                 InstructionPrintBlocksRef instructionPrintBlocksRef = new InstructionPrintBlocksRef(registerAllocation.getStringID("%p\\0"));
                 instructionList.add(instructionPrintBlocksRef);
