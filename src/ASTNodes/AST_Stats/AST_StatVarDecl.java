@@ -295,6 +295,9 @@ public class AST_StatVarDecl extends AST_Stat {
       new VariableRedeclarationError(new FilePosition(ctx)).printAll();
       return false;
     }
+
+
+
   }
 
   /**
@@ -315,6 +318,14 @@ public class AST_StatVarDecl extends AST_Stat {
     if (ast_type == null) {
       System.out.println("Variable " + identName + "'s AST_Type not set yet");
     }
+
+
+    IDENTIFIER temp = ST.lookup(identName);
+
+    if(temp != null){
+      new VariableRedeclarationError(new FilePosition(ctx)).printAll();
+    }
+
     ST.add(identName, ast_type.getIdentifier());
   }
 
