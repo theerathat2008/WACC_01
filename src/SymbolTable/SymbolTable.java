@@ -2,7 +2,6 @@ package SymbolTable;
 
 import IdentifierObjects.*;
 import Registers.StackLocation;
-
 import java.util.*;
 
 public class SymbolTable {
@@ -12,16 +11,26 @@ public class SymbolTable {
   String scope;
   public List<SymbolTable> childTables = new ArrayList<>();
 
-
+  /**
+   * Class constructor
+   * @param scope
+   */
   public SymbolTable(String scope) {
     symMap = new HashMap<String, IDENTIFIER>();
     this.scope = scope;
   }
 
+  /**
+   * @return Return the scope attribute
+   */
   public String getScope() {
     return this.scope;
   }
 
+  /**
+   * Set the scope to be the scope in the parameter
+   * @param scope
+   */
   public void changeScope(String scope) {
     this.scope = scope;
   }
@@ -65,19 +74,28 @@ public class SymbolTable {
     add("null", new KeywordObj());
   }
 
+  /**
+   * Add a new elements into symMap
+   * @param name
+   * @param obj
+   */
   public void add(String name, IDENTIFIER obj) {
     symMap.put(name, obj);
   }
 
   /**
    * Search for value of the identifier with a given name
-   *
    * @param name
    */
   public IDENTIFIER lookup(String name) {
     return symMap.get(name);
   }
 
+  /**
+   * Search for value of the identifier with a given name in every scope
+   * @param name
+   * @return
+   */
   public IDENTIFIER lookupAll(String name) {
     SymbolTable S = this;
     while (S != null) {
@@ -89,6 +107,12 @@ public class SymbolTable {
     }
     return null;
   }
+
+  /**
+   * Search for value of the identifier with a given function name
+   * @param name
+   * @return
+   */
   public IDENTIFIER lookupAllFunc(String name) {
     SymbolTable S = this;
     while (S != null) {
@@ -101,7 +125,11 @@ public class SymbolTable {
     return null;
   }
 
-
+  /**
+   * Count the number of existence of the string name
+   * @param name
+   * @return
+   */
   public int count(String name) {
     SymbolTable S = this;
     int value = 0;
@@ -111,6 +139,10 @@ public class SymbolTable {
     return value;
   }
 
+  /**
+   * Set the enclosed symbol table attribute
+   * @param toSet
+   */
   public void setEncSymTable(SymbolTable toSet) {
     this.encSymTable = toSet;
   }
@@ -126,6 +158,10 @@ public class SymbolTable {
     }
   }
 
+  /**
+   * print the key contents of the symbol table
+   * @param T
+   */
   public void printKeysTable(SymbolTable T) {
     System.out.println("The symbol table contents for: " + T.scope);
     System.out.println("Enclosed Symbol Table has scope: " + T.encSymTable.getScope());
@@ -146,14 +182,27 @@ public class SymbolTable {
 
   }
 
+  /**
+   * Add a symbol table to a childTable symbol table
+   * @param ST
+   */
   public void addChild(SymbolTable ST) {
     childTables.add(ST);
   }
 
+  /**
+   * @return Return childTables attribute
+   */
   public List<SymbolTable> getChildren() {
     return childTables;
   }
 
+  /**
+   * Convert associated string into an ident
+   * @param name
+   * @param type
+   * @return
+   */
   public IDENTIFIER stringToIdent(String name, String type) {
     if (type.equals("int")) {
       return new BaseTypeObj(name, "int");
@@ -177,6 +226,9 @@ public class SymbolTable {
     return null;
   }
 
+  /**
+   * @return Return the symMap attribute
+   */
   public Map<String, IDENTIFIER> getSymMap() {
     return symMap;
   }
