@@ -20,7 +20,7 @@ public class InstructionAssPairElem extends Instruction {
     this.pos = pos;
     this.reg1 = "r0";
     this.pairLocreg = "pairLocReg";
-    this.sp = "TODOSP";
+    this.sp = "SP";
   }
 
   /**

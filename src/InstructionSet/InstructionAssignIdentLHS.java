@@ -75,11 +75,11 @@ public class InstructionAssignIdentLHS extends Instruction {
       case ("bool"):
         return "LDRSB";
       case ("array"):
-        return "ARRAYTODO";
+        return "ARRAY";
       case ("char"):
         return "STRB";
       case ("pair"):
-        return "PAIRTODO";
+        return "PAIR";
       case ("int"):
         return "STR";
       default:
