@@ -96,8 +96,6 @@ public class InstructionAssignIdentLHS extends Instruction {
   @Override
   public void genInstruction() {
 
-    //LDR r4, [sp]
-
     StringBuilder builder = new StringBuilder();
     builder.append("\t\t");
     if(usingStack){

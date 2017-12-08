@@ -6,13 +6,12 @@ import Registers.RegisterARM;
 public class InstructionDeclAssBool extends Instruction {
   String resultBlock;
   String reg1;
-  //String boolData;
   String sp;
 
   /**
    * Class constructor calls super constructor
    */
-  public InstructionDeclAssBool() {//String boolData, String sp) {
+  public InstructionDeclAssBool() {
     reg1 = "regR0";
 
   }
@@ -48,7 +47,6 @@ public class InstructionDeclAssBool extends Instruction {
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    // resultBlock.concat("\t\tMOV " +  regR0 + ", #" + getBoolNum(boolData) + "\n");
     StringBuilder builder = new StringBuilder();
     builder.append("\t\tSTRB ");
     builder.append(reg1);

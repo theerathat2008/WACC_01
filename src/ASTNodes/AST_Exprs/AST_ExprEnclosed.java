@@ -111,7 +111,6 @@ public class AST_ExprEnclosed extends AST_Expr {
    */
   @Override
   public boolean CheckSemantics() {
-    //setType(exprAST.type);
     return true;
   }
 

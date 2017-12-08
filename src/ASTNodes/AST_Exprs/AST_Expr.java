@@ -105,7 +105,6 @@ public class AST_Expr extends AST_Node {
   }
 
   public String getExprType() {
-    //if (this instanceof ASTEXPR)
     return "";
   }
 

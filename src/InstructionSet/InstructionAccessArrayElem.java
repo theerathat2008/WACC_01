@@ -122,7 +122,6 @@ public class InstructionAccessArrayElem extends Instruction {
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder();
-    //builder.append(getLoadData());
 
     //You want pointer to the memory heap location to be in resultReg
     //In arrayLocationReg we have the either reg   = memory heap address (r4)
@@ -142,7 +141,6 @@ public class InstructionAccessArrayElem extends Instruction {
       builder.append("\t\tMOV ");
       builder.append(resultReg);
       builder.append(", ");
-      //System.out.println("ARRAY LOCATION IS :  " + arrayLocationReg);
       builder.append(arrayLocationReg);
       builder.append("\n");
     }

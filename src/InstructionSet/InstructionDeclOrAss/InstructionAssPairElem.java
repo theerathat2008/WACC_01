@@ -39,7 +39,7 @@ public class InstructionAssPairElem extends Instruction {
    */
   public void allocateRegisters(RegisterARM reg1, RegisterARM pairLocReg, RegisterARM itemreg) {
     this.reg1 = reg1.name();  //always r0
-    this.pairLocreg = pairLocReg.name();  //
+    this.pairLocreg = pairLocReg.name();
     this.itemreg = itemreg.name();
   }
 
@@ -73,7 +73,6 @@ public class InstructionAssPairElem extends Instruction {
     builder.append(", [");
     builder.append(pairLocreg);
     builder.append("]\n");
-    //builder.append("\n\n\n\nPair elem end: \n");
 
     resultBlock = builder.toString();
   }

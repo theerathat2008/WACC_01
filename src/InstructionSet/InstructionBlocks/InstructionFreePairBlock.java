@@ -3,7 +3,6 @@ package InstructionSet.InstructionBlocks;
 
 public class InstructionFreePairBlock extends InstructionBlocks {
   String reg1;
-  String sp;
   String resultBlock = "";
   int msgNum;
 
@@ -16,21 +15,6 @@ public class InstructionFreePairBlock extends InstructionBlocks {
     reg1 = "r0";
   }
 
-  /**
-   * Set and replace the value of sp
-   */
-  public void allocateSP(String sp) {
-    this.sp = sp;
-  }
-
-
-  /**
-   * Assigned string value indicating name of register
-   * @param reg1
-   */
-  public void allocateRegisters(String reg1) {
-    this.reg1 = reg1;
-  }
 
 
   /**
@@ -57,7 +41,6 @@ public class InstructionFreePairBlock extends InstructionBlocks {
     builder.append("]\n\t\tBL free\n\t\tLDR ");
     builder.append(reg1);
     builder.append(", [sp]");
-    //builder.append(sp);
     builder.append("\n\t\tLDR ");
     builder.append(reg1);
     builder.append(", [");

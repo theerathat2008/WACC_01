@@ -137,7 +137,6 @@ public class AST_ExprIdent extends AST_Expr {
   @Override
   public void Check(SymbolTable ST) {
     if (CheckSemantics()) {
-      //ST.add(varName, ST.stringToIdent(varName,type));
       setType(ST.lookupAll(varName).toString());
     }
   }
@@ -205,7 +204,6 @@ public class AST_ExprIdent extends AST_Expr {
     while(!(tempNode instanceof AST_FuncDecl)){
       tempNode = tempNode.getParentNode();
       if(tempNode instanceof AST_Program){
-        //System.out.println(varName + " not in func stat");
         isFuncStat = false;
         break;
       }

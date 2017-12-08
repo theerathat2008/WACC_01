@@ -6,14 +6,12 @@ import Registers.RegisterARM;
 public class InstructionDeclAssString extends Instruction {
   String resultBlock;
   String reg1;
-  //int msgNum;
   String sp;
 
   /**
    * Class constructor calls super constructor
    */
   public InstructionDeclAssString() {
-    //this.msgNum = msgNum;
   }
 
   /**
