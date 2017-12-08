@@ -76,8 +76,6 @@ public class waccMain {
     System.out.println("------------------GENERATING CODE--------------------");
     codeGen.generateAssembly();
     System.out.println("------------------GENERATING CODE--------------------");
-
-
   }
 
   /**
