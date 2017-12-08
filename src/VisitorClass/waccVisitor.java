@@ -12,7 +12,6 @@ import ASTNodes.AST_Stats.AST_StatAssignRHSs.*;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfElse;
 import ASTNodes.AST_Stats.AST_StatIfs.AST_StatIfThen;
 import ErrorMessages.FunctionRedeclarationError;
-import ErrorMessages.VariableRedeclarationError;
 import IdentifierObjects.BaseTypeObj;
 import IdentifierObjects.FunctionObj;
 import IdentifierObjects.IDENTIFIER;

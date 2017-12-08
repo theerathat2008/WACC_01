@@ -2,7 +2,6 @@ package ASTNodes;
 
 import InstructionSet.Instruction;
 import Registers.RegisterARM;
-import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import Registers.RegisterAllocation;
 import java.util.ArrayDeque;

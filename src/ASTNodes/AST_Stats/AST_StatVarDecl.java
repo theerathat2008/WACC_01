@@ -8,9 +8,7 @@ import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatArrayLitRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.*;
 
-import ASTNodes.AST_TYPES.AST_PairType;
 import IdentifierObjects.BaseTypeObj;
-import IdentifierObjects.FunctionObj;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionVarDecl;

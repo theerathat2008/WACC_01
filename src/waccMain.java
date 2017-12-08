@@ -1,8 +1,6 @@
 package src;
 
-import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
-import VisitorClass.AST_NodeVisitor;
 import VisitorClass.AST_VisitCodeGen;
 import VisitorClass.AST_VisitSemantic;
 import VisitorClass.waccVisitor;
@@ -14,7 +12,6 @@ import antlr.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class waccMain {
 
