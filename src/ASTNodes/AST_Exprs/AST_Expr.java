@@ -6,10 +6,8 @@ import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
-
 import java.util.ArrayDeque;
 import java.util.List;
-
 import IdentifierObjects.IDENTIFIER;
 
 /**
@@ -24,7 +22,6 @@ public class AST_Expr extends AST_Node {
 
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -43,7 +40,6 @@ public class AST_Expr extends AST_Node {
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -53,7 +49,6 @@ public class AST_Expr extends AST_Node {
 
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
@@ -148,6 +143,12 @@ public class AST_Expr extends AST_Node {
    * Base class that is overriden, returns default NULL_REG
    */
 
+  /**
+   * Want to store the evaluation of the two registers result of the binary expression
+   * Format is expr BinOp expr
+   * Store the returned result of the two expr into a result reg
+   * Free the two registers after having got the evaluation of the two stores in the regs
+   */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     return RegisterARM.NULL_REG;
@@ -160,17 +161,23 @@ public class AST_Expr extends AST_Node {
     return identifier;
   }
 
+  /**
+   * set the identifier of the attribute
+   * @param ident
+   */
   public void setIdentifier(IDENTIFIER ident) {
     this.identifier = ident;
     System.out.println("Identifier is: " + identifier.getName());
   }
 
   /**
-   * Doesn't produce any assembly code
-   * Doesn't use any registers
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
    */
-
-
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     System.out.println("Base class AST_Expr");

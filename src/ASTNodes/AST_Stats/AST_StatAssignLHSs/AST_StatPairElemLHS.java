@@ -16,7 +16,6 @@ import ErrorMessages.TypeError;
 import ErrorMessages.FilePosition;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
-
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -28,7 +27,6 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
   //Syntactic attributes
   String typeName;
   AST_Expr ast_expr;
-
   ParserRuleContext ctx;
   SymbolTable symboltable;
 
@@ -42,15 +40,8 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
     this.symboltable = symbolTable;
   }
 
-  public String getTypeName() {
-    return typeName;
-  }
-
-
-
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -62,7 +53,6 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -76,7 +66,6 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
 
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
@@ -215,7 +204,6 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
 
   /**
    * Called from visitor
-   *
    * @param ST
    */
   @Override
@@ -239,26 +227,54 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
     }
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
     ast_expr.acceptPreProcess(regAlloc);
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_expr.accept(visitor);
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     ast_expr.acceptInstr(assemblyCode);
   }
 
+  /**
+   * Want to store the evaluation of the two registers result of the binary expression
+   * Format is expr BinOp expr
+   * Store the returned result of the two expr into a result reg
+   * Free the two registers after having got the evaluation of the two stores in the regs
+   */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     return ast_expr.acceptRegister(registerAllocation);
   }
 
+  /**
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
+   */
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     String nullMsg = "NullReferenceError: dereference a null reference\\n\\0";
     registerAllocation.addString(nullMsg);
@@ -275,7 +291,17 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
 
   }
 
+  /**
+   * @return Return the ast_expr attribute
+   */
   public AST_Expr getAst_expr() {
     return ast_expr;
+  }
+
+  /**
+   * @return Return the typeName atribute
+   */
+  public String getTypeName() {
+    return typeName;
   }
 }

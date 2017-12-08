@@ -13,7 +13,6 @@ import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
-
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -29,7 +28,6 @@ public class AST_SideEffectBinary extends AST_SideEffect{
 
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -48,7 +46,6 @@ public class AST_SideEffectBinary extends AST_SideEffect{
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -63,14 +60,10 @@ public class AST_SideEffectBinary extends AST_SideEffect{
     } else {
       System.out.println("Error, no more attributes to assign");
     }
-
-
-
   }
 
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
@@ -111,7 +104,6 @@ public class AST_SideEffectBinary extends AST_SideEffect{
 
   /**
    * Called from visitor
-   *
    * @param ST
    */
   @Override
@@ -121,13 +113,13 @@ public class AST_SideEffectBinary extends AST_SideEffect{
     }
   }
 
-
-
+  /**
+   * @return Return exprType
+   */
   public String getExprType() {
     //if (this instanceof ASTEXPR)
     return "";
   }
-
 
   /**
    * Used for testing - Prints out contents of current AST node
@@ -138,16 +130,30 @@ public class AST_SideEffectBinary extends AST_SideEffect{
     System.out.println("BASE TYPE");
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
     expr.acceptPreProcess(regAlloc);
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     expr.accept(visitor);
     visitor.visit(this);
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     expr.acceptInstr(assemblyCode);
@@ -160,6 +166,12 @@ public class AST_SideEffectBinary extends AST_SideEffect{
    * x should be embedded in this ast class as identName
    */
 
+  /**
+   * Want to store the evaluation of the two registers result of the binary expression
+   * Format is expr BinOp expr
+   * Store the returned result of the two expr into a result reg
+   * Free the two registers after having got the evaluation of the two stores in the regs
+   */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     //need registers for expr and identifier.
@@ -171,14 +183,14 @@ public class AST_SideEffectBinary extends AST_SideEffect{
     return registerAllocation.searchByVarValue(identName);
   }
 
-
-
   /**
-   * Doesn't produce any assembly code
-   * Doesn't use any registers
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
    */
-
-
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     InstructionSideEffect instructionSideEffect = new InstructionSideEffect(op);

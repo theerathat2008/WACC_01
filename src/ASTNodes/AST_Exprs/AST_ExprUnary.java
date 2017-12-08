@@ -16,10 +16,8 @@ import ErrorMessages.TypeMismatchError;
 import ErrorMessages.FilePosition;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
-
 import java.util.ArrayDeque;
 import java.util.List;
-
 import IdentifierObjects.*;
 import static Registers.RegisterUsageBuilder.*;
 
@@ -47,7 +45,6 @@ public class AST_ExprUnary extends AST_Expr {
 
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -67,7 +64,6 @@ public class AST_ExprUnary extends AST_Expr {
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -94,7 +90,6 @@ public class AST_ExprUnary extends AST_Expr {
 
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
@@ -204,8 +199,6 @@ public class AST_ExprUnary extends AST_Expr {
           type = tempST.lookup(varName);
         }
 
-        //Debug statement
-        System.out.println(type);
         if (type.toString().equals("int")) {
           return true;
         } else {
@@ -236,8 +229,6 @@ public class AST_ExprUnary extends AST_Expr {
           type = tempST.lookup(varName);
         }
 
-        //Debug statement
-        System.out.println(type);
         if (type.toString().equals("char") || type.toString().equals("bool") || type.toString().equals("string")
             || type.toString().contains("[]") || type.toString().contains("pair")) {
           return true;
@@ -300,7 +291,6 @@ public class AST_ExprUnary extends AST_Expr {
         AST_Node parent = getParentNode();
         //if parent is instance of AST_FuncDecl, search in encSymTable instead
 
-
         while (type == null) {
           tempST = tempST.encSymTable;
           type = tempST.lookup(varName);
@@ -318,7 +308,6 @@ public class AST_ExprUnary extends AST_Expr {
     return true;
   }
 
-
   /**
    * Used for testing - Prints out contents of current AST node
    */
@@ -335,16 +324,29 @@ public class AST_ExprUnary extends AST_Expr {
     }
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
     astExpr.acceptPreProcess(regAlloc);
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     astExpr.accept(visitor);
   }
 
+  /**
+   * @param visitor
+   * @return Return the result of evaluating constant expressions at compile-time
+   */
   public int acceptNode(AST_NodeVisitor visitor) {
     visitor.visit(this);
 
@@ -372,9 +374,7 @@ public class AST_ExprUnary extends AST_Expr {
           result = (int) charConstant.charAt(0);
         }
       } else if (opName.equals("len")) {
-        //it's gonna be of type string/array
-        //just return the result of len
-        //if it is an instance of array
+
         if (astExpr instanceof AST_ExprArrayElem) {
           int numOfExpr = ((AST_ExprArrayElem) astExpr).numOfExpr;
           result = numOfExpr;
@@ -393,12 +393,23 @@ public class AST_ExprUnary extends AST_Expr {
     return result;
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     astExpr.acceptInstr(assemblyCode);
     assemblyCode.add(instr.block1);
   }
 
+  /**
+   * Want to store the evaluation of the two registers result of the binary expression
+   * Format is expr BinOp expr
+   * Store the returned result of the two expr into a result reg
+   * Free the two registers after having got the evaluation of the two stores in the regs
+   */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
@@ -424,7 +435,6 @@ public class AST_ExprUnary extends AST_Expr {
     return dst;
   }
 
-
   /**
    * Generates assembly code
    * opName:  CHR   *   Needs registers to be allocated  InstructionUnary
@@ -432,9 +442,16 @@ public class AST_ExprUnary extends AST_Expr {
    * LEN    %  Needs registers to be allocated  InstructionUnary
    * EXCL   +  Needs registers to be allocated  InstructionUnary
    * MINUS  -  Needs registers to be allocated  InstructionUnary
-   * TODO ALLOCATE REGISTER HERE
    */
 
+  /**
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
+   */
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     InstructionUnary instructionUnary = new InstructionUnary(opName);
 

@@ -458,9 +458,17 @@ public class AST_StatAssign extends AST_Stat {
 
 
       assemblyCode.add(instrArrayElemLHS.getResultBlock1());
+      //assemblyCode.add("\n\n\n");
+      AST_Expr tempNode = ((AST_StatArrayElemLHS) ast_statAssignLHS).ast_exprList.get(0);
+      tempNode.acceptInstr(assemblyCode);
 
-      //assemblyCode.add("\n\t\tSOME CODE HERE\n");
+//      if (tempNode instanceof  AST_ExprIdent) {
+//        ((AST_ExprIdent) tempNode).acceptInstr(assemblyCode);
+//      } else if (tempNode instanceof  AST_ExprLiter) {
+//
+//      }
 
+      //assemblyCode.add("\n\n\n");
       assemblyCode.add(instrArrayElemLHS.getResultBlock2());
 
 
@@ -709,7 +717,15 @@ public class AST_StatAssign extends AST_Stat {
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     if (ast_statAssignLHS instanceof AST_StatIdentLHS){
-      String type = ast_statAssignRHS.getIdentifier().toString();
+      String type;
+
+      try {
+        type = ast_statAssignRHS.getIdentifier().toString();
+      } catch (NullPointerException n) {
+        type = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
+      }
+
+
       System.out.println("Type of ident is: " + type);
       InstructionAssignIdentLHS instructionAssignIdentLHS = new InstructionAssignIdentLHS(type);
       instructionList.add(instructionAssignIdentLHS);

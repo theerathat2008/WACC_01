@@ -18,7 +18,6 @@ import ErrorMessages.FilePosition;
 import IdentifierObjects.IDENTIFIER;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
-
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -46,7 +45,6 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
 
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -58,7 +56,6 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -72,7 +69,6 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
 
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
@@ -170,7 +166,6 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
 
   /**
    * Called from visitor
-   *
    * @param ST
    */
   @Override
@@ -194,6 +189,10 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
     }
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
     //Set a flag for acceptRegister in statVarDecl using a list in registerallocation to declare the var on the stack
@@ -204,6 +203,11 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
     ast_expr.acceptPreProcess(regAlloc);
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_expr.accept(visitor);
@@ -229,6 +233,11 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
     return result;
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
 
@@ -236,57 +245,29 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
     assemblyCode.add(instructionAccessPairElem.getResultBlock());
   }
 
+  /**
+   * Want to store the evaluation of the two registers result of the binary expression
+   * Format is expr BinOp expr
+   * Store the returned result of the two expr into a result reg
+   * Free the two registers after having got the evaluation of the two stores in the regs
+   */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
     RegisterARM resultReg = ast_expr.acceptRegister(registerAllocation);
 
-
-//    AST_ExprIdent ast_exprIdent = (AST_ExprIdent) ast_expr;
-//    String pairName = ast_exprIdent.getVarName();
-//
-//    boolean isFuncStat = true;
-//    AST_Node tempNode = this;
-//    while(!(tempNode instanceof AST_FuncDecl)){
-//      tempNode = tempNode.getParentNode();
-//      if(tempNode instanceof AST_Program){
-//        //System.out.println(varName + " not in func stat");
-//        isFuncStat = false;
-//        break;
-//      }
-//    }
-//
-//    String stackLocation = "SP_NULL";
-//    instructionAccessPairElem.allocateLocation(stackLocation);
-//
-//    if(isFuncStat){
-//      String funcName = ((AST_FuncDecl) tempNode).getFuncName();
-//      //stackLocation = registerAllocation.searchByFuncVarValue(((AST_StatPairElemLHS)ast_statAssignLHS).identifier.getName(), funcName).name();
-//
-//      stackLocation = registerAllocation.getFuncStackLocation(funcName, pairName);
-//      if(stackLocation.equals("null")){
-//        //Pairs always allocated on the stack
-//        System.out.println("ERROR, never should reach this case");
-//      }
-//      instructionAccessPairElem.allocateLocation(stackLocation);
-//
-//    } else {
-//
-//      stackLocation = registerAllocation.getStackLocation(pairName);
-//      if(stackLocation.equals("null")){
-//        //Pairs always allocated on the stack
-//        System.out.println("ERROR, never should reach this case");
-//      }
-//      instructionAccessPairElem.allocateLocation(stackLocation);
-//    }
-//
-//
-//    instructionAccessPairElem.allocateLocation(stackLocation);
-
     instructionAccessPairElem.allocateRegisters(RegisterARM.r0, resultReg);
     return resultReg;
   }
 
+  /**
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
+   */
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     instructionAccessPairElem
         = new InstructionAccessPairElem(typeName);
@@ -302,14 +283,18 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
     instructionList.add(new InstructionPrintBlocksString(
         registerAllocation.getStringID("%.*s\\0")
     ));
-
-
   }
 
+  /**
+   * @return Return the ast_expr attribute
+   */
   public AST_Expr getAst_expr() {
     return ast_expr;
   }
 
+  /**
+   * @return Return the typeName attribute
+   */
   public String getTypeName() {
     return typeName;
   }
