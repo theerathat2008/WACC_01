@@ -86,7 +86,7 @@ public class InstructionRead extends Instruction {
       builder.append("\t\tADD ");
       builder.append(interReg);
       builder.append(", ");
-      System.out.println(sp);
+      //System.out.println(sp);
       int displacement = 0;
       if(!sp.equals("[sp]")){
         displacement = Integer.parseInt(sp.replaceAll("[\\D]", ""));

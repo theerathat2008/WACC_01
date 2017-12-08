@@ -215,7 +215,7 @@ public class AST_ExprUnary extends AST_Expr {
         return true;
       } else if (astExpr instanceof AST_ExprIdent) {
         System.out.println(astExpr);
-        astExpr.printContents();
+        //astExpr.printContents();
         String varName = ((AST_ExprIdent) astExpr).getVarName();
 
         SymbolTable tempST = this.symbolTable;

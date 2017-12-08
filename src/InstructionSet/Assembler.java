@@ -79,7 +79,7 @@ public class Assembler {
     System.out.println("--------------- REGISTER ALLOCATION --------------------");
     rootNode.acceptRegister(registerAlloc);
     System.out.println("--------------- REGISTER ALLOCATION --------------------");
-    printInstructions();
+    //printInstructions();
     boolean addOverflow = false;
     for (Instruction currInstr : instructions) {
       if (currInstr instanceof InstructionLibraryFunction) {
@@ -117,7 +117,7 @@ public class Assembler {
     String Output = String.join("", assemblyCode);
     Output = generatePreCode() + "\n\t.text\n\n" + Output + generatePostCode();
 
-    System.out.println(Output);
+    //System.out.println(Output);
     this.Output = Output;
   }
 

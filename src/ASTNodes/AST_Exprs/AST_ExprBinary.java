@@ -495,7 +495,7 @@ public class AST_ExprBinary extends AST_Expr {
       }
     }
 
-    System.out.println(result);
+    //System.out.println(result);
     return result;
   }
 

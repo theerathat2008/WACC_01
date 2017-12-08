@@ -90,7 +90,7 @@ public class waccMain {
    */
   public static String textConverter(String inputText){
 
-    System.out.println(inputText);
+    //System.out.println(inputText);
 
     List<Character> tempArray = new ArrayList<Character>();
 
@@ -156,7 +156,7 @@ public class waccMain {
     }
 
     String outputText = interString.toString();
-    System.out.println(outputText);
+    //System.out.println(outputText);
 
 
     return outputText;

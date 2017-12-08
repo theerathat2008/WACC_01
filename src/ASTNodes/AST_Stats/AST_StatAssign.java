@@ -342,7 +342,7 @@ public class AST_StatAssign extends AST_Stat {
       System.out.println("ast_statAssignRHS: null");
     } else {
       System.out.println("ast_statAssignRHS: has content");
-      ast_statAssignRHS.printContents();
+      //ast_statAssignRHS.printContents();
     }
   }
 
@@ -450,7 +450,6 @@ public class AST_StatAssign extends AST_Stat {
    */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-    registerAllocation.printfreeReg();
 
     RegisterARM regRight = ast_statAssignRHS.acceptRegister(registerAllocation);
 

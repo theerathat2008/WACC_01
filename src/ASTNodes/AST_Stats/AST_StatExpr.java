@@ -182,7 +182,7 @@ public class AST_StatExpr extends AST_Stat {
         }
       } else if (expr instanceof AST_ExprIdent) {
         System.out.println(expr);
-        expr.printContents();
+        //expr.printContents();
         String varName = ((AST_ExprIdent) expr).getVarName();
 
         AST_Node tempNode = this.getParentNode();
@@ -228,7 +228,7 @@ public class AST_StatExpr extends AST_Stat {
   @Override
   public void printContents() {
     System.out.println(this.getClass().getSimpleName() + ": ");
-    super.printContents();
+    //super.printContents();
     if (expr == null) {
       System.out.println("expr: null");
     } else {

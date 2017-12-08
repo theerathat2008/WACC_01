@@ -449,8 +449,6 @@ public class AST_StatVarDecl extends AST_Stat {
     RegisterARM interReg = registerAllocation.useRegister(interUsage);
     registerAllocation.freeRegister(interReg);
 
-    System.out.println("SRc is " + src);
-    System.out.println("interReg: " + interReg);
     instrVar.allocateRegisters(interReg, src);
 
       if(registerAllocation.getVarRegSize() > 2 || (registerAllocation.checkIfOnStackOnlyVar(identName))){

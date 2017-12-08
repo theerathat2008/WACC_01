@@ -105,7 +105,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
    */
   @Override
   public String getType(SymbolTable ST) {
-    System.out.println(ST.symMap.containsKey("f"));
+    //System.out.println(ST.symMap.containsKey("f"));
     return "int";
   }
 
@@ -332,9 +332,9 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
    */
   @Override
   public void printContents() {
-    System.out.println(this.getClass().getSimpleName() + ": ");
-    System.out.println("funcName: " + funcName);
-    System.out.println("numOfExpr: " + numOfExpr);
+    //System.out.println(this.getClass().getSimpleName() + ": ");
+    //System.out.println("funcName: " + funcName);
+    //System.out.println("numOfExpr: " + numOfExpr);
     if (ast_exprList.size() == numOfExpr) {
       System.out.println("ast_exprList: List full");
     } else {
@@ -430,15 +430,13 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
       if (funcName.equals("factorial")) {
 
       } else {
-        System.out.println(funcName);
+        //System.out.println(funcName);
         AST_Expr first = ast_exprList.get(0);
         AST_Expr second = ast_exprList.get(1);
         RegisterARM fstReg = first.acceptRegister(registerAllocation);
         RegisterARM sndReg = second.acceptRegister(registerAllocation);
-        System.out.println(fstReg.name());
         registerAllocation.freeRegister(fstReg);
         registerAllocation.freeRegister(sndReg);
-        System.out.println(sndReg.name());
         instrCall.genCallInstruction(RegisterARM.r4.name(), fstReg.name(), "reg, reg", RegisterARM.NULL_REG);
         instrCall.genCallInstruction(RegisterARM.r5.name(),sndReg.name(),  "reg, reg", RegisterARM.NULL_REG);
         return RegisterARM.r0;
