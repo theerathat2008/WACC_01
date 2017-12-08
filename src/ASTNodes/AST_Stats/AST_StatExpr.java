@@ -99,8 +99,6 @@ public class AST_StatExpr extends AST_Stat {
     AST_Node parent = getParentNode();
 
     if (statName.equals("free")) {
-      System.out.println(expr);
-      System.out.println(expr.getIdentifier());
       if (expr instanceof AST_ExprIdent) {
         String varName = ((AST_ExprIdent) expr).getVarName();
         AST_Node tempNode = this.getParentNode();

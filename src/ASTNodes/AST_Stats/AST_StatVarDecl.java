@@ -4,6 +4,7 @@ import ASTNodes.AST_Exprs.*;
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
+import ASTNodes.AST_SideEffect.AST_SideEffectBinary;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatArrayLitRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.*;
@@ -437,18 +438,21 @@ public class AST_StatVarDecl extends AST_Stat {
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
-      RegisterARM src = ast_assignRHS.acceptRegister(registerAllocation);
-      registerAllocation.freeRegister(src);
+    RegisterARM src = ast_assignRHS.acceptRegister(registerAllocation);
+    registerAllocation.freeRegister(src);
 
-      RegisterUsage interUsage = aRegisterUsageBuilder()
+    RegisterUsage interUsage = aRegisterUsageBuilder()
               .withUsageType("statType")
               .withSubType("interType")
               .withScope(registerAllocation.getCurrentScope())
               .build();
 
-      RegisterARM interReg = registerAllocation.useRegister(interUsage);
-      registerAllocation.freeRegister(interReg);
-      instrVar.allocateRegisters(interReg, src);
+    RegisterARM interReg = registerAllocation.useRegister(interUsage);
+    registerAllocation.freeRegister(interReg);
+
+    System.out.println("SRc is " + src);
+    System.out.println("interReg: " + interReg);
+    instrVar.allocateRegisters(interReg, src);
 
       if(registerAllocation.getVarRegSize() > 2 || (registerAllocation.checkIfOnStackOnlyVar(identName))){
 
@@ -499,18 +503,14 @@ public class AST_StatVarDecl extends AST_Stat {
 
       } else {
 
-        System.out.println("Pre alloc");
-        registerAllocation.printfreeReg();
+
         RegisterUsage varUsage = aRegisterUsageBuilder()
                 .withScope(registerAllocation.getCurrentScope())
                 .withUsageType("varDecType")
                 .withVarName(identName)
                 .build();
         RegisterARM varStore = registerAllocation.useRegister(varUsage);
-        System.out.println("post alloc");
-        registerAllocation.printfreeReg();
 
-        System.out.println("using reg: " + varStore + " with name " + identName);
 
 
         instrVar.setStackLocation(varStore.name(), false);

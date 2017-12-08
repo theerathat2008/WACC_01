@@ -120,7 +120,7 @@ public class InstructionLibraryFunction extends Instruction {
       builder.append("\t\tPOP {pc}\n");
       builder.append("\t\t.ltorg\n");
 
-      addOverflow(instructionList, registerAllocation);
+      //addOverflow(instructionList, registerAllocation);
 
     } else if (name.equals("avg")) {
       builder.append("PUSH {lr}\n");
@@ -137,54 +137,54 @@ public class InstructionLibraryFunction extends Instruction {
 
     } else if (name.equals("pow")) {
       builder.append("PUSH {lr}\n");
-      builder.append("\t\tSUB sp, sp, #8\n");
-      builder.append("\t\tLDR r4, =0\n");
-      builder.append("\t\tSTR r4, [sp, #4]\n");
-      builder.append("\t\tLDR r4, =1\n");
-      builder.append("\t\tSTR r4, [sp]\n");
-      builder.append("\t\tLDR r4, [sp, #16]\n");
-      builder.append("\t\tLDR r5, =0\n");
-      builder.append("\t\tCMP r4, r5\n");
-      builder.append("\t\tMOVLT r4, #1\n");
-      builder.append("\t\tMOVGE r4, #0\n");
-      builder.append("\t\tCMP r4, #0\n");
+      //builder.append("\t\tSUB sp, sp, #8\n");
+      builder.append("\t\tLDR r6, =0\n");
+      //builder.append("\t\tSTR r4, [sp, #4]\n");
+      builder.append("\t\tLDR r7, =1\n");
+      //builder.append("\t\tSTR r4, [sp]\n");
+     // builder.append("\t\tLDR r4, [sp, #16]\n");
+    //  builder.append("\t\tLDR r8, =0\n");
+      builder.append("\t\tCMP r6, r5\n");
+      builder.append("\t\tMOVLT r8, #1\n");
+      builder.append("\t\tMOVGE r8, #0\n");
+      builder.append("\t\tCMP r8, #0\n");
       builder.append("\t\tBEQ L2_pow\n");
-      builder.append("\t\tLDR r4, =1\n");
-      builder.append("\t\tMOV r0, r4\n");
-      builder.append("\t\tADD sp, sp, #8\n");
-      builder.append("\t\tPOP {pc}\n");
+      builder.append("\t\tLDR r0, =1\n");
+     // builder.append("\t\tMOV r0, r4\n");
+      //builder.append("\t\tADD sp, sp, #8\n");
+      //builder.append("\t\tPOP {pc}\n");
       builder.append("\t\tB L1_pow\n");
       builder.append("\tL0_pow:\n");
       builder.append("\t\tB L2_pow\n");
       builder.append("\tL3_pow:\n");
-      builder.append("\t\tLDR r4, [sp]\n");
-      builder.append("\t\tLDR r5, [sp, #12]\n");
-      builder.append("\t\tSMULL r4, r5, r4, r5\n");
-      builder.append("\t\tCMP r5, r4, ASR #31\n");
+     // builder.append("\t\tLDR r4, [sp]\n");
+    //  builder.append("\t\tLDR r5, [sp, #12]\n");
+      builder.append("\t\tSMULL r7, r4, r7, r4\n");
+      builder.append("\t\tCMP r4, r7, ASR #31\n");
       builder.append("\t\tBLNE p_throw_overflow_error\n");
-      builder.append("\t\tSTR r4, [sp]\n");
-      builder.append("\t\tLDR r4, [sp, #4]\n");
-      builder.append("\t\tLDR r5, =1\n");
-      builder.append("\t\tADDS r4, r4, r5\n");
+     // builder.append("\t\tSTR r4, [sp]\n");
+     // builder.append("\t\tLDR r4, [sp, #4]\n");
+      builder.append("\t\tLDR r8, =1\n");
+      builder.append("\t\tADDS r6, r6, r8\n");
       builder.append("\t\tBLVS p_throw_overflow_error\n");
-      builder.append("\t\tSTR r4, [sp, #4]\n");
+     // builder.append("\t\tSTR r4, [sp, #4]\n");
       builder.append("\tL2_pow:\n");
-      builder.append("\t\tLDR r4, [sp, #4]\n");
-      builder.append("\t\tLDR r5, [sp, #16]\n");
-      builder.append("\t\tCMP r4, r5\n");
+      //builder.append("\t\tLDR r4, [sp, #4]\n");
+      //builder.append("\t\tLDR r5, [sp, #16]\n");
+      builder.append("\t\tCMP r5, r6\n");
       builder.append("\t\tMOVLT r4, #1\n");
       builder.append("\t\tMOVGE r4, #0\n");
       builder.append("\t\tCMP r4, #1\n");
       builder.append("\t\tBEQ L3_pow\n");
-      builder.append("\t\tLDR r4, [sp]\n");
+      //builder.append("\t\tLDR r4, [sp]\n");
       builder.append("\t\tMOV r0, r4\n");
-      builder.append("\t\tADD sp, sp, #8\n");
-      builder.append("\t\tPOP {pc}\n");
+      //builder.append("\t\tADD sp, sp, #8\n");
+      //builder.append("\t\tPOP {pc}\n");
       builder.append("\tL1_pow:\n");
       builder.append("\t\tPOP {pc}\n");
       builder.append("\t\t.ltorg\n");
 
-      addOverflow(instructionList, registerAllocation);
+      //addOverflow(instructionList, registerAllocation);
 
     }
 

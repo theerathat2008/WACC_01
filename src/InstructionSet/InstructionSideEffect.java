@@ -6,6 +6,7 @@ public class InstructionSideEffect extends Instruction{
 
   RegisterARM reg1;
   RegisterARM reg2;
+  RegisterARM tempReg;
   String op;
   public String block1;
 
@@ -34,10 +35,20 @@ public class InstructionSideEffect extends Instruction{
   public void registerAllocation(RegisterARM reg1) {
     this.reg1 = reg1;
   }
+  
+  /**
+   * Set the value of tempreg
+   * @param tempReg
+   */
+  public void allocateRegResult(RegisterARM tempReg){
+    this.tempReg = tempReg;
+  }
+
 
   /**
    * Generates the instruction block as a string for the current instruction
    */
+
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder("\t\t");
@@ -105,6 +116,14 @@ public class InstructionSideEffect extends Instruction{
       builder.append(reg1);
       builder.append(", r0\n");
     }
+<<<<<<< HEAD
+    builder.append("\t\tMOV ");
+    builder.append(tempReg);
+    builder.append(", ");
+    builder.append(reg1);
+    builder.append("\n");
+=======
+>>>>>>> 0d09c4593dd84d135af1aa3b036bd0a413b2cca2
     block1 = builder.toString();
   }
 

@@ -1,0 +1,14 @@
+# simple if statement
+
+# Output:
+# #empty#
+
+# Program:
+
+begin
+  int x = 3;
+  int y = x ;
+  println x;
+  println y  
+end
+

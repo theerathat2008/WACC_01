@@ -1,4 +1,4 @@
-This is the provided git repository for the WACC compilers lab. You should work 
+﻿This is the provided git repository for the WACC compilers lab. You should work 
 in this repository regularly committing and pushing your work back to GitLab.
 
 ----------------------------
@@ -94,3 +94,11 @@ this be setting the -cp option on the command line
 note that the bin: ensures that the bin directory is still part of your java 
 classpath.
 
+
+
+
+> testExtension <
+
+A script that when run compiles and runs all of the wacc programs in extensionTests 
+which implement the side-effecting expressions and library functions that we implemented.
+It returns each programs source code, the expected output and the actual result.

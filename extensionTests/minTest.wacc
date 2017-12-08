@@ -1,0 +1,13 @@
+# a simple increment function definition and usage
+
+# Output:
+# 0
+
+# Program:
+
+begin
+  int x = 0 ;
+  int y = 3 ;
+  x = call min(x, y) ;
+  println x
+end
