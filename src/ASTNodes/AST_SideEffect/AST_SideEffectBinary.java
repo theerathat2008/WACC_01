@@ -19,10 +19,6 @@ import java.util.List;
 import static Registers.RegisterUsageBuilder.aRegisterUsageBuilder;
 
 public class AST_SideEffectBinary extends AST_SideEffect{
-
-  //Syntactic attributes
-  // String type;
-  // IDENTIFIER identifier;
   AST_Expr expr;
   InstructionSideEffect instr;
   String op;
@@ -52,7 +48,6 @@ public class AST_SideEffectBinary extends AST_SideEffect{
    */
   @Override
   public void setSyntacticAttributes(String value) {
-    //System.out.println("Base AST Node");
     if (op == null) {
       this.op = value;
       System.out.println("Attempting to set identifier to int");
@@ -108,7 +103,6 @@ public class AST_SideEffectBinary extends AST_SideEffect{
    * @return Return exprType
    */
   public String getExprType() {
-    //if (this instanceof ASTEXPR)
     return "";
   }
 

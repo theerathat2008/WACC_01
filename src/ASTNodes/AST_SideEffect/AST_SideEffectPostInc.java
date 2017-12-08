@@ -11,9 +11,6 @@ import java.util.List;
 
 public class AST_SideEffectPostInc extends AST_SideEffect {
 
-  // Syntactic attributes
-  // String type;
-  // IDENTIFIER identifier;
   InstructionSideEffect instr;
 
   /**
@@ -85,7 +82,6 @@ public class AST_SideEffectPostInc extends AST_SideEffect {
    * @return Return exprType
    */
   public String getExprType() {
-    //if (this instanceof ASTEXPR)
     return "";
   }
 

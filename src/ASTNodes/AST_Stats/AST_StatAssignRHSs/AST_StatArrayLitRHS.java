@@ -322,7 +322,6 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
    * @throws Exception
    */
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-  //form [1,1,2,3]
     this.type = getTypeOfArray();
     String strType;
 

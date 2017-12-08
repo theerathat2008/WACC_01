@@ -361,13 +361,7 @@ public class AST_StatAssign extends AST_Stat {
       //Check if varName is allocated on the stack or in a register
       AST_StatIdentLHS ast_statIdentLHS = (AST_StatIdentLHS) ast_statAssignLHS;
 
-      //StackLocation
-      //Register
 
-      //FuncStackLocation
-      //FuncRegister
-
-      //WORK OUT ARRAY LOCATION
       boolean isFuncStat = true;
       AST_Node tempNode = this;
       while (!(tempNode instanceof AST_FuncDecl)) {
@@ -438,7 +432,6 @@ public class AST_StatAssign extends AST_Stat {
     } else if (ast_statAssignLHS instanceof AST_StatArrayElemLHS) {
 
       assemblyCode.add(instrArrayElemLHS.getResultBlock1());
-      //assemblyCode.add("\n\n\n");
       AST_Expr tempNode = ((AST_StatArrayElemLHS) ast_statAssignLHS).ast_exprList.get(0);
       tempNode.acceptInstr(assemblyCode);
 
@@ -465,21 +458,14 @@ public class AST_StatAssign extends AST_Stat {
     RegisterARM regLeft = ast_statAssignLHS.acceptRegister(registerAllocation);
 
 
-    //registerAllocation.freeRegister(regLeft);
-
     if (ast_statAssignLHS instanceof AST_StatIdentLHS) {
       registerAllocation.freeRegister(regRight);
 
       //Check if varName is allocated on the stack or in a register
       AST_StatIdentLHS ast_statIdentLHS = (AST_StatIdentLHS) ast_statAssignLHS;
 
-      //StackLocation
-      //Register
 
-      //FuncStackLocation
-      //FuncRegister
 
-      //WORK OUT ARRAY LOCATION
       boolean isFuncStat = true;
       AST_Node tempNode = this;
       while(!(tempNode instanceof AST_FuncDecl)){
@@ -542,7 +528,6 @@ public class AST_StatAssign extends AST_Stat {
       instrArrayElemLHS.allocateRegisters(result, tempPos, regRight);
 
 
-      //WORK OUT ARRAY LOCATION
       boolean isFuncStat = true;
       AST_Node tempNode = this;
       while(!(tempNode instanceof AST_FuncDecl)){
@@ -603,7 +588,6 @@ public class AST_StatAssign extends AST_Stat {
 
       if(isFuncStat){
         String funcName = ((AST_FuncDecl) tempNode).getFuncName();
-        //stackLocation = registerAllocation.searchByFuncVarValue(((AST_StatPairElemLHS)ast_statAssignLHS).identifier.getName(), funcName).name();
 
         stackLocation = registerAllocation.getFuncStackLocation(funcName, pairName);
         if(stackLocation.equals("null")){
@@ -676,17 +660,12 @@ public class AST_StatAssign extends AST_Stat {
    */
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     if (ast_statAssignLHS instanceof AST_StatIdentLHS){
-      String type = "UNASSIGNED";
+      String type;
 
       try {
         type = ast_statAssignRHS.getIdentifier().toString();
       } catch (NullPointerException n) {
-        try {
-          //type = ((AST_StatExprRHS) ast_statAssignRHS).getAst_expr().getIdentifier().getName();
-          //type = ((AST_StatIdentLHS) ast_statAssignLHS).;
-        } catch (Exception e) {
-          type = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
-        }
+        type = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
       }
       InstructionAssignIdentLHS instructionAssignIdentLHS = new InstructionAssignIdentLHS(type);
       instructionList.add(instructionAssignIdentLHS);

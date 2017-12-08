@@ -8,6 +8,9 @@ import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatArrayLitRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.*;
 
+import ASTNodes.AST_TYPES.AST_PairType;
+import IdentifierObjects.BaseTypeObj;
+import IdentifierObjects.FunctionObj;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionVarDecl;
@@ -273,7 +276,6 @@ public class AST_StatVarDecl extends AST_Stat {
 
 
     if (ast_type.getIdentifier() != null && ast_assignRHS.getIdentifier() != null) {
-      //ast_type.getIdentifier() returns "str" so it's the problem
       if (!(ast_type.getIdentifier().toString().contains(ast_assignRHS.getIdentifier().toString())
           || ast_assignRHS.getIdentifier().toString().contains(ast_type.getIdentifier().toString()))) {
         new TypeMismatchError(new FilePosition(ctx)).printAll();
@@ -292,6 +294,9 @@ public class AST_StatVarDecl extends AST_Stat {
       new VariableRedeclarationError(new FilePosition(ctx)).printAll();
       return false;
     }
+
+
+
   }
 
   /**
@@ -302,6 +307,16 @@ public class AST_StatVarDecl extends AST_Stat {
     if (ast_type == null) {
       System.out.println("Variable " + identName + "'s AST_Type not set yet");
     }
+
+
+    IDENTIFIER temp = ST.lookup(identName);
+
+    if(temp != null){
+      if(temp instanceof BaseTypeObj){
+        new VariableRedeclarationError(new FilePosition(ctx)).printAll();
+      }
+    }
+
     ST.add(identName, ast_type.getIdentifier());
   }
 
@@ -350,7 +365,6 @@ public class AST_StatVarDecl extends AST_Stat {
     while(!(tempNode instanceof AST_FuncDecl)){
       tempNode = tempNode.getParentNode();
       if(tempNode instanceof AST_Program){
-        //System.out.println(varName + " not in func stat");
         isFuncStat = false;
         break;
       }
@@ -459,11 +473,9 @@ public class AST_StatVarDecl extends AST_Stat {
 
         if (ast_assignRHS instanceof AST_StatArrayLitRHS) {
           AST_StatArrayLitRHS tempNode = (AST_StatArrayLitRHS) ast_assignRHS;
-          registerAllocation.setStackSize(registerAllocation.getStackSize() + 4); //tempNode.getArraySize());
-          //registerAllocation.setFinalStackSize(registerAllocation.getStackSize() + 4);
+          registerAllocation.setStackSize(registerAllocation.getStackSize() + 4);
         } else {
-          registerAllocation.setStackSize(registerAllocation.getStackSize() + 4); //+ registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
-          //registerAllocation.setFinalStackSize(registerAllocation.getStackSize() + 4);
+          registerAllocation.setStackSize(registerAllocation.getStackSize() + 4);
         }
 
         boolean isFuncStat = true;
@@ -471,7 +483,6 @@ public class AST_StatVarDecl extends AST_Stat {
         while(!(tempNode instanceof AST_FuncDecl)){
           tempNode = tempNode.getParentNode();
           if(tempNode instanceof AST_Program){
-            //System.out.println(varName + " not in func stat");
             isFuncStat = false;
             break;
           }
@@ -531,7 +542,6 @@ public class AST_StatVarDecl extends AST_Stat {
       instructionList.add(instructionVarDecl);
       instrVar = instructionVarDecl;
       if(registerAllocation.getVarDeclCount() > 2 || (registerAllocation.checkIfOnStackOnlyVar(identName))) {
-        //System.out.println("Final stack size at var: " +ast_type.getIdentifier().toString() + " is " + registerAllocation.getFinalStackSize());
         registerAllocation.setFinalStackSize(registerAllocation.getFinalStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
       }
       registerAllocation.incVarDeclCount();

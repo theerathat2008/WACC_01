@@ -232,7 +232,6 @@ public class AST_StatRead extends AST_Stat {
       AST_StatIdentLHS ast_statIdentLHS = (AST_StatIdentLHS)ast_statAssignLHS;
       String identName = ast_statIdentLHS.getIdentName();
 
-      //WORK OUT ARRAY LOCATION
       boolean isFuncStat = true;
       AST_Node tempNode = this;
       while(!(tempNode instanceof AST_FuncDecl)){

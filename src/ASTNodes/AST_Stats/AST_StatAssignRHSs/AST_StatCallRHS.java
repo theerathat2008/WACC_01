@@ -105,9 +105,8 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
    */
   @Override
   public String getType(SymbolTable ST) {
-    //FunctionObj type = (FunctionObj)ST.lookupAll(funcName);
     System.out.println(ST.symMap.containsKey("f"));
-    return "int"; //((FunctionObj)ST.lookupAll(funcName)).getReturnTypeName();
+    return "int";
   }
 
   /**
@@ -265,7 +264,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
 
             } else {
               IDENTIFIER typeExpr = ast_exprList.get(0).getIdentifier();
-              //IDENTIFIER typeParam = parameters.get(i);
               if (!typeExpr.equals(typeParam)) {
                 new TypeError(new FilePosition(ctx)).printAll();
                 return false;
@@ -355,7 +353,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
       if(expr instanceof AST_ExprIdent){
          AST_ExprIdent tempNode = (AST_ExprIdent)expr;
          String varName = tempNode.getVarName();
-         //regAlloc.addToStackOnlyVar(varName);
       }
       expr.acceptPreProcess(regAlloc);
     }
@@ -396,18 +393,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
 
       assemblyCode.add(callBlock);
     }
-
-
-//    for (AST_Expr expr : ast_exprList) {
-//       if(expr instanceof AST_ExprLiter || expr instanceof AST_ExprBinary || expr instanceof AST_ExprUnary){
-//        expr.acceptInstr(assemblyCode);
-//
-//      }
-//    }
-//
-//    for (String callBlock : callList) {
-//      assemblyCode.add(callBlock);
-//    }
 
 
     assemblyCode.add(instrCall.getResultBlock());
@@ -483,8 +468,7 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
                   .build();
           RegisterARM interReg = registerAllocation.useRegister(resultUsage);
           registerAllocation.freeRegister(interReg);
-          // LDR inter, Src
-          // STR inter, Dst
+
           type = "stack, stack";
           instrCall.genCallInstruction(src, dst, type, interReg);
         } else if (src.equals("NULL_REG")) {
@@ -498,14 +482,12 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
           registerAllocation.freeRegister(interReg);
 
           type = "reg, stack";
-          // LDR inter, src
-          // MOV dst, inter
+
           instrCall.genCallInstruction(src, dst, type, interReg);
         } else if (dst.equals("NULL_REG")) {
           dst = registerAllocation.getFuncStackLocationCounter(funcName, counter);
 
           type = "stack, reg";
-          // LDR src, dst
           instrCall.genCallInstruction(src, dst, type, RegisterARM.NULL_REG);
         } else {
           type = "reg, reg";
@@ -521,7 +503,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
         if (dst.equals("NULL_REG")) {
           dst = registerAllocation.getFuncStackLocationCounter(funcName, counter);
           type = "stack, reg";
-          // LDR src, dst
           instrCall.genCallInstruction(src, dst, type, RegisterARM.NULL_REG);
         }
 
@@ -537,7 +518,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
         if (dst.equals("NULL_REG")) {
           dst = registerAllocation.getFuncStackLocationCounter(funcName, counter);
           type = "stack, reg";
-          // LDR src, dst
           instrCall.genCallInstruction(src, dst, type, RegisterARM.NULL_REG);
         }
         registerAllocation.freeRegister(resultReg);

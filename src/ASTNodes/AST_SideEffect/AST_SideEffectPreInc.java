@@ -15,9 +15,6 @@ import java.util.List;
 
 public class AST_SideEffectPreInc extends AST_SideEffect {
 
-  //Syntactic attributes
-  // String type;
-  // IDENTIFIER identifier;
   InstructionSideEffect instr;
   String op;
   String identName;
@@ -92,7 +89,6 @@ public class AST_SideEffectPreInc extends AST_SideEffect {
    */
   @Override
   public boolean CheckSemantics() {
-    //Check identifier is an int
     return true;
   }
 
@@ -100,7 +96,6 @@ public class AST_SideEffectPreInc extends AST_SideEffect {
    * @return Return the exprType
    */
   public String getExprType() {
-    //if (this instanceof ASTEXPR)
     return "";
   }
 

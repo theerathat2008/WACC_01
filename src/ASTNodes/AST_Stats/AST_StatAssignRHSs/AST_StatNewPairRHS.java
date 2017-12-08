@@ -235,8 +235,7 @@ public class AST_StatNewPairRHS extends AST_StatAssignRHS {
     instructionDeclAssPair.allocateRegisters(RegisterARM.r0, tempReg, tempPairAddressReg);
     registerAllocation.freeRegister(tempPairAddressReg);
 
-    //registerAllocation.freeRegister(tempReg);
-    
+
     return tempReg;
   }
 
