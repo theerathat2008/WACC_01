@@ -9,6 +9,10 @@ public class InstructionPrint extends Instruction {
   String sp;
   String type;
 
+  /**
+   * Class constructor
+   * @param type
+   */
   public InstructionPrint(String type) {
     this.type = type;
     System.out.println(type + " type");
@@ -16,10 +20,10 @@ public class InstructionPrint extends Instruction {
     reg2 = "src";
   }
 
-  public String getResultBlock() {
-    return resultBlock;
-  }
-
+  /**
+   * Set and replace the value of sp
+   * @param sp
+   */
   public void allocateSP(String sp) {
     this.sp = sp;
   }
@@ -29,6 +33,9 @@ public class InstructionPrint extends Instruction {
     this.reg2 = reg2.name();
   }
 
+  /**
+   * @return Return the print type
+   */
   public String getPrintType() {
 
     switch (type) {
@@ -54,6 +61,9 @@ public class InstructionPrint extends Instruction {
 
   }
 
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     StringBuilder block = new StringBuilder();
@@ -65,6 +75,13 @@ public class InstructionPrint extends Instruction {
     block.append(getPrintType());
     block.append("\n");
     resultBlock = block.toString();
+  }
+
+  /**
+   * @return Return the resultBlock attribute
+   */
+  public String getResultBlock() {
+    return resultBlock;
   }
 
 }

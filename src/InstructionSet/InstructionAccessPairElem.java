@@ -12,6 +12,10 @@ public class InstructionAccessPairElem extends Instruction {
   String reg1;
   String reg2;
 
+  /**
+   * Class constructor
+   * @param pos
+   */
   public InstructionAccessPairElem(String pos) {
     this.pos = pos;
     this.reg1 = "r0";
@@ -19,13 +23,19 @@ public class InstructionAccessPairElem extends Instruction {
 
   }
 
-
+  /**
+   * Assigned string value indicating name of register
+   * @param reg1
+   * @param reg2
+   */
   public void allocateRegisters(RegisterARM reg1, RegisterARM reg2) {
     this.reg1 = reg1.name();  //always r0
     this.reg2 = reg2.name();  //
   }
 
-
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder();
@@ -48,6 +58,9 @@ public class InstructionAccessPairElem extends Instruction {
     resultBlock = builder.toString();
   }
 
+  /**
+   * @return Return display string
+   */
   private String getDisp() {
     if (this.pos.equals("fst")) {
       return "0";
@@ -56,5 +69,4 @@ public class InstructionAccessPairElem extends Instruction {
     }
     return "UNDEFINED PAIRPOS IN GETDISP IN InstructionDeclAssPairElem";
   }
-
 }

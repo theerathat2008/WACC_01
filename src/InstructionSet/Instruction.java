@@ -17,6 +17,9 @@ public abstract class Instruction {
     return src.equals(dst);
   }
 
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   public abstract void genInstruction();
 
   public String getID() {

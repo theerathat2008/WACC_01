@@ -28,6 +28,8 @@ public class Assembler {
   AST_Node rootNode;
   String Output;
 
+  private static Assembler instance = null;
+
   List<String> assemblyCode = new LinkedList<>();
 
   /**
@@ -38,16 +40,22 @@ public class Assembler {
     this.rootNode = rootNode;
   }
 
-  private static Assembler instance = null;
-
   private Assembler() {
 
   }
 
+  /**
+   * Set the instructions attribute
+   * @param instructions
+   */
   public void setInstructions(List<Instruction> instructions) {
     this.instructions = instructions;
   }
 
+  /**
+   * Set the registerAlloc attribute
+   * @param registerAlloc
+   */
   public void setRegisterAlloc(RegisterAllocation registerAlloc) {
     this.registerAlloc = registerAlloc;
   }
@@ -98,7 +106,6 @@ public class Assembler {
       instructions.add(instructionErrorRuntime);
 
     }
-
   }
 
   /**
@@ -109,11 +116,9 @@ public class Assembler {
     String Output = String.join("", assemblyCode);
     Output = generatePreCode() + "\n\t.text\n\n" + Output + generatePostCode();
 
-
     System.out.println(Output);
     this.Output = Output;
   }
-
 
   /**
    * generate any special code for the assmebly file such as the messages
@@ -163,13 +168,15 @@ public class Assembler {
   }
 
 
+  /**
+   * @return Return the instance attribute
+   */
   public static Assembler getInstance() {
     if (instance == null) {
       instance = new Assembler();
     }
     return instance;
   }
-
 
   /**
    * Generates the final output file
@@ -183,6 +190,4 @@ public class Assembler {
       e.getMessage();
     }
   }
-
-
 }

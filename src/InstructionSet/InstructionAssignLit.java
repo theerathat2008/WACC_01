@@ -10,6 +10,11 @@ public class InstructionAssignLit extends Instruction {
   String stringMsgNum;
   public String resultBlock;
 
+  /**
+   * Class constructor
+   * @param constant
+   * @param lit
+   */
   public InstructionAssignLit(String constant, String lit) {
     this.constant = constant;
     this.lit = lit;
@@ -17,18 +22,33 @@ public class InstructionAssignLit extends Instruction {
     resultBlock = "undefined";
   }
 
+  /**
+   * Set the value of reg
+   * @param reg
+   */
   public void registerAllocation(RegisterARM reg) {
     this.reg = reg.name();
   }
 
+  /**
+   * Set the value for the stringMsgNum attribute
+   * @param num
+   */
   public void setStringMsgNum(String num) {
     this.stringMsgNum = num;
   }
 
+  /**
+   * @param constant
+   * @return Return the string representation
+   */
   public String stripZeros(String constant){
     return new Integer(constant).toString();
   }
 
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder();
@@ -68,8 +88,6 @@ public class InstructionAssignLit extends Instruction {
       builder.append(", =0");
       builder.append("\n");
     }
-
     resultBlock = builder.toString();
   }
-
 }

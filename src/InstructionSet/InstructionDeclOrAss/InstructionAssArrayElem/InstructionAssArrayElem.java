@@ -119,7 +119,6 @@ public class InstructionAssArrayElem extends Instruction {
 
   }
 
-
   //ArrayLocationReg is the memory address of the array variable
   //posReg is just a temp reg
   //resultReg is just temp reg and holds the final result i.e. the value at the array index

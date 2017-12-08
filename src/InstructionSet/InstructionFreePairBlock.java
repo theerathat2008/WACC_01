@@ -6,23 +6,33 @@ public class InstructionFreePairBlock extends Instruction {
   String resultBlock = "";
   int msgNum;
 
+  /**
+   * Class constructor
+   * @param msgNum
+   */
   public InstructionFreePairBlock(int msgNum) {
     this.msgNum = msgNum;
     reg1 = "reg1";
   }
 
+  /**
+   * Set and replace the value of sp
+   */
   public void allocateSP(String sp) {
     this.sp = sp;
   }
 
+  /**
+   * Assigned string value indicating name of register
+   * @param reg1
+   */
   public void allocateRegisters(String reg1) {
     this.reg1 = reg1;
   }
 
-  public String getResultBlock() {
-    return resultBlock;
-  }
-
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder();
@@ -53,6 +63,13 @@ public class InstructionFreePairBlock extends Instruction {
     builder.append(reg1);
     builder.append("}\n\t\tBL free\n\t\tPOP {pc}\n");
     resultBlock = builder.toString();
+  }
+
+  /**
+   * @return Return the resultBlock attribute
+   */
+  public String getResultBlock() {
+    return resultBlock;
   }
 
 }

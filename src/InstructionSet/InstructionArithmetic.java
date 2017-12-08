@@ -9,21 +9,32 @@ public class InstructionArithmetic extends Instruction {
   String reg2;
   public String block1;
 
+  /**
+   * Class constructor
+   * @param operand
+   */
   public InstructionArithmetic(String operand) {
     this.operand = operand;
     reg1 = "reg1";
     reg2 = "src";
   }
 
+  /**
+   * Assigned string value indicating name of register
+   * @param dst
+   * @param reg1
+   * @param reg2
+   */
   public void allocateRegisters(RegisterARM dst, RegisterARM reg1, RegisterARM reg2) {
     this.dst = dst.name();
     this.reg1 = reg1.name();
     this.reg2 = reg2.name();
   }
 
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   public void genInstruction() {
-
-
 
     if (operand.equals("%")) {
       StringBuilder builder = new StringBuilder("\t\tMOV r0, ");
@@ -66,7 +77,11 @@ public class InstructionArithmetic extends Instruction {
     }
   }
 
-
+  /**
+   * Return add or subtract operand, otherwise return null
+   * @param operand
+   * @return
+   */
   public String getOperand(String operand) {
     switch (operand) {
       case "+":

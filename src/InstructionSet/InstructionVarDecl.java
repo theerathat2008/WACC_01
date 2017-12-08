@@ -11,7 +11,10 @@ public class InstructionVarDecl extends Instruction {
   String varType;
   boolean isStack;
 
-
+  /**
+   * Class constructor
+   * @param varType
+   */
   public InstructionVarDecl(String varType) {
     this.varType = varType;
     this.srcReg = "srcReg";
@@ -20,21 +23,29 @@ public class InstructionVarDecl extends Instruction {
     this.resultBlock = "";
   }
 
-  public String getResultBlock() {
-    return resultBlock;
-  }
-
+  /**
+   * Assigned string value indicating name of register
+   * @param dstReg
+   * @param srcReg
+   */
   public void allocateRegisters(RegisterARM dstReg, RegisterARM srcReg) {
     this.srcReg = srcReg.name();
     this.dstReg = dstReg.name();
   }
 
+  /**
+   * Set the stackLocation and isStack attribute
+   * @param location
+   * @param isStack
+   */
   public void setStackLocation(String location, boolean isStack) {
     this.stackLocation = location;
     this.isStack = isStack;
   }
 
-
+  /**
+   * @return Return the type of STR
+   */
   public String getSTRType() {
     if (varType.equals("bool") || varType.equals("char")) {
       return "STRB";
@@ -42,7 +53,9 @@ public class InstructionVarDecl extends Instruction {
     return "STR";
   }
 
-
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     StringBuilder block = new StringBuilder();
@@ -74,12 +87,13 @@ public class InstructionVarDecl extends Instruction {
     }
 
     resultBlock = block.toString();
+  }
 
-    //MOV r4, r0
-    //STR r4, [sp]
-
-
-    //resultBlock.concat("\t\t" + getLDType() + " " + reg2 + sp + "\n");
+  /**
+   * @return Return the resultBlock attribute
+   */
+  public String getResultBlock() {
+    return resultBlock;
   }
 
 }

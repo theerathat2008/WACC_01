@@ -13,7 +13,11 @@ public class InstructionCall extends Instruction {
   List<String> varCallBlocks;
   Stack<String> stackRegisters;
 
-
+  /**
+   * Class constructor
+   * @param fName
+   * @param returnType
+   */
   public InstructionCall(String fName, String returnType) {
     this.fName = fName;
     this.returnType = returnType;
@@ -22,14 +26,13 @@ public class InstructionCall extends Instruction {
     stackRegisters = new Stack<String>();
   }
 
-  public List<String> getVarCallBlocks() {
-    return varCallBlocks;
-  }
-
-  public String getResultBlock() {
-    return resultBlock;
-  }
-
+  /**
+   * Assign the message to the block when it is called
+   * @param src
+   * @param dst
+   * @param type
+   * @param interReg
+   */
   public void genCallInstruction(String src, String dst, String type, RegisterARM interReg){
     StringBuilder callBlock = new StringBuilder();
     if(!compareDstSrc(src, dst)){
@@ -91,7 +94,9 @@ public class InstructionCall extends Instruction {
     varCallBlocks.add(callBlock.toString());
   }
 
-
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     StringBuilder block = new StringBuilder();
@@ -106,6 +111,20 @@ public class InstructionCall extends Instruction {
     }
 
     resultBlock = block.toString();
+  }
+
+  /**
+   * @return Return the varCallBlocks attribute
+   */
+  public List<String> getVarCallBlocks() {
+    return varCallBlocks;
+  }
+
+  /**
+   * @return Return the resultBlock attribute
+   */
+  public String getResultBlock() {
+    return resultBlock;
   }
 
 }

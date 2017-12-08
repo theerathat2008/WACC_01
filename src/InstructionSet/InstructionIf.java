@@ -20,20 +20,34 @@ public class InstructionIf extends Instruction {
   public String blockElse;
   public String blockContinue;
 
-
+  /**
+   * Class constructor
+   */
   public InstructionIf() {
     exprReg = "exprReg";
   }
 
+  /**
+   * Set value of branchElseName and continueName
+   * @param branchElseName
+   * @param continueName
+   */
   public void setLabels(String branchElseName, String continueName) {
     this.branchElseName = branchElseName;
     this.continueName = continueName;
   }
 
+  /**
+   * Assigned string value indicating name of register
+   * @param registerARM
+   */
   public void allocateRegisters(RegisterARM registerARM) {
     this.exprReg = registerARM.name();
   }
 
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     StringBuilder block1 = new StringBuilder();

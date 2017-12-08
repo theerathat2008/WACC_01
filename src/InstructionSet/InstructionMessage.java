@@ -6,11 +6,17 @@ public class InstructionMessage extends Instruction {
   String resultBlock = "";
   List<String> stringList;
 
+  /**
+   * Class constructor
+   * @param stringList
+   */
   public InstructionMessage(List<String> stringList) {
     this.stringList = stringList;
   }
 
-
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     resultBlock.concat(".data\n");
@@ -22,5 +28,4 @@ public class InstructionMessage extends Instruction {
     }
     resultBlock.concat("\n");
   }
-
 }

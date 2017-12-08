@@ -15,16 +15,21 @@ public class InstructionLibraryFunction extends Instruction {
   List<Instruction> instructionList;
   RegisterAllocation registerAllocation;
 
+  /**
+   * Class constructor
+   * @param name
+   * @param instructionList
+   * @param registerAllocation
+   */
   public InstructionLibraryFunction(String name, List<Instruction> instructionList, RegisterAllocation registerAllocation) {
     this.name = name;
     this.instructionList = instructionList;
     this.registerAllocation = registerAllocation;
   }
 
-  public String getInstruction() {
-    return block1;
-  }
-
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder("\tf_");
@@ -117,25 +122,18 @@ public class InstructionLibraryFunction extends Instruction {
 
       addOverflow(instructionList, registerAllocation);
 
-    } else if (name.equals("avg")) {   //needs to add overflow error and divide by zero error maybe (wont ever be called though)
+    } else if (name.equals("avg")) {
       builder.append("PUSH {lr}\n");
-//      builder.append("\t\tLDR r4, [sp, #4]\n");
-//      builder.append("\t\tLDR r5, [sp, #8]\n");
       builder.append("\t\tADDS r4, r4, r5\n");
       builder.append("\t\tBLVS p_throw_overflow_error\n");
       builder.append("\t\tLDR r5, =2\n");
       builder.append("\t\tMOV r0, r4\n");
       builder.append("\t\tMOV r1, r5\n");
-//      builder.append("\t\tBL p_check_divide_by_zero\n");  //wont need this since never divides by 0
       builder.append("\t\tBL __aeabi_idiv\n");
       builder.append("\t\tMOV r4, r0\n");
       builder.append("\t\tMOV r0, r4\n");
       builder.append("\t\tPOP {pc}\n");
       builder.append("\t\t.ltorg\n");
-
-      //addOverflow(instructionList, registerAllocation);
-   //   addDivByZero(instructionList, registerAllocation);
-
 
     } else if (name.equals("pow")) {
       builder.append("PUSH {lr}\n");
@@ -188,12 +186,16 @@ public class InstructionLibraryFunction extends Instruction {
 
       addOverflow(instructionList, registerAllocation);
 
-
     }
 
     block1 = builder.toString();
   }
 
+  /**
+   * Add overflow errors output message
+   * @param instructionList
+   * @param registerAllocation
+   */
   private void addOverflow(List<Instruction> instructionList, RegisterAllocation registerAllocation) {
     registerAllocation.addString("OverflowError: the result is too small/large to store in a 4-byte signed-integer.\\n");
     InstructionErrorOverflow errorOverflow = new InstructionErrorOverflow(registerAllocation.
@@ -207,6 +209,11 @@ public class InstructionLibraryFunction extends Instruction {
     instructionList.add(new InstructionErrorRuntime());
   }
 
+  /**
+   * Add divided by zero errors output message
+   * @param instructionList
+   * @param registerAllocation
+   */
   private void addDivByZero(List<Instruction> instructionList, RegisterAllocation registerAllocation) {
     registerAllocation.addString("DivideByZeroError: divide or modulo by zero\\n\\0");
     InstructionDivByZero divByZero = new InstructionDivByZero();
@@ -221,5 +228,10 @@ public class InstructionLibraryFunction extends Instruction {
     instructionList.add(new InstructionErrorRuntime());
   }
 
-
+  /**
+   * @return Return the instruction attriubte
+   */
+  public String getInstruction() {
+    return block1;
+  }
 }
