@@ -6,7 +6,6 @@ import Registers.RegisterARM;
  * Instruction class for printing string expressions
  */
 public class InstructionPrintBlocksString extends InstructionPrintBlocks {
-
   String reg2;
   String reg3;
 

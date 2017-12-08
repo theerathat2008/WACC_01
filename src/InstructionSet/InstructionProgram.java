@@ -2,6 +2,9 @@ package InstructionSet;
 
 import Registers.RegisterAllocation;
 
+/**
+ * Instruction class for main program. Contains start and end of assembly code
+ */
 public class InstructionProgram extends Instruction {
 
   public String block0;

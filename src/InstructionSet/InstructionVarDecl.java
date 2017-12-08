@@ -2,6 +2,9 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
+/**
+ * Instruction class for variable declarations
+ */
 public class InstructionVarDecl extends Instruction {
 
   String resultBlock;

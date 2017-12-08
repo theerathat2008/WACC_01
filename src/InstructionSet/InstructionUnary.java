@@ -2,6 +2,9 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
+/**
+ * Instruction class for unary expressions
+ */
 public class InstructionUnary extends Instruction {
 
   String dst;

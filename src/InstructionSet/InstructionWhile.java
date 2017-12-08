@@ -2,6 +2,9 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
+/**
+ * Instruction class for while loops
+ */
 public class InstructionWhile extends Instruction {
 
   String exprReg;

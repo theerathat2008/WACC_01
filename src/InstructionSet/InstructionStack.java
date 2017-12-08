@@ -2,6 +2,9 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
+/**
+ * Instruction class for stack alloc
+ */
 public class InstructionStack extends Instruction {
 
   String reg;

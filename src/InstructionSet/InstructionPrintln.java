@@ -1,5 +1,8 @@
 package InstructionSet;
 
+/**
+ * Instruction class for printing new line
+ */
 public class InstructionPrintln extends Instruction {
   String resultBlock;
 

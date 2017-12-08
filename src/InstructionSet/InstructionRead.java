@@ -2,6 +2,9 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
+/**
+ * Instruction class for read statement
+ */
 public class InstructionRead extends Instruction {
 
   public String resultBlock = "";

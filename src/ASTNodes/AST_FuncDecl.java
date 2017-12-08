@@ -313,12 +313,6 @@ public class AST_FuncDecl extends AST_Node {
     instr = instructionFunction;
   }
 
-  /**
-   * Set the hasReturn attribute to equal to true
-   */
-  public void setHasReturnTrue() {
-    this.hasReturn = true;
-  }
 
   /**
    * @return Return the funcName attribute

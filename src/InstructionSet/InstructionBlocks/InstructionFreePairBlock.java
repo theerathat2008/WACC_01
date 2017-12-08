@@ -15,8 +15,6 @@ public class InstructionFreePairBlock extends InstructionBlocks {
     reg1 = "r0";
   }
 
-
-
   /**
    * Generates the instruction block as a string for the current instruction
    */

@@ -2,6 +2,9 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
+/**
+ * Instruction class for extension - sideeffect
+ */
 public class InstructionSideEffect extends Instruction{
 
   RegisterARM reg1;
