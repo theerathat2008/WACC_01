@@ -276,7 +276,6 @@ public class AST_StatVarDecl extends AST_Stat {
 
 
     if (ast_type.getIdentifier() != null && ast_assignRHS.getIdentifier() != null) {
-      //ast_type.getIdentifier() returns "str" so it's the problem
       if (!(ast_type.getIdentifier().toString().contains(ast_assignRHS.getIdentifier().toString())
           || ast_assignRHS.getIdentifier().toString().contains(ast_type.getIdentifier().toString()))) {
         new TypeMismatchError(new FilePosition(ctx)).printAll();
@@ -303,7 +302,6 @@ public class AST_StatVarDecl extends AST_Stat {
    */
   @Override
   public void Check(SymbolTable ST) {
-    //CheckSemantics(ST);
     ST.add(identName, ST.stringToIdent(identName, ast_type.toString()));
   }
 
@@ -363,7 +361,6 @@ public class AST_StatVarDecl extends AST_Stat {
     while(!(tempNode instanceof AST_FuncDecl)){
       tempNode = tempNode.getParentNode();
       if(tempNode instanceof AST_Program){
-        //System.out.println(varName + " not in func stat");
         isFuncStat = false;
         break;
       }
@@ -472,11 +469,9 @@ public class AST_StatVarDecl extends AST_Stat {
 
         if (ast_assignRHS instanceof AST_StatArrayLitRHS) {
           AST_StatArrayLitRHS tempNode = (AST_StatArrayLitRHS) ast_assignRHS;
-          registerAllocation.setStackSize(registerAllocation.getStackSize() + 4); //tempNode.getArraySize());
-          //registerAllocation.setFinalStackSize(registerAllocation.getStackSize() + 4);
+          registerAllocation.setStackSize(registerAllocation.getStackSize() + 4);
         } else {
-          registerAllocation.setStackSize(registerAllocation.getStackSize() + 4); //+ registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
-          //registerAllocation.setFinalStackSize(registerAllocation.getStackSize() + 4);
+          registerAllocation.setStackSize(registerAllocation.getStackSize() + 4);
         }
 
         boolean isFuncStat = true;
@@ -484,7 +479,6 @@ public class AST_StatVarDecl extends AST_Stat {
         while(!(tempNode instanceof AST_FuncDecl)){
           tempNode = tempNode.getParentNode();
           if(tempNode instanceof AST_Program){
-            //System.out.println(varName + " not in func stat");
             isFuncStat = false;
             break;
           }
@@ -544,7 +538,6 @@ public class AST_StatVarDecl extends AST_Stat {
       instructionList.add(instructionVarDecl);
       instrVar = instructionVarDecl;
       if(registerAllocation.getVarDeclCount() > 2 || (registerAllocation.checkIfOnStackOnlyVar(identName))) {
-        //System.out.println("Final stack size at var: " +ast_type.getIdentifier().toString() + " is " + registerAllocation.getFinalStackSize());
         registerAllocation.setFinalStackSize(registerAllocation.getFinalStackSize() + registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
       }
       registerAllocation.incVarDeclCount();
