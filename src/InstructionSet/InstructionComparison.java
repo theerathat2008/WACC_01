@@ -16,7 +16,7 @@ public class InstructionComparison extends Instruction {
    */
   public InstructionComparison(String op) {
     this.op = op;
-    reg1 = "reg1";
+    reg1 = "r0";
     reg2 = "src";
   }
 

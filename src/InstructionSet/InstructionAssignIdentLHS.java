@@ -67,6 +67,10 @@ public class InstructionAssignIdentLHS extends Instruction {
    * @return Return the type of LDR
    */
   public String getLDRType() {
+    System.out.println("*********************TYPEEEEEEEEEEEEEEEE: " + type);
+    System.out.println("*********************TYPEEEEEEEEEEEEEEEE2: " + src);
+    System.out.println("*********************TYPEEEEEEEEEEEEEEEE3: " + location);
+
     switch (type) {
       case ("str"):
       case ("string"):

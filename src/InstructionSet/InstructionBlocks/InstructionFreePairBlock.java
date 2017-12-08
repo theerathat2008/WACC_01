@@ -1,6 +1,7 @@
-package InstructionSet;
+package InstructionSet.InstructionBlocks;
 
-public class InstructionFreePairBlock extends Instruction {
+
+public class InstructionFreePairBlock extends InstructionBlocks {
   String reg1;
   String sp;
   String resultBlock = "";
@@ -12,7 +13,7 @@ public class InstructionFreePairBlock extends Instruction {
    */
   public InstructionFreePairBlock(int msgNum) {
     this.msgNum = msgNum;
-    reg1 = "reg1";
+    reg1 = "r0";
   }
 
   /**
@@ -22,6 +23,7 @@ public class InstructionFreePairBlock extends Instruction {
     this.sp = sp;
   }
 
+
   /**
    * Assigned string value indicating name of register
    * @param reg1
@@ -30,13 +32,14 @@ public class InstructionFreePairBlock extends Instruction {
     this.reg1 = reg1;
   }
 
+
   /**
    * Generates the instruction block as a string for the current instruction
    */
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder();
-    builder.append("p_free_pair:\n");
+    builder.append("\tp_free_pair:\n");
     builder.append("\t\tPUSH {lr}\n");
     builder.append("\t\tCMP ");
     builder.append(reg1);
@@ -53,8 +56,8 @@ public class InstructionFreePairBlock extends Instruction {
     builder.append(reg1);
     builder.append("]\n\t\tBL free\n\t\tLDR ");
     builder.append(reg1);
-    builder.append(", ");
-    builder.append(sp);
+    builder.append(", [sp]");
+    //builder.append(sp);
     builder.append("\n\t\tLDR ");
     builder.append(reg1);
     builder.append(", [");

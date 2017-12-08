@@ -16,7 +16,7 @@ public class InstructionPrint extends Instruction {
   public InstructionPrint(String type) {
     this.type = type;
     System.out.println(type + " type");
-    reg1 = "reg1";
+    reg1 = "r0";
     reg2 = "src";
   }
 

@@ -15,7 +15,7 @@ public class InstructionArithmetic extends Instruction {
    */
   public InstructionArithmetic(String operand) {
     this.operand = operand;
-    reg1 = "reg1";
+    reg1 = "r0";
     reg2 = "src";
   }
 

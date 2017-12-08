@@ -193,6 +193,8 @@ public class AST_StatRead extends AST_Stat {
     // since it is used in read and the statarraylitrhs assembly code works with stacks
     AST_StatIdentLHS ast_statIdentLHS = (AST_StatIdentLHS)ast_statAssignLHS;
     String identName = ast_statIdentLHS.getIdentName();
+
+
     regAlloc.addToStackOnlyVar(identName);
 
     ast_statAssignLHS.acceptPreProcess(regAlloc);
