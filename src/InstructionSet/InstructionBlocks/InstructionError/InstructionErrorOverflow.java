@@ -16,7 +16,6 @@ public class InstructionErrorOverflow extends InstructionError {
 
   /**
    * Assigned string value indicating name of register
-   *
    * @param reg1 - first register
    */
   public void allocateRegisters(RegisterARM reg1) {
@@ -35,16 +34,6 @@ public class InstructionErrorOverflow extends InstructionError {
     builder.append("\n\t\tBL p_throw_runtime_error\n");
 
     this.resultBlock = builder.toString();
-  }
-
-  @Override
-  public int requiresRegisters() {
-    return 1;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
   }
 
 }

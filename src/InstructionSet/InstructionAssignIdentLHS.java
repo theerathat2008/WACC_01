@@ -46,6 +46,10 @@ public class InstructionAssignIdentLHS extends Instruction {
 //   * LDRSB r4, [sp]
 
   public String getLDRType() {
+    System.out.println("*********************TYPEEEEEEEEEEEEEEEE: " + type);
+    System.out.println("*********************TYPEEEEEEEEEEEEEEEE2: " + src);
+    System.out.println("*********************TYPEEEEEEEEEEEEEEEE3: " + location);
+
     switch (type) {
       case ("str"):
       case ("string"):
@@ -96,13 +100,4 @@ public class InstructionAssignIdentLHS extends Instruction {
 
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 1;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
 }

@@ -77,29 +77,4 @@ public class InstructionUnary extends Instruction {
     block1 = builder.toString();
   }
 
-  @Override
-  public int requiresRegisters() {
-    switch (op) {
-      case "!":
-        return 2;
-      case "-":
-        return 2;
-      case "len":
-        return 2;
-      case "ord":
-        return 1;
-      case "chr":
-        return 1;
-      default:
-        break;
-    }
-    return 2;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    //Maybe
-    return false;
-  }
-
 }

@@ -2,8 +2,6 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
-import java.util.List;
-
 public class InstructionArithmetic extends Instruction {
   String operand;
   String dst;
@@ -13,7 +11,7 @@ public class InstructionArithmetic extends Instruction {
 
   public InstructionArithmetic(String operand) {
     this.operand = operand;
-    reg1 = "reg1";
+    reg1 = "r0";
     reg2 = "src";
   }
 
@@ -78,22 +76,6 @@ public class InstructionArithmetic extends Instruction {
       default:
         return "null";
     }
-  }
-
-  @Override
-  public int requiresRegisters() {
-    return 3;
-  }
-
-
-  /**
-   * returns true as this class uses registers that could be referencing the stack variables
-   * or been assigned in a variable declaration
-   */
-
-  @Override
-  public boolean crossOverRegister() {
-    return true;
   }
 
 

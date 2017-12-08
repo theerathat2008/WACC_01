@@ -13,7 +13,6 @@ public class PairObj extends IDENTIFIER {
 
   /**
    * Compares value for equality
-   *
    * @param other
    */
   public boolean equals(IDENTIFIER other) {

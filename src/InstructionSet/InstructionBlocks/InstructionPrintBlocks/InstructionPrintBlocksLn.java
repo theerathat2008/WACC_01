@@ -9,7 +9,6 @@ public class InstructionPrintBlocksLn extends InstructionPrintBlocks {
 
   /**
    * Class constructor calls super constructor
-   *
    * @param msgNum1 - Indicates the ID of the message to be output
    */
   public InstructionPrintBlocksLn(int msgNum1) {
@@ -20,7 +19,6 @@ public class InstructionPrintBlocksLn extends InstructionPrintBlocks {
 
   /**
    * Assigned string value indicating name of register
-   *
    * @param reg1 - first register
    *             "\0" should be added and looked up in stringMap
    */
@@ -53,7 +51,5 @@ public class InstructionPrintBlocksLn extends InstructionPrintBlocks {
     block1.append("\t\tBL fflush\n");
     block1.append("\t\tPOP {pc}\n");
     this.resultBlock = block1.toString();
-
   }
-
 }

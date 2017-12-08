@@ -12,37 +12,50 @@ public class InstructionAssPairElem extends Instruction {
   String pairLocreg;
   String itemreg;
 
+  /**
+   * Class constructor
+   * @param pos
+   */
   public InstructionAssPairElem(String pos) {
     this.pos = pos;
     this.reg1 = "r0";
     this.pairLocreg = "pairLocReg";
     this.sp = "TODOSP";
-
   }
 
+  /**
+   * Set and replace the value of sp
+   * @param sp
+   */
   public void allocateLocation(String sp) {
     this.sp = sp.replace("[", "").replace("]", "");
   }
 
+  /**
+   * Assigned string value indicating name of register
+   * @param reg1
+   * @param pairLocReg
+   * @param itemreg
+   */
   public void allocateRegisters(RegisterARM reg1, RegisterARM pairLocReg, RegisterARM itemreg) {
     this.reg1 = reg1.name();  //always r0
     this.pairLocreg = pairLocReg.name();  //
     this.itemreg = itemreg.name();
   }
 
+  /**
+   * @return Return the resultBlock attribute
+   */
   public String getResultBlock() {
     return resultBlock;
   }
 
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder();
-    //builder.append("\n\n\n\nPair elem start: \n");
-//    builder.append("\t\tLDR ");
-//    builder.append(pairLocreg);
-//    builder.append(", [");
-//    builder.append(sp);
-//    builder.append("]\n");
 
     builder.append("\t\tMOV ");
     builder.append(reg1);
@@ -65,6 +78,9 @@ public class InstructionAssPairElem extends Instruction {
     resultBlock = builder.toString();
   }
 
+  /**
+   * @return Return display string
+   */
   private String getDisp() {
     if (this.pos.equals("fst")) {
       return "0";
@@ -74,13 +90,4 @@ public class InstructionAssPairElem extends Instruction {
     return "UNDEFINED PAIRPOS IN GETDISP IN InstructionAssPairElem";
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 2;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
 }

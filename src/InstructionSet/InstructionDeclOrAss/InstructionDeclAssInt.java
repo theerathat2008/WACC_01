@@ -7,25 +7,26 @@ public class InstructionDeclAssInt extends Instruction {
   String resultBlock;
   String reg;
   String sp;
-  //String intData;
 
   /**
    * Class constructor calls super constructor
    */
-  public InstructionDeclAssInt() {//String intData) {
+  public InstructionDeclAssInt() {
     //this.intData = intData;
   }
 
+  /**
+   * Set and replace the value of sp
+   * @param sp
+   */
   public void allocateSP(String sp) {
     this.sp = sp;
-    //this.intData = intData;
     reg = "reg";
 
   }
 
   /**
    * Assigned string value indicating name of register
-   *
    * @param reg - first register
    */
   public void allocateRegisters(RegisterARM reg) {
@@ -45,15 +46,4 @@ public class InstructionDeclAssInt extends Instruction {
     builder.append("]\n");
     resultBlock = builder.toString();
   }
-
-  @Override
-  public int requiresRegisters() {
-    return 1;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
 }

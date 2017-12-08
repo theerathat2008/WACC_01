@@ -1,6 +1,7 @@
-package InstructionSet;
+package InstructionSet.InstructionBlocks;
 
-public class InstructionFreePairBlock extends Instruction {
+
+public class InstructionFreePairBlock extends InstructionBlocks {
   String reg1;
   String sp;
   String resultBlock = "";
@@ -8,16 +9,16 @@ public class InstructionFreePairBlock extends Instruction {
 
   public InstructionFreePairBlock(int msgNum) {
     this.msgNum = msgNum;
-    reg1 = "reg1";
+    reg1 = "r0";
   }
 
   public void allocateSP(String sp) {
     this.sp = sp;
   }
 
-  public void allocateRegisters(String reg1) {
-    this.reg1 = reg1;
-  }
+//  public void allocateRegisters(String reg1) {
+//    this.reg1 = reg1;
+//  }
 
   public String getResultBlock() {
     return resultBlock;
@@ -26,7 +27,7 @@ public class InstructionFreePairBlock extends Instruction {
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder();
-    builder.append("p_free_pair:\n");
+    builder.append("\tp_free_pair:\n");
     builder.append("\t\tPUSH {lr}\n");
     builder.append("\t\tCMP ");
     builder.append(reg1);
@@ -43,8 +44,8 @@ public class InstructionFreePairBlock extends Instruction {
     builder.append(reg1);
     builder.append("]\n\t\tBL free\n\t\tLDR ");
     builder.append(reg1);
-    builder.append(", ");
-    builder.append(sp);
+    builder.append(", [sp]");
+    //builder.append(sp);
     builder.append("\n\t\tLDR ");
     builder.append(reg1);
     builder.append(", [");
@@ -53,16 +54,6 @@ public class InstructionFreePairBlock extends Instruction {
     builder.append(reg1);
     builder.append("}\n\t\tBL free\n\t\tPOP {pc}\n");
     resultBlock = builder.toString();
-  }
-
-  @Override
-  public int requiresRegisters() {
-    return 1;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
   }
 
 }

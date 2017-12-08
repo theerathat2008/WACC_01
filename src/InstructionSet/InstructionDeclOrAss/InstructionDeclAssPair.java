@@ -16,6 +16,13 @@ public class InstructionDeclAssPair extends Instruction {
   String secondElem;
   String finalPairAddressReg;
 
+  /**
+   * Class constructor
+   * @param firstType
+   * @param secondType
+   * @param firstElem
+   * @param secondElem
+   */
   public InstructionDeclAssPair(String firstType, String secondType, String firstElem, String secondElem) {
     this.firstType = firstType;
     this.secondType = secondType;
@@ -27,46 +34,47 @@ public class InstructionDeclAssPair extends Instruction {
     this.finalPairAddressReg = "memoryLocationOfPair";
   }
 
+  /**
+   * @return Return the block1 atribute
+   */
   public String getBlock1() {
     return block1;
   }
 
+  /**
+   * @return Return the block2 attribute
+   */
   public String getBlock2() {
     return block2;
   }
 
+  /**
+   * @return Return the block3 attribute
+   */
   public String getBlock3() {
     return block3;
   }
 
+  /**
+   * Assigned string value indicating name of register
+   * @param regR0
+   * @param tempReg
+   * @param tempPairAddressReg
+   */
   public void allocateRegisters(RegisterARM regR0, RegisterARM tempReg, RegisterARM tempPairAddressReg) {
-    this.regR0 = regR0.name();                                // Always R0
-    this.tempReg = tempReg.name();                            // Any FREE REG
-    this.tempPairAddressReg = tempPairAddressReg.name();      // Memory address for pair reg to be stored temporarily -> Any FREE REG
-    //this.finalPairAddressReg = finalPairAddressReg;           // Either SP with displacement of where pair variable is stored
-                                                              // OR the register name holding the pair variable in the case of (totalvars <= 2)
-  }
-//
-//  public int getMsgNum() {
-//    return 123456789; //TODO
-//  }
-//
-//  public String getElemBlock(String type, String elem) {
-//
-//    if (type.equals("bool")) {
-//      return "\t\tMOV " + tempPairAddressReg + ", #" + getBool() + "\n";
-//    } else if (type.equals("char")) {
-//      return "\t\tMOV " + tempPairAddressReg + ", #'" + elem + "'\n";
-//    } else if (type.equals("string")) {
-//      return "\t\tLDR " + tempPairAddressReg + ", =msg_" + getMsgNum() + "\n";
-//    } else if (type.equals("int")) {
-//      return "\t\tLDR " + tempPairAddressReg + ", =" + elem + "\n";
-//    } else if (type.equals("array")) {
-//      return "\t\tLDR " + tempPairAddressReg + ", [sp, #SOMETHING" + "]\n";
-//    }
-//    return "FAILED getElemBlock in Instruction New Pair\n";
-//  }
+    this.regR0 = regR0.name();
+    this.tempReg = tempReg.name();
 
+    // Memory address for pair reg to be stored temporarily -> Any FREE REG
+    // Either SP with displacement of where pair variable is stored
+    // OR the register name holding the pair variable in the case of (totalvars <= 2)
+    this.tempPairAddressReg = tempPairAddressReg.name();
+  }
+
+  /**
+   * @param elem
+   * @return Return the type of the elem
+   */
   public String getSTRtype(String elem) {
     switch (elem) {
       case "bool":
@@ -77,7 +85,9 @@ public class InstructionDeclAssPair extends Instruction {
     }
   }
 
-
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   public void genInstruction() {
     StringBuilder builder = new StringBuilder();
     builder.append("\t\tLDR ");
@@ -93,7 +103,6 @@ public class InstructionDeclAssPair extends Instruction {
     //r5 is the tempPairAddressReg
 
     builder = new StringBuilder();
-//    builder.append(getElemBlock(firstType, firstElem));  //maybe, not sure if this is intended use of this function
     builder.append("\t\tLDR ");
     builder.append(regR0);
     builder.append(", =");
@@ -114,7 +123,6 @@ public class InstructionDeclAssPair extends Instruction {
     //reusing r5 as the tempPairAddessReg
 
     builder = new StringBuilder();
-//    builder.append(getElemBlock(secondType, secondElem)); //maybe, not sure if this is intended use of this function
     builder.append("\t\tLDR ");
     builder.append(regR0);
     builder.append(", =");
@@ -128,27 +136,14 @@ public class InstructionDeclAssPair extends Instruction {
     builder.append(regR0);
     builder.append(", [");
     builder.append(tempReg);
-    //TODO SIZE of displacement might be different in char cases
     builder.append(", #4]\n");
-//    builder.append("\t\tSTR ");
-//    builder.append(tempReg);
-//    builder.append(", [");
-//    //finalPairAddressReg is either stored on the stack or register
-//    builder.append(finalPairAddressReg);
-//    builder.append("]\n");
     block3 = builder.toString();
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 3;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
+  /**
+   * @param elem
+   * @return Return the int value of the type
+   */
   public int getTypeInt(String elem) {
     if (elem.equals("bool") || elem.equals("char")) {
       return 1;
@@ -156,6 +151,9 @@ public class InstructionDeclAssPair extends Instruction {
     return 4;
   }
 
+  /**
+   * @return Return the bool value
+   */
   public int getBool() {
     if (this.firstElem.equals("true")) {
       return 1;

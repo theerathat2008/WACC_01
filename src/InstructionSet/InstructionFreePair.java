@@ -1,36 +1,31 @@
 package InstructionSet;
 
+import Registers.RegisterARM;
+
 public class InstructionFreePair extends Instruction {
-  String reg1;
-  String reg2;
+  String r0;
+  String pairLocReg;
   String resultBlock = "";
 
   public String getResultBlock() {
     return resultBlock;
   }
 
-  public void allocateSP() {
-  }
 
-  public void allocateRegisters(String reg1, String reg2) {
-    this.reg1 = reg1;
-    this.reg2 = reg2;
+  public void allocateRegisters(RegisterARM r0, RegisterARM pairLocReg) {
+    this.r0 = r0.name();
+    this.pairLocReg = pairLocReg.name();
   }
 
   @Override
   public void genInstruction() {
-    resultBlock.concat("\t\tMOV " + reg1 + ", " + reg2 + "\n");
-    resultBlock.concat("\t\tBL p_free_pair\n");
-  }
-
-  @Override
-  public int requiresRegisters() {
-    return 2;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
+    StringBuilder builder = new StringBuilder();
+    builder.append("\t\tMOV ");
+    builder.append(r0);
+    builder.append(", ");
+    builder.append(pairLocReg);
+    builder.append("\n\t\tBL p_free_pair\n");
+    resultBlock = builder.toString();
   }
 
 }

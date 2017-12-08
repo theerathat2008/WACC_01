@@ -14,14 +14,12 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import ErrorMessages.FunctionRedeclarationError;
 import ErrorMessages.FilePosition;
 import VisitorClass.AST_NodeVisitor;
-
 import java.util.ArrayDeque;
 import java.util.List;
 
 /**
  * Class representing node in AST tree for FUNCTION
  */
-
 public class AST_FuncDecl extends AST_Node {
 
   //Syntactic attributes
@@ -33,14 +31,7 @@ public class AST_FuncDecl extends AST_Node {
   ParserRuleContext ctx;
   public SymbolTable symbolTable;
   InstructionFunction instr;
-
   boolean hasReturn;
-
-  public void setHasReturnTrue() {
-    this.hasReturn = true;
-  }
-
-  //Semantic attribute
 
   /**
    * Class constructor
@@ -58,13 +49,8 @@ public class AST_FuncDecl extends AST_Node {
 
   }
 
-  public String getFuncName() {
-    return funcName;
-  }
-
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -98,7 +84,6 @@ public class AST_FuncDecl extends AST_Node {
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -112,7 +97,6 @@ public class AST_FuncDecl extends AST_Node {
 
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
@@ -200,31 +184,17 @@ public class AST_FuncDecl extends AST_Node {
 
   /**
    * Called from visitor
-   *
    * @param ST
    */
   @Override
   public void Check(SymbolTable ST) {
 
     if (CheckSemantics()) {
-      //Add function to global scope i.e. program
-      //IDENTIFIER funcObj = new FunctionObj(funcName, ast_type.getIdentifier(), this);
-      //((FunctionObj) funcObj).setParamListObj((ParamListObj) ST.lookup(funcName.concat("_paramList")));
 
       while (!ST.getScope().equals("global")) {
         ST = ST.encSymTable;
       }
-      //ST.add(funcName, funcObj);
-
     }
-
-
-    //System.out.println(ST.encSymTable.lookup(funcName)==null);
-    //Create new symbol table   DONE
-    //Add necessary contents specific to func to symbol table  DONE
-    //set enclosing symbol table to curr symbol table   does this before check
-    //Set curr symbol table to new symbol table
-
   }
 
   public void Assign() {
@@ -264,6 +234,10 @@ public class AST_FuncDecl extends AST_Node {
     symbolTable.printKeysTable(symbolTable);
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
     if (checkForParamList()) {
@@ -272,6 +246,11 @@ public class AST_FuncDecl extends AST_Node {
     statement.acceptPreProcess(regAlloc);
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_type.accept(visitor);
@@ -281,6 +260,11 @@ public class AST_FuncDecl extends AST_Node {
     statement.accept(visitor);
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     assemblyCode.add(instr.block1);
@@ -309,16 +293,38 @@ public class AST_FuncDecl extends AST_Node {
     return RegisterARM.NULL_REG;
   }
 
-
   /**
    * Produces the outer assembly code for the function
    * Doesn't require registers
+   */
+
+  /**
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
    */
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     InstructionFunction instructionFunction = new InstructionFunction(funcName, registerAllocation);
     instructionList.add(instructionFunction);
     instr = instructionFunction;
+  }
+
+  /**
+   * Set the hasReturn attribute to equal to true
+   */
+  public void setHasReturnTrue() {
+    this.hasReturn = true;
+  }
+
+  /**
+   * @return Return the funcName attribute
+   */
+  public String getFuncName() {
+    return funcName;
   }
 
 }

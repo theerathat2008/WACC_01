@@ -14,7 +14,6 @@ public abstract class ErrorMessage {
 
   /**
    * Constructor for ErrorMessage class which initialises the value for the private field
-   *
    * @param filePosition
    */
   public ErrorMessage(FilePosition filePosition) {
@@ -23,7 +22,6 @@ public abstract class ErrorMessage {
 
   /**
    * Print out the line of code that the errors occur
-   *
    * @param filePosition
    */
   public void printPos(FilePosition filePosition) {

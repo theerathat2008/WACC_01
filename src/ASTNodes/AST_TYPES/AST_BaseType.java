@@ -6,10 +6,8 @@ import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
-
 import java.util.ArrayDeque;
 import java.util.List;
-
 import IdentifierObjects.*;
 
 /**
@@ -29,7 +27,6 @@ public class AST_BaseType extends AST_Type {
 
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -48,7 +45,6 @@ public class AST_BaseType extends AST_Type {
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -62,7 +58,6 @@ public class AST_BaseType extends AST_Type {
 
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
@@ -73,6 +68,13 @@ public class AST_BaseType extends AST_Type {
       System.out.println("Unrecognised String Attribute" + this.getClass().getSimpleName());
       return null;
     }
+  }
+
+  /**
+   * @return returns the identifier of the attribute
+   */
+  public IDENTIFIER getIdentifier() {
+    return new BaseTypeObj(baseTypeName);
   }
 
   /**
@@ -111,7 +113,6 @@ public class AST_BaseType extends AST_Type {
 
   /**
    * Called from visitor
-   *
    * @param ST
    */
   @Override
@@ -137,32 +138,51 @@ public class AST_BaseType extends AST_Type {
     System.out.println("baseTypeName: " + baseTypeName);
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
 
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
 
   }
 
+  /**
+   * Evaluate both sides of the stat assign and store their results in the registers
+   * Returns a null reg as there is no result evaluation
+   */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
     return RegisterARM.NULL_REG;
   }
 
   /**
-   * @return returns the identifier of the attribute
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
    */
-  public IDENTIFIER getIdentifier() {
-    return new BaseTypeObj(baseTypeName);
-  }
-
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
 
   }

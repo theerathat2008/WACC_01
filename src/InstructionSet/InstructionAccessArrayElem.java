@@ -148,14 +148,4 @@ public class InstructionAccessArrayElem extends Instruction {
     resultBlock2 = builder.toString();
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 5;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
 }

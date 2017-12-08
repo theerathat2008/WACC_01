@@ -17,7 +17,7 @@ public class InstructionReturn extends Instruction {
   public InstructionReturn(String type) {
     this.type = type;
     this.resultBlock = "";
-    reg1 = "reg1";
+    reg1 = "r0";
     reg2 = "src";
   }
 
@@ -42,16 +42,6 @@ public class InstructionReturn extends Instruction {
     block.append(reg2);
     block.append("\n");
     resultBlock = block.toString();
-  }
-
-  @Override
-  public int requiresRegisters() {
-    return 2;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
   }
 
 }

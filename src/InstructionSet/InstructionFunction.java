@@ -38,14 +38,4 @@ public class InstructionFunction extends Instruction {
     block2 = builder2.toString();
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 0;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
 }

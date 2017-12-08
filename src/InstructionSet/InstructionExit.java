@@ -15,7 +15,7 @@ public class InstructionExit extends Instruction {
   public InstructionExit() {
     //this.exitCode = exitCode;
     this.resultBlock = "";
-    reg1 = "reg1";
+    reg1 = "r0";
     reg2 = "src";
   }
 
@@ -43,16 +43,6 @@ public class InstructionExit extends Instruction {
     block1.append("\t\tBL exit\n");
     resultBlock = block1.toString();
 
-  }
-
-  @Override
-  public int requiresRegisters() {
-    return 0;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
   }
 
 }

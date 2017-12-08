@@ -11,7 +11,6 @@ public class InstructionPrintBlocks extends InstructionBlocks {
 
   /**
    * Class constructor - all subclasses use this
-   *
    * @param msgNum1 - Indicates the ID of the message to be output
    */
   public InstructionPrintBlocks(int msgNum1) {
@@ -19,19 +18,12 @@ public class InstructionPrintBlocks extends InstructionBlocks {
     reg1 = "r0";
   }
 
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction(){
 
-  }
-
-  @Override
-  public int requiresRegisters() {
-    return 1;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
   }
 
 }

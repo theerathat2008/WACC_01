@@ -12,7 +12,7 @@ public class InstructionPrint extends Instruction {
   public InstructionPrint(String type) {
     this.type = type;
     System.out.println(type + " type");
-    reg1 = "reg1";
+    reg1 = "r0";
     reg2 = "src";
   }
 
@@ -65,16 +65,6 @@ public class InstructionPrint extends Instruction {
     block.append(getPrintType());
     block.append("\n");
     resultBlock = block.toString();
-  }
-
-  @Override
-  public int requiresRegisters() {
-    return 2;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
   }
 
 }

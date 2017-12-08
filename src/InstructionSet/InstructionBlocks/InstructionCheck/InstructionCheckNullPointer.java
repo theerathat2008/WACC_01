@@ -2,6 +2,9 @@ package InstructionSet.InstructionBlocks.InstructionCheck;
 
 public class InstructionCheckNullPointer extends InstructionCheck {
 
+  /**
+   * Class constructor
+   */
   public InstructionCheckNullPointer(int msgNum) {
     super(msgNum);
     reg1 = "r0";
@@ -10,7 +13,6 @@ public class InstructionCheckNullPointer extends InstructionCheck {
 
   /**
    * Assigned string value indicating name of register
-   *
    * @param reg1 - first register
    */
   public void allocateRegisters(String reg1) {
