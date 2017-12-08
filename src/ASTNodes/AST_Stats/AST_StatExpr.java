@@ -510,7 +510,12 @@ public class AST_StatExpr extends AST_Stat {
             case ("pair"):
               //No break since pair and array are the same
               if (expr instanceof AST_ExprLiter) {
-
+//                System.out.println("*************************************%%%%%%%%%%%%%%%%%%%%");
+//                System.out.println(((AST_ExprLiter) expr).getConstant());
+                registerAllocation.addString("%p\\0");
+                InstructionPrintBlocksRef instructionPrintBlocksRef = new InstructionPrintBlocksRef(registerAllocation.getStringID("%p\\0"));
+                instructionList.add(instructionPrintBlocksRef);
+                instrPrintType = instructionPrintBlocksRef;
               }
               break;
 
@@ -520,20 +525,15 @@ public class AST_StatExpr extends AST_Stat {
               InstructionPrintBlocksBool instructionPrintBool = new InstructionPrintBlocksBool(
                   registerAllocation.getStringID("true\\0"),
                   registerAllocation.getStringID("false\\0"));
-
-
               instructionList.add(instructionPrintBool);
               instrPrintType = instructionPrintBool;
+              break;
             default:
-
               if(type.contains("[") || type.contains("PAIR")){
                 registerAllocation.addString("%p\\0");
                 InstructionPrintBlocksRef instructionPrintBlocksRef = new InstructionPrintBlocksRef(registerAllocation.getStringID("%p\\0"));
-
                 instructionList.add(instructionPrintBlocksRef);
-
                 instrPrintType = instructionPrintBlocksRef;
-
               }
               System.out.println("type is : " + type);
               break;
