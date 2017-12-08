@@ -107,7 +107,6 @@ public class AST_StatIfElse extends AST_StatSubIf {
   @Override
   public void Check(SymbolTable ST) {
     if (CheckSemantics()) {
-      //Do symbol table stuff
     }
   }
 

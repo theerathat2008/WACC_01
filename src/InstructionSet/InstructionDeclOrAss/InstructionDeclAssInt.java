@@ -12,7 +12,6 @@ public class InstructionDeclAssInt extends Instruction {
    * Class constructor calls super constructor
    */
   public InstructionDeclAssInt() {
-    //this.intData = intData;
   }
 
   /**
@@ -37,7 +36,6 @@ public class InstructionDeclAssInt extends Instruction {
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    //resultBlock.concat("\t\tLDR " +  reg + ", =" + intData + "\n");
     StringBuilder builder = new StringBuilder();
     builder.append("\t\tSTR ");
     builder.append(reg);

@@ -45,8 +45,6 @@ public class InstructionCall extends Instruction {
         callBlock.append(dst);
         callBlock.append("\n");
       } else if(type.equals("stack, stack")){
-        // LDR inter, Src
-        // STR inter, Dst
         callBlock.append("\t\t");
         callBlock.append("LDR ");
         callBlock.append(interReg.name());
@@ -60,7 +58,6 @@ public class InstructionCall extends Instruction {
         callBlock.append(dst);
         callBlock.append("\n");
       } else if(type.equals("stack, reg")){
-        // LDR src, dst
         callBlock.append("\t\t");
         callBlock.append("LDR");
         callBlock.append(" ");
@@ -69,8 +66,6 @@ public class InstructionCall extends Instruction {
         callBlock.append(dst);
         callBlock.append("\n");
       } else if(type.equals("reg, stack")){
-        // LDR inter, src
-        // MOV dst, inter
         callBlock.append("\t\t");
         callBlock.append("LDR ");
         callBlock.append(interReg.name());

@@ -99,9 +99,6 @@ public class InstructionDeclAssPair extends Instruction {
     builder.append("\n");
     block1 = builder.toString();
 
-    //LDR r5, =10 result of the evaluation of the fst pair
-    //r5 is the tempPairAddressReg
-
     builder = new StringBuilder();
     builder.append("\t\tLDR ");
     builder.append(regR0);
@@ -118,9 +115,6 @@ public class InstructionDeclAssPair extends Instruction {
     builder.append(tempReg);
     builder.append("]\n");
     block2 = builder.toString();
-
-    //LDR r5, =3 result of the evaluation of the snd pair
-    //reusing r5 as the tempPairAddessReg
 
     builder = new StringBuilder();
     builder.append("\t\tLDR ");

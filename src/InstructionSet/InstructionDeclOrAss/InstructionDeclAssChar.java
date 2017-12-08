@@ -12,7 +12,6 @@ public class InstructionDeclAssChar extends Instruction {
    * Class constructor calls super constructor
    */
   public InstructionDeclAssChar() {
-    //this.charData = charData;
   }
 
   /**
@@ -36,7 +35,6 @@ public class InstructionDeclAssChar extends Instruction {
    * Generates the instruction block as a string for the current instruction
    */
   public void genInstruction() {
-    //resultBlock.concat("\t\tMOV " + reg + ", #'" + charData + "'\n");
     StringBuilder builder = new StringBuilder();
     builder.append("\t\tSTRB ");
     builder.append(reg);

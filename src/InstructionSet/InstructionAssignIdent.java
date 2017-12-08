@@ -58,8 +58,6 @@ public class InstructionAssignIdent extends Instruction {
   @Override
   public void genInstruction() {
 
-    //LDR r4, [sp]
-
     StringBuilder builder = new StringBuilder();
     if(isStack){
       builder.append("\t\t");

@@ -23,14 +23,6 @@ public class InstructionRead extends Instruction {
   }
 
   /**
-   * Set the boolean value of the usingStack attribute
-   * @param usingStack
-   */
-  public void setUsingStack(boolean usingStack) {
-    this.usingStack = usingStack;
-  }
-
-  /**
    * Set the sp attribute
    * @param sp
    */

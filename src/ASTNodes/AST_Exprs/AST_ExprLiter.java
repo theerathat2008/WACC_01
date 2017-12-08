@@ -236,10 +236,7 @@ public class AST_ExprLiter extends AST_Expr {
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
-    //if (literal.equals("pair") && constant.equals("null")){
-
-    //} else {
-      RegisterUsage usage = aRegisterUsageBuilder()
+     RegisterUsage usage = aRegisterUsageBuilder()
               .withUsageType("exprType")
               .withSubType("resultType")
               .withScope(registerAllocation.getCurrentScope())
@@ -251,9 +248,7 @@ public class AST_ExprLiter extends AST_Expr {
       instr.registerAllocation(resultReg);
 
       return resultReg;
-    //}
-    //return RegisterARM.NULL_REG;
-  }
+    }
 
 
   /**
