@@ -129,7 +129,6 @@ public class Assembler {
     StringBuilder result = new StringBuilder("");
     if (stringList.size() > 0) {
       result.append("\t.data\n\n");
-      // System.out.println(stringList.size());
       for (int i = 0; i < stringList.size(); i++) {
         result.append("\tmsg_");
         result.append(Integer.toString(i));
@@ -157,7 +156,6 @@ public class Assembler {
     for (Instruction currInstr : instructions) {
       if (currInstr instanceof InstructionBlocks) {
         String type = ((InstructionBlocks) currInstr).getBlockType();
-        //System.out.println("Block has type: "+type);
         if (!(result.toString().contains(type + ":"))) {
           result.append(((InstructionBlocks) currInstr).getResultBlock());
         }

@@ -26,9 +26,7 @@ public class FunctionObj extends IDENTIFIER {
   public boolean equals(IDENTIFIER other) {
     if (other instanceof FunctionObj) {
       if (((FunctionObj) other).returnType.equals(returnType)) {
-        //if (((FunctionObj) other).paramListObj.equals(paramListObj)) {
         return true;
-        //}
       }
     }
     return false;
