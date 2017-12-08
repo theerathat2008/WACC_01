@@ -38,6 +38,7 @@ import java.util.ArrayDeque;
 import java.util.List;
 
 import static java.lang.System.exit;
+import static java.lang.System.setOut;
 
 /**
  * Class representing node in AST tree for ASSIGNMENT STATEMENTS
@@ -717,16 +718,24 @@ public class AST_StatAssign extends AST_Stat {
 
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     if (ast_statAssignLHS instanceof AST_StatIdentLHS){
-      String type;
+      String type = "UNASSIGNED";
 
       try {
         type = ast_statAssignRHS.getIdentifier().toString();
+        System.out.println("*****************HIT1" + type);
       } catch (NullPointerException n) {
-        type = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
+        try {
+          //type = ((AST_StatExprRHS) ast_statAssignRHS).getAst_expr().getIdentifier().getName();
+          //type = ((AST_StatIdentLHS) ast_statAssignLHS).;
+          System.out.println("*****************HIT2 : " + type);
+        } catch (Exception e) {
+          type = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
+          System.out.println("*****************HIT3 : " + type);
+        }
       }
 
 
-      System.out.println("Type of ident is: " + type);
+      //System.out.println("Type of ident is: " + type);
       InstructionAssignIdentLHS instructionAssignIdentLHS = new InstructionAssignIdentLHS(type);
       instructionList.add(instructionAssignIdentLHS);
       instrIdentLHS = instructionAssignIdentLHS;
