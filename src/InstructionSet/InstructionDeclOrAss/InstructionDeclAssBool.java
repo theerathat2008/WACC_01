@@ -12,16 +12,15 @@ public class InstructionDeclAssBool extends Instruction {
   /**
    * Class constructor calls super constructor
    */
-
-  //public InstructionDeclAssBool(){//String boolData) {
-  //this.boolData = boolData;
   public InstructionDeclAssBool() {//String boolData, String sp) {
-    //this.boolData = boolData;
-    //this.sp = sp;
     reg1 = "regR0";
 
   }
 
+  /**
+   * @param bool
+   * @return Return int value of bool
+   */
   public int getBoolNum(String bool) {
     if (bool.equals("true")) {
       return 1;
@@ -29,13 +28,16 @@ public class InstructionDeclAssBool extends Instruction {
     return 0;
   }
 
+  /**
+   * Set and replace the value of sp
+   * @param sp
+   */
   public void allocateSP(String sp) {
     this.sp = sp;
   }
 
   /**
    * Assigned string value indicating name of register
-   *
    * @param reg1 - first register
    */
   public void allocateRegisters(RegisterARM reg1) {
@@ -55,15 +57,4 @@ public class InstructionDeclAssBool extends Instruction {
     builder.append("]\n");
     resultBlock = builder.toString();
   }
-
-  @Override
-  public int requiresRegisters() {
-    return 1;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
 }

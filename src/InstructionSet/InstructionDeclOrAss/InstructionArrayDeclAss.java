@@ -15,35 +15,62 @@ public class InstructionArrayDeclAss extends Instruction {
   int disp;
   String strType;
 
-
+  /**
+   * Class constructor
+   * @param arraySize
+   * @param arrayLength
+   * @param strType
+   */
   public InstructionArrayDeclAss(int arraySize, int arrayLength, String strType) {
     this.arraySize = arraySize + 4;
     this.arrayLength = arrayLength;
     this.strType = strType;
   }
 
+  /**
+   * Assigned string value indicating name of register
+   * @param dst
+   * @param inter
+   * @param memoryAddress
+   */
   public void allocateRegisters(RegisterARM dst, RegisterARM inter, RegisterARM memoryAddress) {
     this.regR0 = dst.name();
     this.memoryAddressReg = memoryAddress.name();
     this.interTempReg = inter.name();
   }
 
+  /**
+   * Set the disp attriubte
+   * @param disp
+   */
   public void setDisp(int disp) {
     this.disp = disp;
   }
 
+  /**
+   * @return Return the size of the array
+   */
   public int getArraySize() {
     return arraySize;
   }
 
+  /**
+   * @return Return the resultBlock attribute
+   */
   public String getResultBlock() {
     return resultBlock;
   }
 
+  /**
+   * @return Return the resultBlock1 attribute
+   */
   public String getResultBlock1() {
     return resultBlock1;
   }
 
+  /**
+   * @return Return the resultBlock2 attribute
+   */
   public String getResultBlock2() {
     return resultBlock2;
   }
@@ -67,6 +94,9 @@ public class InstructionArrayDeclAss extends Instruction {
    *
    */
 
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     StringBuilder block1 = new StringBuilder();
@@ -83,15 +113,5 @@ public class InstructionArrayDeclAss extends Instruction {
     block2.append("\t\tLDR " + interTempReg + ", =" + arrayLength + "\n");
     block2.append("\t\tSTR " + interTempReg + ", [" + memoryAddressReg + "]\n");
     resultBlock2 = block2.toString();
-  }
-
-  @Override
-  public int requiresRegisters() {
-    return 0;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
   }
 }

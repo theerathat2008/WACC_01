@@ -23,14 +23,4 @@ public class InstructionFreePair extends Instruction {
     resultBlock.concat("\t\tBL p_free_pair\n");
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 2;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
 }

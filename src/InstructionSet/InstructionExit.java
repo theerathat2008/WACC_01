@@ -45,14 +45,4 @@ public class InstructionExit extends Instruction {
 
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 0;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
 }

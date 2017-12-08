@@ -4,7 +4,6 @@ public class UndefinedFunctionError extends ErrorMessage {
 
   /**
    * WHEN IDENT THAT HAS NOT BEEN DECLARED YET IS USED
-   *
    * @param filePosition
    */
   public UndefinedFunctionError(FilePosition filePosition) {

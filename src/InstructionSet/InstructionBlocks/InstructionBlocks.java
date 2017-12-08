@@ -3,29 +3,29 @@ package InstructionSet.InstructionBlocks;
 import InstructionSet.Instruction;
 
 public abstract class InstructionBlocks extends Instruction {
+
   protected String blockType;
   protected String resultBlock;
 
-  public String getResultBlock() {
-    return resultBlock;
-  }
-
-  public String getBlockType() {
-    return blockType;
-  }
-
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
 
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 0;
+  /**
+   * @return Return resultBlock attribute
+   */
+  public String getResultBlock() {
+    return resultBlock;
   }
 
-  @Override
-  public boolean crossOverRegister() {
-    return false;
+  /**
+   * @return Return blockType attribute
+   */
+  public String getBlockType() {
+    return blockType;
   }
 }

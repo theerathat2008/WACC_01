@@ -8,7 +8,6 @@ public class ProgramObj extends IDENTIFIER {
 
   /**
    * Compares value for equality
-   *
    * @param other
    */
   public boolean equals(IDENTIFIER other) {

@@ -33,13 +33,4 @@ public class InstructionBeginEnd extends Instruction {
     block1 = builder2.toString();
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 0;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
 }

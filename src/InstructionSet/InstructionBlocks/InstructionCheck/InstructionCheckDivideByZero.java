@@ -3,6 +3,9 @@ package InstructionSet.InstructionBlocks.InstructionCheck;
 public class InstructionCheckDivideByZero extends InstructionCheck {
   String reg2;
 
+  /**
+   * Class constructor
+   */
   public InstructionCheckDivideByZero(int msgNum) {
     super(msgNum);
     reg1 = "r0";
@@ -13,7 +16,6 @@ public class InstructionCheckDivideByZero extends InstructionCheck {
 
   /**
    * Assigned string value indicating name of register
-   *
    * @param reg1 - first register
    */
   public void allocateRegisters(String reg1, String reg2) {

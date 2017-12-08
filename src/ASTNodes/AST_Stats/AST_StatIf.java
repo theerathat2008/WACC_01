@@ -13,10 +13,8 @@ import SymbolTable.SymbolTable;
 import ErrorMessages.*;
 import ErrorMessages.FilePosition;
 import VisitorClass.AST_NodeVisitor;
-
 import java.util.ArrayDeque;
 import java.util.List;
-
 import org.antlr.v4.runtime.ParserRuleContext;
 
 public class AST_StatIf extends AST_Stat {
@@ -27,11 +25,8 @@ public class AST_StatIf extends AST_Stat {
   AST_StatIfElse elseStat;
   //Semantic attribute
   ParserRuleContext ctx;
-
   InstructionIf instr;
-
   SymbolTable symbolTable;
-
 
   /**
    * Assign the class variables when called
@@ -46,7 +41,6 @@ public class AST_StatIf extends AST_Stat {
 
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -60,7 +54,6 @@ public class AST_StatIf extends AST_Stat {
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -70,7 +63,6 @@ public class AST_StatIf extends AST_Stat {
 
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
@@ -157,7 +149,6 @@ public class AST_StatIf extends AST_Stat {
       }
     }
 
-
     if (typeExpr != null) {
       if (typeExpr.toString().contains("bool")) {
         return true;
@@ -168,12 +159,10 @@ public class AST_StatIf extends AST_Stat {
     } else {
       return true;
     }
-
   }
 
   /**
    * Called from visitor
-   *
    * @param ST
    */
   @Override
@@ -206,6 +195,10 @@ public class AST_StatIf extends AST_Stat {
     }
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
     expr.acceptPreProcess(regAlloc);
@@ -213,6 +206,11 @@ public class AST_StatIf extends AST_Stat {
     elseStat.acceptPreProcess(regAlloc);
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     expr.accept(visitor);
@@ -240,6 +238,11 @@ public class AST_StatIf extends AST_Stat {
     return result;
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyList
+   */
   public void acceptInstr(List<String> assemblyList) {
     expr.acceptInstr(assemblyList);
     assemblyList.add(instr.blockIf);
@@ -279,6 +282,14 @@ public class AST_StatIf extends AST_Stat {
    * Uses registers one of which is taken from InstructionExpr
    */
 
+  /**
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
+   */
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     InstructionIf instructionIf = new InstructionIf();

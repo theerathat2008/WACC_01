@@ -5,18 +5,12 @@ import InstructionSet.InstructionBlocks.InstructionBlocks;
 
 public class InstructionError extends InstructionBlocks {
 
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
 
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 0;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
 }

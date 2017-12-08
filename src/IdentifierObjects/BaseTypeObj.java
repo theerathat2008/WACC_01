@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BaseTypeObj extends IDENTIFIER {
+
   String base_type;
   List<String> types = Arrays.asList("int", "string", "char", "bool", "pair");
 

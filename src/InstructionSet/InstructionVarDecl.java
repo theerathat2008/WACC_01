@@ -82,14 +82,4 @@ public class InstructionVarDecl extends Instruction {
     //resultBlock.concat("\t\t" + getLDType() + " " + reg2 + sp + "\n");
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 2;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return true;
-  }
-
 }

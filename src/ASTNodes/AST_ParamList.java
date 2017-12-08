@@ -7,16 +7,12 @@ import Registers.RegisterAllocation;
 import Registers.RegisterUsage;
 import Registers.StackLocation;
 import SymbolTable.SymbolTable;
-
 import static Registers.RegisterUsageBuilder.*;
-
 import java.util.ArrayDeque;
-
 import IdentifierObjects.IDENTIFIER;
 import IdentifierObjects.ParamListObj;
 import IdentifierObjects.BaseTypeObj;
 import VisitorClass.AST_NodeVisitor;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +28,6 @@ public class AST_ParamList extends AST_Node {
 
   /**
    * Constructor for class - initialises class variables
-   *
    * @param numberOfChildren - Shows the number of parameters in the parameter list of function
    */
   public AST_ParamList(int numberOfChildren) {
@@ -41,13 +36,8 @@ public class AST_ParamList extends AST_Node {
     symbolTable = new SymbolTable("function");
   }
 
-  public List<AST_Param> getListParam() {
-    return listParam;
-  }
-
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -64,7 +54,6 @@ public class AST_ParamList extends AST_Node {
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -74,13 +63,23 @@ public class AST_ParamList extends AST_Node {
 
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
   public String getSyntacticAttributes(String strToGet) {
     System.out.println("No String Syntactic Attributes in class: " + this.getClass().getSimpleName());
     return null;
+  }
+
+  /**
+   * @return returns the identifier of the attribute
+   */
+  public IDENTIFIER getIdentifier() {
+    List<IDENTIFIER> params = new ArrayList<>();
+    for (AST_Param param : listParam) {
+      params.add(param.getIdentifier());
+    }
+    return new ParamListObj(params);
   }
 
   /**
@@ -128,7 +127,6 @@ public class AST_ParamList extends AST_Node {
 
   /**
    * Called from visitor
-   *
    * @param ST
    */
   @Override
@@ -142,16 +140,11 @@ public class AST_ParamList extends AST_Node {
     }
   }
 
+  /**
+   * Assign the listParam with an associated identifier
+   */
   public void Assign(SymbolTable ST) {
 
-  }
-
-  public IDENTIFIER getIdentifier() {
-    List<IDENTIFIER> params = new ArrayList<>();
-    for (AST_Param param : listParam) {
-      params.add(param.getIdentifier());
-    }
-    return new ParamListObj(params);
   }
 
   /**
@@ -170,11 +163,20 @@ public class AST_ParamList extends AST_Node {
 
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
 
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     for (AST_Param param : listParam) {
@@ -182,13 +184,17 @@ public class AST_ParamList extends AST_Node {
     }
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
 
   }
 
   /**
-   * TODO Register optimisation:
    * Allocate registers for the parameters to be stored in here for usage in the function up to the register limit
    * Registers are initially allocated here
    * Registers have to matched in the register allocation in AST_StatCallRHS when the function is called
@@ -255,10 +261,13 @@ public class AST_ParamList extends AST_Node {
   }
 
   /**
-   * TODO Could generate variable to show total stack displacement size by working out the
-   * number and type of inbuilt parameters
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
    */
-
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     //Shouldn't generate any assembly code
@@ -275,6 +284,13 @@ public class AST_ParamList extends AST_Node {
         }
       }
     }
+  }
+
+  /**
+   * @return Return the listParam attribute
+   */
+  public List<AST_Param> getListParam() {
+    return listParam;
   }
 
 

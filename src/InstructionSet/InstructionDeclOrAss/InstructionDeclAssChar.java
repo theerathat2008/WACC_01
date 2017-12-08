@@ -6,16 +6,19 @@ import Registers.RegisterARM;
 public class InstructionDeclAssChar extends Instruction {
   String resultBlock;
   String reg;
-  //String charData;
   String sp;
 
   /**
    * Class constructor calls super constructor
    */
-  public InstructionDeclAssChar() {//String charData) {
+  public InstructionDeclAssChar() {
     //this.charData = charData;
   }
 
+  /**
+   * Set and replace the value of sp
+   * @param sp
+   */
   public void allocateSP(String sp) {
     this.sp = sp;
     reg = "reg";
@@ -23,7 +26,6 @@ public class InstructionDeclAssChar extends Instruction {
 
   /**
    * Assigned string value indicating name of register
-   *
    * @param reg - first register
    */
   public void allocateRegisters(RegisterARM reg) {
@@ -43,15 +45,4 @@ public class InstructionDeclAssChar extends Instruction {
     builder.append("]\n");
     resultBlock = builder.toString();
   }
-
-  @Override
-  public int requiresRegisters() {
-    return 1;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
 }

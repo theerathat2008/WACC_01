@@ -67,14 +67,4 @@ public class InstructionPrint extends Instruction {
     resultBlock = block.toString();
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 2;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
 }
