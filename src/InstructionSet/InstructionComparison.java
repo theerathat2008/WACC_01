@@ -10,34 +10,31 @@ public class InstructionComparison extends Instruction {
   String dst;
   public String block1;
 
+  /**
+   * Class constructor
+   * @param op
+   */
   public InstructionComparison(String op) {
-
     this.op = op;
-    reg1 = "reg1";
+    reg1 = "r0";
     reg2 = "src";
   }
 
-  public int requiresRegisters() {
-    return 3;
-  }
-
-
   /**
-   * returns true as this claass uses registers that could be referencing the stack variables
-   * or been assigned in a variable declaration
+   * Set the value for reg1, reg2, and dst register
+   * @param reg1
+   * @param reg2
+   * @param dst
    */
-
-  @Override
-  public boolean crossOverRegister() {
-    return true;
-  }
-
   public void allocateRegisters(RegisterARM reg1, RegisterARM reg2, RegisterARM dst) {
     this.reg1 = reg1.name();
     this.reg2 = reg2.name();
     this.dst = dst.name();
   }
 
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     String tr = " " + dst + ", #1";
@@ -106,7 +103,5 @@ public class InstructionComparison extends Instruction {
       builder.append(reg2 + "\n");
     }
     block1 = builder.toString();
-
-
   }
 }

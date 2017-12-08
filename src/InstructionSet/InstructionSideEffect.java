@@ -10,22 +10,44 @@ public class InstructionSideEffect extends Instruction{
   String op;
   public String block1;
 
+  /**
+   * Class construction
+   * @param op
+   */
   public InstructionSideEffect(String op) {
     this.op = op;
   }
 
+  /**
+   * Assigned string value indicating name of register
+   * @param reg1
+   * @param reg2
+   */
   public void allocateRegisters(RegisterARM reg1, RegisterARM reg2) {
     this.reg1 = reg1;
     this.reg2 = reg2;
   }
 
+  /**
+   * Set the value of reg
+   * @param reg1
+   */
   public void registerAllocation(RegisterARM reg1) {
     this.reg1 = reg1;
   }
-
+  
+  /**
+   * Set the value of tempreg
+   * @param tempReg
+   */
   public void allocateRegResult(RegisterARM tempReg){
     this.tempReg = tempReg;
   }
+
+
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
 
   @Override
   public void genInstruction() {
@@ -94,21 +116,15 @@ public class InstructionSideEffect extends Instruction{
       builder.append(reg1);
       builder.append(", r0\n");
     }
+<<<<<<< HEAD
     builder.append("\t\tMOV ");
     builder.append(tempReg);
     builder.append(", ");
     builder.append(reg1);
     builder.append("\n");
+=======
+>>>>>>> 0d09c4593dd84d135af1aa3b036bd0a413b2cca2
     block1 = builder.toString();
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 0;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
 }

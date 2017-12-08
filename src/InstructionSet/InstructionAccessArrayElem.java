@@ -9,15 +9,18 @@ public class InstructionAccessArrayElem extends Instruction {
   private String regR1;
   private String resultReg;
   private String posReg;
-  //private String pos;
   private boolean isStack;
   private String type;
   private String arrayLocationReg;
   boolean str;
 
+  /**
+   * Class constructor
+   * @param type
+   * @param str
+   */
   public InstructionAccessArrayElem(String type, boolean str) {
     this.type = type;
-    //this.pos = posInArray;
     this.regR0 = "arrayBoundReg1";
     this.regR1 = "regR1";
     this.resultReg = "resultReg";
@@ -26,6 +29,11 @@ public class InstructionAccessArrayElem extends Instruction {
     this.str = str;
   }
 
+  /**
+   * Assigned string value indicating name of register
+   * @param resultReg
+   * @param posReg
+   */
   public void allocateRegisters(RegisterARM resultReg, RegisterARM posReg) {
     this.regR0 = "r0"; //always r0
     this.regR1 = "r1"; //always r1
@@ -33,21 +41,34 @@ public class InstructionAccessArrayElem extends Instruction {
     this.posReg = posReg.name(); //any free reg
   }
 
+  /**
+   * Set the arrayLocation on the stack
+   * @param arrayLocation
+   * @param isStack
+   */
   public void allocateLocation(String arrayLocation, boolean isStack){
     this.isStack = isStack;
     this.arrayLocationReg = arrayLocation;
   }
 
+  /**
+   * @return Return the resultBlock1 attribute
+   */
   public String getResultBlock1() {
     return resultBlock1;
   }
 
+  /**
+   * @return Return the resultBlock2 attribute
+   */
   public String getResultBlock2() {
     return resultBlock2;
   }
 
-
-
+  /**
+   * @param s
+   * @return Return the boolean number associated to the string
+   */
   public int getBoolNum(String s) {
     if (s.equals("true")) {
       return 1;
@@ -55,6 +76,9 @@ public class InstructionAccessArrayElem extends Instruction {
     return 0;
   }
 
+  /**
+   * @return Return the lastLine of the code block
+   */
   public String getLastLine(){
     StringBuilder builder = new StringBuilder();
 
@@ -88,11 +112,13 @@ public class InstructionAccessArrayElem extends Instruction {
 
   }
 
-
   //ArrayLocationReg is the memory address of the array variable
   //posReg is just a temp reg
   //resultReg is just temp reg and holds the final result i.e. the value at the array index
 
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder();
@@ -124,7 +150,6 @@ public class InstructionAccessArrayElem extends Instruction {
     resultBlock1 = builder.toString();
 
     //Loads position lit to posReg
-
     builder = new StringBuilder();
     builder.append("\t\tLDR ");
     builder.append(resultReg);
@@ -146,16 +171,6 @@ public class InstructionAccessArrayElem extends Instruction {
     builder.append(", #4\n");
     builder.append(getLastLine());
     resultBlock2 = builder.toString();
-  }
-
-  @Override
-  public int requiresRegisters() {
-    return 5;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
   }
 
 }

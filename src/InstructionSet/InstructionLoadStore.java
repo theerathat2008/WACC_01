@@ -9,16 +9,28 @@ public class InstructionLoadStore extends Instruction {
   String mem;
   String block1;
 
+  /**
+   * Class constructor
+   * @param op
+   */
   public InstructionLoadStore(String op) {
     this.op = op;
     reg = "reg";
   }
 
+  /**
+   * Assigned string value indicating name of register
+   * @param reg
+   * @param mem
+   */
   public void allocateRegisters(RegisterARM reg, RegisterARM mem) {
     this.reg = reg.name();
     this.mem = mem.name();
   }
 
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder("\t\t");
@@ -29,15 +41,4 @@ public class InstructionLoadStore extends Instruction {
     builder.append(mem + "\n");
     block1 = builder.toString();
   }
-
-  @Override
-  public int requiresRegisters() {
-    return 0;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
 }

@@ -12,24 +12,36 @@ public class InstructionWhile extends Instruction {
   public String loopEval;
   public String afterLoop;
 
-
+  /**
+   * Class constructor
+   */
   public InstructionWhile() {
     exprReg = "exprReg";
   }
 
+  /**
+   * Set loopLabel and loopExit attribute
+   * @param loopLabel
+   * @param loopExit
+   */
   public void setLabels(String loopLabel, String loopExit) {
     this.loopLabel = loopLabel;
     this.loopExit = loopExit;
   }
 
+  /**
+   * Assigned string value indicating name of register
+   * @param exprReg
+   */
   public void allocateRegisters(RegisterARM exprReg) {
     this.exprReg = exprReg.name();
   }
 
-
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   public void genInstruction() {
     block1 = "\t" + loopLabel + ":\n";
-    //TODO put expr between resultBlock and 2
 
     StringBuilder block2 = new StringBuilder();
     block2.append("\t\tCMP ");
@@ -46,17 +58,5 @@ public class InstructionWhile extends Instruction {
     after.append(loopExit);
     after.append(":\n");
     afterLoop = after.toString();
-
   }
-
-  @Override
-  public int requiresRegisters() {
-    return 1;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return true;
-  }
-
 }

@@ -9,11 +9,17 @@ public class InstructionBeginEnd extends Instruction {
 
   RegisterAllocation registerAllocation;
 
+  /**
+   * Class constructor
+   * @param registerAllocation
+   */
   InstructionBeginEnd(RegisterAllocation registerAllocation) {
     this.registerAllocation = registerAllocation;
   }
 
-
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     StringBuilder builder1 = new StringBuilder();
@@ -31,15 +37,5 @@ public class InstructionBeginEnd extends Instruction {
       builder1.append("\n");
     }
     block1 = builder2.toString();
-  }
-
-  @Override
-  public int requiresRegisters() {
-    return 0;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
   }
 }

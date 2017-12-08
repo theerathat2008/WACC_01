@@ -5,14 +5,12 @@ import java.util.List;
 public class ParamListObj extends IDENTIFIER {
   List<IDENTIFIER> paramObjList;
 
-
   public ParamListObj(List<IDENTIFIER> paramObjList) {
     this.paramObjList = paramObjList;
   }
 
   /**
    * Compares value for equality
-   *
    * @param other
    */
   public boolean equals(IDENTIFIER other) {
@@ -29,7 +27,9 @@ public class ParamListObj extends IDENTIFIER {
     return false;
   }
 
-
+  /**
+   * @return Return the paramObjList attribute
+   */
   public List<IDENTIFIER> getParamObjList() {
     return paramObjList;
   }

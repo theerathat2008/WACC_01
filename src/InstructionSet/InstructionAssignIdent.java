@@ -11,6 +11,10 @@ public class InstructionAssignIdent extends Instruction {
   boolean isStack;
   String type;
 
+  /**
+   * Class constructor
+   * @param type
+   */
   public InstructionAssignIdent(String type) {
     this.location = "SP";
     this.reg = "reg";
@@ -18,15 +22,27 @@ public class InstructionAssignIdent extends Instruction {
     this.type = type;
   }
 
+  /**
+   * Set the value of reg
+   * @param reg
+   */
   public void registerAllocation(RegisterARM reg) {
     this.reg = reg.name();
   }
 
+  /**
+   * Assigned string value indicating name of register
+   * @param location
+   * @param isStack
+   */
   public void allocateLocation(String location, boolean isStack) {
     this.location = location;
     this.isStack = isStack;
   }
 
+  /**
+   * @return Return the type of LDR
+   */
   public String getLDRType() {
     switch (type) {
       case ("bool"):
@@ -35,6 +51,10 @@ public class InstructionAssignIdent extends Instruction {
         return "LDR ";
     }
   }
+
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
 
@@ -56,17 +76,5 @@ public class InstructionAssignIdent extends Instruction {
       builder.append("\n");
     }
     block1 = builder.toString();
-
-
-  }
-
-  @Override
-  public int requiresRegisters() {
-    return 1;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
   }
 }

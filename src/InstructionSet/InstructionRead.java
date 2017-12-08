@@ -11,6 +11,10 @@ public class InstructionRead extends Instruction {
   String type;
   boolean usingStack;
 
+  /**
+   * Class constructor
+   * @param type
+   */
   public InstructionRead(String type) {
     this.type = type;
     this.dstReg = "dst";
@@ -18,20 +22,35 @@ public class InstructionRead extends Instruction {
     this.usingStack = true;
   }
 
+  /**
+   * Set the boolean value of the usingStack attribute
+   * @param usingStack
+   */
   public void setUsingStack(boolean usingStack) {
     this.usingStack = usingStack;
   }
 
+  /**
+   * Set the sp attribute
+   * @param sp
+   */
   public void allocateLocation(String sp) {
     this.sp = sp;
   }
 
+  /**
+   * Assigned string value indicating name of register
+   * @param dstReg
+   * @param interReg
+   */
   public void allocateRegisters(RegisterARM dstReg, RegisterARM interReg) {
     this.dstReg = dstReg.name();
     this.interReg = interReg.name();
   }
 
-
+  /**
+   * @return Return the print type
+   */
   public String getPrintType() {
     switch (type) {
       case ("char"):
@@ -61,11 +80,12 @@ public class InstructionRead extends Instruction {
    * Use MOV interReg, sp if using registers
    */
 
-
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder();
-
 
     if(usingStack){
       builder.append("\t\tADD ");
@@ -97,15 +117,4 @@ public class InstructionRead extends Instruction {
 
     resultBlock = builder.toString();
   }
-
-  @Override
-  public int requiresRegisters() {
-    return 0;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
 }

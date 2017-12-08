@@ -154,10 +154,8 @@ public class AST_StatSubIf extends AST_Stat {
    */
 
   /**
-   * Want to store the evaluation of the two registers result of the binary expression
-   * Format is expr BinOp expr
-   * Store the returned result of the two expr into a result reg
-   * Free the two registers after having got the evaluation of the two stores in the regs
+   * Evaluate both sides of the stat assign and store their results in the registers
+   * Returns a null reg as there is no result evaluation
    */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {

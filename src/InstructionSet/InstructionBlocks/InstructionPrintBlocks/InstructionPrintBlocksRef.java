@@ -8,10 +8,8 @@ import Registers.RegisterARM;
 public class InstructionPrintBlocksRef extends InstructionPrintBlocks {
   String reg2;
 
-
   /**
    * Class constructor calls super constructor
-   *
    * @param msgNum1 - Indicates the ID of the message to be output
    *                "%p\0" should be added and looked up in stringMap
    */
@@ -22,10 +20,8 @@ public class InstructionPrintBlocksRef extends InstructionPrintBlocks {
     this.blockType = "print_reference";
   }
 
-
   /**
    * Assigned string value indicating name of register
-   *
    * @param reg1 - first register
    * @param reg2 - second register
    */
@@ -64,5 +60,4 @@ public class InstructionPrintBlocksRef extends InstructionPrintBlocks {
     block.append("\t\tPOP {pc}\n");
     this.resultBlock = block.toString();
   }
-
 }

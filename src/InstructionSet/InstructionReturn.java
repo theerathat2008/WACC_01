@@ -9,30 +9,38 @@ public class InstructionReturn extends Instruction {
   String sp;
   String type;
 
-
-  public String getResultBlock() {
-    return resultBlock;
-  }
-
+  /**
+   * Class constructor
+   * @param type
+   */
   public InstructionReturn(String type) {
     this.type = type;
     this.resultBlock = "";
-    reg1 = "reg1";
+    reg1 = "r0";
     reg2 = "src";
   }
 
-
+  /**
+   * Assigned string value indicating name of register
+   * @param reg1
+   * @param reg2
+   */
   public void allocateRegisters(RegisterARM reg1, RegisterARM reg2) {
     this.reg1 = reg1.name();
     this.reg2 = reg2.name();
   }
 
+  /**
+   * Set the sp attribute
+   * @param sp
+   */
   public void allocateSP(String sp) {
     this.sp = sp;
   }
 
-
-
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     StringBuilder block = new StringBuilder();
@@ -44,14 +52,11 @@ public class InstructionReturn extends Instruction {
     resultBlock = block.toString();
   }
 
-  @Override
-  public int requiresRegisters() {
-    return 2;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
+  /**
+   * @return Return the resultBlock attribute
+   */
+  public String getResultBlock() {
+    return resultBlock;
   }
 
 }

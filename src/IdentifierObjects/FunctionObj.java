@@ -5,9 +5,9 @@ import ASTNodes.AST_ParamList;
 
 public class FunctionObj extends IDENTIFIER {
 
-  String returnTypeName; //type
+  String returnTypeName;
   public IDENTIFIER returnType;
-  ParamListObj paramListObj;  //TODO set this at some point
+  ParamListObj paramListObj;
   AST_FuncDecl parent;
 
   public FunctionObj(String name, IDENTIFIER returnType, ParamListObj paramListObj) {
@@ -20,7 +20,6 @@ public class FunctionObj extends IDENTIFIER {
 
   /**
    * Compares value for equality
-   *
    * @param other
    */
   @Override
@@ -35,7 +34,9 @@ public class FunctionObj extends IDENTIFIER {
     return false;
   }
 
-
+  /**
+   * @return Return the returnType attribute
+   */
   public IDENTIFIER getReturnType() {
     return returnType;
   }
@@ -48,14 +49,24 @@ public class FunctionObj extends IDENTIFIER {
     return returnTypeName + " FUNCTION";
   }
 
+  /**
+   * @return Return the returnTypeName of its parent
+   */
   public String getReturnTypeName() {
     return parent.getReturnTypeName();
   }
 
+  /**
+   * @return Return the paramListObj attribute
+   */
   public ParamListObj getparamListObj() {
     return paramListObj;
   }
 
+  /**
+   * Set the paramListObj attribute
+   * @param paramListObj
+   */
   public void setParamListObj(ParamListObj paramListObj) {
     this.paramListObj = paramListObj;
   }

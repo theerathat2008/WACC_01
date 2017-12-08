@@ -10,14 +10,11 @@ import InstructionSet.InstructionProgram;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import VisitorClass.AST_NodeVisitor;
-
 
 /**
  * Class representing node in AST tree for PROGRAM
@@ -34,7 +31,6 @@ public class AST_Program extends AST_Node {
   private List<String> listInt = new ArrayList<>();
   private List<String> listOp = new ArrayList<>();
 
-
   /**
    * Assign the member variables when called and set the number of children
    */
@@ -47,7 +43,6 @@ public class AST_Program extends AST_Node {
 
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -63,7 +58,6 @@ public class AST_Program extends AST_Node {
   /**
    * Sets syntactic attributes of class variables - Holder function to implement abstract method
    * Never called - used for debug purposes
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -74,7 +68,6 @@ public class AST_Program extends AST_Node {
   /**
    * Gets syntactic attributes of class variables - Holder function to implement abstract method
    * Never called - used for debug purposes
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
@@ -126,6 +119,9 @@ public class AST_Program extends AST_Node {
 
   }
 
+  /**
+   * Add keyword min, max, avg, pow, factorial to the standard library
+   */
   private void addStandardLibrary() {
 
     symbolTable.add("min", new FunctionObj("min", new BaseTypeObj("int"),
@@ -152,7 +148,6 @@ public class AST_Program extends AST_Node {
 
   /**
    * Called from visitor
-   *
    * @param ST
    */
   @Override
@@ -183,6 +178,10 @@ public class AST_Program extends AST_Node {
     symbolTable.printKeysTable(symbolTable);
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
     for (AST_FuncDecl func : funcDeclList) {
@@ -191,6 +190,11 @@ public class AST_Program extends AST_Node {
     statement.acceptPreProcess(regAlloc);
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     for (AST_FuncDecl func : funcDeclList) {
@@ -199,6 +203,11 @@ public class AST_Program extends AST_Node {
     statement.accept(visitor);
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     assemblyCode.add(instr.block0);
@@ -211,7 +220,7 @@ public class AST_Program extends AST_Node {
   }
 
   /**
-   * Doesn't have any registers but does set the scope on entry to be "globalScope" and TODO probably be redudant on exit to be "globalScope"
+   * Doesn't have any registers but does set the scope on entry to be "globalScope"
    * returns NULL_REG as there is no results reg
    */
   @Override
@@ -230,7 +239,14 @@ public class AST_Program extends AST_Node {
    * Doesn't use any registers
    */
 
-
+  /**
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
+   */
   @Override
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     InstructionProgram instruction = new InstructionProgram(registerAllocation);
@@ -238,36 +254,4 @@ public class AST_Program extends AST_Node {
     instr = instruction;
   }
 
-  public void addListInt(String constantToAdd) {
-    listInt.add(0, constantToAdd);
-  }
-
-  public void addListOp(String opToAdd) {
-    listOp.add(opToAdd);
-  }
-
-  public void clearAllList() {
-    listInt.clear();
-    listOp.clear();
-  }
-
-  public List<String> getListInt() {
-    return listInt;
-  }
-
-  public List<String> getListOp() {
-    return listOp;
-  }
-
-  public void delListElem(int i) {
-    listInt.remove(i);
-  }
-
-  public void changeListElem(int i, String string) {
-    listInt.set(i, string);
-  }
-
-  public void addLastListInt(String constantToAdd) {
-    listInt.add(constantToAdd);
-  }
 }

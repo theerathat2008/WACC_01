@@ -45,7 +45,6 @@ public class AST_StatVarDecl extends AST_Stat {
 
   /**
    * Assign the class variables when called
-   *
    * @param ctx
    */
   public AST_StatVarDecl(ParserRuleContext ctx, SymbolTable symbolTable) {
@@ -58,7 +57,6 @@ public class AST_StatVarDecl extends AST_Stat {
 
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -71,7 +69,6 @@ public class AST_StatVarDecl extends AST_Stat {
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -85,7 +82,6 @@ public class AST_StatVarDecl extends AST_Stat {
 
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
@@ -299,14 +295,10 @@ public class AST_StatVarDecl extends AST_Stat {
       new VariableRedeclarationError(new FilePosition(ctx)).printAll();
       return false;
     }
-
-
-
   }
 
   /**
    * Called from visitor
-   *
    * @param ST
    */
   @Override
@@ -315,6 +307,10 @@ public class AST_StatVarDecl extends AST_Stat {
     ST.add(identName, ST.stringToIdent(identName, ast_type.toString()));
   }
 
+  /**
+   * Assign the identName with an associated identifier
+   * @param ST
+   */
   public void Assign(SymbolTable ST) {
     if (ast_type == null) {
       System.out.println("Variable " + identName + "'s AST_Type not set yet");
@@ -342,6 +338,10 @@ public class AST_StatVarDecl extends AST_Stat {
     }
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
 
@@ -349,7 +349,6 @@ public class AST_StatVarDecl extends AST_Stat {
       //Set a flag for acceptRegister in statVarDecl using a list in registerallocation to declare the var on the stack
       // since it is used in read and the statarraylitrhs assembly code works with stacks
       regAlloc.addToStackOnlyVar(identName);
-
 
     } else if (ast_assignRHS instanceof AST_StatArrayLitRHS) {
       regAlloc.addToStackOnlyVar(identName);
@@ -376,6 +375,11 @@ public class AST_StatVarDecl extends AST_Stat {
     ast_assignRHS.acceptPreProcess(regAlloc);
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_type.accept(visitor);
@@ -408,13 +412,16 @@ public class AST_StatVarDecl extends AST_Stat {
 
   }
 
-
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     ast_assignRHS.acceptInstr(assemblyCode);
     assemblyCode.add(instrVar.getResultBlock());
   }
-
 
   /**
    * Has the format mov dst src
@@ -422,6 +429,11 @@ public class AST_StatVarDecl extends AST_Stat {
    * For efficient register allocation, use up to 4 registers then use the stack
    * Doesn't need to return a  specific register as the result is held onto the stack
    * if allocated on the regMap then return that register
+   */
+
+  /**
+   * Evaluate both sides of the stat assign and store their results in the registers
+   * Returns a null reg as there is no result evaluation
    */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
@@ -442,10 +454,7 @@ public class AST_StatVarDecl extends AST_Stat {
     System.out.println("interReg: " + interReg);
     instrVar.allocateRegisters(interReg, src);
 
-
-
       if(registerAllocation.getVarRegSize() > 2 || (registerAllocation.checkIfOnStackOnlyVar(identName))){
-
 
         //set stack location
         StringBuilder stackLocation = new StringBuilder();
@@ -469,7 +478,6 @@ public class AST_StatVarDecl extends AST_Stat {
           registerAllocation.setStackSize(registerAllocation.getStackSize() + 4); //+ registerAllocation.getMemSize(ast_type.getIdentifier().toString()));
           //registerAllocation.setFinalStackSize(registerAllocation.getStackSize() + 4);
         }
-
 
         boolean isFuncStat = true;
         AST_Node tempNode = this;
@@ -507,12 +515,19 @@ public class AST_StatVarDecl extends AST_Stat {
 
         instrVar.setStackLocation(varStore.name(), false);
         return varStore;
-        //TODO might need to free if out of scope
       }
 
     return RegisterARM.NULL_REG;
   }
 
+  /**
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
+   */
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     /**
      * Content of the RHS:-  AST_StatArrayLit:-  [0,0,0]                          ---
@@ -536,6 +551,9 @@ public class AST_StatVarDecl extends AST_Stat {
 
   }
 
+  /**
+   * @return Return the identName attribute
+   */
   public String getIdentName() {
     return identName;
   }

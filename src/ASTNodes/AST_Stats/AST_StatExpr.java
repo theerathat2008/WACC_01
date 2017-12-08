@@ -5,10 +5,10 @@ import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
 import ASTNodes.AST_Separator;
-import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.*;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
+import InstructionSet.InstructionBlocks.InstructionFreePairBlock;
 import InstructionSet.InstructionBlocks.InstructionPrintBlocks.*;
 import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksBool;
 import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
@@ -17,13 +17,9 @@ import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import ErrorMessages.TypeError;
 import ErrorMessages.TypeMismatchError;
-
-import static Registers.RegisterUsageBuilder.*;
-
 import ErrorMessages.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
-
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -40,7 +36,6 @@ public class AST_StatExpr extends AST_Stat {
 
   /**
    * Assign the class variables when called
-   *
    * @param ctx
    */
   public AST_StatExpr(ParserRuleContext ctx, SymbolTable symbolTable) {
@@ -51,7 +46,6 @@ public class AST_StatExpr extends AST_Stat {
 
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -105,8 +99,6 @@ public class AST_StatExpr extends AST_Stat {
     AST_Node parent = getParentNode();
 
     if (statName.equals("free")) {
-      System.out.println(expr);
-      System.out.println(expr.getIdentifier());
       if (expr instanceof AST_ExprIdent) {
         String varName = ((AST_ExprIdent) expr).getVarName();
         AST_Node tempNode = this.getParentNode();
@@ -232,7 +224,6 @@ public class AST_StatExpr extends AST_Stat {
 
   /**
    * Called from visitor
-   *
    * @param ST
    */
   @Override
@@ -255,11 +246,20 @@ public class AST_StatExpr extends AST_Stat {
     }
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
     expr.acceptPreProcess(regAlloc);
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     expr.accept(visitor);
@@ -285,6 +285,11 @@ public class AST_StatExpr extends AST_Stat {
     return result;
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
     expr.acceptInstr(assemblyCode);
@@ -321,6 +326,10 @@ public class AST_StatExpr extends AST_Stat {
 
   }
 
+  /**
+   * Evaluate both sides of the stat assign and store their results in the registers
+   * Returns a null reg as there is no result evaluation
+   */
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
 
@@ -329,6 +338,15 @@ public class AST_StatExpr extends AST_Stat {
 
     switch (statName) {
       case ("free"):
+
+        try {
+          InstructionFreePair instructionFreePair = (InstructionFreePair) instr;
+          instructionFreePair.allocateRegisters(RegisterARM.r0, evalResult);
+          registerAllocation.freeRegister(evalResult);
+
+        } catch (ClassCastException e) {
+
+        }
         break;
 
       case ("return"):
@@ -404,10 +422,6 @@ public class AST_StatExpr extends AST_Stat {
           registerAllocation.freeRegister(evalResult);
         }
 
-
-
-
-
         break;
       default:
         System.out.println("Unrecognised statement type in AST_StatExpr");
@@ -424,14 +438,23 @@ public class AST_StatExpr extends AST_Stat {
    * PRINTLN expr
    */
 
+  /**
+   * @return Return false if already contain block
+   */
   public boolean blockContains() {
 
     return false;
   }
 
+  /**
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
+   */
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
-
-
 
     switch (statName) {
       case ("free"):
@@ -510,7 +533,12 @@ public class AST_StatExpr extends AST_Stat {
             case ("pair"):
               //No break since pair and array are the same
               if (expr instanceof AST_ExprLiter) {
-
+//                System.out.println("*************************************%%%%%%%%%%%%%%%%%%%%");
+//                System.out.println(((AST_ExprLiter) expr).getConstant());
+                registerAllocation.addString("%p\\0");
+                InstructionPrintBlocksRef instructionPrintBlocksRef = new InstructionPrintBlocksRef(registerAllocation.getStringID("%p\\0"));
+                instructionList.add(instructionPrintBlocksRef);
+                instrPrintType = instructionPrintBlocksRef;
               }
               break;
 
@@ -520,20 +548,15 @@ public class AST_StatExpr extends AST_Stat {
               InstructionPrintBlocksBool instructionPrintBool = new InstructionPrintBlocksBool(
                   registerAllocation.getStringID("true\\0"),
                   registerAllocation.getStringID("false\\0"));
-
-
               instructionList.add(instructionPrintBool);
               instrPrintType = instructionPrintBool;
+              break;
             default:
-
               if(type.contains("[") || type.contains("PAIR")){
                 registerAllocation.addString("%p\\0");
                 InstructionPrintBlocksRef instructionPrintBlocksRef = new InstructionPrintBlocksRef(registerAllocation.getStringID("%p\\0"));
-
                 instructionList.add(instructionPrintBlocksRef);
-
                 instrPrintType = instructionPrintBlocksRef;
-
               }
               System.out.println("type is : " + type);
               break;
@@ -555,7 +578,6 @@ public class AST_StatExpr extends AST_Stat {
           instructionList.add(instructionPrintlnLine);
           instrPrintLine = instructionPrintlnLine;
           String emebededType = "null";
-          //TODO CHECK HERE HACKY CODE
           if (expr instanceof AST_ExprBinary) {
             AST_ExprBinary tempNode = (AST_ExprBinary) expr;
             emebededType = getEmebeddedType(tempNode);
@@ -563,7 +585,6 @@ public class AST_StatExpr extends AST_Stat {
             AST_ExprUnary tempNode = (AST_ExprUnary) expr;
             emebededType = getEmebeddedType(tempNode);
           }
-
 
           InstructionPrint instructionPrint = new InstructionPrint(emebededType);
           instructionList.add(instructionPrint);
@@ -579,6 +600,10 @@ public class AST_StatExpr extends AST_Stat {
 
   }
 
+  /**
+   * @param root
+   * @return Return the type of the embedded root node, otherwise return null
+   */
   public String getEmebeddedType(AST_Node root) {
 
     //Go from root to a terminal node either AST_ExprIdent or AST_ExprLit

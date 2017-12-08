@@ -2,8 +2,6 @@ package InstructionSet;
 
 import Registers.RegisterARM;
 
-import java.util.List;
-
 public class InstructionArithmetic extends Instruction {
   String operand;
   String dst;
@@ -11,21 +9,32 @@ public class InstructionArithmetic extends Instruction {
   String reg2;
   public String block1;
 
+  /**
+   * Class constructor
+   * @param operand
+   */
   public InstructionArithmetic(String operand) {
     this.operand = operand;
-    reg1 = "reg1";
+    reg1 = "r0";
     reg2 = "src";
   }
 
+  /**
+   * Assigned string value indicating name of register
+   * @param dst
+   * @param reg1
+   * @param reg2
+   */
   public void allocateRegisters(RegisterARM dst, RegisterARM reg1, RegisterARM reg2) {
     this.dst = dst.name();
     this.reg1 = reg1.name();
     this.reg2 = reg2.name();
   }
 
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   public void genInstruction() {
-
-
 
     if (operand.equals("%")) {
       StringBuilder builder = new StringBuilder("\t\tMOV r0, ");
@@ -68,7 +77,11 @@ public class InstructionArithmetic extends Instruction {
     }
   }
 
-
+  /**
+   * Return add or subtract operand, otherwise return null
+   * @param operand
+   * @return
+   */
   public String getOperand(String operand) {
     switch (operand) {
       case "+":
@@ -78,22 +91,6 @@ public class InstructionArithmetic extends Instruction {
       default:
         return "null";
     }
-  }
-
-  @Override
-  public int requiresRegisters() {
-    return 3;
-  }
-
-
-  /**
-   * returns true as this class uses registers that could be referencing the stack variables
-   * or been assigned in a variable declaration
-   */
-
-  @Override
-  public boolean crossOverRegister() {
-    return true;
   }
 
 

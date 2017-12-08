@@ -10,6 +10,10 @@ public class InstructionUnary extends Instruction {
   String extraReg;
   public String block1;
 
+  /**
+   * Class constructor
+   * @param op
+   */
   public InstructionUnary(String op) {
     this.op = op;
     this.src = "src";
@@ -17,18 +21,27 @@ public class InstructionUnary extends Instruction {
     this.extraReg = null;
   }
 
+  /**
+   * Assigned string value indicating name of register
+   * @param dst
+   * @param src
+   */
   public void allocateRegisters(RegisterARM dst, RegisterARM src) {
     this.dst = dst.name();
     this.src = src.name();
   }
 
+  /**
+   * Set the name of the extraReg attribute
+   * @param reg
+   */
   public void extraRegister(RegisterARM reg) {
     this.extraReg = reg.name();
   }
 
-
-  //TODO DOESN't include all the necessary assembly code
-
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     StringBuilder builder = new StringBuilder("\t\t");
@@ -63,49 +76,15 @@ public class InstructionUnary extends Instruction {
         builder.append("MOV r0, ");
         builder.append(src);
         builder.append("\n");
-        builder.append("\t\tBL putchar\n");
-        builder.append("\t\tMOV ");
-        builder.append(dst);
-        builder.append(", r0\n");
         break;
       case "chr":
         builder.append("MOV r0, ");
         builder.append(src);
         builder.append("\n");
-        builder.append("\t\tBL putchar\n");
-        builder.append("\t\tMOV ");
-        builder.append(dst);
-        builder.append(", r0\n");
         break;
       default:
         break;
     }
     block1 = builder.toString();
   }
-
-  @Override
-  public int requiresRegisters() {
-    switch (op) {
-      case "!":
-        return 2;
-      case "-":
-        return 2;
-      case "len":
-        return 2;
-      case "ord":
-        return 1;
-      case "chr":
-        return 1;
-      default:
-        break;
-    }
-    return 2;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    //Maybe
-    return false;
-  }
-
 }

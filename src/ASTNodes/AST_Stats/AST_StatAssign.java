@@ -31,13 +31,11 @@ import ErrorMessages.TypeMismatchError;
 import ErrorMessages.FilePosition;
 import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
-
 import static Registers.RegisterUsageBuilder.*;
-
 import java.util.ArrayDeque;
 import java.util.List;
-
 import static java.lang.System.exit;
+import static java.lang.System.setOut;
 
 /**
  * Class representing node in AST tree for ASSIGNMENT STATEMENTS
@@ -64,7 +62,6 @@ public class AST_StatAssign extends AST_Stat {
 
   /**
    * Gets all children nodes of current node
-   *
    * @return list of AST nodes that are the children of the current node
    */
   @Override
@@ -85,7 +82,6 @@ public class AST_StatAssign extends AST_Stat {
 
   /**
    * Sets syntactic attributes of class variables by assigning it a value
-   *
    * @param value - Value to be assigned to class variable
    */
   @Override
@@ -95,7 +91,6 @@ public class AST_StatAssign extends AST_Stat {
 
   /**
    * Gets syntactic attributes of class variables
-   *
    * @param strToGet - Value to be retrieved from class variable
    */
   @Override
@@ -129,7 +124,6 @@ public class AST_StatAssign extends AST_Stat {
     if (astToSet.equals("ast_statAssignLHS")) {
       ast_statAssignLHS = (AST_StatAssignLHS) nodeToSet;
     } else if (astToSet.equals("statAssignRHS")) {
-      System.out.println("Set right hand node in statAssign");
       ast_statAssignRHS = (AST_StatAssignRHS) nodeToSet;
     } else {
       System.out.println("Unrecognised AST Node at class: " + this.getClass().getSimpleName());
@@ -166,7 +160,6 @@ public class AST_StatAssign extends AST_Stat {
           return true;
         } else if (firstElem instanceof AST_ExprIdent) {
           String varName = ((AST_ExprIdent) firstElem).getVarName();
-          System.out.println(varName);
 
           SymbolTable tempST = this.symbolTable;
           typeLHS = tempST.lookup(varName);
@@ -338,7 +331,6 @@ public class AST_StatAssign extends AST_Stat {
 
   /**
    * Called from visitor
-   *
    * @param ST
    */
   @Override
@@ -365,14 +357,16 @@ public class AST_StatAssign extends AST_Stat {
     }
   }
 
+  /**
+   * Used to flag special cases where the register needs a stack implementation before the backend parse
+   * @param regAlloc
+   */
   @Override
   public void acceptPreProcess(RegisterAllocation regAlloc) {
 
 
     //Set a flag for acceptRegister in statVarDecl using a list in registerallocation to declare the var on the stack
     // since it is used in read and the statarraylitrhs assembly code works with stacks
-
-
     if (ast_statAssignLHS instanceof AST_StatIdentLHS) {
 
       //Check if varName is allocated on the stack or in a register
@@ -384,34 +378,29 @@ public class AST_StatAssign extends AST_Stat {
       //FuncStackLocation
       //FuncRegister
 
-
       //WORK OUT ARRAY LOCATION
       boolean isFuncStat = true;
       AST_Node tempNode = this;
       while (!(tempNode instanceof AST_FuncDecl)) {
         tempNode = tempNode.getParentNode();
         if (tempNode instanceof AST_Program) {
-          //System.out.println(varName + " not in func stat");
           isFuncStat = false;
           break;
         }
       }
       if(isFuncStat){
-        //regAlloc.addToStackOnlyVar(ast_statIdentLHS.getIdentName());
       }
     }
-
-//    else if (ast_statAssignLHS instanceof AST_StatArrayElemLHS) {
-//      regAlloc.addToStackOnlyVar(((AST_StatArrayElemLHS) ast_statAssignLHS).getIdentName());
-//    }
-
-
-
 
     ast_statAssignLHS.acceptPreProcess(regAlloc);
     ast_statAssignRHS.acceptPreProcess(regAlloc);
   }
 
+  /**
+   * Part of the visitor code gen pattern, used to generate the instruction classes
+   * which are added to the instruction list
+   * @param visitor
+   */
   public void accept(AST_NodeVisitor visitor) {
     visitor.visit(this);
     ast_statAssignLHS.accept(visitor);
@@ -445,34 +434,26 @@ public class AST_StatAssign extends AST_Stat {
 
   }
 
+  /**
+   * Function that is iterates through the ast_nodes and adds the instruction blocks
+   * in the right order to the assembly code list
+   * @param assemblyCode
+   */
   @Override
   public void acceptInstr(List<String> assemblyCode) {
 
     ast_statAssignRHS.acceptInstr(assemblyCode);
-    //TODO maybe need this: ast_statAssignLHS.acceptInstr(assemblyCode);
 
     if (ast_statAssignLHS instanceof AST_StatIdentLHS) {
       assemblyCode.add(instrIdentLHS.getBlock1());
     } else if (ast_statAssignLHS instanceof AST_StatArrayElemLHS) {
-
-
 
       assemblyCode.add(instrArrayElemLHS.getResultBlock1());
       //assemblyCode.add("\n\n\n");
       AST_Expr tempNode = ((AST_StatArrayElemLHS) ast_statAssignLHS).ast_exprList.get(0);
       tempNode.acceptInstr(assemblyCode);
 
-//      if (tempNode instanceof  AST_ExprIdent) {
-//        ((AST_ExprIdent) tempNode).acceptInstr(assemblyCode);
-//      } else if (tempNode instanceof  AST_ExprLiter) {
-//
-//      }
-
-      //assemblyCode.add("\n\n\n");
       assemblyCode.add(instrArrayElemLHS.getResultBlock2());
-
-
-
 
     } else if (ast_statAssignLHS instanceof AST_StatPairElemLHS){
       AST_ExprIdent ast_exprIdent = (AST_ExprIdent) ((AST_StatPairElemLHS) ast_statAssignLHS).getAst_expr();
@@ -484,13 +465,9 @@ public class AST_StatAssign extends AST_Stat {
 
   /**
    * Evaluate both sides of the stat assign and store their results in the registers
-   * Format is
    */
-
   @Override
   public RegisterARM acceptRegister(RegisterAllocation registerAllocation) throws Exception {
-
-    System.out.println("FREEDOM");
     registerAllocation.printfreeReg();
 
     RegisterARM regRight = ast_statAssignRHS.acceptRegister(registerAllocation);
@@ -500,7 +477,6 @@ public class AST_StatAssign extends AST_Stat {
 
 
     //registerAllocation.freeRegister(regLeft);
-
 
     if (ast_statAssignLHS instanceof AST_StatIdentLHS) {
       registerAllocation.freeRegister(regRight);
@@ -514,14 +490,12 @@ public class AST_StatAssign extends AST_Stat {
       //FuncStackLocation
       //FuncRegister
 
-
       //WORK OUT ARRAY LOCATION
       boolean isFuncStat = true;
       AST_Node tempNode = this;
       while(!(tempNode instanceof AST_FuncDecl)){
         tempNode = tempNode.getParentNode();
         if(tempNode instanceof AST_Program){
-          //System.out.println(varName + " not in func stat");
           isFuncStat = false;
           break;
         }
@@ -549,10 +523,7 @@ public class AST_StatAssign extends AST_Stat {
           instrIdentLHS.registerAllocation(regRight);
           instrIdentLHS.setUsingStack(false);
           instrIdentLHS.allocateLocation(stackLocation);
-          System.out.println("Stack location is : "+ stackLocation);
         } else {
-          System.out.println("Reg right is : "+ regRight.name());
-          System.out.println(instrIdentLHS.toString());
           instrIdentLHS.registerAllocation(regRight);
           instrIdentLHS.setUsingStack(true);
           instrIdentLHS.allocateLocation(stackLocation);
@@ -588,7 +559,6 @@ public class AST_StatAssign extends AST_Stat {
       while(!(tempNode instanceof AST_FuncDecl)){
         tempNode = tempNode.getParentNode();
         if(tempNode instanceof AST_Program){
-          //System.out.println(varName + " not in func stat");
           isFuncStat = false;
           break;
         }
@@ -634,7 +604,6 @@ public class AST_StatAssign extends AST_Stat {
       while(!(tempNode instanceof AST_FuncDecl)){
         tempNode = tempNode.getParentNode();
         if(tempNode instanceof AST_Program){
-          //System.out.println(varName + " not in func stat");
           isFuncStat = false;
           break;
         }
@@ -664,14 +633,8 @@ public class AST_StatAssign extends AST_Stat {
         instrPairElemLHS.allocateLocation(stackLocation);
       }
 
-
-
-
       AST_ExprIdent ident = (AST_ExprIdent) ((AST_StatPairElemLHS) ast_statAssignLHS).getAst_expr();
       RegisterARM pairLocReg = ident.acceptRegister(registerAllocation);
-
-
-
 
       instrPairElemLHS.allocateRegisters(RegisterARM.r0, pairLocReg, regRight);
 
@@ -683,8 +646,6 @@ public class AST_StatAssign extends AST_Stat {
     System.out.println("Nothing done in AST_StatAssign as lhs class was:  " + ast_statAssignLHS.getClass().getSimpleName());
     return regLeft;
   }
-
-
 
   /**
    * Needs two register corresponding to the destination and source in two lines
@@ -702,31 +663,42 @@ public class AST_StatAssign extends AST_Stat {
    * LDRSB r4, [sp]
    */
 
-
+  /**
+   * @param tempNode
+   * @return Return string with position in the array, otherwise return a default string
+   */
   public String getPosInArray(AST_StatArrayElemLHS tempNode){
     if (tempNode.ast_exprList.get(0) instanceof AST_ExprLiter) {
-      System.out.println("Pos in arrray: " + ((AST_ExprLiter) tempNode.ast_exprList.get(0)).getConstant());
       return ((AST_ExprLiter) tempNode.ast_exprList.get(0)).getConstant();
     } else if (tempNode.ast_exprList.get(0) instanceof AST_ExprIdent) {
-      System.out.println("TODO");
+
     }
 
     return "getPosInArray() to be implemented";
   }
 
-
+  /**
+   * takes the embeded information corresponding to the specific instruction class and generates blocks
+   * of assembly code for that instruction class
+   * The embeded information is mainly the registers which is allocated using registerAllocation.
+   * @param instructionList
+   * @param registerAllocation
+   * @throws Exception
+   */
   public void genInstruction(List<Instruction> instructionList, RegisterAllocation registerAllocation) throws Exception {
     if (ast_statAssignLHS instanceof AST_StatIdentLHS){
-      String type;
+      String type = "UNASSIGNED";
 
       try {
         type = ast_statAssignRHS.getIdentifier().toString();
       } catch (NullPointerException n) {
-        type = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
+        try {
+          //type = ((AST_StatExprRHS) ast_statAssignRHS).getAst_expr().getIdentifier().getName();
+          //type = ((AST_StatIdentLHS) ast_statAssignLHS).;
+        } catch (Exception e) {
+          type = ((AST_StatIdentLHS) ast_statAssignLHS).getIdentName();
+        }
       }
-
-
-      System.out.println("Type of ident is: " + type);
       InstructionAssignIdentLHS instructionAssignIdentLHS = new InstructionAssignIdentLHS(type);
       instructionList.add(instructionAssignIdentLHS);
       instrIdentLHS = instructionAssignIdentLHS;

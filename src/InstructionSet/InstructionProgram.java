@@ -9,15 +9,21 @@ public class InstructionProgram extends Instruction {
   public String block2;
   RegisterAllocation registerAllocation;
 
+  /**
+   * Class constructor
+   * @param registerAllocation
+   */
   public InstructionProgram(RegisterAllocation registerAllocation) {
     this.registerAllocation = registerAllocation;
   }
-
 
   /**
    * Uses special registers lr(link register) and pc(program counter)
    */
 
+  /**
+   * Generates the instruction block as a string for the current instruction
+   */
   @Override
   public void genInstruction() {
     block0 = "\t.global main\n";
@@ -47,15 +53,4 @@ public class InstructionProgram extends Instruction {
 
     block2 = builder2.toString();
   }
-
-  @Override
-  public int requiresRegisters() {
-    return 0;
-  }
-
-  @Override
-  public boolean crossOverRegister() {
-    return false;
-  }
-
 }
