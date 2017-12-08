@@ -1,0 +1,16 @@
+# simple if statement
+
+# Output:
+# 4
+# 8
+
+# Program:
+
+begin
+  int x = 3;
+  int y = x+=5;
+  x = x-=4;
+  println x;
+  println y  
+end
+

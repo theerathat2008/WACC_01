@@ -1,0 +1,13 @@
+# a simple increment function definition and usage
+
+# Output:
+# 64
+
+# Program:
+
+begin
+  int x = 4 ;
+  int y = 3 ;
+  x = call pow(x, y) ;
+  println x
+end

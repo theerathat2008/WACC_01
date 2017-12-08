@@ -1,7 +1,9 @@
 package ASTNodes.AST_SideEffect;
 
 import ASTNodes.AST_Exprs.AST_Expr;
+import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
+import ASTNodes.AST_Program;
 import IdentifierObjects.BaseTypeObj;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionDivByZero;
@@ -11,10 +13,13 @@ import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintB
 import InstructionSet.InstructionSideEffect;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
+import Registers.RegisterUsage;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.List;
+
+import static Registers.RegisterUsageBuilder.aRegisterUsageBuilder;
 
 public class AST_SideEffectBinary extends AST_SideEffect{
 
@@ -178,9 +183,19 @@ public class AST_SideEffectBinary extends AST_SideEffect{
     RegisterARM src = expr.acceptRegister(registerAllocation);
     registerAllocation.freeRegister(src);
 
-    instr.allocateRegisters(registerAllocation.searchByVarValue(identName), src);
 
-    return registerAllocation.searchByVarValue(identName);
+
+    RegisterARM dst = registerAllocation.searchByVarValue(identName);
+    instr.allocateRegisters(dst, src);
+
+    RegisterUsage resultUsage = aRegisterUsageBuilder()
+            .withUsageType("resultType")
+            .withScope(registerAllocation.getCurrentScope())
+            .build();
+
+    RegisterARM resultReg = registerAllocation.useRegister(resultUsage);
+    instr.allocateRegResult(resultReg);
+    return resultReg;
   }
 
   /**

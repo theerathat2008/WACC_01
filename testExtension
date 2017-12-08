@@ -1,0 +1,28 @@
+#!/usr/bin/ruby
+# Ruby front-end for your compiler.
+# You are free to change the language used for this script,
+# but do *not* change its name.
+def test(name)
+  puts IO.read(name)
+  Dir.chdir("..")
+  `./compile extensionTests/#{name}`
+
+  name = File.basename(name, ".wacc")
+  `arm-linux-gnueabi-gcc -o EXEName -mcpu=arm1176jzf-s -mtune=arm1176jzf-s #{name}.s`
+  puts "\n\nOutput is:"
+
+  puts `qemu-arm -L /usr/arm-linux-gnueabi/ EXEName`
+  `rm #{name}.s`
+  puts "\nPasses Test Case\n\n\n\n"
+
+  Dir.chdir("extensionTests")
+end
+
+Dir.chdir("extensionTests")
+list = Dir.entries(".")
+list -= ["."]
+list -= [".."]
+
+list.each{ |name| test name }
+
+`rm ../EXEName`

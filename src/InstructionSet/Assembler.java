@@ -75,7 +75,8 @@ public class Assembler {
     boolean addOverflow = false;
     for (Instruction currInstr : instructions) {
       if (currInstr instanceof InstructionLibraryFunction) {
-        if (((InstructionLibraryFunction) currInstr).name.equals("avg")) {
+        String name = ((InstructionLibraryFunction) currInstr).name;
+        if (name.equals("avg") || name.equals("pow") || name.equals("factorial")) {
           addOverflow = true;
         }
       }

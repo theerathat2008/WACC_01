@@ -1,4 +1,4 @@
----------------------------------------
+﻿---------------------------------------
 OVERVIEW OF IMPLEMENTATION - FRONTEND
 ---------------------------------------
 
@@ -110,7 +110,7 @@ The main handling of the process is done through the assembler class which mange
 
 > Registers <
 
-The register allocation is done through one main register class which is instantciated once through the singleton pattern.
+The register allocation is done through one main register class which is instantiated once through the singleton pattern.
 The register allocation class holds various data structures corresponding to the stack implementation and register in use stack.
 
 > InstructionSet <
@@ -121,4 +121,36 @@ The embedded information is mainly the registers which is allocated using regist
 
 The Assembler class is also stored within the InstructionSet package and it handles the assembly of the code.
 
+
+---------------------------------------
+OVERVIEW OF IMPLEMENTATION - EXTENSION
+---------------------------------------
+
+The idea of the extension was to extend the WACC language or improve the efficiency of the compiler.
+
+We did 4 extensions; the efficient register allocation which attempted to reduce the use of the stack and store as many variables and values in registers as possible, adding side-effecting expressions which added the uses of x++, x+=y, x = y, etc. to the language, the standard library which added a few functions that could be called by the programmer without needing to define them and constant evaluation which evaluates known binary expressions during compile time to stop it being evaluated every time the program is run.
+
+
+> Efficient Register Allocation <
+
+
+
+> Side-effecting Expressions <
+
+This was achieved by extending the parser by adding the relevant expressions into a sub_parse which was captured by the expression category. We also had to add new AST_Nodes for each expression which involved having to add new functions to all of the visitor methods to allow the functions in the new AST_Nodes to be properly executed when the visitors were run.
+
+
+> Standard Library <
+
+Implementing the standard library involved writing function in the WACC language then running it through our compiler in order to generate the assembly code. This assembly code was then added to a new Instruction class which contained the assembly code for the library functions. When a library function was called in StatCallRhs it caused the relevant library function’s assembly code to be added to the assembly code. We were also able to make this code more efficient by hand meaning it would run faster then any function a programmer could write natively in WACC.
+
+
+> Constant Evaluation <
+
+
+> testExtension <
+
+We also added a script that, when run, compiles and runs all of the wacc programs in extensionTests 
+which implement the side-effecting expressions and library functions that we implemented.
+It returns each programs source code, the expected output and the actual result.
 

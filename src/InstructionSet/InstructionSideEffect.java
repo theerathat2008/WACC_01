@@ -6,6 +6,7 @@ public class InstructionSideEffect extends Instruction{
 
   RegisterARM reg1;
   RegisterARM reg2;
+  RegisterARM tempReg;
   String op;
   public String block1;
 
@@ -20,6 +21,10 @@ public class InstructionSideEffect extends Instruction{
 
   public void registerAllocation(RegisterARM reg1) {
     this.reg1 = reg1;
+  }
+
+  public void allocateRegResult(RegisterARM tempReg){
+    this.tempReg = tempReg;
   }
 
   @Override
@@ -89,7 +94,11 @@ public class InstructionSideEffect extends Instruction{
       builder.append(reg1);
       builder.append(", r0\n");
     }
-
+    builder.append("\t\tMOV ");
+    builder.append(tempReg);
+    builder.append(", ");
+    builder.append(reg1);
+    builder.append("\n");
     block1 = builder.toString();
   }
 

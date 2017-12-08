@@ -234,6 +234,7 @@ public class AST_ExprIdent extends AST_Expr {
     }
 
     instr.registerAllocation(resultReg);
+    System.out.println(resultReg);
 
     return resultReg;
   }

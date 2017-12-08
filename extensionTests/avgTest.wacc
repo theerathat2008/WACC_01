@@ -1,0 +1,13 @@
+# a simple increment function definition and usage
+
+# Output:
+# 6
+
+# Program:
+
+begin
+  int x = 8 ;
+  int y = 4 ;
+  x = call avg(x, y) ;
+  println x
+end
