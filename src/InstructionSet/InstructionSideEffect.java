@@ -116,14 +116,12 @@ public class InstructionSideEffect extends Instruction{
       builder.append(reg1);
       builder.append(", r0\n");
     }
-<<<<<<< HEAD
+
     builder.append("\t\tMOV ");
     builder.append(tempReg);
     builder.append(", ");
     builder.append(reg1);
     builder.append("\n");
-=======
->>>>>>> 0d09c4593dd84d135af1aa3b036bd0a413b2cca2
     block1 = builder.toString();
   }
 
