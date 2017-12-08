@@ -375,10 +375,6 @@ public class RegisterAllocation {
     return varRegisters.size();
   }
 
-
-  //
-
-  //  }
   public void freeAllFuncReg(String funcName){
     List<RegisterARM> regToFree = new ArrayList<>();
     for (Map.Entry<RegisterARM, RegisterUsage> entry : registerInUse.entrySet()) {
@@ -390,10 +386,6 @@ public class RegisterAllocation {
       freeRegister(regToFree.get(j));
     }
   }
-
-
-
-
 
   /**
    * @param register frees a register and pushes onto freeReg stack

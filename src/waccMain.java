@@ -27,8 +27,8 @@ public class waccMain {
 
     String inputText = input.getText(new Interval(0,fileCharLength));
 
-    String outputText = textConverter(inputText);
-    System.out.println("-- Compiling...");
+    String outputText = textConverter(inputText);  //Used to add precedence to the input file.
+     System.out.println("-- Compiling...");
 
     CharStream inputString = CharStreams.fromString(inputText);
 
@@ -80,6 +80,14 @@ public class waccMain {
 
   }
 
+  /**
+   * @param inputText
+   * @return String of the input file after precedence is added.
+   *
+   * Takes the input text string and adds precedence to it by searching for certain tokens and adding brackets to the
+   * expressions around it. This adds precedence by making enclosed expressions which force the parser to build the
+   * token tree in a certain way.
+   */
   public static String textConverter(String inputText){
 
     System.out.println(inputText);
