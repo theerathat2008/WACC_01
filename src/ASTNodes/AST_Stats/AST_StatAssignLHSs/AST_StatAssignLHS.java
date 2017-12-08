@@ -88,15 +88,6 @@ public class AST_StatAssignLHS extends AST_Stat {
   }
 
   /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-
-  }
-
-  /**
    * @param type - sets the type of the current expression
    */
   public void setType(String type) {

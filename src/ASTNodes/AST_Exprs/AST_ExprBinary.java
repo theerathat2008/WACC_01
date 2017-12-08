@@ -9,7 +9,6 @@ import Registers.RegisterUsage;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionDivByZero;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorOverflow;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
-import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksInt;
 import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
 import org.antlr.v4.runtime.ParserRuleContext;
 import InstructionSet.InstructionArithmetic;
@@ -18,7 +17,6 @@ import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import SymbolTable.SymbolTable;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.List;
 import static Registers.RegisterUsageBuilder.*;
 import VisitorClass.AST_NodeVisitor;
@@ -277,29 +275,6 @@ public class AST_ExprBinary extends AST_Expr {
     }
 
     return true;
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      if (opName.equals("*")) {
-        setType("int");
-      } else if (opName.equals("/")) {
-        setType("int");
-      } else if (opName.equals("%")) {
-        setType("int");
-      } else if (opName.equals("+")) {
-        setType("int");
-      } else if (opName.equals("-")) {
-        setType("int");
-      } else {
-        setType("bool");
-      }
-    }
   }
 
   /**

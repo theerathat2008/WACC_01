@@ -102,17 +102,6 @@ public class AST_StatIdentLHS extends AST_StatAssignLHS {
   }
 
   /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      setType(ST.lookupAll(identName).toString());
-    }
-  }
-
-  /**
    * Used for testing - Prints out contents of current AST node
    */
   @Override

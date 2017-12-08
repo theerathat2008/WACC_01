@@ -17,7 +17,6 @@ import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatCallRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatExprRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatPairElemRHS;
-import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairElemType;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionAssignIdentLHS;
@@ -35,7 +34,6 @@ import static Registers.RegisterUsageBuilder.*;
 import java.util.ArrayDeque;
 import java.util.List;
 import static java.lang.System.exit;
-import static java.lang.System.setOut;
 
 /**
  * Class representing node in AST tree for ASSIGNMENT STATEMENTS
@@ -327,15 +325,6 @@ public class AST_StatAssign extends AST_Stat {
       new TypeMismatchError(new FilePosition(ctx)).printAll();
       return false;
     }
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    CheckSemantics();
   }
 
   /**

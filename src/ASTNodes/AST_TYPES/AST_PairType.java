@@ -5,7 +5,6 @@ import ASTNodes.AST_TYPES.AST_PairElemTypes.AST_PairElemType;
 import InstructionSet.Instruction;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
-import SymbolTable.SymbolTable;
 import IdentifierObjects.*;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
@@ -115,17 +114,6 @@ public class AST_PairType extends AST_Type {
   @Override
   public boolean CheckSemantics() {
     return true;
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      //Do symbol table stuff
-    }
   }
 
   /**

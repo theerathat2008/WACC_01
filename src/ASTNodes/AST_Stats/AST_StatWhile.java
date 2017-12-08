@@ -158,17 +158,6 @@ public class AST_StatWhile extends AST_Stat {
   }
 
   /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      //Do symbol table stuff
-    }
-  }
-
-  /**
    * Used for testing - Prints out contents of current AST node
    */
   @Override

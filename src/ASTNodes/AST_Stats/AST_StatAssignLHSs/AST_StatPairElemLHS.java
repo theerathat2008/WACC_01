@@ -5,7 +5,6 @@ import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionBlocks.InstructionCheck.InstructionCheckNullPointer;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
-import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocks;
 import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
@@ -200,17 +199,6 @@ public class AST_StatPairElemLHS extends AST_StatAssignLHS {
     }
     return true;
 
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      setType(ast_expr.getType());
-    }
   }
 
   /**

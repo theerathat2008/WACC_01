@@ -1,9 +1,7 @@
 package ASTNodes.AST_SideEffect;
 
 import ASTNodes.AST_Exprs.AST_Expr;
-import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
-import ASTNodes.AST_Program;
 import IdentifierObjects.BaseTypeObj;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionDivByZero;
@@ -14,7 +12,6 @@ import InstructionSet.InstructionSideEffect;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import Registers.RegisterUsage;
-import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.List;
@@ -105,17 +102,6 @@ public class AST_SideEffectBinary extends AST_SideEffect{
   @Override
   public boolean CheckSemantics() {
     return true;
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      //Do symbol table stuff
-    }
   }
 
   /**

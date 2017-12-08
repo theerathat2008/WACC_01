@@ -5,7 +5,6 @@ import IdentifierObjects.BaseTypeObj;
 import InstructionSet.Instruction;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
-import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.List;
@@ -101,17 +100,6 @@ public class AST_Type extends AST_Node {
    */
   public String toString() {
     return null;
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      //Do symbol table stuff
-    }
   }
 
   /**

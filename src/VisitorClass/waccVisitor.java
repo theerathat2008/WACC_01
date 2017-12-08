@@ -1006,7 +1006,7 @@ public class waccVisitor extends WaccParserBaseVisitor<Void> {
     visitChildren(ctx);
 
     //Do semantic analysis
-    statIfNode.Check(currentGlobalTree);
+    statIfNode.CheckSemantics();
     return null;
   }
 

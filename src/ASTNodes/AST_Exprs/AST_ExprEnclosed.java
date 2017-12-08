@@ -5,7 +5,7 @@ import ASTNodes.AST_Separator;
 import InstructionSet.Instruction;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
-import SymbolTable.SymbolTable;
+
 import java.util.ArrayDeque;
 import java.util.List;
 import VisitorClass.AST_NodeVisitor;
@@ -112,18 +112,6 @@ public class AST_ExprEnclosed extends AST_Expr {
   @Override
   public boolean CheckSemantics() {
     return true;
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      setType(exprAST.type);
-      //Do symbol table stuff
-    }
   }
 
   /**

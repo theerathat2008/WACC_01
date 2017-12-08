@@ -1,6 +1,5 @@
 package ASTNodes;
 
-import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatArrayLitRHS;
 import InstructionSet.Instruction;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
@@ -11,7 +10,6 @@ import static Registers.RegisterUsageBuilder.*;
 import java.util.ArrayDeque;
 import IdentifierObjects.IDENTIFIER;
 import IdentifierObjects.ParamListObj;
-import IdentifierObjects.BaseTypeObj;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayList;
 import java.util.List;
@@ -123,21 +121,6 @@ public class AST_ParamList extends AST_Node {
   @Override
   public boolean CheckSemantics() {
     return true;
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      List<IDENTIFIER> paramObjList = new ArrayList<>();
-      for (AST_Param param : listParam) {
-        paramObjList.add(new BaseTypeObj(param.getParamName(), (param.getEmbeddedAST("ast_type", 0)).toString()));
-      }
-      ST.encSymTable.add(((AST_FuncDecl) this.getParentNode()).getFuncName().concat("_paramList"), new ParamListObj(paramObjList));
-    }
   }
 
   /**

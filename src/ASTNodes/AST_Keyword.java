@@ -3,7 +3,7 @@ package ASTNodes;
 import InstructionSet.Instruction;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
-import SymbolTable.SymbolTable;
+
 import java.util.ArrayDeque;
 import java.util.List;
 import VisitorClass.AST_NodeVisitor;
@@ -94,17 +94,6 @@ public class AST_Keyword extends AST_Node {
   @Override
   public boolean CheckSemantics() {
     return true;
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      //Do symbol table stuff
-    }
   }
 
   /**

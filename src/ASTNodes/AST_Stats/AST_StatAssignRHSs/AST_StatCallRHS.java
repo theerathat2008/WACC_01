@@ -5,9 +5,6 @@ import ASTNodes.AST_Node;
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_ParamList;
 import ASTNodes.AST_Param;
-import ASTNodes.AST_Stats.AST_StatAssign;
-import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
-import ASTNodes.AST_Stats.AST_StatExpr;
 import ErrorMessages.TypeMismatchError;
 import IdentifierObjects.FunctionObj;
 import IdentifierObjects.BaseTypeObj;
@@ -330,17 +327,6 @@ public class AST_StatCallRHS extends AST_StatAssignRHS {
       res += (ast_exprList.get(i).toString() + ",");
     }
     return res + ")";
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-
-    }
   }
 
   /**

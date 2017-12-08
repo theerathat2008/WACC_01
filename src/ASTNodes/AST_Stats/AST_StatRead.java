@@ -11,7 +11,6 @@ import InstructionSet.InstructionBlocks.InstructionReadBlocks.InstructionReadBlo
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import Registers.RegisterUsage;
-import Registers.StackLocation;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatAssignLHS;
@@ -156,17 +155,6 @@ public class AST_StatRead extends AST_Stat {
       return false;
     }
     return true;
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      //Do symbol table stuff
-    }
   }
 
   /**

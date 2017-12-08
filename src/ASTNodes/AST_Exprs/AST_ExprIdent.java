@@ -131,17 +131,6 @@ public class AST_ExprIdent extends AST_Expr {
   }
 
   /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      setType(ST.lookupAll(varName).toString());
-    }
-  }
-
-  /**
    * Used for testing - Prints out contents of current AST node
    */
   @Override

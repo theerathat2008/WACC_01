@@ -3,7 +3,6 @@ package ASTNodes;
 import InstructionSet.Instruction;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
-import SymbolTable.SymbolTable;
 import ASTNodes.AST_TYPES.AST_Type;
 import java.util.ArrayDeque;
 import java.util.List;
@@ -113,20 +112,6 @@ public class AST_Param extends AST_Node {
   @Override
   public boolean CheckSemantics() {
     return true;
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      while (!ST.getScope().equals("param_list")) {
-        ST = ST.encSymTable;
-      }
-      ST.add(paramName, ast_type.getIdentifier());
-    }
   }
 
   /**

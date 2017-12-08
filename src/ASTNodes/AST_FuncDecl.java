@@ -182,21 +182,6 @@ public class AST_FuncDecl extends AST_Node {
     }
   }
 
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-
-    if (CheckSemantics()) {
-
-      while (!ST.getScope().equals("global")) {
-        ST = ST.encSymTable;
-      }
-    }
-  }
-
   public void Assign() {
     SymbolTable ST = symbolTable;
     while (!ST.getScope().equals("program")) {

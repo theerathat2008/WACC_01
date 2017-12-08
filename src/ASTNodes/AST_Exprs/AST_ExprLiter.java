@@ -7,7 +7,7 @@ import Registers.RegisterAllocation;
 import Registers.RegisterUsage;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ASTNodes.AST_Node;
-import SymbolTable.SymbolTable;
+
 import java.util.ArrayDeque;
 import java.util.List;
 import VisitorClass.AST_NodeVisitor;
@@ -166,18 +166,6 @@ public class AST_ExprLiter extends AST_Expr {
       }
     }
     return true;
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-
-    if (CheckSemantics()) {
-      setType(literal);
-    }
   }
 
   /**

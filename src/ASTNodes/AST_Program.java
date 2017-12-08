@@ -3,7 +3,6 @@ package ASTNodes;
 import ASTNodes.AST_Stats.AST_Stat;
 import IdentifierObjects.BaseTypeObj;
 import IdentifierObjects.FunctionObj;
-import IdentifierObjects.IDENTIFIER;
 import IdentifierObjects.ParamListObj;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionProgram;
@@ -144,17 +143,6 @@ public class AST_Program extends AST_Node {
   public boolean CheckSemantics() {
 
     return true;
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      //Do symbol table stuff     Nothing to check here (I think)
-    }
   }
 
   /**

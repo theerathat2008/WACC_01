@@ -223,16 +223,6 @@ public class AST_StatExpr extends AST_Stat {
   }
 
   /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    //CheckSemantics(ST))
-    //Do symbol table stuff
-  }
-
-  /**
    * Used for testing - Prints out contents of current AST node
    */
   @Override

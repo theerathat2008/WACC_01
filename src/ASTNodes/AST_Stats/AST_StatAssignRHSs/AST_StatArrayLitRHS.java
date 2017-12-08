@@ -1,6 +1,5 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
-import ASTNodes.AST_Stats.AST_StatAssignLHSs.AST_StatIdentLHS;
 import ASTNodes.AST_Exprs.AST_ExprBinary;
 import ASTNodes.AST_Exprs.AST_ExprLiter;
 import ASTNodes.AST_Exprs.AST_ExprUnary;
@@ -186,17 +185,6 @@ public class AST_StatArrayLitRHS extends AST_StatAssignRHS {
         }
       }
       return true;
-    }
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      //Do symbol table stuff
     }
   }
 

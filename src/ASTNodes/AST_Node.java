@@ -81,12 +81,6 @@ public abstract class AST_Node {
   public abstract boolean CheckSemantics();
 
   /**
-   * Called from visitor
-   * @param ST
-   */
-  public abstract void Check(SymbolTable ST);
-
-  /**
    * Used for testing - Prints out contents of current AST node
    */
   public abstract void printContents();

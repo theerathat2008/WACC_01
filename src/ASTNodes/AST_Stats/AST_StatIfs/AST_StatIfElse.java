@@ -101,16 +101,6 @@ public class AST_StatIfElse extends AST_StatSubIf {
   }
 
   /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-    }
-  }
-
-  /**
    * Used for testing - Prints out contents of current AST node
    */
   @Override

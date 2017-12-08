@@ -2,26 +2,21 @@ package ASTNodes.AST_Stats.AST_StatAssignLHSs;
 
 import ASTNodes.AST_Exprs.AST_Expr;
 import ASTNodes.AST_Exprs.AST_ExprLiter;
-import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Exprs.AST_ExprBinary;
 import ASTNodes.AST_Exprs.AST_ExprUnary;
 import ASTNodes.AST_Node;
-import ASTNodes.AST_Program;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionBlocks.InstructionCheck.InstructionCheckArrayBounds;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
 import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
-import InstructionSet.InstructionDeclOrAss.InstructionAssArrayElem.InstructionAssArrayElem;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
-import Registers.RegisterUsage;
 import SymbolTable.SymbolTable;
 import VisitorClass.AST_NodeVisitor;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import IdentifierObjects.*;
-import static Registers.RegisterUsageBuilder.aRegisterUsageBuilder;
 
 /**
  * Class representing node in AST tree for DECLARING ARRAY VARIABLE
@@ -127,17 +122,6 @@ public class AST_StatArrayElemLHS extends AST_StatAssignLHS {
   @Override
   public boolean CheckSemantics() {
     return true;
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      setType(ast_exprList.get(0).getType());
-    }
   }
 
   /**

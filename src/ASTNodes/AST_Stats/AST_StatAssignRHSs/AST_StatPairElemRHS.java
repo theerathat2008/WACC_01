@@ -1,14 +1,11 @@
 package ASTNodes.AST_Stats.AST_StatAssignRHSs;
 
 import ASTNodes.AST_Exprs.*;
-import ASTNodes.AST_FuncDecl;
-import ASTNodes.AST_Program;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionAccessPairElem;
 import InstructionSet.InstructionBlocks.InstructionCheck.InstructionCheckNullPointer;
 import InstructionSet.InstructionBlocks.InstructionError.InstructionErrorRuntime;
 import InstructionSet.InstructionBlocks.InstructionPrintBlocks.InstructionPrintBlocksString;
-import InstructionSet.InstructionDeclOrAss.InstructionAssPairElem;
 import Registers.RegisterARM;
 import Registers.RegisterAllocation;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -162,17 +159,6 @@ public class AST_StatPairElemRHS extends AST_StatAssignRHS {
       return false;
     }
     return true;
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    if (CheckSemantics()) {
-      //Do symbol table stuff
-    }
   }
 
   /**

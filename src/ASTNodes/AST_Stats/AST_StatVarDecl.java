@@ -4,12 +4,10 @@ import ASTNodes.AST_Exprs.*;
 import ASTNodes.AST_FuncDecl;
 import ASTNodes.AST_Node;
 import ASTNodes.AST_Program;
-import ASTNodes.AST_SideEffect.AST_SideEffectBinary;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatArrayLitRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.*;
 
-import ASTNodes.AST_TYPES.AST_PairType;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionVarDecl;
@@ -29,7 +27,6 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import VisitorClass.AST_NodeVisitor;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -295,16 +292,6 @@ public class AST_StatVarDecl extends AST_Stat {
       new VariableRedeclarationError(new FilePosition(ctx)).printAll();
       return false;
     }
-  }
-
-  /**
-   * Called from visitor
-   * @param ST
-   */
-  @Override
-  public void Check(SymbolTable ST) {
-    //CheckSemantics(ST);
-    ST.add(identName, ST.stringToIdent(identName, ast_type.toString()));
   }
 
   /**
