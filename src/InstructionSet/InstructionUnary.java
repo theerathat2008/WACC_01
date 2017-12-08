@@ -63,19 +63,19 @@ public class InstructionUnary extends Instruction {
         builder.append("MOV r0, ");
         builder.append(src);
         builder.append("\n");
-        builder.append("\t\tBL putchar\n");
-        builder.append("\t\tMOV ");
-        builder.append(dst);
-        builder.append(", r0\n");
+//        builder.append("\t\tBL putchar\n");
+//        builder.append("\t\tMOV ");
+//        builder.append(dst);
+//        builder.append(", r0\n");
         break;
       case "chr":
         builder.append("MOV r0, ");
         builder.append(src);
         builder.append("\n");
-        builder.append("\t\tBL putchar\n");
-        builder.append("\t\tMOV ");
-        builder.append(dst);
-        builder.append(", r0\n");
+//        builder.append("\t\tBL putchar\n");
+//        builder.append("\t\tMOV ");
+//        builder.append(dst);
+//        builder.append(", r0\n");
         break;
       default:
         break;
