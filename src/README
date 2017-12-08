@@ -2,7 +2,7 @@
 OVERVIEW OF IMPLEMENTATION - FRONTEND
 ---------------------------------------
 
-The implementation of the project relies on antlr4.7 generating the Visitor classes from the Lexer and Parser grammar files.
+The implementation of the project relies on antlr 4.7 generating the Visitor classes from the Lexer and Parser grammar files.
 
 The generation of the AST Tree which is the internal representation of the input program is done in one parse of the
 visitor function.
@@ -110,7 +110,7 @@ The main handling of the process is done through the assembler class which mange
 
 > Registers <
 
-The register allocation is done through one main register class which is instantiated once through the singleton pattern.
+The register allocation is done through one main register class.
 The register allocation class holds various data structures corresponding to the stack implementation and register in use stack.
 
 > InstructionSet <
@@ -119,7 +119,7 @@ The instruction classes have the abstract function genInstructions which takes t
 specific instruction class and generates blocks of assembly code for that instruction class.
 The embedded information is mainly the registers which is allocated using registerAllocation.
 
-The Assembler class is also stored within the InstructionSet package and it handles the assembly of the code.
+The Assembler class is also stored within the InstructionSet package and it handles the assembly of the code which is instantiated once through the singleton pattern. This ensures that only one assembler can be present at any time.
 
 
 ---------------------------------------
