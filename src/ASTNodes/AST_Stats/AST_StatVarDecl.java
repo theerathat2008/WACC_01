@@ -10,6 +10,8 @@ import ASTNodes.AST_Stats.AST_StatAssignRHSs.AST_StatAssignRHS;
 import ASTNodes.AST_Stats.AST_StatAssignRHSs.*;
 
 import ASTNodes.AST_TYPES.AST_PairType;
+import IdentifierObjects.BaseTypeObj;
+import IdentifierObjects.FunctionObj;
 import IdentifierObjects.IDENTIFIER;
 import InstructionSet.Instruction;
 import InstructionSet.InstructionVarDecl;
@@ -321,7 +323,9 @@ public class AST_StatVarDecl extends AST_Stat {
     IDENTIFIER temp = ST.lookup(identName);
 
     if(temp != null){
-      new VariableRedeclarationError(new FilePosition(ctx)).printAll();
+      if(temp instanceof BaseTypeObj){
+        new VariableRedeclarationError(new FilePosition(ctx)).printAll();
+      }
     }
 
     ST.add(identName, ast_type.getIdentifier());
